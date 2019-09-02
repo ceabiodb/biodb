@@ -1,10 +1,10 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
+# vi: fdm=marker ts=4 et cc=80 
 
-# KeggEnzymeEntry {{{1
+# KeggOrthologyEntry {{{1
 ################################################################################
 
 #' @include KeggEntry.R
-KeggEnzymeEntry <- methods::setRefClass("KeggEnzymeEntry",
+KeggOrthologyEntry <- methods::setRefClass("KeggOrthologyEntry",
     contains='KeggEntry',
 
 # Public methods {{{2
@@ -16,7 +16,6 @@ methods=list(
 ################################################################################
 
 initialize=function(...) {
-
     callSuper(...)
 },
 
@@ -26,13 +25,16 @@ initialize=function(...) {
 .parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseNames(parsed.content)
+    .self$.parseNames(parsed.content, strip.chars=' ', split.char=',')
 
     # Parse DB links
     .self$.parseDbLinks(parsed.content)
 
-    # Other KEGG IDs
-    .self$.parsePathwayIds(parsed.content=parsed.content)
+    # Pathway
+    .self$.parsePathwayIds(parsed.content)
+
+    # Modules
+    .self$.parseModuleIds(parsed.content)
 
     # Genes
     .self$.parseGenesIds(parsed.content)

@@ -125,12 +125,6 @@ getEntryPageUrl=function(id) {
     return(vapply(id, f, FUN.VALUE=''))
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-},
 
 # Search compound {{{3
 ################################################################################

@@ -123,14 +123,14 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 getEntryImageUrl=function(id) {
-    
+
     fct <- function(x) {
         url <- c(.self$getPropValSlot('urls', 'base.url'),
                  'ImagesHandler.ashx')
         params <- list(w=300, h=300, id=x)
         BiodbUrl(url=url, params=params)$toString()
     }
-    
+
     return(vapply(id, fct, FUN.VALUE=''))
 },
 

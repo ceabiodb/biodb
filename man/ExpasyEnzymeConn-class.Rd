@@ -19,9 +19,6 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
-case of a compound entry).}
-
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
 \item{\code{wsEnzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{Calls enzyme-bycomment web service and returns the HTML result. See

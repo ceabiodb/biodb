@@ -29,9 +29,7 @@ initialize=function(...) {
 .parseFieldsStep2=function(parsed.content) {
 
     # Name
-    .self$.parseMultilinesField(field='name', tag='NAME',
-                                parsed.content=parsed.content,
-                                strip.chars=' ;', split.char=NA_character_)
+    .self$.parseNames(parsed.content)
 
     # Other KEGG IDs
     .self$.parseMultilinesField(field='kegg.enzyme.id', tag='ENZYME',

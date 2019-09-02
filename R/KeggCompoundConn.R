@@ -221,11 +221,13 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 ################################################################################
 
 getEntryImageUrl=function(id) {
+
     fct <- function(x) {
         bu <- .self$getPropValSlot('urls', 'base.url')
         u <- c(bu, 'Fig', 'compound', paste(x, 'gif', sep='.'))
         BiodbUrl(url=u)$toString()
     }
+
     return(vapply(id, fct, FUN.VALUE=''))
 },
 

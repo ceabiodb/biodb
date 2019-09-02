@@ -25,9 +25,9 @@ methods=list(
 .parseFieldsStep2=function(parsed.content) {
 
     # Remove new lines from sequence string
-    if (.self$hasField('nt.seq'))
-        .self$setFieldValue('nt.seq',
-                            gsub("\\n", "", .self$getFieldValue('nt.seq')))
+    if (.self$hasField('aa.seq'))
+        .self$setFieldValue('aa.seq',
+                            gsub("\\n", "", .self$getFieldValue('aa.seq')))
 
     # Get synonyms
     ns <- .self$getParent()$getPropertyValue('xml.ns')

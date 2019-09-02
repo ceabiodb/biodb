@@ -43,12 +43,6 @@ initialize=function(...) {
     callSuper(db.name='enzyme', db.abbrev='ec', ...)
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-},
 
 # Get pathway IDs {{{3
 ################################################################################

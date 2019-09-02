@@ -50,7 +50,7 @@ test_getDecoratedGraphPicture = function(conn) {
 ################################################################
 
 test_getDecoratedGraphPicture_not_a_compound = function(conn) {
-    
+
     c = list(red = 'not_a_compound')
     fn <- 'test_getDecoratedGraphPicture_not_a_compound_image.png'
     fp <- file.path(OUTPUT.DIR, fn)
@@ -58,7 +58,7 @@ test_getDecoratedGraphPicture_not_a_compound = function(conn) {
     if (require('magick')) {
         detach('package:magick') # Force using namespace.
         testthat::expect_is(graph_pix, 'magick-image')
-        
+
         magick::image_write(graph_pix, path = fp, format = 'png')
     }
     else
@@ -69,7 +69,7 @@ test_getDecoratedGraphPicture_not_a_compound = function(conn) {
 ################################################################################
 
 test_getDecoratedGraphPicture_right_enzyme <- function(conn) {
-    
+
     pw <- 'map00500'
     enzymes <- c('3.2.1.133' = 2, '3.2.1.1' = 2)
 

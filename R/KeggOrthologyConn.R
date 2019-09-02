@@ -1,9 +1,9 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# KeggReactionConn {{{1
+# KeggOrthologyConn {{{1
 ################################################################################
 
-#' The connector class to KEGG Reaction database.
+#' The connector class to KEGG Orthology database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
 #' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -13,10 +13,10 @@
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.
 #'
 #' @include KeggConn.R
-#' @export KeggReactionConn
-#' @exportClass KeggReactionConn
-KeggReactionConn <- methods::setRefClass("KeggReactionConn",
-    contains="KeggConn",
+#' @export KeggOrthologyConn
+#' @exportClass KeggOrthologyConn
+KeggOrthologyConn <- methods::setRefClass("KeggOrthologyConn",
+    contains=c("KeggConn"),
 
 # Public methods {{{2
 ################################################################################
@@ -27,7 +27,7 @@ methods=list(
 ################################################################################
 
 initialize=function(...) {
-    callSuper(db.name='reaction', db.abbrev='rn', ...)
+    callSuper(db.name='orthology', db.abbrev='ko', ...)
 }
 
 ))

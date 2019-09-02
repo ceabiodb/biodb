@@ -97,6 +97,8 @@ Collate:
     'KeggGenesEntry.R'
     'KeggModuleConn.R'
     'KeggModuleEntry.R'
+    'KeggOrthologyConn.R'
+    'KeggOrthologyEntry.R'
     'KeggPathwayConn.R'
     'KeggPathwayEntry.R'
     'KeggReactionConn.R'

@@ -102,12 +102,6 @@ getEntryPageUrl=function(id) {
     return(urls)
 },
 
-# Get entry image url {{{3
-################################################################################
-
-getEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(id)))
-},
 
 # Private methods {{{2
 ################################################################################

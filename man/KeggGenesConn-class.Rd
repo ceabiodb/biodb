@@ -11,12 +11,6 @@ but instead be instantiated through the factory \code{\link{BiodbFactory}}.
 Only specific methods are described here. See super classes for the
 description of inherited methods.
 }
-\section{Methods}{
-
-\describe{
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
-case of a compound entry).}
-}}
 
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.

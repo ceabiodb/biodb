@@ -222,13 +222,9 @@ databases:
     name: KEGG Compound
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Compound
-      cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
-      chebi.id: ^[DBLINKS ]+ ChEBI:\s+(\S+)$
       exact.mass: ^EXACT_MASS\s+(\S+)$
       formula: ^FORMULA\s+(\S+)$
-      lipidmaps.structure.id: ^[DBLINKS ]+ LIPIDMAPS:\s+(\S+)$
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
-      ncbi.pubchem.comp.id: ^[DBLINKS ]+ PubChem:\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -246,8 +242,6 @@ databases:
     name: KEGG Enzyme
     parsing.expr:
       accession: ^ENTRY\s+EC (\S+)\s+Enzyme
-      cas.id: ^[DBLINKS ]+ CAS:\s+(\S+)$
-      expasy.enzyme.id: ^[DBLINKS ]+ ExPASy - ENZYME nomenclature database:\s+(\S+)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -265,9 +259,7 @@ databases:
       accession: ^ENTRY\s+(\S+)\s+.*
       description: ^DEFINITION\s+(.*)$
       kegg.organism.code: ^ORGANISM\s+(\S+)\s+.*$
-      ncbi.gene.id: ^[DBLINKS ]+ NCBI-GeneID:\s+(\S+)$
       organism: ^ORGANISM\s+\S+\s+(.*)$
-      uniprot.id: ^[DBLINKS ]+ UniProt:\s+(\S+.*)$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -283,6 +275,23 @@ databases:
     name: KEGG Module
     parsing.expr:
       accession: ^ENTRY\s+(\S+)\s+Pathway
+    scheduler.n: 3
+    searchable.fields:
+        - name
+    urls:
+      base.url: https://www.kegg.jp/
+      entry.page.url: https://www.genome.jp/dbget-bin
+      ws.url: http://rest.kegg.jp/
+
+# KEGG Orthology {{{2
+################################################################################
+
+  kegg.orthology:
+    entry.content.type: txt
+    name: KEGG Orthology
+    parsing.expr:
+      accession: ^ENTRY\s+(\S+)\s+KO
+      description: ^DEFINITION\s+(\S+)\s*$
     scheduler.n: 3
     searchable.fields:
         - name
@@ -585,11 +594,14 @@ databases:
     name: UniProt
     parsing.expr:
       accession: //uniprot:accession[1]
+      ec:
+        attr: id
+        path: //uniprot:dbReference[@type='EC']
       expasy.enzyme.id:
         attr: id
         path: //uniprot:dbReference[@type='EC']
       gene.symbols: //uniprot:gene/uniprot:name
-      kegg.compound.id:
+      kegg.genes.id:
         attr: id
         path: //uniprot:dbReference[@type='KEGG']
       molecular.mass:
@@ -599,8 +611,8 @@ databases:
       ncbi.gene.id:
         attr: id
         path: //uniprot:dbReference[@type='GeneID']
-      nt.seq: //uniprot:entry/uniprot:sequence
-      nt.seq.length:
+      aa.seq: //uniprot:entry/uniprot:sequence
+      aa.seq.length:
         attr: length
         path: //uniprot:entry/uniprot:sequence
     searchable.fields:
@@ -616,11 +628,28 @@ databases:
 
 fields:
 
-# Database IDs {{{2
+# General fields {{{2
 ################################################################################
     
   accession:
     description: The accession number of the entry.
+
+  description:
+    alias: protdesc
+    description: The decription of the entry.
+
+  name:
+    alias:
+    - fullnames
+    - synonyms
+    card: many
+    case.insensitive: true
+    description: The name of the entry.
+    forbids.duplicates: true
+    type: name
+
+# Database IDs {{{2
+################################################################################
     
   cas.id:
     alias: casid
@@ -681,6 +710,13 @@ fields:
 
   kegg.module.id:
     description: KEGG Module ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.orthology.id:
+    description: KEGG Orthology ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -871,10 +907,10 @@ fields:
     class: double
     description: Peak relative intensity, in percentage (from 0 to 100).
     group: peak
-    
-# Other fields {{{2
+
+# Proteins and genes {{{2
 ################################################################################
-    
+
   aa.seq:
     alias: sequence
     computable.from: ncbi.ccds
@@ -890,6 +926,34 @@ fields:
     - seq.location
     - location
     description: Location of the amino acids sequence.
+  ec:
+    description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
+    case.insensitive: true
+    forbids.duplicates: true
+    card: many
+  gene.symbol:
+    alias:
+    - gene.symbols
+    - symbol
+    - genesymbols
+    card: many
+    case.insensitive: true
+    description: A list of gene symbols.
+    forbids.duplicates: true
+  nt.seq:
+    description: Nucleotids sequence.
+  nt.seq.length:
+    class: integer
+    description: Length of the nucleotids sequence.
+  organism:
+    description: The biological organism to which this entry belongs.
+  pathway.class:
+    card: many
+    description: Pathway class.
+
+# Other fields {{{2
+################################################################################
+
   catalytic.activity:
     card: many
     description: Catalytic activity.
@@ -964,22 +1028,10 @@ fields:
     - superclass
     - super.class
     description: Compound super class.
-  description:
-    alias: protdesc
-    description: The decription of the entry.
   equation:
     description: Chemical equation
   formula:
     description: Empirical molecular formula.
-  gene.symbol:
-    alias:
-    - gene.symbols
-    - symbol
-    - genesymbols
-    card: many
-    case.insensitive: true
-    description: A list of gene symbols.
-    forbids.duplicates: true
   inchi:
     computable.from: chebi
     description: International Chemical Identifier (InChI).
@@ -1017,15 +1069,6 @@ fields:
     description: MS precursor M/Z value.
   mstype:
     description: Mass spectrometry type.
-  name:
-    alias:
-    - fullnames
-    - synonyms
-    card: many
-    case.insensitive: true
-    description: The name of the entry.
-    forbids.duplicates: true
-    type: name
   nb.compounds:
     alias: nbcompounds
     class: integer
@@ -1034,16 +1077,6 @@ fields:
     alias: nbpeaks
     class: integer
     description: Number of MS peaks.
-  nt.seq:
-    description: Nucleotids sequence.
-  nt.seq.length:
-    class: integer
-    description: Length of the nucleotids sequence.
-  organism:
-    description: The biological organism to which this entry belongs.
-  pathway.class:
-    card: many
-    description: Pathway class.
   products:
     card: many
     description: Products of an enzymatic chemical reaction.

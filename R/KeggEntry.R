@@ -74,6 +74,29 @@ initialize=function(...) {
         .self$setFieldValue(field, value)
 },
 
+# Parse names {{{3
+################################################################################
+
+.parseNames=function(parsed.content, strip.chars=' ;',
+                     split.char=NA_character_) {
+
+    .self$.parseMultilinesField(field='name', tag='NAME',
+                                parsed.content=parsed.content,
+                                strip.chars=strip.chars, split.char=split.char)
+},
+
+# Parse orthology IDs {{{3
+################################################################################
+
+.parseOrthologyIds=function(parsed.content) {
+    ids <- .self$.getTagLines(tag='ORTHOLOGY',
+                              parsed.content=parsed.content)
+    if (length(ids) > 0) {
+        ids <- sub('^\\s*(K[0-9]+)\\s+.*$', '\\1', ids)
+        .self$setFieldValue('kegg.orthology.id', ids)
+    }
+},
+
 # Parse module IDs {{{3
 ################################################################################
 
@@ -107,6 +130,76 @@ initialize=function(...) {
     if (length(compound.ids) > 0) {
         compound.ids <- sub('^\\s*(C[0-9]+)\\s+.*$', '\\1', compound.ids)
         .self$setFieldValue('kegg.compound.id', compound.ids)
+    }
+},
+
+# Parse DB links {{{3
+################################################################################
+
+.parseDbLinks=function(parsed.content) {
+
+    abbrev_to_db <- c(
+        RN='kegg.reaction.id',
+        'NCBI-GeneID'='ncbi.gene.id',
+        'UniProt'='uniprot.id',
+        'CAS'='cas.id',
+        'ExPASy - ENZYME nomenclature database'='expasy.enzyme.id',
+        'ChEBI'='chebi.id',
+        'LIPIDMAPS'='lipidmaps.structure.id',
+        'PubChem'='ncbi.pubchem.comp.id'
+    )
+
+    # Extract DB links
+    dblinks <- .self$.getTagLines(tag='DBLINKS', parsed.content=parsed.content)
+
+    if (length(dblinks) > 0) {
+
+        # Extract 
+        lnks <- stringr::str_match(dblinks, '^([A-Za-z -]+): +(.+)$')
+        lnks <- data.frame(db=lnks[, 2], id=lnks[, 3], stringsAsFactors=FALSE)
+
+        # Translate db abbrev to biodb db ID
+        fct <- function(x) {
+            if (x %in% names(abbrev_to_db))
+                abbrev_to_db[[x]]
+            else
+                NA_character_
+        }
+        lnks$dbid <- vapply(lnks$db, fct, FUN.VALUE='')
+
+        # Remove unknown databases
+        lnks <- lnks[ ! is.na(lnks$dbid), ]
+
+        # Set fields
+        for (i in seq_along(lnks[[1]]))
+            .self$setFieldValue(lnks[i, 'dbid'], lnks[i, 'id'])
+
+        # Split Uniprot IDs
+        if (.self$hasField('uniprot.id')) {
+            ids <- strsplit(.self$getFieldValue('uniprot.id'), ' +', perl=TRUE)[[1]]
+            .self$setFieldValue('uniprot.id', ids)
+        }
+    }
+},
+
+# Parse genes IDs {{{3
+################################################################################
+
+.parseGenesIds=function(parsed.content) {
+
+    lines <- .self$.getTagLines(tag='GENES', parsed.content=parsed.content)
+
+    if (length(lines) > 0) {
+        genes.ids <- character()
+        m <- stringr::str_match(lines, "^\\s*([^:]+):\\s*(.*)\\s*$")
+        org <- tolower(m[, 2])
+        genes <- gsub('\\([^)]+\\)', '', m[, 3], perl=TRUE)
+        for (i in seq_along(org)) {
+            ids <- strsplit(genes[[i]], ' ')[[1]]
+            fct <- function(gene) paste(org[[i]], gene, sep=':')
+            genes.ids <- c(genes.ids, vapply(ids, fct, FUN.VALUE=''))
+        }
+        .self$setFieldValue('kegg.genes.id', genes.ids)
     }
 },
 

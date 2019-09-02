@@ -27,8 +27,16 @@ description of inherited methods.
 \describe{
 \item{\code{getAllRecordFields()}}{Returns the complete list of all record fields provided by ChemSpider.}
 
-\item{\code{getEntryImageUrl(entry.id)}}{Get the URL to a picture of the entry (e.g.: a picture of the molecule in
-case of a compound entry).}
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Gets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    
+entry.id: A character vector containing entry IDs.
+    
+Returned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    }
 
 \item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
 
