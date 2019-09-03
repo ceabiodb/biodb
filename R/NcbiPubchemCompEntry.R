@@ -3,7 +3,11 @@
 # NcbiPubchemCompEntry {{{1
 ################################################################################
 
+#' NCBI PubChem Compound entry class.
+#'
 #' @include NcbiPubchemEntry.R
+#' @export NcbiPubchemCompEntry
+#' @exportClass NcbiPubchemCompEntry
 NcbiPubchemCompEntry <- methods::setRefClass("NcbiPubchemCompEntry",
     contains="NcbiPubchemEntry",
 

@@ -3,7 +3,11 @@
 # KeggOrthologyEntry {{{1
 ################################################################################
 
+#' KEGG Orthology entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggOrthologyEntry
+#' @exportClass KeggOrthologyEntry
 KeggOrthologyEntry <- methods::setRefClass("KeggOrthologyEntry",
     contains='KeggEntry',
 

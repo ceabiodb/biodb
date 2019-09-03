@@ -3,7 +3,11 @@
 # NcbiCcdsEntry {{{1
 ################################################################################
 
+#' NCBI CCDS entry class.
+#'
 #' @include BiodbHtmlEntry.R
+#' @export NcbiCcdsEntry
+#' @exportClass NcbiCcdsEntry
 NcbiCcdsEntry <- methods::setRefClass("NcbiCcdsEntry",
     contains="BiodbHtmlEntry",
 

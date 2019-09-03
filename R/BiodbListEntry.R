@@ -1,10 +1,17 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# BiodbEntryList {{{1
+# BiodbListEntry {{{1
 ################################################################################
 
+#' Entry class for content in list format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' list format.
+#'
 #' @include BiodbEntry.R
-BiodbEntryList <- methods::setRefClass("BiodbEntryList",
+#' @export BiodbListEntry
+#' @exportClass BiodbListEntry
+BiodbListEntry <- methods::setRefClass("BiodbListEntry",
     contains='BiodbEntry',
 
 # Private methods {{{2

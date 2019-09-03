@@ -3,8 +3,12 @@
 # MirbaseMatureConn {{{1
 ################################################################################
 
+#' Mirbase Mature connector class.
+#'
 #' @include MirbaseConn.R
 #' @include BiodbDownloadable.R
+#' @export MirbaseMatureConn
+#' @exportClass MirbaseMatureConn
 MirbaseMatureConn <- methods::setRefClass("MirbaseMatureConn",
     contains=c("MirbaseConn", "BiodbDownloadable"),
 
@@ -17,13 +21,14 @@ methods=list(
 ################################################################################
 
 getEntryPageUrl=function(id) {
-    
+    # Overrides super class' method.
+
     url <- c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'mature.pl')
     v <- vapply(id,
                 function(x) BiodbUrl(url=url,
                                      params=list(mature_acc=x))$toString(),
                 FUN.VALUE='')
-    
+
     return(v)
 },
 
@@ -32,6 +37,8 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 requiresDownload=function() {
+    # Overrides super class' method.
+
     return(TRUE)
 },
 
@@ -39,6 +46,7 @@ requiresDownload=function() {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # Download
     .self$download()
@@ -57,7 +65,16 @@ getEntryContentFromDb=function(entry.id) {
 
 wsQuery=function(terms, submit='Search',
                  retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Send request to web service query."
+    ":\n\nSends a request to the web service query.
+    \nterms: The query.
+    \nsubmit: Type of submission.
+    \nretfmt: The format to use for the returned value. 'plain' will return the
+    raw results from the server, as a character value. 'request' will return the
+    request a BiodbRequest object representing the request that would have been
+    sent. 'parsed' will return the parsed results, as an XML object. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -96,6 +113,7 @@ wsQuery=function(terms, submit='Search',
 ################################################################################
 
 searchByName=function(name, max.results=NA_integer_) {
+    # Overrides super class' method.
         
     ids <- NULL
 

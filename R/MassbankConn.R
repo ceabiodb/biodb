@@ -3,13 +3,15 @@
 # MassbankConn {{{1
 ################################################################################
 
+#' Massbank connector class.
+#'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbMassdbConn.R
 #' @include BiodbDownloadable.R
 MassbankConn <- methods::setRefClass("MassbankConn",
     contains=c("BiodbRemotedbConn", "BiodbMassdbConn", 'BiodbDownloadable'),
     fields=list(
-        .prefix2dns='list'
+        .prefix2dsn='list'
     ),
 
 # Public methods {{{2
@@ -24,13 +26,15 @@ initialize=function(...) {
 
     callSuper(...)
 
-    .self$.prefix2dns <- list()
+    .self$.prefix2dsn <- list()
 },
 
 # Requires download {{{3
 ################################################################################
 
 requiresDownload=function() {
+    # Overrides super class' method.
+
     return(TRUE)
 },
 
@@ -38,6 +42,7 @@ requiresDownload=function() {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # NOTE Method unused, since database is downloaded.
 
@@ -80,6 +85,8 @@ paste(paste('<tns:entry.ids>', entry.id, '</tns:entry.ids>', sep=''),
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
+
     return(length(.self$getEntryIds()))
 },
 
@@ -87,6 +94,7 @@ getNbEntries=function(count=FALSE) {
 ################################################################################
 
 getChromCol=function(ids=NULL) {
+    # Overrides super class' method.
 
     if (is.null(ids))
         ids <- .self$getEntryIds()
@@ -112,35 +120,43 @@ getChromCol=function(ids=NULL) {
     return(cols)
 },
 
-# Get dns from id {{{3
+# Get DSN from id {{{3
 ################################################################################
 
-getDns=function(id) {
+getDsn=function(id) {
+    ":\n\nGets the DSN (database name) associated with a entry IDs.
+    \nid: A character vector containing entry IDs.
+    \nReturned value: A character vector, the same length as `id`, containing
+    the corresponding DSN values, or NA values if no DSN is available.
+    "
 
     # Download prefixes file, parse it and build list
-    if (length(.self$.prefix2dns) == 0)
+    if (length(.self$.prefix2dsn) == 0)
         .self$.loadPrefixes()
 
-    dns <- vapply(id, function(x) {
+    # Search for DSN values
+    dsn <- vapply(id, function(x) {
         prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl=TRUE)
-        if (prefix %in% names(.self$.prefix2dns))
-            .self$.prefix2dns[[prefix]]
+        if (prefix %in% names(.self$.prefix2dsn))
+            .self$.prefix2dsn[[prefix]]
         else
             NA_character_
         }, FUN.VALUE='', USE.NAMES=FALSE)
 
-    return(dns)
+    return(dsn)
 },
 
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     u <- c(.self$getPropValSlot('urls', 'base.url'), 'MassBank',
            'RecordDisplay.jsp')
     fct <- function(x) BiodbUrl(url=u,
                                 params=list(id=x,
-                                            dsn=.self$getDns(x)))$toString()
+                                            dsn=.self$getDsn(x)))$toString()
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
@@ -445,7 +461,7 @@ else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),
 
         # Loop on prefixes
         for (p in prefixes[[i]])
-            .self$.prefix2dns[[p]] <- dbs[[i]]
+            .self$.prefix2dsn[[p]] <- dbs[[i]]
     }
 },
 

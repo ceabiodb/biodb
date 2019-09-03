@@ -3,6 +3,10 @@
 # MirbaseMatureEntry {{{1
 ################################################################################
 
+#' miRBase Mature entry class.
+#'
 #' @include BiodbTxtEntry.R
+#' @export MirbaseMatureEntry
+#' @exportClass MirbaseMatureEntry
 MirbaseMatureEntry <- methods::setRefClass("MirbaseMatureEntry",
     contains="BiodbTxtEntry")

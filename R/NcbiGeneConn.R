@@ -3,7 +3,11 @@
 # NcbiGeneConn {{{1
 ################################################################################
 
+#' NCBI Gene connector class.
+#'
 #' @include NcbiEntrezConn.R
+#' @export NcbiGeneConn
+#' @exportClass NcbiGeneConn
 NcbiGeneConn <- methods::setRefClass("NcbiGeneConn",
     contains='NcbiEntrezConn',
 
@@ -25,6 +29,8 @@ initialize=function(...) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'base.url'), .self$.entrez.name)
         BiodbUrl(url=u, params=list(term=x))$toString()
@@ -37,6 +43,7 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 searchByName=function(name, max.results=NA_integer_) {
+    # Overrides super class' method.
 
     ids <- NULL
 

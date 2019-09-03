@@ -3,7 +3,11 @@
 # NcbiCcdsConn {{{1
 ################################################################################
 
+#' NCBI CCDS connector class.
+#'
 #' @include NcbiConn.R
+#' @export NcbiCcdsConn
+#' @exportClass NcbiCcdsConn
 NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn",
     contains="NcbiConn",
 
@@ -12,17 +16,12 @@ NcbiCcdsConn <- methods::setRefClass("NcbiCcdsConn",
 
 methods=list(
 
-# Do get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    return(.self$getEntryPageUrl(id))
-},
-
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'base.url'), 'CcdsBrowse.cgi')
         p <- list(REQUEST='CCDS', GO='MainBrowse', DATA=x)
@@ -34,6 +33,13 @@ getEntryPageUrl=function(id) {
 
 # Private methods {{{2
 ################################################################################
+
+# Do get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    return(.self$getEntryPageUrl(id))
+},
 
 # Get entry ids {{{3
 ################################################################################

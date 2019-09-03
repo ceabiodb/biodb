@@ -8,8 +8,7 @@
 #' @include KeggEntry.R
 #' @export KeggModuleEntry
 #' @exportClass KeggModuleEntry
-KeggModuleEntry <- methods::setRefClass(
-    "KeggModuleEntry",
+KeggModuleEntry <- methods::setRefClass("KeggModuleEntry",
     contains='KeggEntry',
 
 # Public methods {{{2

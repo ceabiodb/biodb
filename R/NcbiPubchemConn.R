@@ -3,7 +3,14 @@
 # NcbiPubchemConn {{{1
 ################################################################################
 
+#' NCBI PubChem connector abstractclass.
+#'
+#' This is an abstract class, mother class of all NCBI PubChem connector
+#' classes.
+#'
 #' @include NcbiEntrezConn.R
+#' @export NcbiPubchemConn
+#' @exportClass NcbiPubchemConn
 NcbiPubchemConn <- methods::setRefClass("NcbiPubchemConn",
     contains='NcbiEntrezConn',
     fields=list(
@@ -36,10 +43,13 @@ initialize=function(db.name, id.xmltag, entry.xmltag, id.urlfield, ...) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     fct <- function(x) {
         u <- c(.self$getPropValSlot('urls', 'base.url'), .self$.db.name, x)
         BiodbUrl(url=u)$toString()
     }
+
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
@@ -47,6 +57,7 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 getEntryImageUrl=function(id) {
+    # Overrides super class' method.
 
     urls <- rep(NA_character_, length(id))
 
@@ -73,6 +84,7 @@ getEntryImageUrl=function(id) {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # Debug
     .self$info("Get entry content(s) for ", length(entry.id)," id(s)...")

@@ -3,7 +3,13 @@
 # NcbiEntrezConn {{{1
 ################################################################################
 
+#' NCBI Entrez connector abstract class.
+#'
+#' This is an abstract class, mother class of all NCBI Entrez connector classes.
+#'
 #' @include NcbiConn.R
+#' @export NcbiEntrezConn
+#' @exportClass NcbiEntrezConn
 NcbiEntrezConn <- methods::setRefClass("NcbiEntrezConn",
     contains="NcbiConn",
     fields=list(
@@ -44,8 +50,17 @@ initialize=function(entrez.name=NA_character_, entrez.tag=NA_character_,
 
 wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_,
                   retfmt=c('plain', 'parsed', 'request')) {
-    "Calls Entrez efetch web service. See
-    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch."
+    ":\n\nCalls Entrez efetch web service. See
+    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch.
+    \nid: A character vector of entry IDs.
+    \nrettype: The retrieval type. See NCBI documentation.
+    \nretmode: The retrieval mode. See NCBI documentation.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as an XML object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -76,8 +91,18 @@ wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_,
 
 wsEsearch=function(term, field=NA_character_, retmax=NA_integer_,
                    retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    "Calls Entrez esearch web service. See
-    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch."
+    ":\n\nCalls Entrez esearch web service. See
+    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch.
+    \nterm: Text query. See NCBI documentation.
+    \nfield: Entrez field to which to limit the search. See NCBI documentation.
+    \nretmax: Maximum number of entry IDs to return.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as an XML object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -114,8 +139,14 @@ wsEsearch=function(term, field=NA_character_, retmax=NA_integer_,
 ################################################################################
 
 wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
-    "Calls Entrez einfo web service. See
-    https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo."
+    ":\n\nCalls Entrez einfo web service, returning information about this
+    database. See https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as an XML object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -141,6 +172,7 @@ wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
 
     # Send request
     xml <- .self$wsEinfo(retfmt='parsed')
@@ -152,29 +184,11 @@ getNbEntries=function(count=FALSE) {
     return(n)
 },
 
-# Do get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-
-    if (concatenate)
-        urls <- .self$wsEfetch(id, retmode='xml',
-                               retfmt='request')$getUrl()$toString()
-    else {
-        fct <- function(single.id) { 
-            .self$wsEfetch(single.id, retmode='xml',
-                           retfmt='request')$getUrl()$toString()
-        }
-        urls <- vapply(id, fct, FUN.VALUE='')
-    }
-
-    return(urls)
-},
-
 # Get entry content from database {{{3
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # Debug
     .self$info("Get entry content(s) for ", length(entry.id)," id(s)...")
@@ -232,6 +246,25 @@ getEntryContentFromDb=function(entry.id) {
 # Private methods {{{2
 ################################################################################
 
+# Do get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+
+    if (concatenate)
+        urls <- .self$wsEfetch(id, retmode='xml',
+                               retfmt='request')$getUrl()$toString()
+    else {
+        fct <- function(single.id) { 
+            .self$wsEfetch(single.id, retmode='xml',
+                           retfmt='request')$getUrl()$toString()
+        }
+        urls <- vapply(id, fct, FUN.VALUE='')
+    }
+
+    return(urls)
+},
+
 # Get entry ids {{{3
 ################################################################################
 
@@ -245,4 +278,3 @@ getEntryContentFromDb=function(entry.id) {
 }
 
 ))
-

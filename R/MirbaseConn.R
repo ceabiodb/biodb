@@ -3,7 +3,11 @@
 # MirbaseConn {{{1
 ################################################################################
 
+#' Mirbase connector class.
+#'
 #' @include BiodbRemotedbConn.R
+#' @export MirbaseConn
+#' @exportClass MirbaseConn
 MirbaseConn <- methods::setRefClass("MirbaseConn",
     contains="BiodbRemotedbConn",
 
@@ -24,6 +28,7 @@ initialize=function(...) {
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
 
     n <- NA_integer_
 

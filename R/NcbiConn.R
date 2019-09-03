@@ -3,7 +3,13 @@
 # Class declaration {{{1
 ################################################################################
 
+#' NCBI connector abstract class.
+#'
+#' This is an abstract class, mother of all NCBI connector classes.
+#'
 #' @include BiodbRemotedbConn.R
+#' @export NcbiConn
+#' @exportClass NcbiConn
 NcbiConn <- methods::setRefClass("NcbiConn", contains="BiodbRemotedbConn")
 
 # Initialize {{{1
