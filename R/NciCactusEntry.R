@@ -6,7 +6,7 @@
 #' NCI CACTUS entry class.
 #'
 #' @include BiodbSdfEntry.R
-#' @export Explore 
-#' @exportClass Explore 
+#' @export NciCactusEntry 
+#' @exportClass NciCactusEntry 
 NciCactusEntry <- methods::setRefClass("NciCactusEntry",
     contains="BiodbSdfEntry")

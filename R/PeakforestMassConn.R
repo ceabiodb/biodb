@@ -3,8 +3,12 @@
 # PeakforestMassConn {{{1
 ################################################################################
 
+#' PeakForest Mass connector class.
+#'
 #' @include PeakforestConn.R
 #' @include BiodbMassdbConn.R
+#' @export PeakforestMassConn
+#' @exportClass PeakforestMassConn
 PeakforestMassConn <- methods::setRefClass("PeakforestMassConn",
     contains=c("PeakforestConn", "BiodbMassdbConn"),
 
@@ -25,6 +29,8 @@ initialize=function(...) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     u <- .self$getPropValSlot('urls', 'base.url')
     f <- function(x) BiodbUrl(url=u, params=list(PFs=x))$toString()
     return(vapply(id, f, FUN.VALUE=''))
@@ -37,6 +43,20 @@ getEntryPageUrl=function(id) {
 wsPeaksGetRange=function(type=c('lcms', 'lcmsms'), mz.min, mz.max,
                          mode=NA_character_,
                          retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    ":\n\nCalls the spectra/<type>/peaks/get-range web service to search for
+    spectra containing at least one peak whose M/Z value is inside a range.
+    \ntype: The type of mass database: either 'lcms' or 'lcmsms'.
+    \nmz.min: The minimum M/Z value to search for.
+    \nmz.max: The maximum M/Z value to search for.
+    \nmode: The MS mode: either 'NEG' or 'POS'. If unset, the search will be
+    made on both modes.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     type <- match.arg(type)
     retfmt <- match.arg(retfmt)
@@ -72,6 +92,19 @@ wsPeaksGetRange=function(type=c('lcms', 'lcmsms'), mz.min, mz.max,
 
 wsLcmsmsFromPrecursor=function(prec.mz, precursorMassDelta, mode=NA_character_,
                                retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    ":\n\nCalls the spectra/lcmsms/from-precursor web service to search for
+    spectra containing a specific precursor peak.
+    \nprec.mz: M/Z value of the precursor.
+    \nprecursorMassDelta: The tolerance of the precursor M/Z value.
+    \nmode: The MS mode: either 'NEG' or 'POS'. If unset, the search will be
+    made on both modes.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -106,6 +139,15 @@ wsLcmsmsFromPrecursor=function(prec.mz, precursorMassDelta, mode=NA_character_,
 
 wsListCodeColumns=function(retfmt=c('plain', 'request', 'parsed',
                                     'data.frame')) {
+    ":\n\nCalls the metadata/lc/list-code-columns web service to get a list of
+    available chromatographic columns.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'data.frame'
+    will return a data frame.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -166,6 +208,7 @@ wsListCodeColumns=function(retfmt=c('plain', 'request', 'parsed',
 ################################################################################
 
 getChromCol=function(ids=NULL) {
+    # Overrides super class' method.
 
     cols <- .self$wsListCodeColumns(retfmt='data.frame')
     bdb <- .self$getBiodb()
@@ -323,7 +366,7 @@ getChromCol=function(ids=NULL) {
         }
         ids <- ids[ ! duplicated(ids)]
     }
-    
+
     # Single M/Z range
     else {
         mode <- NA_character_

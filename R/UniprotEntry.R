@@ -3,7 +3,11 @@
 # UniprotEntry {{{1
 ################################################################################
 
+#' Uniprot entry class.
+#'
 #' @include BiodbXmlEntry.R
+#' @export UniprotEntry
+#' @exportClass UniprotEntry
 UniprotEntry <- methods::setRefClass("UniprotEntry",
     contains="BiodbXmlEntry",
 

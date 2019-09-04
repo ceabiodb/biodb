@@ -5,13 +5,6 @@
 \alias{UniprotConn-class}
 \alias{UniprotConn}
 \title{The connector class to Uniprot database.}
-\arguments{
-\item{columns}{The field columns to retrieve from the database.}
-
-\item{format}{The return format.}
-
-\item{query}{The query to send to the database.}
-}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -50,8 +43,28 @@ max.results: The maximum number of matches to return.
 Returned value: A character vector of entry IDs.}
 
 \item{\code{wsQuery(query = "", columns = NULL, format = NULL, limit = NULL,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{Direct query to the database for searching for compounds. See
-http://www.uniprot.org/help/api_queries for details.}
+  retfmt = c("plain", "parsed", "ids", "request"))}}{:
+
+Calls query to the database for searching for compounds.
+    See http://www.uniprot.org/help/api_queries for details.
+    
+query: The query to send to the database.
+    
+columns: The field columns to retrieve from the database (e.g.: 'id',
+    'entry name', 'pathway', 'organism', 'sequence', etc).
+    
+format: The return format (e.g.: 'tab').
+    
+limit: The maximum number of entries to return.
+    
+retfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt` parameter.
+    }
 }}
 
 \examples{
