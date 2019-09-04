@@ -17,5 +17,9 @@ script:
       #    - make check # without vignettes
     - make full.check # with vignettes
 
+branches:
+    only:
+        - master
+
       #after_script:
     #    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
