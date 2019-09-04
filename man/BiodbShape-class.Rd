@@ -8,22 +8,46 @@
 \description{
 This abstract class represents a shape, used for graphical representation.
 }
-\section{Fields}{
+\details{
+Arguments to the constructor are:
 
-\describe{
-\item{\code{label}}{A text label to associate with the shape.}
+label: A text label to associate with the shape.
 
-\item{\code{color}}{A color, as a character string.}
-}}
-
+color: A color, as a character string.
+}
 \section{Methods}{
 
 \describe{
-\item{\code{getColor()}}{Return the color associated with this shape.}
+\item{\code{draw()}}{:
 
-\item{\code{getLabel()}}{Return the label associated with this shape.}
+Draw the shape on the current image.
+    
+Returned value: None.
+    }
 
-\item{\code{getRgbColor(alpha = 255)}}{Return the RGB color associated with this shape.}
+\item{\code{getColor()}}{:
+
+Gets the color associated with this shape.
+    
+Returned value: The color name as a string.
+    }
+
+\item{\code{getLabel()}}{:
+
+Gets the label associated with this shape.
+    
+Returned value: The label.
+    }
+
+\item{\code{getRgbColor(alpha = 255)}}{:
+
+Gets the RGB color associated with this shape.
+    
+alpha: The value to use for the alpha channel when building the RGB color
+    object.
+    
+Returned value: The color as an RGB color object.
+    }
 }}
 
 \examples{

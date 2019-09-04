@@ -10,6 +10,8 @@
 #'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbRemotedbConn.R
+#' @export ChebiConn
+#' @exportClass ChebiConn
 ChebiConn <- methods::setRefClass("ChebiConn",
     contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
 
@@ -36,25 +38,11 @@ initialize=function(...) {
     .self$initFields(wsdl=NULL, ws.values=list())
 },
 
-# Get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    
-    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
-             'getCompleteEntity')
-    
-    urls <- vapply(id, function(x) BiodbUrl(url=url,
-                                            params=list(chebiId=x))$toString(),
-                   FUN.VALUE='')
-    
-    return(urls)
-},
-
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method
     
     url <- c(.self$getPropValSlot('urls', 'base.url'), 'searchId.do')
     
@@ -69,6 +57,7 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 getEntryImageUrl=function(id) {
+    # Overrides super class' method
 
     url <- c(.self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
     
@@ -87,7 +76,13 @@ getEntryImageUrl=function(id) {
 ################################################################################
 
 wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
-    'Returns the complete WSDL from the the web server.'
+    ":\n\nRetrieves the complete WSDL from the web server.
+    \nretfmt: The return format to use. 'plain' will return the value as it is
+    returned by the server. 'parsed' will return an XML object. 'request' will
+    return a BiodbRequest object representing the request that would have been
+    sent. 
+    \nReturned value: Depending on `retfmt` value.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -113,14 +108,23 @@ wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
                          stars='ALL',
                          retfmt=c('plain', 'parsed', 'request', 'ids')) {
-    'Calls getLiteEntity web service and returns the XML result.
-    Be careful when search by mass
-    (search.category="MASS" or "MONOISOTOPIC MASS"), since the searched is made
-     in text mode, thus the number must be exactly written as it stored in
-     database eventually padded with 0 in order to have exactly 5 digits after
+    ":\n\nCalls getLiteEntity web service and returns the XML result.
+    Be careful when searching by mass
+    (search.category='MASS' or 'MONOISOTOPIC MASS'), since the search is made
+     in text mode, thus the number must be exactly written as it is stored in
+     database, eventually padded with 0 in order to have exactly 5 digits after
      the decimal. An easy solution is to use wildcards to search a mass:
-     "410;.718*".
-    See http://www.ebi.ac.uk/chebi/webServices.do.'
+     '410;.718*'.
+    See http://www.ebi.ac.uk/chebi/webServices.do for more details.
+    \nsearch: The text or pattern to search.
+    \nsearch.category: The search category. Call `getSearchCategories()`
+    to get a full list of search categories.
+    \nmax.results: The maximum of results to return.
+    \nstars: How many starts the returned entities should have. Call
+    `getStarsCategories() to get a full list of starts categories.`
+    \nretfmt: The return format to use. 'plain' will return the results as given by the server, in a string. 'parsed' will return an XML object. 'request' will return a BiodbRequest object representing the request as would have been sent. 'ids' will return a list of matched entity IDs.
+    \nReturned value: Depending on `retfmt` value.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -170,11 +174,15 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
 ################################################################################
 
 convIdsToChebiIds=function(ids, search.category, simplify=TRUE) {
-    'Convert a list of IDs into a list of ChEBI IDs. Several ChEBI IDs may
-    be returned for a single ID. If `simplify` is set to `TRUE`, and only
-    one ChEBI ID has been found for each ID, then a character vector is
-    returned. Otherwise a list of character vectors is returned. The
-    `search.category` parameter is the same used for `wsGetLiteEntity()`.'
+    ":\n\nConverts a list of IDs (InChI, InChI Keys, CAS, ...) into a list of
+    ChEBI IDs. Several ChEBI IDs may be returned for a single ID.
+    \nsimplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    \nsearch.category: The search category. Call `getSearchCategories()`
+    to get a full list of search categories.
+    \nReturned value: Depending on the value of simplify.
+    "
     
     chebi <- list()
     msg <- paste('Converting', search.category, 'IDs to ChEBI IDs.')
@@ -211,12 +219,13 @@ convIdsToChebiIds=function(ids, search.category, simplify=TRUE) {
 ################################################################################
 
 convInchiToChebi=function(inchi, simplify=TRUE) {
-    'Convert a list of InChI or InChI KEYs into a list of ChEBI IDs. Several
-    ChEBI IDs may
-    be returned for a single InChI or InChI KEY. If `simplify` is set to `TRUE`,
-    and only
-    one ChEBI ID has been found for each InChI, then a character vector is
-    returned. Otherwise a list of character vectors is returned.'
+    ":\n\nConverts a list of InChI or InChI KEYs into a list of ChEBI IDs.
+    Several ChEBI IDs may be returned for a single InChI or InChI KEY.
+    \nsimplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    \nReturned value: Depending on the value of simplify.
+    "
     
     return(.self$convIdsToChebiIds(inchi, search.category='INCHI/INCHI KEY',
                                    simplify=simplify))
@@ -226,10 +235,13 @@ convInchiToChebi=function(inchi, simplify=TRUE) {
 ################################################################################
 
 convCasToChebi=function(cas, simplify=TRUE) {
-    'Convert a list of CAS IDs into a list of ChEBI IDs. Several ChEBI IDs may
-    be returned for a single CAS ID. If `simplify` is set to `TRUE`, and only
-    one ChEBI ID has been found for each CAS ID, then a character vector is
-    returned. Otherwise a list of character vectors is returned.'
+    ":\n\nConverts a list of CAS IDs into a list of ChEBI IDs.
+    Several ChEBI IDs may be returned for a single InChI or InChI KEY.
+    \nsimplify: If set to TRUE and only one ChEBI ID has been found for each ID,
+    then a character vector is returned. Otherwise a list of character vectors
+    is returned.
+    \nReturned value: Depending on the value of simplify.
+    "
     
     return(.self$convIdsToChebiIds(cas, search.category='REGISTRY NUMBERS',
                                    simplify=simplify))
@@ -240,6 +252,7 @@ convCasToChebi=function(cas, simplify=TRUE) {
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
+    # Overrides super class' method.
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -319,7 +332,9 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 ################################################################################
 
 getWsdl=function() {
-    'Get the WSDL as a an XML object.'
+    ":\n\nGets the WSDL as an XML object.
+    \nReturned value: The ChEBI WSDL as an XML object.
+    "
     
     if (is.null(.self$wsdl))
         .self$wsdl <- .self$wsWsdl(retfmt='parsed')
@@ -331,7 +346,10 @@ getWsdl=function() {
 ################################################################################
 
 getWsdlEnumeration=function(name) {
-    'Extract a list of enumerations from the WSDL.'
+    ":\n\nExtracts a list of values from an enumeration in the WSDL.
+    \nname: The name of the enumeration for which to retrieve the values.
+    \nReturned value: A character vector listing the enumerated values.
+    "
     
     if ( ! name %in% names(.self$ws.values)) {
 
@@ -351,8 +369,11 @@ getWsdlEnumeration=function(name) {
 ################################################################################
 
 getStarsCategories=function() {
-    'Returns the list of allowed stars categories for the getLiteEntity web
-    service.'
+    ":\n\nGets the list of allowed stars categories for the getLiteEntity web
+    service.
+    \nReturned value: Returns all the possible stars categories as a character
+    vector.
+    "
     
     return(.self$getWsdlEnumeration('StarsCategory'))
 },
@@ -361,14 +382,32 @@ getStarsCategories=function() {
 ################################################################################
 
 getSearchCategories=function() {
-    'Returns the list of allowed search categories for the getLiteEntity web
-    service.'
+    ":\n\nGets the list of allowed search categories for the getLiteEntity web
+    service.
+    \nReturned value: Returns all the possible search categories as a character
+    vector.
+    "
 
     return(.self$getWsdlEnumeration('SearchCategory'))
 },
 
 # Private methods {{{2
 ################################################################################
+
+# Get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    
+    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
+             'getCompleteEntity')
+    
+    urls <- vapply(id, function(x) BiodbUrl(url=url,
+                                            params=list(chebiId=x))$toString(),
+                   FUN.VALUE='')
+    
+    return(urls)
+},
 
 # Get entry ids {{{3
 ################################################################################

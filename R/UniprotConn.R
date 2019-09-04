@@ -10,10 +10,6 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @param columns   The field columns to retrieve from the database.
-#' @param format    The return format.
-#' @param query     The query to send to the database.
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
 #' \code{\link{BiodbCompounddbConn}}.
 #'
@@ -49,8 +45,20 @@ methods=list(
 
 wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL,
                  retfmt=c('plain', 'parsed', 'ids', 'request')) {
-    "Direct query to the database for searching for compounds. See
-    http://www.uniprot.org/help/api_queries for details."
+    ":\n\nCalls query to the database for searching for compounds.
+    See http://www.uniprot.org/help/api_queries for details.
+    \nquery: The query to send to the database.
+    \ncolumns: The field columns to retrieve from the database (e.g.: 'id',
+    'entry name', 'pathway', 'organism', 'sequence', etc).
+    \nformat: The return format (e.g.: 'tab').
+    \nlimit: The maximum number of entries to return.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -106,20 +114,12 @@ wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL,
     return(results)
 },
 
-# Do get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-                        
-    url <- paste0(.self$getPropValSlot('urls', 'base.url'), id, '.xml')
-
-    return(url)
-},
-
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     u <- c(.self$getPropValSlot('urls', 'base.url'), id)
     f <- function(x) BiodbUrl(url=u)$toString()
     return(vapply(id, f, FUN.VALUE=''))
@@ -131,7 +131,8 @@ getEntryPageUrl=function(id) {
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
-        
+    # Overrides super class' method.
+
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     query <- ''
@@ -190,6 +191,16 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 
 # Private methods {{{2
 ################################################################################
+
+# Do get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+
+    url <- paste0(.self$getPropValSlot('urls', 'base.url'), id, '.xml')
+
+    return(url)
+},
 
 # Get entry ids {{{3
 ################################################################################

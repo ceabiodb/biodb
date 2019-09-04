@@ -3,7 +3,11 @@
 # MassCsvFileEntry {{{1
 ################################################################################
 
+#' Mass CSV File entry class.
+#'
 #' @include BiodbCsvEntry.R
+#' @export MassCsvFileEntry
+#' @exportClass MassCsvFileEntry
 MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry",
     contains='BiodbCsvEntry',
 

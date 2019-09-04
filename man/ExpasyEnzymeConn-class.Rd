@@ -5,11 +5,6 @@
 \alias{ExpasyEnzymeConn-class}
 \alias{ExpasyEnzymeConn}
 \title{The connector class to Expasy Enzyme database.}
-\arguments{
-\item{name}{The name to search for.}
-
-\item{comment}{The comment to search for.}
-}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -19,12 +14,45 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
 
-\item{\code{wsEnzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{Calls enzyme-bycomment web service and returns the HTML result. See
-http://enzyme.expasy.org/enzyme-bycomment.html.}
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 
-\item{\code{wsEnzymeByName(name, retfmt = c("plain", "request", "parsed", "ids"))}}{Calls enzyme-byname web service and returns the HTML result. See
-http://enzyme.expasy.org/enzyme-byname.html.}
+\item{\code{wsEnzymeByComment(comment, retfmt = c("plain", "request", "parsed", "ids"))}}{:
+
+Calls enzyme-bycomment web service and returns the HTML result. See
+    http://enzyme.expasy.org/enzyme-bycomment.html.
+    
+comment: The comment to search for.
+    
+retfmt: The format to use for the returned value. 'plain' will return the
+    raw result from the server, as a character value. 'request' will return a
+    BiodbRequest instance containing the request as it would have been sent.
+    'parsed' will return an XML object, containing the parsed result. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt`.
+    }
+
+\item{\code{wsEnzymeByName(name, retfmt = c("plain", "request", "parsed", "ids"))}}{:
+
+Calls enzyme-byname web service and returns the HTML result. See
+    http://enzyme.expasy.org/enzyme-byname.html.
+    
+name: The name to search for.
+    
+retfmt: The format to use for the returned value. 'plain' will return the
+    raw result from the server, as a character value. 'request' will return a
+    BiodbRequest instance containing the request as it would have been sent.
+    'parsed' will return an XML object, containing the parsed result. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt`.
+    }
 }}
 

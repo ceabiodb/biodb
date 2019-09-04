@@ -118,7 +118,7 @@ test.fields <- function(biodb) {
 	conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 
 	# Get fields
-	col.name <- conn$getField('ms.mode')
+	col.name <- conn$getFieldColName('ms.mode')
 	expect_is(col.name, 'character')
 	expect_true(nchar(col.name) > 0)
 
@@ -130,11 +130,11 @@ test.fields <- function(biodb) {
 	conn$addField('blabla', 1)
 
 	# Set wrong fields
-	expect_error(conn$setField(tag = 'invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
-	expect_error(conn$setField(tag = 'ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
+	expect_error(conn$setField('invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
+	expect_error(conn$setField('ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
 
 	# Ignore if column name is not found in file
-	conn$setField(tag = 'ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
+	conn$setField('ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
 
 	# Try to set accession field
 	conn$setField('accession', 'compound.id')

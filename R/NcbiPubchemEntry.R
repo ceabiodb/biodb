@@ -3,7 +3,11 @@
 # NcbiPubchemEntry {{{1
 ################################################################################
 
+#' NCBI PubChem entry class.
+#'
 #' @include BiodbXmlEntry.R
+#' @export NcbiPubchemEntry
+#' @exportClass NcbiPubchemEntry
 NcbiPubchemEntry <- methods::setRefClass("NcbiPubchemEntry",
     contains="BiodbXmlEntry",
 

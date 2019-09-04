@@ -3,7 +3,11 @@
 # NcbiGeneEntry {{{1
 ################################################################################
 
+#' NCBI Gene entry class.
+#'
 #' @include BiodbXmlEntry.R
+#' @export NcbiGeneEntry
+#' @exportClass NcbiGeneEntry
 NcbiGeneEntry <- methods::setRefClass("NcbiGeneEntry",
     contains="BiodbXmlEntry",
 
@@ -16,11 +20,11 @@ methods=list(
 ################################################################################
 
 .isParsedContentCorrect=function(parsed.content) {
-    
+
     n <- XML::getNodeSet(parsed.content, "//Error")
     if (length(n) == 0)
         n <- XML::getNodeSet(parsed.content, "//ERROR")
-    
+
     return(length(n) == 0)
 },
 

@@ -3,12 +3,16 @@
 # NciCactusConn {{{1
 ################################################################################
 
-#' Connector for accessing the NCI database, using CACTUS services.
-#' See https://www.cancer.gov/ and https://cactus.nci.nih.gov/.
+#' NCI CACTUS connector class.
 #'
+#' This class implements a connector for accessing the NCI database, using
+#' CACTUS services.  See https://www.cancer.gov/ and
+#' https://cactus.nci.nih.gov/.
 #'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbDownloadable.R
+#' @export NciCactusConn
+#' @exportClass NciCactusConn
 NciCactusConn <- methods::setRefClass("NciCactusConn",
     contains=c("BiodbRemotedbConn", "BiodbDownloadable"),
 
@@ -21,6 +25,7 @@ methods=list(
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
 
     n <- NA_integer_
 
@@ -35,6 +40,8 @@ getNbEntries=function(count=FALSE) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     return(rep(NA_character_, length(id)))
 },
 
@@ -45,11 +52,19 @@ getEntryPageUrl=function(id) {
 wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
                                       retfmt=c('plain', 'parsed', 'request',
                                                'ids')) {
-    'Calls Chemical Identifier Resolver web service. `structid` is the submitted
-    structure identifier, `repr` is the wanted representation and xml is a flag
-    for choosing the format returned by the web service between plain text and
-    XML.
-    See https://cactus.nci.nih.gov/chemical/structure_documentation.'
+    ":\n\nCalls Chemical Identifier Resolver web service.
+    See https://cactus.nci.nih.gov/chemical/structure_documentation for details.
+    \nstructid: The submitted structure identifier.
+    \nrepr: The wanted representation.
+    \nxml: A flag for choosing the format returned by the web service between
+    plain text and XML.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as an XML object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
     
@@ -86,8 +101,13 @@ wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
 ################################################################################
 
 conv=function(ids, repr) {
-    'Calls wsChemicalIdentifierResolver() to convert the list of IDs `ids` into
-    the representation `repr`.'
+    ":\n\nCalls wsChemicalIdentifierResolver() to convert a list of IDs into
+    another representation.
+    \nids: A character vector containing IDs.
+    \nrepr: The targeted representation.
+    \nReturned value: A character vector, the same length as `ids`, containing
+    the converted IDs. NA values will be set when conversion is not possible.
+    "
     
     res <- character()
     msg <- paste0('Converting IDs to ', repr)
@@ -114,7 +134,10 @@ conv=function(ids, repr) {
 ################################################################################
 
 convCasToInchi=function(cas) {
-    'Convert a list of CAS IDs into a list of InChI.'
+    ":\n\nConverts a list of CAS IDs into a list of InChI.
+    \ncas: A character vector containing CAS IDs.
+    \nReturned value: A character vector, the same length as `ids`, containing InChI values or NA values where conversion was not possible.
+    "
     
     return(.self$conv(cas, 'InChI'))
 },
@@ -123,7 +146,10 @@ convCasToInchi=function(cas) {
 ################################################################################
 
 convCasToInchikey=function(cas) {
-    'Convert a list of CAS IDs into a list of InChI keys.'
+    ":\n\nConverts a list of CAS IDs into a list of InChI keys.
+    \ncas: A character vector containing CAS IDs.
+    \nReturned value: A character vector, the same length as `ids`, containing InChI Key values or NA values where conversion was not possible.
+    "
     
     inchikey <- .self$conv(cas, 'InChIKEY')
     inchikey <- sub('^InChIKey=', '', inchikey)
@@ -135,6 +161,8 @@ convCasToInchikey=function(cas) {
 ################################################################################
 
 requiresDownload=function() {
+    # Overrides super class' method.
+
     return(TRUE)
 },
 

@@ -43,7 +43,10 @@ initialize=function(...) {
 ################################################################################
 
 writingIsAllowed=function() {
-    "Returns TRUE if writing is allowed for this database."
+    ":\n\nTests if the connector has access right to the database.
+    \nReturned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
+    "
     
     .self$.initWritable()
 
@@ -54,7 +57,9 @@ writingIsAllowed=function() {
 ################################################################################
 
 allowWriting=function() {
-    "Allow writing for this database."
+    ":\n\nAllows the connector to write into this database.
+    \nReturned value: None.
+    "
 
     .self$setWritingAllowed(TRUE)
 },
@@ -63,7 +68,9 @@ allowWriting=function() {
 ################################################################################
 
 disallowWriting=function() {
-    "Disallow writing for this database."
+    ":\n\nDisallows the connector to write into this database.
+    \nReturned value: None.
+    "
     
     .self$setWritingAllowed(FALSE)
 },
@@ -72,7 +79,10 @@ disallowWriting=function() {
 ################################################################################
 
 setWritingAllowed=function(allow) {
-    "Allow or disallow writing for this database."
+    ":\n\nAllows or disallows writing for this database.
+    \nallow: If set to TRUE, allows writing.
+    \nReturned value: None.
+    "
     
     .self$.assertIs(allow, 'logical')
     .self$.writing.allowed <- allow
@@ -82,8 +92,10 @@ setWritingAllowed=function(allow) {
 ################################################################################
 
 write=function() {
-    "Write the database. All modifications made to the database since the last
-    time write() was called will be saved."
+    ":\n\nWrites into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    \nReturned value: None.
+    "
 
     .self$.checkWritingIsAllowed()
     .self$.doWrite()

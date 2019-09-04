@@ -3,6 +3,11 @@
 # NcbiPubchemSubstConn {{{1
 ################################################################################
 
+#' NCBI PubChem Substance connector class.
+#'
+#' @include NcbiPubchemConn.R
+#' @export NcbiPubchemSubstConn
+#' @exportClass NcbiPubchemSubstConn
 NcbiPubchemSubstConn <- methods::setRefClass("NcbiPubchemSubstConn",
     contains="NcbiPubchemConn",
 

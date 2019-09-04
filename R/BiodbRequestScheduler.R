@@ -22,14 +22,6 @@
 #' database. This class is not meant to be used directly by the library user.
 #' See section Fields for a list of the constructor's parameters.
 #'
-#' @param url           The URL to access, as a character string.
-#' @param soap.request  The XML SOAP request to send, as a character string. 
-#' @param soap.action   The SOAP action to contact, as a character string.
-#' @param params        The list of parameters to use with the URL.
-#' @param method        The method to use: either 'get' or 'post'.
-#' @param opts          The CURL options to use.
-#' @param dest.file     A path to a destination file.
-#'
 #' @seealso \code{\link{BiodbRemotedbConn}},
 #' \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
 #'
@@ -91,7 +83,14 @@ initialize=function(...) {
 
 sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
                          encoding=integer()) {
-    "Send a SOAP request to a URL. Returns the string result."
+    ":\n\nSends a SOAP request to a URL. Returns the string result.
+    \nurl: The URL to access, as a character string.
+    \nsoap.request: The XML SOAP request to send, as a character string. 
+    \nsoap.action: The SOAP action to contact, as a character string.
+    \nencoding: The encoding to use.
+    \nReturned value: The results returned by the contacted server, as a single
+    string value.
+    "
 
     # Prepare request
     header <- c(Accept="text/xml", Accept="multipart/*",
@@ -110,7 +109,15 @@ sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
 ################################################################################
 
 sendRequest=function(request, cache.read=TRUE) {
-    "Send a request, and return content result."
+    ":\n\nSends a request, and returns content result.
+    \nrequest: A BiodbRequest instance.
+    \ncache.read: If set to TRUE, the cache system will be used. In case the
+    same request has already been already run and its results saved into the
+    cache, then the request is not run again, the targeted server not contacted,
+    and the results are directly loaded from the cache system.
+    \nReturned value: The results returned by the contacted server, as a single
+    string value.
+    "
 
     content <- NA_character_
     cch <- .self$getBiodb()$getCache()
@@ -162,8 +169,12 @@ sendRequest=function(request, cache.read=TRUE) {
 ################################################################################
 
 downloadFile=function(url, dest.file) {
-    "Download the content of a URL and save it into the specified destination
-    file."
+    ":\n\nDownloads the content of a URL and save it into the specified
+    destination file.
+    \nurl: The URL to access, as a BiodbUrl object.
+    \ndest.file: A path to a destination file.
+    \nReturned value: None.
+    "
 
     # Get rule
     rule <- .self$.findRule(url)
@@ -211,10 +222,9 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Update frequency
     else {
         for (rule in .self$.connid2rules[[conn$getId()]])
-            rule$recomputeFrequency()
+            rule$.recomputeFrequency()
     }
 },
-
 
 # Check offline mode {{{3
 ################################################################################

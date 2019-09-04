@@ -11,17 +11,73 @@ instance of this class, you can choose to either log to a standard stream
 (standard error or standard output) or to a file. See section Fields for a
 list of the constructor's parameters.
 }
-\section{Fields}{
+\details{
+The constructor accepts the following arguments:
+
+file: The file path, file connection or standard stream to which you
+      want to send biodb messages.
+
+mode: For a file, the mode in which you want to open the file. 'w' for
+      writing (if a file already exists, it will be erased), and 'a' for
+      appending (if a file already exists, logs will be appended to it).
+
+close.file: If set to TRUE, and `file` is a file path or a file connection,
+            then the file connection will be closed when calling
+            `terminate()`. If it is set to FALSE, the connection will not be
+            closed.
+}
+\section{Methods}{
 
 \describe{
-\item{\code{file}}{The file path, file connection or standard stream to which you
-want to send biodb messages.}
+\item{\code{msg(type = "info", msg, class = NA_character_, method = NA_character_,
+  lvl = 1)}}{:
 
-\item{\code{mode}}{For a file, the mode in which you want to open the file. 'w' for
-writing (if a file already exists, it will be erased), and 'a' for
-appending (if a file already exists, logs will be appended to it).}
+Sends a message to this observer. The message will be accepted and
+    handled only if the level is lower or equal to the current level for the
+    message type. You can check current level for a type by calling getLevel()
+    and set the level with setLevel().
+    
+type: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+msg: The text message to send.
+    
+class: The class of the object that called this message method.
+    
+method: The method that called this message method.
+    
+lvl: The level of the message.
+    
+Returned value: None.
+    }
+
+\item{\code{progress(type = "info", msg, index, first, total = NA_integer_, lvl = 1)}}{:
+
+Sends a progress message to this observer.
+    
+type: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+msg: The text message to send.
+    
+index: The index in the progression, as an integer or numeric number.
+    
+total: The total to achieve in the progression, as an integer or numeric
+    number. Optional.
+    
+lvl: The level of the message.
+    
+Returned value: None.
+    }
+
+\item{\code{terminate()}}{:
+
+Terminates the instance. This method will be called
+    automatically by the Biodb instance when you call Biodb::terminate().
+    
+Returned value: None.
+    }
 }}
-
 
 \examples{
 # Create a file logger

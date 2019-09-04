@@ -5,16 +5,6 @@
 \alias{BiodbRemotedbConn-class}
 \alias{BiodbRemotedbConn}
 \title{The mother class of all remote database connectors.}
-\arguments{
-\item{concatenate}{If set to \code{TRUE}, then try to build as few URLs as
-possible, sending requests with several identifiers at once.}
-
-\item{entry.id}{The identifiers (e.g.: accession numbers) as a
-\code{character vector} of the database entries.}
-
-\item{max.length}{The maximum length of the URLs to return, in number of
-characters.}
-}
 \description{
 This is the super class of remote database connectors. It thus defines
 methods related to remote connection, like the definition of a token, and URL
@@ -25,9 +15,34 @@ the constructor parameters, for eventual developers.
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryContentFromDb(entry.id)}}{Get the content of an entry from the database.}
+\item{\code{getEntryContentFromDb(entry.id)}}{:
 
-\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{Get the URL to use in order to get the contents of the specified entries.}
+Get the contents of entries directly from the database. A direct request or 
+    an access to the database will be made in order to retrieve the contents. No
+    access to the biodb cache system will be made.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A character vector, the same size of entry.id, with
+    contents of the requested entries. An NA value will be set for the content
+    of each entry for which the retrieval failed.
+    }
+
+\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
+
+Gets the URL to use in order to get the contents of the specified
+    entries.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+concatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    
+max.length: The maximum length of the URLs to return, in number of
+ characters.
+    
+Returned value: A list of BiodbUrl objects.
+    }
 
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
@@ -40,7 +55,14 @@ Returned value: A character vector, the same length as `entry.id`,
     containing for each entry ID either a URL or NA if no URL exists.
     }
 
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 }}
 
 \examples{

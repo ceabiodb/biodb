@@ -3,7 +3,11 @@
 # PeakforestMassEntry {{{1
 ################################################################################
 
+#' PeakForest Mass entry class.
+#'
 #' @include BiodbJsonEntry.R
+#' @export PeakforestMassEntry
+#' @exportClass PeakforestMassEntry
 PeakforestMassEntry <- methods::setRefClass("PeakforestMassEntry",
     contains="BiodbJsonEntry",
 

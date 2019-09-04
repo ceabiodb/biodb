@@ -106,14 +106,14 @@ test.schedulerSleepTime <- function(biodb) {
 	cur.time <- Sys.time()
 	for (i in seq(n)) {
 		tt <- cur.time + (i - 1) * t / 10
-		testthat::expect_equal(rule$computeSleepTime(tt), 0)
-		rule$storeCurrentTime(tt)
+		testthat::expect_equal(rule$.computeSleepTime(tt), 0)
+		rule$.storeCurrentTime(tt)
 	}
-	testthat::expect_equal(rule$computeSleepTime(cur.time), t)
-	testthat::expect_true(abs(rule$computeSleepTime(cur.time + t - 0.1) - 0.1) < 1e-6)
-	testthat::expect_equal(rule$computeSleepTime(cur.time + t), 0)
-	rule$storeCurrentTime(cur.time + t)
-	testthat::expect_true(abs(rule$computeSleepTime(cur.time + t) - t / 10) < 1e-6)
+	testthat::expect_equal(rule$.computeSleepTime(cur.time), t)
+	testthat::expect_true(abs(rule$.computeSleepTime(cur.time + t - 0.1) - 0.1) < 1e-6)
+	testthat::expect_equal(rule$.computeSleepTime(cur.time + t), 0)
+	rule$.storeCurrentTime(cur.time + t)
+	testthat::expect_true(abs(rule$.computeSleepTime(cur.time + t) - t / 10) < 1e-6)
 }
 
 # Test BiodbUrl {{{1

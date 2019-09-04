@@ -5,13 +5,86 @@
 \alias{BiodbRequest-class}
 \alias{BiodbRequest}
 \title{Class Request.}
-\arguments{
-\item{url}{A \code{BiodbUrl} object.}
-}
 \description{
 This class represents a Request object that can be used with the Request
 Scheduler.
 }
+\details{
+The constructor takes the following arguments:
+
+url: A \code{BiodbUrl} object.
+
+method: HTTP method. Either "get" or "post".
+
+header: The header.
+
+body: The body.
+
+encoding: The encoding to use.
+}
+\section{Methods}{
+
+\describe{
+\item{\code{getBody()}}{:
+
+Gets the body.
+    
+Returned values: The body as a character value.
+    }
+
+\item{\code{getCurlOptions(useragent)}}{:
+
+Gets the options object to pass to cURL library.
+    
+useragent: The user agent as a character value.
+    
+Returned value: An RCurl options object.
+    }
+
+\item{\code{getEncoding()}}{:
+
+Gets the encoding. 
+    
+Returned value: The encoding.
+    }
+
+\item{\code{getHeaderAsSingleString()}}{:
+
+Gets the HTTP header as a string, concatenating all its information
+    into a single string.
+    
+Returned value: The header as a single character value.
+    }
+
+\item{\code{getMethod()}}{:
+
+Gets the method.
+    
+Returned value: The method as a character value.
+    }
+
+\item{\code{getUniqueKey()}}{:
+
+Gets a unique key to identify this request. The key is an MD5 computed
+    from the string representation of this request.
+    
+Returned value: A unique key as an MD5 sum.
+    }
+
+\item{\code{getUrl()}}{:
+
+Gets the URL.
+    
+Returned value: The URL as a BiodbUrl object.
+    }
+
+\item{\code{toString()}}{:
+
+Gets a string representation of this instance.
+    
+Returned value: A single string giving a representation of this instance.
+    }
+}}
 
 \examples{
 # Create an instance with default settings:

@@ -10,11 +10,19 @@
 #' (standard error or standard output) or to a file. See section Fields for a
 #' list of the constructor's parameters.
 #'
-#' @field file The file path, file connection or standard stream to which you
-#'        want to send biodb messages.
-#' @field mode For a file, the mode in which you want to open the file. 'w' for
-#'        writing (if a file already exists, it will be erased), and 'a' for
-#'        appending (if a file already exists, logs will be appended to it).
+#' The constructor accepts the following arguments:
+#'
+#' file: The file path, file connection or standard stream to which you
+#'       want to send biodb messages.
+#'
+#' mode: For a file, the mode in which you want to open the file. 'w' for
+#'       writing (if a file already exists, it will be erased), and 'a' for
+#'       appending (if a file already exists, logs will be appended to it).
+#'
+#' close.file: If set to TRUE, and `file` is a file path or a file connection,
+#'             then the file connection will be closed when calling
+#'             `terminate()`. If it is set to FALSE, the connection will not be
+#'             closed.
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
 #'
@@ -30,23 +38,20 @@
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
-#' 
+#'
 #' @import methods
 #' @include BiodbObserver.R
 #' @export BiodbLogger
 #' @exportClass BiodbLogger
 BiodbLogger <- methods::setRefClass("BiodbLogger",
-                                    contains='BiodbObserver',
-
-# Fields {{{2
-################################################################################
-
-fields=list(
-    .file='ANY',
-    .close.file='logical',
-    .lastime.progress='list',
-    .progress.laptime='integer',
-    .progress.initial.time='list'),
+    contains='BiodbObserver',
+    fields=list(
+        .file='ANY',
+        .close.file='logical',
+        .lastime.progress='list',
+        .progress.laptime='integer',
+        .progress.initial.time='list'
+        ),
 
 # Public methods {{{2
 ################################################################################
@@ -87,6 +92,8 @@ initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
 ################################################################################
 
 terminate=function() {
+    # Overrides super class' method.
+
     if (.self$.close.file && ! is.null(.self$.file)
         && ! methods::is(.self$.file, 'terminal'))
         close(.self$.file)
@@ -95,8 +102,9 @@ terminate=function() {
 # Message {{{3
 ################################################################################
 
-msg=function(type='info', msg, class=NA_character_,
-                   method=NA_character_, lvl=1) {
+msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
+{
+    # Overrides super class' method.
 
     .self$checkMessageType(type)
     setlvl <- .self$getLevel(type)
@@ -122,10 +130,11 @@ msg=function(type='info', msg, class=NA_character_,
     }
 },
 
-# Info progress {{{3
+# Progress {{{3
 ################################################################################
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
+    # Overrides super class' method.
     
     t <- Sys.time()
     msgid <- msg

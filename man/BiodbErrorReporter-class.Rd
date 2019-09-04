@@ -9,6 +9,31 @@
 This class is not meant to be used directly. It is automatically instantiated
 inside biodb constructor in order to report errors.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{msg(type = "info", msg, class = NA_character_, method = NA_character_,
+  lvl = 1)}}{:
+
+Sends a message to this observer. The message will be accepted and
+    handled only if the level is lower or equal to the current level for the
+    message type. You can check current level for a type by calling getLevel()
+    and set the level with setLevel().
+    
+type: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    
+msg: The text message to send.
+    
+class: The class of the object that called this message method.
+    
+method: The method that called this message method.
+    
+lvl: The level of the message.
+    
+Returned value: None.
+    }
+}}
 
 \seealso{
 \code{\link{Biodb}}, \code{\link{BiodbObserver}}.

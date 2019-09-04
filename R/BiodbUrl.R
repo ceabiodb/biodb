@@ -7,8 +7,11 @@
 #'
 #' This class represents a URL object that can be used in requests.
 #'
-#' @param url           The URL to access, as a character string.
-#' @param params        The list of parameters to use with the URL.
+#' The following arguments are accepted by the constructor:
+#'
+#' url: The URL to access, as a character string.
+#'
+#' params: The list of parameters to use with the URL.
 #'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 #'
@@ -58,6 +61,9 @@ initialize=function(url=character(), params=character()) {
 ################################################################################
 
 getDomain=function() {
+    ":\n\nGets the domain.
+    \nReturned value: None.
+    "
 
     domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', .self$.url[[1]], perl=TRUE)
 
@@ -68,6 +74,11 @@ getDomain=function() {
 ################################################################################
 
 setUrl=function(url) {
+    ":\n\nSets the base URL string.
+    \nurl: The base URL string.
+    \nReturned value: None.
+    "
+    
     .self$.url <- url
 },
 
@@ -75,6 +86,12 @@ setUrl=function(url) {
 ################################################################################
 
 setParam=function(key, value) {
+    ":\n\nSets a parameter.
+    \nkey:
+    \nvalue:
+    \nReturned value: None.
+    "
+    
     .self$.params[[key]] <- value
 },
 
@@ -82,6 +99,10 @@ setParam=function(key, value) {
 ################################################################################
 
 show=function() {
+    ":\n\nDisplays information about this instance.
+    \nReturned value: None.
+    "
+    
     cat(.self$toString(), "\n", sep='')
 },
 
@@ -89,6 +110,10 @@ show=function() {
 ################################################################################
 
 toString=function(encode=TRUE) {
+    ":\n\nGets the URL as a string representation.
+    \nencode: If set to TRUE, then encodes the URL.
+    \nReturned value: The URL as a string, with all parameters and values set.
+    "
 
     # Remove '/' at start and end of each element of the URL
     url <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url)

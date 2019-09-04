@@ -10,16 +10,13 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @param name      The name to search for.
-#' @param comment   The comment to search for.
-#'
 #' @include BiodbRemotedbConn.R
 #' @export ExpasyEnzymeConn
 #' @exportClass ExpasyEnzymeConn
 ExpasyEnzymeConn <- methods::setRefClass("ExpasyEnzymeConn",
     contains="BiodbRemotedbConn",
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -28,8 +25,16 @@ methods=list(
 ################################################################################
 
 wsEnzymeByName=function(name, retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Calls enzyme-byname web service and returns the HTML result. See
-    http://enzyme.expasy.org/enzyme-byname.html."
+    ":\n\nCalls enzyme-byname web service and returns the HTML result. See
+    http://enzyme.expasy.org/enzyme-byname.html.
+    \nname: The name to search for.
+    \nretfmt: The format to use for the returned value. 'plain' will return the
+    raw result from the server, as a character value. 'request' will return a
+    BiodbRequest instance containing the request as it would have been sent.
+    'parsed' will return an XML object, containing the parsed result. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -54,8 +59,16 @@ wsEnzymeByName=function(name, retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
 wsEnzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed',
                                              'ids')) {
-    "Calls enzyme-bycomment web service and returns the HTML result. See
-    http://enzyme.expasy.org/enzyme-bycomment.html."
+    ":\n\nCalls enzyme-bycomment web service and returns the HTML result. See
+    http://enzyme.expasy.org/enzyme-bycomment.html.
+    \ncomment: The comment to search for.
+    \nretfmt: The format to use for the returned value. 'plain' will return the
+    raw result from the server, as a character value. 'request' will return a
+    BiodbRequest instance containing the request as it would have been sent.
+    'parsed' will return an XML object, containing the parsed result. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -75,10 +88,11 @@ wsEnzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed',
     return(results)
 },
 
-# Get entry page url {{{3
+# Get entry page URL {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
 
     urls <- rep(NA_character_, length(id))
 
@@ -101,7 +115,6 @@ getEntryPageUrl=function(id) {
 
     return(urls)
 },
-
 
 # Private methods {{{2
 ################################################################################

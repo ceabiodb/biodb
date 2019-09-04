@@ -3,7 +3,11 @@
 # KeggModuleEntry {{{1
 ################################################################################
 
+#' KEGG Module entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggModuleEntry
+#' @exportClass KeggModuleEntry
 KeggModuleEntry <- methods::setRefClass("KeggModuleEntry",
     contains='KeggEntry',
 

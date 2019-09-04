@@ -10,11 +10,6 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @param id        A character vector of entry IDs.
-#' @param drop      \code{TRUE} if you want to get a single element outside of
-#'                  a list, or \code{FALSE} if you want to keep the element
-#'                  inside a list even if it is single.
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.
 #'
 #' @examples
@@ -51,15 +46,18 @@ initialize=function(...) {
     callSuper(db.name='pathway', db.abbrev='path', ...)
 },
 
-
 # Get reactions {{{3
 ################################################################################
 
 getReactions=function(id, drop=TRUE) {
-    "Retrieve all reactions part of a KEGG pathway. Connect to KEGG databases,
-    and walk through all pathways submitted, and their modules, to find all
-    reactions they are composed of. Returns a list of KEGG reaction objects or
-    a single KEGG reaction objects, depending on the drop parameter."
+    ":\n\nRetrieves all reactions part of a KEGG pathway. Connects to
+    KEGG databases, and walk through all pathways submitted, and
+    their modules, to find all reactions they are composed of.
+    \nid: A character vector of entry IDs.
+    \ndrop: If set to TRUE, returns a single KEGG reaction object
+    instead of a list, if the list contains only one element.
+    \nReturned value: A list of KEGG reaction objects.
+    "
 
     reactions <- list()
     react_ids <- character()
@@ -101,8 +99,17 @@ getReactions=function(id, drop=TRUE) {
 ################################################################################
 
 convertToOrgPathways=function(id, org) {
-    "Take a list of pathways IDs and convert them to the specified organism,
-    filtering out the ones that do not exist in KEGG."
+    ":\n\nTakes a list of pathways IDs and converts them to the
+    specified organism, filtering out the ones that do not exist in
+    KEGG.
+    \nid: A character vector of entry IDs.
+    \norg: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nReturned value: A character vector, the same length as `id`,
+    containing the converted IDs.
+    "
     
     # Set organism code in IDs
     id <- sub('^[^0-9]+', org, id)
@@ -119,11 +126,19 @@ convertToOrgPathways=function(id, org) {
 # Build pathway graph {{{3
 ################################################################################
 
-buildPathwayGraph=function(id, directed=FALSE,
-                                                      drop=TRUE) {
-    "Build a pathway graph using KEGG database. Returns a named list whose
+buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
+    ":\n\nBuilds a pathway graph in the form of two tables of
+    vertices and edges, using KEGG database.
+    \nid: A character vector of KEGG pathway entry IDs.
+    \ndirected: If set to TRUE, use available direction information
+    to create directed edges, duplicating if necessary the vertices.
+    \ndrop: If set to TRUE and the output list contains only one
+    element, then the returned value is a single list of two data
+    frames.
+    \nReturned value: A named list whose
     names are the pathway IDs, and values are lists containing two data frames
-    named vertices and edges."
+    named vertices and edges.
+    "
 
     graph <- list()
 
@@ -161,10 +176,16 @@ buildPathwayGraph=function(id, directed=FALSE,
 # Get pathway igraph {{{3
 ################################################################################
 
-getPathwayIgraph=function(id, directed=FALSE,
-                                                     drop=TRUE) {
-    "Build a pathway graph using KEGG database. Returns an \\code{igraph}
-    object, or NULL if the igraph library is not available."
+getPathwayIgraph=function(id, directed=FALSE, drop=TRUE) {
+    ":\n\nBuilds a pathway graph, as an igraph object, using KEGG database.
+    \nid: A character vector of KEGG pathway entry IDs.
+    \ndirected: If set to TRUE, use available direction information
+    to create directed edges, duplicating if necessary the vertices.
+    \ndrop: If set to TRUE and the output list contains only one
+    element, then the returned value is a single igraph object.
+    \nReturned value: A list of igraph objects, or an empty list if
+    the igraph library is not available.
+    "
 
     graph <- list()
  
@@ -197,6 +218,11 @@ getPathwayIgraph=function(id, directed=FALSE,
 ################################################################################
 
 getDecoratedGraphPicture=function(id, color2ids) {
+    ":\n\nCreate a pathway graph picture, with some of its elements colorized.
+    \nid: A KEGG pathway ID.
+    \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
+    \nReturned value: an image object or NULL if the package magick is not available.
+    "
  
     pix <- NULL
     
@@ -224,6 +250,11 @@ getDecoratedGraphPicture=function(id, color2ids) {
 ################################################################################
 
 extractPathwayMapShapes=function(id, color2ids) {
+    ":\n\nExtracts shapes from a pathway map image.
+    \nid: A KEGG pathway ID.
+    \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
+    \nReturned value: A list of BiodbShape objects.
+    "
                             
     shapes <- list()
     
@@ -237,8 +268,8 @@ extractPathwayMapShapes=function(id, color2ids) {
             eid <- gsub('\\.', '\\\\.', id)
             
             regex=paste0('shape=([^ ]+)\\s+',
-                            'coords=([^ ]+)\\s+.+',
-                            'title="[^"]*[ ,](', eid, ')[ ,][^"]*"')
+                         'coords=([^ ]+)\\s+.+',
+                         'title="[^"]*[ ,](', eid, ')[ ,][^"]*"')
             g <- stringr::str_match_all(html, regex)[[1]]
             if (nrow(g) > 0) {
                 

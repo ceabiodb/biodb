@@ -3,7 +3,11 @@
 # KeggEntry {{{1
 ################################################################################
 
+#' KEGG entry abstract class.
+#'
 #' @include BiodbTxtEntry.R
+#' @export KeggEntry
+#' @exportClass KeggEntry
 KeggEntry=methods::setRefClass("KeggEntry",
     contains='BiodbTxtEntry',
 

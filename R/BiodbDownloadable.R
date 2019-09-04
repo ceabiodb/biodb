@@ -57,7 +57,9 @@ initialize=function(...) {
 ################################################################################
 
 getDownloadPath=function() {
-    "Get the path where the downloaded containt is written."
+    ":\n\nGets the path where the downloaded content is written.
+    \nReturned value: The path where the downloaded database is written.
+    "
 
     cch <- .self$getBiodb()$getCache()
     ext <- .self$getPropertyValue('dwnld.ext')
@@ -80,7 +82,9 @@ requiresDownload=function() {
 ################################################################################
 
 isDownloaded=function() {
-    "Returns TRUE if the database containt has already been downloaded."
+    ":\n\nTests if the database has been downloaded.
+    \nReturned value: TRUE if the database content has already been downloaded.
+    "
 
     already.downloaded <- file.exists(.self$getDownloadPath())
 
@@ -95,7 +99,11 @@ isDownloaded=function() {
 ################################################################################
 
 isExtracted=function() {
-    "Returns TRUE of the downloaded database containt has been extracted."
+    ":\n\nTests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    \nReturned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
+    "
 
     cch <- .self$getBiodb()$getCache()
     return(cch$markerExist(.self$getCacheId(), subfolder='shortterm',
@@ -106,7 +114,9 @@ isExtracted=function() {
 ################################################################################
 
 download=function() {
-    "Download the database containt locally."
+    ":\n\nDownloads the database content locally.
+    \nReturned value: None.
+    "
 
     cch <- .self$getBiodb()$getCache()
 

@@ -5,9 +5,9 @@
 
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
-#' @include BiodbMassdbConn.R 
-#' @include BiodbEditable.R 
-#' @include BiodbWritable.R 
+#' @include BiodbMassdbConn.R
+#' @include BiodbEditable.R
+#' @include BiodbWritable.R
 MassSqliteConn <- methods::setRefClass('MassSqliteConn',
     contains=c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'),
     fields=list(
@@ -33,7 +33,8 @@ initialize=function(...) {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
-    
+    # Overrides super class' method.
+
     # Initialize contents to return
     content <- rep(list(NULL), length(entry.id))
 
@@ -42,7 +43,7 @@ getEntryContentFromDb=function(entry.id) {
     if ( ! is.null(.self$.db)) {
 
         ef <- .self$getBiodb()$getEntryFields()
-        
+
         # Loop on all entry IDs
         i <- 0
         for (accession in entry.id) {
@@ -80,6 +81,7 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 getChromCol=function(ids=NULL) {
+    # Overrides super class' method.
 
     chrom.cols <- data.frame(id=character(0), title=character(0))
 

@@ -8,26 +8,6 @@
 #' All Mass spectra databases inherit from this class. It thus defines methods
 #' specific to mass spectrometry.
 #'
-#' @param dist.fun      The distance function used to compute the distance
-#' betweem two mass spectra.
-#' @param entry.ids     A list of entry IDs (vector of characters).
-#' @param ids           A list of entry identifiers (i.e.: accession numbers).
-#' Used to restrict the set of entries on which to run the algorithm.
-#' @param msms.mz.tol       M/Z tolerance to apply while matching MSMS spectra.
-#' In PPM.
-#' @param msms.mz.tol.min   Minimum of the M/Z tolerance (plain unit). If the
-#' M/Z tolerance computed with \code{msms.mz.tol} is lower than
-#' \code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.
-#' @param mz.max        A vector of maximum M/Z values to match. Goes with
-#' mz.min, and mut have the same length.
-#' @param mz.min        A vector of minimum M/Z values to match. Goes with
-#' mz.max, and mut have the same length.
-#' @param npmin         The minimum number of peak to detect a match (2 is
-#' recommended).
-#' @param precursor.mz  The M/Z value of the precursor peak of the mass
-#' spectrum.
-#' @param spectrum      A template spectrum to match inside the database.
-#'
 #' @seealso \code{\link{BiodbConn}}.
 #'
 #' @examples
@@ -65,10 +45,12 @@ initialize=function(...) {
 ################################################################################
 
 getChromCol=function(ids=NULL) {
-    "Get a list of chromatographic columns contained in this database. You can
-    filter on specific entries using the ids parameter. The returned value is a
-    data.frame with two columns : one for the ID 'id' and another one for the
-    title 'title'."
+    ":\n\nGets a list of chromatographic columns contained in this database.
+    \nids: A character vector of entry identifiers (i.e.: accession numbers).
+    Used to restrict the set of entries on which to run the algorithm.
+    \nReturned value : A data.frame with two columns, one for the ID 'id' and
+    another one for the title 'title'.
+    "
 
     .self$.abstractMethod()
 },
@@ -78,7 +60,15 @@ getChromCol=function(ids=NULL) {
 
 getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
                      precursor=FALSE, ms.level=0) {
-    "Get a list of M/Z values contained inside the database."
+    ":\n\nGets a list of M/Z values contained inside the database.
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
+    to one mode.
+    \nmax.results: If set, it is used to limit the size of the output.
+    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
+    \nms.level: The MS level to which you want to restrict your search.
+    0 means that you want to search in all levels.
+    \nReturned value: A numeric vector containing M/Z values.
+    "
 
     .self$.doGetMzValues(ms.mode=ms.mode, max.results=max.results,
                          precursor=precursor, ms.level=ms.level)
@@ -88,7 +78,13 @@ getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
 ################################################################################
 
 getNbPeaks=function(mode=NULL, ids=NULL) {
-    "Returns the number of peaks contained in the database."
+    ":\n\nGets the number of peaks contained in the database.
+    \nmode: The MS mode. Set it to either 'neg' or 'pos' to limit the counting
+    to one mode.
+    \nids: A character vector of entry identifiers (i.e.: accession numbers).
+    Used to restrict the set of entries on which to run the algorithm.
+    \nReturned value: The number of peaks, as an integer.
+    "
 
     .self$.abstractMethod()
 },
@@ -98,7 +94,25 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
 filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                            chrom.col.ids, match.rt) {
-    "Filter a list of entries on retention time values."
+    ":\n\nFilters a list of entries on retention time values.
+    \nentry.ids: A character vector of entry IDs.
+    \nrt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    \nrt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    \nrt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    \nchrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    \nmatch.rt: If set to TRUE, filters on RT values, otherwise does not do any
+    filtering.
+    \nReturned value: A character vector containing entry IDs after filtering.
+    "
 
     .self$.checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
                         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
@@ -187,12 +201,43 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
                          precursor=FALSE,
                          min.rel.int=NA_real_, ms.mode=NA_character_,
                          max.results=NA_integer_, ms.level=0) {
-    "Search for entries (i.e.: spectra) that contains a peak around the given
+    ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the given
     M/Z value. Entries can also be filtered on RT values. You can input either a
     list of M/Z values through mz argument and set a tolerance with mz.tol
     argument, or two lists of minimum and maximum M/Z values through mz.min and
-    mz.max arguments.  Returns a character vector of spectra IDs."
-    
+    mz.max arguments.
+    \nmz: A vector of M/Z values.
+    \nmz.shift: A shift applied on all M/Z values.
+    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    \nmz.min: A vector of minimum M/Z values.
+    \nmz.max: A vector of maximum M/Z values. Its length must be the same as
+    `mz.min`.
+    \nrt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    \nrt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    \nrt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    \nchrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
+    \nmin.rel.int: The minimum relative intensity, in percentage (i.e.: float
+    number between 0 and 100).
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    \nms.level: The MS level to which you want to restrict your search.
+    0 means that you want to search in all levels.
+    \nmax.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    \nReturned value: A character vector of spectra IDs.
+    "
+
     # Check arguments
     check.param <- .self$.checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
         mz=mz, mz.shift=mz.shift, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
@@ -268,8 +313,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     precursor=FALSE, precursor.rt.tol=NA_real_, insert.input.values=TRUE,
     prefix.on.result.cols=NULL, compute=TRUE,
     input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
-    "For each M/Z value, search for matching MS spectra and return the matching
-    peaks.
+    ":\n\nFor each M/Z value, searches for matching MS spectra and returns the
+    matching peaks.
     \ninput.df: A data frame taken as input for searchMsPeaks(). It must
     contain a columns 'mz', and optionaly an 'rt' column.
     \nmz: A vector of M/Z values to match. Used if input.df is not set.
@@ -281,7 +326,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     number between 0 and 100).
     \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
     \nms.level: The MS level to which you want to restrict your search.
-    0 means that you want to serach in all levels.
+    0 means that you want to search in all levels.
     \nmax.results: If set, it is used to limit the number of matches found for
     each M/Z value.
     \nchrom.col.ids: IDs of chromatographic columns on which to match the
@@ -306,6 +351,11 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     entries to data frame.
     \ninput.df.colnames: Names of the columns in the input data frame.
     \nmatch.rt: If set to TRUE, match also RT values.
+    \nReturned value: A data frame with at least input MZ and RT columns, and
+    annotation columns prefixed with `prefix.on.result.cols` if set. For each
+    matching found a row is output. Thus if n matchings are found for M/Z value
+    x, then there will be n rows for x, each for a different match. The number
+    of matching found for each M/Z value is limited to `max.results`.
     "
 
     # Check arguments
@@ -369,7 +419,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
                         paste((if (length(ids) <= 10) ids
                                else ids[seq_len(10)]), collapse=', '), '.')
         }
-        
+
         # Filter on RT value
         if  (check.param$use.rt.match) {
             rt <- input.df[i, input.df.colnames[['rt']]]
@@ -405,7 +455,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE,
                                                   compute=compute)
         .self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
-        
+
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
         mz.range <- .self$.convertMzTolToRange(mz=mz, mz.shift=mz.shift,
@@ -459,8 +509,28 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     ms.mode, npmin=2,
     dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
     msms.mz.tol.min=0.005, max.results=NA_integer_) {
-    "Search MSMS spectra matching a template spectrum. The mz.tol parameter is
-    applied on the precursor search."
+    ":\n\nSearches MSMS spectra matching a template spectrum. The mz.tol
+    parameter is applied on the precursor search.
+    \nspectrum: A template spectrum to match inside the database.
+    \nprecursor.mz: The M/Z value of the precursor peak of the mass spectrum.
+    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    \nnpmin: The minimum number of peak to detect a match (2 is recommended).
+    \ndist.fun: The distance function used to compute the distance betweem two
+    mass spectra.
+    \nmsms.mz.tol: M/Z tolerance to apply while matching MSMS spectra.  In PPM.
+    \nmsms.mz.tol.min: Minimum of the M/Z tolerance (plain unit). If the M/Z
+    tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
+    `msms.mz.tol.min` will be used.
+    \nmax.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    \nReturned value: A data frame with columns `id`, `score` and `peak.*`. Each
+    `peak.*` column corresponds to a peak in the input spectrum, in the same
+    order and gives the number of the peak that was matched with it inside the
+    matched spectrum whose ID is inside the `id` column.
+    "
     
     peak.tables <- list()
     dist.fun <- match.arg(dist.fun)
@@ -505,7 +575,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
 
 collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
                                   sep='|') {
-    "Collapse rows of a results data frame, by outputing a data frame with only
+    ":\n\nCollapse rows of a results data frame, by outputing a data frame with only
     one row for each MZ/RT value.
     \nresults.df: Results data frame.
     \n mz.col: The name of the M/Z column in the results data frame.

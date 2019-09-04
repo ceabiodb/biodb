@@ -5,31 +5,73 @@
 \alias{KeggConn-class}
 \alias{KeggConn}
 \title{The connector abstract class to KEGG databases.}
-\arguments{
-\item{query}{The query to send to the database web service.}
-}
 \description{
 This is the mother class of all KEGG connectors. It defines code common to
 all KEGG connectors.
 }
+\details{
+The constructor accepts the following arguments:
+
+db.name: The database name as defined in
+http://www.kegg.jp/kegg/docs/keggapi.html.
+
+db.abbrev: The database abbreviated name, as defined in
+http://www.kegg.jp/kegg/docs/keggapi.html.
+}
 \section{Methods}{
 
 \describe{
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
 
-\item{\code{searchByName(name, max.results = NA_integer_)}}{Searches the database for entries whose name matches the specified name.
-    Returns a character vector of entry IDs.
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
+
+\item{\code{searchByName(name, max.results = NA_integer_)}}{:
+
+Searches the database for entries whose name matches the specified
+    name.  Returns a character vector of entry IDs.
     
 name: The name to look for.
     
-max.results: If set, the number of returned IDs is limited to the this
-    number.}
+max.results: If set, the number of returned IDs is limited to this
+    number.
+    
+Returned value: A character vector of entry IDs whose name matches the
+    requested name.
+    }
 
-\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{Search for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
-details.}
+\item{\code{wsFind(query, retfmt = c("plain", "request", "parsed", "ids"))}}{:
 
-\item{\code{wsList(retfmt = c("plain", "request", "ids"))}}{Get list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
-details.}
+Searches for entries. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details.
+    
+query: The query to send to the database web service.
+    
+retfmt: Use to set the format of the returned value. 'plain' will return
+    the raw result from the server, as a character value. 'request' will return
+    the request as it would have been sent, as a BiodbRequest object. 'parsed'
+    will return a data frame. 'ids' will return a character vector containing
+    the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt`.
+    }
+
+\item{\code{wsList(retfmt = c("plain", "request", "ids"))}}{:
+
+Gets the full list of entry IDs. See http://www.kegg.jp/kegg/docs/keggapi.html for
+    details.
+    
+retfmt: Use to set the format of the returned value. 'plain' will return
+    the raw result from the server, as a character value. 'request' will return
+    the request as it would have been sent, as a BiodbRequest object. 'ids' will
+    return a character vector containing entry IDs.
+    
+Returned value: Depending on `retfmt`.
+    }
 }}
 
 \examples{

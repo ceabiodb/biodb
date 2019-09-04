@@ -63,7 +63,7 @@ test.BiodbConn.show <- function(biodb) {
 ################################################################
 
 test.BiodbDbsInfo.show <- function(biodb) {
-	expect_output(biodb$getDbsInfo()$show(), regexp = '^Biodb databases information instance\\.$')
+	expect_output(biodb$getDbsInfo()$show(), regexp = '^Biodb databases information instance\\.\nThe following databases are defined:.*$')
 }
 
 # Test BiodbEntryFields show {{{1

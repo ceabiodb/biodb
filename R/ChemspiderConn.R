@@ -10,13 +10,6 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @param mass   The mass to search for.
-#' @param query  The query to send to the database.
-#' @param range  The range of the searched mass. Plain range, Dalton unit. The
-#' mass searched are between (mass - range) and (mass + range).
-#' @param retfmt The wanted returned format, in a web service method ("ws.*"
-#' methods).
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
 #' \code{\link{BiodbCompounddbConn}}.
 #'
@@ -43,6 +36,7 @@ methods=list(
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # Initialize return values
     content <- rep(NA_character_, length(entry.id))
@@ -79,43 +73,18 @@ getEntryContentFromDb=function(entry.id) {
 },
 
 
-# Do get entry content request {{{3
-################################################################################
-
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-
-    # Use batch requests
-    if (concatenate) {
-
-        # Divide IDs into group of max 100
-        id.chunks <- split(id, ceiling(seq_along(id) / 100))
-
-        # Create requests
-        fct <- function(x) .self$wsRecordsBatchPost(x, retfmt='request')
-        requests <- lapply(id.chunks, fct)
-    }
-
-    # One request for each ID
-    else {
-        fct <- function(x) .self$wsRecordsRecordidDetailsGet(x,
-                                                             retfmt='request')
-        requests <- lapply(id, fct)
-    }
-
-    return(requests)
-},
-
 # Get entry page url {{{3
 ################################################################################
 
 getEntryPageUrl=function(id) {
-    
+    # Overrides super class' method.
+
     fct <- function(x) {
         url <- c(.self$getPropValSlot('urls', 'base.url'),
                  paste('Chemical-Structure', x, 'html', sep='.'))
         BiodbUrl(url=url)$toString()
     }
-    
+
     return(vapply(id, fct, FUN.VALUE=''))
 },
 
@@ -123,6 +92,7 @@ getEntryPageUrl=function(id) {
 ################################################################################
 
 getEntryImageUrl=function(id) {
+    # Overrides super class' method.
 
     fct <- function(x) {
         url <- c(.self$getPropValSlot('urls', 'base.url'),
@@ -138,7 +108,9 @@ getEntryImageUrl=function(id) {
 ################################################################################
 
 getAllRecordFields=function() {
-    "Returns the complete list of all record fields provided by ChemSpider."
+    ":\n\nGets the complete list of all record fields provided by ChemSpider.
+    \nReturned value: A character vector containing all the record fields.
+    "
 
     return(c('SMILES', 'Formula', 'InChI', 'InChIKey', 'StdInChI',
              'StdInChIKey', 'AverageMass', 'MolecularWeight',
@@ -151,8 +123,17 @@ getAllRecordFields=function() {
 
 wsRecordsRecordidDetailsGet=function(recordid, fields=NULL,
                                      retfmt=c('plain', 'parsed', 'request')) {
-    "Access the records-recordId-details-get ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details."
+    ":\n\nAccesses the records-recordId-details-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details
+    for more details.
+    \nrecordid: The ID of the record.
+    \nfields: The list of fields to get.
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -188,8 +169,16 @@ wsRecordsRecordidDetailsGet=function(recordid, fields=NULL,
 
 wsRecordsBatchPost=function(recordids, fields=NULL,
                             retfmt=c('plain', 'parsed', 'request')) {
-    "Access the filter-name-post ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/post/records/batch."
+    ":\n\nAccesswa the filter-name-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/records/batch.
+    \nrecordids: A character vector containing record IDs.
+    \nfields: The list of fields to get.
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -230,8 +219,17 @@ wsRecordsBatchPost=function(recordids, fields=NULL,
 
 wsFilterNamePost=function(name, retfmt=c('plain', 'parsed', 'queryid', 'ids',
                                          'request')) {
-    "Access the filter-name-post ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/post/filter/name."
+    ":\n\nAccesses the filter-name-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/filter/name.
+    \nname:
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'queryid' will return a query ID usable with
+    wsFilterQueryIdStatusGet() and wsFilterQueryIdResultsGet() in order to do
+    asynchronous querying. 'ids' will return a character vector of entry IDs.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -261,8 +259,19 @@ wsFilterNamePost=function(name, retfmt=c('plain', 'parsed', 'queryid', 'ids',
 
 wsFilterMassPost=function(mass, range, retfmt=c('plain', 'parsed', 'queryid',
                                                 'ids', 'request')) {
-    "Access the filter-mass-post ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/post/filter/mass."
+    ":\n\nAccesses the filter-mass-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/filter/mass.
+    \nmass: The mass to search for.
+    \nrange: The range of the searched mass. Plain range, Dalton unit. The
+    masses searched are between (mass - range) and (mass + range).
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'queryid' will return a query ID usable with
+    wsFilterQueryIdStatusGet() and wsFilterQueryIdResultsGet() in order to do
+    asynchronous querying. 'ids' will return a character vector of entry IDs.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -293,8 +302,19 @@ wsFilterMassPost=function(mass, range, retfmt=c('plain', 'parsed', 'queryid',
 wsFilterQueryIdStatusGet=function(queryid, retfmt=c('plain', 'parsed', 'status',
                                                     'request'),
                                   cache.read=FALSE) {
-    "Access the filter-queryId-status-get ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status."
+    ":\n\nAccesses the filter-queryId-status-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.
+    \nqueryid: A query ID previously obtained with a request like
+    wsFilterNamePost().
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'status' will return only the status.
+    \ncache.read: If set to FALSE, the biodb cache won't be used. This is
+    necessary for normal use of this web service, since the status needs to be
+    polled on the server on each call.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     .self$.assertNotNull(queryid)
     .self$.assertNotNa(queryid)
@@ -333,8 +353,19 @@ wsFilterQueryIdStatusGet=function(queryid, retfmt=c('plain', 'parsed', 'status',
 wsFilterQueryIdResultsGet=function(queryid, start=0L, count=0L,
                                    retfmt=c('plain', 'parsed', 'ids',
                                             'request')) {
-    "Access the filter-queryId-results-get ChemSpider web service. See
-    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results."
+    ":\n\nAccesses the filter-queryId-results-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results.
+    \nqueryid: A query ID previously obtained with a request like
+    wsFilterNamePost().
+    \nstart: The index of the first result to retrieve.
+    \ncount: The number of results to retrieve.
+    \nretfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'ids' will return a character vector of entry
+    IDs.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     .self$.assertNotNull(queryid)
     .self$.assertNotNa(queryid)
@@ -377,6 +408,7 @@ wsFilterQueryIdResultsGet=function(queryid, start=0L, count=0L,
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
+    # Overrides super class' method
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -488,6 +520,32 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                                 mass.tol=mass.tol, max.results=max.results)
 
     return(ids)
+},
+
+# Do get entry content request {{{3
+################################################################################
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+
+    # Use batch requests
+    if (concatenate) {
+
+        # Divide IDs into group of max 100
+        id.chunks <- split(id, ceiling(seq_along(id) / 100))
+
+        # Create requests
+        fct <- function(x) .self$wsRecordsBatchPost(x, retfmt='request')
+        requests <- lapply(id.chunks, fct)
+    }
+
+    # One request for each ID
+    else {
+        fct <- function(x) .self$wsRecordsRecordidDetailsGet(x,
+                                                             retfmt='request')
+        requests <- lapply(id, fct)
+    }
+
+    return(requests)
 }
 
 ))

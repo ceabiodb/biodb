@@ -10,8 +10,6 @@
 #'
 #' @seealso \code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.
 #'
-#' @param db.id A database ID, as a character string.
-#'
 #' @examples
 #' # Getting the base URL of a database:
 #' mybiodb <- biodb::Biodb()
@@ -31,20 +29,16 @@
 #' @exportClass BiodbDbsInfo
 BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
     contains="BiodbChildObject",
-    
-# Fields {{{2
-################################################################################
-
-fields=list(
-    .dbs="list"
-),
+    fields=list(
+        .dbs="list"
+    ),
 
 # Public methods {{{2
 ################################################################################
 
 methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
 initialize=function(...) {
@@ -58,8 +52,12 @@ initialize=function(...) {
 ################################################################################
 
 define=function(def) {
-    'Define databases from a structured object, normally loaded from a YAML
-    file.'
+    ":\n\nDefine databases from a structured object, normally loaded from a YAML
+    file.
+    \ndef: A named list of database definitions. The names of the list will be 
+    the IDs of the databases.
+    \nReturned value: None.
+    "
 
     # Loop on all db info
     for (db in names(def))
@@ -78,8 +76,10 @@ define=function(def) {
 ################################################################################
 
 getIds=function() {
-    "Returns a character vector containing all the IDs of the defined
-    databases."
+    ":\n\nGets the database IDs.
+    \nReturned value: A character vector containing all the IDs of the defined
+    databases.
+    "
 
     return(names(.self$.dbs))
 },
@@ -88,7 +88,11 @@ getIds=function() {
 ################################################################################
 
 isDefined=function(db.id) {
-    "Returns TRUE if the specified id corresponds to a defined database."
+    ":\n\nTests if a database is defined.
+    \ndb.id: A database ID, as a character string.
+    \nReturned value: TRUE if the specified id corresponds to a defined
+    database, FALSE otherwise.
+    "
 
     return(db.id %in% names(.self$.dbs))
 },
@@ -97,8 +101,11 @@ isDefined=function(db.id) {
 ################################################################################
 
 checkIsDefined=function(db.id) {
-    "Throws an error if the specified id does not correspond to a defined
-    database."
+    ":\n\nChecks if a database is defined. Throws an error if the specified id
+    does not correspond to a defined database.
+    \ndb.id: A database ID, as a character string.
+    \nReturned value: None.
+    "
 
     if ( ! .self$isDefined(db.id))
         .self$error("Database \"", db.id, "\" is not defined.")
@@ -108,8 +115,11 @@ checkIsDefined=function(db.id) {
 ################################################################################
 
 get=function(db.id) {
-    "Returns the BiodbDbInfo instance corresponding to the specified database
-    ID."
+    ":\n\nGets information on a database.
+    \ndb.id: A database ID, as a character string.
+    \nReturned value: The BiodbDbInfo instance corresponding to the specified
+    database ID.
+    "
 
     .self$checkIsDefined(db.id)
     db <- .self$.dbs[[db.id]]
@@ -120,7 +130,8 @@ get=function(db.id) {
 ################################################################################
 
 getAll=function() {
-    "Returns a list of all BiodbDbInfo instances."
+    ":\n\nGets informations on all databases.
+    \nReturned value: A list of all BiodbDbInfo instances."
 
     return(unname(.self$.dbs))
 },
@@ -129,7 +140,15 @@ getAll=function() {
 ################################################################################
 
 show=function() {
+    ":\n\nPrints informations about this instance, listing also all databases
+    defined.
+    \nReturned value: None.
+    "
+
     cat("Biodb databases information instance.\n")
+    cat("The following databases are defined:\n")
+    for (id in names(.self$.dbs))
+        cat("  ", id, "\n")
 }
 
 ))

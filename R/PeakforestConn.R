@@ -3,7 +3,13 @@
 # PeakforestConn {{{1
 ################################################################################
 
+#' PeakForest connector abstract class.
+#'
+#' This abstract class is the mother class of all PeakForest connector classes.
+#'
 #' @include BiodbRemotedbConn.R
+#' @export PeakforestConn
+#' @exportClass PeakforestConn
 PeakforestConn <- methods::setRefClass("PeakforestConn",
     contains="BiodbRemotedbConn",
     fields=list(
@@ -32,27 +38,12 @@ initialize=function(db.name, ...) {
         .self$caution("Peakforest requires a token to function correctly.")
 },
 
-# Check if error {{{3
-################################################################################
-
-.checkIfError=function(content) {
-
-    if (length(grep('^<!DOCTYPE HTML ', content)) > 0) {
-        .self$message('debug', paste("Peakforest returned error: ", content))
-        return(TRUE)
-    }
-
-    if (length(grep('^<html>.*Apache Tomcat.*Error report', content)) > 0)
-        .self$message('error', paste("Peakforest connection error: ", content))
-
-    return(FALSE)
-},
-
 # Get entry content from database {{{3
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
-    
+    # Overrides super class' method.
+
     # Initialize contents to return
     content <- rep(NA_character_, length(entry.id))
 
@@ -90,7 +81,7 @@ getEntryContentFromDb=function(entry.id) {
 
         if (.self$.checkIfError(single.jsonstr))
             break
-        
+
         if (is.na(single.jsonstr))
             json <- NULL 
         else
@@ -116,6 +107,8 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
+
     return(.self$wsAllCount(retfmt='parsed'))
 },
 
@@ -124,6 +117,16 @@ getNbEntries=function(count=FALSE) {
 
 wsSearch=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed',
                                                   'ids')) {
+    ":\n\nCalls the search web service.
+    \nterm: The text to search for.
+    \nmax: The maximum number of matching entries to return.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -170,6 +173,14 @@ wsSearch=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed',
 ################################################################################
 
 wsAllCount=function(retfmt=c('plain', 'request', 'parsed')) {
+    ":\n\nCalls the all/count web service, and return the number of entries
+    contained inside the database.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed result, as an integer value. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -199,6 +210,15 @@ wsAllCount=function(retfmt=c('plain', 'request', 'parsed')) {
 ################################################################################
 
 wsAllIds=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    ":\n\nCalls the all/ids web service, and return full list of entry IDs
+    contained inside the database.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed result, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the entry IDs.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -234,6 +254,22 @@ wsAllIds=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
 
 # Private methods {{{2
 ################################################################################
+
+# Check if error {{{3
+################################################################################
+
+.checkIfError=function(content) {
+
+    if (length(grep('^<!DOCTYPE HTML ', content)) > 0) {
+        .self$message('debug', paste("Peakforest returned error: ", content))
+        return(TRUE)
+    }
+
+    if (length(grep('^<html>.*Apache Tomcat.*Error report', content)) > 0)
+        .self$message('error', paste("Peakforest connection error: ", content))
+
+    return(FALSE)
+},
 
 # Get entry ids {{{3
 ################################################################################

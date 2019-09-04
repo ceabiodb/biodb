@@ -3,15 +3,18 @@
 # MassCsvFileConn {{{1
 ################################################################################
 
-#' @include BiodbMassdbConn.R 
-#' @include BiodbEditable.R 
-#' @include BiodbWritable.R 
+#' Mass CSV File connector class.
+#'
+#' @include BiodbMassdbConn.R
+#' @include BiodbEditable.R
+#' @include BiodbWritable.R
+#' @export MassCsvFileConn
+#' @exportClass MassCsvFileConn
 MassCsvFileConn <- methods::setRefClass("MassCsvFileConn",
     contains=c("BiodbMassdbConn", 'BiodbWritable', 'BiodbEditable'),
     fields=list(
         .file.sep="character",
         .file.quote="character",
-        .field.multval.sep='character',
         .db="ANY",
         .db.orig.colnames="character",
         .fields="character",
@@ -36,7 +39,6 @@ initialize=function(...) {
     .self$.file.sep <- "\t"
     .self$.file.quote <- "\""
     .self$.fields <- character()
-    .self$.field.multval.sep <- ';'
     .self$.parsing.expr <- list()
 
     # Precursors
@@ -49,7 +51,10 @@ initialize=function(...) {
 ################################################################################
 
 getPrecursorFormulae=function() {
-    "Returns the list of formulae used to recognize precursors."
+    ":\n\nGets the list of formulae used to recognize precursors.
+    \nReturned value: A character vector containing chemical formulae.
+    "
+
     return (.self$.precursors)
 },
 
@@ -57,7 +62,11 @@ getPrecursorFormulae=function() {
 ################################################################################
 
 isAPrecursorFormula=function(formula) {
-    "Returns TRUE of the submitted formula is considered a precursor."
+    ":\n\nTests if a formula is a precursor formula.
+    \nformula: A chemical formula, as a character value.
+    \nReturned value: TRUE if the submitted formula is considered a precursor.
+    "
+
     return (formula %in% .self$.precursors)
 },
 
@@ -65,7 +74,11 @@ isAPrecursorFormula=function(formula) {
 ################################################################################
 
 setPrecursorFormulae=function(formulae) {
-    "Replace current formulae by this new list of formulae."
+    ":\n\nSets the list precursor formulae.
+    \nformulae: A character vector containing formulae.
+    \nReturned value: None.
+    "
+
     .self$.assertIs(formulae, 'character')
     .self$.precursors <- formulae[ ! duplicated(formulae)]
 },
@@ -74,7 +87,10 @@ setPrecursorFormulae=function(formulae) {
 ################################################################################
 
 addPrecursorFormulae=function(formulae) {
-    "Add new formulae to the list of formulae used to recognize precursors."
+    ":\n\nAdds new formulae to the list of formulae used to recognize precursors.
+    \nformulae: A character vector containing formulae.
+    \nReturned value: None.
+    "
 
     .self$.checkParsingHasBegan()
 
@@ -84,89 +100,108 @@ addPrecursorFormulae=function(formulae) {
     }
 },
 
-# Is valid field tag {{{3
-################################################################################
-
-isValidFieldTag=function(tag) {
-    return (tag %in% names(.self$.fields))
-},
-
 # Has field {{{3
 ################################################################################
 
-hasField=function(tag) {
+hasField=function(field) {
+    ":\n\nTests if a field is defined for this database instance.
+    \nfield: A valid Biodb entry field name.
+    \nReturned value: TRUE of the field is defined, FALSE otherwise.
+    "
 
-    tag <- tolower(tag)
+    field <- tolower(field)
 
-    if (is.null(tag) || is.na(tag))
-        .self$error("No tag specified.")
+    if (is.null(field) || is.na(field))
+        .self$error("No field specified.")
 
     # Load database file
     .self$.initDb()
 
-    return(tag %in% names(.self$.fields))
+    return(field %in% names(.self$.fields))
 },
 
 # Add field {{{3
 ################################################################################
 
-addField=function(tag, value) {
-    "Add a new field (column) to the database (data frame)."
+addField=function(field, value) {
+    ":\n\nAdds a new field to the database. The field must not already exist.
+    The same single value will be set to all entries for this field.
+    A new column will be written in the memory data frame, containing the value
+    given.
+    \nfield: A valid Biodb entry field name.
+    \nvalue: The value to set for this field.
+    \nReturned value: None.
+    "
 
     .self$.checkParsingHasBegan()
 
-    tag <- tolower(tag)
+    field <- tolower(field)
 
-    if (is.null(tag) || is.na(tag))
-        .self$error("No tag specified.")
+    if (is.null(field) || is.na(field))
+        .self$error("No field specified.")
 
     # Load database file
     .self$.initDb()
 
     # Field already defined?
-    if (tag %in% names(.self$.fields))
-        .self$error("Database field \"", tag, "\" is already defined.")
-    if (tag %in% names(.self$.db))
-        .self$error("Database column \"", tag, "\" is already defined.")
+    if (field %in% names(.self$.fields))
+        .self$error("Database field \"", field, "\" is already defined.")
+    if (field %in% names(.self$.db))
+        .self$error("Database column \"", field, "\" is already defined.")
 
     # Add new field
-    .self$debug('Adding new field ', tag, ' with value ',
+    .self$debug('Adding new field ', field, ' with value ',
                 paste(value, collapse=', '), '.')
-    .self$.db[[tag]] <- value
-    .self$.fields[[tag]] <- tag
+    .self$.db[[field]] <- value
+    .self$.fields[[field]] <- field
 },
 
-# Get field {{{3
+# Get field column name {{{3
 ################################################################################
 
-getField=function(tag) {
+getFieldColName=function(field) {
+    ":\n\nGet the column name corresponding to a Biodb field.
+    \nfield: A valid Biodb entry field name. This field must be defined for this
+    database instance.
+    \nReturned value: The column name from the CSV file.
+    "
 
-    tag <- tolower(tag)
+    field <- tolower(field)
 
-    if (is.null(tag) || is.na(tag))
-        .self$error("No tag specified.")
+    if (is.null(field) || is.na(field))
+        .self$error("No field specified.")
 
     # Load database file
     .self$.initDb()
 
-    # Check that this field tag is defined in the fields list
-    if ( ! tag %in% names(.self$.fields))
-        .self$error("Database field tag \"", tag, "\" is not defined.")
+    # Check that this field is defined in the fields list
+    if ( ! field %in% names(.self$.fields))
+        .self$error("Database field \"", field, "\" is not defined.")
 
-    return(.self$.fields[[tag]])
+    return(.self$.fields[[field]])
 },
 
 # Set field {{{3
 ################################################################################
 
-setField=function(tag, colname, ignore.if.missing=FALSE) {
+setField=function(field, colname, ignore.if.missing=FALSE) {
+    ":\n\nSets a field by making a correspondence between a Biodb field and one
+    or more columns of the loaded data frame.
+    \nfield: A valid Biodb entry field name. This field must not be already
+    defined for this database instance.
+    \ncolname: A character vector contain one or more column names from the CSV
+    file.
+    \nignore.if.missing: If set to TRUE, does not raise an error if one of the
+    columns does not exists in the CSV file.
+    \nReturned value: None.
+    "
 
     .self$.checkParsingHasBegan()
 
-    tag <- tolower(tag)
+    field <- tolower(field)
 
-    .self$.assertNotNull(tag)
-    .self$.assertNotNa(tag)
+    .self$.assertNotNull(field)
+    .self$.assertNotNa(field)
     .self$.assertNotNull(colname)
     .self$.assertNotNa(colname)
 
@@ -174,14 +209,14 @@ setField=function(tag, colname, ignore.if.missing=FALSE) {
     .self$.initDb()
 
     # Check that this is a correct field name
-    if ( ! .self$getBiodb()$getEntryFields()$isDefined(tag)) {
+    if ( ! .self$getBiodb()$getEntryFields()$isDefined(field)) {
         if ( ! ignore.if.missing)
-            .self$error("Database field \"", tag, "\" is not valid.")
+            .self$error("Database field \"", field, "\" is not valid.")
         return()
     }
 
     # Set real name (i.e.: official name) for field
-    tag <- .self$getBiodb()$getEntryFields()$getRealName(tag)
+    field <- .self$getBiodb()$getEntryFields()$getRealName(field)
 
     # Fail if column names are not found in file
     if ( ! all(colname %in% names(.self$.db))) {
@@ -192,15 +227,15 @@ setField=function(tag, colname, ignore.if.missing=FALSE) {
         return()
     }
 
-    .self$debug('Set field ', tag, ' to column(s) ',
+    .self$debug('Set field ', field, ' to column(s) ',
                 paste(colname, collapse=', '), '.')
-                  
+
     # One column used, only
     if (length(colname) == 1) {
 
         # Check values
-        if (.self$getBiodb()$getEntryFields()$isDefined(tag)) {
-            entry.field <- .self$getBiodb()$getEntryFields()$get(tag)
+        if (.self$getBiodb()$getEntryFields()$isDefined(field)) {
+            entry.field <- .self$getBiodb()$getEntryFields()$get(field)
 
             # Check values of enumerate type
             if (entry.field$isEnumerate()) {
@@ -212,32 +247,22 @@ setField=function(tag, colname, ignore.if.missing=FALSE) {
 
 
         # Set field
-        .self$.fields[[tag]] <- colname
+        .self$.fields[[field]] <- colname
     }
 
     # Use several column to join together
     else {
         fct <- function(i) { paste(.self$.db[i, colname], collapse='.') }
-        .self$.db[[tag]] <- vapply(seq(nrow(.self$.db)), fct, FUN.VALUE='')
-        .self$.fields[[tag]] <- tag
+        .self$.db[[field]] <- vapply(seq(nrow(.self$.db)), fct, FUN.VALUE='')
+        .self$.fields[[field]] <- field
     }
 },
-
-# Set field multiple value separator {{{3
-################################################################################
-
-setFieldMultValSep=function(sep) {
-
-    .self$.checkParsingHasBegan()
-
-    .self$.field.multval.sep <- sep
-},
-
 
 # Get nb entries {{{3
 ################################################################################
 
 getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
 
     n <- NA_integer_
 
@@ -252,6 +277,7 @@ getNbEntries=function(count=FALSE) {
 ################################################################################
 
 getChromCol=function(ids=NULL) {
+    # Overrides super class' method.
 
     # Extract needed columns
     db <- .self$.select(cols='chrom.col.name', ids=ids)
@@ -280,6 +306,7 @@ getChromCol=function(ids=NULL) {
 
 # Inherited from BiodbMassdbConn.
 getNbPeaks=function(mode=NULL, ids=NULL) {
+    # Overrides super class' method.
 
     # Get peaks
     peaks <- .self$.select(cols='peak.mztheo', mode=mode, ids=ids, drop=TRUE)
@@ -291,6 +318,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 ################################################################################
 
 getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
 
     # Initialize return values
     content <- rep(NA_character_, length(entry.id))
@@ -328,8 +356,11 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 setDb=function(db) {
-    "Set the database directly from a data frame. You must not have set the
-    database previously with the URL parameter."
+    ":\n\nSets the database directly from a data frame. You must not have set
+    the database previously with the URL parameter.
+    \ndb: A data frame containing your database.
+    \nReturned value: None.
+    "
 
     # URL point to an existing file?
     url <- .self$getPropValSlot('urls', 'base.url')
@@ -345,6 +376,7 @@ setDb=function(db) {
 ################################################################################
 
 defineParsingExpressions=function() {
+    # Overrides super class' method.
 
     entry.fields <- .self$getBiodb()$getEntryFields()
 

@@ -3,7 +3,14 @@
 # BiodbCsvEntry {{{1
 ################################################################################
 
+#' Entry class for content in CSV format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' CSV format.
+#'
 #' @include BiodbEntry.R
+#' @export BiodbCsvEntry
+#' @exportClass BiodbCsvEntry
 BiodbCsvEntry <- methods::setRefClass("BiodbCsvEntry",
     contains='BiodbEntry',
     fields=list(
@@ -37,7 +44,7 @@ initialize=function(sep=',', na.strings='NA', ...) {
 
     # Read all CSV file, including header line, into a data frame. The header
     # line will then be the first line. This is to avoid first column to be
-    # interpretated as row names by read.table in case the header line contains
+    # interpreted as row names by read.table in case the header line contains
     # one less field than the second line.
     df <- read.table(text=content, header=FALSE, row.names=NULL, sep=.self$.sep,
                      quote='', stringsAsFactors=FALSE,

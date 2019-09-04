@@ -70,23 +70,44 @@ if ('FUNCTIONS' %in% names(ENV)) {
 	TEST.FUNCTIONS <- FUNCTION.ALL
 }
 
-# Test observer {{{1
+# MsgAcknowledger observer class {{{1
 ################################################################
 
-TestObserver <- methods::setRefClass('TestObserver', contains = 'BiodbObserver', fields = list(.last.index = 'numeric'))
+# This observer is used to call a testthat::expect_*() method each time a
+# message is received. This is used when running tests on Travis-CI, so Travis
+# does not stop tests because no change is detected in output.
 
-TestObserver$methods( initialize = function(...) {
+MsgAcknowledger <- methods::setRefClass('MsgAcknowledger',
+    contains = 'BiodbObserver',
+    fields = list(
+        .last.index = 'numeric'
+        ),
+
+    methods=list(
+
+# Initialize {{{2
+################################################################
+
+initialize=function(...) {
 
 	callSuper(...)
 
 	.last.index <<- 0
-})
+},
 
-TestObserver$methods( msg = function(type = 'info', msg, class = NA_character_, method = NA_character_, lvl=1) {
+# Msg {{{2
+################################################################
+
+msg=function(type='info', msg, class=NA_character_, method=NA_character_,
+               lvl=1) {
 	testthat::expect_is(msg, 'character')
-})
+},
 
-TestObserver$methods( progress = function(type = 'info', msg, index, first, total=NA_character_, lvl=1) {
+# Progress {{{2
+################################################################
+
+progress=function(type='info', msg, index, first, total=NA_character_,
+                    lvl=1) {
 
 	.self$checkMessageType(type)
 
@@ -98,7 +119,9 @@ TestObserver$methods( progress = function(type = 'info', msg, index, first, tota
 		testthat::expect_lte(index, total)
 
 	.last.index <<- index
-})
+}
+
+))
 
 # Get log file descriptor {{{1
 ################################################################
@@ -123,7 +146,7 @@ create.biodb.instance <- function(offline = FALSE) {
 	logger$setLevel('info', 2L)
 
 	# Create test observer
-	test.observer <- TestObserver()
+	test.observer <- MsgAcknowledger()
 
 	# Create instance
 	biodb <- Biodb$new()
@@ -309,56 +332,104 @@ test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
 	}
 }
 
-# Create test observer {{{1
-################################################################
+# MsgRecorder observer class {{{1
+################################################################################
 
-create.test.observer <- function(biodb) {
+MsgRecorder <- methods::setRefClass("MsgRecorder",
+    contains = "BiodbObserver",
+    fields = list(
+                  .msgs='character',
+                  .msgs.by.type='list'
+                  ),
+    methods=list(
 
-	# Create test observer class
-	TestObs <- methods::setRefClass("TestObs", contains = "BiodbObserver", fields = list(.msgs = 'character', .msgs.by.type = 'list'))
-	TestObs$methods( initialize = function(...) {
-		.msgs <<- character()
-		.msgs.by.type <<- list()
-	})
-	TestObs$methods( msg = function(type, msg, class = NA_character_, method = NA_character_, lvl = 1) {
-		.msgs <<- c(.self$.msgs, msg)
-		.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
-	})
-	TestObs$methods( hasMsgs = function(type = NULL) {
+# Initialize {{{2
+################################################################################
 
-		f = FALSE
+initialize=function(...) {
+	.msgs <<- character()
+	.msgs.by.type <<- list()
+},
 
-		if (is.null(type))
-			f = (length(.self$.msg) > 0)
-		else
-			f = if (type %in% names(.self$.msgs.by.type)) (length(.self$.msgs.by.type[[type]])) else FALSE
+# Msg {{{2
+################################################################################
 
-		return(f)
-	})
-	TestObs$methods( lastMsg = function() {
-		return(.self$.msgs[[length(.self$.msgs)]])
-	})
-	TestObs$methods( getLastMsgByType = function(type) {
-		m = NULL
-		if (type %in% names(.self$.msgs.by.type)) {
-			m = .self$.msgs.by.type[[type]]
-			m = m[[length(m)]] 
-		}
-		return(m)
-	})
-	TestObs$methods( getMsgsByType = function(type) {
-		msgs = character()
+msg=function(type='info', msg, class=NA_character_, method=NA_character_,
+             lvl=1) {
+	.msgs <<- c(.self$.msgs, msg)
+	.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
+},
 
-		if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
-			msgs = .self$.msgs.by.type[[type]]
+# hasMsgs {{{2
+################################################################################
 
-		return(msgs)
-	})
-	TestObs$methods( clearMessages = function() {
-		.msgs <<- character()
-		.msgs.by.type <<- list()
-	})
-	obs <- TestObs$new()
+hasMsgs=function(type = NULL) {
+
+	f = FALSE
+
+	if (is.null(type))
+		f = (length(.self$.msg) > 0)
+	else
+		f = if (type %in% names(.self$.msgs.by.type)) (length(.self$.msgs.by.type[[type]])) else FALSE
+
+	return(f)
+},
+
+# lastMsg {{{2
+################################################################################
+
+lastMsg = function() {
+
+    m <- NA_character_
+
+    i <- length(.self$.msgs)
+    if (i > 0)
+        m <- .self$.msgs[[i]]
+
+	return(m)
+},
+
+# getLastMsgByType {{{2
+################################################################################
+
+getLastMsgByType = function(type) {
+	m = NULL
+	if (type %in% names(.self$.msgs.by.type)) {
+		m = .self$.msgs.by.type[[type]]
+		m = m[[length(m)]]
+	}
+	return(m)
+},
+
+# getMsgsByType {{{2
+################################################################################
+
+getMsgsByType = function(type) {
+	msgs = character()
+
+	if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
+		msgs = .self$.msgs.by.type[[type]]
+
+	return(msgs)
+},
+
+# clearMessages {{{2
+################################################################################
+
+clearMessages = function() {
+	.msgs <<- character()
+	.msgs.by.type <<- list()
+}
+
+))
+
+# Add message recorder observer {{{1
+################################################################################
+
+add_msg_recorder_obs <- function(biodb) {
+
+    # Create observer
+    obs <- MsgRecorder()
 
 	# Set observer
 	biodb$addObservers(obs)

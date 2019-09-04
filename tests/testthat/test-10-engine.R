@@ -6,9 +6,9 @@ source('common.R', local=TRUE)
 ################################################################
 
 # Create biodb instance
-biodb = create.biodb.instance()
+biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
-obs = create.test.observer(biodb)
+obs <- add_msg_recorder_obs(biodb)
 
 # Set context
 set.test.context(biodb, "Test engine")

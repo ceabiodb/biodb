@@ -5,14 +5,55 @@
 \alias{BiodbUrl-class}
 \alias{BiodbUrl}
 \title{Class URL.}
-\arguments{
-\item{url}{The URL to access, as a character string.}
-
-\item{params}{The list of parameters to use with the URL.}
-}
 \description{
 This class represents a URL object that can be used in requests.
 }
+\details{
+The following arguments are accepted by the constructor:
+
+url: The URL to access, as a character string.
+
+params: The list of parameters to use with the URL.
+}
+\section{Methods}{
+
+\describe{
+\item{\code{getDomain()}}{:
+
+Gets the domain.
+    
+Returned value: None.
+    }
+
+\item{\code{setParam(key, value)}}{:
+
+Sets a parameter.
+    
+key:
+    
+value:
+    
+Returned value: None.
+    }
+
+\item{\code{setUrl(url)}}{:
+
+Sets the base URL string.
+    
+url: The base URL string.
+    
+Returned value: None.
+    }
+
+\item{\code{toString(encode = TRUE)}}{:
+
+Gets the URL as a string representation.
+    
+encode: If set to TRUE, then encodes the URL.
+    
+Returned value: The URL as a string, with all parameters and values set.
+    }
+}}
 
 \examples{
 # Create a URL object

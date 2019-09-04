@@ -14,9 +14,20 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{getPathwayIds(id, org)}}{Get organism pathways. Given a vector of KEGG Enzyme IDs and a KEGG
-organism code, this method retrieves KEGG pathways of this organism in which
-the enzymes are involved. It returns a vector of KEGG pathway IDs.}
+\item{\code{getPathwayIds(id, org)}}{:
+
+Gets organism pathways.  This method retrieves KEGG pathways of the
+    specified organism in which the enzymes are involved.
+    
+id: A character vector of KEGG Compound IDs.
+    
+org: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+Returned value: A vector of KEGG pathway IDs.
+    }
 }}
 
 \examples{

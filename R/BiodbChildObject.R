@@ -6,12 +6,9 @@
 #' @include BiodbObject.R
 BiodbChildObject <- methods::setRefClass("BiodbChildObject",
     contains='BiodbObject',
-
-# Fields {{{2
-################################################################################
-fields=list(
-    .parent="ANY"
-),
+    fields=list(
+        .parent="ANY"
+    ),
 
 # Public methods {{{2
 ################################################################################

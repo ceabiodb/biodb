@@ -4,7 +4,11 @@
 # PeakforestCompoundEntry {{{1
 ################################################################################
 
+#' PeakForest Compound entry class.
+#'
 #' @include BiodbJsonEntry.R
+#' @export PeakforestCompoundEntry
+#' @exportClass PeakforestCompoundEntry
 PeakforestCompoundEntry <- methods::setRefClass("PeakforestCompoundEntry",
     contains="BiodbJsonEntry",
 

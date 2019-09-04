@@ -4,31 +4,85 @@
 \name{NciCactusConn-class}
 \alias{NciCactusConn-class}
 \alias{NciCactusConn}
-\title{Connector for accessing the NCI database, using CACTUS services.
-See https://www.cancer.gov/ and https://cactus.nci.nih.gov/.}
+\title{NCI CACTUS connector class.}
 \description{
-Connector for accessing the NCI database, using CACTUS services.
-See https://www.cancer.gov/ and https://cactus.nci.nih.gov/.
+This class implements a connector for accessing the NCI database, using
+CACTUS services.  See https://www.cancer.gov/ and
+https://cactus.nci.nih.gov/.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{conv(ids, repr)}}{Calls wsChemicalIdentifierResolver() to convert the list of IDs `ids` into
-the representation `repr`.}
+\item{\code{conv(ids, repr)}}{:
 
-\item{\code{convCasToInchi(cas)}}{Convert a list of CAS IDs into a list of InChI.}
+Calls wsChemicalIdentifierResolver() to convert a list of IDs into
+    another representation.
+    
+ids: A character vector containing IDs.
+    
+repr: The targeted representation.
+    
+Returned value: A character vector, the same length as `ids`, containing
+    the converted IDs. NA values will be set when conversion is not possible.
+    }
 
-\item{\code{convCasToInchikey(cas)}}{Convert a list of CAS IDs into a list of InChI keys.}
+\item{\code{convCasToInchi(cas)}}{:
 
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+Converts a list of CAS IDs into a list of InChI.
+    
+cas: A character vector containing CAS IDs.
+    
+Returned value: A character vector, the same length as `ids`, containing InChI values or NA values where conversion was not possible.
+    }
 
-\item{\code{getNbEntries(count = FALSE)}}{Get the number of entries contained in this database.}
+\item{\code{convCasToInchikey(cas)}}{:
+
+Converts a list of CAS IDs into a list of InChI keys.
+    
+cas: A character vector containing CAS IDs.
+    
+Returned value: A character vector, the same length as `ids`, containing InChI Key values or NA values where conversion was not possible.
+    }
+
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
+
+\item{\code{getNbEntries(count = FALSE)}}{:
+
+Get the number of entries contained in this database.
+    
+count: If set to TRUE and no straightforward way exists to get number of
+    entries, count the output of getEntryIds().
+    
+Returned value: The number of entries in the database, as an integer.
+    }
 
 \item{\code{wsChemicalIdentifierResolver(structid, repr, xml = FALSE,
-  retfmt = c("plain", "parsed", "request", "ids"))}}{Calls Chemical Identifier Resolver web service. `structid` is the submitted
-structure identifier, `repr` is the wanted representation and xml is a flag
-for choosing the format returned by the web service between plain text and
-XML.
-See https://cactus.nci.nih.gov/chemical/structure_documentation.}
+  retfmt = c("plain", "parsed", "request", "ids"))}}{:
+
+Calls Chemical Identifier Resolver web service.
+    See https://cactus.nci.nih.gov/chemical/structure_documentation for details.
+    
+structid: The submitted structure identifier.
+    
+repr: The wanted representation.
+    
+xml: A flag for choosing the format returned by the web service between
+    plain text and XML.
+    
+retfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as an XML object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    
+Returned value: Depending on `retfmt` parameter.
+    }
 }}
 

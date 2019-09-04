@@ -3,7 +3,11 @@
 # KeggEnzymeEntry {{{1
 ################################################################################
 
+#' KEGG Enzyme entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggEnzymeEntry
+#' @exportClass KeggEnzymeEntry
 KeggEnzymeEntry <- methods::setRefClass("KeggEnzymeEntry",
     contains='KeggEntry',
 

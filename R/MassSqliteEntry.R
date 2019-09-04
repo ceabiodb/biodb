@@ -3,6 +3,10 @@
 # MassSqliteEntry {{{1
 ################################################################################
 
-#' @include BiodbEntryList.R
+#' Mass SQLite entry class.
+#'
+#' @include BiodbListEntry.R
+#' @export MassSqliteEntry
+#' @exportClass MassSqliteEntry
 MassSqliteEntry <- methods::setRefClass("MassSqliteEntry",
-    contains="BiodbEntryList")
+    contains="BiodbListEntry")

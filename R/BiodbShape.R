@@ -7,8 +7,11 @@
 #'
 #' This abstract class represents a shape, used for graphical representation.
 #'
-#' @field label A text label to associate with the shape.
-#' @field color A color, as a character string.
+#' Arguments to the constructor are:
+#'
+#' label: A text label to associate with the shape.
+#'
+#' color: A color, as a character string.
 #'
 #' @seealso \code{\link{BiodbRect}}, \code{\link{BiodbCircle}}.
 #'
@@ -43,8 +46,10 @@ initialize=function(label=NA_character_,
 ################################################################################
 
 getLabel=function() {
-    'Return the label associated with this shape.'
-    
+    ":\n\nGets the label associated with this shape.
+    \nReturned value: The label.
+    "
+
     return(.self$.label)
 },
 
@@ -52,8 +57,10 @@ getLabel=function() {
 ################################################################################
 
 getColor=function() {
-    'Return the color associated with this shape.'
-    
+    ":\n\nGets the color associated with this shape.
+    \nReturned value: The color name as a string.
+    "
+
     return(.self$.color)
 },
 
@@ -61,11 +68,15 @@ getColor=function() {
 ################################################################################
 
 getRgbColor=function(alpha=255) {
-    'Return the RGB color associated with this shape.'
-    
+    ":\n\nGets the RGB color associated with this shape.
+    \nalpha: The value to use for the alpha channel when building the RGB color
+    object.
+    \nReturned value: The color as an RGB color object.
+    "
+
     c <- col2rgb(.self$.color)
     c <- rgb(c[1,], c[2,], c[3,], alpha, maxColorValue=255)
-    
+
     return(c)
 },
 
@@ -73,7 +84,11 @@ getRgbColor=function(alpha=255) {
 ################################################################################
 
 draw=function() {
-    'Draw the shape on the current image.'
+    ":\n\nDraw the shape on the current image.
+    \nReturned value: None.
+    "
+
+    invisible()
 }
 
 ))

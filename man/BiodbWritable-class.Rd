@@ -15,15 +15,43 @@ new entries.
 \section{Methods}{
 
 \describe{
-\item{\code{allowWriting()}}{Allow writing for this database.}
+\item{\code{allowWriting()}}{:
 
-\item{\code{disallowWriting()}}{Disallow writing for this database.}
+Allows the connector to write into this database.
+    
+Returned value: None.
+    }
 
-\item{\code{setWritingAllowed(allow)}}{Allow or disallow writing for this database.}
+\item{\code{disallowWriting()}}{:
 
-\item{\code{write()}}{Write the database. All modifications made to the database since the last
-time write() was called will be saved.}
+Disallows the connector to write into this database.
+    
+Returned value: None.
+    }
 
-\item{\code{writingIsAllowed()}}{Returns TRUE if writing is allowed for this database.}
+\item{\code{setWritingAllowed(allow)}}{:
+
+Allows or disallows writing for this database.
+    
+allow: If set to TRUE, allows writing.
+    
+Returned value: None.
+    }
+
+\item{\code{write()}}{:
+
+Writes into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    
+Returned value: None.
+    }
+
+\item{\code{writingIsAllowed()}}{:
+
+Tests if the connector has access right to the database.
+    
+Returned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
+    }
 }}
 

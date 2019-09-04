@@ -5,17 +5,6 @@
 \alias{ChemspiderConn-class}
 \alias{ChemspiderConn}
 \title{The connector class to ChemSpider database.}
-\arguments{
-\item{mass}{The mass to search for.}
-
-\item{query}{The query to send to the database.}
-
-\item{range}{The range of the searched mass. Plain range, Dalton unit. The
-mass searched are between (mass - range) and (mass + range).}
-
-\item{retfmt}{The wanted returned format, in a web service method ("ws.*"
-methods).}
-}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -25,7 +14,12 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
-\item{\code{getAllRecordFields()}}{Returns the complete list of all record fields provided by ChemSpider.}
+\item{\code{getAllRecordFields()}}{:
+
+Gets the complete list of all record fields provided by ChemSpider.
+    
+Returned value: A character vector containing all the record fields.
+    }
 
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
@@ -38,7 +32,14 @@ Returned value: A character vector, the same length as `entry.id`,
     containing for each entry ID either a URL or NA if no URL exists.
     }
 
-\item{\code{getEntryPageUrl(entry.id)}}{Get the URL to the page of the entry on the database web site.}
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    }
 
 \item{\code{searchCompound(name = NULL, mass = NULL, mass.field = NULL,
   mass.tol = 0.01, mass.tol.unit = "plain", max.results = NA_integer_)}}{Search for compounds by name and/or by mass. At least one of name or mass
@@ -60,28 +61,123 @@ max.results: The maximum number of matches to return.
 Returned value: A character vector of entry IDs.}
 
 \item{\code{wsFilterMassPost(mass, range, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{Access the filter-mass-post ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/post/filter/mass.}
+  "request"))}}{:
+
+Accesses the filter-mass-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/filter/mass.
+    
+mass: The mass to search for.
+    
+range: The range of the searched mass. Plain range, Dalton unit. The
+    masses searched are between (mass - range) and (mass + range).
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'queryid' will return a query ID usable with
+    wsFilterQueryIdStatusGet() and wsFilterQueryIdResultsGet() in order to do
+    asynchronous querying. 'ids' will return a character vector of entry IDs.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsFilterNamePost(name, retfmt = c("plain", "parsed", "queryid", "ids",
-  "request"))}}{Access the filter-name-post ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/post/filter/name.}
+  "request"))}}{:
+
+Accesses the filter-name-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/filter/name.
+    
+name:
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'queryid' will return a query ID usable with
+    wsFilterQueryIdStatusGet() and wsFilterQueryIdResultsGet() in order to do
+    asynchronous querying. 'ids' will return a character vector of entry IDs.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsFilterQueryIdResultsGet(queryid, start = 0L, count = 0L,
-  retfmt = c("plain", "parsed", "ids", "request"))}}{Access the filter-queryId-results-get ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results.}
+  retfmt = c("plain", "parsed", "ids", "request"))}}{:
+
+Accesses the filter-queryId-results-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results.
+    
+queryid: A query ID previously obtained with a request like
+    wsFilterNamePost().
+    
+start: The index of the first result to retrieve.
+    
+count: The number of results to retrieve.
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'ids' will return a character vector of entry
+    IDs.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsFilterQueryIdStatusGet(queryid, retfmt = c("plain", "parsed", "status",
-  "request"), cache.read = FALSE)}}{Access the filter-queryId-status-get ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.}
+  "request"), cache.read = FALSE)}}{:
+
+Accesses the filter-queryId-status-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status.
+    
+queryid: A query ID previously obtained with a request like
+    wsFilterNamePost().
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent. 'status' will return only the status.
+    
+cache.read: If set to FALSE, the biodb cache won't be used. This is
+    necessary for normal use of this web service, since the status needs to be
+    polled on the server on each call.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsRecordsBatchPost(recordids, fields = NULL, retfmt = c("plain", "parsed",
-  "request"))}}{Access the filter-name-post ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/post/records/batch.}
+  "request"))}}{:
+
+Accesswa the filter-name-post ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/post/records/batch.
+    
+recordids: A character vector containing record IDs.
+    
+fields: The list of fields to get.
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent.
+    
+Returned value: Depending on `retfmt`.
+    }
 
 \item{\code{wsRecordsRecordidDetailsGet(recordid, fields = NULL, retfmt = c("plain",
-  "parsed", "request"))}}{Access the records-recordId-details-get ChemSpider web service. See
-https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details.}
+  "parsed", "request"))}}{:
+
+Accesses the records-recordId-details-get ChemSpider web service. See
+    https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details
+    for more details.
+    
+recordid: The ID of the record.
+    
+fields: The list of fields to get.
+    
+retfmt: The return format to use. 'plain' will return the exact results
+    sent by the web service, as a character value. 'parsed' will return a JSON
+    object. 'request' will return a BiodbRequest object containing the request
+    that would have been sent.
+    
+Returned value: Depending on `retfmt`.
+    }
 }}
 
 \examples{

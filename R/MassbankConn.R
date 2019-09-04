@@ -3,16 +3,18 @@
 # MassbankConn {{{1
 ################################################################################
 
+#' Massbank connector class.
+#'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbMassdbConn.R
 #' @include BiodbDownloadable.R
 MassbankConn <- methods::setRefClass("MassbankConn",
     contains=c("BiodbRemotedbConn", "BiodbMassdbConn", 'BiodbDownloadable'),
     fields=list(
-        .prefix2dns='list'
+        .prefix2dsn='list'
     ),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -24,8 +26,143 @@ initialize=function(...) {
 
     callSuper(...)
 
-    .self$.prefix2dns <- list()
+    .self$.prefix2dsn <- list()
 },
+
+# Requires download {{{3
+################################################################################
+
+requiresDownload=function() {
+    # Overrides super class' method.
+
+    return(TRUE)
+},
+
+# Get entry content from database {{{3
+################################################################################
+
+getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
+
+    # NOTE Method unused, since database is downloaded.
+
+    # Debug
+    .self$debug("Get entry content(s) for ", length(entry.id)," entry.id(s)...")
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    # Build request
+    request <- paste0('<?xml version="1.0" encoding="UTF-8"?>',
+'<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"',
+' xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:getRecordInfo>',
+paste(paste('<tns:entry.ids>', entry.id, '</tns:entry.ids>', sep=''),
+      collapse=''), '</tns:getRecordInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>')
+
+    # Send request
+    u <- c(.self$getPropValSlot('urls', 'base.url'), 'api', 'services',
+           'MassBankAPI.MassBankAPIHttpSoap11Endpoint/')
+    u <- BiodbUrl(url=u)$toString()
+    xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(u, request)
+
+    # Parse XML and get text
+    if ( ! is.na(xmlstr)) {
+        xml <-  XML::xmlInternalTreeParse(xmlstr, asText=TRUE)
+        ns <- c(ax21="http://api.massbank/xsd")
+        returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue,
+                                         namespaces=ns)
+        if (length(returned.ids) > 0) {
+            c <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue,
+                                  namespaces=ns)
+            content[match(returned.ids, entry.id)] <- c
+        }
+    }
+
+    return(content)
+},
+
+# Get nb entries {{{3
+################################################################################
+
+getNbEntries=function(count=FALSE) {
+    # Overrides super class' method.
+
+    return(length(.self$getEntryIds()))
+},
+
+# Get chromatographic columns {{{3
+################################################################################
+
+getChromCol=function(ids=NULL) {
+    # Overrides super class' method.
+
+    if (is.null(ids))
+        ids <- .self$getEntryIds()
+
+    # Get entries
+    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+
+    # Get data frame
+    fields <- c('chrom.col.id', 'chrom.col.name')
+    cols <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
+    if (is.null(cols))
+        cols <- data.frame(chrom.col.id=character(), chrom.col.name=character())
+
+    # Remove NA values
+    cols <- cols[ ! is.na(cols$chrom.col.name), , drop=FALSE]
+
+    # Remove duplicates
+    cols <- cols[ ! duplicated(cols), ]
+
+    # Rename columns
+    names(cols) <- c('id', 'title')
+
+    return(cols)
+},
+
+# Get DSN from id {{{3
+################################################################################
+
+getDsn=function(id) {
+    ":\n\nGets the DSN (database name) associated with a entry IDs.
+    \nid: A character vector containing entry IDs.
+    \nReturned value: A character vector, the same length as `id`, containing
+    the corresponding DSN values, or NA values if no DSN is available.
+    "
+
+    # Download prefixes file, parse it and build list
+    if (length(.self$.prefix2dsn) == 0)
+        .self$.loadPrefixes()
+
+    # Search for DSN values
+    dsn <- vapply(id, function(x) {
+        prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl=TRUE)
+        if (prefix %in% names(.self$.prefix2dsn))
+            .self$.prefix2dsn[[prefix]]
+        else
+            NA_character_
+        }, FUN.VALUE='', USE.NAMES=FALSE)
+
+    return(dsn)
+},
+
+# Get entry page url {{{3
+################################################################################
+
+getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
+    u <- c(.self$getPropValSlot('urls', 'base.url'), 'MassBank',
+           'RecordDisplay.jsp')
+    fct <- function(x) BiodbUrl(url=u,
+                                params=list(id=x,
+                                            dsn=.self$getDsn(x)))$toString()
+    return(vapply(id, fct, FUN.VALUE=''))
+},
+
+
+# Private methods {{{2
+################################################################################
 
 # Do get mz values {{{3
 ################################################################################
@@ -112,127 +249,6 @@ initialize=function(...) {
 
     return(mz)
 },
-
-# Requires download {{{3
-################################################################################
-
-requiresDownload=function() {
-    return(TRUE)
-},
-
-# Get entry content from database {{{3
-################################################################################
-
-getEntryContentFromDb=function(entry.id) {
-
-    # NOTE Method unused, since database is downloaded.
-
-    # Debug
-    .self$debug("Get entry content(s) for ", length(entry.id)," entry.id(s)...")
-
-    # Initialize return values
-    content <- rep(NA_character_, length(entry.id))
-
-    # Build request
-    request <- paste0('<?xml version="1.0" encoding="UTF-8"?>',
-'<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"',
-' xmlns:tns="http://api.massbank"><SOAP-ENV:Body><tns:getRecordInfo>',
-paste(paste('<tns:entry.ids>', entry.id, '</tns:entry.ids>', sep=''),
-      collapse=''), '</tns:getRecordInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>')
-
-    # Send request
-    u <- c(.self$getPropValSlot('urls', 'base.url'), 'api', 'services',
-           'MassBankAPI.MassBankAPIHttpSoap11Endpoint/')
-    u <- BiodbUrl(url=u)$toString()
-    xmlstr <- .self$getBiodb()$getRequestScheduler()$sendSoapRequest(u, request)
-
-    # Parse XML and get text
-    if ( ! is.na(xmlstr)) {
-        xml <-  XML::xmlInternalTreeParse(xmlstr, asText=TRUE)
-        ns <- c(ax21="http://api.massbank/xsd")
-        returned.ids <- XML::xpathSApply(xml, "//ax21:id", XML::xmlValue,
-                                         namespaces=ns)
-        if (length(returned.ids) > 0) {
-            c <- XML::xpathSApply(xml, "//ax21:info", XML::xmlValue,
-                                  namespaces=ns)
-            content[match(returned.ids, entry.id)] <- c
-        }
-    }
-
-    return(content)
-},
-
-# Get nb entries {{{3
-################################################################################
-
-getNbEntries=function(count=FALSE) {
-    return(length(.self$getEntryIds()))
-},
-
-# Get chromatographic columns {{{3
-################################################################################
-
-getChromCol=function(ids=NULL) {
-
-    if (is.null(ids))
-        ids <- .self$getEntryIds()
-
-    # Get entries
-    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
-
-    # Get data frame
-    fields <- c('chrom.col.id', 'chrom.col.name')
-    cols <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
-    if (is.null(cols))
-        cols <- data.frame(chrom.col.id=character(), chrom.col.name=character())
-
-    # Remove NA values
-    cols <- cols[ ! is.na(cols$chrom.col.name), , drop=FALSE]
-
-    # Remove duplicates
-    cols <- cols[ ! duplicated(cols), ]
-
-    # Rename columns
-    names(cols) <- c('id', 'title')
-
-    return(cols)
-},
-
-# Get dns from id {{{3
-################################################################################
-
-getDns=function(id) {
-
-    # Download prefixes file, parse it and build list
-    if (length(.self$.prefix2dns) == 0)
-        .self$.loadPrefixes()
-
-    dns <- vapply(id, function(x) {
-        prefix <- sub('^([A-Z]+)[0-9]+$', '\\1', x, perl=TRUE)
-        if (prefix %in% names(.self$.prefix2dns))
-            .self$.prefix2dns[[prefix]]
-        else
-            NA_character_
-        }, FUN.VALUE='', USE.NAMES=FALSE)
-
-    return(dns)
-},
-
-# Get entry page url {{{3
-################################################################################
-
-getEntryPageUrl=function(id) {
-    u <- c(.self$getPropValSlot('urls', 'base.url'), 'MassBank',
-           'RecordDisplay.jsp')
-    fct <- function(x) BiodbUrl(url=u,
-                                params=list(id=x,
-                                            dsn=.self$getDns(x)))$toString()
-    return(vapply(id, fct, FUN.VALUE=''))
-},
-
-
-# Private methods {{{2
-################################################################################
 
 # Do download {{{3
 ################################################################################
@@ -445,7 +461,7 @@ else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),
 
         # Loop on prefixes
         for (p in prefixes[[i]])
-            .self$.prefix2dns[[p]] <- dbs[[i]]
+            .self$.prefix2dsn[[p]] <- dbs[[i]]
     }
 },
 

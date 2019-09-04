@@ -4,23 +4,20 @@
 ################################################################################
 
 BiodbObject <- methods::setRefClass("BiodbObject",
-
-# Fields {{{2
-################################################################################
-
-fields=list(.message.enabled="logical"),
+    fields=list(
+                .message.enabled="logical"
+                ),
 
 # Public methods {{{2
 ################################################################################
 
 methods=list(
-               
+
 # Initialize {{{3
 ################################################################################
 
-initialize=function(...) {
+initialize=function() {
 
-    callSuper(...)
     .self$.abstractClass('BiodbObject')
 
     .self$.message.enabled <- TRUE

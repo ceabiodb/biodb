@@ -8,7 +8,7 @@ source('common.R', local=TRUE)
 # Create biodb instance
 biodb <- create.biodb.instance()
 expect_is(biodb, 'Biodb')
-obs <- create.test.observer(biodb)
+obs <- add_msg_recorder_obs(biodb)
 
 # Loop on test databases
 for (db.name in TEST.DATABASES) {

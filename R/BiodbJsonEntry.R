@@ -1,36 +1,39 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-#' @include BiodbEntry.R
-
 # Class declaration {{{1
 ################################################################################
 
-BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry", contains='BiodbEntry')
+#' Entry class for content in JSON format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' JSON format.
+#'
+#' @include BiodbEntry.R
+#' @export BiodbJsonEntry
+#' @exportClass BiodbJsonEntry
+BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry",
+    contains='BiodbEntry',
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-BiodbJsonEntry$methods( initialize=function(...) {
+method=list(
 
-    callSuper(...)
-    .self$.abstractClass('BiodbJsonEntry')
-})
-
-# Do parse content {{{1
+# Initialize {{{3
 ################################################################################
 
-BiodbJsonEntry$methods( .doParseContent=function(content) {
+.doParseContent=function(content) {
 
     # Parse JSON
     json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)  
 
     return(json)
-})
+},
 
-# Parse fields step 1 {{{1
+# Parse fields step 1 {{{3
 ################################################################################
 
-BiodbJsonEntry$methods( .parseFieldsStep1=function(parsed.content) {
+.parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
@@ -54,4 +57,6 @@ BiodbJsonEntry$methods( .parseFieldsStep1=function(parsed.content) {
         if (found.value && length(x) == 1)
             .self$setFieldValue(field, x)
     }
-})
+}
+
+))

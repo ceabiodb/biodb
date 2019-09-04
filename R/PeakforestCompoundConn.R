@@ -3,8 +3,12 @@
 # PeakforestCompoundConn {{{1
 ################################################################################
 
+#' PeakForest Compound connector class.
+#'
 #' @include PeakforestConn.R
 #' @include BiodbCompounddbConn.R
+#' @export PeakforestCompoundConn
+#' @exportClass PeakforestCompoundConn
 PeakforestCompoundConn <- methods::setRefClass("PeakforestCompoundConn",
     contains=c("PeakforestConn", "BiodbCompounddbConn"),
 
@@ -25,6 +29,8 @@ initialize=function(...) {
 ################################################################################
 
 getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
     fct <- function(x) BiodbUrl(url=.self$getPropValSlot('urls', 'base.url'),
                                 params=list(PFc=x))$toString()
     return(vapply(id, fct, FUN.VALUE=''))
@@ -36,6 +42,19 @@ getEntryPageUrl=function(id) {
 
 wsSearchCompoundsMass=function(field, mass, delta, max=NA_integer_,
                                retfmt=c('plain', 'request', 'parsed', 'ids')) {
+    ":\n\nCalls the search/compounds web service.
+    \nfield: The mass field to use for the search. One of 'monoisotopicmass' or
+    'averagemass'.
+    \nmass: The mass to search for.
+    \ndelta: The tolerance on the mass.
+    \nmax: The maximum of matching entries to return.
+    \nretfmt: Use to set the format of the returned value. 'plain' will return
+    the raw results from the server, as a character value. 'parsed' will return
+    the parsed results, as a JSON object. 'request' will return a BiodbRequest
+    object representing the request as it would have been sent. 'ids' will
+    return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt` parameter.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -87,7 +106,8 @@ wsSearchCompoundsMass=function(field, mass, delta, max=NA_integer_,
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
-        
+    # Overrides super class' method.
+
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     ids <- NULL

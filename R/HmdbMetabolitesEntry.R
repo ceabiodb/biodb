@@ -3,7 +3,11 @@
 # HmdbMetabolitesEntry {{{1
 ################################################################################
 
+#' HMDB Metabolites entry class.
+#'
 #' @include BiodbXmlEntry.R
+#' @export HmdbMetabolitesEntry
+#' @exportClass HmdbMetabolitesEntry
 HmdbMetabolitesEntry <- methods::setRefClass("HmdbMetabolitesEntry",
     contains="BiodbXmlEntry",
 

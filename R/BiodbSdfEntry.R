@@ -3,7 +3,14 @@
 # BiodbSdfEntry {{{1
 ################################################################################
 
+#' Entry class for content in SDF format.
+#'
+#' This is an abstract class for handling database entries whose content is in
+#' SDF format.
+#'
 #' @include BiodbTxtEntry.R
+#' @export BiodbSdfEntry
+#' @exportClass BiodbSdfEntry
 BiodbSdfEntry <- methods::setRefClass("BiodbSdfEntry",
     contains='BiodbTxtEntry',
 

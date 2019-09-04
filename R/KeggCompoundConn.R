@@ -10,15 +10,6 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @param mass      Single mass.
-#' @param mass.min  Minimal mass.
-#' @param mass.max  Maximal mass.
-#' @param id        A character vector of entry IDs.
-#' @param org       The organism in which to search for pathways, as a KEGG
-#'                  organism code (3-4 letters code, like "hsa", "mmu", ...).
-#'                  See https://www.genome.jp/kegg/catalog/org_list.html for a
-#'                  complete list of KEGG organism codes.
-#'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}},
 #' \code{\link{BiodbCompounddbConn}}, \code{\link{KeggPathwayConn}}.
 #'
@@ -65,8 +56,16 @@ initialize=function(...) {
 
 wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
                          retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries by mass. See http://www.kegg.jp/kegg/docs/keggapi.html
-    for details."
+    ":\n\nSearches for entries by mass.
+    You must either provide a single mass through `mass` parameter or provide a
+    range through `mass.min` and `mass.max`.
+    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
+    \nmass: Single mass.
+    \nmass.min: Minimal mass.
+    \nmass.max: Maximal mass.
+    \nretfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -115,8 +114,16 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
 wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
                                mass.max=NA_real_,
                                retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    "Search for entries by molecular mass. See
-    http://www.kegg.jp/kegg/docs/keggapi.html for details."
+    ":\n\nSearches for entries by molecular mass.
+    You must either provide a single mass through `mass` parameter or provide a
+    range through `mass.min` and `mass.max`.
+    See http://www.kegg.jp/kegg/docs/keggapi.html for details.
+    \nmass: Single mass.
+    \nmass.min: Minimal mass.
+    \nmass.max: Maximal mass.
+    \nretfmt: Set the format to use for the returned value. 'plain' will return the raw results from the server, as a character value. 'request' will return the request as it would have been sent, as a BiodbRequest object. 'parsed' will return a data frame. 'ids' will return a character vector containing the IDs of the matching entries.
+    \nReturned value: Depending on `retfmt`.
+    "
 
     retfmt <- match.arg(retfmt)
 
@@ -164,6 +171,7 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
+    # Overrides super class' method.
         
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
@@ -221,6 +229,7 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 ################################################################################
 
 getEntryImageUrl=function(id) {
+    # Overrides super class' method.
 
     fct <- function(x) {
         bu <- .self$getPropValSlot('urls', 'base.url')
@@ -235,17 +244,22 @@ getEntryImageUrl=function(id) {
 ################################################################################
 
 getPathwayIdsPerCompound=function(id, org) {
-    "Get organism pathways for each compound. Given a vector of KEGG Compound
-    IDs and a KEGG organism code, this method retrieves for each compound the
-    KEGG pathways of the organism in which the compound is involved. It returns
-    a named list of KEGG pathway ID vectors, where the names of the list are the
-    compound IDs."
+    ":\n\nGets organism pathways for each compound. This method retrieves for
+    each compound the KEGG pathways of the organism in which the compound is
+    involved.
+    \nid: A character vector of KEGG Compound IDs.
+    \norg: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nReturned value: A named list of KEGG pathway ID vectors, where the names
+    of the list are the compound IDs."
 
     pathways <- list()
 
     fac <- .self$getBiodb()$getFactory()
     kegg.enz.conn <- fac$getConn('kegg.enzyme')
-    
+
     # Loop on all compound ids
     i <- 0
     for (comp.id in id) {
@@ -298,9 +312,15 @@ getPathwayIdsPerCompound=function(id, org) {
 ################################################################################
 
 getPathwayIds=function(id, org) {
-    "Get organism pathways. Given a vector of KEGG Compound IDs and a KEGG
-    organism code, this method retrieves KEGG pathways of this organism in which
-    the compounds are involved. It returns a vector of KEGG pathway IDs."
+    ":\n\nGets organism pathways.  This method retrieves KEGG pathways of the
+    specified organism in which the compounds are involved.
+    \nid: A character vector of KEGG Compound IDs.
+    \norg: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nReturned value: A vector of KEGG pathway IDs.
+    "
 
     pathways <- .self$getPathwayIdsPerCompound(id=id, org=org)
     pathways <- unique(unlist(pathways, use.names=FALSE))

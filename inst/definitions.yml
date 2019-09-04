@@ -4,7 +4,7 @@
 ################################################################################
 
 config:
-    
+
   allow.huge.downloads:
     type: logical
     description: Download of huge files like whole database data is allowed.

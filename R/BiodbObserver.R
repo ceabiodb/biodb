@@ -9,12 +9,6 @@
 #' to the observers. You can define new observer classes by inherting from this
 #' class.
 #'
-#' @param type   The type of a message. It must be one of: 'info', 'debug',
-#'               'caution', 'warning', 'error'.
-#' @param msg    The text message to send.
-#' @param class  The class of the object that called this message method.
-#' @param method The method of that called this message method.
-#'
 #' @seealso \code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}},
 #'          \code{\link{BiodbErrorReporter}}.
 #'
@@ -40,14 +34,10 @@
 #' @export BiodbObserver
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver",
-
-# Fields {{{2
-################################################################################
-
-fields=list(
-    cfg.lvl='integer',
-    cust.lvl='integer'
-),
+    fields=list(
+        cfg.lvl='integer',
+        cust.lvl='integer'
+    ),
 
 # Public methods {{{2
 ################################################################################
@@ -66,12 +56,22 @@ initialize=function() {
 ################################################################################
 
 terminate=function() {
+    ":\n\nTerminates the instance. This method will be called
+    automatically by the Biodb instance when you call Biodb::terminate().
+    \nReturned value: None.
+    "
+
+    invisible()
 },
 
 # Show {{{3
 ################################################################################
 
 show=function() {
+    ":\n\nDisplays information about this observer instance.
+    \nReturned valued: none.
+    "
+
     cat('Observer of class ', class(.self), ".\n", sep='')
 },
 
@@ -79,12 +79,23 @@ show=function() {
 ################################################################################
 
 newObserver=function(obs) {
+    ":\n\nCalled by Biodb when a new observer is registered.
+    \nobs: The observer newly registered by the Biodb instance.
+    \nReturned valued: none.
+    "
 },
 
 # Config key value update {{{3
 ################################################################################
 
 cfgKVUpdate=function(k, v) {
+    ":\n\nThis method is called by BiodbConfig when the value of one of its keys
+    is modified.
+    \nk: The configuration key name.
+    \nv: The new value of the configuration key.
+    \nReturned value: None.
+    "
+
     for (type in c('debug', 'info', 'caution')) {
         lvl.k <- paste('msg', type, 'lvl', sep='.')
         if (lvl.k == k)
@@ -96,15 +107,21 @@ cfgKVUpdate=function(k, v) {
 ################################################################################
 
 getLevel=function(type) {
+    ":\n\nGets the level associated with a message type. This is the maximum
+    level a message must have in order to be processed.
+    \ntype: The type of message. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    \nReturned value: The level, as an integer.
+    "
 
-    lvl <- 0
+    lvl <- 0L
     .self$checkMessageType(type)
-    
+
     if (type %in% names(.self$cust.lvl))
         lvl <- .self$cust.lvl[[type]]
     else if (type %in% names(.self$cfg.lvl))
         lvl <- .self$cfg.lvl[[type]]
-    
+
     return(lvl)
 },
 
@@ -112,6 +129,14 @@ getLevel=function(type) {
 ################################################################################
 
 setLevel=function(type, lvl) {
+    ":\n\nSets the level for a type. This is the maximum level a message must
+    have in order to be processed.
+    \ntype: The type of message. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    \nlvl: The level, as an integer.
+    \nReturned value: None.
+    "
+
     .self$checkMessageType(type)
     .self$cust.lvl[[type]] <- as.integer(lvl)
 },
@@ -121,6 +146,19 @@ setLevel=function(type, lvl) {
 
 msg=function(type='info', msg, class=NA_character_,
              method=NA_character_, lvl=1) {
+    ":\n\nSends a message to this observer. The message will be accepted and
+    handled only if the level is lower or equal to the current level for the
+    message type. You can check current level for a type by calling getLevel()
+    and set the level with setLevel().
+    \ntype: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    \nmsg: The text message to send.
+    \nclass: The class of the object that called this message method.
+    \nmethod: The method that called this message method.
+    \nlvl: The level of the message.
+    \nReturned value: None.
+    "
+
     .self$checkMessageType(type)
 },
 
@@ -128,6 +166,17 @@ msg=function(type='info', msg, class=NA_character_,
 ################################################################################
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
+    ":\n\nSends a progress message to this observer.
+    \ntype: The message type. It must be one of: 'info', 'debug',
+    'caution', 'warning', 'error'.
+    \nmsg: The text message to send.
+    \nindex: The index in the progression, as an integer or numeric number.
+    \ntotal: The total to achieve in the progression, as an integer or numeric
+    number. Optional.
+    \nlvl: The level of the message.
+    \nReturned value: None.
+    "
+
     .self$checkMessageType(type)
 },
 
@@ -135,6 +184,11 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
 ################################################################################
 
 checkMessageType=function(type) {
+    ":\n\nChecks a message type. An error will be raised if the type is unknown.
+    \ntype: A message type. It must be one of: 'info', 'debug', 'caution',
+    'warning', 'error'.
+    \nReturned value: None.
+    "
 
     # Define allowed types
     allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')

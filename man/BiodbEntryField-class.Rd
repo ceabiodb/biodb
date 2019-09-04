@@ -11,60 +11,198 @@ characteristics, and returning them through the \code{get()} method. The
 constructor is not meant to be used, but for development purposes the
 constructor's parameters are nevertheless described in the Fields section.
 }
-\section{Fields}{
+\details{
+The constructor accepts the following arguments:
 
-\describe{
-\item{\code{name}}{The name of the field.}
+name: The name of the field.
 
-\item{\code{alias}}{A character vector containing zero or more aliases
-for the field.}
+alias: A character vector containing zero or more aliases for the field.
 
-\item{\code{class}}{The class of the field. One of: 'character',
-'integer', 'double', 'logical', 'object', 'data.frame'.}
+type: A type describing the field. One of: "mass", "name" or "id". Optional.
 
-\item{\code{card}}{The cardinality of the field: either '1' or '*'.}
+group: The group of the field. For now only one group exists: "peak".
+Optional.
 
-\item{\code{allow.duplicates}}{If set to \code{TRUE}, the field allows duplicated
-values.}
+class: The class of the field. One of: "character", "integer", "double",
+"logical", "object", "data.frame".
 
-\item{\code{description}}{The description of the field.}
+card: The cardinality of the field: either "1" or "*".
 
-\item{\code{allowed.values}}{The values authorized for the field.}
-}}
+forbids.duplicates: If set to TRUE, the field forbids duplicated values.
 
+description: A description of the field.
+
+allowed.values: The values authorized for the field.
+
+lower.case: Set to TRUE if you want all values set to the field to be forced
+to lower case.
+
+case.insensitive: Set to TRUE of you want the field to ignore case when
+checking a value.
+
+computable.from: The Biodb ID of a database, from which this field can be
+computed.
+}
 \section{Methods}{
 
 \describe{
-\item{\code{forbidsDuplicates()}}{Returns \code{TRUE} if this field forbids duplicated values.}
+\item{\code{addAllowedValue(key, value)}}{:
 
-\item{\code{getAliases()}}{Returns the list of aliases if some are defined, otherwise returns NULL.}
+Adds an allowed value, as a synonym to already an existing value. Note
+    that not all enumerate fields accept synonyms.
+    
+key: The key associated with the value (i.e.: the key is the main name of
+    an allowed value).
+    
+value: The new value to add.
+    
+Returned value: None.
+    }
 
-\item{\code{getAllNames()}}{Returns the list of all names (main name and aliases).}
+\item{\code{checkValue(value)}}{:
 
-\item{\code{getComputableFrom()}}{Returns the list of databases where to find this field's value.}
+Checks if a value is correct. Fails if `value` is incorrect.
+    
+value: The value to check.
+    
+Returned value: None.
+    }
 
-\item{\code{getDescription()}}{Get field's description.}
+\item{\code{correctValue(value)}}{:
 
-\item{\code{getGroup()}}{Get field's group.}
+Corrects a value so it is compatible with this field.
+    
+value: A value.
+    
+Returned value: The corrected value.
+    }
 
-\item{\code{getName()}}{Get field's name.}
+\item{\code{forbidsDuplicates()}}{:
 
-\item{\code{getType()}}{Get field's type.}
+Tests if this field forbids duplicates.
+    
+Returned value: TRUE if this field forbids duplicated values, FALSE
+    otherwise.
+    }
 
-\item{\code{hasAliases()}}{Returns TRUE if this entry field defines aliases.}
+\item{\code{getAliases()}}{:
 
-\item{\code{hasCardMany()}}{Returns \code{TRUE} if the cardinality of this field is many.}
+Get aliases.
+    
+Returned value: The list of aliases if some are defined, otherwise returns
+    NULL.}
 
-\item{\code{hasCardOne()}}{Returns \code{TRUE} if the cardinality of this field is one.}
+\item{\code{getAllNames()}}{:
 
-\item{\code{isCaseInsensitive()}}{Returns \code{TRUE} if this field is case insensitive.}
+Gets all names.
+    
+Returned value: The list of all names (main name and aliases).
+    }
 
-\item{\code{isDataFrame()}}{Returns \code{TRUE} if field's type is data frame.}
+\item{\code{getAllowedValues(value = NULL)}}{:
 
-\item{\code{isObject()}}{Returns \code{TRUE} if field's type is a class.}
+Gets allowed values.
+    
+value: If this parameter is set to particular allowed values, then the
+    method returns a list of synonyms for this value (if any).
+    
+Returned value: A character vector containing all allowed values.
+    }
 
-\item{\code{isVector()}}{Returns \code{TRUE} if the field's type is vector (i.e.: character,
-integer, double or logical).}
+\item{\code{getComputableFrom()}}{:
+
+Get the ID of the database from which this field can be computed.
+    
+Returned value: The list of databases where to find this field's value.
+    }
+
+\item{\code{getDescription()}}{:
+
+Get field's description.
+    
+Returned value: The description of this field.
+    }
+
+\item{\code{getGroup()}}{:
+
+Get field's group.
+    
+Returned value: The group of this field.
+    }
+
+\item{\code{getName()}}{:
+
+Gets the name.
+    
+Returned value: The name of this field.
+    }
+
+\item{\code{getType()}}{:
+
+Gets field's type.
+    
+Returned value: The type of this field.
+    }
+
+\item{\code{hasAliases()}}{:
+
+Tests if this field has aliases.
+    
+Returned value: TRUE if this entry field defines aliases, FALSE otherwise.
+    }
+
+\item{\code{hasCardMany()}}{:
+
+Tests if this field has a cardinality greater than one.
+    
+Returned value: TRUE if the cardinality of this field is many, FALSE
+    otherwise.
+    }
+
+\item{\code{hasCardOne()}}{:
+
+Tests if this field has a cardinality of one.
+    
+Returned value: TRUE if the cardinality of this field is one, FALSE
+    otherwise.
+    }
+
+\item{\code{isCaseInsensitive()}}{:
+
+Tests if this field is case sensitive.
+    
+Returned value: TRUE if this field is case insensitive, FALSE otherwise.
+    }
+
+\item{\code{isDataFrame()}}{:
+
+Tests if this field's type is `data.frame`.
+    
+Returned value: TRUE if field's type is data frame, FALSE otherwise.}
+
+\item{\code{isEnumerate()}}{:
+
+Tests if this field is an enumerate type (i.e.: it defines allowed
+    values).
+    
+Returned value: TRUE if this field defines some allowed values, FALSE
+    otherwise.
+    }
+
+\item{\code{isObject()}}{:
+
+Tests if this field's type is a class.
+    
+Returned value: TRUE if field's type is a class, FALSE otherwise.
+    }
+
+\item{\code{isVector()}}{:
+
+Tests if this field's type is a basic vector type.
+    
+Returned value: TRUE if the field's type is vector (i.e.: character,
+    integer, double or logical), FALSE otherwise.
+    }
 }}
 
 \examples{

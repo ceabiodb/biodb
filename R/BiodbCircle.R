@@ -1,4 +1,4 @@
-# vi: fdm=marker ts=4 et cc=80 
+# vi: fdm=marker ts=4 et cc=80
 
 # BiodbCircle {{{1
 ################################################################################
@@ -6,12 +6,16 @@
 #' A class for representing a circle.
 #'
 #' This class represents a rectangle, used for graphical
-#' representation. It is used inside by
+#' representation. It is used by
 #' KeggPathwayConn::extractPathwayMapShapes() method.
 #'
-#' @field x      X coordinate of center. 
-#' @field y      Y coordinate of center. 
-#' @field r      Radius.
+#' Arguments to the constructor are:
+#'
+#' x: X coordinate of center.
+#'
+#' y: Y coordinate of center.
+#'
+#' r: Radius.
 #'
 #' @seealso \code{\link{BiodbShape}}, \code{\link{BiodbRect}}.
 #'
@@ -62,8 +66,10 @@ initialize=function(x, y, r, ...) {
 ################################################################################
 
 getX=function() {
-    'Return the X coordinate.'
-    
+    ":\n\nGet the X coordinate.
+    \nReturned value: The X coordinate.
+    "
+
     return(.self$.x)
 },
 
@@ -71,8 +77,10 @@ getX=function() {
 ################################################################################
 
 getY=function() {
-    'Return the Y coordinate.'
-    
+    ":\n\nGet the Y coordinate.
+    \nReturned value: The Y coordinate.
+    "
+
     return(.self$.y)
 },
 
@@ -80,8 +88,10 @@ getY=function() {
 ################################################################################
 
 getRadius=function() {
-    'Return the radius.'
-    
+    ":\n\nGet the radius.
+    \nReturned value: The radius.
+    "
+
     return(.self$.r)
 },
 
@@ -89,8 +99,8 @@ getRadius=function() {
 ################################################################################
 
 draw=function() {
-    'Draw the shape on the current image.'
-    
+    # Overrides super class' method.
+
     symbols(x=.self$.x, y=.self$.y,
             circles=.self$.r,
             bg=.self$getRgbColor(alpha=127),

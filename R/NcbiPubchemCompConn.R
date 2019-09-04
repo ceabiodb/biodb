@@ -3,8 +3,12 @@
 # NcbiPubchemCompConn {{{1
 ################################################################################
 
+#' NCBI PubChem Compound connector class.
+#'
 #' @include NcbiPubchemConn.R
 #' @include BiodbCompounddbConn.R
+#' @export NcbiPubchemCompConn
+#' @exportClass NcbiPubchemCompConn
 NcbiPubchemCompConn <- methods::setRefClass("NcbiPubchemCompConn",
     contains=c("NcbiPubchemConn", 'BiodbCompounddbConn'),
 
@@ -27,7 +31,8 @@ initialize=function(...) {
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
                         mass.tol.unit='plain', max.results=NA_integer_) {
-        
+    # Overrides super class' method.
+
     .self$.checkMassField(mass=mass, mass.field=mass.field)
 
     term <- character()

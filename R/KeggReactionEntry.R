@@ -3,7 +3,11 @@
 # KeggReactionEntry {{{1
 ################################################################################
 
+#' KEGG Reaction entry class.
+#'
 #' @include KeggEntry.R
+#' @export KeggReactionEntry
+#' @exportClass KeggReactionEntry
 KeggReactionEntry <- methods::setRefClass("KeggReactionEntry",
     contains='KeggEntry',
 

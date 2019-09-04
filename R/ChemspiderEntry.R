@@ -3,7 +3,11 @@
 # ChemspiderEntry {{{1
 ################################################################################
 
+#' ChemSpider entry class
+#'
 #' @include BiodbJsonEntry.R
+#' @export ChemspiderEntry
+#' @exportClass ChemspiderEntry
 ChemspiderEntry <- methods::setRefClass("ChemspiderEntry",
     contains="BiodbJsonEntry",
 

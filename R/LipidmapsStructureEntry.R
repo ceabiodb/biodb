@@ -3,11 +3,15 @@
 # LipidmapsStructureEntry {{{1
 ################################################################################
 
+#' Lipidmaps Structure entry class.
+#'
 #' @include BiodbCsvEntry.R
+#' @export LipidmapsStructureEntry
+#' @exportClass LipidmapsStructureEntry
 LipidmapsStructureEntry <- methods::setRefClass("LipidmapsStructureEntry",
     contains='BiodbCsvEntry',
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
@@ -20,7 +24,7 @@ initialize=function(...) {
     callSuper(na.strings=c('', '-'), ...)
 },
 
-# Private methods {{{1
+# Private methods {{{2
 ################################################################################
 
 # Is content correct {{{3

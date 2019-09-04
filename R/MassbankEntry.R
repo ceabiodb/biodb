@@ -3,7 +3,11 @@
 # MassbankEntry {{{1
 ################################################################################
 
+#' Massbank entry class.
+#'
 #' @include BiodbTxtEntry.R
+#' @export MassbankEntry
+#' @exportClass MassbankEntry
 MassbankEntry <- methods::setRefClass("MassbankEntry",
     contains="BiodbTxtEntry",
 
