@@ -6,6 +6,20 @@
 \alias{LipidmapsStructureEntry}
 \title{Lipidmaps Structure entry class.}
 \description{
-Lipidmaps Structure entry class.
+This is the entry class for Lipidmaps Structure database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('lipidmaps.structure')
+
+# Get an entry
+e <- conn$getEntry('LMFA00000001')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

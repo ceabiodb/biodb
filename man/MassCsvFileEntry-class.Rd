@@ -6,6 +6,23 @@
 \alias{MassCsvFileEntry}
 \title{Mass CSV File entry class.}
 \description{
-Mass CSV File entry class.
+This is the entry class for MASS CSV file databases.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get path to LCMS database example file
+lcmsdb <- system.file("extdata", "lcmsdb.tsv", package="biodb")
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
+
+# Get an entry
+e <- conn$getEntry('PR010001')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

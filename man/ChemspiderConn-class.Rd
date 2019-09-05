@@ -184,6 +184,12 @@ Returned value: Depending on `retfmt`.
 # Create an instance with default settings:
 mybiodb <- biodb::Biodb()
 
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('chemspider')
+
+# Get an entry
+e <- conn$getEntry('2')
+
 # Terminate instance.
 mybiodb$terminate()
 

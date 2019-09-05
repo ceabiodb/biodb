@@ -5,6 +5,21 @@
 
 #' Expasy Enzyme entry class.
 #'
+#' This is the entry class for the Expasy Enzyme database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('expasy.enzyme')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('1.1.1.1')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbTxtEntry.R
 #' @export ExpasyEnzymeEntry
 #' @exportClass ExpasyEnzymeEntry

@@ -12,7 +12,7 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
-#' # Create a connector to ChEBI
+#' # Create a connector
 #' conn <- mybiodb$getFactory()$createConn('chebi')
 #'
 #' # Get an entry

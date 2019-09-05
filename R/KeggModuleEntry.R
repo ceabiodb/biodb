@@ -5,6 +5,21 @@
 
 #' KEGG Module entry class.
 #'
+#' This is the entry class for KEGG Module database
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('kegg.module')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('M00009')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include KeggEntry.R
 #' @export KeggModuleEntry
 #' @exportClass KeggModuleEntry

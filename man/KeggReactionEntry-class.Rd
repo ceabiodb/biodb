@@ -6,6 +6,20 @@
 \alias{KeggReactionEntry}
 \title{KEGG Reaction entry class.}
 \description{
-KEGG Reaction entry class.
+This is the entry class for KEGG Reation database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('kegg.reaction')
+
+# Get an entry
+e <- conn$getEntry('R00105')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

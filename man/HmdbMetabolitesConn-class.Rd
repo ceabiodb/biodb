@@ -4,7 +4,7 @@
 \name{HmdbMetabolitesConn-class}
 \alias{HmdbMetabolitesConn-class}
 \alias{HmdbMetabolitesConn}
-\title{The connector class for the HMDB MetabolitesA database.}
+\title{The connector class for the HMDB Metabolites database.}
 \description{
 This is a concrete connector class. It must never be instantiated directly,
 but instead be instantiated through the factory \code{\link{BiodbFactory}}.
@@ -45,3 +45,17 @@ Returned value: The number of entries in the database, as an integer.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('hmdb.metabolites')
+
+# Get an entry
+e <- conn$getEntry('HMDB0000001')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

@@ -6,6 +6,20 @@
 \alias{KeggPathwayEntry}
 \title{KEGG Pathway entry class.}
 \description{
-KEGG Pathway entry class.
+This is the class entry for KEGG Pathway database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('kegg.pathway')
+
+# Get an entry
+e <- conn$getEntry('map00053')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

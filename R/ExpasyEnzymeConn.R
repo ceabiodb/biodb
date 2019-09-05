@@ -10,6 +10,19 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('expasy.enzyme')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('1.1.1.1')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbRemotedbConn.R
 #' @export ExpasyEnzymeConn
 #' @exportClass ExpasyEnzymeConn
