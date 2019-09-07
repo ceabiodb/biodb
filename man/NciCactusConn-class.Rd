@@ -86,3 +86,17 @@ Returned value: Depending on `retfmt` parameter.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('nci.cactus')
+
+# Get an entry
+e <- conn$getEntry('749674')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

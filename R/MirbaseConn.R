@@ -5,6 +5,21 @@
 
 #' Mirbase connector class.
 #'
+#' This is the abstract connector class for Mirbase Mature connector class.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('mirbase.mature')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('MIMAT0000433')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbRemotedbConn.R
 #' @export MirbaseConn
 #' @exportClass MirbaseConn

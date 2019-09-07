@@ -6,6 +6,20 @@
 \alias{NcbiPubchemCompEntry}
 \title{NCBI PubChem Compound entry class.}
 \description{
-NCBI PubChem Compound entry class.
+This is the entry class for a NCBI PubChen Compound database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.pubchem.comp')
+
+# Get an entry
+e <- conn$getEntry('2')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

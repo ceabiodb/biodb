@@ -8,6 +8,19 @@
 #' This is an abstract class, mother class of all NCBI PubChem connector
 #' classes.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('ncbi.pubchem.comp')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('2')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include NcbiEntrezConn.R
 #' @export NcbiPubchemConn
 #' @exportClass NcbiPubchemConn

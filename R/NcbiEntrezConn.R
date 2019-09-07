@@ -7,6 +7,21 @@
 #'
 #' This is an abstract class, mother class of all NCBI Entrez connector classes.
 #'
+#' This is the connector class for a NCBI Gene database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('ncbi.gene')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('2833')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include NcbiConn.R
 #' @export NcbiEntrezConn
 #' @exportClass NcbiEntrezConn

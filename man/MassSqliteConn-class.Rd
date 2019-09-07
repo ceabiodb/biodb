@@ -6,7 +6,7 @@
 \alias{MassSqliteConn}
 \title{Class for handling a Mass spectrometry database in SQLite format.}
 \description{
-Class for handling a Mass spectrometry database in SQLite format.
+This is the connector class for a MASS SQLite database.
 }
 \section{Methods}{
 
@@ -36,3 +36,20 @@ Returned value: A character vector, the same size of entry.id, with
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get path to LCMS database example file
+lcmsdb <- system.file("extdata", "lcmsdb.sqlite", package="biodb")
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('mass.sqlite', url=lcmsdb)
+
+# Get an entry
+e <- conn$getEntry('34.pos.col12.0.78')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

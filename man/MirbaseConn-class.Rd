@@ -6,7 +6,7 @@
 \alias{MirbaseConn}
 \title{Mirbase connector class.}
 \description{
-Mirbase connector class.
+This is the abstract connector class for Mirbase Mature connector class.
 }
 \section{Methods}{
 
@@ -22,3 +22,17 @@ Returned value: The number of entries in the database, as an integer.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('mirbase.mature')
+
+# Get an entry
+e <- conn$getEntry('MIMAT0000433')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

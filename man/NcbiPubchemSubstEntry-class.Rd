@@ -6,6 +6,20 @@
 \alias{NcbiPubchemSubstEntry}
 \title{NCBI PubChem Substance entry class.}
 \description{
-NCBI PubChem Substance entry class.
+This is the entry class for a NCBI PubChen Substance database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.pubchem.subst')
+
+# Get an entry
+e <- conn$getEntry('2')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

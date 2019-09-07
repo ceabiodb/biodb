@@ -8,6 +8,9 @@
 \description{
 This is an abstract class, mother class of all NCBI Entrez connector classes.
 }
+\details{
+This is the connector class for a NCBI Gene database.
+}
 \section{Methods}{
 
 \describe{
@@ -76,3 +79,17 @@ Returned value: Depending on `retfmt` parameter.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.gene')
+
+# Get an entry
+e <- conn$getEntry('2833')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

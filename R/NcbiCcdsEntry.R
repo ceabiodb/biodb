@@ -5,6 +5,21 @@
 
 #' NCBI CCDS entry class.
 #'
+#' This is the entry class for a NCBI CCDS database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('ncbi.ccds')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('CCDS12227.1')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbHtmlEntry.R
 #' @export NcbiCcdsEntry
 #' @exportClass NcbiCcdsEntry

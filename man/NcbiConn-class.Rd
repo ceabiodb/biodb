@@ -9,3 +9,17 @@
 This is an abstract class, mother of all NCBI connector classes.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.ccds')
+
+# Get an entry
+e <- conn$getEntry('CCDS12227.1')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

@@ -6,7 +6,7 @@
 \alias{NcbiGeneConn}
 \title{NCBI Gene connector class.}
 \description{
-NCBI Gene connector class.
+This is the connector class for a NCBI Gene database.
 }
 \section{Methods}{
 
@@ -35,3 +35,17 @@ Returned value: A character vector of entry IDs whose name matches the
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.gene')
+
+# Get an entry
+e <- conn$getEntry('2833')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

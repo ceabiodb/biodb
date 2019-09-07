@@ -33,3 +33,17 @@ Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.pubchem.comp')
+
+# Get an entry
+e <- conn$getEntry('2')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

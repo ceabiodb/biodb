@@ -6,7 +6,7 @@
 \alias{NcbiCcdsConn}
 \title{NCBI CCDS connector class.}
 \description{
-NCBI CCDS connector class.
+This is the connector class for a NCBI CCDS database.
 }
 \section{Methods}{
 
@@ -21,3 +21,17 @@ Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.ccds')
+
+# Get an entry
+e <- conn$getEntry('CCDS12227.1')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

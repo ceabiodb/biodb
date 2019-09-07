@@ -5,6 +5,24 @@
 
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
+#' This is the connector class for a MASS SQLite database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get path to LCMS database example file
+#' lcmsdb <- system.file("extdata", "lcmsdb.sqlite", package="biodb")
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('mass.sqlite', url=lcmsdb)
+#'
+#' # Get an entry
+#' e <- conn$getEntry('34.pos.col12.0.78')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbMassdbConn.R
 #' @include BiodbEditable.R
 #' @include BiodbWritable.R

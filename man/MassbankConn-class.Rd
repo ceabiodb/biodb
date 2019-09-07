@@ -6,7 +6,7 @@
 \alias{MassbankConn}
 \title{Massbank connector class.}
 \description{
-Massbank connector class.
+This is the connector class for a Massbank database.
 }
 \section{Methods}{
 
@@ -52,3 +52,20 @@ Returned value: The number of entries in the database, as an integer.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('massbank')
+
+# Get the database name from a massbank id
+conn$getDsn('EA256108')
+
+# Get the URL of an entry's page
+conn$getEntryPageUrl('EA256108')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

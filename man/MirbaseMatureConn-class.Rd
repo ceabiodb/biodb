@@ -6,7 +6,7 @@
 \alias{MirbaseMatureConn}
 \title{Mirbase Mature connector class.}
 \description{
-Mirbase Mature connector class.
+This is the connector class for Mirbase Mature database.
 }
 \section{Methods}{
 
@@ -53,3 +53,17 @@ Returned value: Depending on `retfmt` parameter.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('mirbase.mature')
+
+# Get an entry
+e <- conn$getEntry('MIMAT0000433')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

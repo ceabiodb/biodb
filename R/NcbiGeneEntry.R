@@ -5,6 +5,21 @@
 
 #' NCBI Gene entry class.
 #'
+#' This is the entry class for a NCBI Gene database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('ncbi.gene')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('2833')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbXmlEntry.R
 #' @export NcbiGeneEntry
 #' @exportClass NcbiGeneEntry
