@@ -144,6 +144,8 @@ create.biodb.instance <- function() {
 	logger$setLevel('caution', 2L)
 	logger$setLevel('debug', 2L)
 	logger$setLevel('info', 2L)
+	logger$setLevel('error', 2L)
+	logger$setLevel('warning', 2L)
 
 	# Create test observer
 	test.observer <- MsgAcknowledger()
