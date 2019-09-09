@@ -142,10 +142,10 @@ sendRequest=function(request, cache.read=TRUE) {
                                        output.vector=TRUE)
     }
 
-    # Check if in offline mode
-    .self$.checkOfflineMode()
-
     if (is.na(content)) {
+
+        # Check if in offline mode
+        .self$.checkOfflineMode()
 
         content <- .self$.doSendRequestLoop(request=request, rule=rule)
 

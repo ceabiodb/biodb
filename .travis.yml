@@ -2,6 +2,9 @@ language: r
 cache: packages
 r: release
 
+env:
+    - BIODB_OFFLINE=true
+
 before_install:
     - sudo apt-get install -y libmagick++-dev
       #    - Rscript -e 'install.packages(c("remotes"));if (!all(c("remotes") %in% installed.packages())) { q(status = 1, save = "no")}'

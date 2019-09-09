@@ -137,7 +137,7 @@ get.log.file.descriptor <- function() {
 # Create Biodb instance {{{1
 ################################################################
 
-create.biodb.instance <- function(offline = FALSE) {
+create.biodb.instance <- function() {
 
 	# Create logger
 	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
@@ -159,7 +159,7 @@ create.biodb.instance <- function(offline = FALSE) {
 	# Online
 	biodb$getConfig()$disable('cache.read.only')
 	biodb$getConfig()$enable('allow.huge.downloads')
-	biodb$getConfig()$disable('offline')
+#	biodb$getConfig()$disable('offline')
 	biodb$getConfig()$enable('cache.subfolders')
 
 	return(biodb)

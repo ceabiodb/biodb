@@ -21,7 +21,7 @@ config:
 
   cache.read.only:
     type: logical
-    description: The cache system is not writable. This is mainly used for test purposes.
+    description: If set to TRUE, then the cache system becomes not writable. This is mainly used for test purposes.
     default: FALSE
 
   cache.subfolders:
@@ -85,7 +85,7 @@ config:
 
   offline:
     type: logical
-    description: All network accesses are blocked. This is mainly used for test purposes.
+    description: If set to TRUE, all network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
 
   peakforest.mass.token:
