@@ -179,6 +179,18 @@ requiresDownload=function() {
     return(TRUE)
 },
 
+# Get entry content from database {{{3
+################################################################################
+
+getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    return(content)
+},
+
 # Private methods {{{2
 ################################################################################
 
