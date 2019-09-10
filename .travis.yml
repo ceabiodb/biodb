@@ -18,11 +18,12 @@ notifications:
 script:
     - make build
       #    - make check # without vignettes
-    - make full.check # with vignettes
+    - make full.check || cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail
 
 branches:
     only:
         - master
 
 after_script:
+    - cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail
     - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi
