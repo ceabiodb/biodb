@@ -156,6 +156,8 @@ databases:
 # ChemSpider {{{2
 ################################################################################
   chemspider:
+    disabled: true
+    disabling_reason: "ChemSpider free plan has a limit of 1000 requests per month, which has limited the possibility of testing. We are working on reenabling this connector."
     entry.content.type: json
     name: ChemSpider
     parsing.expr:

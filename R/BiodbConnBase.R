@@ -543,6 +543,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Define properties
     prop.def <- list(
+        disabled=list(class='logicial', default=FALSE, modifiable=TRUE),
+        disabling_reason=list(class='character', default=NA_character_),
         dwnld.ext=list(class='character', default=NA_character_,
                        modifiable=FALSE),
         entry.content.encoding=list(class='character',
