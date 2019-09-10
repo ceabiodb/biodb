@@ -6,6 +6,22 @@
 \alias{MassbankEntry}
 \title{Massbank entry class.}
 \description{
-Massbank entry class.
+This is the entry class for a Massbank database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('massbank')
+
+# Get an entry
+\dontrun{ 
+e <- conn$getEntry('EA256108')
+}
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

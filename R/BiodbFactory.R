@@ -467,7 +467,7 @@ show=function() {
         .self$debug('Accession numbers: ', strIds, '.')
         if (any(entries.without.accession)) {
             n <- sum(entries.without.accession)
-            .self$debug('Found', n, 'entry/ies without an accession number.',
+            .self$debug('Found ', n, ' entry/ies without an accession number.',
                         ' Set it/them to NULL.')
             entries[entries.without.accession] <- list(NULL)
         }

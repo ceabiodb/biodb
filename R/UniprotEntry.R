@@ -5,6 +5,21 @@
 
 #' Uniprot entry class.
 #'
+#' This is the entry class for Uniprot database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('uniprot')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('P01011')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbXmlEntry.R
 #' @export UniprotEntry
 #' @exportClass UniprotEntry

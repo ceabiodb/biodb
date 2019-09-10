@@ -5,6 +5,21 @@
 
 #' HMDB Metabolites entry class.
 #'
+#' This is the entry class for the HMDB Metabolites database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('hmdb.metabolites')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('HMDB0000001')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbXmlEntry.R
 #' @export HmdbMetabolitesEntry
 #' @exportClass HmdbMetabolitesEntry

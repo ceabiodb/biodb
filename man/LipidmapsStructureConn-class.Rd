@@ -126,6 +126,20 @@ Returned value: Depending on `retfmt`.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('lipidmaps.structure')
+
+# Get an entry
+e <- conn$getEntry('LMFA00000001')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}
 \seealso{
 \code{\link{BiodbFactory}}.
 }

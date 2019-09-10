@@ -12,6 +12,19 @@
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{KeggConn}}.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('kegg.orthology')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('K12668')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include KeggConn.R
 #' @export KeggOrthologyConn
 #' @exportClass KeggOrthologyConn

@@ -548,7 +548,7 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
 .addEntriesToCache=function(ids, entries) {
 
     ids <- as.character(ids)
-    
+
     names(entries) <- ids
 
     # Update known entries

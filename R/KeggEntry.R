@@ -5,6 +5,21 @@
 
 #' KEGG entry abstract class.
 #'
+#' This is the abstract entry class for all KEGG entry classes. 
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('kegg.compound')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('C00133')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbTxtEntry.R
 #' @export KeggEntry
 #' @exportClass KeggEntry

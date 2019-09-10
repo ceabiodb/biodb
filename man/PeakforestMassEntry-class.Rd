@@ -6,6 +6,20 @@
 \alias{PeakforestMassEntry}
 \title{PeakForest Mass entry class.}
 \description{
-PeakForest Mass entry class.
+This is the entry class for PeakForest Mass database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('peakforest.mass')
+
+# Get an entry
+e <- conn$getEntry('1000')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

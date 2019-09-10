@@ -6,6 +6,20 @@
 \alias{ChemspiderEntry}
 \title{ChemSpider entry class}
 \description{
-ChemSpider entry class
+This is the entry class for the ChemSpider database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector to ChemSpider
+conn <- mybiodb$getFactory()$createConn('chemspider')
+
+# Get an entry
+e <- conn$getEntry('2')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

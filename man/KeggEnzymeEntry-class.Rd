@@ -6,6 +6,20 @@
 \alias{KeggEnzymeEntry}
 \title{KEGG Enzyme entry class.}
 \description{
-KEGG Enzyme entry class.
+This is the entry class for the KEGG Enzyme class.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('kegg.enzyme')
+
+# Get an entry
+e <- conn$getEntry('1.1.1.54')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

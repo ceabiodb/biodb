@@ -56,3 +56,17 @@ Returned value: Depending on `retfmt`.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('expasy.enzyme')
+
+# Get an entry
+e <- conn$getEntry('1.1.1.1')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

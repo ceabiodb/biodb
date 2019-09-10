@@ -137,13 +137,15 @@ get.log.file.descriptor <- function() {
 # Create Biodb instance {{{1
 ################################################################
 
-create.biodb.instance <- function(offline = FALSE) {
+create.biodb.instance <- function() {
 
 	# Create logger
 	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
 	logger$setLevel('caution', 2L)
 	logger$setLevel('debug', 2L)
 	logger$setLevel('info', 2L)
+	logger$setLevel('error', 2L)
+	logger$setLevel('warning', 2L)
 
 	# Create test observer
 	test.observer <- MsgAcknowledger()
@@ -159,7 +161,7 @@ create.biodb.instance <- function(offline = FALSE) {
 	# Online
 	biodb$getConfig()$disable('cache.read.only')
 	biodb$getConfig()$enable('allow.huge.downloads')
-	biodb$getConfig()$disable('offline')
+#	biodb$getConfig()$disable('offline')
 	biodb$getConfig()$enable('cache.subfolders')
 
 	return(biodb)

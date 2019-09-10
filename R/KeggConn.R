@@ -89,6 +89,10 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
     \nReturned value: Depending on `retfmt`.
     "
 
+    # Not implemented for genes database
+    if (.self$.db.name == 'genes')
+        return(character())
+
     retfmt <- match.arg(retfmt)
 
     # Build request
@@ -104,7 +108,7 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
     # Extract IDs
     if (retfmt == 'ids') {
         results <- strsplit(results, "\n")[[1]]
-        
+
         if ( ! is.na(.self$.db.abbrev) && nchar(.self$.db.abbrev) > 0)
             results <- sub('^[^:]+:([^\\s]+)\\s.*$', '\\1', results, perl=TRUE)
         else

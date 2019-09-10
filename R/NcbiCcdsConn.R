@@ -5,6 +5,21 @@
 
 #' NCBI CCDS connector class.
 #'
+#' This is the connector class for a NCBI CCDS database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('ncbi.ccds')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('CCDS12227.1')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include NcbiConn.R
 #' @export NcbiCcdsConn
 #' @exportClass NcbiCcdsConn

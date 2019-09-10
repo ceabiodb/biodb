@@ -6,7 +6,7 @@
 \alias{NcbiPubchemCompConn}
 \title{NCBI PubChem Compound connector class.}
 \description{
-NCBI PubChem Compound connector class.
+This is the connector class for a NCBI PubChen Compound database.
 }
 \section{Methods}{
 
@@ -31,3 +31,17 @@ max.results: The maximum number of matches to return.
 Returned value: A character vector of entry IDs.}
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('ncbi.pubchem.comp')
+
+# Get an entry
+e <- conn$getEntry('2')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

@@ -6,6 +6,20 @@
 \alias{KeggGenesEntry}
 \title{KEGG Genes entry class.}
 \description{
-KEGG Genes entry class.
+This is the entry class for the KEGG Genes database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('kegg.genes')
+
+# Get an entry
+e <- conn$getEntry('mmu:14635')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

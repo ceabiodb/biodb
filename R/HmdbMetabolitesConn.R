@@ -3,12 +3,25 @@
 # HmdbMetabolitesConn {{{1
 ################################################################################
 
-#' The connector class for the HMDB MetabolitesA database.
+#' The connector class for the HMDB Metabolites database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
 #' but instead be instantiated through the factory \code{\link{BiodbFactory}}.
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('hmdb.metabolites')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('HMDB0000001')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
 #'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbCompounddbConn.R

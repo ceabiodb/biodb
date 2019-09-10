@@ -164,3 +164,20 @@ Returned value: Depending on `retfmt` value.
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('chebi')
+
+# Get an entry
+e <- conn$getEntry('15440')
+
+# Convert an InChI KEY to a ChEBI identifier
+conn$convInchiToChebi('YYGNTYWPHWGJRM-AAJYLUCBSA-N')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

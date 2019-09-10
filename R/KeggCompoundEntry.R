@@ -5,6 +5,21 @@
 
 #' KEGG Compound entry class.
 #'
+#' This is the entry class for the KEGG Compound database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('kegg.compound')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('C00133')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include KeggEntry.R
 #' @export KeggCompoundEntry
 #' @exportClass KeggCompoundEntry

@@ -6,6 +6,23 @@
 \alias{MassSqliteEntry}
 \title{Mass SQLite entry class.}
 \description{
-Mass SQLite entry class.
+This is the entry class for a MASS SQLite database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Get path to LCMS database example file
+lcmsdb <- system.file("extdata", "lcmsdb.sqlite", package="biodb")
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('mass.sqlite', url=lcmsdb)
+
+# Get an entry
+e <- conn$getEntry('34.pos.col12.0.78')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

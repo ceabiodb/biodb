@@ -5,6 +5,21 @@
 
 #' miRBase Mature entry class.
 #'
+#' This is the connector class for Mirbase Mature database.
+#'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('mirbase.mature')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('MIMAT0000433')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbTxtEntry.R
 #' @export MirbaseMatureEntry
 #' @exportClass MirbaseMatureEntry

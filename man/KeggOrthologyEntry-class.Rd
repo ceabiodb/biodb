@@ -6,6 +6,20 @@
 \alias{KeggOrthologyEntry}
 \title{KEGG Orthology entry class.}
 \description{
-KEGG Orthology entry class.
+This is the class entry for KEGG Orthology database.
 }
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create a connector
+conn <- mybiodb$getFactory()$createConn('kegg.orthology')
+
+# Get an entry
+e <- conn$getEntry('K12668')
+
+# Terminate instance.
+mybiodb$terminate()
+
+}

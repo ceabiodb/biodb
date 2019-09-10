@@ -60,9 +60,10 @@ initialize=function() {
     callSuper() # Call BiodbObject constructor.
 
     # Set default observers
-    .self$.observers <- list(BiodbWarningReporter$new(),
-                             BiodbErrorReporter$new(),
-                             BiodbInfoReporter$new())
+    .self$.observers <- list(BiodbInfoReporter$new(),
+                             BiodbWarningReporter$new(),
+                             BiodbErrorReporter$new()
+                             )
 
     # Print package version
     .self$info('This is biodb version ', packageVersion('biodb'), '.')

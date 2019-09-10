@@ -9,6 +9,19 @@
 #' CACTUS services.  See https://www.cancer.gov/ and
 #' https://cactus.nci.nih.gov/.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('nci.cactus')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('749674')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbRemotedbConn.R
 #' @include BiodbDownloadable.R
 #' @export NciCactusConn
@@ -164,6 +177,18 @@ requiresDownload=function() {
     # Overrides super class' method.
 
     return(TRUE)
+},
+
+# Get entry content from database {{{3
+################################################################################
+
+getEntryContentFromDb=function(entry.id) {
+    # Overrides super class' method.
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    return(content)
 },
 
 # Private methods {{{2

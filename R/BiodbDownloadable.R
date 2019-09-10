@@ -86,13 +86,15 @@ isDownloaded=function() {
     \nReturned value: TRUE if the database content has already been downloaded.
     "
 
-    already.downloaded <- file.exists(.self$getDownloadPath())
+    cch <- .self$getBiodb()$getCache()
+    dwnlded  <- cch$markerExist(.self$getCacheId(), subfolder='shortterm',
+                    name='downloaded')
 
-    dwnlded <- (if (already.downloaded) 'already' else 'not yet')
-    .self$debug('Database ', .self$getId(), ' has ', dwnlded,
+    s <- (if (dwnlded) 'already' else 'not yet')
+    .self$debug('Database ', .self$getId(), ' has ', s,
                 ' been downloaded.')
 
-    return(already.downloaded)
+    return(dwnlded)
 },
 
 # Is extracted {{{3
@@ -129,6 +131,10 @@ download=function() {
         .self$info("Downloading whole database of ", .self$getId(), ".")
         .self$.doDownload()
         .self$debug('Downloading of ', .self$getId(), ' completed.')
+
+        # Set marker
+        cch$setMarker(.self$getCacheId(), subfolder='shortterm',
+                      name='downloaded')
     }
 
     # Extract

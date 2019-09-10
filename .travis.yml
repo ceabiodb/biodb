@@ -2,6 +2,9 @@ language: r
 cache: packages
 r: release
 
+env:
+    - BIODB_OFFLINE=true
+
 before_install:
     - sudo apt-get install -y libmagick++-dev
       #    - Rscript -e 'install.packages(c("remotes"));if (!all(c("remotes") %in% installed.packages())) { q(status = 1, save = "no")}'
@@ -15,11 +18,8 @@ notifications:
 script:
     - make build
       #    - make check # without vignettes
-    - make full.check # with vignettes
+    - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
 
 branches:
     only:
         - master
-
-      #after_script:
-    #    - if [ -f biodb.Rcheck/tests/testthat.Rout.fail ] ; then cat biodb.Rcheck/tests/testthat.Rout.fail ; fi

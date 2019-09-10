@@ -7,6 +7,19 @@
 #'
 #' This abstract class is the mother class of all PeakForest connector classes.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('peakforest.compound')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('1839')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbRemotedbConn.R
 #' @export PeakforestConn
 #' @exportClass PeakforestConn

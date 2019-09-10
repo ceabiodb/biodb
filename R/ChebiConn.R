@@ -8,6 +8,22 @@
 #' This is the connector class for connecting to the ChEBI database through its
 #' web services.
 #'
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create a connector
+#' conn <- mybiodb$getFactory()$createConn('chebi')
+#'
+#' # Get an entry
+#' e <- conn$getEntry('15440')
+#'
+#' # Convert an InChI KEY to a ChEBI identifier
+#' conn$convInchiToChebi('YYGNTYWPHWGJRM-AAJYLUCBSA-N')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#'
 #' @include BiodbCompounddbConn.R
 #' @include BiodbRemotedbConn.R
 #' @export ChebiConn
