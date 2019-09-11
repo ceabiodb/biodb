@@ -118,10 +118,10 @@ config:
 ################################################################################
 
 databases:
-    
+
 # ChEBI {{{2
 ################################################################################
-   
+
   chebi:
     entry.content.encoding: UTF-8
     entry.content.type: xml
@@ -152,10 +152,12 @@ databases:
     xml.ns:
       chebi: https://www.ebi.ac.uk/webservices/chebi
       xsd: http://www.w3.org/2001/XMLSchema
-    
+
 # ChemSpider {{{2
 ################################################################################
   chemspider:
+    disabled: true
+    disabling.reason: "ChemSpider free plan has a limit of 1000 requests per month, which has limited the possibility of testing. We are working on reenabling this connector."
     entry.content.type: json
     name: ChemSpider
     parsing.expr:
@@ -173,7 +175,7 @@ databases:
     urls:
       base.url: http://www.chemspider.com/
       ws.url: https://api.rsc.org/compounds/v1/
-    
+
 # ExPASy ENZYME {{{2
 ################################################################################
   expasy.enzyme:
@@ -369,6 +371,8 @@ databases:
 # MassBank {{{2
 ################################################################################
   massbank:
+    disabled: true
+    disabling.reason: "The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained. See https://github.com/pkrog/biodb/issues/30."
     entry.content.type: txt
     name: MassBank
     parsing.expr:

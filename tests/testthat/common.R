@@ -29,36 +29,45 @@ if ( ! file.exists(OUTPUT.DIR))
 DATABASES.ALL <- 'all'
 DATABASES.NONE <- 'none'
 
+# Instantiate biodb
 tmpbiodb <- biodb::Biodb()
-TEST.DATABASES <- tmpbiodb$getDbsInfo()$getIds()
+dbinf <- tmpbiodb$getDbsInfo()
+
+# List databases to test
+TEST.DATABASES <- dbinf$getIds()
 if ('DATABASES' %in% names(ENV) && nchar(ENV[['DATABASES']]) > 0) {
 	if (tolower(ENV[['DATABASES']]) == DATABASES.NONE)
 		TEST.DATABASES <- character(0)
 	else if (tolower(ENV[['DATABASES']]) == DATABASES.ALL)
-		TEST.DATABASES <- tmpbiodb$getDbsInfo()$getIds()
+		TEST.DATABASES <- dbinf$getIds()
 	else {
 		TEST.DATABASES <- strsplit(ENV[['DATABASES']], ',')[[1]]
-		db.exists <- vapply(TEST.DATABASES, function(x) tmpbiodb$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
+        
+        # Check that databases exist
+		db.exists <- vapply(TEST.DATABASES, function(x) dbinf$isDefined(x), FUN.VALUE = TRUE)
 		if ( ! all(db.exists)) {
 			wrong.dbs <- TEST.DATABASES[ ! db.exists]
-			stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
+			stop(paste0('Cannot run tests, the following database(s) is/are unknown: ', paste(wrong.dbs, collapse = ', ')), '.')
+		}
+        
+        # Check that databases are enabled
+		db.disabled <- vapply(TEST.DATABASES, function(x) dbinf$get(x)$getPropertyValue('disabled'), FUN.VALUE = TRUE)
+		if (any(db.disabled)) {
+			wrong.dbs <- TEST.DATABASES[db.disabled]
+			stop(paste0('Cannot run tests, the following database(s) is/are disabled: ', paste(wrong.dbs, collapse = ', ')), '.')
 		}
 	}
 }
 
-# Remove databases to test
-if ('DONT_TEST_DBS' %in% names(ENV) && nchar(ENV[['DONT_TEST_DBS']]) > 0) {
-	DONT.TEST.DBS <- strsplit(ENV[['DONT_TEST_DBS']], ',')[[1]]
-	db.exists <- vapply(DONT.TEST.DBS, function(x) tmpbiodb$getDbsInfo()$isDefined(x), FUN.VALUE = TRUE)
-	if ( ! all(db.exists)) {
-		wrong.dbs <- DONT.TEST.DBS[ ! db.exists]
-		stop(paste('Unknown database(s) ', paste(wrong.dbs, collapse = ', ')), '.', sep = '')
-	}
-	TEST.DATABASES <- TEST.DATABASES[ ! TEST.DATABASES %in% DONT.TEST.DBS]
-}
+# Do not test disabled databases
+fct <- function(x) dbinf$get(x)$getPropertyValue('disabled')
+to_remove <- vapply(TEST.DATABASES, fct, FUN.VALUE=TRUE)
+TEST.DATABASES <- TEST.DATABASES[ ! to_remove]
+
+# Terminate biodb instance
 tmpbiodb$terminate()
 tmpbiodb <- NULL
-
+dbinf <- NULL
 
 # Set test functions {{{1
 ################################################################

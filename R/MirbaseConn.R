@@ -3,6 +3,9 @@
 # MirbaseConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Mirbase connector class.
 #'
 #' This is the abstract connector class for Mirbase Mature connector class.

@@ -3,6 +3,9 @@
 # BiodbDbInfo {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for describing the characteristics of a database.
 #'
 #' This class is used by \code{\link{BiodbDbsInfo}} for storing database

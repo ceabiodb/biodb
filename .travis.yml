@@ -7,8 +7,6 @@ env:
 
 before_install:
     - sudo apt-get install -y libmagick++-dev
-      #    - Rscript -e 'install.packages(c("remotes"));if (!all(c("remotes") %in% installed.packages())) { q(status = 1, save = "no")}'
-      #    - Rscript -e 'deps <- remotes::dev_package_deps(dependencies = NA);remotes::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) { message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", ")); q(status = 1, save = "no")}'
 
 notifications:
     email:
@@ -17,7 +15,6 @@ notifications:
 
 script:
     - make build
-      #    - make check # without vignettes
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
 
 branches:

@@ -3,6 +3,9 @@
 # Biodb {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The central class of the biodb package.
 #'
 #' The main class of the \code{biodb} package.
@@ -573,8 +576,20 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
 show=function() {
     'Prints object information.'
 
+    # Print version
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
+
+    # List disabled databases
+    dbs <- .self$getDbsInfo()$getAll()
+    fct <- function(x) x$getPropertyValue('disabled')
+    disabled <- vapply(dbs, fct, FUN.VALUE=TRUE)
+    if (any(disabled)) {
+        fct <- function(x) x$getPropertyValue('name')
+        dbnames <- vapply(dbs[disabled], fct, FUN.VALUE='')
+        cat("The following connectors are disabled: ",
+            paste(dbnames, collapse=', '), ".\n", sep='')
+    }
 },
 
 # Private methods {{{2

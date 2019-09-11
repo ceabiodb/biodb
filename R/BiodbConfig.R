@@ -212,6 +212,8 @@ set=function(key, value) {
 
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))
+
+    invisible(NULL)
 },
 
 # Enable {{{3
