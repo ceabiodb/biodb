@@ -3,6 +3,9 @@
 # BiodbObserver {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The mother abstract class of all observer classes.
 #'
 #' This abstract class defines all the methods that can be used to send messages

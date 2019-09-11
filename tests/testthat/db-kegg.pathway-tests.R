@@ -65,20 +65,23 @@ test_getDecoratedGraphPicture_not_a_compound = function(conn) {
         testthat::expect_null(graph_pix)
 }
 
-# Test getDecoratedGraphPicture() for right enzyme highlighting {{{1
+# Test extractPathwayMapShapes() {{{1
 ################################################################################
 
-test_getDecoratedGraphPicture_right_enzyme <- function(conn) {
+test_extractPathwayMapShapes <- function(conn) {
 
     pw <- 'map00500'
-    enzymes <- c('3.2.1.133' = 2, '3.2.1.1' = 2)
 
-    for (enz in names(enzymes)) {
-        color2ids <- c(red = enz)
+    items <- c('3.2.1.133' = 2, '3.2.1.1' = 2, # Enzymes.
+               'C00089' = 2, 'C00103' = 1 # Compounds.
+    )
+
+    for (i in names(items)) {
+        color2ids <- c(red = i)
         shapes <- conn$extractPathwayMapShapes(id = pw, color2ids = color2ids)
         labels <- vapply(shapes, function(x) x$getLabel(), FUN.VALUE = '')
-        testthat::expect_length(shapes, enzymes[[enz]])
-        testthat::expect_true(all(labels == enz))
+        testthat::expect_length(shapes, items[[i]])
+        testthat::expect_true(all(labels == i))
     }
 }
 
@@ -97,5 +100,5 @@ test.that('getDecoratedGraphPicture() does not fail when called with
 unexisting compounds.',
           'test_getDecoratedGraphPicture_not_a_compound',
           conn = conn)
-test.that('The right enzymes are highlighted on KEGG map.',
-          'test_getDecoratedGraphPicture_right_enzyme', conn = conn)
+test.that('extractPathwayMapShapes() works correctly.',
+          'test_extractPathwayMapShapes', conn = conn)

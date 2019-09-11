@@ -3,6 +3,9 @@
 # BiodbConfig {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for storing configuration values.
 #'
 #' This class is responsible for storing configuration. You must go through the

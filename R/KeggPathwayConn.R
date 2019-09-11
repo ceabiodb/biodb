@@ -3,6 +3,9 @@
 # KeggPathwayConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class to KEGG Pathway database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
@@ -156,7 +159,7 @@ buildPathwayGraph=function(id, directed=FALSE, drop=TRUE) {
                 vert <- rbind(vert, g$vertices)
             }
         }
-        
+
         # Build graph
         if ( ! is.null(edg)) {
             vert <- vert[ ! duplicated(vert[['name']]), ]
@@ -255,38 +258,44 @@ extractPathwayMapShapes=function(id, color2ids) {
     \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
     \nReturned value: A list of BiodbShape objects.
     "
-                            
+
     shapes <- list()
-    
+
     html <- .self$.getPathwayHtml(id)
-    
+
     for (color in names(color2ids)) {
-        
+
         for (id in color2ids[[color]]) {
-            
+
             # Escape special chars
             eid <- gsub('\\.', '\\\\.', id)
-            
-            regex=paste0('shape=([^ ]+)\\s+',
-                         'coords=([^ ]+)\\s+.+',
-                         'title="[^"]*[ ,](', eid, ')[ ,][^"]*"')
+
+# <area shape="circle" coords="336,170,4" href="/dbget-bin/www_bget?C00089"
+#   title="C00089 (Sucrose)" onmouseover="popupTimer(&quot;C00089&quot;,
+#   &quot;C00089 (Sucrose)&quot;, &quot;#ffffff&quot;)" onmouseout="hideMapTn()">
+# <area shape="rect" coords="1015,505,1061,522"
+#   href="/dbget-bin/www_bget?K05992+K01208+3.2.1.133+R02112"
+#   title="K05992 (amyM), K01208 (cd), 3.2.1.133, R02112">
+            regex=paste0('shape="?([^" ]+)"?\\s+',
+                         'coords="?([^" ]+)"?\\s+.+',
+                         'title="([^"]+[ ,])?(', eid, ')[ ,][^"]*"')
             g <- stringr::str_match_all(html, regex)[[1]]
             if (nrow(g) > 0) {
-                
+
                 for (i in seq_len(nrow(g))) {
-                    
+
                     type <- g[i, 2]
                     c <- as.integer(strsplit(g[i, 3], ',')[[1]])
                     s <- switch(type,
-                                rect=BiodbRect(label=g[i, 4],
+                                rect=BiodbRect(label=g[i, 5],
                                            color=color,
                                            left=c[[1]], top=c[[2]],
                                            right=c[[3]], bottom=c[[4]]),
-                                circle=BiodbCircle(label=g[i, 4],
+                                circle=BiodbCircle(label=g[i, 5],
                                              color=color, x=c[[1]],
                                              y=c[[2]], r=c[[3]]),
                                 NULL)
-                
+
                     # Append new shape to list
                     if ( ! is.null(s))
                         shapes <- c(shapes, list(s))
@@ -294,7 +303,7 @@ extractPathwayMapShapes=function(id, color2ids) {
             }
         }
     }
-        
+
     return(shapes)
 },
 

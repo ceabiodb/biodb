@@ -3,6 +3,9 @@
 # BiodbInfoReporter {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for display info messages for the user.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated
