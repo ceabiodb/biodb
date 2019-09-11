@@ -3,6 +3,9 @@
 # KeggPathwayConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class to KEGG Pathway database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
@@ -255,26 +258,26 @@ extractPathwayMapShapes=function(id, color2ids) {
     \ncolor2ids: A named list defining colors for entry IDs that are present on the graph. The names of the list are standard color names. The values are character vector of entry IDs.
     \nReturned value: A list of BiodbShape objects.
     "
-                            
+
     shapes <- list()
-    
+
     html <- .self$.getPathwayHtml(id)
-    
+
     for (color in names(color2ids)) {
-        
+
         for (id in color2ids[[color]]) {
-            
+
             # Escape special chars
             eid <- gsub('\\.', '\\\\.', id)
-            
+
             regex=paste0('shape=([^ ]+)\\s+',
                          'coords=([^ ]+)\\s+.+',
                          'title="[^"]*[ ,](', eid, ')[ ,][^"]*"')
             g <- stringr::str_match_all(html, regex)[[1]]
             if (nrow(g) > 0) {
-                
+
                 for (i in seq_len(nrow(g))) {
-                    
+
                     type <- g[i, 2]
                     c <- as.integer(strsplit(g[i, 3], ',')[[1]])
                     s <- switch(type,
