@@ -89,8 +89,8 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Disabled?
     if (db.info$getPropertyValue('disabled')) {
         reason <- db.info$getPropertyValue('disabling.reason')
-        .self$error('Impossible to instantiate a connector for database "',
-                    db.class, '". It is disabled. ', reason)
+        .self$caution('The "', db.class, '" connector is disabled. ', reason,
+                      ' You use it at your own risks.')
     }
 
     # Get connector class

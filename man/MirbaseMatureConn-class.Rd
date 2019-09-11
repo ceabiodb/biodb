@@ -19,38 +19,6 @@ entry.id: A character vector with the IDs of entries to retrieve.
     
 Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
-
-\item{\code{searchByName(name, max.results = NA_integer_)}}{:
-
-Searches the database for entries whose name matches the specified
-    name.  Returns a character vector of entry IDs.
-    
-name: The name to look for.
-    
-max.results: If set, the number of returned IDs is limited to this
-    number.
-    
-Returned value: A character vector of entry IDs whose name matches the
-    requested name.
-    }
-
-\item{\code{wsQuery(terms, submit = "Search", retfmt = c("plain", "request", "parsed",
-  "ids"))}}{:
-
-Sends a request to the web service query.
-    
-terms: The query.
-    
-submit: Type of submission.
-    
-retfmt: The format to use for the returned value. 'plain' will return the
-    raw results from the server, as a character value. 'request' will return the
-    request a BiodbRequest object representing the request that would have been
-    sent. 'parsed' will return the parsed results, as an XML object. 'ids' will
-    return a character vector containing the IDs of the matching entries.
-    
-Returned value: Depending on `retfmt` parameter.
-    }
 }}
 
 \examples{
