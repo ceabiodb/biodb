@@ -3,6 +3,9 @@
 # BiodbObject {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 BiodbObject <- methods::setRefClass("BiodbObject",
     fields=list(
                 .message.enabled="logical"

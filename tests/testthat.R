@@ -18,23 +18,12 @@ README_PATH=file.path(SRC_DIR, 'README.md')
 if (all( ! c('DATABASES', 'BIODB_CACHE_DIRECTORY') %in% names(ENV)))
 	Sys.setenv(DATABASES = "mass.csv.file,mass.sqlite")
 
-# Exclude databases {{{1
-################################################################
-
-lines = readLines(README_PATH)
-lines_match = stringr::str_match(lines, "^[^|]+\\| *([^ ]+).* *\\| *(❌|off) *\\|")
-dbs_to_exclude = lines_match[ ! is.na(lines_match[, 1]), 2]
-if ('DONT_TEST_DBS' %in% names(ENV))
-	dbs_to_exclude = c(strsplit(ENV[['DONT_TEST_DBS']], ',')[[1]], dbs_to_exclude)
-if (length(dbs_to_exclude) > 0)
-	Sys.setenv(DONT_TEST_DBS = paste(dbs_to_exclude, collapse = ','))
-
 # Print env vars {{{1
 ################################################################
 
 ENV = Sys.getenv() # Reload env vars
 cat("ENVIRONMENT VARIABLES:\n")
-vars = grep('^(BIODB_.*|DATABASES|DONT_TEST_DBS)$', names(ENV), value = TRUE, perl = TRUE)
+vars = grep('^(BIODB_.*|DATABASES)$', names(ENV), value = TRUE, perl = TRUE)
 print(ENV[vars])
 
 # Run tests {{{1

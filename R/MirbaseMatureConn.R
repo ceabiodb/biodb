@@ -3,6 +3,9 @@
 # MirbaseMatureConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Mirbase Mature connector class.
 #'
 #' This is the connector class for Mirbase Mature database.
@@ -75,73 +78,6 @@ getEntryContentFromDb=function(entry.id) {
     return(content)
 },
 
-# Web service query {{{3
-################################################################################
-
-wsQuery=function(terms, submit='Search',
-                 retfmt=c('plain', 'request', 'parsed', 'ids')) {
-    ":\n\nSends a request to the web service query.
-    \nterms: The query.
-    \nsubmit: Type of submission.
-    \nretfmt: The format to use for the returned value. 'plain' will return the
-    raw results from the server, as a character value. 'request' will return the
-    request a BiodbRequest object representing the request that would have been
-    sent. 'parsed' will return the parsed results, as an XML object. 'ids' will
-    return a character vector containing the IDs of the matching entries.
-    \nReturned value: Depending on `retfmt` parameter.
-    "
-
-    retfmt <- match.arg(retfmt)
-
-    # Build request
-    params <- list(terms=terms, submit=submit)
-    url <- c(.self$getPropValSlot('urls', 'base.url'), 'cgi-bin', 'query.pl')
-    url <- BiodbUrl(url=url, params=params)
-    request <- BiodbRequest(url=url)
-    if (retfmt == 'request')
-        return(request)
-
-    # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
-
-    # Parse results
-    if (retfmt != 'plain') {
-
-        # Parse HTML
-        results <- XML::htmlTreeParse(results, asText=TRUE,
-                                      useInternalNodes=TRUE)
-
-        # Get IDs
-        if (retfmt == 'ids') {
-            results <- unlist(XML::xpathSApply(results,
-                                               "//a[starts-with(.,'MIMAT')]",
-                                               XML::xmlValue))
-            if (is.null(results))
-                results <- character()
-        }
-    }
-
-    return(results)
-},
-
-# Search by name {{{3
-################################################################################
-
-searchByName=function(name, max.results=NA_integer_) {
-    # Overrides super class' method.
-        
-    ids <- NULL
-
-    # Search by name
-    if ( ! is.null(name))
-        ids <- .self$wsQuery(terms=name, retfmt='ids')
-
-    # Cut
-    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
-        ids <- ids[seq_len(max.results)]
-
-    return(ids)
-},
 
 # Private methods {{{2
 ################################################################################

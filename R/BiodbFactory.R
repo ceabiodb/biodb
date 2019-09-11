@@ -3,6 +3,9 @@
 # BiodbFactory {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for constructing biodb objects.
 #'
 #' This class is responsible for the creation of database connectors and
@@ -82,6 +85,13 @@ createConn=function(db.class, url=NULL, token=NA_character_,
 
     # Get database info
     db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+
+    # Disabled?
+    if (db.info$getPropertyValue('disabled')) {
+        reason <- db.info$getPropertyValue('disabling.reason')
+        .self$error('Impossible to instantiate a connector for database "',
+                    db.class, '". It is disabled. ', reason)
+    }
 
     # Get connector class
     conn.class <- db.info$getConnClass()

@@ -3,6 +3,9 @@
 # BiodbDbsInfo {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for describing the available databases.
 #'
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class
@@ -147,8 +150,14 @@ show=function() {
 
     cat("Biodb databases information instance.\n")
     cat("The following databases are defined:\n")
-    for (id in names(.self$.dbs))
-        cat("  ", id, "\n")
+    for (id in names(.self$.dbs)) {
+        cat("  ", id, ".", sep='')
+        db <- .self$get(id)
+        if (db$getPropertyValue('disabled'))
+            cat(" DISABLED (", db$getPropertyValue('disabling.reason'),").",
+                sep='')
+        cat("\n")
+    }
 }
 
 ))

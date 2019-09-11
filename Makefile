@@ -38,7 +38,6 @@ $(info "BIODB_OFFLINE=$(BIODB_OFFLINE)")
 # TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
 $(info "DATABASES=$(DATABASES)")
 $(info "FUNCTIONS=$(FUNCTIONS)")
-$(info "DONT_TEST_DBS=$(DONT_TEST_DBS)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
 $(info "GIT_VERSION=$(GIT_VERSION)")
 

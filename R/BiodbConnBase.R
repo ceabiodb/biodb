@@ -3,6 +3,9 @@
 # BiodbConnBase {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Base class of \code{BiodbConn} for encapsulating all needed information for
 #' database access.
 #'
@@ -105,13 +108,23 @@ show=function() {
     ":\n\nPrints the values of the properties of this connector.
     \nReturned value: None.
     "
-    
+
+    # General info
     msg <- paste0("Biodb ", .self$getPropertyValue('name'),
                   " connector instance")
     if (.self$hasPropSlot('urls', 'base.url'))
         msg <- paste0(msg, ', using URL "',
                       .self$getPropValSlot('urls', 'base.url'), '"')
     msg <- paste0(msg, ".\n")
+
+    # Disabled
+    if (.self$getPropertyValue('disabled')) {
+        reason <- .self$getPropertyValue('disabling.reason')
+        msg <- paste0(msg, 'This connector currently is DISABLED. ',
+                      reason, "\n")
+    }
+
+    # Print info
     cat(msg)
 },
 
@@ -543,8 +556,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Define properties
     prop.def <- list(
-        disabled=list(class='logicial', default=FALSE, modifiable=TRUE),
-        disabling_reason=list(class='character', default=NA_character_),
+        disabled=list(class='logical', default=FALSE, modifiable=TRUE),
+        disabling.reason=list(class='character', default=''),
         dwnld.ext=list(class='character', default=NA_character_,
                        modifiable=FALSE),
         entry.content.encoding=list(class='character',

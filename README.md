@@ -9,12 +9,12 @@ An R package for connecting to chemical and biological databases.
 
 In this table, you will find a list of all online databases accessible through biodb, with a status. The status can  avrry, depending on changes in the database API that can break the biodb library. When this happens, the status column is marked with a red cross, and an issue is opened and listed inside column *Related issue*.
 
-Database               | Key                 | Status | Online tests | Related issue                                     | Related PR | Explanations
-------------           | ----------          | :---:  | :----------: | ------------------------------------------------- | ---------- | ---------------------
+Database               | Key                 | Status | Related issue                                     | Related PR | Explanations
+------------           | ----------          | :---:  | ------------------------------------------------- | ---------- | ---------------------
 ChEBI                  | chebi               |   ✅   |
-ChemSpider             | chemspider          |   ✅   |     off      |                                                   |            | Online tests are not run because ChemSpider free plan has a limit of 1000 requests per month.
+ChemSpider             | chemspider          |   ❌   |                                                   |            | Online tests are not run because ChemSpider free plan has a limit of 1000 requests per month.
 ExPASy ENZYME          | expasy.enzyme       |   ✅   |
-HMDB Metabolites       | hmdb.metabolites    |   ✅   |              |                                                   |            |               
+HMDB Metabolites       | hmdb.metabolites    |   ✅   |                                                   |            |
 KEGG Compound          | kegg.compound       |   ✅   |
 KEGG Enzyme            | kegg.enzyme         |   ✅   |
 KEGG Genes             | kegg.genes          |   ✅   |
@@ -22,16 +22,16 @@ KEGG Module            | kegg.module         |   ✅   |
 KEGG Pathway           | kegg.pathway        |   ✅   |
 KEGG Reaction          | kegg.reaction       |   ✅   |
 LIPID MAPS Structure   | lipidmaps.structure |   ✅   |
-Massbank               | massbank            |   ❌   |              | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
-miRBase Mature         | mirbase.mature      |   ✅   |              |                                                   |            |
+Massbank               | massbank            |   ❌   | [#30](https://github.com/pkrog/biodb/issues/30)   |            | The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained.
+miRBase Mature         | mirbase.mature      |   ✅   |                                                   |            |
 NCBI CCDS              | ncbi.ccds           |   ✅   |
 NCBI Gene              | ncbi.gene           |   ✅   |
-NCBI PubChem Compound  | ncbi.pubchem.comp   |   ✅   |              |                                                   |            | 
+NCBI PubChem Compound  | ncbi.pubchem.comp   |   ✅   |                                                   |            |
 NCBI PubChem Substance | ncbi.pubchem.subst  |   ✅   |
-NCI CACTUS             | nci.cactus          |   ✅   | 
-PeakForest Compound    | peakforest.compound |   ✅   |              |                                                   |            | <https://metabohub.peakforest.org/> is down.
-PeakForest Mass        | peakforest.mass     |   ✅   |              |                                                   |            | <https://metabohub.peakforest.org/> is down.
-UniProt                | uniprot             |   ✅   |              |                                                   |            | 
+NCI CACTUS             | nci.cactus          |   ✅   |
+PeakForest Compound    | peakforest.compound |   ✅   |                                                   |            |
+PeakForest Mass        | peakforest.mass     |   ✅   |                                                   |            |
+UniProt                | uniprot             |   ✅   |                                                   |            |
 
 **Legend**:
  * ✅ Database is working fine with Biodb connector.
