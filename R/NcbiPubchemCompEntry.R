@@ -3,6 +3,9 @@
 # NcbiPubchemCompEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem Compound entry class.
 #'
 #' This is the entry class for a NCBI PubChen Compound database.

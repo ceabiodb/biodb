@@ -3,6 +3,9 @@
 # KeggGenesEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Genes entry class.
 #'
 #' This is the entry class for the KEGG Genes database.

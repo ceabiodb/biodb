@@ -3,6 +3,9 @@
 # MassCsvFileEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Mass CSV File entry class.
 #'
 #' This is the entry class for MASS CSV file databases.

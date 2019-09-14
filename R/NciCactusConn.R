@@ -3,6 +3,9 @@
 # NciCactusConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCI CACTUS connector class.
 #'
 #' This class implements a connector for accessing the NCI database, using

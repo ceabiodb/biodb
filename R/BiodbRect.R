@@ -3,6 +3,9 @@
 # Class declaration {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for representing a rectangle.
 #'
 #' This class represents a rectangle, used for graphical

@@ -3,6 +3,9 @@
 # LipidmapsStructureConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Lipidmaps Structure connector class.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,

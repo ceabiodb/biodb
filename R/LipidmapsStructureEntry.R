@@ -3,6 +3,9 @@
 # LipidmapsStructureEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Lipidmaps Structure entry class.
 #'
 #' This is the entry class for Lipidmaps Structure database.

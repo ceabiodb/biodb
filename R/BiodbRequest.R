@@ -3,6 +3,9 @@
 # BiodbRequest {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Class Request.
 #'
 #' This class represents a Request object that can be used with the Request

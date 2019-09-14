@@ -3,6 +3,9 @@
 # NcbiPubchemEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem entry class.
 #'
 #' This the abstract entry class for all NCBI PubChem entry classes.

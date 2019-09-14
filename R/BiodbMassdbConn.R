@@ -3,6 +3,9 @@
 # BiodbMassdbConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The mother class of all Mass spectra databases.
 #'
 #' All Mass spectra databases inherit from this class. It thus defines methods

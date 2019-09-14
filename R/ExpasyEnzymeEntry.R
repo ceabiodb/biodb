@@ -3,6 +3,9 @@
 # ExpasyEnzymeEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Expasy Enzyme entry class.
 #'
 #' This is the entry class for the Expasy Enzyme database.

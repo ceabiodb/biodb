@@ -3,6 +3,9 @@
 # KeggCompoundEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Compound entry class.
 #'
 #' This is the entry class for the KEGG Compound database.

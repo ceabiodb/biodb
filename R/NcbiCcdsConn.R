@@ -3,6 +3,9 @@
 # NcbiCcdsConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI CCDS connector class.
 #'
 #' This is the connector class for a NCBI CCDS database.

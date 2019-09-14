@@ -3,6 +3,9 @@
 # ChemspiderConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class to ChemSpider database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,

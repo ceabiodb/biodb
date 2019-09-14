@@ -3,6 +3,9 @@
 # BiodbListEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Entry class for content in list format.
 #'
 #' This is an abstract class for handling database entries whose content is in
@@ -35,7 +38,7 @@ methods=list(
            && length(names(parsed.content)) > 0)
 },
 
-# Parse fields step 1 {{{1
+# Parse fields step 1 {{{3
 ################################################################################
 
 .parseFieldsStep1=function(parsed.content) {

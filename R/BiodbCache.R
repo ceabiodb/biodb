@@ -3,6 +3,9 @@
 # BiodbCache {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for handling file caching.
 #'
 #' This class manages a cache system for saving downloaded files and request

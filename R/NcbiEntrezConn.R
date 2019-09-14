@@ -3,6 +3,9 @@
 # NcbiEntrezConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI Entrez connector abstract class.
 #'
 #' This is an abstract class, mother class of all NCBI Entrez connector classes.

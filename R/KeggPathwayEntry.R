@@ -3,6 +3,9 @@
 # KeggPathwayEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Pathway entry class.
 #'
 #' This is the class entry for KEGG Pathway database.

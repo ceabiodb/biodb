@@ -3,6 +3,9 @@
 # BiodbErrorReporter {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for throwing an error.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated

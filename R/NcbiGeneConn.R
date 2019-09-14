@@ -3,6 +3,9 @@
 # NcbiGeneConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI Gene connector class.
 #'
 #' This is the connector class for a NCBI Gene database.

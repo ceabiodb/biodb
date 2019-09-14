@@ -3,6 +3,9 @@
 # MassbankConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Massbank connector class.
 #'
 #' This is the connector class for a Massbank database.

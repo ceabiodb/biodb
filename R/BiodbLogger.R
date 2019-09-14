@@ -3,6 +3,9 @@
 # BiodbLogger {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for logging biodb messages either to standard stream or into a file.
 #'
 #' This class implements a logger for the biodb package. When creating an

@@ -3,6 +3,9 @@
 # NcbiPubchemConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem connector abstractclass.
 #'
 #' This is an abstract class, mother class of all NCBI PubChem connector

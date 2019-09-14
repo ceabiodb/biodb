@@ -3,6 +3,9 @@
 # ChebiConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' ChEBI connector class.
 #'
 #' This is the connector class for connecting to the ChEBI database through its

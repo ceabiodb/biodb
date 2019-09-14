@@ -3,6 +3,9 @@
 # NcbiPubchemCompConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem Compound connector class.
 #'
 #' This is the connector class for a NCBI PubChen Compound database.

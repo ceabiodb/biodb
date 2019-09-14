@@ -3,6 +3,9 @@
 # BiodbEntryField {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for describing an entry field.
 #'
 #' This class is used by \code{\link{BiodbEntryFields}} for storing field

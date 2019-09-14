@@ -3,6 +3,9 @@
 # BiodbEditable {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' An interface to model an editable database.
 #'
 #' A database class that implements this interface allows the addition of new

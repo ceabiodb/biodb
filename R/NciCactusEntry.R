@@ -3,6 +3,9 @@
 # NciCactusEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCI CACTUS entry class.
 #'
 #' This is the entry class for the NCI CACTUS database.

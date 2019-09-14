@@ -3,6 +3,9 @@
 # PeakforestCompoundConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' PeakForest Compound connector class.
 #'
 #' This is the connector class for PeakForest Compound database.

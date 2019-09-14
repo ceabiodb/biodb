@@ -3,6 +3,9 @@
 # BiodbShape {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for representing a shape.
 #'
 #' This abstract class represents a shape, used for graphical representation.

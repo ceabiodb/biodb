@@ -3,6 +3,9 @@
 # NcbiPubchemSubstConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem Substance connector class.
 #'
 #' This is the connector class for a NCBI PubChen Substance database.

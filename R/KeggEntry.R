@@ -3,6 +3,9 @@
 # KeggEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG entry abstract class.
 #'
 #' This is the abstract entry class for all KEGG entry classes. 

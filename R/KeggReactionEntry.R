@@ -3,6 +3,9 @@
 # KeggReactionEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Reaction entry class.
 #'
 #' This is the entry class for KEGG Reation database.

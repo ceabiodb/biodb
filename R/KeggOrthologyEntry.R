@@ -3,6 +3,9 @@
 # KeggOrthologyEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Orthology entry class.
 #'
 #' This is the class entry for KEGG Orthology database.

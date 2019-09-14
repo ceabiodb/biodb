@@ -3,6 +3,9 @@
 # PeakforestMassConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' PeakForest Mass connector class.
 #'
 #' This is the connector class for PeakForest Mass database.

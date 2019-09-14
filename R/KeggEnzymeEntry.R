@@ -3,6 +3,9 @@
 # KeggEnzymeEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Enzyme entry class.
 #'
 #' This is the entry class for the KEGG Enzyme class.

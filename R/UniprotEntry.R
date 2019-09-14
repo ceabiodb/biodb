@@ -3,6 +3,9 @@
 # UniprotEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Uniprot entry class.
 #'
 #' This is the entry class for Uniprot database.
@@ -31,14 +34,14 @@ methods=list(
 # Private methods {{{2
 ################################################################################
 
-# Is content correct {{{1
+# Is content correct {{{3
 ################################################################################
 
 .isContentCorrect=function(content) {
     return( ! grepl("^<!DOCTYPE html ", content, perl=TRUE))
 },
 
-# Parse fields step 2 {{{1
+# Parse fields step 2 {{{3
 ################################################################################
 
 .parseFieldsStep2=function(parsed.content) {

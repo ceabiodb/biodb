@@ -3,6 +3,9 @@
 # PeakforestMassEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' PeakForest Mass entry class.
 #'
 #' This is the entry class for PeakForest Mass database.

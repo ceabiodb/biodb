@@ -3,6 +3,9 @@
 # BiodbChildObject {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' @include BiodbObject.R
 BiodbChildObject <- methods::setRefClass("BiodbChildObject",
     contains='BiodbObject',

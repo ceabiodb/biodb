@@ -3,6 +3,9 @@
 # KeggConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector abstract class to KEGG databases.
 #'
 #' This is the mother class of all KEGG connectors. It defines code common to

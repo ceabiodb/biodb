@@ -3,6 +3,9 @@
 # BiodbWritable {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' An abstract class (more like an interface) to model a writable database.
 #'
 #' A database class that implements this interface must allow the addition of

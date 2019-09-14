@@ -3,6 +3,9 @@
 # PeakforestConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' PeakForest connector abstract class.
 #'
 #' This abstract class is the mother class of all PeakForest connector classes.

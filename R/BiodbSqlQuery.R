@@ -3,6 +3,9 @@
 # BiodbSqlQuery {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' This class handles an SQL Query.
 #'
 #' This class represents an SQL query. It is used internally to generate an SQL

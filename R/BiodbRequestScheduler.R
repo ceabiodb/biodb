@@ -12,6 +12,9 @@
 # BiodbRequestScheduler {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Class for handling requests.
 #'
 #' This class handles GET and POST requests, as well as file downloading. Each

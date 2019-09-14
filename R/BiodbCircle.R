@@ -3,6 +3,9 @@
 # BiodbCircle {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for representing a circle.
 #'
 #' This class represents a rectangle, used for graphical

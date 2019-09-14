@@ -3,6 +3,9 @@
 # BiodbEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The mother abstract class of all database entry classes.
 #'
 #' An entry is an element of a database, identifiable by its accession number.

@@ -3,6 +3,9 @@
 # KeggModuleConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class to KEGG Pathway database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,
@@ -31,12 +34,12 @@
 KeggModuleConn <- methods::setRefClass("KeggModuleConn",
     contains=c("KeggConn"),
 
-# Public methods {{{1
+# Public methods {{{2
 ################################################################################
 
 methods=list(
 
-# Initialize {{{1
+# Initialize {{{3
 ################################################################################
 
 initialize=function(...) {

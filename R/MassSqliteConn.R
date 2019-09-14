@@ -3,6 +3,9 @@
 # MassSqliteConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
 #' This is the connector class for a MASS SQLite database.

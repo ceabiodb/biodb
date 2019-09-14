@@ -3,6 +3,9 @@
 # BiodbConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The mother abstract class of all database connectors.
 #'
 #' This is the super class of all connector classes. All methods defined here

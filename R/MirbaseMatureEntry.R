@@ -3,6 +3,9 @@
 # MirbaseMatureEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' miRBase Mature entry class.
 #'
 #' This is the connector class for Mirbase Mature database.

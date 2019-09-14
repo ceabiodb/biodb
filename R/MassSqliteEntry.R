@@ -3,6 +3,9 @@
 # MassSqliteEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Mass SQLite entry class.
 #'
 #' This is the entry class for a MASS SQLite database.

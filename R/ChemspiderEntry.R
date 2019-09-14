@@ -3,6 +3,9 @@
 # ChemspiderEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' ChemSpider entry class
 #'
 #' This is the entry class for the ChemSpider database.

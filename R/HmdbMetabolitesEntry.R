@@ -3,6 +3,9 @@
 # HmdbMetabolitesEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' HMDB Metabolites entry class.
 #'
 #' This is the entry class for the HMDB Metabolites database.

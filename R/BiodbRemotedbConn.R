@@ -3,6 +3,9 @@
 # BiodbRemotedbConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The mother class of all remote database connectors.
 #'
 #' This is the super class of remote database connectors. It thus defines

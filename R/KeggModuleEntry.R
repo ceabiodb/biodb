@@ -3,6 +3,9 @@
 # KeggModuleEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' KEGG Module entry class.
 #'
 #' This is the entry class for KEGG Module database

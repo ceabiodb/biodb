@@ -3,6 +3,9 @@
 # BiodbCompounddbConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' An interface for all compound databases.
 #'
 #' This interface is inherited by all compound databases. It declares

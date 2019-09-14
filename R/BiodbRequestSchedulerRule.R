@@ -3,6 +3,9 @@
 # BiodbRequestSchedulerRule {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Scheduler rule class.
 #'
 #' This class represents a rule for the request scheduler.

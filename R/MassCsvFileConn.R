@@ -3,6 +3,9 @@
 # MassCsvFileConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Mass CSV File connector class.
 #'
 #' This is the connector class for a MASS CSV file database.

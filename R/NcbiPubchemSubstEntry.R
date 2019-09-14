@@ -3,6 +3,9 @@
 # NcbiPubchemSubstEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' NCBI PubChem Substance entry class.
 #'
 #' This is the entry class for a NCBI PubChen Substance database.

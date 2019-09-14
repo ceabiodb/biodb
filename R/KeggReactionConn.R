@@ -3,6 +3,9 @@
 # KeggReactionConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class to KEGG Reaction database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,

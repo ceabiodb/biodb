@@ -3,6 +3,9 @@
 # BiodbDownloadable {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' An abstract class (more like an interface) to model a remote database that
 #' can be downloaded locally.
 #'

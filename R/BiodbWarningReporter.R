@@ -3,6 +3,9 @@
 # BiodbWarningReporter {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' A class for throwing a warning.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated

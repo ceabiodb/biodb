@@ -3,6 +3,9 @@
 # HmdbMetabolitesConn {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The connector class for the HMDB Metabolites database.
 #'
 #' This is a concrete connector class. It must never be instantiated directly,

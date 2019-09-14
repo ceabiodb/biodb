@@ -1,6 +1,9 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# Class declaration {{{1
+# NcbiConn {{{1
+################################################################################
+
+# Declaration {{{2
 ################################################################################
 
 #' NCBI connector abstract class.
@@ -23,14 +26,22 @@
 #' @include BiodbRemotedbConn.R
 #' @export NcbiConn
 #' @exportClass NcbiConn
-NcbiConn <- methods::setRefClass("NcbiConn", contains="BiodbRemotedbConn")
+NcbiConn <- methods::setRefClass("NcbiConn",
+    contains="BiodbRemotedbConn",
 
-# Initialize {{{1
+# Public methods {{{2
 ################################################################################
 
-NcbiConn$methods( initialize=function(...) {
+methods=list(
+
+# Initialize {{{3
+################################################################################
+
+initialize=function(...) {
 
     # Call parent constructor
     callSuper(...)
     .self$.abstractClass('NcbiConn')
-})
+}
+
+))

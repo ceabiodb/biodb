@@ -3,6 +3,9 @@
 # BiodbConnObserver {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' The observer class of connectors.
 #'
 #' Classes inheriting this class are able to register themselves to a

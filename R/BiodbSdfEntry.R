@@ -3,6 +3,9 @@
 # BiodbSdfEntry {{{1
 ################################################################################
 
+# Declaration {{{2
+################################################################################
+
 #' Entry class for content in SDF format.
 #'
 #' This is an abstract class for handling database entries whose content is in
