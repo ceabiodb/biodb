@@ -41,6 +41,8 @@ $(info "FUNCTIONS=$(FUNCTIONS)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
 $(info "GIT_VERSION=$(GIT_VERSION)")
 
+RFLAGS=--slave --no-restore
+
 # Default target {{{1
 ################################################################
 
@@ -68,7 +70,7 @@ full.check: $(ZIPPED_PKG)
 	time R CMD check "$<"
 
 bioc.check: $(ZIPPED_PKG)
-	R -q -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
+	R $(RFLAGS) -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
 	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$<"
 
 check.version:
@@ -76,10 +78,10 @@ check.version:
 # Does not work anymore
 
 test: check.version
-	R -q -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
-	R -q -e "devtools::build_win('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::build_win('$(CURDIR)')"
 
 conda_install_%: clean
 	docker build -t biodb.$@ -f tests/dockerfiles/$@.dockerfile .
@@ -94,38 +96,38 @@ $(ZIPPED_PKG) build: doc
 ################################################################
 
 doc:
-	R -q -e "devtools::document('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
-	R -q -e "devtools::clean_vignettes('$(CURDIR)')"
-	time R -q -e "devtools::build_vignettes('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::clean_vignettes('$(CURDIR)')"
+	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1
 ################################################################
 
 devtools.check: clean.cache
-	R -q -e "results <- devtools::check('$(CURDIR)') ; if (length(results$$errors) > 0 || length(results$$warnings) > 0 || length(results$$notes) > 0) quit(status = 1)"
+	R $(RFLAGS) -e "results <- devtools::check('$(CURDIR)') ; if (length(results$$errors) > 0 || length(results$$warnings) > 0 || length(results$$notes) > 0) quit(status = 1)"
 
 devtools.build:
-	R -q -e "devtools::build('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::build('$(CURDIR)')"
 
 # Install {{{1
 ################################################################
 
 install.deps:
-	R -q -e "devtools::install_dev_deps('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::install_dev_deps('$(CURDIR)')"
 
 install: uninstall install.local list.classes
 
 install.local:
-	R --slave -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
+	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
 
 list.classes:
-	R --slave -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\n", sep = ""), sep = "\n")'
+	R $(RFLAGS) -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\n", sep = ""), sep = "\n")'
 
 uninstall:
-	R --slave -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"
+	R $(RFLAGS) -e "try(devtools::uninstall('$(CURDIR)'), silent = TRUE)"
 
 # Clean {{{1
 ################################################################
