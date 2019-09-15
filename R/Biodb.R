@@ -429,6 +429,27 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 ################################################################################
 
 entryIdsToDataframe=function(ids, db, fields, limit=3) {
+    ":\n\nConstruct a data frame using entry IDs and field values of the
+    corresponding entries.
+    \nids: A character vector of entry IDs.
+    \ndb: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
+    \nfields: A character vector containing entry fields to add.
+    \nlimit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value.
+    \nReturned value: A data frame containing in columns the requested field
+    values, with one entry per line, in the same order than in `ids` vector.
+    "
+
+    # Get entries
+    conn <- .self$getFactory()$getConn(db)
+    entries <- conn$getEntry(ids)
+
+    # Convert to data frame
+    x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
+                                  drop=FALSE)
+
+    return(x)
 },
 
 # Add columns to data frame {{{3
