@@ -329,6 +329,69 @@ getPathwayIds=function(id, org) {
     pathways <- unique(unlist(pathways, use.names=FALSE))
 
     return(pathways)
+},
+
+# Add anotations {{{3
+################################################################################
+
+addAnotations=function(x, id.col, org, limit=3, prefix='') {
+    ":\n\n
+    \nx: A data frame containing at least one column with Biodb entry IDs
+    identified by the parameter `id.col`.
+    \nid.col: The name of the column containing IDs inside the input data frame.
+    \norg: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nlimit: This is the maximum number of values obtained for each ID, for
+    every column added, in case multiple values are obtained. Set to 0 to get
+    all values.
+    \nprefix: Insert a prefix at the start of name of all new columns.
+    \nReturned value: A data frame containing `x` and new columns appended with
+    KEGG identifiers and data.
+    "
+
+    .self$.assertIs(x, 'data.frame')
+
+    if (ncol(x) > 0) {
+        .self$.assertIs(id.col, 'character')
+        if ( ! id.col %in% colnames(x))
+            .self$error('Column "', id.col,
+                        '" was not found inside data frame.')
+
+        # Get ids
+        ids <- as.character(x[[id.col]])
+
+        # Get entries
+        entries <- .self$getEntry(ids)
+
+        # Add enzyme IDs
+        x <- .self$getBiodb()$addColsToDataframe(x, id.col=id.col, limit=limit,
+                                                 prefix=prefix,
+                                                 db=.self$getId(),
+                                                 fields='kegg.enzyme.id')
+
+        # Add reaction IDs
+        enzids <- lapply(entries, function(e) e$getFiedValue('kegg.enzyme.id'))
+        rids <- .self$getBiodb()$entryIdsToDataframe(enzids, limit=limit,
+                                                 prefix=prefix,
+                                                 db='kegg.enzyme',
+                                                 fields='kegg.reaction.id')
+
+        # Add pathway IDs
+        pwids <- .self$getPathwayIdsPerCompound(ids, org=org)
+
+        # Add pathway names
+
+        # Add pathway classes
+
+        # Add module IDs
+
+        # Add module names
+    }
+
+    return(x)
 }
 
 ))
+

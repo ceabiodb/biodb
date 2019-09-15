@@ -449,8 +449,10 @@ entryIdsToDataframe=function(ids, db, fields, limit=3, prefix=prefix) {
     values, with one entry per line, in the same order than in `ids` vector.
     "
 
-    # Get entries
+    # Get connector
     conn <- .self$getFactory()$getConn(db)
+
+    # Get entries
     entries <- conn$getEntry(ids)
 
     # Convert to data frame
