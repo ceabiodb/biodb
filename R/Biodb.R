@@ -335,7 +335,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
                             null.to.na=TRUE, compute=TRUE,
                             fields=NULL, limit=0, drop=FALSE,
                             sort.cols=FALSE, flatten=TRUE,
-                            only.card.one=FALSE, own.id=TRUE) {
+                            only.card.one=FALSE, own.id=TRUE, prefix='') {
     ":\n\nConverts a list of entries (\\code{BiodbEntry} objects) into a data
     frame.
     \nentries: A list of \\code{BiodbEntry} instances.
@@ -347,7 +347,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     \nfields: A character vector of field names to output. The data frame output
     will be restricted to this list of fields.
     \nlimit: The maximum number of field values to write into new columns. Used
-    for fields that can contain more than one value.
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
     \ndrop: If set to \\code{TRUE} and the resulting data frame has only one
     column, a vector will be output instead of data frame.
     \nsort.cols: Sort columns in alphabetical order.
@@ -357,6 +358,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     \nonly.card.one: Output only fields whose cardinality is one.
     \nown.id: If set to TRUE includes the database id field named
     `<database_name>.id` whose values are the same as the `accession` field.
+    \nprefix: Insert a prefix at the start of all field names.
     \nReturned value: A data frame containing the entries. Columns are named
     according to field names.
     "
@@ -418,6 +420,10 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     if (sort.cols && ncol(entries.df) > 1)
         entries.df <- entries.df[sort(colnames(entries.df))]
 
+    # Add prefix
+    if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '')
+        colnames(entries.df) <- paste(prefix, colnames(entries.df), sep='')
+    
     # Drop
     if (drop && ncol(entries.df) == 1)
         entries.df <- entries.df[[1]]
@@ -428,7 +434,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 # Entry IDs to data frame {{{3
 ################################################################################
 
-entryIdsToDataframe=function(ids, db, fields, limit=3) {
+entryIdsToDataframe=function(ids, db, fields, limit=3, prefix=prefix) {
     ":\n\nConstruct a data frame using entry IDs and field values of the
     corresponding entries.
     \nids: A character vector of entry IDs.
@@ -436,7 +442,9 @@ entryIdsToDataframe=function(ids, db, fields, limit=3) {
     sinle character value.
     \nfields: A character vector containing entry fields to add.
     \nlimit: The maximum number of field values to write into new columns. Used
-    for fields that can contain more than one value.
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    \nprefix: Insert a prefix at the start of all field names.
     \nReturned value: A data frame containing in columns the requested field
     values, with one entry per line, in the same order than in `ids` vector.
     "
@@ -447,7 +455,7 @@ entryIdsToDataframe=function(ids, db, fields, limit=3) {
 
     # Convert to data frame
     x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
-                                  drop=FALSE)
+                                  prefix=prefix, drop=FALSE)
 
     return(x)
 },
@@ -455,18 +463,43 @@ entryIdsToDataframe=function(ids, db, fields, limit=3) {
 # Add columns to data frame {{{3
 ################################################################################
 
-addColsToDataframe=function(x, id.col, db, fields, limit=3) {
+addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     ":\n\nUsing 
     \nx: A data frame containing at least one column with Biodb entry IDs
     identified by the parameter `id.col`.
     \nid.col: The name of the column containing IDs inside the input data frame.
-    \ndb: The biodb database name for the entry IDs, as a sinle character value.
+    \ndb: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
     \nfields: A character vector containing entry fields to add.
     \nlimit: The maximum number of field values to write into new columns. Used
-    for fields that can contain more than one value.
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    \nprefix: Insert a prefix at the start of all field names.
     \nReturned value: A data frame containing `x` and new columns appended for
     the fields requested.
     "
+    
+    .self$.assertIs(x, 'data.frame')
+    
+    if (ncol(x) > 0) {
+        .self$.assertIs(id.col, 'character')
+        if ( ! id.col %in% colnames(x))
+            .self$error('Column "', id.col,
+                        '" was not found inside data frame.')
+
+        # Get ids
+        ids <- as.character(x[[id.col]])
+
+        # Get data frame of fields
+        y <- .self$entryIdsToDataframe(ids, db=db, fields=fields, limit=limit,
+                                       prefix=prefix)
+
+        # Merge data frames
+        if (is.data.frame(y) && nrow(y) > 0)
+            x <- cbind(x, y)
+    }
+    
+    return(x)
 },
 
 # Entries to JSON {{{3

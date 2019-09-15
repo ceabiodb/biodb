@@ -118,7 +118,38 @@ test.entryIdsToDataframe <- function(biodb, obs) {
 ################################################################
 
 test.addColsToDataframe <- function(biodb, obs) {
-    testthat::expect_false(TRUE)
+
+    # Create database
+    db <- data.frame(
+        accession=c("A1", "A2", "A3", "A3", "A3"),
+        formula=c("C3H10N2", "C6H12O6", "C6H8O7", "C6H8O7", "C6H8O7"),
+        msprecmz=c(80, 90, 100, 110, 120),
+        stringsAsFactors=FALSE)
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(db)
+
+    # Input data frame
+    idf <- data.frame(ids=c("A2", "A3"), col2=c(1, 2), stringsAsFactors=FALSE)
+
+    # Test
+    x <- biodb$addColsToDataframe(data.frame(), db=conn$getId())
+    testthat::expect_identical(data.frame(), x) 
+    x2 <- biodb$addColsToDataframe(idf, id.col='ids', db=conn$getId(), fields=character())
+    testthat::expect_true(identical(idf, x2))
+
+    # Test with limit
+    sep <- biodb$getConfig()$get('multival.field.sep')
+    x7 <- biodb$addColsToDataframe(idf, id.col='ids', db=conn$getId(), limit=2,
+                                    fields=c('formula', 'msprecmz'))
+    y7 <- cbind(idf, data.frame(formula=c("C6H12O6", "C6H8O7"),
+                                msprecmz=c(90, paste(c(100, 110), collapse=sep)),
+                                stringsAsFactors=FALSE))
+    testthat::expect_identical(y7, x7)
+
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn$getId())
 }
 
 # Main {{{1
