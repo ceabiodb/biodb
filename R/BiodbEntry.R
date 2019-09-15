@@ -291,7 +291,7 @@ removeField=function(field) {
 # Get field value {{{3
 ################################################################################
 
-getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
+getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0) {
     ":\n\nGets the value of the specified field.
     \nfield: The name of a field.
     \ncompute: If set to TRUE and a field is not defined, try to compute it
@@ -304,6 +304,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
     one value, changes nothing.
     \nlast: If set to TRUE and a field's value is a vector of more than one
     element, then export only the last value. If set to FALSE, changes nothing.
+    \nlimit: The maximum number of values to write to use in case the field
+    contains more than one value.
     \nReturned value: The value of the field.
     "
 
@@ -337,8 +339,14 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
             && length(val) > 1) {
             if (all(is.na(val)))
                 val <-  as.vector(NA, mode=field.def$getClass())
-            else
+            else {
+                if (limit > 0 && length(val) > limit) {
+                    if (any(is.na(val)))
+                        val <- val[ ! is.na(val)]
+                    val <- val[1:limit]
+                }
                 val <- paste(val, collapse=cfg$get('multival.field.sep'))
+            }
         }
     }
 
@@ -349,7 +357,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE) {
 ################################################################################
 
 getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
-                              flatten=TRUE, only.card.one=FALSE) {
+                              flatten=TRUE, limit=0, only.card.one=FALSE,
+                              own.id=TRUE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
     (i.e.: of type vector and length one).
@@ -363,8 +372,12 @@ getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     field's value concatenated and separated by the character defined in the
     'multival.field.sep' config key. If set to FALSE or the field contains only
     one value, changes nothing.
+    \nlimit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value.
     \nonly.card.one: If set to TRUE, only fields with a cardinality of one will
     be extracted.
+    \nown.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
     \nReturned value: A data frame containg the values of the fields.
     "
 
@@ -377,14 +390,18 @@ getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
         .self$computeFields(fields)
 
     # Set fields to get
-    fields <- if (is.null(fields)) names(.self$.fields)
-        else fields[fields %in% names(.self$.fields)]
+    if (is.null(fields))
+        fields <- names(.self$.fields)
 
     # Loop on fields
     for (f in fields) {
 
         field.def <- .self$getBiodb()$getEntryFields()$get(f)
 
+        # Ignore own ID field
+        if ( ! own.id && f == .self$getParent()$getEntryIdField())
+            next
+        
         # Ignore non atomic values
         if (only.atomic && ! field.def$isVector())
             next
@@ -393,7 +410,11 @@ getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
         if (only.card.one && ! field.def$hasCardOne())
             next
 
-        v <- .self$getFieldValue(f, flatten=flatten)
+        # Ignore if no value for this field
+        if ( ! f %in% names(.self$.fields))
+            next
+        
+        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
 
         # Transform vector into data frame
         if (is.vector(v)) {

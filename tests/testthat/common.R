@@ -9,7 +9,7 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
+USERAGENT <- 'biodb.test ; pierrick.roger@cea.fr'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
