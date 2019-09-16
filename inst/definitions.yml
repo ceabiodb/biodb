@@ -81,7 +81,12 @@ config:
   multival.field.sep:
     type: character
     description: The character used as separator when concatenating multiple values of a field.
-    default: ;
+    default: ';'
+
+  entries.sep:
+    type: character
+    description: The character used as separator when concatenating values from different entries.
+    default: '|'
 
   offline:
     type: logical

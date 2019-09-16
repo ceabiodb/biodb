@@ -336,9 +336,10 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
                             fields=NULL, limit=0, drop=FALSE,
                             sort.cols=FALSE, flatten=TRUE,
                             only.card.one=FALSE, own.id=TRUE, prefix='') {
-    ":\n\nConverts a list of entries (\\code{BiodbEntry} objects) into a data
-    frame.
-    \nentries: A list of \\code{BiodbEntry} instances.
+    ":\n\nConverts a list of entries or a list of list of entries
+    (\\code{BiodbEntry} objects) into a data frame.
+    \nentries: A list of \\code{BiodbEntry} instances or a list of list of
+    \\code{BiodbEntry} instances.
     \nonly.atomic: If set to \\code{TRUE}, output only atomic fields, i.e.: the
     fields whose value type is one of integer, numeric, logical or character.
     \nnull.to.na: If set to \\code{TRUE}, each \\code{NULL} entry in the list is
@@ -373,39 +374,11 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
         .self$message('debug', paste(length(entries),
                                      "entrie(s) to convert in data frame."))
 
-        # Check classes
-        if ( ! all(vapply(entries,
-                          function(x) is.null(x) || is(x, 'BiodbEntry'),
-                          FUN.VALUE=TRUE)))
-            .self$message('error', paste("Some objects in the input list",
-                                         "are not a subclass of BiodbEntry."))
-
-        # Loop on all entries
-        i <- 0
-        df.list <- NULL
-        for (e in entries) {
-
-            # Send progress message
-            i <- i + 1
-            msg <- 'Converting entries to data frame.'
-            .self$.sendProgress(msg=msg, index=i, total=length(entries),
-                                first=(i == 1))
-
-            e.df <- NULL
-            if ( ! is.null(e))
-                e.df <- e$getFieldsAsDataFrame(only.atomic=only.atomic,
-                                               compute=compute,
-                                               fields=fields,
-                                               flatten=flatten,
-                                               limit=limit,
-                                               only.card.one=only.card.one,
-                                               own.id=own.id)
-            else if (null.to.na)
-                e.df <- data.frame(ACCESSION=NA_character_)
-
-            if ( ! is.null(e.df))
-                df.list <- c(df.list, list(e.df))
-        }
+        # Convert list of entries to a list of data frames.
+        df.list <- .self$.entriesToListOfDataframes(entries, only.atomic,
+                                                    compute, fields, flatten,
+                                                    limit, only.card.one,
+                                                    own.id, null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
@@ -423,7 +396,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     # Add prefix
     if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '')
         colnames(entries.df) <- paste(prefix, colnames(entries.df), sep='')
-    
+
     # Drop
     if (drop && ncol(entries.df) == 1)
         entries.df <- entries.df[[1]]
@@ -434,16 +407,20 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 # Entry IDs to data frame {{{3
 ################################################################################
 
-entryIdsToDataframe=function(ids, db, fields, limit=3, prefix=prefix) {
+entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
+                             own.id=FALSE) {
     ":\n\nConstruct a data frame using entry IDs and field values of the
     corresponding entries.
-    \nids: A character vector of entry IDs.
+    \nids: A character vector of entry IDs or a list of character vectors of
+    entry IDs.
     \ndb: The biodb database name for the entry IDs, or a connector ID, as a
     sinle character value.
     \nfields: A character vector containing entry fields to add.
     \nlimit: The maximum number of field values to write into new columns. Used
     for fields that can contain more than one value. Set it to 0 to get all
     values.
+    \nown.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
     \nprefix: Insert a prefix at the start of all field names.
     \nReturned value: A data frame containing in columns the requested field
     values, with one entry per line, in the same order than in `ids` vector.
@@ -453,11 +430,22 @@ entryIdsToDataframe=function(ids, db, fields, limit=3, prefix=prefix) {
     conn <- .self$getFactory()$getConn(db)
 
     # Get entries
-    entries <- conn$getEntry(ids)
+    if (is.character(ids))
+        entries <- conn$getEntry(ids)
+    else if (is.list(ids)) {
+        entries <- list()
+        for (i in ids) {
+            e <- if (length(i) > 0) conn$getEntry(i) else list()
+            entries <- c(entries, list(e))
+        }
+    }
+    else
+        .self$error("Input parameter `ids` must be either a character vector",
+                    " or a list of character vectors.")
 
     # Convert to data frame
     x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
-                                  prefix=prefix, drop=FALSE)
+                                  prefix=prefix, drop=FALSE, own.id=own.id)
 
     return(x)
 },
@@ -717,6 +705,64 @@ show=function() {
                                 ". It must be set to a UTF-8 locale like",
                                 "'en_US.UTF-8'."))
     }
+},
+
+# Entries to list of data frames {{{3
+################################################################################
+
+.entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
+                                    flatten, limit, only.card.one, own.id,
+                                    null.to.na) {
+
+    df.list <- NULL
+
+    # Loop on all entries
+    i <- 0
+    for (e in entries) {
+
+        # Send progress message
+        i <- i + 1
+        msg <- 'Converting entries to data frame.'
+        .self$.sendProgress(msg=msg, index=i, total=length(entries),
+                            first=(i == 1))
+
+        e.df <- NULL
+
+        # NULL entry to convert to NA
+        if (is.null(e) && null.to.na)
+            e.df <- data.frame(ACCESSION=NA_character_)
+
+        # List of entries
+        else if (is.list(e)) {
+            # Get the list of data frames for those entries
+            x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
+                                                  fields, flatten, limit,
+                                                  only.card.one, own.id,
+                                                  null.to.na)
+
+            # Reduce these data frames to one data frame with one row.
+            sep <- .self$getConfig()$get('entries.sep')
+            y <- plyr::rbind.fill(x)
+            e.df <- y[c(), , drop=FALSE]
+            for (k in colnames(y))
+                e.df[1, k] <- paste(y[[k]], collapse=sep)
+        }
+
+        # Single entry
+        else if (methods::is(e, "BiodbEntry"))
+            e.df <- e$getFieldsAsDataFrame(only.atomic=only.atomic,
+                                           compute=compute,
+                                           fields=fields,
+                                           flatten=flatten,
+                                           limit=limit,
+                                           only.card.one=only.card.one,
+                                           own.id=own.id)
+
+        if ( ! is.null(e.df))
+            df.list <- c(df.list, list(e.df))
+    }
+
+    return(df.list)
 },
 
 # Deprecated methods {{{2
