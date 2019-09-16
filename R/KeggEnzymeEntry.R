@@ -58,6 +58,9 @@ initialize=function(...) {
 
     # Genes
     .self$.parseGenesIds(parsed.content)
+
+    # Reactions (they can be set in ALL_REAC instead of DBLINKS
+    .self$.parseReactionIds(parsed.content)
 }
 
 ))

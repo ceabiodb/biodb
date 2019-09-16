@@ -554,7 +554,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     if (length(ids) > 0) {
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
                                                           drop=FALSE)
-        fct <- function(x) x$getFieldsAsDataFrame(only.atomic=FALSE,
+        fct <- function(x) x$getFieldsAsDataframe(only.atomic=FALSE,
                                                   fields='PEAKS')
         peak.tables <- lapply(entries, fct)
     }

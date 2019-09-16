@@ -714,7 +714,7 @@ show=function() {
                                     flatten, limit, only.card.one, own.id,
                                     null.to.na) {
 
-    df.list <- NULL
+    df.list <- list()
 
     # Loop on all entries
     i <- 0
@@ -729,11 +729,14 @@ show=function() {
         e.df <- NULL
 
         # NULL entry to convert to NA
-        if (is.null(e) && null.to.na)
-            e.df <- data.frame(ACCESSION=NA_character_)
+        if ((is.null(e) && null.to.na) || (is.list(e) && length(e) == 0)) {
+            f <- fields[[1]]
+            v <- .self$getEntryFields()$get(f)$correctValue(NA)
+            e.df <- data.frame(x=v)
+            colnames(e.df) <- f
 
         # List of entries
-        else if (is.list(e)) {
+        } else if (is.list(e)) {
             # Get the list of data frames for those entries
             x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
                                                   fields, flatten, limit,
@@ -749,14 +752,15 @@ show=function() {
         }
 
         # Single entry
-        else if (methods::is(e, "BiodbEntry"))
-            e.df <- e$getFieldsAsDataFrame(only.atomic=only.atomic,
+        else if (methods::is(e, "BiodbEntry")) {
+            e.df <- e$getFieldsAsDataframe(only.atomic=only.atomic,
                                            compute=compute,
                                            fields=fields,
                                            flatten=flatten,
                                            limit=limit,
                                            only.card.one=only.card.one,
                                            own.id=own.id)
+        }
 
         if ( ! is.null(e.df))
             df.list <- c(df.list, list(e.df))

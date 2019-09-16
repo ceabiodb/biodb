@@ -331,11 +331,12 @@ getPathwayIds=function(id, org) {
     return(pathways)
 },
 
-# Add anotations {{{3
+# Add info {{{3
 ################################################################################
 
-addAnotations=function(x, id.col, org, limit=3, prefix='') {
-    ":\n\n
+addInfo=function(x, id.col, org, limit=3, prefix='') {
+    ":\n\nAdd informations (as new column appended to the end) to an existing
+    data frame containing a column of KEGG Compound IDs.
     \nx: A data frame containing at least one column with Biodb entry IDs
     identified by the parameter `id.col`.
     \nid.col: The name of the column containing IDs inside the input data frame.
@@ -365,25 +366,22 @@ addAnotations=function(x, id.col, org, limit=3, prefix='') {
         # Get entries
         entries <- .self$getEntry(ids)
 
-        # Add enzyme IDs
-        x <- .self$getBiodb()$addColsToDataframe(x, id.col=id.col, limit=limit,
-                                                 prefix=prefix,
-                                                 db=.self$getId(),
-                                                 fields='kegg.enzyme.id')
+        # Add enzyme IDs and reaction IDs
+        enzids <- lapply(entries, function(e) e$getFieldValue('kegg.enzyme.id'))
+        fields <- c('kegg.enzyme.id', 'kegg.reaction.id')
+        df1 <- .self$getBiodb()$entryIdsToDataframe(enzids, db='kegg.enzyme',
+                                                    limit=limit, fields=fields,
+                                                    own.id=TRUE)
+        x <- cbind(x, df1)
 
-        # Add reaction IDs
-        enzids <- lapply(entries, function(e) e$getFiedValue('kegg.enzyme.id'))
-        rids <- .self$getBiodb()$entryIdsToDataframe(enzids, limit=limit,
-                                                 prefix=prefix,
-                                                 db='kegg.enzyme',
-                                                 fields='kegg.reaction.id')
-
-        # Add pathway IDs
+        # Add pathway info
         pwids <- .self$getPathwayIdsPerCompound(ids, org=org)
-
-        # Add pathway names
-
-        # Add pathway classes
+        fields <- c('kegg.pathway.id', 'name', 'pathway.class')
+        df2 <- .self$getBiodb()$entryIdsToDataframe(pwids, db='kegg.pathway',
+                                                    limit=limit, fields=fields,
+                                                    own.id=TRUE)
+        colnames(df2)[colnames(df2) == 'name'] <- 'pathway.name'
+        x <- cbind(x, df2)
 
         # Add module IDs
 

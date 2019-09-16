@@ -41,7 +41,7 @@
 #'   '.', sep=''))
 #'
 #' # Export an entry as a data frame:
-#' df <- entry$getFieldsAsDataFrame()
+#' df <- entry$getFieldsAsDataframe()
 #'
 #' # Even if you may not do it, you can set a field's value yourselves:
 #' entry$setFieldValue('mass', 1893.1883)
@@ -356,7 +356,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0) 
 # Get fields as data frame {{{3
 ################################################################################
 
-getFieldsAsDataFrame=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
+getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
                               flatten=TRUE, limit=0, only.card.one=FALSE,
                               own.id=TRUE) {
     ":\n\nConverts this entry into a data frame.

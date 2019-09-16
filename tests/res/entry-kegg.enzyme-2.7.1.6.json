@@ -4,6 +4,7 @@
 	"cas.id": "9030-53-9",
 	"expasy.enzyme.id": "2.7.1.6",
 	"kegg.pathway.id": ["ec00052", "ec00520", "ec01100"],
+	"kegg.reaction.id": "R01092",
 	"kegg.genes.id":[
 		"hsa:2584",
 		"ptr:454888",

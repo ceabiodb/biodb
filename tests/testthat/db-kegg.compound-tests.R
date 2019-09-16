@@ -165,6 +165,24 @@ test.kegg.compound.getPathwayIdsPerCompound <- function(conn) {
 	testthat::expect_true(length(ids[[c]]) > 0)
 }
 
+# Test addInfo() {{{1
+################################################################
+
+test.addInfo <- function(conn) {
+
+    x <- data.frame(ids=c('C06178', 'C01771'), col2=c(1, 4))
+    z <- data.frame()
+
+    y <- conn$addInfo(x, id.col='ids', org='mmu')
+    testthat::expect_identical(c('ids', 'col2', 'kegg.enzyme.id',
+                                 'kegg.reaction.id', 'kegg.pathway.id',
+                                 'pathway.name', 'pathway.class'), colnames(y))
+    testthat::expect_equal(nrow(y), 2)
+    testthat::expect_false(any(is.na(y[1, ])))
+    testthat::expect_true(all(is.na(y[2, c('kegg.pathway.id', 'pathway.name',
+                                           'pathway.class')])))
+}
+
 # Main {{{1
 ################################################################
 
@@ -176,3 +194,4 @@ test.that('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.get
 test.that('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
 test.that('getPathwayIds() issue_333 is corrected', 'test.kegg.compound.getPathwayIds_issue_333_20190507', conn = conn)
 test.that('getPathwayIds() issue_338 is corrected', 'test.kegg.compound.getPathwayIds_issue_338_20190517', conn = conn)
+test.that('addInfo() works correctly.', 'test.addInfo', conn=conn)

@@ -229,8 +229,11 @@ initialize=function(...) {
 ################################################################################
 
 .parseReactionIds=function(parsed.content) {
-    rids <- .self$.getTagLines(tag='REACTION',
-                               parsed.content=parsed.content)
+
+    rids <- c(.self$.getTagLines(tag='REACTION',
+                               parsed.content=parsed.content),
+             .self$.getTagLines(tag='ALL_REAC',
+                               parsed.content=parsed.content))
     if (length(rids) > 0) {
         rids <- stringr::str_match_all(rids, '(^|[ +,])(R[0-9]+)')
         rids <- unlist(lapply(rids, function(x) x[,3]))
