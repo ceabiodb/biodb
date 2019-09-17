@@ -153,7 +153,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         # Search for compounds matching this mass
         ids <- .self$searchCompound(mass=m, mass.field=mass.field,
             mass.tol=mz.tol, mass.tol.unit=mz.tol.unit, max.results=max.results)
-    
+
         # Get entries
         entries <- .self$getEntry(ids, drop=FALSE)
 
@@ -161,7 +161,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
 
         # Add prefix
-        if ( ! is.null(df) && ! is.na(prefix))
+        if ( ! is.null(df) && ncol(df) > 0 && ! is.na(prefix))
             colnames(df) <- paste0(prefix, colnames(df))
 
         # Register new columns
@@ -172,10 +172,10 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
         # Insert input values
         if (insert.input.values)
-            df <- if (is.null(df)) x[i, , drop=FALSE]
+            df <- if (is.null(df) || nrow(df) == 0) x[i, , drop=FALSE]
                 else cbind(x[i, , drop=FALSE], df, row.names=NULL,
                            stringsAsFactors=FALSE)
-    
+
         # Append local data frame to main data frame
         ret <- plyr::rbind.fill(ret, df)
     }
@@ -189,8 +189,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
     return(ret)
 },
-                          
-                          
+
 # Private methods {{{2
 ################################################################################
 
