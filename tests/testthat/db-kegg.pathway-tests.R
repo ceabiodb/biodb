@@ -4,12 +4,12 @@
 ################################################################
 
 test_kegg_pathway_getReactions = function(conn) {
-    reactions = conn$getReactions('mmu00260', drop = FALSE)
+    reactions <- conn$getReactions('mmu00260', drop=FALSE)
     testthat::expect_is(reactions, 'list')
     testthat::expect_true(length(reactions) > 0)
-    react_type = vapply(reactions,
+    react_type <- vapply(reactions,
                         function(x) methods::is(x, 'KeggReactionEntry'),
-                        FUN.VALUE = TRUE)
+                        FUN.VALUE=TRUE)
     testthat::expect_true(all(react_type))
 }
 
