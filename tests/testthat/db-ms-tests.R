@@ -136,7 +136,7 @@ test.searchMsEntries.with.NA.value <- function(db) {
 test.searchMsPeaks.with.NA.value <- function(db) {
 
 	# With only one single N/A value
-	peaks <- db$searchMsPeaks(mz = NA_real_, mz.tol = 5.0, mz.tol.unit = 'plain')
+	peaks <- db$searchMsPeaks(mz=NA_real_, mz.tol=5.0, mz.tol.unit='plain')
 	testthat::expect_is(peaks, 'data.frame')
 	testthat::expect_equal(nrow(peaks), 1)
 	testthat::expect_equal(ncol(peaks), 1)
@@ -146,9 +146,10 @@ test.searchMsPeaks.with.NA.value <- function(db) {
 	# With one N/A value and one real value
 	mode <- 'neg'
 	tol <- 0
-	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+	mzs <- db$getMzValues(ms.mode=mode, max.results=3)
 	mzs <- c(mzs, NA_real_)
-	peaks <- db$searchMsPeaks(mz = mzs, mz.tol = tol, mz.tol.unit = 'plain', ms.mode = mode,  max.results = 2)
+	peaks <- db$searchMsPeaks(mz=mzs, mz.tol=tol, mz.tol.unit='plain',
+                              ms.mode=mode, max.results=2)
 	testthat::expect_is(peaks, 'data.frame')
 	testthat::expect_true(nrow(peaks) >= length(mzs))
 	testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
@@ -280,7 +281,9 @@ test.searchMsPeaks <- function(db) {
 
 	# Test with impossible M/Z value to simulate no match
 	impossible.value <- 1e10
-	results  <- db$searchMsPeaks(impossible.value, mz.tol = tol, max.results = 1, ms.mode = mode, prefix.on.result.cols = 'myprefix.')
+	results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
+                                ms.mode=mode,
+                                prefix.on.result.cols='myprefix.')
 	expect_is(results, 'data.frame')
 	expect_identical(results, data.frame(mz = impossible.value))
 

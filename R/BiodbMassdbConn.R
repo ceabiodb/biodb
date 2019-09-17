@@ -470,10 +470,9 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         .self$debug('Data frame contains', nrow(df), 'rows.')
 
         # Add prefix on column names
-        if ( ! is.null(df) && ! is.null(prefix.on.result.cols)
-            && ! is.na(prefix.on.result.cols)) {
+        if ( ! is.null(df) && ncol(df) > 0 && ! is.null(prefix.on.result.cols)
+            && ! is.na(prefix.on.result.cols))
             colnames(df) <- paste0(prefix.on.result.cols, colnames(df))
-        }
 
         # Register result columns
         if ( ! is.null(df)) {
@@ -482,10 +481,11 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         }
 
         # Inserting input values at the beginning of the data frame
-        if (insert.input.values)
-            df <- if (is.null(df)) input.df[i, , drop=FALSE]
+        if (insert.input.values) {
+            df <- if (is.null(df) || nrow(df) == 0) input.df[i, , drop=FALSE]
                 else cbind(input.df[i, , drop=FALSE], df, row.names=NULL,
                            stringsAsFactors=FALSE)
+        }
 
         # Appending to main results data frame
         .self$debug('Merging data frame of matchings into results data frame.')
