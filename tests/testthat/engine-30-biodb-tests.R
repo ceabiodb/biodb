@@ -103,7 +103,7 @@ test.entriesToDataframe.listOfListInput <- function(biodb, obs) {
     x1 <- biodb$entriesToDataframe(list(list()))
     testthat::expect_identical(data.frame(), x1)
     x2 <- biodb$entriesToDataframe(list(list(), list()))
-    testthat::expect_identical(data.frame(), x2)
+    testthat::expect_equal(data.frame(), x2)
     x3 <- biodb$entriesToDataframe(list(e3, list(e1,e2)), own.id=FALSE)
     y3 <- data.frame(accession=c('A3', paste('A1', 'A2', sep=esep)),
                      formula=c("C6H8O7", paste("C3H10N2", "C6H12O6", sep=esep)),

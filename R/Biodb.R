@@ -386,6 +386,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
                                          "entry each into a single data frame",
                                          "with all entries."))
             entries.df <- plyr::rbind.fill(df.list)
+            if (is.null(colnames(entries.df)))
+                colnames(entries.df) <- character()
         }
     }
 
@@ -728,15 +730,8 @@ show=function() {
 
         e.df <- NULL
 
-        # NULL entry to convert to NA
-        if ((is.null(e) && null.to.na) || (is.list(e) && length(e) == 0)) {
-            f <- fields[[1]]
-            v <- .self$getEntryFields()$get(f)$correctValue(NA)
-            e.df <- data.frame(x=v)
-            colnames(e.df) <- f
-
         # List of entries
-        } else if (is.list(e)) {
+        if (is.list(e)) {
             # Get the list of data frames for those entries
             x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
                                                   fields, flatten, limit,
@@ -762,8 +757,19 @@ show=function() {
                                            own.id=own.id)
         }
 
-        if ( ! is.null(e.df))
-            df.list <- c(df.list, list(e.df))
+        df.list <- c(df.list, list(e.df))
+    }
+
+    # Replace NULL items with a data frame (empty or with NA values)
+    nulls <- vapply(df.list, is.null, FUN.VALUE=TRUE)
+    if (any(nulls)) {
+        if (all(nulls) || ! null.to.na)
+            x <- data.frame(stringsAsFactors=FALSE)
+        else {
+            x <- df.list[ ! nulls][[1]]
+            x[,] <- NA
+        }
+        df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
     return(df.list)
