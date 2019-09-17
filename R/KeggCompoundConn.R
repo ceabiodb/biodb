@@ -269,6 +269,11 @@ getPathwayIdsPerCompound=function(id, org) {
 
         pws <- NULL
 
+        # Send progress message
+        i <- i + 1
+        .self$progressMsg(msg='Retrieving pathways of compounds.', index=i,
+                          total=length(id), first=(i == 1))
+
         # Get compound entry
         comp <- .self$getEntry(comp.id)
         if (is.null(comp))
@@ -301,11 +306,6 @@ getPathwayIdsPerCompound=function(id, org) {
         # Record found pathways
         if ( ! is.null(pws))
             pathways[[comp.id]] <- pws
-
-        # Send progress message
-        i <- i + 1
-        .self$progressMsg(msg='Retrieving pathways of compounds.', index=i,
-                          total=length(id), first=(i == 1))
     }
 
     return(pathways)

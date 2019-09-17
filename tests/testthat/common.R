@@ -123,9 +123,15 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 	if (first)
 		.last.index <<- 0
 
-	testthat::expect_gt(index, .self$.last.index)
+	testthat::expect_true(index > .self$.last.index,
+                        paste0("Index ", index, " is not greater than last ",
+                               "index ", .self$.last.index, ' for progress ',
+                               'message "', msg, '", with total ', total, '.'))
 	if ( ! is.na(total))
-		testthat::expect_lte(index, total)
+		testthat::expect_true(index <= total,
+                             paste0("Index ", index, ' is greater than total ',
+                                    total, ' for progress message "', msg,
+                                    '".'))
 
 	.last.index <<- index
 }

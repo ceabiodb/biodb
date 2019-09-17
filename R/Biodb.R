@@ -714,21 +714,22 @@ show=function() {
 
 .entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
                                     flatten, limit, only.card.one, own.id,
-                                    null.to.na) {
+                                    null.to.na, progress=TRUE) {
 
     df.list <- list()
+    msg <- 'Converting entries to data frame.'
 
     # Loop on all entries
     i <- 0
     for (e in entries) {
 
+        e.df <- NULL
+
         # Send progress message
         i <- i + 1
-        msg <- 'Converting entries to data frame.'
-        .self$.sendProgress(msg=msg, index=i, total=length(entries),
-                            first=(i == 1))
-
-        e.df <- NULL
+        if (progress)
+            .self$.sendProgress(msg=msg, index=i, total=length(entries),
+                                first=(i == 1))
 
         # List of entries
         if (is.list(e)) {
@@ -736,7 +737,7 @@ show=function() {
             x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
                                                   fields, flatten, limit,
                                                   only.card.one, own.id,
-                                                  null.to.na)
+                                                  null.to.na, progress=FALSE)
 
             # Reduce these data frames to one data frame with one row.
             sep <- .self$getConfig()$get('entries.sep')
