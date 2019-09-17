@@ -396,8 +396,13 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
         entries.df <- entries.df[sort(colnames(entries.df))]
 
     # Add prefix
-    if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '')
-        colnames(entries.df) <- paste(prefix, colnames(entries.df), sep='')
+    if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '') {
+        fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
+        noprefix <- vapply(colnames(entries.df), fct, FUN.VALUE=TRUE)
+        colnames(entries.df)[noprefix] <- paste(prefix,
+                                                colnames(entries.df)[noprefix],
+                                                sep='')
+    }
 
     # Drop
     if (drop && ncol(entries.df) == 1)

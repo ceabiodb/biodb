@@ -246,7 +246,7 @@ getEntryImageUrl=function(id) {
 # Get pathway IDs per compound {{{3
 ################################################################################
 
-getPathwayIdsPerCompound=function(id, org) {
+getPathwayIdsPerCompound=function(id, org, limit=3) {
     ":\n\nGets organism pathways for each compound. This method retrieves for
     each compound the KEGG pathways of the organism in which the compound is
     involved.
@@ -255,6 +255,8 @@ getPathwayIdsPerCompound=function(id, org) {
     (3-4 letters code, like 'hsa', 'mmu', ...). See
     https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
     organism codes.
+    \nlimit: The maximum number of modules IDs to retrieve for each compound.
+    Set to 0 to disable.
     \nReturned value: A named list of KEGG pathway ID vectors, where the names
     of the list are the compound IDs."
 
@@ -304,11 +306,57 @@ getPathwayIdsPerCompound=function(id, org) {
         }
 
         # Record found pathways
-        if ( ! is.null(pws))
+        if ( ! is.null(pws)) {
+            if (limit > 0 && length(pws) > limit)
+                pws <- pws[1:limit]
             pathways[[comp.id]] <- pws
+        }
     }
 
     return(pathways)
+},
+
+# Get module IDs per compound {{{3
+################################################################################
+
+getModuleIdsPerCompound=function(id, org, limit=3) {
+    ":\n\nGets organism modules for each compound. This method retrieves for
+    each compound the KEGG modules of the organism in which the compound is
+    involved.
+    \nid: A character vector of KEGG Compound IDs.
+    \norg: The organism in which to search for modules, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    \nlimit: The maximum number of modules IDs to retrieve for each compound.
+    Set to 0 to disable.
+    \nReturned value: A named list of KEGG module ID vectors, where the names
+    of the list are the compound IDs."
+
+    modules <- list()
+    pw <- .self$getBiodb()$getFactory()$getConn('kegg.pathway')
+
+    # Get pathway IDs
+    pwids <- .self$getPathwayIdsPerCompound(id=id, org=org)
+
+    # Loop on all compounds
+    for (i in pwids) {
+        # Retrieve pathway entries for this compound
+        pw.entries <- pw$getEntry(i)
+        modids <- lapply(pw.entries, function(e) e$getFieldValue('kegg.module.id'))
+        modids <- unlist(modids)
+        modids <- modids[ ! is.na(modids)]
+        modids <- unique(modids)
+        if (limit > 0 && length(modids) > limit)
+            modids <- modids[1:limit]
+        modules <- c(modules, list(modids))
+    }
+
+    # Set names
+    if (length(modules) > 0)
+        names(modules) <- names(pwids)
+
+    return(modules)
 },
 
 # Get pathway IDs {{{3
@@ -375,17 +423,22 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
         x <- cbind(x, df1)
 
         # Add pathway info
-        pwids <- .self$getPathwayIdsPerCompound(ids, org=org)
+        pwids <- .self$getPathwayIdsPerCompound(ids, org=org, limit=limit)
         fields <- c('kegg.pathway.id', 'name', 'pathway.class')
         df2 <- .self$getBiodb()$entryIdsToDataframe(pwids, db='kegg.pathway',
                                                     limit=limit, fields=fields,
-                                                    own.id=TRUE)
-        colnames(df2)[colnames(df2) == 'name'] <- 'pathway.name'
+                                                    own.id=TRUE,
+                                                    prefix='kegg.pathway.')
         x <- cbind(x, df2)
 
-        # Add module IDs
-
-        # Add module names
+        # Add module info
+        modids <- .self$getModuleIdsPerCompound(ids, org=org, limit=limit)
+        fields <- c('kegg.module.id', 'name')
+        df3 <- .self$getBiodb()$entryIdsToDataframe(modids, db='kegg.module',
+                                                    limit=limit, fields=fields,
+                                                    own.id=TRUE,
+                                                    prefix='kegg.module.')
+        x <- cbind(x, df3)
     }
 
     return(x)

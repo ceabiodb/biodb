@@ -176,11 +176,14 @@ test.addInfo <- function(conn) {
     y <- conn$addInfo(x, id.col='ids', org='mmu')
     testthat::expect_identical(c('ids', 'col2', 'kegg.enzyme.id',
                                  'kegg.reaction.id', 'kegg.pathway.id',
-                                 'pathway.name', 'pathway.class'), colnames(y))
+                                 'kegg.pathway.name',
+                                 'kegg.pathway.pathway.class', 'kegg.module.id',
+                                 'kegg.module.name'), colnames(y))
     testthat::expect_equal(nrow(y), 2)
     testthat::expect_false(any(is.na(y[1, ])))
-    testthat::expect_true(all(is.na(y[2, c('kegg.pathway.id', 'pathway.name',
-                                           'pathway.class')])))
+    testthat::expect_true(all(is.na(y[2, c('kegg.pathway.id',
+                                           'kegg.pathway.name',
+                                           'kegg.pathway.pathway.class')])))
 }
 
 # Main {{{1

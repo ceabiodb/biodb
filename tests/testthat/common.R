@@ -119,13 +119,17 @@ progress=function(type='info', msg, index, first, total=NA_character_,
                     lvl=1) {
 
 	.self$checkMessageType(type)
+    testthat::expect_is(msg, 'character')
+    testthat::expect_length(msg, 1)
+    testthat::expect_true(msg != '')
 
 	if (first)
-		.last.index <<- 0
+		.self$.last.index[msg] <- 0
 
-	testthat::expect_true(index > .self$.last.index,
+    testthat::expect_true(msg %in% names(.self$.last.index))
+	testthat::expect_true(index > .self$.self$.last.index[msg],
                         paste0("Index ", index, " is not greater than last ",
-                               "index ", .self$.last.index, ' for progress ',
+                               "index ", .self$.last.index[msg], ' for progress ',
                                'message "', msg, '", with total ', total, '.'))
 	if ( ! is.na(total))
 		testthat::expect_true(index <= total,
@@ -133,7 +137,7 @@ progress=function(type='info', msg, index, first, total=NA_character_,
                                     total, ' for progress message "', msg,
                                     '".'))
 
-	.last.index <<- index
+	.self$.last.index[msg] <- index
 }
 
 ))
