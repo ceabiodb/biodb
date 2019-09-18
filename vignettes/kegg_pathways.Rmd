@@ -101,7 +101,7 @@ plot(ig, vertex.shape=shapes, vertex.color=colors, vertex.label.dist=1, vertex.s
 We will now use a KEGG pathway picture and highlight some of the enzymes and compounds on it.
 
 For this, we first get the enzymes related to the compounds:
-```{r`Getting the enzymes`}
+```{r Getting the enzymes}
 kegg.enz.ids <- mybiodb$entryIdsToSingleFieldValues(kegg.comp.ids, db='kegg.compound', field='kegg.enzyme.id')
 kegg.enz.ids
 ```
@@ -116,6 +116,23 @@ Then we call the method that builds the highlighted image and print it:
 img <- kegg.path.conn$getDecoratedGraphPicture(pathways[[1]], color2ids=color2ids)
 print(img)
 ```
+
+## Add information to a data frame containing KEGG Compound IDs
+
+If you have a data frame containing a column with KEGG Compound IDs, you can add information such as associated Enzymes, associated Pathways and Modules to your data frame, for a specific organism.
+
+For the example we use the list of compound IDs we already have, to construct a data frame:
+```{r Data frame with a column containing KEGG Compound IDs}
+mydf <- data.frame(kegg.ids=kegg.comp.ids)
+mydf
+```
+
+Using the `addInfo()` method of `KeggCompoundConn` we add information about pathways, enzymes and modules for these compounds:
+```{r Calling addInfo()}
+kegg.comp.conn$addInfo(mydf, id.col='kegg.ids', org='mmu')
+```
+
+The list of organisms is available at <https://www.genome.jp/kegg/catalog/org_list.html>.
 
 ## Terminate the biodb instance
 

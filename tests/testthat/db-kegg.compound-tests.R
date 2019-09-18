@@ -184,6 +184,10 @@ test.addInfo <- function(conn) {
     testthat::expect_true(all(is.na(y[2, c('kegg.pathway.id',
                                            'kegg.pathway.name',
                                            'kegg.pathway.pathway.class')])))
+
+    # Second test
+    x2 <- data.frame(ids=c('C06144', 'C06178', 'C02659'))
+    y2 <- conn$addInfo(x2, id.col='ids', org='mmu')
 }
 
 # Main {{{1

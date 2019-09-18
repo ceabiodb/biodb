@@ -342,7 +342,7 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
     # Loop on all compounds
     for (i in pwids) {
         # Retrieve pathway entries for this compound
-        pw.entries <- pw$getEntry(i)
+        pw.entries <- pw$getEntry(i, nulls=FALSE, drop=FALSE)
         modids <- lapply(pw.entries, function(e) e$getFieldValue('kegg.module.id'))
         modids <- unlist(modids)
         modids <- modids[ ! is.na(modids)]
@@ -363,7 +363,7 @@ getModuleIdsPerCompound=function(id, org, limit=3) {
 ################################################################################
 
 getPathwayIds=function(id, org) {
-    ":\n\nGets organism pathways.  This method retrieves KEGG pathways of the
+    ":\n\nGets organism pathways. This method retrieves KEGG pathways of the
     specified organism in which the compounds are involved.
     \nid: A character vector of KEGG Compound IDs.
     \norg: The organism in which to search for pathways, as a KEGG organism code
@@ -415,12 +415,13 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
         entries <- .self$getEntry(ids)
 
         # Add enzyme IDs and reaction IDs
-        enzids <- lapply(entries, function(e) e$getFieldValue('kegg.enzyme.id'))
+        enzids <- .self$getBiodb()$entriesFieldToVctOrLst(entries,
+                                                          field='kegg.enzyme.id',
+                                                          limit=limit)
         fields <- c('kegg.enzyme.id', 'kegg.reaction.id')
-        df1 <- .self$getBiodb()$entryIdsToDataframe(enzids, db='kegg.enzyme',
+        y <- .self$getBiodb()$entryIdsToDataframe(enzids, db='kegg.enzyme',
                                                     limit=limit, fields=fields,
                                                     own.id=TRUE)
-        x <- cbind(x, df1)
 
         # Add pathway info
         pwids <- .self$getPathwayIdsPerCompound(ids, org=org, limit=limit)
@@ -429,7 +430,7 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
                                                     limit=limit, fields=fields,
                                                     own.id=TRUE,
                                                     prefix='kegg.pathway.')
-        x <- cbind(x, df2)
+        y <- cbind(y, df2)
 
         # Add module info
         modids <- .self$getModuleIdsPerCompound(ids, org=org, limit=limit)
@@ -438,7 +439,14 @@ addInfo=function(x, id.col, org, limit=3, prefix='') {
                                                     limit=limit, fields=fields,
                                                     own.id=TRUE,
                                                     prefix='kegg.module.')
-        x <- cbind(x, df3)
+        y <- cbind(y, df3)
+
+        # Rename columns
+        if ( ! is.na(prefix) && nchar(prefix) > 0 && length(colnames(y)) > 0)
+            colnames(y) <- paste0(prefix, colnames(y))
+
+        # Add info columns
+        x <- cbind(x, y)
     }
 
     return(x)

@@ -308,7 +308,37 @@ test.entryIdsToSingleFieldValues <- function(biodb, obs) {
                                                   field='msprecmz')
     testthat::expect_identical(db$msprecmz[ ! duplicated(db$msprecmz)],
                                formulae)
-    
+
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn$getId())
+}
+
+
+# Test entriesFieldToVctOrLst() {{{1
+################################################################################
+
+test.entriesFieldToVctOrLst <- function(biodb, obs) {
+
+    # Create database
+    db <- data.frame(
+        accession=c("A1", "A1", "A1", "A1", "A1"),
+        msprecmz=c(80, 90, 100, 110, 120),
+        stringsAsFactors=FALSE)
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(db)
+
+    # Get entry
+    entry <- conn$getEntry("A1")
+    testthat::expect_is(entry, "BiodbEntry")
+
+    # Test
+    v <- biodb$entriesFieldToVctOrLst(list(entry), field='msprecmz')
+    testthat::expect_true(length(v[[1]]) == length(db$msprecmz))
+    v <- biodb$entriesFieldToVctOrLst(list(entry), field='msprecmz', limit=3)
+    testthat::expect_true(length(v[[1]]) == 3)
+
     # Delete connector
     biodb$getFactory()$deleteConn(conn$getId())
 }
@@ -325,3 +355,4 @@ test.that("entryIdsToDataframe() handles list of list in input.", "test.entryIds
 test.that("addColsToDataframe() works correctly.", "test.addColsToDataframe", biodb = biodb, obs = obs)
 test.that("entriesToSingleFieldValues() works correctly.", "test.entriesToSingleFieldValues", biodb = biodb, obs = obs)
 test.that("entryIdsToSingleFieldValues() works correctly.", "test.entryIdsToSingleFieldValues", biodb = biodb, obs = obs)
+test.that("entriesFieldToVctOrLst() works correctly.", "test.entriesFieldToVctOrLst", biodb = biodb, obs = obs)

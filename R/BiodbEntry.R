@@ -291,7 +291,8 @@ removeField=function(field) {
 # Get field value {{{3
 ################################################################################
 
-getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0) {
+getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
+                       withNa=TRUE) {
     ":\n\nGets the value of the specified field.
     \nfield: The name of a field.
     \ncompute: If set to TRUE and a field is not defined, try to compute it
@@ -304,8 +305,10 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0) 
     one value, changes nothing.
     \nlast: If set to TRUE and a field's value is a vector of more than one
     element, then export only the last value. If set to FALSE, changes nothing.
-    \nlimit: The maximum number of values to write to use in case the field
-    contains more than one value.
+    \nlimit: The maximum number of values to get in case the field contains more
+    than one value.
+    \nwithNa: If set to TRUE, keep NA values. Otherwise filter out NAs values in
+    vectors.
     \nReturned value: The value of the field.
     "
 
@@ -333,20 +336,22 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0) 
     if (last && field.def$hasCardMany() && length(val) > 1)
         val <- val[[length(val)]]
 
+    # Remove NA values
+    if ( ! withNa && ! is.null(val) && length(val) > 0)
+        val <- val[ ! is.na(val)]
+
+    # Limit
+    if (limit > 0 && ! is.null(val) && length(val) > limit)
+        val <- val[1:limit]
+
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
         if (field.def$isVector() && field.def$hasCardMany()
             && length(val) > 1) {
             if (all(is.na(val)))
                 val <-  as.vector(NA, mode=field.def$getClass())
-            else {
-                if (limit > 0 && length(val) > limit) {
-                    if (any(is.na(val)))
-                        val <- val[ ! is.na(val)]
-                    val <- val[1:limit]
-                }
+            else
                 val <- paste(val, collapse=cfg$get('multival.field.sep'))
-            }
         }
     }
 
@@ -401,7 +406,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
         # Ignore own ID field
         if ( ! own.id && f == .self$getParent()$getEntryIdField())
             next
-        
+
         # Ignore non atomic values
         if (only.atomic && ! field.def$isVector())
             next
@@ -413,7 +418,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
         # Ignore if no value for this field
         if ( ! f %in% names(.self$.fields))
             next
-        
+
         v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
 
         # Transform vector into data frame

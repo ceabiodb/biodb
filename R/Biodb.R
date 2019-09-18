@@ -285,7 +285,8 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 # Entries field to vector or list {{{3
 ################################################################################
 
-entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
+entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
+                                limit=0, withNa=TRUE) {
     ":\n\nExtracts the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field.
     \nentries: A list of \\code{Biodb} entries.
@@ -294,6 +295,10 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     than one, then values be converted into a vector of class character in which
     each entry values are collapsed.
     \ncompute: If set to \\code{TRUE}, computable fields will be output.
+    \nlimit: The maximum number of values to retrieve for each entry. Set to 0
+    to get all values.
+    \nwithNa: If set to TRUE, keep NA values. Otherwise filter out NAs values in
+    vectors.
     \nReturned value: A vector if the field is atomic or flatten is set to
     \\code{TRUE}, otherwise a list.
     "
@@ -309,7 +314,8 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
             val <-lapply(entries,
                          function(e)
                              e$getFieldValue(field, flatten=flatten,
-                                             compute=compute))
+                                             compute=compute, limit=limit,
+                                             withNa=withNa))
             val <- unlist(val)
         }
         else
@@ -319,8 +325,10 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     # List
     else {
         if (length(entries) > 0)
-            val <- lapply(entries,
-                          function(e) e$getFieldValue(field, compute=compute))
+            val <- lapply(entries, function(e) e$getFieldValue(field,
+                                                               compute=compute,
+                                                               limit=limit,
+                                                               withNa=withNa))
         else
             val <- list()
     }
