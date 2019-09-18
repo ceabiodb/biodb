@@ -1,0 +1,47 @@
+---
+title: "*biodb*: MS annotation"
+author: "Pierrick Roger"
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
+abstract: |
+  How to annotate a list of M/Z values with chemical and MS databases.
+vignette: |
+  %\VignetteIndexEntry{Annotation of M/Z values.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Introduction
+
+We first create an instance of the `Biodb` class:
+```{r Creation of the biodb instance}
+mybiodb <- biodb::Biodb()
+```
+
+```{r Set a list of M/Z values}
+x <- data.frame(mz=c(73.0001, 150.0001, 173.9999))
+```
+
+## Annotate M/Z values using a chemical database
+
+```{r Create a connector for ChEBI}
+chebi <- mybiodb$getFactory()$getConn('chebi')
+```
+
+```{r Annotate}
+chebi$annotateMzValues(x, mz.tol=1e-2, ms.mode='pos')
+```
+
+## Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r Closing of the biodb instance}
+mybiodb$terminate()
+```
