@@ -578,6 +578,44 @@ collapseRows=function(x, sep='|', cols=1L) {
     return(y)
 },
 
+# Entries to single field values {{{3
+################################################################################
+
+entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE) {
+
+    # Get values
+    fct <- function(e) {
+        e$getFieldValue(field)
+    }
+    values <- unlist(lapply(entries, fct))
+
+    # Remove duplicates
+    if (uniq)
+        values <- unique(values)
+
+    # Sort
+    if (sortOutput)
+        values <- sort(values)
+
+    return(values)
+},
+
+# Entry IDs to single field values {{{3
+################################################################################
+
+entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE) {
+
+    # Get connector
+    conn <- .self$getFactory()$getConn(db)
+
+    # Get entries
+    entries <- conn$getEntry(ids)
+
+    # Call other method
+    .self$entriesToSingleFieldValues(entries, field=field,
+                                     sortOutput=sortOutput, uniq=uniq)
+},
+
 # Compute fields {{{3
 ################################################################################
 

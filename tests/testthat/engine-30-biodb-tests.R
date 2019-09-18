@@ -233,8 +233,88 @@ test.addColsToDataframe <- function(biodb, obs) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
+# Test entriesToSingleFieldValues() {{{1
+################################################################################
+
+test.entriesToSingleFieldValues <- function(biodb, obs) {
+
+    # Create database
+    db <- data.frame(
+        accession=c("A1", "A2", "A3", "A3", "A3"),
+        formula=c("C3H10N2", "C6H8O7", "C6H8O7", "C6H8O7", "C6H8O7"),
+        msprecmz=c(100, 90, 100, 110, 120),
+        stringsAsFactors=FALSE)
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(db)
+    
+    # Get IDs & entries
+    ids <- conn$getEntryIds()
+    testthat::expect_length(ids, 3)
+    entries <- conn$getEntry(ids)
+    testthat::expect_length(entries, 3)
+
+    # Test
+    formulae <- biodb$entriesToSingleFieldValues(entries, field='formula')
+    testthat::expect_identical(db$formula[ ! duplicated(db$formula)], formulae)
+    formulae <- biodb$entriesToSingleFieldValues(entries, field='formula',
+                                                  uniq=FALSE)
+    testthat::expect_identical(c("C3H10N2", "C6H8O7", "C6H8O7"), formulae)
+    formulae <- biodb$entriesToSingleFieldValues(entries, field='formula',
+                                                  sort=TRUE)
+    testthat::expect_identical(sort(db$formula[ ! duplicated(db$formula)]),
+                               formulae)
+    formulae <- biodb$entriesToSingleFieldValues(entries, field='msprecmz')
+    testthat::expect_identical(db$msprecmz[ ! duplicated(db$msprecmz)],
+                               formulae)
+    
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn$getId())
+}
+
+# Test entryIdsToSingleFieldValues() {{{1
+################################################################################
+
+test.entryIdsToSingleFieldValues <- function(biodb, obs) {
+
+    # Create database
+    db <- data.frame(
+        accession=c("A1", "A2", "A3", "A3", "A3"),
+        formula=c("C3H10N2", "C6H8O7", "C6H8O7", "C6H8O7", "C6H8O7"),
+        msprecmz=c(100, 90, 100, 110, 120),
+        stringsAsFactors=FALSE)
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(db)
+    
+    # Get IDs
+    ids <- conn$getEntryIds()
+    testthat::expect_length(ids, 3)
+
+    # Test
+    formulae <- biodb$entryIdsToSingleFieldValues(ids, db=conn$getId(),
+                                                  field='formula')
+    testthat::expect_identical(db$formula[ ! duplicated(db$formula)], formulae)
+    formulae <- biodb$entryIdsToSingleFieldValues(ids, db=conn$getId(),
+                                                  field='formula', uniq=FALSE)
+    testthat::expect_identical(c("C3H10N2", "C6H8O7", "C6H8O7"), formulae)
+    formulae <- biodb$entryIdsToSingleFieldValues(ids, db=conn$getId(),
+                                                  field='formula', sort=TRUE)
+    testthat::expect_identical(sort(db$formula[ ! duplicated(db$formula)]),
+                               formulae)
+    formulae <- biodb$entryIdsToSingleFieldValues(ids, db=conn$getId(),
+                                                  field='msprecmz')
+    testthat::expect_identical(db$msprecmz[ ! duplicated(db$msprecmz)],
+                               formulae)
+    
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn$getId())
+}
+
 # Main {{{1
-################################################################
+################################################################################
 
 test.that("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)
 test.that('collapseRows() works correctly.', 'test.collapseRows', biodb = biodb, obs = obs)
@@ -243,3 +323,5 @@ test.that("entriesToDataframe() handles list of list in input.", "test.entriesTo
 test.that("entryIdsToDataframe() works correctly.", "test.entryIdsToDataframe", biodb = biodb, obs = obs)
 test.that("entryIdsToDataframe() handles list of list in input.", "test.entryIdsToDataframe.listOfListInput", biodb = biodb, obs = obs)
 test.that("addColsToDataframe() works correctly.", "test.addColsToDataframe", biodb = biodb, obs = obs)
+test.that("entriesToSingleFieldValues() works correctly.", "test.entriesToSingleFieldValues", biodb = biodb, obs = obs)
+test.that("entryIdsToSingleFieldValues() works correctly.", "test.entryIdsToSingleFieldValues", biodb = biodb, obs = obs)
