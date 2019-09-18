@@ -28,6 +28,7 @@ methods=list(
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
+    # Override super class' method
 
     .self$checkMessageType(type)
 
@@ -40,6 +41,18 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
             caller.info <- paste('[', caller.info, '] ', sep='')
         stop(paste0(caller.info, msg))
     }
+
+    invisible(NULL)
+},
+
+# Info progress {{{3
+################################################################################
+
+progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
+                  laptime=10L) {
+    # Override super class' method
+
+    invisible(NULL)
 }
 
 ))

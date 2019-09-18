@@ -407,9 +407,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '') {
         fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
         noprefix <- vapply(colnames(entries.df), fct, FUN.VALUE=TRUE)
-        colnames(entries.df)[noprefix] <- paste(prefix,
-                                                colnames(entries.df)[noprefix],
-                                                sep='')
+        colnames(entries.df)[noprefix] <- paste0(prefix,
+                                                colnames(entries.df)[noprefix])
     }
 
     # Drop

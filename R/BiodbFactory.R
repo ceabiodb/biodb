@@ -462,6 +462,11 @@ show=function() {
         i <- 0
         for (single.content in content) {
 
+            # Send progress message
+            i <- i + 1
+            .self$progressMsg(msg='Getting entry contents.', index=i,
+                              total=length(content), first=(i == 1))
+
             # Create empty entry instance
             entry <- entry.class$new(parent=conn)
 
@@ -469,11 +474,6 @@ show=function() {
             entry$parseContent(single.content)
 
             entries <- c(entries, entry)
-
-            # Send progress message
-            i <- i + 1
-            .self$progressMsg(msg='Getting entry contents.', index=i,
-                              total=length(content), first=(i == 1))
         }
 
         # Replace elements with no accession id by NULL

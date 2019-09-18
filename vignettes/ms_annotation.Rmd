@@ -26,7 +26,7 @@ mybiodb <- biodb::Biodb()
 ```
 
 ```{r Set a list of M/Z values}
-x <- data.frame(mz=c(73.0001, 150.0001, 173.9999))
+x <- data.frame(mz=c(73.9812, 150.4347, 173.9763))
 ```
 
 ## Annotate M/Z values using a chemical database
@@ -37,6 +37,7 @@ chebi <- mybiodb$getFactory()$getConn('chebi')
 
 ```{r Annotate}
 chebi$annotateMzValues(x, mz.tol=1e-2, ms.mode='pos')
+chebi$annotateMzValues(x, mz.tol=1e-2, ms.mode='pos', fields=c('chebi.id', 'molecular.mass', 'monoisotopic.mass'))
 ```
 
 ## Closing biodb instance
