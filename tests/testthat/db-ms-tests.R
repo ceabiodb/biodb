@@ -282,8 +282,7 @@ test.searchMsPeaks <- function(db) {
 	# Test with impossible M/Z value to simulate no match
 	impossible.value <- 1e10
 	results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
-                                ms.mode=mode,
-                                prefix.on.result.cols='myprefix.')
+                                ms.mode=mode, prefix='myprefix.')
 	expect_is(results, 'data.frame')
 	expect_identical(results, data.frame(mz = impossible.value))
 
@@ -311,15 +310,15 @@ test.searchMsPeaks <- function(db) {
 	expect_is(results, 'data.frame')
 	expect_true('mz' %in% colnames(results))
 	some.col = rep('xxx', length(mzs))
-	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+	results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE)
 	expect_is(results, 'data.frame')
 	expect_true('mz' %in% colnames(results))
 	expect_true('some.col' %in% colnames(results))
 	expect_is(results[['some.col']], 'character')
 	expect_true(all(results[['some.col']] == some.col[[1]]))
 
-	# Test insert.input.values with prefix.on.result.cols
-	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs, some.col = some.col, stringsAsFactors = FALSE), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE, prefix.on.result.cols = 'myprefix.')
+	# Test insert.input.values with prefix
+	results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE, prefix='myprefix.')
 	expect_is(results, 'data.frame')
 	expect_true('mz' %in% colnames(results))
 	expect_true('some.col' %in% colnames(results))

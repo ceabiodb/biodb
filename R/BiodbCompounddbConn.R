@@ -79,7 +79,8 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
                           mass.field='monoisotopic.mass',
                           max.results=3, mz.col='mz',
-                          fields=NULL, prefix=NULL, insert.input.values=TRUE) {
+                          fields=NULL, prefix=NULL, insert.input.values=TRUE,
+                          fieldsLimit=0) {
     "Annotate 
     \nx: Either a data frame or a numeric vector.
     \nfields: A character vector containing the additional entry fields you
@@ -100,6 +101,8 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     column in the output. By default it will be set to the name of the database
     followed by a dot.
     'plain'.
+    \nfieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
     \nReturned value: A data frame containing the input values, and annotation
     columns appended at the end. The first annotation column contains the IDs
     of the matched entries. The following columns contain the fields you have
@@ -162,7 +165,8 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         entries <- .self$getEntry(ids, drop=FALSE)
 
         # Convert entries to data frame
-        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
+        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields,
+                                                  limit=fieldsLimit)
 
         # Add prefix
         if ( ! is.null(df) && ncol(df) > 0 && ! is.na(prefix)

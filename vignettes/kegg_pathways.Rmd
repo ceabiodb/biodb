@@ -1,56 +1,78 @@
 ---
-title: "Getting pathways related to compounds using KEGG databases"
+title: "*biodb*: KEGG databases"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
-  This vignette shows how to retrieve pathways related to a compound using KEGG databases. It also demonstrate how to get a pathways map with a set of enzymes and compounds highlighted on it.
+  This vignette shows how to use KEGG databases. In it will learn how to retrieve pathways related to a compound using KEGG databases. How to get a pathways map with a set of enzymes and compounds highlighted on it. How to get new information about KEGG Compound and add it to your existing data frame.
 vignette: |
-  %\VignetteIndexEntry{Accessing KEGG databases}
+  %\VignetteIndexEntry{Using KEGG databases.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Getting pathways related to compounds using KEGG databases
-
-## Introduction
+# Introduction
 
 In this vignette, we will:
+
+ * Add new information columns into a data frame that contains a column with KEGG Compound IDs.
+
  * Look for pathways related to specified compounds.
+
  * Count to how many pathways each compound is related.
+
  * Build a pathway graph.
+
  * Create a decorated pathway graph picture.
 
 For that we will start from a given list of KEGG compound IDs, and explore KEGG to find to which organisms they can be related and try to discover links between them through KEGG pathways.
 
-As an example, we will start for a pyellowefined list of KEGG compound IDs, and focus on one organism, the mouse.
-
-## Initializing the library
-
-First we need to create an instance of the `Biodb` class:
+First we create an instance of the `Biodb` class:
 ```{r Initializing Biodb}
 mybiodb <- biodb::Biodb()
 ```
 
-## Creating a connector
-
-We need a connector to the KEGG Compound database:
+Then we get a connector to the KEGG Compound database:
 ```{r}
 kegg.comp.conn <- mybiodb$getFactory()$getConn('kegg.compound')
 ```
 
-## List of compound IDs
-
-We will use the following list of compounds as a start in our search:
+And we define a list of compounds to use in our examples:
 ```{r}
 kegg.comp.ids <- c('C06144', 'C06178', 'C02659')
 ```
 
+# Add information to a data frame containing KEGG Compound IDs
+
+If you have a data frame containing a column with KEGG Compound IDs, you can add information such as associated KEGG Enzymes, associated KEGG Pathways and KEGG Modules to your data frame, for a specific organism.
+
+For the example we use the list of compound IDs we already have, to construct a data frame:
+```{r Data frame with a column containing KEGG Compound IDs}
+mydf <- data.frame(kegg.ids=kegg.comp.ids)
+```
+
+Using the `addInfo()` method of `KeggCompoundConn` class, we add information about pathways, enzymes and modules for these compounds:
+```{r Calling addInfo()}
+kegg.comp.conn$addInfo(mydf, id.col='kegg.ids', org='mmu')
+```
+Note that, by default, the number of values for each field is limited to 3. Please see the help page of `KeggCompoundConn` for more information about `addInfo()`, and a description of all parameters.
+
+The list of organisms is available at <https://www.genome.jp/kegg/catalog/org_list.html>.
+
+# Getting pathways related to compounds using KEGG databases
+
+As an example, we will start from a predefined list of KEGG compound IDs, and focus on one organism, the mouse.
+
 ## Look for pathways related to specified compounds
 
-Given a list of compounds and an organism, we can look for pathways in a single command:
+Given a list of compounds and an organism, we can look for related pathways in a single command:
 ```{r}
 pathways <- kegg.comp.conn$getPathwayIds(kegg.comp.ids, 'mmu')
 pathways
@@ -117,24 +139,7 @@ img <- kegg.path.conn$getDecoratedGraphPicture(pathways[[1]], color2ids=color2id
 print(img)
 ```
 
-## Add information to a data frame containing KEGG Compound IDs
-
-If you have a data frame containing a column with KEGG Compound IDs, you can add information such as associated Enzymes, associated Pathways and Modules to your data frame, for a specific organism.
-
-For the example we use the list of compound IDs we already have, to construct a data frame:
-```{r Data frame with a column containing KEGG Compound IDs}
-mydf <- data.frame(kegg.ids=kegg.comp.ids)
-mydf
-```
-
-Using the `addInfo()` method of `KeggCompoundConn` we add information about pathways, enzymes and modules for these compounds:
-```{r Calling addInfo()}
-kegg.comp.conn$addInfo(mydf, id.col='kegg.ids', org='mmu')
-```
-
-The list of organisms is available at <https://www.genome.jp/kegg/catalog/org_list.html>.
-
-## Terminate the biodb instance
+# Terminate the biodb instance
 
 Once we are done with Biodb, we need to terminate properly the `Biodb` instance:
 ```{r Terminating the Biodb instance}
