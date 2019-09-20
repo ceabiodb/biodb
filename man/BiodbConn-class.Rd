@@ -70,7 +70,7 @@ Gets the ID used by this connector in the disk cache.
 Returned value: The cache ID of this connector.
     }
 
-\item{\code{getEntry(id, drop = TRUE)}}{:
+\item{\code{getEntry(id, drop = TRUE, nulls = TRUE)}}{:
 
 Return the entry corresponding to this ID. You can pass a vector of IDs,
     and you will get a list of entries.
@@ -80,6 +80,10 @@ id: A character vector containing entry identifiers.
 drop: If set to TRUE and only one entry is requrested, then the returned
     value will be a single BiodbEntry object, otherwise it will be a list of 
     BiodbEntry objects.
+    
+nulls: If set to TRUE, NULL entries are preserved. This ensures that the
+    output list has the same length than the input vector `id`. Otherwise they
+    are removed from the final list.
     
 Returned value: A list of BiodbEntry objects, the same size of the vector
     of IDs. The list will contain NULL values for invalid IDs. If drop is set to

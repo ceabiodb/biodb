@@ -68,7 +68,8 @@ lvl: The level of the message.
 Returned value: None.
     }
 
-\item{\code{progress(type = "info", msg, index, first, total = NA_integer_, lvl = 1)}}{:
+\item{\code{progress(type = "info", msg, index, first, total = NA_integer_, lvl = 1L,
+  laptime = 10L)}}{:
 
 Sends a progress message to this observer.
     
@@ -83,6 +84,8 @@ total: The total to achieve in the progression, as an integer or numeric
     number. Optional.
     
 lvl: The level of the message.
+    
+laptime: The time between two progress messages, in seconds.
     
 Returned value: None.
     }

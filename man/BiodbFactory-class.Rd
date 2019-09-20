@@ -79,13 +79,20 @@ Deletes all connectors.
 Returned value: None.
     }
 
-\item{\code{deleteConn(conn.id = NULL, db.class = NULL)}}{:
+\item{\code{deleteConn(conn)}}{:
 
-Deletes existing connectors.
+Deletes an existing connector.
     
-conn.id: A connector ID. If set only this connector will be deleted.
+conn.id: A connector instance or a connector ID.
     
-db.class: The type of a database. If set all connectors of this database
+Returned value: None.
+    }
+
+\item{\code{deleteConnByClass(db.class)}}{:
+
+Deletes all existing connectors from a same class.
+    
+db.class: The type of a database. All connectors of this database
     type will be deleted.
     
 Returned value: None.

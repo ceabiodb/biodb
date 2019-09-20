@@ -205,9 +205,9 @@ Returned value: A character vector of spectra IDs.
   ms.level = 0, max.results = NA_integer_, chrom.col.ids = NULL,
   rt = NULL, rt.unit = NA_character_, rt.tol = NA_real_,
   rt.tol.exp = NA_real_, precursor = FALSE, precursor.rt.tol = NA_real_,
-  insert.input.values = TRUE, prefix.on.result.cols = NULL,
-  compute = TRUE, input.df.colnames = c(mz = "mz", rt = "rt"),
-  match.rt = FALSE)}}{:
+  insert.input.values = TRUE, prefix = NULL, compute = TRUE,
+  fields = NULL, fieldsLimit = 0, input.df.colnames = c(mz = "mz", rt =
+  "rt"), match.rt = FALSE)}}{:
 
 For each M/Z value, searches for matching MS spectra and returns the
     matching peaks.
@@ -260,17 +260,23 @@ precursor.rt.tol: The RT tolerance used when matching the precursor.
 insert.input.values: Insert input values at the beginning of the
     result data frame.
     
-prefix.on.result.cols: Add prefix on column names of result data frame.
+prefix: Add prefix on column names of result data frame.
     
 compute: If set to TRUE, use the computed values when converting found
     entries to data frame.
+    
+fields: A character vector of field names to output. The data frame output
+    will be restricted to this list of fields.
+    
+fieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
     
 input.df.colnames: Names of the columns in the input data frame.
     
 match.rt: If set to TRUE, match also RT values.
     
 Returned value: A data frame with at least input MZ and RT columns, and
-    annotation columns prefixed with `prefix.on.result.cols` if set. For each
+    annotation columns prefixed with `prefix` if set. For each
     matching found a row is output. Thus if n matchings are found for M/Z value
     x, then there will be n rows for x, each for a different match. The number
     of matching found for each M/Z value is limited to `max.results`.

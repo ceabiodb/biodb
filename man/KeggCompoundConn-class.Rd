@@ -14,6 +14,31 @@ description of inherited methods.
 \section{Methods}{
 
 \describe{
+\item{\code{addInfo(x, id.col, org, limit = 3, prefix = "")}}{:
+
+Add informations (as new column appended to the end) to an existing
+    data frame containing a column of KEGG Compound IDs.
+    
+x: A data frame containing at least one column with Biodb entry IDs
+    identified by the parameter `id.col`.
+    
+id.col: The name of the column containing IDs inside the input data frame.
+    
+org: The organism in which to search for pathways, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+limit: This is the maximum number of values obtained for each ID, for
+    every column added, in case multiple values are obtained. Set to 0 to get
+    all values.
+    
+prefix: Insert a prefix at the start of name of all new columns.
+    
+Returned value: A data frame containing `x` and new columns appended with
+    KEGG identifiers and data.
+    }
+
 \item{\code{getEntryImageUrl(entry.id)}}{:
 
 Gets the URL to a picture of the entry (e.g.: a picture of the
@@ -25,9 +50,28 @@ Returned value: A character vector, the same length as `entry.id`,
     containing for each entry ID either a URL or NA if no URL exists.
     }
 
+\item{\code{getModuleIdsPerCompound(id, org, limit = 3)}}{:
+
+Gets organism modules for each compound. This method retrieves for
+    each compound the KEGG modules of the organism in which the compound is
+    involved.
+    
+id: A character vector of KEGG Compound IDs.
+    
+org: The organism in which to search for modules, as a KEGG organism code
+    (3-4 letters code, like 'hsa', 'mmu', ...). See
+    https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
+    organism codes.
+    
+limit: The maximum number of modules IDs to retrieve for each compound.
+    Set to 0 to disable.
+    
+Returned value: A named list of KEGG module ID vectors, where the names
+    of the list are the compound IDs.}
+
 \item{\code{getPathwayIds(id, org)}}{:
 
-Gets organism pathways.  This method retrieves KEGG pathways of the
+Gets organism pathways. This method retrieves KEGG pathways of the
     specified organism in which the compounds are involved.
     
 id: A character vector of KEGG Compound IDs.
@@ -40,7 +84,7 @@ org: The organism in which to search for pathways, as a KEGG organism code
 Returned value: A vector of KEGG pathway IDs.
     }
 
-\item{\code{getPathwayIdsPerCompound(id, org)}}{:
+\item{\code{getPathwayIdsPerCompound(id, org, limit = 3)}}{:
 
 Gets organism pathways for each compound. This method retrieves for
     each compound the KEGG pathways of the organism in which the compound is
@@ -52,6 +96,9 @@ org: The organism in which to search for pathways, as a KEGG organism code
     (3-4 letters code, like 'hsa', 'mmu', ...). See
     https://www.genome.jp/kegg/catalog/org_list.html for a complete list of KEGG
     organism codes.
+    
+limit: The maximum number of modules IDs to retrieve for each compound.
+    Set to 0 to disable.
     
 Returned value: A named list of KEGG pathway ID vectors, where the names
     of the list are the compound IDs.}

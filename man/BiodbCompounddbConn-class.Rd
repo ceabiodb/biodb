@@ -14,7 +14,8 @@ method headers specific to compound databases.
 \describe{
 \item{\code{annotateMzValues(x, mz.tol, ms.mode, mz.tol.unit = c("plain", "ppm"),
   mass.field = "monoisotopic.mass", max.results = 3, mz.col = "mz",
-  fields = NULL, prefix = NULL, insert.input.values = TRUE)}}{Annotate 
+  fields = NULL, prefix = NULL, insert.input.values = TRUE,
+  fieldsLimit = 0)}}{Annotate 
     
 x: Either a data frame or a numeric vector.
     
@@ -43,6 +44,9 @@ prefix: A prefix that will be inserted before the name of each added
     column in the output. By default it will be set to the name of the database
     followed by a dot.
     'plain'.
+    
+fieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
     
 Returned value: A data frame containing the input values, and annotation
     columns appended at the end. The first annotation column contains the IDs

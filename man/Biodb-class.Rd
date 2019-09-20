@@ -21,6 +21,30 @@ get*() methods.
 \section{Methods}{
 
 \describe{
+\item{\code{addColsToDataframe(x, id.col, db, fields, limit = 3, prefix = "")}}{:
+
+Using 
+    
+x: A data frame containing at least one column with Biodb entry IDs
+    identified by the parameter `id.col`.
+    
+id.col: The name of the column containing IDs inside the input data frame.
+    
+db: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
+    
+fields: A character vector containing entry fields to add.
+    
+limit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    
+prefix: Insert a prefix at the start of all field names.
+    
+Returned value: A data frame containing `x` and new columns appended for
+    the fields requested.
+    }
+
 \item{\code{addObservers(observers)}}{:
 
 Adds new observers. Observers will be called each time an event occurs.
@@ -82,7 +106,8 @@ limit: The number of entries of the source database to copy. If set to
 Returned value: None.
     }
 
-\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE)}}{:
+\item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE,
+  limit = 0, withNa = TRUE)}}{:
 
 Extracts the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field.
@@ -97,18 +122,26 @@ flatten: If set to \code{TRUE} and the field has a cardinality greater
     
 compute: If set to \code{TRUE}, computable fields will be output.
     
+limit: The maximum number of values to retrieve for each entry. Set to 0
+    to get all values.
+    
+withNa: If set to TRUE, keep NA values. Otherwise filter out NAs values in
+    vectors.
+    
 Returned value: A vector if the field is atomic or flatten is set to
     \code{TRUE}, otherwise a list.
     }
 
 \item{\code{entriesToDataframe(entries, only.atomic = TRUE, null.to.na = TRUE,
-  compute = TRUE, fields = NULL, drop = FALSE, sort.cols = FALSE,
-  flatten = TRUE, only.card.one = FALSE)}}{:
+  compute = TRUE, fields = NULL, limit = 0, drop = FALSE,
+  sort.cols = FALSE, flatten = TRUE, only.card.one = FALSE,
+  own.id = TRUE, prefix = "")}}{:
 
-Converts a list of entries (\code{BiodbEntry} objects) into a data
-    frame.
+Converts a list of entries or a list of list of entries
+    (\code{BiodbEntry} objects) into a data frame.
     
-entries: A list of \code{BiodbEntry} instances.
+entries: A list of \code{BiodbEntry} instances or a list of list of
+    \code{BiodbEntry} instances.
     
 only.atomic: If set to \code{TRUE}, output only atomic fields, i.e.: the
     fields whose value type is one of integer, numeric, logical or character.
@@ -121,6 +154,10 @@ compute: If set to \code{TRUE}, computable fields will be output.
 fields: A character vector of field names to output. The data frame output
     will be restricted to this list of fields.
     
+limit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    
 drop: If set to \code{TRUE} and the resulting data frame has only one
     column, a vector will be output instead of data frame.
     
@@ -131,6 +168,11 @@ flatten: If set to \code{TRUE}, then each field with a cardinality
     values are collapsed.
     
 only.card.one: Output only fields whose cardinality is one.
+    
+own.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
+    
+prefix: Insert a prefix at the start of all field names.
     
 Returned value: A data frame containing the entries. Columns are named
     according to field names.
@@ -146,6 +188,33 @@ entries: A list of \code{BiodbEntry} instances.
 compute: If set to \code{TRUE}, computable fields will added to JSON too.
     
 Returned value: A list of JSON strings, the same length as entries list.
+    }
+
+\item{\code{entryIdsToDataframe(ids, db, fields = NULL, limit = 3, prefix = "",
+  own.id = FALSE)}}{:
+
+Construct a data frame using entry IDs and field values of the
+    corresponding entries.
+    
+ids: A character vector of entry IDs or a list of character vectors of
+    entry IDs.
+    
+db: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
+    
+fields: A character vector containing entry fields to add.
+    
+limit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    
+own.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
+    
+prefix: Insert a prefix at the start of all field names.
+    
+Returned value: A data frame containing in columns the requested field
+    values, with one entry per line, in the same order than in `ids` vector.
     }
 
 \item{\code{fieldIsAtomic(field)}}{:
