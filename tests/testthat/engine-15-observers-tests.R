@@ -25,7 +25,23 @@ test.deprecatedMethods <- function(biodb, obs) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
+# Test default messages {{{1
+################################################################
+
+test.default.messages <- function(biodb, obs) {
+
+    msg <- "Hello"
+
+    testthat::expect_message(biodb$info(msg), "^Hello$", perl=TRUE)
+    testthat::expect_message(biodb$progressMsg(msg, index=0, total=10,
+                                               first=TRUE, laptime=0),
+                             "^Hello.*ETA.*$", perl=TRUE)
+    testthat::expect_warning(biodb$warning(msg), "^.* Hello$", perl=TRUE)
+    testthat::expect_error(biodb$error(msg), "^.* Hello$", perl=TRUE)
+}
+
 # Main {{{1
 ################################################################
 
-test.that("Deprecated methods send correct message.", 'test.deprecatedMethods', biodb = biodb, obs = obs)
+test.that("Deprecated methods send correct message.", 'test.deprecatedMethods', biodb=biodb, obs=obs)
+test.that("Test what messages are printed by default.", 'test.default.messages', biodb=biodb, obs=obs)

@@ -50,10 +50,7 @@ BiodbLogger <- methods::setRefClass("BiodbLogger",
     contains='BiodbObserver',
     fields=list(
         .file='ANY',
-        .close.file='logical',
-        .lastime.progress='list',
-        .progress.laptime='integer',
-        .progress.initial.time='list'
+        .close.file='logical'
         ),
 
 # Public methods {{{2
@@ -86,9 +83,6 @@ initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
     # Set member field
     .self$.file <- file
     .self$.close.file <- close.file
-    .self$.lastime.progress <- list()
-    .self$.progress.initial.time <- list()
-    .self$.progress.laptime <- as.integer(10) # In seconds
 },
 
 # Terminate {{{3
@@ -131,34 +125,8 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
         else
             cat(m, "\n", sep='', file=.self$.file)
     }
-},
 
-# Progress {{{3
-################################################################################
-
-progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1) {
-    # Overrides super class' method.
-    
-    t <- Sys.time()
-    msgid <- msg
-
-    if (first || ! msg %in% names(.self$.lastime.progress)) {
-        .self$.lastime.progress[[msgid]] <- t
-        .self$.progress.initial.time[[msgid]] <- t
-    }
-
-    else if (t - .self$.lastime.progress[[msgid]] > .self$.progress.laptime) {
-        msg <- paste(msg, index, '/', if (is.na(total)) '?' else total)
-        if ( ! is.na(total)) {
-            i <- .self$.progress.initial.time[[msgid]]
-            eta <- t + (total - index) * (t - i) / index
-            msg <- paste0(msg, ' (', ((100 * index) %/% total), '%, ETA: ',
-                          eta, ')')
-        }
-        msg <- paste0(msg, '.')
-        .self$msg(type, msg, lvl=lvl)
-        .self$.lastime.progress[[msgid]] <- t
-    }
+    invisible(NULL)
 }
 
 ))

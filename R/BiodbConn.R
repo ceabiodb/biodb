@@ -91,21 +91,29 @@ getId=function() {
 # Get entry {{{3
 ################################################################################
 
-getEntry=function(id, drop=TRUE) {
+getEntry=function(id, drop=TRUE, nulls=TRUE) {
     ":\n\nReturn the entry corresponding to this ID. You can pass a vector of IDs,
     and you will get a list of entries.
     \nid: A character vector containing entry identifiers.
     \ndrop: If set to TRUE and only one entry is requrested, then the returned
     value will be a single BiodbEntry object, otherwise it will be a list of 
     BiodbEntry objects.
+    \nnulls: If set to TRUE, NULL entries are preserved. This ensures that the
+    output list has the same length than the input vector `id`. Otherwise they
+    are removed from the final list.
     \nReturned value: A list of BiodbEntry objects, the same size of the vector
     of IDs. The list will contain NULL values for invalid IDs. If drop is set to
     TRUE and only one etrny was requested then a single BiodbEntry is returned
     instead of a list.
     "
 
-    return(.self$getBiodb()$getFactory()$getEntry(.self$getId(), id=id,
-                                                  drop=drop))
+    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id=id,
+                                                  drop=drop)
+
+    if ( ! nulls && is.list(entries))
+        entries <- Filter(function(e) ! is.null(e), entries)
+
+    return(entries)
 },
 
 # Get cache file {{{3

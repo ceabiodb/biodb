@@ -113,16 +113,16 @@ convertToOrgPathways=function(id, org) {
     \nReturned value: A character vector, the same length as `id`,
     containing the converted IDs.
     "
-    
+
     # Set organism code in IDs
     id <- sub('^[^0-9]+', org, id)
-    
+
     # Get entries to check existence
     entries <- .self$getEntry(id, drop=FALSE)
-    
+
     # Filter out non existing entries
     id <- id[ ! vapply(entries, is.null, FUN.VALUE=TRUE)]
-    
+
     return(id)
 },
 

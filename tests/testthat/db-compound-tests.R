@@ -159,7 +159,7 @@ test.annotateMzValues_real_values <- function(conn) {
 						testthat::expect_true(all(colnames(df) %in% colnames(ret)))
 						testthat::expect_true(nrow(ret) >= nrow(df))
 						testthat::expect_true(all(df[['mz']] %in% ret[['mz']]))
-						id.col <- paste(conn$getId(), 'accession', sep='.')
+						id.col <- conn$getEntryIdField()
 						testthat::expect_true(id.col %in% colnames(ret))
 					}
 				}
@@ -200,7 +200,7 @@ test_annotateMzValues_input_vector <- function(conn) {
 				testthat::expect_identical(ret, data.frame(mz=mz))
 			else {
 				testthat::expect_is(ret, 'data.frame')
-				id.col <- paste(conn$getId(), 'accession', sep='.')
+				id.col <- conn$getEntryIdField()
 				testthat::expect_identical(c('mz', id.col), colnames(ret))
 				testthat::expect_false(any(is.na(ret[[id.col]])))
 			}
@@ -236,13 +236,14 @@ test_annotateMzValues_additional_fields <- function(conn) {
 			# Annotate
 			mz <- masses - proton.mass
 			fields <- ewmf[[1]]$getFieldNames()
+			outputFields <- paste(conn$getId(), fields, sep='.')
+            outputFields <- sub(paste0('^', conn$getId(), '.', conn$getId(), '.'), paste0(conn$getId(), '.'), outputFields)
 			ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf, ms.mode='neg', max.results=3, fields=fields)
 			if ( ! conn$isSearchableByField(mf))
 				testthat::expect_identical(ret, data.frame(mz=mz))
 			else {
 				testthat::expect_is(ret, 'data.frame')
-				outputFields <- paste(conn$getId(), fields, sep='.')
-				testthat::expect_identical(c('mz', outputFields), colnames(ret))
+				testthat::expect_identical(sort(c('mz', outputFields)), sort(colnames(ret)))
 			}
 
 			# We should obtain the same result with a field that does not exist in entries.
@@ -252,8 +253,7 @@ test_annotateMzValues_additional_fields <- function(conn) {
 				testthat::expect_identical(ret, data.frame(mz=mz))
 			else {
 				testthat::expect_is(ret, 'data.frame')
-				outputFields <- paste(conn$getId(), fields, sep='.')
-				testthat::expect_identical(c('mz', outputFields), colnames(ret))
+				testthat::expect_identical(sort(c('mz', outputFields)), sort(colnames(ret)))
 			}
 		}
 	}
@@ -291,7 +291,7 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 				testthat::expect_identical(ret, data.frame(mz=mz))
 			else {
 				testthat::expect_is(ret, 'data.frame')
-				id.col <- paste(conn$getId(), 'accession', sep='.')
+				id.col <- conn$getEntryIdField()
 				testthat::expect_identical(c('mz', id.col), colnames(ret))
 				testthat::expect_false(any(is.na(ret[[id.col]])))
 			}
@@ -342,7 +342,7 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 				testthat::expect_true(all(colnames(idf) %in% colnames(ret)))
 				testthat::expect_true(nrow(ret) >= nrow(idf))
 				testthat::expect_true(all(idf[['mz']] %in% ret[['mz']]))
-				id.col <- paste(conn$getId(), 'accession', sep='.')
+				id.col <- conn$getEntryIdField()
 				testthat::expect_true(id.col %in% colnames(ret))
 				odf <- ret[ ! duplicated(ret[['mz']]), colnames(idf)]
 				row.names(idf) <- NULL

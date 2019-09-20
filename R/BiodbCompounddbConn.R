@@ -79,7 +79,8 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
                           mass.field='monoisotopic.mass',
                           max.results=3, mz.col='mz',
-                          fields=NULL, prefix=NULL, insert.input.values=TRUE) {
+                          fields=NULL, prefix=NULL, insert.input.values=TRUE,
+                          fieldsLimit=0) {
     "Annotate 
     \nx: Either a data frame or a numeric vector.
     \nfields: A character vector containing the additional entry fields you
@@ -100,15 +101,17 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     column in the output. By default it will be set to the name of the database
     followed by a dot.
     'plain'.
+    \nfieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
     \nReturned value: A data frame containing the input values, and annotation
     columns appended at the end. The first annotation column contains the IDs
     of the matched entries. The following columns contain the fields you have
     requested through the `fields` parameter.
     "
- 
+
     if (is.null(x))
         return(NULL)
-    
+
     ret <- data.frame(stringsAsFactors=FALSE)
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
@@ -121,48 +124,58 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     # Check mass field
     mass.fields <- ef$getFieldNames('mass')
     .self$.assertIn(mass.field, mass.fields)
-    
+
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
         .self$error('No column named "', mz.col,
                     '" was found inside data frame.')
-    
+
     # Set M/Z col in output data frame
     if (mz.col %in% names(x))
         ret[[mz.col]] <- numeric()
-    
+
     # Set output fields
     if ( ! is.null(fields))
         ef$checkIsDefined(fields)
-    if (is.null(fields) || ! 'accession' %in% names(fields))
-        fields <- c('accession', fields)
-    
+    if (is.null(fields))
+        fields <- .self$getEntryIdField()
+
     # Set prefix
     if (is.null(prefix))
         prefix <- paste0(.self$getId(), '.')
-    
+
     # Get proton mass
     pm <- .self$getBiodb()$getConfig()$get('proton.mass')
-    
+
     # Loop on all masses
     for (i in seq_len(nrow(x))) {
-    
+
+        # Send progress message
+        .self$progressMsg(msg='Annotating M/Z values.', index=i,
+                          total=nrow(x), first=(i == 1))
+
         # Compute mass
         m <- x[i, mz.col] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)
 
         # Search for compounds matching this mass
         ids <- .self$searchCompound(mass=m, mass.field=mass.field,
             mass.tol=mz.tol, mass.tol.unit=mz.tol.unit, max.results=max.results)
-    
+
         # Get entries
         entries <- .self$getEntry(ids, drop=FALSE)
 
         # Convert entries to data frame
-        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields)
+        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields,
+                                                  limit=fieldsLimit)
 
         # Add prefix
-        if ( ! is.null(df) && ! is.na(prefix))
-            colnames(df) <- paste0(prefix, colnames(df))
+        if ( ! is.null(df) && ncol(df) > 0 && ! is.na(prefix)
+            && nchar(prefix) > 0) {
+            fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
+            noprefix <- vapply(colnames(df), fct, FUN.VALUE=TRUE)
+            colnames(df)[noprefix] <- paste0(prefix,
+                                             colnames(df)[noprefix])
+    }
 
         # Register new columns
         if ( ! is.null(df)) {
@@ -172,10 +185,10 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
         # Insert input values
         if (insert.input.values)
-            df <- if (is.null(df)) x[i, , drop=FALSE]
+            df <- if (is.null(df) || nrow(df) == 0) x[i, , drop=FALSE]
                 else cbind(x[i, , drop=FALSE], df, row.names=NULL,
                            stringsAsFactors=FALSE)
-    
+
         # Append local data frame to main data frame
         ret <- plyr::rbind.fill(ret, df)
     }
@@ -189,8 +202,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
     return(ret)
 },
-                          
-                          
+
 # Private methods {{{2
 ################################################################################
 

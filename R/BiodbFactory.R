@@ -146,42 +146,50 @@ connExists=function(conn.id) {
 # Delete connector {{{3
 ################################################################################
 
-deleteConn=function(conn.id=NULL, db.class=NULL) {
-    ":\n\nDeletes existing connectors.
-    \nconn.id: A connector ID. If set only this connector will be deleted.
-    \ndb.class: The type of a database. If set all connectors of this database
+deleteConn=function(conn) {
+    ":\n\nDeletes an existing connector.
+    \nconn.id: A connector instance or a connector ID.
+    \nReturned value: None.
+    "
+
+    if (methods::is(conn, 'BiodbConn'))
+        .self$deleteConn(conn$getId())
+
+    .self$.assertIs(conn, 'character')
+
+    if ( ! conn %in% names(.self$.conn))
+        .self$error('Connector "', conn, '" is unknown.')
+
+    .self$deleteAllCacheEntries(conn)
+    .self$.conn[[conn]]$.terminate()
+    .self$.conn[[conn]] <- NULL
+    .self$info('Connector "', conn, '" deleted.')
+
+    invisible(NULL)
+},
+
+# Delete connectors by class {{{3
+################################################################################
+
+deleteConnByClass=function(db.class) {
+    ":\n\nDeletes all existing connectors from a same class.
+    \ndb.class: The type of a database. All connectors of this database
     type will be deleted.
     \nReturned value: None.
     "
 
-    # Remove one connector
-    if ( ! is.null(conn.id)) {
-        .self$.assertIs(conn.id, 'character')
+    .self$.assertIs(db.class, 'character')
 
-        if ( ! conn.id %in% names(.self$.conn))
-            .self$error('Connector "', conn.id, '" is unknown.')
-
-        .self$deleteAllCacheEntries(conn.id)
-        .self$.conn[[conn.id]]$.terminate()
-        .self$.conn[[conn.id]] <- NULL
-        .self$info('Connector "', conn.id, '" deleted.')
-    }
-
-    # Remove all connectors of a database class
-    else if ( ! is.null(db.class)) {
-        .self$.assertIs(db.class, 'character')
-
-        n <- 0
-        for (c in .self$.conn)
-            if (c$getDbClass() == db.class) {
-                .self$deleteConn(conn.id=c$getId())
-                n <- n + 1
-            }
-        if (n == 0)
-            .self$info('No connectors of type "', db.class, '" to delete.')
-        else
-            .self$info(n, ' connector(s) of type "', db.class, '" deleted.')
-    }
+    n <- 0
+    for (c in .self$.conn)
+        if (c$getDbClass() == db.class) {
+            .self$deleteConn(c$getId())
+            n <- n + 1
+        }
+    if (n == 0)
+        .self$info('No connectors of type "', db.class, '" to delete.')
+    else
+        .self$info(n, ' connector(s) of type "', db.class, '" deleted.')
 
     invisible(NULL)
 },
@@ -210,7 +218,7 @@ deleteAllConnectors=function() {
 
     # Loop on all connectors
     for (conn in connectors)
-        .self$deleteConn(conn.id=conn$getId())
+        .self$deleteConn(conn$getId())
 },
 
 # Get connector {{{3
@@ -454,6 +462,11 @@ show=function() {
         i <- 0
         for (single.content in content) {
 
+            # Send progress message
+            i <- i + 1
+            .self$progressMsg(msg='Getting entry contents.', index=i,
+                              total=length(content), first=(i == 1))
+
             # Create empty entry instance
             entry <- entry.class$new(parent=conn)
 
@@ -461,11 +474,6 @@ show=function() {
             entry$parseContent(single.content)
 
             entries <- c(entries, entry)
-
-            # Send progress message
-            i <- i + 1
-            .self$progressMsg(msg='Getting entry contents.', index=i,
-                              total=length(content), first=(i == 1))
         }
 
         # Replace elements with no accession id by NULL

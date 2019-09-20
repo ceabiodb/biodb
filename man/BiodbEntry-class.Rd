@@ -71,8 +71,8 @@ Returned value: A character vector containing all field names defined in
     this entry.
     }
 
-\item{\code{getFieldsAsDataFrame(only.atomic = TRUE, compute = TRUE, fields = NULL,
-  flatten = TRUE, only.card.one = FALSE)}}{:
+\item{\code{getFieldsAsDataframe(only.atomic = TRUE, compute = TRUE, fields = NULL,
+  flatten = TRUE, limit = 0, only.card.one = FALSE, own.id = TRUE)}}{:
 
 Converts this entry into a data frame.
     
@@ -92,8 +92,14 @@ flatten: If set to TRUE and a field's value is a vector of more than one
     'multival.field.sep' config key. If set to FALSE or the field contains only
     one value, changes nothing.
     
+limit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value.
+    
 only.card.one: If set to TRUE, only fields with a cardinality of one will
     be extracted.
+    
+own.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
     
 Returned value: A data frame containg the values of the fields.
     }
@@ -109,7 +115,8 @@ compute: If set to TRUE and a field is not defined, try to compute it
 Returned value: A JSON object from jsonlite package.
     }
 
-\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE)}}{:
+\item{\code{getFieldValue(field, compute = TRUE, flatten = FALSE, last = FALSE,
+  limit = 0, withNa = TRUE)}}{:
 
 Gets the value of the specified field.
     
@@ -127,6 +134,12 @@ flatten: If set to TRUE and a field's value is a vector of more than one
     
 last: If set to TRUE and a field's value is a vector of more than one
     element, then export only the last value. If set to FALSE, changes nothing.
+    
+limit: The maximum number of values to get in case the field contains more
+    than one value.
+    
+withNa: If set to TRUE, keep NA values. Otherwise filter out NAs values in
+    vectors.
     
 Returned value: The value of the field.
     }
@@ -242,7 +255,7 @@ if (entry$hasField('charge'))
   '.', sep=''))
 
 # Export an entry as a data frame:
-df <- entry$getFieldsAsDataFrame()
+df <- entry$getFieldsAsDataframe()
 
 # Even if you may not do it, you can set a field's value yourselves:
 entry$setFieldValue('mass', 1893.1883)

@@ -9,7 +9,7 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-USERAGENT <- 'biodb.test ; pk.roger@icloud.com'
+USERAGENT <- 'biodb.test ; pierrick.roger@cea.fr'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
@@ -116,18 +116,28 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 ################################################################
 
 progress=function(type='info', msg, index, first, total=NA_character_,
-                    lvl=1) {
+                    lvl=1L, laptime=10L) {
 
 	.self$checkMessageType(type)
+    testthat::expect_is(msg, 'character')
+    testthat::expect_length(msg, 1)
+    testthat::expect_true(msg != '')
 
 	if (first)
-		.last.index <<- 0
+		.self$.last.index[msg] <- index - 1
 
-	testthat::expect_gt(index, .self$.last.index)
+    testthat::expect_true(msg %in% names(.self$.last.index))
+	testthat::expect_true(index > .self$.last.index[[msg]],
+                        paste0("Index ", index, " is not greater than last ",
+                               "index ", .self$.last.index[msg], ' for progress ',
+                               'message "', msg, '", with total ', total, '.'))
 	if ( ! is.na(total))
-		testthat::expect_lte(index, total)
+		testthat::expect_true(index <= total,
+                             paste0("Index ", index, ' is greater than total ',
+                                    total, ' for progress message "', msg,
+                                    '".'))
 
-	.last.index <<- index
+	.self$.last.index[msg] <- index
 }
 
 ))

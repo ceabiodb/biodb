@@ -89,13 +89,13 @@ Peak annotation can be done with `searchMsPeaks()` method.
 
 We must first define the data frame of inputs:
 ```{r}
-input <- data.frame(mz = c(73.01, 116.04, 174.2),
-                    rt = c(79, 173, 79))
+input <- data.frame(mz=c(73.01, 116.04, 174.2),
+                    rt=c(79, 173, 79))
 ```
 
 Then we run the annotation:
 ```{r}
-conn$searchMsPeaks(input, mz.tol = 0.1, rt.unit = 's', rt.tol = 10, match.rt = TRUE, prefix.on.result.cols = 'match.')
+conn$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
 ```
 
 ## Closing biodb instance

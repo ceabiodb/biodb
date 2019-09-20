@@ -314,7 +314,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     ms.level=0, max.results=NA_integer_, chrom.col.ids=NULL, rt=NULL,
     rt.unit=NA_character_, rt.tol=NA_real_, rt.tol.exp=NA_real_,
     precursor=FALSE, precursor.rt.tol=NA_real_, insert.input.values=TRUE,
-    prefix.on.result.cols=NULL, compute=TRUE,
+    prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0,
     input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
     ":\n\nFor each M/Z value, searches for matching MS spectra and returns the
     matching peaks.
@@ -349,13 +349,17 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     \nprecursor.rt.tol: The RT tolerance used when matching the precursor.
     \ninsert.input.values: Insert input values at the beginning of the
     result data frame.
-    \nprefix.on.result.cols: Add prefix on column names of result data frame.
+    \nprefix: Add prefix on column names of result data frame.
     \ncompute: If set to TRUE, use the computed values when converting found
     entries to data frame.
+    \nfields: A character vector of field names to output. The data frame output
+    will be restricted to this list of fields.
+    \nfieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
     \ninput.df.colnames: Names of the columns in the input data frame.
     \nmatch.rt: If set to TRUE, match also RT values.
     \nReturned value: A data frame with at least input MZ and RT columns, and
-    annotation columns prefixed with `prefix.on.result.cols` if set. For each
+    annotation columns prefixed with `prefix` if set. For each
     matching found a row is output. Thus if n matchings are found for M/Z value
     x, then there will be n rows for x, each for a different match. The number
     of matching found for each M/Z value is limited to `max.results`.
@@ -456,7 +460,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         # Convert to data frame
         .self$message('debug', 'Converting list of entries to data frame.')
         df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE,
-                                                  compute=compute)
+                                                  compute=compute,
+                                                  limit=fieldsLimit)
         .self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
 
         # Select lines with right M/Z values
@@ -469,11 +474,14 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
         .self$debug('Data frame contains', nrow(df), 'rows.')
 
+        # Select fields
+        if ( ! is.null(fields))
+            df <- df[fields[fields %in% colnames(df)]]
+
         # Add prefix on column names
-        if ( ! is.null(df) && ! is.null(prefix.on.result.cols)
-            && ! is.na(prefix.on.result.cols)) {
-            colnames(df) <- paste0(prefix.on.result.cols, colnames(df))
-        }
+        if ( ! is.null(df) && ncol(df) > 0 && ! is.null(prefix)
+            && ! is.na(prefix))
+            colnames(df) <- paste0(prefix, colnames(df))
 
         # Register result columns
         if ( ! is.null(df)) {
@@ -482,10 +490,11 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         }
 
         # Inserting input values at the beginning of the data frame
-        if (insert.input.values)
-            df <- if (is.null(df)) input.df[i, , drop=FALSE]
+        if (insert.input.values) {
+            df <- if (is.null(df) || nrow(df) == 0) input.df[i, , drop=FALSE]
                 else cbind(input.df[i, , drop=FALSE], df, row.names=NULL,
                            stringsAsFactors=FALSE)
+        }
 
         # Appending to main results data frame
         .self$debug('Merging data frame of matchings into results data frame.')
@@ -554,7 +563,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     if (length(ids) > 0) {
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
                                                           drop=FALSE)
-        fct <- function(x) x$getFieldsAsDataFrame(only.atomic=FALSE,
+        fct <- function(x) x$getFieldsAsDataframe(only.atomic=FALSE,
                                                   fields='PEAKS')
         peak.tables <- lapply(entries, fct)
     }

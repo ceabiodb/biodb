@@ -51,7 +51,7 @@ vapply(entries, function(e) e$getFieldValue('smiles'), FUN.VALUE = '')
 
 We can convert an entry into a data frame:
 ```{r}
-entries[[1]]$getFieldsAsDataFrame()
+entries[[1]]$getFieldsAsDataframe()
 ```
 
 Building a data frame for a list of entries is also possible:

@@ -285,7 +285,8 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 # Entries field to vector or list {{{3
 ################################################################################
 
-entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
+entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
+                                limit=0, withNa=TRUE) {
     ":\n\nExtracts the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field.
     \nentries: A list of \\code{Biodb} entries.
@@ -294,6 +295,10 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     than one, then values be converted into a vector of class character in which
     each entry values are collapsed.
     \ncompute: If set to \\code{TRUE}, computable fields will be output.
+    \nlimit: The maximum number of values to retrieve for each entry. Set to 0
+    to get all values.
+    \nwithNa: If set to TRUE, keep NA values. Otherwise filter out NAs values in
+    vectors.
     \nReturned value: A vector if the field is atomic or flatten is set to
     \\code{TRUE}, otherwise a list.
     "
@@ -309,7 +314,8 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
             val <-lapply(entries,
                          function(e)
                              e$getFieldValue(field, flatten=flatten,
-                                             compute=compute))
+                                             compute=compute, limit=limit,
+                                             withNa=withNa))
             val <- unlist(val)
         }
         else
@@ -319,8 +325,10 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
     # List
     else {
         if (length(entries) > 0)
-            val <- lapply(entries,
-                          function(e) e$getFieldValue(field, compute=compute))
+            val <- lapply(entries, function(e) e$getFieldValue(field,
+                                                               compute=compute,
+                                                               limit=limit,
+                                                               withNa=withNa))
         else
             val <- list()
     }
@@ -333,12 +341,13 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE) {
 
 entriesToDataframe=function(entries, only.atomic=TRUE,
                             null.to.na=TRUE, compute=TRUE,
-                            fields=NULL, drop=FALSE,
+                            fields=NULL, limit=0, drop=FALSE,
                             sort.cols=FALSE, flatten=TRUE,
-                            only.card.one=FALSE) {
-    ":\n\nConverts a list of entries (\\code{BiodbEntry} objects) into a data
-    frame.
-    \nentries: A list of \\code{BiodbEntry} instances.
+                            only.card.one=FALSE, own.id=TRUE, prefix='') {
+    ":\n\nConverts a list of entries or a list of list of entries
+    (\\code{BiodbEntry} objects) into a data frame.
+    \nentries: A list of \\code{BiodbEntry} instances or a list of list of
+    \\code{BiodbEntry} instances.
     \nonly.atomic: If set to \\code{TRUE}, output only atomic fields, i.e.: the
     fields whose value type is one of integer, numeric, logical or character.
     \nnull.to.na: If set to \\code{TRUE}, each \\code{NULL} entry in the list is
@@ -346,6 +355,9 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     \ncompute: If set to \\code{TRUE}, computable fields will be output.
     \nfields: A character vector of field names to output. The data frame output
     will be restricted to this list of fields.
+    \nlimit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
     \ndrop: If set to \\code{TRUE} and the resulting data frame has only one
     column, a vector will be output instead of data frame.
     \nsort.cols: Sort columns in alphabetical order.
@@ -353,6 +365,9 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     greater than one, will be converted into a vector of class character whose
     values are collapsed.
     \nonly.card.one: Output only fields whose cardinality is one.
+    \nown.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
+    \nprefix: Insert a prefix at the start of all field names.
     \nReturned value: A data frame containing the entries. Columns are named
     according to field names.
     "
@@ -360,44 +375,18 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     if ( ! is.list(entries))
         .self$message('error', "Parameter 'entries' must be a list.")
 
-    entries.df <- NULL
+    entries.df <- data.frame(stringsAsFactors=FALSE)
 
-    if (length(entries) > 0) {
+    if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
         .self$message('debug', paste(length(entries),
                                      "entrie(s) to convert in data frame."))
 
-        # Check classes
-        if ( ! all(vapply(entries,
-                          function(x) is.null(x) || is(x, 'BiodbEntry'),
-                          FUN.VALUE=TRUE)))
-            .self$message('error', paste("Some objects in the input list",
-                                         "are not a subclass of BiodbEntry."))
-
-        # Loop on all entries
-        i <- 0
-        df.list <- NULL
-        for (e in entries) {
-
-            # Send progress message
-            i <- i + 1
-            msg <- 'Converting entries to data frame.'
-            .self$.sendProgress(msg=msg, index=i, total=length(entries),
-                                first=(i == 1))
-
-            e.df <- NULL
-            if ( ! is.null(e))
-                e.df <- e$getFieldsAsDataFrame(only.atomic=only.atomic,
-                                               compute=compute,
-                                               fields=fields,
-                                               flatten=flatten,
-                                               only.card.one=only.card.one)
-            else if (null.to.na)
-                e.df <- data.frame(ACCESSION=NA_character_)
-
-            if ( ! is.null(e.df))
-                df.list <- c(df.list, list(e.df))
-        }
+        # Convert list of entries to a list of data frames.
+        df.list <- .self$.entriesToListOfDataframes(entries, only.atomic,
+                                                    compute, fields, flatten,
+                                                    limit, only.card.one,
+                                                    own.id, null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
@@ -405,18 +394,116 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
                                          "entry each into a single data frame",
                                          "with all entries."))
             entries.df <- plyr::rbind.fill(df.list)
+            if (is.null(colnames(entries.df)))
+                colnames(entries.df) <- character()
         }
     }
 
     # Sort columns
-    if (sort.cols)
+    if (sort.cols && ncol(entries.df) > 1)
         entries.df <- entries.df[sort(colnames(entries.df))]
 
+    # Add prefix
+    if (ncol(entries.df) > 1 && ! is.na(prefix) && prefix != '') {
+        fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
+        noprefix <- vapply(colnames(entries.df), fct, FUN.VALUE=TRUE)
+        colnames(entries.df)[noprefix] <- paste0(prefix,
+                                                colnames(entries.df)[noprefix])
+    }
+
     # Drop
-    if (drop && ! is.null(entries.df) && ncol(entries.df) == 1)
+    if (drop && ncol(entries.df) == 1)
         entries.df <- entries.df[[1]]
 
     return(entries.df)
+},
+
+# Entry IDs to data frame {{{3
+################################################################################
+
+entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
+                             own.id=FALSE) {
+    ":\n\nConstruct a data frame using entry IDs and field values of the
+    corresponding entries.
+    \nids: A character vector of entry IDs or a list of character vectors of
+    entry IDs.
+    \ndb: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
+    \nfields: A character vector containing entry fields to add.
+    \nlimit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    \nown.id: If set to TRUE includes the database id field named
+    `<database_name>.id` whose values are the same as the `accession` field.
+    \nprefix: Insert a prefix at the start of all field names.
+    \nReturned value: A data frame containing in columns the requested field
+    values, with one entry per line, in the same order than in `ids` vector.
+    "
+
+    # Get connector
+    conn <- .self$getFactory()$getConn(db)
+
+    # Get entries
+    if (is.character(ids))
+        entries <- conn$getEntry(ids)
+    else if (is.list(ids)) {
+        entries <- list()
+        for (i in ids) {
+            e <- if (length(i) > 0) conn$getEntry(i) else list()
+            entries <- c(entries, list(e))
+        }
+    }
+    else
+        .self$error("Input parameter `ids` must be either a character vector",
+                    " or a list of character vectors.")
+
+    # Convert to data frame
+    x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
+                                  prefix=prefix, drop=FALSE, own.id=own.id)
+
+    return(x)
+},
+
+# Add columns to data frame {{{3
+################################################################################
+
+addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
+    ":\n\nUsing 
+    \nx: A data frame containing at least one column with Biodb entry IDs
+    identified by the parameter `id.col`.
+    \nid.col: The name of the column containing IDs inside the input data frame.
+    \ndb: The biodb database name for the entry IDs, or a connector ID, as a
+    sinle character value.
+    \nfields: A character vector containing entry fields to add.
+    \nlimit: The maximum number of field values to write into new columns. Used
+    for fields that can contain more than one value. Set it to 0 to get all
+    values.
+    \nprefix: Insert a prefix at the start of all field names.
+    \nReturned value: A data frame containing `x` and new columns appended for
+    the fields requested.
+    "
+    
+    .self$.assertIs(x, 'data.frame')
+    
+    if (ncol(x) > 0) {
+        .self$.assertIs(id.col, 'character')
+        if ( ! id.col %in% colnames(x))
+            .self$error('Column "', id.col,
+                        '" was not found inside data frame.')
+
+        # Get ids
+        ids <- as.character(x[[id.col]])
+
+        # Get data frame of fields
+        y <- .self$entryIdsToDataframe(ids, db=db, fields=fields, limit=limit,
+                                       prefix=prefix)
+
+        # Merge data frames
+        if (is.data.frame(y) && nrow(y) > 0)
+            x <- cbind(x, y)
+    }
+    
+    return(x)
 },
 
 # Entries to JSON {{{3
@@ -496,6 +583,44 @@ collapseRows=function(x, sep='|', cols=1L) {
     }
 
     return(y)
+},
+
+# Entries to single field values {{{3
+################################################################################
+
+entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE) {
+
+    # Get values
+    fct <- function(e) {
+        e$getFieldValue(field)
+    }
+    values <- unlist(lapply(entries, fct))
+
+    # Remove duplicates
+    if (uniq)
+        values <- unique(values)
+
+    # Sort
+    if (sortOutput)
+        values <- sort(values)
+
+    return(values)
+},
+
+# Entry IDs to single field values {{{3
+################################################################################
+
+entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE) {
+
+    # Get connector
+    conn <- .self$getFactory()$getConn(db)
+
+    # Get entries
+    entries <- conn$getEntry(ids)
+
+    # Call other method
+    .self$entriesToSingleFieldValues(entries, field=field,
+                                     sortOutput=sortOutput, uniq=uniq)
 },
 
 # Compute fields {{{3
@@ -632,6 +757,73 @@ show=function() {
                                 ". It must be set to a UTF-8 locale like",
                                 "'en_US.UTF-8'."))
     }
+},
+
+# Entries to list of data frames {{{3
+################################################################################
+
+.entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
+                                    flatten, limit, only.card.one, own.id,
+                                    null.to.na, progress=TRUE) {
+
+    df.list <- list()
+    msg <- 'Converting entries to data frame.'
+
+    # Loop on all entries
+    i <- 0
+    for (e in entries) {
+
+        e.df <- NULL
+
+        # Send progress message
+        i <- i + 1
+        if (progress)
+            .self$.sendProgress(msg=msg, index=i, total=length(entries),
+                                first=(i == 1))
+
+        # List of entries
+        if (is.list(e)) {
+            # Get the list of data frames for those entries
+            x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
+                                                  fields, flatten, limit,
+                                                  only.card.one, own.id,
+                                                  null.to.na, progress=FALSE)
+
+            # Reduce these data frames to one data frame with one row.
+            sep <- .self$getConfig()$get('entries.sep')
+            y <- plyr::rbind.fill(x)
+            e.df <- y[c(), , drop=FALSE]
+            for (k in colnames(y))
+                e.df[1, k] <- paste(y[[k]], collapse=sep)
+        }
+
+        # Single entry
+        else if (methods::is(e, "BiodbEntry")) {
+            e.df <- e$getFieldsAsDataframe(only.atomic=only.atomic,
+                                           compute=compute,
+                                           fields=fields,
+                                           flatten=flatten,
+                                           limit=limit,
+                                           only.card.one=only.card.one,
+                                           own.id=own.id)
+        }
+
+        df.list <- c(df.list, list(e.df))
+    }
+
+    # Replace NULL items with a data frame (empty or with NA values)
+    nulls <- vapply(df.list, is.null, FUN.VALUE=TRUE)
+    if (any(nulls)) {
+        if (all(nulls) || ! null.to.na)
+            x <- data.frame(stringsAsFactors=FALSE)
+        else {
+            x <- df.list[ ! nulls][[1]]
+            x[,] <- NA
+        }
+        df.list[nulls] <- rep(list(x), sum(nulls))
+    }
+
+    return(df.list)
 },
 
 # Deprecated methods {{{2

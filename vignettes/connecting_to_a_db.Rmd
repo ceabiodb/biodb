@@ -59,7 +59,7 @@ entry$getFieldNames()
 
 You can also get a data frame of the field values with the method `getFieldsAsDataFrame()`:
 ```{r}
-entry$getFieldsAsDataFrame()
+entry$getFieldsAsDataframe()
 ```
 
 ## Closing biodb instance
