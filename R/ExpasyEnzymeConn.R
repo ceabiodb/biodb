@@ -140,9 +140,12 @@ getEntryPageUrl=function(id) {
 
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
-    u <- c(.self$getPropValSlot('urls', 'base.url'), 'EC',
-           paste(x, 'txt', sep='.'))
-    urls <- vapply(id, function(x) BiodbUrl(url=u)$toString(), FUN.VALUE='')
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'EC',
+               paste(x, 'txt', sep='.'))
+        return(BiodbUrl(url=u)$toString())
+    }
+    urls <- vapply(id, fct, FUN.VALUE='')
 
     return(urls)
 },
