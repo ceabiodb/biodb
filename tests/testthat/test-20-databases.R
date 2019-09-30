@@ -7,23 +7,19 @@ source('common.R', local=TRUE)
 
 # Create biodb instance
 biodb <- create.biodb.instance()
-expect_is(biodb, 'Biodb')
+testthat::expect_is(biodb, 'Biodb')
 obs <- add_msg_recorder_obs(biodb)
 
 # Loop on test databases
 for (db.name in TEST.DATABASES) {
 
-	set.test.context(biodb, paste0("Test ", db.name, "."))
+    biodb::setTestContext(biodb, paste0("Test ", db.name, "."))
 
 	# Get instance
 	conn <- create.conn.for.generic.tests(biodb = biodb, class.db = db.name)
-	expect_is(conn, 'BiodbConn')
-
-	# Delete cache entries
-	biodb$getFactory()$deleteAllCacheEntries(conn$getId())
 
 	# Generic tests
-	source('db-generic-tests.R', local=TRUE)
+	biodb::runGenericTests(conn)
 
 	# Compound database testing
 	source('db-compound-tests.R', local=TRUE)

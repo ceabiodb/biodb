@@ -69,79 +69,6 @@ tmpbiodb$terminate()
 tmpbiodb <- NULL
 dbinf <- NULL
 
-# Set test functions {{{1
-################################################################
-
-FUNCTION.ALL <- 'all'
-if ('FUNCTIONS' %in% names(ENV)) {
-	TEST.FUNCTIONS <- strsplit(ENV[['FUNCTIONS']], ',')[[1]]
-} else {
-	TEST.FUNCTIONS <- FUNCTION.ALL
-}
-
-# MsgAcknowledger observer class {{{1
-################################################################
-
-# This observer is used to call a testthat::expect_*() method each time a
-# message is received. This is used when running tests on Travis-CI, so Travis
-# does not stop tests because no change is detected in output.
-
-MsgAcknowledger <- methods::setRefClass('MsgAcknowledger',
-    contains = 'BiodbObserver',
-    fields = list(
-        .last.index = 'numeric'
-        ),
-
-    methods=list(
-
-# Initialize {{{2
-################################################################
-
-initialize=function(...) {
-
-	callSuper(...)
-
-	.last.index <<- 0
-},
-
-# Msg {{{2
-################################################################
-
-msg=function(type='info', msg, class=NA_character_, method=NA_character_,
-               lvl=1) {
-	testthat::expect_is(msg, 'character')
-},
-
-# Progress {{{2
-################################################################
-
-progress=function(type='info', msg, index, first, total=NA_character_,
-                    lvl=1L, laptime=10L) {
-
-	.self$checkMessageType(type)
-    testthat::expect_is(msg, 'character')
-    testthat::expect_length(msg, 1)
-    testthat::expect_true(msg != '')
-
-	if (first)
-		.self$.last.index[msg] <- index - 1
-
-    testthat::expect_true(msg %in% names(.self$.last.index))
-	testthat::expect_true(index > .self$.last.index[[msg]],
-                        paste0("Index ", index, " is not greater than last ",
-                               "index ", .self$.last.index[msg], ' for progress ',
-                               'message "', msg, '", with total ', total, '.'))
-	if ( ! is.na(total))
-		testthat::expect_true(index <= total,
-                             paste0("Index ", index, ' is greater than total ',
-                                    total, ' for progress message "', msg,
-                                    '".'))
-
-	.self$.last.index[msg] <- index
-}
-
-))
-
 # Get log file descriptor {{{1
 ################################################################
 
@@ -167,7 +94,7 @@ create.biodb.instance <- function() {
 	logger$setLevel('warning', 2L)
 
 	# Create test observer
-	test.observer <- MsgAcknowledger()
+	test.observer <- biodb::MsgAcknowledger()
 
 	# Create instance
 	biodb <- Biodb$new()
@@ -184,23 +111,6 @@ create.biodb.instance <- function() {
 
 	return(biodb)
 }
-
-# Set test context {{{1
-################################################################
-
-set.test.context <- function(biodb, text) {
-
-	# Set testthat context
-	context(text)
-
-	# Print banner in log file
-	biodb$message('info', "")
-	biodb$message('info', "****************************************************************")
-	biodb$message('info', paste("Test context", text, sep = " - "))
-	biodb$message('info', "****************************************************************")
-	biodb$message('info', "")
-}
-
 
 # List reference entries {{{1
 ################################################################
@@ -322,134 +232,13 @@ create.conn.for.generic.tests = function(biodb, class.db) {
 	return(conn)
 }
 
-# Run test_that method {{{1
-################################################################
-
-test.that  <- function(msg, fct, biodb = NULL, obs = NULL, conn = NULL) {
-
-	if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
-
-		# Send message to logger
-		biodb.instance <- if (is.null(conn)) biodb else conn$getBiodb()
-		if (is.null(biodb.instance))
-			stop("You must at least set the biodb parameter in order to send message to logger.")
-		biodb.instance$message('info', '')
-		biodb.instance$message('info', paste('Running test function ', fct, ' ("', msg, '").'))
-		biodb.instance$message('info', '----------------------------------------------------------------')
-		biodb.instance$message('info', '')
-
-		# Call test function
-		if ( ! is.null(biodb) && ! is.null(obs))
-			test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
-		else if ( ! is.null(biodb))
-			test_that(msg, do.call(fct, list(biodb)))
-		else if ( ! is.null(conn) && ! is.null(obs))
-			test_that(msg, do.call(fct, list(conn = conn, obs = obs)))
-		else if ( ! is.null(conn))
-			test_that(msg, do.call(fct, list(conn)))
-		else
-			stop(paste0('Do not know how to call test function "', fct, '".'))
-	}
-}
-
-# MsgRecorder observer class {{{1
-################################################################################
-
-MsgRecorder <- methods::setRefClass("MsgRecorder",
-    contains = "BiodbObserver",
-    fields = list(
-                  .msgs='character',
-                  .msgs.by.type='list'
-                  ),
-    methods=list(
-
-# Initialize {{{2
-################################################################################
-
-initialize=function(...) {
-	.msgs <<- character()
-	.msgs.by.type <<- list()
-},
-
-# Msg {{{2
-################################################################################
-
-msg=function(type='info', msg, class=NA_character_, method=NA_character_,
-             lvl=1) {
-	.msgs <<- c(.self$.msgs, msg)
-	.self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
-},
-
-# hasMsgs {{{2
-################################################################################
-
-hasMsgs=function(type = NULL) {
-
-	f = FALSE
-
-	if (is.null(type))
-		f = (length(.self$.msg) > 0)
-	else
-		f = if (type %in% names(.self$.msgs.by.type)) (length(.self$.msgs.by.type[[type]])) else FALSE
-
-	return(f)
-},
-
-# lastMsg {{{2
-################################################################################
-
-lastMsg = function() {
-
-    m <- NA_character_
-
-    i <- length(.self$.msgs)
-    if (i > 0)
-        m <- .self$.msgs[[i]]
-
-	return(m)
-},
-
-# getLastMsgByType {{{2
-################################################################################
-
-getLastMsgByType = function(type) {
-	m = NULL
-	if (type %in% names(.self$.msgs.by.type)) {
-		m = .self$.msgs.by.type[[type]]
-		m = m[[length(m)]]
-	}
-	return(m)
-},
-
-# getMsgsByType {{{2
-################################################################################
-
-getMsgsByType = function(type) {
-	msgs = character()
-
-	if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
-		msgs = .self$.msgs.by.type[[type]]
-
-	return(msgs)
-},
-
-# clearMessages {{{2
-################################################################################
-
-clearMessages = function() {
-	.msgs <<- character()
-	.msgs.by.type <<- list()
-}
-
-))
-
 # Add message recorder observer {{{1
 ################################################################################
 
 add_msg_recorder_obs <- function(biodb) {
 
     # Create observer
-    obs <- MsgRecorder()
+    obs <- biodb::MsgRecorder()
 
 	# Set observer
 	biodb$addObservers(obs)
