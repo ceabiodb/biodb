@@ -15,19 +15,19 @@ test_new_field <- function(biodb) {
 ################################################################################
 
 test_new_parsing_expr <- function(biodb) {
-    
+
     # Define new field
     field_def <- list(formula3 = list(description = 'New formula field.'))
     ef <- biodb$getEntryFields()
     ef$define(field_def)
     testthat::expect_true(ef$isDefined('formula3'))
-    
+
     # Define new parsing expression
     expr_def <- list(lipidmaps.structure =
                      list(parsing.expr = list(formula3 = 'FORMULA')))
     di <- biodb$getDbsInfo()
     di$define(expr_def)
-    
+
     # Check that the expression works
     conn <- biodb$getFactory()$getConn('lipidmaps.structure')
     entry <- conn$getEntry('LMFA00000001')

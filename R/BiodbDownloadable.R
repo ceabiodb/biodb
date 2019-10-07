@@ -66,8 +66,7 @@ getDownloadPath=function() {
 
     cch <- .self$getBiodb()$getCache()
     ext <- .self$getPropertyValue('dwnld.ext')
-    path <- cch$getFilePath(.self$getCacheId(), subfolder='longterm',
-                            name='download', ext=ext)
+    path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
     .self$debug('Download path of ', .self$getId(), ' is "', path, '".')
 
@@ -90,7 +89,7 @@ isDownloaded=function() {
     "
 
     cch <- .self$getBiodb()$getCache()
-    dwnlded  <- cch$markerExist(.self$getCacheId(), subfolder='shortterm',
+    dwnlded  <- cch$markerExist(.self$getCacheId(),
                     name='downloaded')
 
     s <- (if (dwnlded) 'already' else 'not yet')
@@ -111,7 +110,7 @@ isExtracted=function() {
     "
 
     cch <- .self$getBiodb()$getCache()
-    return(cch$markerExist(.self$getCacheId(), subfolder='shortterm',
+    return(cch$markerExist(.self$getCacheId(),
                            name='extracted'))
 },
 
@@ -136,8 +135,7 @@ download=function() {
         .self$debug('Downloading of ', .self$getId(), ' completed.')
 
         # Set marker
-        cch$setMarker(.self$getCacheId(), subfolder='shortterm',
-                      name='downloaded')
+        cch$setMarker(.self$getCacheId(), name='downloaded')
     }
 
     # Extract
@@ -148,8 +146,7 @@ download=function() {
         .self$.doExtractDownload()
 
         # Set marker
-        cch$setMarker(.self$getCacheId(), subfolder='shortterm',
-                      name='extracted')
+        cch$setMarker(.self$getCacheId(), name='extracted')
     }
 },
 

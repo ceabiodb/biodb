@@ -153,7 +153,7 @@ getEntryImageUrl=function(id) {
 
     # Delete existing cache files
     .self$message('debug', 'Delete existing entry files in cache system.')
-    cch$deleteFiles(.self$getCacheId(), subfolder='shortterm',
+    cch$deleteFiles(.self$getCacheId(),
                     ext=.self$getPropertyValue('entry.content.type'))
 
     # Open file in binary mode
@@ -212,7 +212,7 @@ getEntryImageUrl=function(id) {
             # Write all XML entries into files
             ctype <- .self$getPropertyValue('entry.content.type')
             cch$saveContentToFile(metabolites, cache.id=.self$getCacheId(),
-                                  subfolder='shortterm', name=ids, ext=ctype)
+                                  name=ids, ext=ctype)
         }
         else
             xml.chunks <- c(xml.chunks, chunk)
@@ -241,7 +241,7 @@ getEntryImageUrl=function(id) {
 
         # Get IDs from cache
         ctype <- .self$getPropertyValue('entry.content.type')
-        ids <- cch$listFiles(.self$getCacheId(), subfolder='shortterm',
+        ids <- cch$listFiles(.self$getCacheId(),
                              ext=ctype, extract.name=TRUE)
 
         # Filter out wrong IDs

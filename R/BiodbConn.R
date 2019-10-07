@@ -129,8 +129,7 @@ getCacheFile=function(entry.id) {
     "
 
     c <- .self$getBiodb()$getCache()
-    fp <- c$getFilePath(.self$getCacheId(), 'shortterm', entry.id,
-                        .self$getEntryFileExt())
+    fp <- c$getFilePath(.self$getCacheId(), entry.id, .self$getEntryFileExt())
 
     return(fp)
 },
@@ -166,7 +165,7 @@ getEntryContent=function(id) {
         if (cch$isReadable() && ! is.null(.self$getCacheId())) {
             # Load content from cache
             content <- cch$loadFileContent(.self$getCacheId(),
-                                          subfolder='shortterm', name=id,
+                                          name=id,
                                           ext=.self$getEntryFileExt())
             missing.ids <- id[vapply(content, is.null, FUN.VALUE=TRUE)]
         }
@@ -218,7 +217,6 @@ getEntryContent=function(id) {
                     && ! is.null(.self$getCacheId()) && cch$isWritable())
                     cch$saveContentToFile(ec,
                                           cache.id=.self$getCacheId(),
-                                          subfolder='shortterm',
                                           name=ch.missing.ids,
                                           ext=.self$getEntryFileExt())
 

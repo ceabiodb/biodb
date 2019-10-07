@@ -306,9 +306,9 @@ getEntryPageUrl=function(id) {
                       paste(ids[dup.ids], collapse=', '), '.', sep='')
     cch <- .self$getBiodb()$getCache()
     ext <- .self$getPropertyValue('entry.content.type')
-    cache.files <- cch$getFilePath(.self$getCacheId(), subfolder='shortterm',
+    cache.files <- cch$getFilePath(.self$getCacheId(),
                                    name=ids, ext=ext)
-    cch$deleteFiles(.self$getCacheId(), subfolder='shortterm', ext=ext)
+    cch$deleteFiles(.self$getCacheId(), ext=ext)
     file.copy(record.files, cache.files)
 
     # Delete extracted dir
@@ -457,7 +457,7 @@ else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),
 
     # Get prefixes file content
     prefixes.filepath <- cch$getFilePath(.self$getCacheId(),
-                                         subfolder='longterm', name='prefixes',
+                                         name='prefixes',
                                          ext='md')
     if ( ! file.exists(prefixes.filepath)) {
         u <- BiodbUrl(url=.self$getPropValSlot('urls', 'prefixes.file.url'))
@@ -498,8 +498,7 @@ else ( if (ms.mode == 'neg') 'Negative' else 'Positive'),
 
     # Get IDs from cache
     ext <- .self$getPropertyValue('entry.content.type')
-    ids <- cch$listFiles(.self$getCacheId(), subfolder='shortterm', ext=ext,
-                         extract.name=TRUE)
+    ids <- cch$listFiles(.self$getCacheId(), ext=ext, extract.name=TRUE)
 
     # Filter on MS level
     if ( ! is.na(ms.level) && ms.level > 0) {

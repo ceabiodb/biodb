@@ -212,14 +212,14 @@ getEntryContentFromDb=function(entry.id) {
 ################################################################################
 
 .doExtractDownload=function() {
-    
+
     # Open compressed file
     fd <- gzfile(.self$getDownloadPath(), 'r')
 
     # Remove current entry files
     cch <- .self$getBiodb()$getCache()
     ect <- .self$getPropertyValue('entry.content.type')
-    cch$deleteFiles(.self$getCacheId(), subfolder='shortterm', ext=ect)
+    cch$deleteFiles(.self$getCacheId(), ext=ect)
 
     # Read all file content,
     # and extract all individual SDF files.
@@ -241,7 +241,7 @@ getEntryContentFromDb=function(entry.id) {
             id <- as.integer(content[[1]])
             content <- paste(content, collapse="\n")
             cch$saveContentToFile(content, cache.id=.self$getCacheId(),
-                                  subfolder='shortterm', name=id, ext=ect)
+                                  name=id, ext=ect)
             content <- character()
             i <- i + 1
             .self$progressMsg(msg=msg, index=i, first=(i == 1))
@@ -264,7 +264,7 @@ getEntryContentFromDb=function(entry.id) {
 
     # Get IDs from cache
     cch <- .self$getBiodb()$getCache()
-    ids <- cch$listFiles(.self$getCacheId(), subfolder='shortterm',
+    ids <- cch$listFiles(.self$getCacheId(),
                          ext=.self$getPropertyValue('entry.content.type'),
                          extract.name=TRUE)
 

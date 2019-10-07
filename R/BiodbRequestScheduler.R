@@ -137,10 +137,10 @@ sendRequest=function(request, cache.read=TRUE) {
     request.key <- request$getUniqueKey()
     if (cache.read && cfg$isEnabled('cache.system')
         && cfg$get('cache.all.requests')
-        && cch$fileExist('request', subfolder='shortterm', name=request.key,
+        && cch$fileExist('request', name=request.key,
                          ext='content')) {
         .self$debug("Loading content of request from cache.")
-        content <- cch$loadFileContent('request', subfolder='shortterm',
+        content <- cch$loadFileContent('request',
                                        name=request.key, ext ='content',
                                        output.vector=TRUE)
     }
@@ -157,10 +157,10 @@ sendRequest=function(request, cache.read=TRUE) {
             && cfg$get('cache.all.requests')) {
             .self$message('debug', "Saving content of request to cache.")
             cch$saveContentToFile(content, cache.id='request',
-                                  subfolder='shortterm', name=request.key,
+                                  name=request.key,
                                   ext='content')
             cch$saveContentToFile(request$toString(), cache.id='request',
-                                  subfolder='shortterm', name=request.key,
+                                  name=request.key,
                                   ext='desc')
         }
     }

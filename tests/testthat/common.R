@@ -181,7 +181,6 @@ create.biodb.instance <- function() {
 	biodb$getConfig()$disable('cache.read.only')
 	biodb$getConfig()$enable('allow.huge.downloads')
 #	biodb$getConfig()$disable('offline')
-	biodb$getConfig()$enable('cache.subfolders')
 
 	return(biodb)
 }
@@ -294,11 +293,11 @@ create.conn.for.generic.tests = function(biodb, class.db) {
 		if (class.db == 'mass.csv.file') {
 			conn$setUrl('base.url', MASSFILEDB.URL)
 			conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-			biodb$getCache()$deleteFiles(cache.id = conn$getCacheId(), subfolder = 'shortterm') # Make sure we have no residual cache entries from previous tests
+			biodb$getCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
 		}
 		else if (class.db == 'mass.sqlite') {
 			conn$setUrl('base.url', MASS.SQLITE.URL)
-			biodb$getCache()$deleteFiles(cache.id = conn$getCacheId(), subfolder = 'shortterm') # Make sure we have no residual cache entries from previous tests
+			biodb$getCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
 
 			# Create SQLite database file
 			if ( ! file.exists(MASS.SQLITE.URL)) {
