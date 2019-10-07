@@ -157,7 +157,7 @@ wsRecordsRecordidDetailsGet=function(recordid, fields=NULL,
     header <- c('Content-Type'="", apikey=.self$getPropertyValue('token'))
     burl <- BiodbUrl(c(.self$getPropValSlot('urls', 'ws.url'), 'records',
                        recordid, 'details'), params=c(fields=fields))
-    request <- BiodbRequest(method='get', url=burl, header=header)
+    request <- .self$makeRequest(method='get', url=burl, header=header)
     if (retfmt == 'request')
         return(request)
 
@@ -207,7 +207,7 @@ wsRecordsBatchPost=function(recordids, fields=NULL,
                    '], "fields": [', sfields ,']}')
     burl <- BiodbUrl(c(.self$getPropValSlot('urls', 'ws.url'),
                        'records', 'batch'))
-    request <- BiodbRequest(method='post', url=burl, header=header, body=body)
+    request <- .self$makeRequest(method='post', url=burl, header=header, body=body)
     if (retfmt == 'request')
         return(request)
 
@@ -247,7 +247,7 @@ wsFilterNamePost=function(name, retfmt=c('plain', 'parsed', 'queryid', 'ids',
     body <- paste0("{\n", '\t"name": "', name, '"', "\n}")
     burl <- BiodbUrl(c(.self$getPropValSlot('urls', 'ws.url'),
                        'filter', 'name'))
-    request <- BiodbRequest(method='post', url=burl, header=header, body=body)
+    request <- .self$makeRequest(method='post', url=burl, header=header, body=body)
     if (retfmt == 'request')
         return(request)
 
@@ -289,7 +289,7 @@ wsFilterMassPost=function(mass, range, retfmt=c('plain', 'parsed', 'queryid',
     body <- paste0("{\n", '\t"mass": ', mass, ",\n",'\t"range": ', range, "\n}")
     burl <- BiodbUrl(c(.self$getPropValSlot('urls', 'ws.url'),
                        'filter', 'mass'))
-    request <- BiodbRequest(method='post', url=burl, header=header, body=body)
+    request <- .self$makeRequest(method='post', url=burl, header=header, body=body)
     if (retfmt == 'request')
         return(request)
 
@@ -335,7 +335,7 @@ wsFilterQueryIdStatusGet=function(queryid, retfmt=c('plain', 'parsed', 'status',
     header <- c('Content-Type'="", apikey=.self$getPropertyValue('token'))
     burl <- BiodbUrl(c(.self$getPropValSlot('urls', 'ws.url'), 'filter',
                        queryid, 'status'))
-    request <- BiodbRequest(method='get', url=burl, header=header)
+    request <- .self$makeRequest(method='get', url=burl, header=header)
     if (retfmt == 'request')
         return(request)
 
@@ -392,7 +392,7 @@ wsFilterQueryIdResultsGet=function(queryid, start=0L, count=0L,
     if (count > 0)
         url$setParam('count', count)
     header <- c('Content-Type'="", apikey=.self$getPropertyValue('token'))
-    request <- BiodbRequest(method='get', url=url, header=header)
+    request <- .self$makeRequest(method='get', url=url, header=header)
     if (retfmt == 'request')
         return(request)
 

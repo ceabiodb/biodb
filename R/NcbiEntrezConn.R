@@ -90,7 +90,7 @@ wsEfetch=function(id, rettype=NA_character_, retmode=NA_character_,
         params <- c(params, retmode=retmode)
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'efetch.fcgi')
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -132,7 +132,7 @@ wsEsearch=function(term, field=NA_character_, retmax=NA_integer_,
         params <- c(params, retmax=as.integer(retmax))
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'esearch.fcgi')
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -172,7 +172,7 @@ wsEinfo=function(retfmt=c('plain', 'request', 'parsed')) {
     params <- c(db=.self$.entrez.name, version='2.0')
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'einfo.fcgi')
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 

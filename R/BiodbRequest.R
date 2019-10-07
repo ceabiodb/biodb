@@ -53,7 +53,8 @@ BiodbRequest <- methods::setRefClass("BiodbRequest",
         .method='character',
         .header='character',
         .body='character',
-        .encoding='ANY'
+        .encoding='ANY',
+        conn='ANY'
     ),
 
 # Public methods {{{2
@@ -65,13 +66,44 @@ methods=list(
 ################################################################################
 
 initialize=function(url, method=c('get', 'post'), header=character(),
-                    body=character(), encoding=integer()) {
+                    body=character(), encoding=integer(), conn=NULL) {
 
     .self$.url <- url
     .self$.method <- match.arg(method)
     .self$.header <- header
     .self$.body <- body
     .self$.encoding <- encoding
+    .self$conn <- NULL
+},
+
+# Set the associated connector {{{1
+################################################################################
+
+setConn=function(conn) {
+    ":\n\nSets the associated connector (usually the connector that created this
+    request).
+    \nconn: A valid BiodbConn object.
+    \nReturned value: None.
+    "
+
+    if ( ! methods::is(conn, 'BiodbConn'))
+        stop("Parameter conn must be a BiodbConn object.")
+
+    .self$conn <- conn
+
+    invisible(NULL)
+},
+
+# Get the associated connector {{{1
+################################################################################
+
+getConn=function() {
+    ":\n\ngets the associated connector (usually the connector that created this
+    request).
+    \nReturned value: The associated connector as a BiodbConn object.
+    "
+
+    return(.self$conn)
 },
 
 # Get URL {{{3

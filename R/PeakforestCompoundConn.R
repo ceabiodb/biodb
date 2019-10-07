@@ -87,7 +87,7 @@ wsSearchCompoundsMass=function(field, mass, delta, max=NA_integer_,
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'search', 'compounds',
            field, mass, delta)
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 

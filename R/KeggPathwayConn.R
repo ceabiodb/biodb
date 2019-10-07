@@ -323,7 +323,7 @@ extractPathwayMapShapes=function(id, color2ids) {
                            'show_pathway'),
                    params=c(org_name='map', mapno=path_idx,
                               mapscale='1.0', show_description='hide'))
-    request=BiodbRequest(url=url)
+    request=.self$makeRequest(url=url)
 
     # Send request and get HTML page
     html=.self$getBiodb()$getRequestScheduler()$sendRequest(request)

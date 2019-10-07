@@ -103,7 +103,8 @@ wsWsdl=function(retfmt=c('plain', 'parsed', 'request')) {
 
     # Build request
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'webservice')
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params='wsdl'))
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url,
+                                                            params='wsdl'))
     if (retfmt == 'request')
         return(request)
 
@@ -158,7 +159,7 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', max.results=10,
                 maximumResults=max.results,
                 starsCategory=stars)
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params=params),
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url, params=params),
                             encoding='UTF-8')
     if (retfmt == 'request')
         return(request)

@@ -156,7 +156,7 @@ wsLmsdSearch=function(mode=NULL, output.mode=NULL, output.type=NULL,
         params <- c(params, SubClass=sub.class)
     u <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'),
                         'structure', 'LMSDSearch.php'), params=params)
-    request <- BiodbRequest(method='get', url=u)
+    request <- .self$makeRequest(method='get', url=u)
     if (retfmt == 'request')
         return(request)
 
@@ -249,7 +249,7 @@ wsLmsdRecord=function(lmid, mode=NULL, output.type=NULL, output.delimiter=NULL,
         params <- c(params, OutputQuote=output.quote)
     if ( ! is.null(output.column.header))
         params <- c(params, OutputColumnHeader=output.column.header)
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url, params=params))
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url, params=params))
     if (retfmt == 'request')
         return(request)
 

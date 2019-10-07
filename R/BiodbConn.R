@@ -541,6 +541,23 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
     return(makes_ref)
 },
 
+# Make request {{{3
+################################################################################
+
+makeRequest=function(...) {
+    ":\n\nMakes a BiodbRequest instance using the passed parameters, and set
+    ifself as the associated connector.
+    \n...: Those parameters are passed to the initializer of BiodbRequest.
+    \nReturned value: The BiodbRequest instance.
+    "
+
+    req <- BiodbRequest(...)
+
+    req$setConn(.self)
+
+    return(req)
+},
+
 # Private methods {{{2
 ################################################################################
 

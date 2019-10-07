@@ -153,7 +153,7 @@ wsSearch=function(term, max=NA_integer_, retfmt=c('plain', 'request', 'parsed',
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'search', .self$.db.name,
            term)
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -205,7 +205,7 @@ wsAllCount=function(retfmt=c('plain', 'request', 'parsed')) {
     u <- c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all',
            'count')
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -242,7 +242,7 @@ wsAllIds=function(retfmt=c('plain', 'request', 'parsed', 'ids')) {
     params <- c(token=.self$getPropertyValue('token'))
     u <- c(.self$getPropValSlot('urls', 'ws.url'), .self$.db.name, 'all', 'ids')
     url <- BiodbUrl(url=u, params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 

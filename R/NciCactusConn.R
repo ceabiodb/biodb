@@ -89,7 +89,7 @@ wsChemicalIdentifierResolver=function(structid, repr, xml=FALSE,
              structid, repr)
     if (xml)
         url <- c(url, 'xml')
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url))
     if (retfmt == 'request')
         return(request)
 

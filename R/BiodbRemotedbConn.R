@@ -174,7 +174,7 @@ getEntryPageUrl=function(entry.id) {
 
     # Get requests
     requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
-    
+
     # Get encoding
     encoding <- .self$getPropertyValue('entry.content.encoding')
 
@@ -182,8 +182,8 @@ getEntryPageUrl=function(entry.id) {
     # scheme.
     # We now convert the requests to the new scheme, using class BiodbRequest.
     if (is.character(requests)) {
-        fct <- function(x) BiodbRequest(method='get', url=BiodbUrl(x),
-                                        encoding=encoding)
+        fct <- function(x) .self$makeRequest(method='get', url=BiodbUrl(x),
+                                             encoding=encoding)
         requests <- lapply(requests, fct)
     }
 
