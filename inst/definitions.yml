@@ -117,6 +117,10 @@ config:
     type: character
     description: The path to the SubVersion binary (svn).
 
+  test.functions:
+    type: character
+    description: A comma separated list of test functions to run during tests. Only those functions will be run.
+
   useragent:
     type: character
     description: The user agent description string. This string is compulsory when connection to remote databases.

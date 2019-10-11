@@ -194,19 +194,6 @@ setTestContext <- function(biodb, text) {
 # Test that {{{1
 ################################################################
 
-FUNCTION.ALL <- 'all'
-if ('FUNCTIONS' %in% names(ENV)) {
-    TEST.FUNCTIONS <- strsplit(ENV[['FUNCTIONS']], ',')[[1]]
-} else {
-    TEST.FUNCTIONS <- FUNCTION.ALL
-}
-
-# TODO See how to run tests only in one file or in one test_that call in
-# testthat package.
-# Maybe split tests in different files?
-# Otherwise add a config key `test.functions`, and use it insde testThat.
-# Test first that biodb or conn is of right type.
-
 #' @export
 testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 
@@ -218,9 +205,17 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     bdb <- if (is.null(conn)) biodb else conn$getBiodb()
     if (is.null(bdb))
         stop("You must at least set one of `biodb` or `conn` parameter when",
-             " calling biodb::testThat().")
+             " calling testThat().")
 
-    if (TEST.FUNCTIONS == FUNCTION.ALL || fct %in% TEST.FUNCTIONS) {
+    # Get list of test functions to run
+    if (bdb$getConfig()$isDefined('test.functions')) {
+        functions <- strsplit(bdb$getConfig()$get('test.functions'), ',')[[1]]
+        runFct <- fct %in% functions
+    }
+    else
+        runFct <- TRUE
+
+    if (runFct) {
 
         # Send message to logger
         bdb$info('')
@@ -240,5 +235,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         else
             stop(paste0('Do not know how to call test function "', fct, '".'))
     }
+
+    invisible(NULL)
 }
 

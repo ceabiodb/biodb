@@ -92,10 +92,10 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-test.that("Assertion of positive number works correctly", 'test.assertPositive', biodb = biodb, obs = obs)
-test.that("Assertion of enumerate works correctly", 'test.assertIn', biodb = biodb, obs = obs)
-test.that("Assertion of non NA value works correctly", 'test.assertNotNa', biodb = biodb, obs = obs)
-test.that("Assertion of non NULL value works correctly", 'test.assertNotNull', biodb = biodb, obs = obs)
-test.that("Assertion of inferior relationship works correctly", 'test.assertInferior', biodb = biodb, obs = obs)
-test.that("Assertion of a single element works correctly", 'test.assertLengthOne', biodb = biodb, obs = obs)
-test.that('Assertion called from searchMsEntries display the right variable name', 'test.searchMsEntries.assert', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of positive number works correctly", 'test.assertPositive', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of enumerate works correctly", 'test.assertIn', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of non NA value works correctly", 'test.assertNotNa', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of non NULL value works correctly", 'test.assertNotNull', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of inferior relationship works correctly", 'test.assertInferior', biodb = biodb, obs = obs)
+biodb::testThat("Assertion of a single element works correctly", 'test.assertLengthOne', biodb = biodb, obs = obs)
+biodb::testThat('Assertion called from searchMsEntries display the right variable name', 'test.searchMsEntries.assert', biodb = biodb, obs = obs)

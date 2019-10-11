@@ -17,4 +17,4 @@ test.namedProp <- function(biodb) {
 # Main {{{1
 ################################################################################
 
-test.that("Named properties work correctly.", 'test.namedProp', biodb = biodb)
+biodb::testThat("Named properties work correctly.", 'test.namedProp', biodb = biodb)

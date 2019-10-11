@@ -23,5 +23,5 @@ test.circle <- function(biodb) {
 # Main {{{1
 ################################################################
 
-test.that("We can create a rectangle object.", 'test.rect', biodb = biodb)
-test.that("We can create a circle object.", 'test.circle', biodb = biodb)
+biodb::testThat("We can create a rectangle object.", 'test.rect', biodb = biodb)
+biodb::testThat("We can create a circle object.", 'test.circle', biodb = biodb)

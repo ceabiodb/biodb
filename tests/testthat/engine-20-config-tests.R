@@ -15,4 +15,4 @@ test.listKeys <- function(biodb) {
 # Main {{{1
 ################################################################
 
-test.that("Keys are listed correctly.", 'test.listKeys', biodb = biodb)
+biodb::testThat("Keys are listed correctly.", 'test.listKeys', biodb = biodb)

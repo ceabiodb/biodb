@@ -136,7 +136,7 @@ hasKey=function(key) {
     return(.self$.checkKey(key, fail=FALSE))
 },
 
-# Defined {{{3
+# Is defined {{{3
 ################################################################################
 
 isDefined=function(key, fail=TRUE) {

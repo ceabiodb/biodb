@@ -44,7 +44,7 @@ test.kegg.issue_340 <- function(conn) {
 # Main {{{1
 ################################################################################
 
-test.that('getPathwayIds() works correctly.',
+biodb::testThat('getPathwayIds() works correctly.',
           'test.kegg.enzyme.getPathwayIds', conn = conn)
-test.that('issue 340 is corrected.',
+biodb::testThat('issue 340 is corrected.',
           'test.kegg.issue_340', conn = conn)

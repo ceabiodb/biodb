@@ -346,13 +346,13 @@ test.entriesFieldToVctOrLst <- function(biodb, obs) {
 # Main {{{1
 ################################################################################
 
-test.that("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)
-test.that('collapseRows() works correctly.', 'test.collapseRows', biodb = biodb, obs = obs)
-test.that("entriesToDataframe() works correctly.", "test.entriesToDataframe", biodb = biodb, obs = obs)
-test.that("entriesToDataframe() handles list of list in input.", "test.entriesToDataframe.listOfListInput", biodb = biodb, obs = obs)
-test.that("entryIdsToDataframe() works correctly.", "test.entryIdsToDataframe", biodb = biodb, obs = obs)
-test.that("entryIdsToDataframe() handles list of list in input.", "test.entryIdsToDataframe.listOfListInput", biodb = biodb, obs = obs)
-test.that("addColsToDataframe() works correctly.", "test.addColsToDataframe", biodb = biodb, obs = obs)
-test.that("entriesToSingleFieldValues() works correctly.", "test.entriesToSingleFieldValues", biodb = biodb, obs = obs)
-test.that("entryIdsToSingleFieldValues() works correctly.", "test.entryIdsToSingleFieldValues", biodb = biodb, obs = obs)
-test.that("entriesFieldToVctOrLst() works correctly.", "test.entriesFieldToVctOrLst", biodb = biodb, obs = obs)
+biodb::testThat("convertEntryIdFieldToDbClass() works correctly.", 'test.convertEntryIdFieldToDbClass', biodb = biodb, obs = obs)
+biodb::testThat('collapseRows() works correctly.', 'test.collapseRows', biodb = biodb, obs = obs)
+biodb::testThat("entriesToDataframe() works correctly.", "test.entriesToDataframe", biodb = biodb, obs = obs)
+biodb::testThat("entriesToDataframe() handles list of list in input.", "test.entriesToDataframe.listOfListInput", biodb = biodb, obs = obs)
+biodb::testThat("entryIdsToDataframe() works correctly.", "test.entryIdsToDataframe", biodb = biodb, obs = obs)
+biodb::testThat("entryIdsToDataframe() handles list of list in input.", "test.entryIdsToDataframe.listOfListInput", biodb = biodb, obs = obs)
+biodb::testThat("addColsToDataframe() works correctly.", "test.addColsToDataframe", biodb = biodb, obs = obs)
+biodb::testThat("entriesToSingleFieldValues() works correctly.", "test.entriesToSingleFieldValues", biodb = biodb, obs = obs)
+biodb::testThat("entryIdsToSingleFieldValues() works correctly.", "test.entryIdsToSingleFieldValues", biodb = biodb, obs = obs)
+biodb::testThat("entriesFieldToVctOrLst() works correctly.", "test.entriesFieldToVctOrLst", biodb = biodb, obs = obs)

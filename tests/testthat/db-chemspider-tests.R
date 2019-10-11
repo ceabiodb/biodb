@@ -92,9 +92,9 @@ test.chemspider.wsRecordsBatchPost <- function(conn) {
 # Main {{{1
 ################################################################
 
-test.that('ChemSpider web service filter-name-post works fine.', 'test.chemspider.wsFilterNamePost', conn = conn)
-test.that('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.wsFilterMassPost', conn = conn)
-test.that('ChemSpider web service filter-queryId-status-get works fine.', 'test.chemspider.wsFilterQueryIdStatusGet', conn = conn)
-test.that('ChemSpider web service filter-queryId-results-get works fine.', 'test.chemspider.wsFilterQueryIdResultsGet', conn = conn)
-test.that('ChemSpider web service records-recordId-details-get works fine.', 'test.chemspider.wsRecordsRecordidDetailsGet', conn = conn)
-test.that('ChemSpider web service records-batch-post works fine.', 'test.chemspider.wsRecordsBatchPost', conn = conn)
+biodb::testThat('ChemSpider web service filter-name-post works fine.', 'test.chemspider.wsFilterNamePost', conn = conn)
+biodb::testThat('ChemSpider web service filter-mass-post works fine.', 'test.chemspider.wsFilterMassPost', conn = conn)
+biodb::testThat('ChemSpider web service filter-queryId-status-get works fine.', 'test.chemspider.wsFilterQueryIdStatusGet', conn = conn)
+biodb::testThat('ChemSpider web service filter-queryId-results-get works fine.', 'test.chemspider.wsFilterQueryIdResultsGet', conn = conn)
+biodb::testThat('ChemSpider web service records-recordId-details-get works fine.', 'test.chemspider.wsRecordsRecordidDetailsGet', conn = conn)
+biodb::testThat('ChemSpider web service records-batch-post works fine.', 'test.chemspider.wsRecordsBatchPost', conn = conn)

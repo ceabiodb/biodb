@@ -43,5 +43,5 @@ test.default.messages <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-test.that("Deprecated methods send correct message.", 'test.deprecatedMethods', biodb=biodb, obs=obs)
-test.that("Test what messages are printed by default.", 'test.default.messages', biodb=biodb, obs=obs)
+biodb::testThat("Deprecated methods send correct message.", 'test.deprecatedMethods', biodb=biodb, obs=obs)
+biodb::testThat("Test what messages are printed by default.", 'test.default.messages', biodb=biodb, obs=obs)

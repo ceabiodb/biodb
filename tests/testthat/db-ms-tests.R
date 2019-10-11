@@ -429,23 +429,23 @@ test.convertMzTolToRange <- function(db) {
 
 if (conn$isMassdb()) {
 
-	test.that("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = conn)
+	biodb::testThat("M/Z tolerance values are converted correctly to M/Z range.", 'test.convertMzTolToRange', conn = conn)
 
-	test.that("We can retrieve a list of M/Z values.", 'test.getMzValues', conn = conn)
-	test.that("We can match M/Z peaks.", 'test.searchMzTol',conn = conn)
-	test.that("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',conn = conn)
-	test.that("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', conn = conn)
-	test.that("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', conn = conn)
-	test.that("Search for N/A value returns an empty list.", 'test.searchMsEntries.with.NA.value', conn = conn)
-	test.that("Search for peaks with N/A value returns no match.", 'test.searchMsPeaks.with.NA.value', conn = conn)
+	biodb::testThat("We can retrieve a list of M/Z values.", 'test.getMzValues', conn = conn)
+	biodb::testThat("We can match M/Z peaks.", 'test.searchMzTol',conn = conn)
+	biodb::testThat("We can search for spectra containing several M/Z values.", 'test.searchMzTol.multiple.mz',conn = conn)
+	biodb::testThat("Search by precursor returns at least one match.", 'test.searchMzTol.with.precursor', conn = conn)
+	biodb::testThat("Search by precursor with multiple mz inputs does not fail.", 'test.searchMzTol.with.precursor.and.multiple.inputs', conn = conn)
+	biodb::testThat("Search for N/A value returns an empty list.", 'test.searchMsEntries.with.NA.value', conn = conn)
+	biodb::testThat("Search for peaks with N/A value returns no match.", 'test.searchMsPeaks.with.NA.value', conn = conn)
 
-	test.that("We can retrieve a list of chromatographic columns.", 'test.getChromCol', conn = conn)
-	test.that("We can search for several M/Z values, separately.", 'test.searchMsPeaks', conn = conn)
-	test.that("We can collapse the results from searchMsPeaks().", 'test.collapseResultsDataFrame', conn = conn)
-	test.that("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', conn = conn)
+	biodb::testThat("We can retrieve a list of chromatographic columns.", 'test.getChromCol', conn = conn)
+	biodb::testThat("We can search for several M/Z values, separately.", 'test.searchMsPeaks', conn = conn)
+	biodb::testThat("We can collapse the results from searchMsPeaks().", 'test.collapseResultsDataFrame', conn = conn)
+	biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", 'test.searchMsPeaks.rt', conn = conn)
 
-	test.that("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', conn = conn)
-	test.that('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', conn = conn)
-	test.that('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', conn = conn)
-	test.that('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', conn = conn)
+	biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", 'test.msmsSearch.self.match', conn = conn)
+	biodb::testThat('MSMS search works for an empty spectrum.', 'test.msmsSearch.empty.spectrum', conn = conn)
+	biodb::testThat('MSMS search works for a null spectrum.', 'test.msmsSearch.null.spectrum', conn = conn)
+	biodb::testThat('No failure occurs when msmsSearch found no IDs.', 'test.msmsSearch.no.ids', conn = conn)
 }

@@ -63,6 +63,6 @@ test.connectorDefaultValues <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-test.that("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
-test.that("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
-test.that("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)
+biodb::testThat("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
+biodb::testThat("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
+biodb::testThat("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)

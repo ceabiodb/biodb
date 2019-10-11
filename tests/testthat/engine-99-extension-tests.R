@@ -40,5 +40,5 @@ test_new_parsing_expr <- function(biodb) {
 # Main {{{1
 ################################################################################
 
-test.that("We can define a new field.", "test_new_field", biodb = biodb)
-test.that("We can define a new parsing expression.", "test_new_parsing_expr", biodb = biodb)
+biodb::testThat("We can define a new field.", "test_new_field", biodb = biodb)
+biodb::testThat("We can define a new parsing expression.", "test_new_parsing_expr", biodb = biodb)

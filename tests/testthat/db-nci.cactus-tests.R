@@ -71,9 +71,9 @@ test.nci.cactus.convCasToInchikey <- function(conn) {
 # Main {{{1
 ################################################################
 
-test.that('Web service wsChemicalIdentifierResolver works fine.',
+biodb::testThat('Web service wsChemicalIdentifierResolver works fine.',
           'test.nci.cactus.wsChemicalIdentifierResolver', conn=conn)
-test.that('convCasToInchi() works fine.',
+biodb::testThat('convCasToInchi() works fine.',
           'test.nci.cactus.convCasToInchi', conn=conn)
-test.that('convCasToInchikey() works fine.',
+biodb::testThat('convCasToInchikey() works fine.',
           'test.nci.cactus.convCasToInchikey', conn=conn)

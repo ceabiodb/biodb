@@ -32,4 +32,4 @@ test.getFieldValue <- function(biodb, obs) {
 # Main {{{1
 ################################################################################
 
-test.that("getFieldValue() works correctly.", "test.getFieldValue", biodb = biodb, obs = obs)
+biodb::testThat("getFieldValue() works correctly.", "test.getFieldValue", biodb = biodb, obs = obs)

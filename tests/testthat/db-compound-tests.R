@@ -357,12 +357,12 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 ################################################################################
 
 if (conn$isCompounddb()) {
-	test.that('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
-	test.that('We can search for a compound', 'test.searchCompound', conn = conn)
-	test.that('annotateMzValues() works correctly.', 'test.annotateMzValues', conn = conn)
-	test.that('annotateMzValues() works correctly with real values.', 'test.annotateMzValues_real_values', conn = conn)
-	test.that('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
-	test.that('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
-	test.that('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)
-	test.that('Input data frame is output untouched for annotateMzValues()', 'test_annotateMzValues_input_dataframe_untouched', conn = conn)
+	biodb::testThat('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
+	biodb::testThat('We can search for a compound', 'test.searchCompound', conn = conn)
+	biodb::testThat('annotateMzValues() works correctly.', 'test.annotateMzValues', conn = conn)
+	biodb::testThat('annotateMzValues() works correctly with real values.', 'test.annotateMzValues_real_values', conn = conn)
+	biodb::testThat('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
+	biodb::testThat('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
+	biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)
+	biodb::testThat('Input data frame is output untouched for annotateMzValues()', 'test_annotateMzValues_input_dataframe_untouched', conn = conn)
 }

@@ -78,11 +78,11 @@ test_chebi_convInchiToChebi <- function(conn) {
 # Main {{{1
 ################################################################
 
-test.that('Web service getLiteEntity works fine.',
+biodb::testThat('Web service getLiteEntity works fine.',
           'test.chebi.wsGetLiteEntity', conn = conn)
-test.that('ChEBI encoding issue in XML is handled.',
+biodb::testThat('ChEBI encoding issue in XML is handled.',
           'test.chebi.encoding.issue.in.xml', conn = conn)
-test.that('convCasToChebi() works.',
+biodb::testThat('convCasToChebi() works.',
           'test_chebi_convCasToChebi', conn = conn)
-test.that('convInchiToChebi() works.',
+biodb::testThat('convInchiToChebi() works.',
           'test_chebi_convInchiToChebi', conn = conn)

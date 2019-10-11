@@ -477,28 +477,28 @@ runGenericTests <- function(conn) {
     # Delete cache entries
     conn$getBiodb()$getFactory()$deleteAllCacheEntries(conn$getId())
 
-    test.that("Wrong entry gives NULL", 'test.wrong.entry', conn = conn)
-    test.that("One wrong entry does not block the retrieval of good ones",
+    biodb::testThat("Wrong entry gives NULL", 'test.wrong.entry', conn = conn)
+    biodb::testThat("One wrong entry does not block the retrieval of good ones",
               'test.wrong.entry.among.good.ones', conn = conn)
-    test.that("Entry fields have a correct value", 'test.entry.fields', conn = conn)
-    test.that("The peak table is correct.", 'test.peak.table', conn = conn)
-    test.that("RT unit is defined when there is an RT value.", 'test.rt.unit', conn = conn)
-    test.that("Nb entries is positive.", 'test.nb.entries', conn = conn)
-    test.that("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
-    test.that("We can search for an entry by name.", 'test.searchByName', conn = conn)
+    biodb::testThat("Entry fields have a correct value", 'test.entry.fields', conn = conn)
+    biodb::testThat("The peak table is correct.", 'test.peak.table', conn = conn)
+    biodb::testThat("RT unit is defined when there is an RT value.", 'test.rt.unit', conn = conn)
+    biodb::testThat("Nb entries is positive.", 'test.nb.entries', conn = conn)
+    biodb::testThat("We can get a list of entry ids.", 'test.entry.ids', conn = conn)
+    biodb::testThat("We can search for an entry by name.", 'test.searchByName', conn = conn)
     if (conn$isRemotedb()) {
-        test.that("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)
-        test.that("We can get a URL pointing to the entry image.", 'test.entry.image.url', conn = conn)
-        test.that("The entry page URL can be downloaded.", 'test.entry.page.url.download', conn = conn)
-        test.that("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn = conn)
+        biodb::testThat("We can get a URL pointing to the entry page.", 'test.entry.page.url', conn = conn)
+        biodb::testThat("We can get a URL pointing to the entry image.", 'test.entry.image.url', conn = conn)
+        biodb::testThat("The entry page URL can be downloaded.", 'test.entry.page.url.download', conn = conn)
+        biodb::testThat("The entry image URL can be downloaded.", 'test.entry.image.url.download', conn = conn)
     }
     if (conn$isEditable()) {
-        test.that('We can edit a database.', 'test.db.editing', conn = conn)
+        biodb::testThat('We can edit a database.', 'test.db.editing', conn = conn)
         if (conn$isWritable()) {
-            test.that("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
-            test.that('Database writing works.', 'test.db.writing', conn = conn)
-            test.that('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
-            test.that('Database copy works.', 'test.db.copy', conn = conn)
+            biodb::testThat("We cannot create another connector with the same URL.", 'test.create.conn.with.same.url', conn = conn)
+            biodb::testThat('Database writing works.', 'test.db.writing', conn = conn)
+            biodb::testThat('We can write entries having new fields.', 'test.db.writing.with.col.add', conn = conn)
+            biodb::testThat('Database copy works.', 'test.db.copy', conn = conn)
         }
     }
 }

@@ -163,7 +163,7 @@ test.BiodbUrl <- function(biodb) {
 # Main {{{1
 ################################################################
 
-test.that("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
-test.that("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
-test.that("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
-test.that("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)
+biodb::testThat("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
+biodb::testThat("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
+biodb::testThat("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
+biodb::testThat("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)
