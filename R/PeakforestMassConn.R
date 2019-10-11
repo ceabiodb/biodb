@@ -91,7 +91,7 @@ wsPeaksGetRange=function(type=c('lcms', 'lcmsms'), mz.min, mz.max,
         u <- c(.self$getPropValSlot('urls', 'ws.url'), "spectra", type, "peaks",
                "get-range", mz.min, mz.max)
         url <- BiodbUrl(url=u, params=params)
-        request <- BiodbRequest(method='get', url=url)
+        request <- .self$makeRequest(method='get', url=url)
         if (retfmt == 'request')
             return(request)
 
@@ -138,7 +138,7 @@ wsLcmsmsFromPrecursor=function(prec.mz, precursorMassDelta, mode=NA_character_,
         u <- c(.self$getPropValSlot('urls', 'ws.url'), 'spectra', 'lcmsms',
                'from-precursor', prec.mz)
         url <- BiodbUrl(url=u, params=params)
-        request <- BiodbRequest(method='get', url=url)
+        request <- .self$makeRequest(method='get', url=url)
         if (retfmt == 'request')
             return(request)
 
@@ -173,7 +173,7 @@ wsListCodeColumns=function(retfmt=c('plain', 'request', 'parsed',
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'metadata', 'lc',
            'list-code-columns')
     url <- BiodbUrl(url=u, params=list(token=.self$getPropertyValue('token')))
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
     if (retfmt == 'request')
         return(request)
 

@@ -436,8 +436,7 @@ define=function(def) {
 # Check key {{{3
 ################################################################################
 
-.checkKey=function(key, type=NA_character_, fail=TRUE,
-                     test.deprecated=TRUE) {
+.checkKey=function(key, type=NA_character_, fail=TRUE) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
@@ -457,7 +456,7 @@ define=function(def) {
 
     # Fail if deprecated
     if (.self$.isDeprecated(key))
-        .self$message('error', paste("Key", key, "is deprecated.",
+        .self$message('caution', paste("Key", key, "is deprecated.",
                                      .self$.keys[[key]][['deprecated']]))
 
     # Test type

@@ -83,7 +83,7 @@ wsFindExactMass=function(mass=NA_real_, mass.min=NA_real_, mass.max=NA_real_,
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'exact_mass')
     url <- BiodbUrl(url=u)$toString()
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url))
     if (retfmt == 'request')
         return(request)
 
@@ -141,7 +141,7 @@ wsFindMolecularWeight=function(mass=NA_real_, mass.min=NA_real_,
                     ' mass.min and mass.max.')
     u <- c(u, umass, 'mol_weight')
     url <- BiodbUrl(url=u)$toString()
-    request <- BiodbRequest(method='get', url=BiodbUrl(url=url))
+    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url))
     if (retfmt == 'request')
         return(request)
 

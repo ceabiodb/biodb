@@ -323,7 +323,7 @@ extractPathwayMapShapes=function(id, color2ids) {
                            'show_pathway'),
                    params=c(org_name='map', mapno=path_idx,
                               mapscale='1.0', show_description='hide'))
-    request=BiodbRequest(url=url)
+    request=.self$makeRequest(url=url)
 
     # Send request and get HTML page
     html=.self$getBiodb()$getRequestScheduler()$sendRequest(request)
@@ -342,8 +342,8 @@ extractPathwayMapShapes=function(id, color2ids) {
     cache <- .self$getBiodb()$getCache()
     img_filename <- paste0('pathwaymap-', path_idx)
     cid <- .self$getCacheId()
-    img_file <- cache$getFilePath(cid, 'shortterm', img_filename, 'png')
-    if ( ! cache$fileExist(cid, 'shortterm', img_filename, 'png')) {
+    img_file <- cache$getFilePath(cid, img_filename, 'png')
+    if ( ! cache$fileExist(cid, img_filename, 'png')) {
         img_url <- stringr::str_match(html,
                                       'src="([^"]+)"\\s+name="pathwayimage"')
         if (is.na(img_url[1, 1]))

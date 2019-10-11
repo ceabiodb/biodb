@@ -57,7 +57,7 @@ wsEnzymeByName=function(name, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     # Build request
     burl <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'),
                            "enzyme-byname.html"), params=name)
-    request <- BiodbRequest(method='get', url=burl)
+    request <- .self$makeRequest(method='get', url=burl)
     if (retfmt == 'request')
         return(request)
 
@@ -91,7 +91,7 @@ wsEnzymeByComment=function(comment, retfmt=c('plain', 'request', 'parsed',
     # Build request
     burl <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'),
                            "enzyme-bycomment.html"), params=comment)
-    request <- BiodbRequest(method='get', url=burl)
+    request <- .self$makeRequest(method='get', url=burl)
     if (retfmt == 'request')
         return(request)
 

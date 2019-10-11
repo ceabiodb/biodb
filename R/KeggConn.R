@@ -101,7 +101,7 @@ wsList=function(retfmt=c('plain', 'request', 'ids')) {
     # Build request
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'list', .self$.db.name)
     url <- BiodbUrl(url=u)
-    request <- BiodbRequest(url=url)
+    request <- .self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
 
@@ -142,7 +142,7 @@ wsFind=function(query, retfmt=c('plain', 'request', 'parsed', 'ids')) {
     u <- c(.self$getPropValSlot('urls', 'ws.url'), 'find', .self$.db.name,
            query)
     url <- BiodbUrl(url=u)
-    request <- BiodbRequest(url=url)
+    request <- .self$makeRequest(url=url)
     if (retfmt == 'request')
         return(request)
 

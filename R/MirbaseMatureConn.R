@@ -72,7 +72,7 @@ getEntryContentFromDb=function(entry.id) {
     # Load content from cache
     cch <- .self$getBiodb()$getCache()
     ext <- .self$getPropertyValue('entry.content.type')
-    content <- cch$loadFileContent(.self$getCacheId(), subfolder='shortterm',
+    content <- cch$loadFileContent(.self$getCacheId(),
                                    name=entry.id, ext=ext, output.vector=TRUE)
 
     return(content)
@@ -124,10 +124,10 @@ getEntryContentFromDb=function(entry.id) {
 
         # Write all entries into files
         cch <- .self$getBiodb()$getCache()
-        cch$deleteFiles(.self$getCacheId(), subfolder='shortterm',
+        cch$deleteFiles(.self$getCacheId(),
                         ext=.self$getPropertyValue('entry.content.type'))
         cch$saveContentToFile(contents, cache.id=.self$getCacheId(),
-                              subfolder='shortterm', name=ids,
+                              name=ids,
                               ext=.self$getPropertyValue('entry.content.type'))
     }
 
@@ -147,7 +147,7 @@ getEntryContentFromDb=function(entry.id) {
 
     # Get IDs from cache
     cch <- .self$getBiodb()$getCache()
-    ids <- cch$listFiles(.self$getCacheId(), subfolder='shortterm',
+    ids <- cch$listFiles(.self$getCacheId(),
                          ext=.self$getPropertyValue('entry.content.type'),
                          extract.name=TRUE)
 

@@ -135,13 +135,14 @@ sendRequest=function(request, cache.read=TRUE) {
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
+    conn <- request$getConn()
     if (cache.read && cfg$isEnabled('cache.system')
         && cfg$get('cache.all.requests')
-        && cch$fileExist('request', subfolder='shortterm', name=request.key,
-                         ext='content')) {
+        && ! is.null(conn)
+        && cch$fileExist(conn$getCacheId(), name=request.key, ext='content')) {
         .self$debug("Loading content of request from cache.")
-        content <- cch$loadFileContent('request', subfolder='shortterm',
-                                       name=request.key, ext ='content',
+        content <- cch$loadFileContent(conn$getCacheId(),
+                                       name=request.key, ext='content',
                                        output.vector=TRUE)
     }
 
@@ -154,14 +155,13 @@ sendRequest=function(request, cache.read=TRUE) {
 
         # Save content to cache
         if ( ! is.na(content) && cfg$isEnabled('cache.system')
+            && ! is.null(conn)
             && cfg$get('cache.all.requests')) {
             .self$message('debug', "Saving content of request to cache.")
-            cch$saveContentToFile(content, cache.id='request',
-                                  subfolder='shortterm', name=request.key,
-                                  ext='content')
-            cch$saveContentToFile(request$toString(), cache.id='request',
-                                  subfolder='shortterm', name=request.key,
-                                  ext='desc')
+            cch$saveContentToFile(content, cache.id=conn$getCacheId(),
+                                  name=request.key, ext='content')
+            cch$saveContentToFile(request$toString(), cache.id=conn$getCacheId(),
+                                  name=request.key, ext='request')
         }
     }
 
@@ -187,7 +187,7 @@ downloadFile=function(url, dest.file) {
 
     # Convert URL to string
     url <- url$toString()
-    
+
     # Download
     .self$info2('Downloading file "', url, '".')
     utils::download.file(url=url, destfile=dest.file, mode='wb',
