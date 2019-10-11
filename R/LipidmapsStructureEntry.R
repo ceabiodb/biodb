@@ -49,7 +49,7 @@ initialize=function(...) {
 ################################################################################
 
 .isContentCorrect=function(content) {
-    return( ! grepl("No record found", content))
+    return( ! grepl("No records? found", content))
 },
 
 # Parse fields step 2 {{{3
