@@ -11,4 +11,4 @@ test.abstractClass.declaration <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("An abstract class cannot be instantiated.", 'test.abstractClass.declaration', biodb = biodb, obs = obs)
+biodb::testThat("An abstract class cannot be instantiated.", test.abstractClass.declaration, biodb = biodb, obs = obs)

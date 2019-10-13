@@ -207,10 +207,16 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         stop("You must at least set one of `biodb` or `conn` parameter when",
              " calling testThat().")
 
+    # Get function name
+    if (methods::is(fct, 'function'))
+        fname <- deparse(substitute(fct))
+    else
+        fname <- fct
+
     # Get list of test functions to run
     if (bdb$getConfig()$isDefined('test.functions')) {
         functions <- strsplit(bdb$getConfig()$get('test.functions'), ',')[[1]]
-        runFct <- fct %in% functions
+        runFct <- fname %in% functions
     }
     else
         runFct <- TRUE
@@ -219,7 +225,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 
         # Send message to logger
         bdb$info('')
-        bdb$info(paste('Running test function ', fct, ' ("', msg, '").'))
+        bdb$info(paste('Running test function ', fname, ' ("', msg, '").'))
         bdb$info(paste(rep('-', 80), collapse=''))
         bdb$info('')
 
@@ -233,7 +239,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         else if ( ! is.null(conn))
             testthat::test_that(msg, do.call(fct, list(conn)))
         else
-            stop(paste0('Do not know how to call test function "', fct, '".'))
+            stop(paste0('Do not know how to call test function "', fname, '".'))
     }
 
     invisible(NULL)
