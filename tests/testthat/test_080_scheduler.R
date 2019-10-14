@@ -1,5 +1,11 @@
 # vi: fdm=marker
 
+source('common.R', local=TRUE)
+biodb <- create.biodb.instance()
+
+# Set context
+biodb::setTestContext(biodb, "Test scheduler.")
+
 # Test right rule {{{1
 ################################################################
 
@@ -163,7 +169,10 @@ test.BiodbUrl <- function(biodb) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("BiodbUrl works fine.", 'test.BiodbUrl', biodb = biodb)
-biodb::testThat("Right rule is created.", 'test.schedulerRightRule', biodb = biodb)
-biodb::testThat("Frequency is updated correctly.", 'test.schedulerRuleFrequency', biodb = biodb)
-biodb::testThat("Sleep time is computed correctly.", 'test.schedulerSleepTime', biodb = biodb)
+biodb::testThat("BiodbUrl works fine.", test.BiodbUrl, biodb = biodb)
+biodb::testThat("Right rule is created.", test.schedulerRightRule, biodb = biodb)
+biodb::testThat("Frequency is updated correctly.", test.schedulerRuleFrequency, biodb = biodb)
+biodb::testThat("Sleep time is computed correctly.", test.schedulerSleepTime, biodb = biodb)
+
+# Terminate Biodb
+biodb$terminate()

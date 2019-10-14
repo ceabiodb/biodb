@@ -1,5 +1,12 @@
 # vi: fdm=marker
 
+source('common.R', local=TRUE)
+biodb <- create.biodb.instance()
+obs <- add_msg_recorder_obs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test BiodbFactory.")
+
 # Test connector already exists {{{1
 ################################################################
 
@@ -63,6 +70,9 @@ test.connectorDefaultValues <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("We detect when an identical connector already exists.", 'test.connectorAlreadyExists', biodb = biodb, obs = obs)
-biodb::testThat("A newly created connector get the default values.", 'test.connectorDefaultValues', biodb = biodb, obs = obs)
-biodb::testThat("Connectors are deleted.", 'test.connectorDeletion', biodb = biodb, obs = obs)
+biodb::testThat("We detect when an identical connector already exists.", test.connectorAlreadyExists, biodb = biodb, obs = obs)
+biodb::testThat("A newly created connector get the default values.", test.connectorDefaultValues, biodb = biodb, obs = obs)
+biodb::testThat("Connectors are deleted.", test.connectorDeletion, biodb = biodb, obs = obs)
+
+# Terminate Biodb
+biodb$terminate()

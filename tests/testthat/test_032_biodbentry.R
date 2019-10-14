@@ -1,5 +1,12 @@
 # vi: fdm=marker
 
+source('common.R', local=TRUE)
+biodb <- create.biodb.instance()
+obs <- add_msg_recorder_obs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test BiodbEntry.")
+
 # Test getFieldValue() {{{1
 ################################################################################
 
@@ -32,4 +39,7 @@ test.getFieldValue <- function(biodb, obs) {
 # Main {{{1
 ################################################################################
 
-biodb::testThat("getFieldValue() works correctly.", "test.getFieldValue", biodb = biodb, obs = obs)
+biodb::testThat("getFieldValue() works correctly.", test.getFieldValue, biodb = biodb, obs = obs)
+
+# Terminate Biodb
+biodb$terminate()

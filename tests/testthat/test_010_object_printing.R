@@ -1,5 +1,11 @@
 # vi: fdm=marker
 
+source('common.R', local=TRUE)
+biodb <- create.biodb.instance()
+
+# Set context
+biodb::setTestContext(biodb, "Test object printing.")
+
 # Test BiodbCache show {{{1
 ################################################################
 
@@ -76,11 +82,14 @@ test.BiodbEntryFields.show <- function(biodb) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("Biodb show method returns correct information.", 'test.Biodb.show', biodb = biodb)
-biodb::testThat("BiodbCache show method returns correct information.", 'test.BiodbCache.show', biodb = biodb)
-biodb::testThat("BiodbConfig show method returns correct information.", 'test.BiodbConfig.show', biodb = biodb)
-biodb::testThat("BiodbFactory show method returns correct information.", 'test.BiodbFactory.show', biodb = biodb)
-biodb::testThat("BiodbEntry show method returns correct information.", 'test.BiodbEntry.show', biodb = biodb)
-biodb::testThat("BiodbConn show method returns correct information.", 'test.BiodbConn.show', biodb = biodb)
-biodb::testThat("BiodbDbsInfo show method returns correct information.", 'test.BiodbDbsInfo.show', biodb = biodb)
-biodb::testThat("BiodbEntryFields show method returns correct information.", 'test.BiodbEntryFields.show', biodb = biodb)
+biodb::testThat("Biodb show method returns correct information.", test.Biodb.show, biodb = biodb)
+biodb::testThat("BiodbCache show method returns correct information.", test.BiodbCache.show, biodb = biodb)
+biodb::testThat("BiodbConfig show method returns correct information.", test.BiodbConfig.show, biodb = biodb)
+biodb::testThat("BiodbFactory show method returns correct information.", test.BiodbFactory.show, biodb = biodb)
+biodb::testThat("BiodbEntry show method returns correct information.", test.BiodbEntry.show, biodb = biodb)
+biodb::testThat("BiodbConn show method returns correct information.", test.BiodbConn.show, biodb = biodb)
+biodb::testThat("BiodbDbsInfo show method returns correct information.", test.BiodbDbsInfo.show, biodb = biodb)
+biodb::testThat("BiodbEntryFields show method returns correct information.", test.BiodbEntryFields.show, biodb = biodb)
+
+# Terminate Biodb
+biodb$terminate()

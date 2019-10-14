@@ -1,5 +1,12 @@
 # vi: fdm=marker
 
+source('common.R', local=TRUE)
+biodb <- create.biodb.instance()
+obs <- add_msg_recorder_obs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test shapes.")
+
 # Test rect {{{1
 ################################################################
 
@@ -23,5 +30,8 @@ test.circle <- function(biodb) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("We can create a rectangle object.", 'test.rect', biodb = biodb)
-biodb::testThat("We can create a circle object.", 'test.circle', biodb = biodb)
+biodb::testThat("We can create a rectangle object.", test.rect, biodb = biodb)
+biodb::testThat("We can create a circle object.", test.circle, biodb = biodb)
+
+# Terminate Biodb
+biodb$terminate()
