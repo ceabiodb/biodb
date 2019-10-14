@@ -1,8 +1,8 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
 source('common.R', local=TRUE)
-biodb <- create.biodb.instance()
-obs <- add_msg_recorder_obs(biodb)
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
 
 # Set context
 biodb::setTestContext(biodb, "Test BiodbDbInfo.")

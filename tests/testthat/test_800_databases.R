@@ -6,9 +6,8 @@ source('common.R', local=TRUE)
 ################################################################
 
 # Create biodb instance
-biodb <- create.biodb.instance()
-testthat::expect_is(biodb, 'Biodb')
-obs <- add_msg_recorder_obs(biodb)
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
 
 # Loop on test databases
 for (db.name in TEST.DATABASES) {

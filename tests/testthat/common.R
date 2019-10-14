@@ -68,30 +68,6 @@ tmpbiodb$terminate()
 tmpbiodb <- NULL
 dbinf <- NULL
 
-# Create Biodb instance {{{1
-################################################################
-
-create.biodb.instance <- function() {
-
-	# Create logger
-	logger <- biodb::BiodbLogger(file=biodb::getTestLogFD(), close.file=FALSE)
-	logger$setLevel('caution', 2L)
-	logger$setLevel('debug', 2L)
-	logger$setLevel('info', 2L)
-	logger$setLevel('error', 2L)
-	logger$setLevel('warning', 2L)
-
-	# Create test observer
-	test.observer <- biodb::MsgAcknowledger()
-
-	# Create instance
-	biodb <- Biodb$new()
-	biodb$addObservers(test.observer)
-	biodb$addObservers(logger)
-
-	return(biodb)
-}
-
 # List reference entries {{{1
 ################################################################
 
@@ -212,16 +188,3 @@ create.conn.for.generic.tests = function(biodb, class.db) {
 	return(conn)
 }
 
-# Add message recorder observer {{{1
-################################################################################
-
-add_msg_recorder_obs <- function(biodb) {
-
-    # Create observer
-    obs <- biodb::MsgRecorder()
-
-	# Set observer
-	biodb$addObservers(obs)
-
-	return(obs)
-}

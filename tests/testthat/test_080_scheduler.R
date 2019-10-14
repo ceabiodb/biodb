@@ -1,7 +1,7 @@
 # vi: fdm=marker
 
 source('common.R', local=TRUE)
-biodb <- create.biodb.instance()
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
 biodb::setTestContext(biodb, "Test scheduler.")

@@ -1,6 +1,6 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-# MsgAcknowledger observer class {{{1
+# BiodbTestMsgAck observer class {{{1
 ################################################################################
 
 #' A class for acknowledging messages during tests.
@@ -11,9 +11,9 @@
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export MsgAcknowledger
-#' @exportClass MsgAcknowledger
-MsgAcknowledger <- methods::setRefClass('MsgAcknowledger',
+#' @export BiodbTestMsgAck
+#' @exportClass BiodbTestMsgAck
+BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',
     contains = 'BiodbObserver',
     fields = list(
         .last.index = 'numeric'
@@ -35,8 +35,12 @@ initialize=function(...) {
 ################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
-               lvl=1) {
+             lvl=1) {
+    # Overrides super class' method.
+
     testthat::expect_is(msg, 'character')
+
+    invisible(NULL)
 },
 
 # Progress {{{2
@@ -44,6 +48,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 
 progress=function(type='info', msg, index, first, total=NA_character_,
                     lvl=1L, laptime=10L) {
+    # Overrides super class' method.
 
     .self$checkMessageType(type)
     testthat::expect_is(msg, 'character')
@@ -65,12 +70,14 @@ progress=function(type='info', msg, index, first, total=NA_character_,
                                     '".'))
 
     .self$.last.index[msg] <- index
+
+    invisible(NULL)
 }
 
 ))
 
 
-# MsgRecorder observer class {{{1
+# BiodbTestMsgRec observer class {{{1
 ################################################################################
 
 #' A class for recording messages during tests.
@@ -80,9 +87,9 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 #'
 #' @import methods
 #' @include BiodbObserver.R
-#' @export MsgRecorder
-#' @exportClass MsgRecorder
-MsgRecorder <- methods::setRefClass("MsgRecorder",
+#' @export BiodbTestMsgRec
+#' @exportClass BiodbTestMsgRec
+BiodbTestMsgRec <- methods::setRefClass("BiodbTestMsgRec",
     contains = "BiodbObserver",
     fields = list(
                   .msgs='character',
@@ -103,21 +110,36 @@ initialize=function(...) {
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
+    # Overrides super class' method.
+
     .msgs <<- c(.self$.msgs, msg)
     .self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
+
+    invisible(NULL)
 },
 
 # hasMsgs {{{2
 ################################################################################
 
-hasMsgs=function(type = NULL) {
+hasMsgs=function(type=NULL) {
+    ":\n\nChecks if at least one message has been received.
+    \ntype: A vector of message types on which to restrict the test.
+    \nReturned value: TRUE if at least one message has been received, FALSE
+    otherwise.
+    "
 
-    f = FALSE
+    f <- FALSE
 
     if (is.null(type))
         f = (length(.self$.msg) > 0)
-    else
-        f = if (type %in% names(.self$.msgs.by.type)) (length(.self$.msgs.by.type[[type]])) else FALSE
+    else if (any(type %in% names(.self$.msgs.by.type))) {
+        for (t in type)
+            if (t %in% names(.self$.msgs.by.type)
+                && length(.self$.msgs.by.type[[type]]) > 0) {
+                f <- TRUE
+                break
+            }
+    }
 
     return(f)
 },
@@ -126,6 +148,9 @@ hasMsgs=function(type = NULL) {
 ################################################################################
 
 lastMsg = function() {
+    ":\n\nGet the last message received.
+    \nReturned value: The last message received as a character value.
+    "
 
     m <- NA_character_
 
@@ -140,11 +165,18 @@ lastMsg = function() {
 ################################################################################
 
 getLastMsgByType = function(type) {
-    m = NULL
+    ":\n\nGet the last message of a certain type.
+    \ntype: The type of the message.
+    \nReturned value: The last message.
+    "
+
+    m <- NULL
+
     if (type %in% names(.self$.msgs.by.type)) {
-        m = .self$.msgs.by.type[[type]]
-        m = m[[length(m)]]
+        m <- .self$.msgs.by.type[[type]]
+        m <- m[[length(m)]]
     }
+
     return(m)
 },
 
@@ -152,10 +184,16 @@ getLastMsgByType = function(type) {
 ################################################################################
 
 getMsgsByType = function(type) {
-    msgs = character()
+    ":\n\nGet all messages of a certain type.
+    \ntype: The type of the messages to retrieve.
+    \nReturned value: A character vector containing all messages received for
+    this type.
+    "
+
+    msgs <- character()
 
     if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
-        msgs = .self$.msgs.by.type[[type]]
+        msgs <- .self$.msgs.by.type[[type]]
 
     return(msgs)
 },
@@ -164,8 +202,14 @@ getMsgsByType = function(type) {
 ################################################################################
 
 clearMessages = function() {
+    ":\n\nErase all lists of messages.
+    \nReturned value: None.
+    "
+
     .msgs <<- character()
     .msgs.by.type <<- list()
+
+    invisible(NULL)
 }
 
 ))
@@ -173,9 +217,23 @@ clearMessages = function() {
 # Set test context {{{1
 ################################################################################
 
-#' Set text context.
+#' Set a test context.
 #'
 #' Define a context for tests using testthat framework.
+#' In addition to calling `testthat::context()`, the function will call
+#' `biodb::Biodb::info()` to signal the context to observers. This will allow
+#' to print the test context also into the test log file, if logger is used
+#' for tests.
+#'
+#' @param biodb A valid Biodb instance.
+#' @param text The text to print as test context.
+#' @return No value returned.
+#'
+#' @examples
+#' # Define a context before running tests:
+#' \dontrun{
+#' setTestContext(biodb, "Test my database connector.")
+#' }
 #'
 #' @export
 setTestContext <- function(biodb, text) {
@@ -189,11 +247,34 @@ setTestContext <- function(biodb, text) {
     biodb$info(paste("Test context", text, sep = " - "))
     biodb$info(paste(rep('*', 80), collapse=''))
     biodb$info("")
+    
+    invisible(NULL)
 }
 
 # Test that {{{1
 ################################################################
 
+#' Run a test.
+#'
+#' Run a test function, using testthat framework.
+#' In addition to calling `testthat::test_that()`, the function will call
+#' `biodb::Biodb::info()` to signal the test function call to observers.
+#' This will allow to print the call to the test function also into the test log
+#' file, if logger is used for tests.
+#'
+#' @param msg The test message.
+#' @param fct The function to test.
+#' @param biodb A valid Biodb instance to be passed to the test function.
+#' @param obs An instance of BiodbTestMsgRec observer to be passed to test function.
+#' @param conn A connector instance to be passed to the test function.
+#' @return No value returned.
+#'
+#' @examples
+#' #
+#' \dontrun{
+#' biodb::testThat("My test works", my_test_function, biodb=mybiodb)
+#' }
+#'
 #' @export
 testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 
@@ -245,16 +326,58 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     invisible(NULL)
 }
 
-# Get test log file descriptor {{{1
+# Create Biodb test instance {{{1
 ################################################################
 
 #' @export
-getTestLogFD <- function() {
+createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
+    ":\n\nCreate a Biodb instance for tests. Do not forget to call `terminate()`
+    on your instance at the end of your tests.
+    \nlog: The name of the log file to create. If set to NULL, to log file will
+    be created.
+    \nack: If set to TRUE, an instance of BiodbTestMsgAck will be attached to the Biodb instance.
+    \nReturned value: The created Biodb instance.
+    "
 
-    if ( ! exists('BIODB_TEST_LOG_FD')) {
-        fp <- file.path(getwd(), 'biodb_test.log')
-        assign('BIODB_TEST_LOG_FD', file(fp, open='w'), pos=.GlobalEnv)
+    # Create instance
+    biodb <- Biodb$new()
+    
+    # Add logger
+    if ( ! is.null(log) && is.character(log) && length(log) == 1
+        && nchar(log) > 0) {
+        logger <- BiodbLogger(file=log)
+        logger$setLevel('caution', 2L)
+        logger$setLevel('debug', 2L)
+        logger$setLevel('info', 2L)
+        logger$setLevel('error', 2L)
+        logger$setLevel('warning', 2L)
+        biodb$addObservers(logger)
+    }
+    
+    # Add acknowledger
+    if (ack) {
+        ack <- BiodbTestMsgAck()
+        biodb$addObservers(ack)
     }
 
-    return(BIODB_TEST_LOG_FD)
+    return(biodb)
+}
+
+# Add message recorder observer {{{1
+################################################################################
+
+addMsgRecObs <- function(biodb) {
+    ":\n\nCreate a BiodbTestMsgRec observer instance and add it the Biodb
+    instance.
+    \nbiodb: A valid Biodb instance.
+    \nReturned value: The create BiodbTestMsgRec observer instance.
+    "
+
+    # Create observer
+    obs <- BiodbTestMsgRec()
+
+    # Set observer
+    biodb$addObservers(obs)
+
+    return(obs)
 }
