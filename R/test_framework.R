@@ -245,3 +245,16 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     invisible(NULL)
 }
 
+# Get test log file descriptor {{{1
+################################################################
+
+#' @export
+getTestLogFD <- function() {
+
+    if ( ! exists('BIODB_TEST_LOG_FD')) {
+        fp <- file.path(getwd(), 'biodb_test.log')
+        assign('BIODB_TEST_LOG_FD', file(fp, open='w'), pos=.GlobalEnv)
+    }
+
+    return(BIODB_TEST_LOG_FD)
+}

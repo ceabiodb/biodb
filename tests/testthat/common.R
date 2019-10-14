@@ -9,7 +9,6 @@ TEST.DIR <- file.path(getwd(), '..')
 OUTPUT.DIR <- file.path(TEST.DIR, 'output')
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
-USERAGENT <- 'biodb.test ; pierrick.roger@cea.fr'
 
 MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
@@ -69,24 +68,13 @@ tmpbiodb$terminate()
 tmpbiodb <- NULL
 dbinf <- NULL
 
-# Get log file descriptor {{{1
-################################################################
-
-get.log.file.descriptor <- function() {
-
-	if ( ! exists('LOG.FD'))
-		assign("LOG.FD", file(file.path(TEST.DIR, 'test.log'), open = 'w'), pos = .GlobalEnv)
-
-	return(LOG.FD)
-}
-
 # Create Biodb instance {{{1
 ################################################################
 
 create.biodb.instance <- function() {
 
 	# Create logger
-	logger <- BiodbLogger(file = get.log.file.descriptor(), close.file = FALSE)
+	logger <- biodb::BiodbLogger(file=biodb::getTestLogFD(), close.file=FALSE)
 	logger$setLevel('caution', 2L)
 	logger$setLevel('debug', 2L)
 	logger$setLevel('info', 2L)
@@ -100,14 +88,6 @@ create.biodb.instance <- function() {
 	biodb <- Biodb$new()
 	biodb$addObservers(test.observer)
 	biodb$addObservers(logger)
-
-	# Set user agent
-	biodb$getConfig()$set('useragent', USERAGENT)
-
-	# Online
-	biodb$getConfig()$disable('cache.read.only')
-	biodb$getConfig()$enable('allow.huge.downloads')
-#	biodb$getConfig()$disable('offline')
 
 	return(biodb)
 }
