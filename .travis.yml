@@ -3,7 +3,7 @@ cache: packages
 r: release
 
 env:
-    - BIODB_OFFLINE=true
+    - BIODB_OFFLINE=true BIODB_USERAGENT="biodb.test ; pierrick.roger@cea.fr"
 
 before_install:
     - sudo apt-get install -y libmagick++-dev
