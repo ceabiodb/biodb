@@ -1,8 +1,8 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
 biodb <- biodb::createBiodbTestInstance()
 obs <- biodb::addMsgRecObs(biodb)
+MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
 
 # Set context
 biodb::setTestContext(biodb, "Test BiodbFactory.")

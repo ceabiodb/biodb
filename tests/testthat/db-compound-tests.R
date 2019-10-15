@@ -6,7 +6,7 @@
 test.searchCompound <- function(db) {
 
 	# Get an entry
-	id <- list.ref.entries(db$getId())[[1]]
+	id <- biodb::listTestRefEntries(db$getId())[[1]]
 	expect_true( ! is.null(id))
 	expect_length(id, 1)
 	entry <- db$getEntry(id, drop = TRUE)
@@ -123,7 +123,7 @@ test.annotateMzValues_real_values <- function(conn) {
 	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
 	# Get entries
-	ids <- list.ref.entries(conn$getId())
+	ids <- biodb::listTestRefEntries(conn$getId())
 	entries <- conn$getEntry(ids, drop = FALSE)
 
 	# Loop on mass fields
@@ -180,7 +180,7 @@ test_annotateMzValues_input_vector <- function(conn) {
 	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
 	# Get entries
-	ids <- list.ref.entries(conn$getId())
+	ids <- biodb::listTestRefEntries(conn$getId())
 	entries <- conn$getEntry(ids, drop = FALSE)
 
 	# Loop on mass fields
@@ -220,7 +220,7 @@ test_annotateMzValues_additional_fields <- function(conn) {
 	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
 	# Get entries
-	ids <- list.ref.entries(conn$getId())
+	ids <- biodb::listTestRefEntries(conn$getId())
 	entries <- conn$getEntry(ids, drop = FALSE)
 
 	# Loop on mass fields
@@ -271,7 +271,7 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
 	# Get entries
-	ids <- list.ref.entries(conn$getId())
+	ids <- biodb::listTestRefEntries(conn$getId())
 	entries <- conn$getEntry(ids, drop = FALSE)
 
 	# Loop on mass fields
@@ -311,7 +311,7 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 	mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
 	# Get entries
-	ids <- list.ref.entries(conn$getId())
+	ids <- biodb::listTestRefEntries(conn$getId())
 	entries <- conn$getEntry(ids, drop = FALSE)
 
 	# Loop on mass fields
@@ -357,12 +357,12 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 ################################################################################
 
 if (conn$isCompounddb()) {
-	biodb::testThat('searchCompound() fails if no mass field is set.', 'test.searchCompound.no.mass.field', conn = conn)
-	biodb::testThat('We can search for a compound', 'test.searchCompound', conn = conn)
-	biodb::testThat('annotateMzValues() works correctly.', 'test.annotateMzValues', conn = conn)
-	biodb::testThat('annotateMzValues() works correctly with real values.', 'test.annotateMzValues_real_values', conn = conn)
-	biodb::testThat('We can use a single vector as input for annotateMzValues()', 'test_annotateMzValues_input_vector', conn = conn)
-	biodb::testThat('We can ask for additional fields in annotateMzValues()', 'test_annotateMzValues_additional_fields', conn = conn)
-	biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', 'test_annotateMzValues_ppm_tol', conn = conn)
-	biodb::testThat('Input data frame is output untouched for annotateMzValues()', 'test_annotateMzValues_input_dataframe_untouched', conn = conn)
+	biodb::testThat('searchCompound() fails if no mass field is set.', test.searchCompound.no.mass.field, conn = conn)
+	biodb::testThat('We can search for a compound', test.searchCompound, conn = conn)
+	biodb::testThat('annotateMzValues() works correctly.', test.annotateMzValues, conn = conn)
+	biodb::testThat('annotateMzValues() works correctly with real values.', test.annotateMzValues_real_values, conn = conn)
+	biodb::testThat('We can use a single vector as input for annotateMzValues()', test_annotateMzValues_input_vector, conn = conn)
+	biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn = conn)
+	biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', test_annotateMzValues_ppm_tol, conn = conn)
+	biodb::testThat('Input data frame is output untouched for annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn = conn)
 }

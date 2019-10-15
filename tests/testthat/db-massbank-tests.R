@@ -37,7 +37,7 @@ test.massbank.relative.intensity = function(conn, obs) {
 	conn$deleteAllCacheEntries()
 
 	# Get reference entries
-	ref.ids = list.ref.entries(conn$getDbClass())
+	ref.ids = biodb::listTestRefEntries(conn$getDbClass())
 
 	# Loop on all ref entry IDs
 	for (id in ref.ids) {

@@ -40,7 +40,7 @@ test_getDecoratedGraphPicture = function(conn) {
     if (require('magick')) {
         detach('package:magick') # Force using namespace.
         testthat::expect_is(graph_pix, 'magick-image')
-        magick::image_write(graph_pix, path = file.path(OUTPUT.DIR, 'test_getDecoratedGraphPicture_image.png'), format = 'png')
+        magick::image_write(graph_pix, path = file.path(biodb::getTestOutputDir(), 'test_getDecoratedGraphPicture_image.png'), format = 'png')
     }
     else
         testthat::expect_null(graph_pix)
@@ -53,7 +53,7 @@ test_getDecoratedGraphPicture_not_a_compound = function(conn) {
 
     c = list(red = 'not_a_compound')
     fn <- 'test_getDecoratedGraphPicture_not_a_compound_image.png'
-    fp <- file.path(OUTPUT.DIR, fn)
+    fp <- file.path(biodb::getTestOutputDir(), fn)
     graph_pix = conn$getDecoratedGraphPicture('mmu00260', color2ids = c)
     if (require('magick')) {
         detach('package:magick') # Force using namespace.

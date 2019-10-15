@@ -424,3 +424,94 @@ addMsgRecObs <- function(biodb) {
 
     return(obs)
 }
+
+# List reference entries {{{1
+################################################################
+
+listTestRefEntries <- function(db) {
+
+	# List json files
+	files <- Sys.glob(file.path(getwd(), 'res', paste('entry', db, '*.json', sep = '-')))
+	if (length(files) == 0)
+		stop(paste0("No JSON reference files for database ", db, "."))
+
+	# Extract ids
+	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
+
+	# Replace encoded special characters
+	ids = gsub('%3a', ':', ids)
+
+	return(ids)
+}
+
+# Load ref entry {{{1
+################################################################
+
+loadTestRefEntry <- function(db, id) {
+
+	# Replace forbidden characters
+	id = gsub(':', '%3a', id)
+
+	# Entry file
+	file <- file.path(getwd(), 'res', paste('entry-', db, '-', id, '.json', sep = ''))
+	expect_true(file.exists(file), info = paste0('Cannot find file "', file, '" for ', db, ' reference entry', id, '.'))
+
+	# Load JSON
+	json <- jsonlite::fromJSON(file)
+
+	# Set NA values
+	for (n in names(json))
+		if (length(json[[n]]) == 1) {
+			if (json[[n]] == 'NA_character_')
+				json[[n]] <- NA_character_
+		}
+
+	return(json)
+}
+
+# Load reference entries {{{1
+################################################################
+
+loadTestRefEntries <- function(db) {
+
+	entries.desc <- NULL
+
+	# List JSON files
+	entry.json.files <- Sys.glob(file.path(getwd(), 'res', paste('entry', db, '*.json', sep = '-')))
+
+	# Loop on all JSON files
+	for (f in entry.json.files) {
+
+		# Load entry from JSON
+		entry <- jsonlite::read_json(f)
+
+		# Replace NULL values by NA
+		entry <- lapply(entry, function(x) if (is.null(x)) NA else x)
+
+		# Convert to data frame
+		entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
+
+		# Append entry to main data frame
+		entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
+	}
+
+	return(entries.desc)
+}
+
+# Get test output directory {{{1
+################################################################################
+
+#' Get the test output directory.
+#'
+#' Returns the path to the test output directory.
+#'
+#' @return The path to the test output directory, as a character value.
+#'
+#' @examples
+#' # Get the test output directory:
+#' biodb::getTestOutputDir()
+#'
+#' @export
+getTestOutputDir <- function() {
+    return(file.path(getwd(), 'output'))
+}

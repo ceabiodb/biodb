@@ -10,7 +10,7 @@ test.entry.fields <- function(db) {
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db.name)
+    ref.ids <- listTestRefEntries(db.name)
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
@@ -20,7 +20,7 @@ test.entry.fields <- function(db) {
     biodb$computeFields(entries)
 
     # Save downloaded entries as JSON
-    json.files <- file.path(OUTPUT.DIR, paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
+    json.files <- file.path(getTestOutputDir(), paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
     biodb$saveEntriesAsJson(entries, json.files)
 
     # Loop on all entries
@@ -42,7 +42,7 @@ test.entry.fields <- function(db) {
         expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
 
         # Load reference entry
-        ref.entry <- load.ref.entry(db.name, id)
+        ref.entry <- loadTestRefEntry(db.name, id)
 
         # Loop on all reference fields
         for (f in names(ref.entry)) {
@@ -100,7 +100,7 @@ test.wrong.entry.among.good.ones <- function(db) {
    db.name <- db$getId()
 
    # Load reference entries
-   entries.desc <- load.ref.entries(db.name)
+   entries.desc <- loadTestRefEntries(db.name)
 
    # Test a wrong accession number
    ids <- c('WRONGB', entries.desc[['accession']])
@@ -120,7 +120,7 @@ test.peak.table <- function(db) {
     db.name <- db$getId()
 
     # Load reference entries
-    entries.desc <- load.ref.entries(db.name)
+    entries.desc <- loadTestRefEntries(db.name)
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
@@ -171,7 +171,7 @@ test.entry.ids <- function(db) {
 test.rt.unit <- function(db) {
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db$getId())
+    ref.ids <- listTestRefEntries(db$getId())
 
     # Get entries
     entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), id = ref.ids, drop = FALSE)
@@ -187,7 +187,7 @@ test.rt.unit <- function(db) {
 test.entry.page.url <- function(db) {
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db$getId())
+    ref.ids <- listTestRefEntries(db$getId())
 
     # Get URLs
     urls <- db$getEntryPageUrl(ref.ids)
@@ -203,7 +203,7 @@ test.entry.page.url <- function(db) {
 test.entry.image.url <- function(db) {
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db$getId())
+    ref.ids <- listTestRefEntries(db$getId())
 
     # Get URLs
     urls <- db$getEntryImageUrl(ref.ids)
@@ -219,7 +219,7 @@ test.entry.image.url <- function(db) {
 test.entry.page.url.download <- function(db) {
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db$getId())
+    ref.ids <- listTestRefEntries(db$getId())
 
     # Get URL
     url <- db$getEntryPageUrl(ref.ids[[1]])
@@ -240,7 +240,7 @@ test.entry.page.url.download <- function(db) {
 test.entry.image.url.download <- function(db) {
 
     # Get IDs of reference entries
-    ref.ids <- list.ref.entries(db$getId())
+    ref.ids <- listTestRefEntries(db$getId())
 
     # Get URL
     url <- db$getEntryImageUrl(ref.ids[[1]])
@@ -290,7 +290,7 @@ test.db.editing = function(conn) {
 test.db.writing.with.col.add = function(conn) {
 
     # Set database file
-    db.file <- file.path(OUTPUT.DIR, paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
+    db.file <- file.path(getTestOutputDir(), paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -345,7 +345,7 @@ test.db.writing = function(conn) {
     entry = conn$getEntry(conn$getEntryIds(1))
 
     # Set database file
-    db.file <- file.path(OUTPUT.DIR, paste('test.db.writing', conn$getDbClass(), 'db', sep = '.'))
+    db.file <- file.path(getTestOutputDir(), paste('test.db.writing', conn$getDbClass(), 'db', sep = '.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -401,7 +401,7 @@ test.db.copy = function(conn) {
     biodb = conn$getBiodb()
 
     # Set database file
-    db.file <- file.path(OUTPUT.DIR, paste('test.db.copy', conn$getDbClass(), 'db', sep = '.'))
+    db.file <- file.path(getTestOutputDir(), paste('test.db.copy', conn$getDbClass(), 'db', sep = '.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -434,7 +434,7 @@ test.searchByName = function(conn) {
 
     if (conn$isSearchableByField('name')) {
         # Get an entry
-        id <- list.ref.entries(conn$getId())[[1]]
+        id <- listTestRefEntries(conn$getId())[[1]]
         testthat::expect_true( ! is.null(id))
         testthat::expect_length(id, 1)
         entry <- conn$getEntry(id, drop = TRUE)
