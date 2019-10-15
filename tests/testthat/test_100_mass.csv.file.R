@@ -1,4 +1,8 @@
-# vi: fdm=marker
+# vi: fdm=marker ts=4 et cc=80 tw=80
+
+MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
+MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_header.tsv')
+MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_nb_cols.tsv')
 
 # Test basic mass.csv.file {{{1
 ################################################################
@@ -506,6 +510,20 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+
+# Set context
+biodb::setTestContext(biodb, "Test Mass CSV File connector.")
+
+# Create connector
+conn <- biodb$getFactory()$createConn('mass.csv.file')
+conn$setUrl('base.url', MASSFILEDB.URL)
+conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
+biodb$getCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
+
+# Run tests
+biodb::runGenericTests(conn)
 biodb::testThat("MassCsvFileConn methods are correct", test.basic.mass.csv.file, conn = conn)
 biodb::testThat("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns, conn = conn)
 
@@ -524,3 +542,6 @@ biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, bi
 biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb = biodb)
 biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb = biodb)
 biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id, biodb = biodb)
+
+# Terminate Biodb
+biodb$terminate()

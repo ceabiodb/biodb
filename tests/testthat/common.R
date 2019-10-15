@@ -9,18 +9,6 @@ TEST.DIR <- getwd()
 RES.DIR  <- file.path(TEST.DIR, 'res')
 REF.FILES.DIR <- file.path(RES.DIR, 'ref-files')
 
-MASSFILEDB.URL <- file.path(RES.DIR, 'mass.csv.file.tsv')
-MASSFILEDB.WRONG.HEADER.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_header.tsv')
-MASSFILEDB.WRONG.NB.COLS.URL <- file.path(RES.DIR, 'mass.csv.file-wrong_nb_cols.tsv')
-
-MASS.SQLITE.URL = file.path(biodb::getTestOutputDir(), 'mass.sqlite.file.sqlite')
-
-# Create output directory {{{1
-################################################################
-
-if ( ! file.exists(biodb::getTestOutputDir()))
-	dir.create(biodb::getTestOutputDir())
-
 # Set databases to test {{{1
 ################################################################
 

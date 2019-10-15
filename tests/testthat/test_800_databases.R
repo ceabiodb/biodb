@@ -20,12 +20,6 @@ for (db.name in TEST.DATABASES) {
 	# Generic tests
 	biodb::runGenericTests(conn)
 
-	# Compound database testing
-	source('db-compound-tests.R', local=TRUE)
-
-	# Mass database testing
-	source('db-ms-tests.R', local=TRUE)
-
 	# Specific tests
 	f <- paste('db', db.name, 'tests.R', sep='-')
 	testthat::expect_true(file.exists(f))

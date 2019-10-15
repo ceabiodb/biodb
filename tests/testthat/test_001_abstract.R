@@ -1,11 +1,4 @@
-# vi: fdm=marker
-
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test abstract declaration.")
+# vi: fdm=marker ts=4 et cc=80 tw=80
 
 # Test abstract class declaration {{{1
 ################################################################
@@ -18,6 +11,14 @@ test.abstractClass.declaration <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test abstract declaration.")
+
+# Run tests
 biodb::testThat("An abstract class cannot be instantiated.", test.abstractClass.declaration, biodb=biodb, obs=obs)
 
 # Terminate Biodb
