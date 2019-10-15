@@ -89,16 +89,16 @@ test_extractPathwayMapShapes <- function(conn) {
 ################################################################################
 
 biodb::testThat('getReactions() works correctly.',
-          'test_kegg_pathway_getReactions', conn = conn)
+          test_kegg_pathway_getReactions, conn = conn)
 biodb::testThat('buildPathwayGraph() works correctly.',
-          'test_kegg_pathway_buildPathwayGraph', conn = conn)
+          test_kegg_pathway_buildPathwayGraph, conn = conn)
 biodb::testThat('getPathwayIgraph() works correctly.',
-          'test_kegg_pathway_getPathwayIgraph', conn = conn)
+          test_kegg_pathway_getPathwayIgraph, conn = conn)
 biodb::testThat('We can build a decorated pathway graph.',
-          'test_getDecoratedGraphPicture', conn = conn)
+          test_getDecoratedGraphPicture, conn = conn)
 biodb::testThat('getDecoratedGraphPicture() does not fail when called with
 unexisting compounds.',
-          'test_getDecoratedGraphPicture_not_a_compound',
+          test_getDecoratedGraphPicture_not_a_compound,
           conn = conn)
 biodb::testThat('extractPathwayMapShapes() works correctly.',
-          'test_extractPathwayMapShapes', conn = conn)
+          test_extractPathwayMapShapes, conn = conn)

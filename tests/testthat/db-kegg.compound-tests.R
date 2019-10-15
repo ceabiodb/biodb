@@ -193,12 +193,12 @@ test.addInfo <- function(conn) {
 # Main {{{1
 ################################################################
 
-biodb::testThat('wsList() works correctly.', 'test.kegg.compound.wsList', conn = conn)
-biodb::testThat('wsFind() works correctly.', 'test.kegg.compound.wsFind', conn = conn)
-biodb::testThat('wsFindExactMass() works correctly.', 'test.kegg.compound.wsFindExactMass', conn = conn)
-biodb::testThat('wsFindMolecularWeight() works correctly.', 'test.kegg.compound.wsFindMolecularWeight', conn = conn)
-biodb::testThat('getPathwayIdsPerCompound() works correctly.', 'test.kegg.compound.getPathwayIdsPerCompound', conn = conn)
-biodb::testThat('getPathwayIds() works correctly.', 'test.kegg.compound.getPathwayIds', conn = conn)
-biodb::testThat('getPathwayIds() issue_333 is corrected', 'test.kegg.compound.getPathwayIds_issue_333_20190507', conn = conn)
-biodb::testThat('getPathwayIds() issue_338 is corrected', 'test.kegg.compound.getPathwayIds_issue_338_20190517', conn = conn)
-biodb::testThat('addInfo() works correctly.', 'test.addInfo', conn=conn)
+biodb::testThat('wsList() works correctly.', test.kegg.compound.wsList, conn = conn)
+biodb::testThat('wsFind() works correctly.', test.kegg.compound.wsFind, conn = conn)
+biodb::testThat('wsFindExactMass() works correctly.', test.kegg.compound.wsFindExactMass, conn = conn)
+biodb::testThat('wsFindMolecularWeight() works correctly.', test.kegg.compound.wsFindMolecularWeight, conn = conn)
+biodb::testThat('getPathwayIdsPerCompound() works correctly.', test.kegg.compound.getPathwayIdsPerCompound, conn = conn)
+biodb::testThat('getPathwayIds() works correctly.', test.kegg.compound.getPathwayIds, conn = conn)
+biodb::testThat('getPathwayIds() issue_333 is corrected', test.kegg.compound.getPathwayIds_issue_333_20190507, conn = conn)
+biodb::testThat('getPathwayIds() issue_338 is corrected', test.kegg.compound.getPathwayIds_issue_338_20190517, conn = conn)
+biodb::testThat('addInfo() works correctly.', test.addInfo, conn=conn)

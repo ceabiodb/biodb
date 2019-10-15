@@ -48,5 +48,5 @@ test.lipidmaps.structure.wsLmsdSearch = function(db) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("Test web service wsLmsdRecord.", 'test.lipidmaps.structure.wsLmsdRecord', conn = conn)
-biodb::testThat("Test web service wsLmsdSearch.", 'test.lipidmaps.structure.wsLmsdSearch', conn = conn)
+biodb::testThat("Test web service wsLmsdRecord.", test.lipidmaps.structure.wsLmsdRecord, conn = conn)
+biodb::testThat("Test web service wsLmsdSearch.", test.lipidmaps.structure.wsLmsdSearch, conn = conn)

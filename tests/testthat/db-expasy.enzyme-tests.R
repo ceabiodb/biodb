@@ -25,5 +25,5 @@ test.wsEnzymeByComment <- function(db) {
 # Main {{{1
 ################################################################
 
-biodb::testThat('Calls to enzyme-byname ExPASy Enzyme web service work fine.', 'test.wsEnzymeByName', conn = conn)
-biodb::testThat('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', 'test.wsEnzymeByComment', conn = conn)
+biodb::testThat('Calls to enzyme-byname ExPASy Enzyme web service work fine.', test.wsEnzymeByName, conn = conn)
+biodb::testThat('Calls to enzyme-bycomment ExPASy Enzyme web service work fine.', test.wsEnzymeByComment, conn = conn)

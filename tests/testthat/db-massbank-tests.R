@@ -51,6 +51,6 @@ test.massbank.relative.intensity = function(conn, obs) {
 # Main {{{1
 ################################################################
 
-biodb::testThat('Relative intensity is parsed correctly.', 'test.massbank.relative.intensity', conn = conn, obs = obs)
-biodb::testThat('MSMS search works for Massbank.', 'test.msmsSearch.massbank', conn = conn)
-biodb::testThat('The computing of inchikey field in a Massbank entry does not loop indefinitely.', 'test.issue150.inchikey.computing.loop.in.massbank', conn = conn)
+biodb::testThat('Relative intensity is parsed correctly.', test.massbank.relative.intensity, conn = conn, obs = obs)
+biodb::testThat('MSMS search works for Massbank.', test.msmsSearch.massbank, conn = conn)
+biodb::testThat('The computing of inchikey field in a Massbank entry does not loop indefinitely.', test.issue150.inchikey.computing.loop.in.massbank, conn = conn)

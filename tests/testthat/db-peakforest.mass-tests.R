@@ -47,6 +47,6 @@ test.peakforest.mass.token.init <- function(biodb) {
 # Main {{{1
 ################################################################
 
-biodb::testThat('Test token init.', 'test.peakforest.mass.token.init', biodb = conn$getBiodb())
+biodb::testThat('Test token init.', test.peakforest.mass.token.init, biodb = conn$getBiodb())
 
-biodb::testThat('Test if RT match gives same result with minutes and seconds in input.', 'test.peakforest.mass.rt.match.with.different.units', conn = conn)
+biodb::testThat('Test if RT match gives same result with minutes and seconds in input.', test.peakforest.mass.rt.match.with.different.units, conn = conn)

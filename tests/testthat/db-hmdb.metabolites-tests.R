@@ -17,4 +17,4 @@ test.hmdbmetabolite.nbentries <- function(db) {
 # Main {{{1
 ################################################################
 
-biodb::testThat("HMDB metabolite returns enough entries ", 'test.hmdbmetabolite.nbentries', conn = conn)
+biodb::testThat("HMDB metabolite returns enough entries ", test.hmdbmetabolite.nbentries, conn = conn)

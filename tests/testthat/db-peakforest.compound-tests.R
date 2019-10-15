@@ -54,6 +54,6 @@ test.peakforest.compound.wsAllIds <- function(db) {
 # Main {{{1
 ################################################################
 
-biodb::testThat('Web service "search" works.', 'test.peakforest.compound.wsSearch', conn = conn)
-biodb::testThat('Web service "all.count" works.', 'test.peakforest.compound.wsAllCount', conn = conn)
-biodb::testThat('Web service "all.ids" works.', 'test.peakforest.compound.wsAllIds', conn = conn)
+biodb::testThat('Web service "search" works.', test.peakforest.compound.wsSearch, conn = conn)
+biodb::testThat('Web service "all.count" works.', test.peakforest.compound.wsAllCount, conn = conn)
+biodb::testThat('Web service "all.ids" works.', test.peakforest.compound.wsAllIds, conn = conn)
