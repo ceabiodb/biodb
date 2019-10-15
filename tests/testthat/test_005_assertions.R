@@ -16,7 +16,7 @@ test.assertPositive <- function(biodb, obs) {
 		biodb$.assertPositive(mz)
 	mz <- -1
 	expect_error(biodb$.assertPositive(mz))
-	expect_equal(obs$lastMsg(), "mz (-1) cannot be negative.")
+	expect_equal(obs$getLastMsg(), "mz (-1) cannot be negative.")
 }
 
 # Test assert.in {{{1
@@ -27,7 +27,7 @@ test.assertIn <- function(biodb, obs) {
 	biodb$.assertIn('aaa', c('aaa', 'bbb'))
 	str <- 'ccc'
 	expect_error(biodb$.assertIn(str, c('aaa', 'bbb')))
-	expect_equal(obs$lastMsg(), "str cannot be set to ccc. Allowed values are: aaa, bbb.")
+	expect_equal(obs$getLastMsg(), "str cannot be set to ccc. Allowed values are: aaa, bbb.")
 }
 
 # Test assert.not.na {{{1
@@ -39,7 +39,7 @@ test.assertNotNa <- function(biodb, obs) {
 	biodb$.assertNotNa(c(1, 3, 10))
 	for (myvar in list(NA_real_, c(1.0, NA_real_))) {
 		expect_error(biodb$.assertNotNa(myvar))
-		expect_equal(obs$lastMsg(), "myvar cannot be set to NA.")
+		expect_equal(obs$getLastMsg(), "myvar cannot be set to NA.")
 	}
 }
 
@@ -51,7 +51,7 @@ test.assertNotNull <- function(biodb, obs) {
 	biodb$.assertNotNull(10)
 	myvar <- NULL
 	expect_error(biodb$.assertNotNull(myvar))
-	expect_equal(obs$lastMsg(), "myvar cannot be NULL.")
+	expect_equal(obs$getLastMsg(), "myvar cannot be NULL.")
 }
 
 # Test assert.inferior {{{1
@@ -64,7 +64,7 @@ test.assertInferior <- function(biodb, obs) {
 	biodb$.assertInferior(small, big)
 	myvar <- NULL
 	expect_error(biodb$.assertInferior(big, small))
-	expect_equal(obs$lastMsg(), "big (20) cannot be greater than small (10).")
+	expect_equal(obs$getLastMsg(), "big (20) cannot be greater than small (10).")
 }
 
 # Test assert.length.one {{{1
@@ -75,7 +75,7 @@ test.assertLengthOne <- function(biodb, obs) {
 	biodb$.assertLengthOne(10)
 	myvar <- c(10, 20)
 	expect_error(biodb$.assertLengthOne(myvar))
-	expect_equal(obs$lastMsg(), "Length of myvar (2) must be one.")
+	expect_equal(obs$getLastMsg(), "Length of myvar (2) must be one.")
 }
 
 # Test searchMsEntries assert {{{1
@@ -90,7 +90,7 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 
 	# Call searchMsEntries() with wrong ms.level
 	expect_error(ids <- conn$searchMsEntries(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = -1))
-	expect_equal(obs$lastMsg(), "ms.level (-1) cannot be negative.")
+	expect_equal(obs$getLastMsg(), "ms.level (-1) cannot be negative.")
 
 	# Destroy connector
 	biodb$getFactory()$deleteConn(conn$getId())

@@ -144,10 +144,10 @@ hasMsgs=function(type=NULL) {
     return(f)
 },
 
-# lastMsg {{{2
+# getLastMsg {{{2
 ################################################################################
 
-lastMsg = function() {
+getLastMsg = function() {
     ":\n\nGet the last message received.
     \nReturned value: The last message received as a character value.
     "
@@ -329,19 +329,36 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 # Create Biodb test instance {{{1
 ################################################################
 
+#' Creating a Biodb instance for tests.
+#'
+#' Creates a Biodb instance with options specially adapted for tests.
+#' You can request the logging of all messages into a log file.
+#' It is also possible to ask for the creation of a BiodbTestMsgAck observer,
+#' which will receive all messages and emit a testthat test for each message.
+#' This will allow the testthat output to not stall a long time while, for
+#' example, downloading or extracting a database.
+#' Do not forget to call `terminate()` on your instance at the end of your
+#' tests.
+#'
+#' @param log The name of the log file to create. If set to NULL, no log file
+#' will be created.
+#' @param ack If set to TRUE, an instance of BiodbTestMsgAck will be attached to
+#' the Biodb instance.
+#' @return The created Biodb instance.
+#'
+#' @examples
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
+#' # Terminate the instance
+#' biodb$terminate()
+#'
 #' @export
 createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
-    ":\n\nCreate a Biodb instance for tests. Do not forget to call `terminate()`
-    on your instance at the end of your tests.
-    \nlog: The name of the log file to create. If set to NULL, to log file will
-    be created.
-    \nack: If set to TRUE, an instance of BiodbTestMsgAck will be attached to the Biodb instance.
-    \nReturned value: The created Biodb instance.
-    "
 
     # Create instance
     biodb <- Biodb$new()
-    
+
     # Add logger
     if ( ! is.null(log) && is.character(log) && length(log) == 1
         && nchar(log) > 0) {
@@ -353,7 +370,7 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
         logger$setLevel('warning', 2L)
         biodb$addObservers(logger)
     }
-    
+
     # Add acknowledger
     if (ack) {
         ack <- BiodbTestMsgAck()
@@ -366,12 +383,38 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
 # Add message recorder observer {{{1
 ################################################################################
 
+#' Add a message recorder to a Biodb instance.
+#'
+#' Creates a BiodbTestMsgRec observer instance and add it to a Biodb instance.
+#' Sometimes it is required to test if a message has been emitted.
+#' This function adds a BiodbTestMsgRec observer to a Biodb instance. This class
+#' is target adapted to message testing, since you are then able to retrieve, for
+#' example, the last message emitted.
+#'
+#' @param biodb A valid Biodb instance.
+#' @return The created BiodbTestMsgRec observer instance.
+#'
+#' @examples
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
+#' # Get a message recorder observer
+#' obs <- biodb::addMsgRecObs(biodb)
+#'
+#' # Create a connector
+#' conn <- biodb$getFactory()$createConn('mass.csv.file')
+#'
+#' # Delete the connector
+#' biodb$getFactory()$deleteConn(conn)
+#'
+#' # Get last message
+#' obs$getLastMsg()
+#'
+#' # Terminate the instance
+#' biodb$terminate()
+#'
+#' @export
 addMsgRecObs <- function(biodb) {
-    ":\n\nCreate a BiodbTestMsgRec observer instance and add it the Biodb
-    instance.
-    \nbiodb: A valid Biodb instance.
-    \nReturned value: The create BiodbTestMsgRec observer instance.
-    "
 
     # Create observer
     obs <- BiodbTestMsgRec()
