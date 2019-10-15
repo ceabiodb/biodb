@@ -1,11 +1,5 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-
-# Set context
-biodb::setTestContext(biodb, "Test object printing.")
-
 # Test BiodbCache show {{{1
 ################################################################
 
@@ -82,6 +76,13 @@ test.BiodbEntryFields.show <- function(biodb) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+
+# Set context
+biodb::setTestContext(biodb, "Test object printing.")
+
+# Run tests
 biodb::testThat("Biodb show method returns correct information.", test.Biodb.show, biodb = biodb)
 biodb::testThat("BiodbCache show method returns correct information.", test.BiodbCache.show, biodb = biodb)
 biodb::testThat("BiodbConfig show method returns correct information.", test.BiodbConfig.show, biodb = biodb)

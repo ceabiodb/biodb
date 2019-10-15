@@ -503,7 +503,8 @@ loadTestRefEntries <- function(db) {
 
 #' Get the test output directory.
 #'
-#' Returns the path to the test output directory.
+#' Returns the path to the test output directory. The function creates this also
+#' this directory if it does not exist.
 #'
 #' @return The path to the test output directory, as a character value.
 #'
@@ -513,5 +514,10 @@ loadTestRefEntries <- function(db) {
 #'
 #' @export
 getTestOutputDir <- function() {
-    return(file.path(getwd(), 'output'))
+
+    p <- file.path(getwd(), 'output')
+    if ( ! dir.exists(p))
+        dir.create(p)
+
+    return(p)
 }

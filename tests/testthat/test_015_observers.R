@@ -1,12 +1,5 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test observers.")
-
 # Test deprecated methods {{{1
 ################################################################
 
@@ -50,6 +43,14 @@ test.default.messages <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test observers.")
+
+# Run tests
 biodb::testThat("Deprecated methods send correct message.", test.deprecatedMethods, biodb=biodb, obs=obs)
 biodb::testThat("Test what messages are printed by default.", test.default.messages, biodb=biodb, obs=obs)
 

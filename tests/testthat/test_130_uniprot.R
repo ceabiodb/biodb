@@ -44,6 +44,20 @@ test.uniprot.wsQuery.multiple.columns <- function(db) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+
+# Set context
+biodb::setTestContext(biodb, "Test Uniprot connector.")
+
+# Create connector
+conn <- biodb$getFactory()$createConn('uniprot')
+
+# Run tests
+biodb::runGenericTests(conn)
 biodb::testThat('Uniprot entries query works fine with an empty query.', test.uniprot.wsQuery.empty, conn = conn)
 biodb::testThat('Uniprot entries query works fine with multiple columns', test.uniprot.wsQuery.multiple.columns, conn = conn)
 biodb::testThat('Uniprot entries query works fine with a query by name.', test.uniprot.wsQuery.by.name, conn = conn)
+
+# Terminate Biodb
+biodb$terminate()

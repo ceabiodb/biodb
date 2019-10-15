@@ -1,12 +1,5 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test BiodbDbInfo.")
-
 # Test named properties {{{1
 ################################################################################
 
@@ -24,6 +17,14 @@ test.namedProp <- function(biodb) {
 # Main {{{1
 ################################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test BiodbDbInfo.")
+
+# Run tests
 biodb::testThat("Named properties work correctly.", test.namedProp, biodb = biodb)
 
 # Terminate Biodb

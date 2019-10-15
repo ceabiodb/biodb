@@ -1,12 +1,5 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test Biodb instance.")
-
 # Test convertEntryIdFieldToDbClass() {{{1
 ################################################################
 
@@ -353,6 +346,14 @@ test.entriesFieldToVctOrLst <- function(biodb, obs) {
 # Main {{{1
 ################################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test Biodb instance.")
+
+# Run tests
 biodb::testThat("convertEntryIdFieldToDbClass() works correctly.", test.convertEntryIdFieldToDbClass, biodb = biodb, obs = obs)
 biodb::testThat('collapseRows() works correctly.', test.collapseRows, biodb = biodb, obs = obs)
 biodb::testThat("entriesToDataframe() works correctly.", test.entriesToDataframe, biodb = biodb, obs = obs)

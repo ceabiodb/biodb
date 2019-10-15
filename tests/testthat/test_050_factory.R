@@ -1,11 +1,6 @@
 # vi: fdm=marker
 
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
 MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
-
-# Set context
-biodb::setTestContext(biodb, "Test BiodbFactory.")
 
 # Test connector already exists {{{1
 ################################################################
@@ -70,6 +65,14 @@ test.connectorDefaultValues <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test BiodbFactory.")
+
+# Run tests
 biodb::testThat("We detect when an identical connector already exists.", test.connectorAlreadyExists, biodb = biodb, obs = obs)
 biodb::testThat("A newly created connector get the default values.", test.connectorDefaultValues, biodb = biodb, obs = obs)
 biodb::testThat("Connectors are deleted.", test.connectorDeletion, biodb = biodb, obs = obs)

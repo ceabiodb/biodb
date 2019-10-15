@@ -1,12 +1,5 @@
 # vi: fdm=marker ts=4 et cc=80 tw=80
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test definition of extensions.")
-
 # Test new field {{{1
 ################################################################################
 
@@ -47,6 +40,14 @@ test_new_parsing_expr <- function(biodb) {
 # Main {{{1
 ################################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test definition of extensions.")
+
+# Run tests
 biodb::testThat("We can define a new field.", test_new_field, biodb = biodb)
 biodb::testThat("We can define a new parsing expression.", test_new_parsing_expr, biodb = biodb)
 

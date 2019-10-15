@@ -1,12 +1,5 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-obs <- biodb::addMsgRecObs(biodb)
-
-# Set context
-biodb::setTestContext(biodb, "Test assertions.")
-
 # Test assert.positive {{{1
 ################################################################
 
@@ -99,6 +92,14 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+obs <- biodb::addMsgRecObs(biodb)
+
+# Set context
+biodb::setTestContext(biodb, "Test assertions.")
+
+# Run tests
 biodb::testThat("Assertion of positive number works correctly", test.assertPositive, biodb = biodb, obs = obs)
 biodb::testThat("Assertion of enumerate works correctly", test.assertIn, biodb = biodb, obs = obs)
 biodb::testThat("Assertion of non NA value works correctly", test.assertNotNa, biodb = biodb, obs = obs)

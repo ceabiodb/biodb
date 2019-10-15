@@ -1,11 +1,5 @@
 # vi: fdm=marker
 
-source('common.R', local=TRUE)
-biodb <- biodb::createBiodbTestInstance()
-
-# Set context
-biodb::setTestContext(biodb, "Test config.")
-
 # Test listKeys {{{1
 ################################################################
 
@@ -21,6 +15,13 @@ test.listKeys <- function(biodb) {
 # Main {{{1
 ################################################################
 
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
+
+# Set context
+biodb::setTestContext(biodb, "Test config.")
+
+# Run tests
 biodb::testThat("Keys are listed correctly.", test.listKeys, biodb = biodb)
 
 # Terminate Biodb
