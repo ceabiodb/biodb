@@ -1,5 +1,5 @@
 Package: biodb
-Title: biodb, a library for connecting to chemical and biological databases.
+Title: biodb, a library for connecting to chemical and biological databases
 Version: 0.99.0
 Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")),
              person("Alexis", "Delabrière", email = "delabriere@imsb.biol.ethz.ch", role = "ctb"))
@@ -82,8 +82,6 @@ Collate:
     'BiodbWritable.R'
     'ChebiConn.R'
     'ChebiEntry.R'
-    'ChemspiderConn.R'
-    'ChemspiderEntry.R'
     'HmdbMetabolitesConn.R'
     'HmdbMetabolitesEntry.R'
     'KeggConn.R'

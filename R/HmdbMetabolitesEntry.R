@@ -18,7 +18,9 @@
 #' conn <- mybiodb$getFactory()$createConn('hmdb.metabolites')
 #'
 #' # Get an entry
+#' \dontrun{
 #' e <- conn$getEntry('HMDB0000001')
+#' }
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

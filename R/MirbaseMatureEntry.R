@@ -18,7 +18,9 @@
 #' conn <- mybiodb$getFactory()$createConn('mirbase.mature')
 #'
 #' # Get an entry
+#' \dontrun{
 #' e <- conn$getEntry('MIMAT0000433')
+#' }
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
