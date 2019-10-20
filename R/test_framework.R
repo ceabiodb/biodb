@@ -247,7 +247,7 @@ setTestContext <- function(biodb, text) {
     biodb$info(paste("Test context", text, sep = " - "))
     biodb$info(paste(rep('*', 80), collapse=''))
     biodb$info("")
-    
+
     invisible(NULL)
 }
 
@@ -425,23 +425,37 @@ addMsgRecObs <- function(biodb) {
     return(obs)
 }
 
-# List reference entries {{{1
+# List test reference entries {{{1
 ################################################################
 
-listTestRefEntries <- function(db) {
+#' List test reference entries.
+#'
+#' Lists the reference entries in the test folder for a specified connector.
+#'
+#' @param conn.id A valid Biodb connector ID.
+#' @return A list of entry IDs.
+#'
+#' @examples
+#' # List IDs of test reference entries for ChEBI:
+#' \dontrun{
+#' biodb::listTestRefEntries('chebi')
+#' }
+#'
+#' @export
+listTestRefEntries <- function(conn.id) {
 
-	# List json files
-	files <- Sys.glob(file.path(getwd(), 'res', paste('entry', db, '*.json', sep = '-')))
-	if (length(files) == 0)
-		stop(paste0("No JSON reference files for database ", db, "."))
+    # List json files
+    files <- Sys.glob(file.path(getwd(), 'res', paste('entry', conn.id, '*.json', sep = '-')))
+    if (length(files) == 0)
+        stop(paste0("No JSON reference files for database ", conn.id, "."))
 
-	# Extract ids
-	ids <- sub(paste('^.*/entry', db, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
+    # Extract ids
+    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
 
-	# Replace encoded special characters
-	ids = gsub('%3a', ':', ids)
+    # Replace encoded special characters
+    ids = gsub('%3a', ':', ids)
 
-	return(ids)
+    return(ids)
 }
 
 # Load ref entry {{{1
@@ -454,7 +468,7 @@ loadTestRefEntry <- function(db, id) {
 
 	# Entry file
 	file <- file.path(getwd(), 'res', paste('entry-', db, '-', id, '.json', sep = ''))
-	expect_true(file.exists(file), info = paste0('Cannot find file "', file, '" for ', db, ' reference entry', id, '.'))
+	testthat::expect_true(file.exists(file), info = paste0('Cannot find file "', file, '" for ', db, ' reference entry', id, '.'))
 
 	# Load JSON
 	json <- jsonlite::fromJSON(file)

@@ -34,12 +34,7 @@ ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 # Display values of main variables
 $(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
-$(info "BIODB_OFFLINE=$(BIODB_OFFLINE)")
-# TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
-$(info "DATABASES=$(DATABASES)")
-$(info "FUNCTIONS=$(FUNCTIONS)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
-$(info "GIT_VERSION=$(GIT_VERSION)")
 
 RFLAGS=--slave --no-restore
 

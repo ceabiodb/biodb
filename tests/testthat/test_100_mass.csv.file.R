@@ -520,7 +520,7 @@ biodb::setTestContext(biodb, "Test Mass CSV File connector.")
 conn <- biodb$getFactory()$createConn('mass.csv.file')
 conn$setUrl('base.url', MASSFILEDB.URL)
 conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-biodb$getCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
+biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
 
 # Run tests
 biodb::runGenericTests(conn)

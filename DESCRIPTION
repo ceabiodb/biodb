@@ -1,5 +1,5 @@
 Package: biodb
-Title: Biodb, a Library for Connecting to Chemical and Biological Databases
+Title: biodb, a library for connecting to chemical and biological databases.
 Version: 0.99.0
 Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")),
              person("Alexis", "Delabrière", email = "delabriere@imsb.biol.ethz.ch", role = "ctb"))
@@ -68,8 +68,8 @@ Collate:
     'BiodbListEntry.R'
     'BiodbLogger.R'
     'BiodbMassdbConn.R'
-    'BiodbRect.R'
     'BiodbPersitentCache.R'
+    'BiodbRect.R'
     'BiodbRequestScheduler.R'
     'BiodbRemotedbConn.R'
     'BiodbUrl.R'
@@ -84,8 +84,6 @@ Collate:
     'ChebiEntry.R'
     'ChemspiderConn.R'
     'ChemspiderEntry.R'
-    'ExpasyEnzymeConn.R'
-    'ExpasyEnzymeEntry.R'
     'HmdbMetabolitesConn.R'
     'HmdbMetabolitesEntry.R'
     'KeggConn.R'
@@ -110,8 +108,6 @@ Collate:
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
-    'MassbankConn.R'
-    'MassbankEntry.R'
     'MirbaseConn.R'
     'MirbaseMatureConn.R'
     'MirbaseMatureEntry.R'
@@ -136,6 +132,8 @@ Collate:
     'PeakforestMassEntry.R'
     'UniprotConn.R'
     'UniprotEntry.R'
-    'biodb-package.R'
+    'generic_tests.R'
     'mass_helpers.R'
+    'package.R'
     'spec-dist.R'
+    'test_framework.R'

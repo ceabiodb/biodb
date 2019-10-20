@@ -339,7 +339,7 @@ extractPathwayMapShapes=function(id, color2ids) {
     html <- .self$.getPathwayHtml(id)
     path_idx <- sub('^[^0-9]+', '', id)
     
-    cache <- .self$getBiodb()$getCache()
+    cache <- .self$getBiodb()$getPersistentCache()
     img_filename <- paste0('pathwaymap-', path_idx)
     cid <- .self$getCacheId()
     img_file <- cache$getFilePath(cid, img_filename, 'png')

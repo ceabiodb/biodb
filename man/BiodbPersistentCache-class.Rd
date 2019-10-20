@@ -13,20 +13,27 @@ results.
 It is designed for internal use, but you can still access some of
 the read-only methods if you wish.
 
-Inside the cache folder, two subfolders are created: "shortterm" and
-"longterm". The "shortterm" folder contains individual entry files. The
-"longterm" folder contains zip files of whole databases.
+Inside the cache folder, one folder is created for each cache ID (each remote
+database has one single cache ID, always the same ,except if you change its
+URL). In each of theses folders are stored the cache files for this database.
 }
 \section{Methods}{
 
 \describe{
-\item{\code{deleteFile(cache.id, subfolder, name, ext)}}{:
+\item{\code{deleteAllFiles(cache.id)}}{:
 
-Deletes a list of files inside a subfolder of the cache system.
+Deletes all files one cache ID in the cache system.
     
 cache.id: The cache ID to use.
     
-subfolder: A subfolder to use ("longterm" or "shortterm").
+Returned value: None.
+    }
+
+\item{\code{deleteFile(cache.id, name, ext)}}{:
+
+Deletes a list of files inside the cache system.
+    
+cache.id: The cache ID to use.
     
 name: A character vector containing file names.
     
@@ -35,13 +42,12 @@ ext: The extension of the files, without the dot ("html", "xml", etc).
 Returned value: None.
     }
 
-\item{\code{deleteFiles(cache.id, subfolder, ext = NA_character_)}}{:
+\item{\code{deleteFiles(cache.id, ext)}}{:
 
-Deletes all files inside a subfolder of the cache system.
+Deletes all files with the specific extension of one cache ID in the
+    cache system.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 ext: The extension of the files, without the dot ("html", "xml", etc).
     Only files having this extension will be deleted.
@@ -67,23 +73,18 @@ DEPRECATED method. Use now
     \code{BiodbConfig::isEnabled('cache.system')}.
     }
 
-\item{\code{eraseFolder(subfolder = NA_character_)}}{:
+\item{\code{erase()}}{:
 
-Erases the cache.
-    
-subfolder: The subfolder to erase ("longterm" or "shortterm"). If
-    unset, the whole cache will be erased.
+Erases the whole cache.
     
 Returned value: None.
     }
 
-\item{\code{fileExist(cache.id, subfolder, name, ext)}}{:
+\item{\code{fileExist(cache.id, name, ext)}}{:
 
 Tests if files exist in the cache.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing file names.
     
@@ -101,13 +102,11 @@ Gets the absolute path to the cache directory.
 Returned value: The absolute path of the cache directory.
     }
 
-\item{\code{getFilePath(cache.id, subfolder, name, ext)}}{:
+\item{\code{getFilePath(cache.id, name, ext)}}{:
 
 Gets path of file in cache system.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing file names.
     
@@ -117,18 +116,12 @@ Returned value: A character vector, the same size as \code{names},
     containing the paths to the files.
     }
 
-\item{\code{getSubFolderPath(subfolder)}}{:
-
-Gets the absolute path of a subfolder inside the cache system.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
-    
-Returned value: The absolute path to the subfolder.
-    }
-
 \item{\code{getVersion()}}{:
 
-Returns the cache version.}
+Returns the cache version.
+    
+Returned value: The current cache version.
+    }
 
 \item{\code{isReadable()}}{:
 
@@ -146,31 +139,27 @@ Returned value: \code{TRUE} if the cache system is writable,
     \code{FALSE} otherwise.
     }
 
-\item{\code{listFiles(cache.id, subfolder, ext = NA_character_, extract.name = FALSE)}}{:
+\item{\code{listFiles(cache.id, ext = NA_character_, extract.name = FALSE)}}{:
 
 Lists files present in the cache system.
     
 cache.id: The cache ID to use.
     
-subfolder: A subfolder to use ("longterm" or "shortterm").
-    
 ext: The extension of the files, without the dot ("html", "xml", etc).
     
 extract.name: If set to \code{TRUE}, instead of returning the file paths,
     returns the list of names used to construct the file name:
-    [cache_folder]/[subfolder]/[connid]-[name].[ext].
+    [cache_folder]/[cache.id]/[name].[ext].
     
 Returned value: The files of found files, or the names of the files if
     \code{extract.name} is set to \code{TRUE}.
     }
 
-\item{\code{loadFileContent(cache.id, subfolder, name, ext, output.vector = FALSE)}}{:
+\item{\code{loadFileContent(cache.id, name, ext, output.vector = FALSE)}}{:
 
 Loads content of files from the cache.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing file names.
     
@@ -186,15 +175,13 @@ Returned value: A list (or a vector if \code{output.vector} is set to
     the list.
     }
 
-\item{\code{markerExist(cache.id, subfolder, name)}}{:
+\item{\code{markerExist(cache.id, name)}}{:
 
 Tests if markers exist in the cache. Markers are used, for instance, by
     biodb to remember that a downloaded zip file from a database has been
     extracted correctly.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing marker names.
     
@@ -203,7 +190,7 @@ Returned value: A logical vector, the same size as \code{name}, with
     otherwise.
     }
 
-\item{\code{saveContentToFile(content, cache.id, subfolder, name, ext)}}{:
+\item{\code{saveContentToFile(content, cache.id, name, ext)}}{:
 
 Saves content to files into the cache.
     
@@ -212,8 +199,6 @@ content: A list or a character vector containing the contents of the
     
 cache.id: The cache ID to use.
     
-subfolder: A subfolder to use ("longterm" or "shortterm").
-    
 name: A character vector containing file names.
     
 ext: The extension of the files.
@@ -221,13 +206,11 @@ ext: The extension of the files.
 Returned value: None.
     }
 
-\item{\code{setMarker(cache.id, subfolder, name)}}{:
+\item{\code{setMarker(cache.id, name)}}{:
 
 Sets a marker.
     
 cache.id: The cache ID to use.
-    
-subfolder: A subfolder to use ("longterm" or "shortterm").
     
 name: A character vector containing marker names.
     
@@ -243,13 +226,13 @@ mybiodb <- biodb::Biodb()
 conn <- mybiodb$getFactory()$createConn('chebi')
 
 # Get the cache instance:
-cache <- mybiodb$getCache()
+cache <- mybiodb$getPersistentCache()
 
 # Get list of files inside the cache:
-files <- cache$listFiles(conn$getCacheId(), 'shortterm')
+files <- cache$listFiles(conn$getCacheId())
 
 # Delete files inside the cache:
-cache$deleteFiles(conn$getCacheId(), 'shortterm')
+cache$deleteAllFiles(conn$getCacheId())
 
 # Terminate instance.
 mybiodb$terminate()

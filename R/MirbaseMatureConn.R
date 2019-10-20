@@ -70,7 +70,7 @@ getEntryContentFromDb=function(entry.id) {
     .self$download()
 
     # Load content from cache
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ext <- .self$getPropertyValue('entry.content.type')
     content <- cch$loadFileContent(.self$getCacheId(),
                                    name=entry.id, ext=ext, output.vector=TRUE)
@@ -123,7 +123,7 @@ getEntryContentFromDb=function(entry.id) {
                           lines[seq(2, 2*length(ids), 2)], sep="\n")
 
         # Write all entries into files
-        cch <- .self$getBiodb()$getCache()
+        cch <- .self$getBiodb()$getPersistentCache()
         cch$deleteFiles(.self$getCacheId(),
                         ext=.self$getPropertyValue('entry.content.type'))
         cch$saveContentToFile(contents, cache.id=.self$getCacheId(),
@@ -146,7 +146,7 @@ getEntryContentFromDb=function(entry.id) {
     .self$download()
 
     # Get IDs from cache
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ids <- cch$listFiles(.self$getCacheId(),
                          ext=.self$getPropertyValue('entry.content.type'),
                          extract.name=TRUE)

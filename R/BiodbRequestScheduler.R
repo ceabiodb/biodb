@@ -123,7 +123,7 @@ sendRequest=function(request, cache.read=TRUE) {
     "
 
     content <- NA_character_
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     cfg <- .self$getBiodb()$getConfig()
 
     # Get rule

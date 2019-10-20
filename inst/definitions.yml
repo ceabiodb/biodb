@@ -38,10 +38,6 @@ config:
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 
-  chemspider.token:
-    type: character
-    description: The token to access ChemSpider database.
-
   compute.fields:
     type: logical
     description: If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.
@@ -163,43 +159,6 @@ databases:
     xml.ns:
       chebi: https://www.ebi.ac.uk/webservices/chebi
       xsd: http://www.w3.org/2001/XMLSchema
-
-# ChemSpider {{{2
-################################################################################
-  chemspider:
-    disabled: true
-    disabling.reason: "ChemSpider free plan has a limit of 1000 requests per month, which has limited the possibility of testing. We are working on reenabling this connector."
-    entry.content.type: json
-    name: ChemSpider
-    parsing.expr:
-      accession: id
-      average.mass: averageMass
-      formula: formula
-      inchi: inchi
-      inchikey: inchiKey
-      molecular.weight: molecularWeight
-      monoisotopic.mass: monoisotopicMass
-      name: commonName
-      nominal.mass: nominalMass
-      smiles: smiles
-    scheduler.n: 3
-    urls:
-      base.url: http://www.chemspider.com/
-      ws.url: https://api.rsc.org/compounds/v1/
-
-# ExPASy ENZYME {{{2
-################################################################################
-  expasy.enzyme:
-    entry.content.type: txt
-    name: ExPASy ENZYME
-    parsing.expr:
-      accession: ^ID\s+([0-9.]+)$
-      catalytic.activity: ^CA\s+(.+?)\.?$
-      cofactor: ^CF\s+(.+?)\.?$
-      name: ^DE\s+(.+?)\.?$
-    scheduler.n: 3
-    urls:
-      base.url: https://enzyme.expasy.org/
 
 # HMDB Metabolites {{{2
 ################################################################################
@@ -378,45 +337,6 @@ databases:
   mass.sqlite:
     entry.content.type: list
     name: Mass SQLite
-
-# MassBank {{{2
-################################################################################
-  massbank:
-    disabled: true
-    disabling.reason: "The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained. See https://github.com/pkrog/biodb/issues/30."
-    entry.content.type: txt
-    name: MassBank
-    parsing.expr:
-      accession: '^ACCESSION: (.+)$'
-      cas.id: '^CH\$LINK: CAS\s+(.+)$'
-      chebi.id: '^CH\$LINK: CHEBI\s+(.+)$'
-      chemspider.id: '^CH\$LINK: CHEMSPIDER\s+(.+)$'
-      chrom.col.name: '^AC\$CHROMATOGRAPHY: COLUMN_NAME\s+(.+)$'
-      chrom.flow.gradient: '^AC\$CHROMATOGRAPHY: FLOW_GRADIENT\s+(.+)$'
-      chrom.flow.rate: '^AC\$CHROMATOGRAPHY: FLOW_RATE\s+(.+)$'
-      chrom.solvent: '^AC\$CHROMATOGRAPHY: SOLVENT\s+(.+)$'
-      exact.mass: ^CH\$EXACT_MASS:\s+(.+)$
-      formula: ^CH\$FORMULA:\s+(.+)$
-      hmdb.metabolites.id: '^CH\$LINK: HMDB\s+(HMDB[0-9]+)'
-      inchi: ^CH\$IUPAC:\s+(.+)$
-      inchikey: '^CH\$LINK: INCHIKEY\s+(.+)$'
-      kegg.compound.id: '^CH\$LINK: KEGG\s+(.+)$'
-      msdev: '^AC\$INSTRUMENT: (.+)$'
-      msdevtype: '^AC\$INSTRUMENT_TYPE: (.+)$'
-      msmode: '^AC\$MASS_SPECTROMETRY: ION_MODE (.+)$'
-      msprecannot: '^MS\$FOCUSED_ION: PRECURSOR_TYPE (.+)$'
-      mstype: '^AC\$MASS_SPECTROMETRY: MS_TYPE (.+)$'
-      name: ^CH\$NAME:\s+(.+)$
-      nb.peaks: '^PK\$NUM_PEAK: ([0-9]+)$'
-      ncbi.pubchem.comp.id: '^CH\$LINK: PUBCHEM\s+((CID:)?[0-9]+)'
-      ncbi.pubchem.subst.id: '^CH\$LINK: PUBCHEM\s+.*(SID:[0-9]+)'
-      smiles: ^CH\$SMILES:\s+(.+)$
-    scheduler.n: 3
-    urls:
-      base.url: https://massbank.eu/
-      db.tar.url: https://github.com/MassBank/MassBank-data/archive/master.tar.gz
-      prefixes.file.url: https://raw.githubusercontent.com/MassBank/MassBank-data/master/List_of_Contributors_Prefixes_and_Projects.md
-    dwnld.ext: tar.gz
 
 # miRBase Mature {{{2
 ################################################################################
@@ -767,13 +687,6 @@ fields:
 
   mass.sqlite.id:
     description: Mass SQLite ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  massbank.id:
-    description: MassBank ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

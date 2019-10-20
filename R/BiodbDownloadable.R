@@ -64,7 +64,7 @@ getDownloadPath=function() {
     \nReturned value: The path where the downloaded database is written.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
@@ -88,7 +88,7 @@ isDownloaded=function() {
     \nReturned value: TRUE if the database content has already been downloaded.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     dwnlded  <- cch$markerExist(.self$getCacheId(),
                     name='downloaded')
 
@@ -109,7 +109,7 @@ isExtracted=function() {
     extracted, FALSE otherwise.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
                            name='extracted'))
 },
@@ -122,7 +122,7 @@ download=function() {
     \nReturned value: None.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
 
     # Download
     cfg <- .self$getBiodb()$getConfig()

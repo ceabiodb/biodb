@@ -128,7 +128,7 @@ getCacheFile=function(entry.id) {
     IDs.
     "
 
-    c <- .self$getBiodb()$getCache()
+    c <- .self$getBiodb()$getPersistentCache()
     fp <- c$getFilePath(.self$getCacheId(), entry.id, .self$getEntryFileExt())
 
     return(fp)
@@ -146,7 +146,7 @@ getEntryContent=function(id) {
     "
 
     content <- list()
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     nm <- .self$getPropertyValue('name')
 
     if ( ! is.null(id) && length(id) > 0) {

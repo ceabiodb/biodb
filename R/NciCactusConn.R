@@ -217,7 +217,7 @@ getEntryContentFromDb=function(entry.id) {
     fd <- gzfile(.self$getDownloadPath(), 'r')
 
     # Remove current entry files
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ect <- .self$getPropertyValue('entry.content.type')
     cch$deleteFiles(.self$getCacheId(), ext=ect)
 
@@ -263,7 +263,7 @@ getEntryContentFromDb=function(entry.id) {
     .self$download()
 
     # Get IDs from cache
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ids <- cch$listFiles(.self$getCacheId(),
                          ext=.self$getPropertyValue('entry.content.type'),
                          extract.name=TRUE)

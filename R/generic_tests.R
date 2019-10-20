@@ -33,13 +33,13 @@ test.entry.fields <- function(db) {
 
         # Get entry
         e <- entries[[i]]
-        expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
+        testthat::expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
 
         # Check IDs
-        expect_true(e$hasField('accession'), info = paste0(db.name, ' entry ', id, ' has no accession number.'))
-        expect_true(e$hasField(db.id.field), info = paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
-        expect_equal(id, e$getFieldValue('accession'), info = paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
-        expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
+        testthat::expect_true(e$hasField('accession'), info = paste0(db.name, ' entry ', id, ' has no accession number.'))
+        testthat::expect_true(e$hasField(db.id.field), info = paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
+        testthat::expect_equal(id, e$getFieldValue('accession'), info = paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
@@ -52,19 +52,19 @@ test.entry.fields <- function(db) {
                 v = as.data.frame(v, stringsAsFactors = FALSE)
 
             # Check value
-            expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
-            expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
-            expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
+            testthat::expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+            testthat::expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+            testthat::expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
-                expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse = ', '), ') is different in reference entry (', paste(v, collapse = ', '), ').'))
+                testthat::expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse = ', '), ') is different in reference entry (', paste(v, collapse = ', '), ').'))
             else
-                expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE = ''), collapse = ', '), '.'))
+                testthat::expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE = ''), collapse = ', '), '.'))
         }
 
         # Loop on all fields of loaded entry
         for (f in e$getFieldNames())
             if ( ! f %in% c(db.id.field, 'peaks'))
-                expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
+                testthat::expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
 
         # Store all encountered fields
         entry.fields <- c(entry.fields, e$getFieldNames())
@@ -88,7 +88,7 @@ test.wrong.entry <- function(db) {
 
     # Test a wrong accession number
     wrong.entry <- biodb$getFactory()$getEntry(db.name, id = 'WRONGA')
-    expect_null(wrong.entry)
+    testthat::expect_null(wrong.entry)
 }
 
 # Test wrong entry among good ones {{{1
@@ -105,9 +105,9 @@ test.wrong.entry.among.good.ones <- function(db) {
    # Test a wrong accession number
    ids <- c('WRONGB', entries.desc[['accession']])
    entries <- biodb$getFactory()$getEntry(db.name, id = ids)
-   expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
-   expect_null(entries[[1]])
-   expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
+   testthat::expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
+   testthat::expect_null(entries[[1]])
+   testthat::expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
 
 
@@ -124,19 +124,19 @@ test.peak.table <- function(db) {
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
-    expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
-    expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+    testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
+    testthat::expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
     # Check number of peaks
     if ('nbpeaks' %in% colnames(entries.desc)) {
 
         # Check that the registered number of peaks is correct
-        expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
+        testthat::expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
 
         # Check that the peak table has this number of peaks
         peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
-        expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
-        expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
+        testthat::expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
+        testthat::expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
 
         # Check that the peak table contains the right columns
         # TODO
@@ -150,7 +150,7 @@ test.nb.entries <- function(db) {
 
     # Test getNbEntries()
     n <- db$getNbEntries()
-    expect_true(is.na(n) || n >= 0)
+    testthat::expect_true(is.na(n) || n >= 0)
 }
 
 # Test entry ids {{{1
@@ -161,8 +161,8 @@ test.entry.ids <- function(db) {
     # Test getEntryIds()
     max <- 100
     ids <- db$getEntryIds(max.results = max)
-    expect_is(ids, 'character')
-    expect_true(length(ids) <= max)
+    testthat::expect_is(ids, 'character')
+    testthat::expect_true(length(ids) <= max)
 }
 
 # Test RT unit {{{1
@@ -178,7 +178,7 @@ test.rt.unit <- function(db) {
 
     # Loop on all entries
     for (e in entries)
-        expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
+        testthat::expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
 # Test entry page URL {{{1
@@ -193,8 +193,8 @@ test.entry.page.url <- function(db) {
     urls <- db$getEntryPageUrl(ref.ids)
 
     # Check
-    expect_is(urls, 'character')
-    expect_length(urls, length(ref.ids))
+    testthat::expect_is(urls, 'character')
+    testthat::expect_length(urls, length(ref.ids))
 }
 
 # Test entry image URL {{{1
@@ -209,8 +209,8 @@ test.entry.image.url <- function(db) {
     urls <- db$getEntryImageUrl(ref.ids)
 
     # Check
-    expect_is(urls, 'character')
-    expect_length(urls, length(ref.ids))
+    testthat::expect_is(urls, 'character')
+    testthat::expect_length(urls, length(ref.ids))
 }
 
 # Test entry page URL download {{{1
@@ -223,14 +223,14 @@ test.entry.page.url.download <- function(db) {
 
     # Get URL
     url <- db$getEntryPageUrl(ref.ids[[1]])
-    expect_is(url, 'character')
+    testthat::expect_is(url, 'character')
 
     # Try downloading
     if ( ! is.na(url)) {
         content <- RCurl::getURL(url)
-        expect_true( ! is.na(content))
-        expect_true(nchar(content) > 0)
-        expect_length(grep('<title>.*Not Found</title>', content), 0)
+        testthat::expect_true( ! is.na(content))
+        testthat::expect_true(nchar(content) > 0)
+        testthat::expect_length(grep('<title>.*Not Found</title>', content), 0)
     }
 }
 
@@ -244,12 +244,12 @@ test.entry.image.url.download <- function(db) {
 
     # Get URL
     url <- db$getEntryImageUrl(ref.ids[[1]])
-    expect_is(url, 'character')
+    testthat::expect_is(url, 'character')
 
     # Try downloading
     if ( ! is.na(url)) {
         content <- RCurl::getBinaryURL(url)
-        expect_is(content, 'raw')
+        testthat::expect_is(content, 'raw')
     }
 }
 
@@ -466,31 +466,31 @@ test.searchCompound <- function(db) {
 
 	# Get an entry
 	id <- biodb::listTestRefEntries(db$getId())[[1]]
-	expect_true( ! is.null(id))
-	expect_length(id, 1)
+	testthat::expect_true( ! is.null(id))
+	testthat::expect_length(id, 1)
 	entry <- db$getEntry(id, drop = TRUE)
-	expect_true( ! is.null(entry))
+	testthat::expect_true( ! is.null(entry))
 
 	# Search by name
 	name <- entry$getFieldValue('name')
-	expect_is(name, 'character')
-	expect_gt(length(name), 0)
+	testthat::expect_is(name, 'character')
+	testthat::expect_gt(length(name), 0)
 	name <- name[[1]]
-	expect_true( ! is.na(name))
+	testthat::expect_true( ! is.na(name))
 	ids <- db$searchCompound(name = name)
 	if (db$isSearchableByField('name')) {
 		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
-		expect_true( ! is.null(ids), msg)
-		expect_true(length(ids) > 0, msg)
-		expect_true(id %in% ids, msg)
+		testthat::expect_true( ! is.null(ids), msg)
+		testthat::expect_true(length(ids) > 0, msg)
+		testthat::expect_true(id %in% ids, msg)
 	} else
-		expect_null(ids)
+		testthat::expect_null(ids)
 
 	# Loop on all mass fields
 	for (field in db$getBiodb()$getEntryFields()$getFieldNames(type='mass')) {
 
 		if ( ! entry$hasField(field)) {
-			expect_false(db$isSearchableByField(field), paste0('No test for searchCompound() with mass field "', field, '" for database "', db$getId(), '".'))
+			testthat::expect_false(db$isSearchableByField(field), paste0('No test for searchCompound() with mass field "', field, '" for database "', db$getId(), '".'))
 			next
 		}
 
@@ -507,17 +507,17 @@ test.searchCompound <- function(db) {
 		ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
 		msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
 		if ( ! db$isSearchableByField(field))
-			expect_null(ids, msg)
+			testthat::expect_null(ids, msg)
 		else {
-			expect_true( ! is.null(ids), msg)
-			expect_true(length(ids) > 0, msg)
+			testthat::expect_true( ! is.null(ids), msg)
+			testthat::expect_true(length(ids) > 0, msg)
 			# Search again if not found with limited max.results
 			if ( ! id %in% ids) {
 				max.results <- 1000000
 				ids <- db$searchCompound(mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
 			}
-			expect_true(id %in% ids, msg)
-			expect_true(is.na(max.results) || length(ids) <= max.results)
+			testthat::expect_true(id %in% ids, msg)
+			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
 		}
 
 		# Search by mass and name
@@ -526,20 +526,20 @@ test.searchCompound <- function(db) {
 			# Search by mass and name
 			ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
 			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			expect_true( ! is.null(ids), msg)
-			expect_true(length(ids) > 0, msg)
-			expect_true(id %in% ids, msg)
-			expect_true(is.na(max.results) || length(ids) <= max.results)
+			testthat::expect_true( ! is.null(ids), msg)
+			testthat::expect_true(length(ids) > 0, msg)
+			testthat::expect_true(id %in% ids, msg)
+			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
 
 			# Search by name and slightly different mass
 			mass <- mass + mass.tol
 			mass.tol <- 2 * mass.tol
 			ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
 			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			expect_true( ! is.null(ids), msg)
-			expect_true(length(ids) > 0, msg)
-			expect_true(id %in% ids, msg)
-			expect_true(is.na(max.results) || length(ids) <= max.results)
+			testthat::expect_true( ! is.null(ids), msg)
+			testthat::expect_true(length(ids) > 0, msg)
+			testthat::expect_true(id %in% ids, msg)
+			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
 		}
 	}
 }
@@ -548,7 +548,7 @@ test.searchCompound <- function(db) {
 ################################################################
 
 test.searchCompound.no.mass.field <- function(db) {
-	expect_error(db$searchCompound(mass=45))
+	testthat::expect_error(db$searchCompound(mass=45))
 }
 
 # Test annotateMzValues() {{{1
@@ -858,12 +858,12 @@ test.msmsSearch.self.match <- function(db) {
 			results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = mode, npmin = 2, dist.fun = dist.fct, msms.mz.tol = 3, msms.mz.tol.min = 0.005)
 
 			# Check results
-			expect_true( ! is.null(results))
-			expect_true(is.data.frame(results))
-			expect_true(nrow(results) > 0)
+			testthat::expect_true( ! is.null(results))
+			testthat::expect_true(is.data.frame(results))
+			testthat::expect_true(nrow(results) > 0)
 			cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
-			expect_true(all(cols %in% colnames(results)))
-			expect_true(spectrum.id %in% results[['id']])
+			testthat::expect_true(all(cols %in% colnames(results)))
+			testthat::expect_true(spectrum.id %in% results[['id']])
 		}
 }
 
@@ -878,11 +878,11 @@ test.msmsSearch.empty.spectrum <- function(db) {
 	# Search for match:
 	result <- db$msmsSearch(spectrum, precursor.mz = 100, mz.tol = 0.3)
 
-	expect_true( ! is.null(result))
-	expect_true(is.data.frame(result))
-	expect_true(nrow(result) == 0)
+	testthat::expect_true( ! is.null(result))
+	testthat::expect_true(is.data.frame(result))
+	testthat::expect_true(nrow(result) == 0)
 	cols <- c('id', 'score')
-	expect_true(all(cols %in% colnames(result)))
+	testthat::expect_true(all(cols %in% colnames(result)))
 }
 
 # Test msmsSearch null spectrum {{{1
@@ -893,11 +893,11 @@ test.msmsSearch.null.spectrum <- function(db) {
 	# Search for match:
 	result <- db$msmsSearch(NULL, precursor.mz = 100, mz.tol = 0.3)
 
-	expect_true( ! is.null(result))
-	expect_true(is.data.frame(result))
-	expect_true(nrow(result) == 0)
+	testthat::expect_true( ! is.null(result))
+	testthat::expect_true(is.data.frame(result))
+	testthat::expect_true(nrow(result) == 0)
 	cols <- c('id', 'score')
-	expect_true(all(cols %in% colnames(result)))
+	testthat::expect_true(all(cols %in% colnames(result)))
 }
 
 # Test getMzValues() {{{1
@@ -907,9 +907,9 @@ test.getMzValues <- function(db) {
 	max <- 10
 	for (mode in c('neg', 'pos')) {
 		mz <- db$getMzValues(ms.mode = mode, max.results = max)
-		expect_true(is.double(mz))
+		testthat::expect_true(is.double(mz))
 		n <- length(mz)
-		expect_true(n >= 1 && n <= max)
+		testthat::expect_true(n >= 1 && n <= max)
 	}
 }
 
@@ -921,14 +921,14 @@ test.searchMzTol <- function(db) {
 	# Get M/Z values from database
 	mode <-'pos' 
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
-	expect_true(is.double(mzs))
-	expect_true(length(mzs) >= 1)
+	testthat::expect_true(is.double(mzs))
+	testthat::expect_true(length(mzs) >= 1)
 
 	# Search
 	for (mz in mzs) {
 		ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
-		expect_true(is.character(ids))
-		expect_true(length(ids) > 0)
+		testthat::expect_true(is.character(ids))
+		testthat::expect_true(length(ids) > 0)
 	}
 }
 
@@ -1022,30 +1022,30 @@ test.searchMzTol.with.precursor <- function(db) {
 			mz <- db.values[[db.name]][[as.character(ms.level)]]$mz
 		else
 			mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
-		expect_false(is.null(mz))
-		expect_length(mz, 1)
-		expect_false(is.na(mz))
+		testthat::expect_false(is.null(mz))
+		testthat::expect_length(mz, 1)
+		testthat::expect_false(is.na(mz))
 
 		# Search for it
 		spectra.ids <- db$searchMzTol(mz = mz, mz.tol = tol.ppm, mz.tol.unit = 'ppm', precursor = TRUE, ms.level = ms.level)
-		expect_gte(length(spectra.ids), 1)
-		expect_false(any(is.na(spectra.ids)))
+		testthat::expect_gte(length(spectra.ids), 1)
+		testthat::expect_false(any(is.na(spectra.ids)))
 
 		# Get first entry
 		for (spectra.id in spectra.ids) {
 			entry <- biodb$getFactory()$getEntry(db.name, spectra.id)
-			expect_false(is.null(entry))
-			expect_false(is.na(entry$getFieldValue('ms.level')))
-			expect_equal(entry$getFieldValue('ms.level'), ms.level)
+			testthat::expect_false(is.null(entry))
+			testthat::expect_false(is.na(entry$getFieldValue('ms.level')))
+			testthat::expect_equal(entry$getFieldValue('ms.level'), ms.level)
 			peaks <- entry$getFieldValue('peaks')
-			expect_false(is.null(peaks))
-			expect_true(is.data.frame(peaks))
-			expect_gt(nrow(peaks), 0)
-			expect_true('peak.mz' %in% colnames(peaks))
+			testthat::expect_false(is.null(peaks))
+			testthat::expect_true(is.data.frame(peaks))
+			testthat::expect_gt(nrow(peaks), 0)
+			testthat::expect_true('peak.mz' %in% colnames(peaks))
 
 			# Check that precursor peak was matched
-			expect_true(entry$hasField('msprecmz'))
-			expect_true(any(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6))
+			testthat::expect_true(entry$hasField('msprecmz'))
+			testthat::expect_true(any(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6))
 		}
 	}
 }
@@ -1072,9 +1072,9 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 
 test.getChromCol <- function(db) {
 	chrom.col <- db$getChromCol(ids = biodb::listTestRefEntries(db$getId()))
-	expect_is(chrom.col, 'data.frame')
-	expect_identical(names(chrom.col), c('id', 'title'))
-	expect_gt(nrow(chrom.col), 0)
+	testthat::expect_is(chrom.col, 'data.frame')
+	testthat::expect_identical(names(chrom.col), c('id', 'title'))
+	testthat::expect_gt(nrow(chrom.col), 0)
 }
 
 # Test searchMsPeaks() {{{1
@@ -1087,55 +1087,55 @@ test.searchMsPeaks <- function(db) {
 	mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
 
 	# Test with empty list in input
-	expect_null(db$searchMsPeaks(NULL, mz.tol = tol, max.results = 1, ms.mode = mode))
-	expect_null(db$searchMsPeaks(integer(), mz.tol = tol, max.results = 1, ms.mode = mode))
-	expect_null(db$searchMsPeaks(numeric(), mz.tol = tol, max.results = 1, ms.mode = mode))
+	testthat::expect_null(db$searchMsPeaks(NULL, mz.tol = tol, max.results = 1, ms.mode = mode))
+	testthat::expect_null(db$searchMsPeaks(integer(), mz.tol = tol, max.results = 1, ms.mode = mode))
+	testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol = tol, max.results = 1, ms.mode = mode))
 
 	# Test with impossible M/Z value to simulate no match
 	impossible.value <- 1e10
 	results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
                                 ms.mode=mode, prefix='myprefix.')
-	expect_is(results, 'data.frame')
-	expect_identical(results, data.frame(mz = impossible.value))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_identical(results, data.frame(mz = impossible.value))
 
 	# Get only one result per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
-	expect_is(results, 'data.frame')
-	expect_true(nrow(results) >= length(mzs))
-	expect_true('accession' %in% names(results))
-	expect_true('peak.mz' %in% names(results))
-	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true(nrow(results) >= length(mzs))
+	testthat::expect_true('accession' %in% names(results))
+	testthat::expect_true('peak.mz' %in% names(results))
+	testthat::expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 
 	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
-	expect_is(results, 'data.frame')
-	expect_true(nrow(results) >  length(mzs))
-	expect_true('accession' %in% names(results))
-	expect_true('peak.mz' %in% names(results))
-	expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true(nrow(results) >  length(mzs))
+	testthat::expect_true('accession' %in% names(results))
+	testthat::expect_true('peak.mz' %in% names(results))
+	testthat::expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 
 	# Test insert.input.values
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
-	expect_is(results, 'data.frame')
-	expect_true('mz' %in% colnames(results))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true('mz' %in% colnames(results))
 	results <- db$searchMsPeaks(input.df = data.frame(mz = mzs), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
-	expect_is(results, 'data.frame')
-	expect_true('mz' %in% colnames(results))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true('mz' %in% colnames(results))
 	some.col = rep('xxx', length(mzs))
 	results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE)
-	expect_is(results, 'data.frame')
-	expect_true('mz' %in% colnames(results))
-	expect_true('some.col' %in% colnames(results))
-	expect_is(results[['some.col']], 'character')
-	expect_true(all(results[['some.col']] == some.col[[1]]))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true('mz' %in% colnames(results))
+	testthat::expect_true('some.col' %in% colnames(results))
+	testthat::expect_is(results[['some.col']], 'character')
+	testthat::expect_true(all(results[['some.col']] == some.col[[1]]))
 
 	# Test insert.input.values with prefix
 	results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE, prefix='myprefix.')
-	expect_is(results, 'data.frame')
-	expect_true('mz' %in% colnames(results))
-	expect_true('some.col' %in% colnames(results))
-	expect_is(results[['some.col']], 'character')
-	expect_true(all(results[['some.col']] == some.col[[1]]))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true('mz' %in% colnames(results))
+	testthat::expect_true('some.col' %in% colnames(results))
+	testthat::expect_is(results[['some.col']], 'character')
+	testthat::expect_true(all(results[['some.col']] == some.col[[1]]))
 }
 
 # Test collapseResultsDataFrame() {{{1
@@ -1149,14 +1149,14 @@ test.collapseResultsDataFrame <- function(db) {
 
 	# Get 2 results per M/Z value
 	results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
-	expect_is(results, 'data.frame')
-	expect_true(nrow(results) >  length(mzs))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_true(nrow(results) >  length(mzs))
 
 	# Get collapsed data frame
 	collapsed.results <- db$collapseResultsDataFrame(results)
-	expect_is(collapsed.results, 'data.frame')
-	expect_equal(nrow(collapsed.results), length(mzs))
-	expect_identical(collapsed.results[['mz']], mzs)
+	testthat::expect_is(collapsed.results, 'data.frame')
+	testthat::expect_equal(nrow(collapsed.results), length(mzs))
+	testthat::expect_identical(collapsed.results[['mz']], mzs)
 }
 
 # Test searchMsPeaks by M/Z and RT {{{1
@@ -1173,35 +1173,35 @@ test.searchMsPeaks.rt <- function(db) {
 		rt <- entry$getFieldValue('chrom.rt')
 	else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max'))
 		rt <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
-	expect_is(rt, 'numeric')
-	expect_false(is.na(rt))
+	testthat::expect_is(rt, 'numeric')
+	testthat::expect_false(is.na(rt))
 	chrom.col.ids <- entry$getFieldValue('chrom.col.id')
-	expect_is(chrom.col.ids, 'character')
-	expect_false(is.na(chrom.col.ids))
+	testthat::expect_is(chrom.col.ids, 'character')
+	testthat::expect_false(is.na(chrom.col.ids))
 	rt.unit <- entry$getFieldValue('chrom.rt.unit')
-	expect_is(rt.unit, 'character')
-	expect_false(is.na(rt.unit))
+	testthat::expect_is(rt.unit, 'character')
+	testthat::expect_false(is.na(rt.unit))
 
 	# Get peak table
 	peaks <- entry$getFieldValue('peaks')
 	mz <- peaks[1, 'peak.mz']
-	expect_is(mz, 'numeric')
+	testthat::expect_is(mz, 'numeric')
 
 	# Search for MZ/RT
 	mz.tol <- 0
 	rt.tol <- 0
 	peaks <- db$searchMsPeaks(mz = mz, chrom.col.ids = chrom.col.ids, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
-	expect_is(peaks, 'data.frame')
-	expect_true(nrow(peaks) > 0)
-	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+	testthat::expect_is(peaks, 'data.frame')
+	testthat::expect_true(nrow(peaks) > 0)
+	testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
+	testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 
 	# Search for MZ/RT without chrom.col.ids
 	peaks <- db$searchMsPeaks(mz = mz, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
-	expect_is(peaks, 'data.frame')
-	expect_true(nrow(peaks) > 0)
-	expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-	expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+	testthat::expect_is(peaks, 'data.frame')
+	testthat::expect_true(nrow(peaks) > 0)
+	testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
+	testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 # Test msmsSearch when no IDs are found {{{1
@@ -1210,9 +1210,9 @@ test.searchMsPeaks.rt <- function(db) {
 test.msmsSearch.no.ids <- function(db) {
 	tspec <- data.frame(mz = 1, int = 10000)
 	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos", msms.mz.tol = 10, msms.mz.tol.min = 0.01, npmin = 2)
-	expect_is(results, 'data.frame')
-	expect_equal(nrow(results), 0)
-	expect_true(all(c('id', 'score') %in% names(results)))
+	testthat::expect_is(results, 'data.frame')
+	testthat::expect_equal(nrow(results), 0)
+	testthat::expect_true(all(c('id', 'score') %in% names(results)))
 }
 
 # Test convertMzTolToRange() {{{1

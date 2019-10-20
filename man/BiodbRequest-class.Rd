@@ -32,6 +32,14 @@ Gets the body.
 Returned values: The body as a character value.
     }
 
+\item{\code{getConn()}}{:
+
+gets the associated connector (usually the connector that created this
+    request).
+    
+Returned value: The associated connector as a BiodbConn object.
+    }
+
 \item{\code{getCurlOptions(useragent)}}{:
 
 Gets the options object to pass to cURL library.
@@ -76,6 +84,16 @@ Returned value: A unique key as an MD5 sum.
 Gets the URL.
     
 Returned value: The URL as a BiodbUrl object.
+    }
+
+\item{\code{setConn(conn)}}{:
+
+Sets the associated connector (usually the connector that created this
+    request).
+    
+conn: A valid BiodbConn object.
+    
+Returned value: None.
     }
 
 \item{\code{toString()}}{:

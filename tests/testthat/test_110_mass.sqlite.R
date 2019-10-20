@@ -14,7 +14,7 @@ biodb::setTestContext(biodb, "Test Mass SQLite connector.")
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.sqlite')
 conn$setUrl('base.url', MASS.SQLITE.URL)
-biodb$getCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
+biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have no residual cache entries from previous tests
 
 # Run tests
 biodb::runGenericTests(conn)

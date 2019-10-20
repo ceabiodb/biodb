@@ -4,7 +4,7 @@
 ################################################################
 
 test.BiodbCache.show <- function(biodb) {
-	expect_output(biodb$getCache()$show(), regexp = '^Biodb cache .* instance\\..*$')
+	expect_output(biodb$getPersistentCache()$show(), regexp = '^Biodb cache .* instance\\..*$')
 }
 
 # Test BiodbConfig show {{{1

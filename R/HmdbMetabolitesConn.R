@@ -121,7 +121,7 @@ getEntryImageUrl=function(id) {
 .doExtractDownload=function() {
 
     .self$info("Extracting content of downloaded HMDB metabolite database...")
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
 
     # Expand zip
     extract.dir <- tempfile(.self$getId())
@@ -232,7 +232,7 @@ getEntryImageUrl=function(id) {
 .doGetEntryIds=function(max.results=NA_integer_) {
 
     ids <- NULL
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
 
     # Download
     .self$download()
