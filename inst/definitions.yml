@@ -90,14 +90,6 @@ config:
     description: If set to TRUE, all network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
 
-  peakforest.mass.token:
-    type: character
-    description: The token to access PeakForest Mass database.
-
-  peakforest.compound.token:
-    type: character
-    description: The token to access PeakForest Compound database.
-
   proton.mass:
     type: numeric
     description: The mass of a proton, in u or Da.
@@ -171,75 +163,6 @@ databases:
   mass.sqlite:
     entry.content.type: list
     name: Mass SQLite
-
-# PeakForest Compound {{{2
-################################################################################
-  peakforest.compound:
-    entry.content.type: json
-    name: PeakForest Compound
-    parsing.expr:
-      accession: id
-      average.mass: averageMass
-      chebi.id: ChEBI
-      formula: formula
-      hmdb.metabolites.id: HMDB
-      inchi: inChI
-      inchikey: inChIKey
-      kegg.compound.id: KEGG
-      logp: logP
-      monoisotopic.mass: monoisotopicMass
-      name: mainName
-      ncbi.pubchem.comp.id: PubChemCID
-      smiles: canSmiles
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - average.mass
-        - monoisotopic.mass
-    urls:
-      base.url: https://metabohub.peakforest.org/webapp/home
-      ws.url: https://metabohub.peakforest.org/rest/
-
-# PeakForest Mass {{{2
-################################################################################
-  peakforest.mass:
-    entry.content.type: json
-    name: PeakForest Mass
-    parsing.expr:
-      accession: id
-      chrom.col.constructor:
-      - liquidChromatography
-      - columnConstructorAString
-      chrom.col.diameter:
-      - liquidChromatography
-      - columnDiameter
-      chrom.col.id:
-      - liquidChromatography
-      - columnCode
-      chrom.col.length:
-      - liquidChromatography
-      - columnLength
-      chrom.col.method.protocol:
-      - liquidChromatography
-      - methodProtocol
-      chrom.col.name:
-      - liquidChromatography
-      - columnName
-      chrom.col.rt.max: RTmax
-      chrom.col.rt.min: RTmin
-      msdev:
-      - analyzerMassSpectrometerDevice
-      - instrumentName
-      msdevtype:
-      - analyzerMassSpectrometerDevice
-      - ionAnalyzerType
-      msmode: polarity
-      msprecmz: parentIonMZ
-      mstype: type
-    scheduler.n: 3
-    urls:
-      base.url: https://metabohub.peakforest.org/webapp/home
-      ws.url: https://metabohub.peakforest.org/rest/
 
 # UniProt {{{2
 ################################################################################
@@ -378,20 +301,6 @@ fields:
 
   ncbi.pubchem.comp.id:
     description: PubChem Compound ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  peakforest.compound.id:
-    description: PeakForest Compound ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  peakforest.mass.id:
-    description: PeakForest Mass ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
