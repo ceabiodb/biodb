@@ -9,6 +9,9 @@ runGenericTests(conn)
 \arguments{
 \item{conn}{A valid biodb connector.}
 }
+\value{
+Nothing.
+}
 \description{
 This function must be used in tests on all connector classes, before any
 specific tests.

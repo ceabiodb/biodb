@@ -10,3 +10,8 @@ This is an abstract class for handling database entries whose content is in
 HTML format.
 }
 
+\examples{
+# Create a concrete entry class inheriting from this class:
+MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry"(
+
+}
