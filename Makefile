@@ -38,6 +38,13 @@ $(info "PKG_VERSION=$(PKG_VERSION)")
 
 RFLAGS=--slave --no-restore
 
+# Set test file filter
+ifndef TEST_FILE
+TEST_FILE=NULL
+else
+TEST_FILE:='$(TEST_FILE)'
+endif
+
 # Default target {{{1
 ################################################################
 
@@ -73,7 +80,7 @@ check.version:
 # Does not work anymore
 
 test: check.version
-	R $(RFLAGS) -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
 	R $(RFLAGS) -e "devtools::build_win('$(CURDIR)')"
@@ -95,7 +102,7 @@ doc:
 
 vignettes:
 	@echo Build vignettes for already installed package, not from local soures.
-	R $(RFLAGS) -e "devtools::clean_vignettes('$(CURDIR)')"
+	$(RM) doc/*
 	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1

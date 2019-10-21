@@ -205,20 +205,26 @@ define=function(def) {
     # Make sure name is in lower case
     name <- tolower(name)
 
-    # Is field already defined?
-    if (.self$isDefined(name))
-        .self$error("Field \"", name, "\" has already been defined.")
-
-    # Define new field
+    # Create new field instance
     field <- BiodbEntryField$new(parent=.self, name=name, ...)
 
-    # Store inside fields list
-    .self$.fields[[name]] <- field
+    # Is field already defined?
+    defined <- FALSE
+    if (.self$isDefined(name)) {
+        defined <- TRUE
+        if ( ! .self$.fields[[name]]$equals(field))
+            .self$error("Field \"", name, "\" has already been defined.")
+    }
 
-    # Define aliases
-    if (field$hasAliases())
-        for (alias in field$getAliases())
-            .self$.aliasToName[[alias]] <- name
+    if ( ! defined) {
+        # Register new field inside fields list
+        .self$.fields[[name]] <- field
+
+        # Define aliases
+        if (field$hasAliases())
+            for (alias in field$getAliases())
+                .self$.aliasToName[[alias]] <- name
+    }
 }
 
 ))

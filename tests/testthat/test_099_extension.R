@@ -5,7 +5,8 @@
 
 test_new_field <- function(biodb) {
 
-    field_def <- list(formula2 = list(description = 'New formula field.'))
+    field_def <- list(n_stars=list(description='The ChEBI stars indicator.',
+                                   class='integer'))
     ef <- biodb$getEntryFields()
     ef$define(field_def)
     testthat::expect_true(ef$isDefined('n_stars'))

@@ -519,6 +519,37 @@ isVector=function() {
     return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 },
 
+# Equals {{{3
+################################################################################
+
+equals=function(other) {
+    ":\n\nCompares this instance with another, and tests if they are equal.
+    \nother: Another BiodbEntryField instance.
+    \nReturned value: TRUE if they are equal, FALSE otherwise.
+    "
+
+    eq <- TRUE
+
+    # Fields to test
+    fields <- c('name', 'type', 'group', 'class', 'cardinality',
+                'forbids.duplicates', 'description', 'alias', 'allowed.values',
+                'lower.case', 'case.insensitive', 'computable.from')
+
+    # Loop on all fields
+    for (f in fields) {
+        a <- .self[[f]]
+        b <- other[[f]]
+        if ( ! ((is.na(a) && is.na(b)) || (is.null(a) && is.null(b))
+                || ( ! is.na(a) && ! is.na(b) && ! is.null(a) && ! is.null(b)
+                     && a == b))) {
+            eq <- FALSE
+            break
+        }
+    }
+
+    return(eq)
+},
+
 # Show {{{3 
 ################################################################################
 

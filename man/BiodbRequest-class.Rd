@@ -109,8 +109,9 @@ Returned value: A single string giving a representation of this instance.
 mybiodb <- biodb::Biodb()
 
 # Create a request object
-u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 url <- BiodbUrl(url=u)
+url$setParam('chebiId', 15440)
 request <- BiodbRequest(method='get', url=url)
 
 # Send request
