@@ -82,8 +82,6 @@ Collate:
     'BiodbWritable.R'
     'ChebiConn.R'
     'ChebiEntry.R'
-    'LipidmapsStructureConn.R'
-    'LipidmapsStructureEntry.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'

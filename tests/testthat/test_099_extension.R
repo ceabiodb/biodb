@@ -4,11 +4,11 @@
 ################################################################################
 
 test_new_field <- function(biodb) {
-    
+
     field_def <- list(formula2 = list(description = 'New formula field.'))
     ef <- biodb$getEntryFields()
     ef$define(field_def)
-    testthat::expect_true(ef$isDefined('formula2'))
+    testthat::expect_true(ef$isDefined('n_stars'))
 }
 
 # Test new parsing expression {{{1
@@ -17,24 +17,24 @@ test_new_field <- function(biodb) {
 test_new_parsing_expr <- function(biodb) {
 
     # Define new field
-    field_def <- list(formula3 = list(description = 'New formula field.'))
+    field_def <- list(n_stars=list(description='The ChEBI stars indicator.',
+                                   class='integer'))
     ef <- biodb$getEntryFields()
     ef$define(field_def)
-    testthat::expect_true(ef$isDefined('formula3'))
+    testthat::expect_true(ef$isDefined('n_stars'))
 
     # Define new parsing expression
-    expr_def <- list(lipidmaps.structure =
-                     list(parsing.expr = list(formula3 = 'FORMULA')))
+    expr_def <- list(chebi =
+                     list(parsing.expr = list(n_stars = '//chebi:return/chebi:entityStar')))
     di <- biodb$getDbsInfo()
     di$define(expr_def)
 
     # Check that the expression works
-    conn <- biodb$getFactory()$getConn('lipidmaps.structure')
-    entry <- conn$getEntry('LMFA00000001')
+    conn <- biodb$getFactory()$getConn('chebi')
+    entry <- conn$getEntry('15440')
     testthat::expect_is(entry, 'BiodbEntry')
-    v <- entry$getFieldValue('formula')
-    v3 <- entry$getFieldValue('formula3')
-    testthat::expect_equal(v, v3)
+    v <- entry$getFieldValue('n_stars')
+    testthat::expect_is(v, 'integer')
 }
 
 # Main {{{1
