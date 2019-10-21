@@ -160,149 +160,6 @@ databases:
       chebi: https://www.ebi.ac.uk/webservices/chebi
       xsd: http://www.w3.org/2001/XMLSchema
 
-# HMDB Metabolites {{{2
-################################################################################
-  hmdb.metabolites:
-    entry.content.type: xml
-    name: HMDB Metabolites
-    parsing.expr:
-      accession: /metabolite/accession
-      average.mass: //average_molecular_weight
-      cas.id: //cas_registry_number
-      chebi.id: //chebi_id
-      chemspider.id: //chemspider_id
-      comp.iupac.name.syst: //iupac_name
-      comp.iupac.name.trad: //traditional_iupac
-      formula: /metabolite/chemical_formula
-      inchi: //inchi
-      inchikey: //inchikey
-      kegg.compound.id: //kegg_id
-      monoisotopic.mass: //monisotopic_molecular_weight
-      name: /metabolite/name
-      ncbi.pubchem.comp.id: //pubchem_compound_id
-      smiles: //smiles
-      super.class: //super_class
-    scheduler.n: 3
-    urls:
-      base.url: http://www.hmdb.ca/
-    dwnld.ext: zip
-
-# KEGG Compound {{{2
-################################################################################
-  kegg.compound:
-    entry.content.type: txt
-    name: KEGG Compound
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Compound
-      exact.mass: ^EXACT_MASS\s+(\S+)$
-      formula: ^FORMULA\s+(\S+)$
-      molecular.weight: ^MOL_WEIGHT\s+(\S+)$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - monoisotopic.mass
-        - molecular.mass
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Enzyme {{{2
-################################################################################
-  kegg.enzyme:
-    entry.content.type: txt
-    name: KEGG Enzyme
-    parsing.expr:
-      accession: ^ENTRY\s+EC (\S+)\s+Enzyme
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Genes {{{2
-################################################################################
-  kegg.genes:
-    entry.content.type: txt
-    name: KEGG Genes
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+.*
-      description: ^DEFINITION\s+(.*)$
-      kegg.organism.code: ^ORGANISM\s+(\S+)\s+.*$
-      organism: ^ORGANISM\s+\S+\s+(.*)$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Module {{{2
-################################################################################
-  kegg.module:
-    entry.content.type: txt
-    name: KEGG Module
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Pathway
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Orthology {{{2
-################################################################################
-
-  kegg.orthology:
-    entry.content.type: txt
-    name: KEGG Orthology
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+KO
-      description: ^DEFINITION\s+(\S+)\s*$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Pathway {{{2
-################################################################################
-  kegg.pathway:
-    entry.content.type: txt
-    name: KEGG Pathway
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Pathway
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Reaction {{{2
-################################################################################
-  kegg.reaction:
-    entry.content.type: txt
-    name: KEGG Reaction
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Reaction
-      equation: ^EQUATION\s+(.+)\s*$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
 # LIPID MAPS Structure {{{2
 ################################################################################
   lipidmaps.structure:
@@ -629,43 +486,8 @@ fields:
     type: id
     card: many
 
-  kegg.enzyme.id:
-    description: KEGG Enzyme ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
   kegg.genes.id:
     description: KEGG Genes ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.module.id:
-    description: KEGG Module ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.orthology.id:
-    description: KEGG Orthology ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.pathway.id:
-    description: KEGG Pathway ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.reaction.id:
-    description: KEGG Reaction ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -966,8 +788,6 @@ fields:
   inchikey:
     computable.from: chebi
     description: Hash key of the International Chemical Identifier (InChIKey).
-  kegg.organism.code:
-    description: The 3-4 characters organism code used un KEGG.
   logp:
     class: double
     description: logP
