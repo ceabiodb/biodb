@@ -94,7 +94,7 @@ setParam=function(key, value) {
     \nvalue:
     \nReturned value: None.
     "
-    
+
     .self$.params[[key]] <- value
 },
 

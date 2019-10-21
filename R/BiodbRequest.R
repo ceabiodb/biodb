@@ -30,8 +30,9 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Create a request object
-#' u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+#' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 #' url <- BiodbUrl(url=u)
+#' url$setParam('chebiId', 15440)
 #' request <- BiodbRequest(method='get', url=url)
 #'
 #' # Send request
@@ -76,7 +77,7 @@ initialize=function(url, method=c('get', 'post'), header=character(),
     .self$conn <- NULL
 },
 
-# Set the associated connector {{{1
+# Set the associated connector {{{3
 ################################################################################
 
 setConn=function(conn) {
@@ -94,7 +95,7 @@ setConn=function(conn) {
     invisible(NULL)
 },
 
-# Get the associated connector {{{1
+# Get the associated connector {{{3
 ################################################################################
 
 getConn=function() {

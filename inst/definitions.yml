@@ -172,85 +172,6 @@ databases:
     entry.content.type: list
     name: Mass SQLite
 
-# NCBI CCDS {{{2
-################################################################################
-  ncbi.ccds:
-    entry.content.type: html
-    name: NCBI CCDS
-    parsing.expr:
-      accession:
-        attr: value
-        path: //input[@id='DATA']
-      sequence: //b[starts-with(.,'Nucleotide Sequence')]/../tt
-    scheduler.n: 3
-    urls:
-      base.url: https://www.ncbi.nlm.nih.gov/CCDS/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
-
-# NCBI Gene {{{2
-################################################################################
-  ncbi.gene:
-    entry.content.type: xml
-    name: NCBI Gene
-    parsing.expr:
-      accession: //Gene-track_geneid
-      description: //Gene-ref_desc
-      location: //Gene-ref_maploc
-      symbol: //Gene-ref_locus
-      synonyms: //Gene-ref_syn_E
-      uniprot.id: //Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-
-# NCBI PubChem Compound {{{2
-################################################################################
-  ncbi.pubchem.comp:
-    entry.content.type: xml
-    name: PubChem Compound
-    parsing.expr:
-      accession: //PC-CompoundType_id_cid
-      comp.iupac.name.allowed: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Allowed']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.cas: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='CAS-like
-        Style']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.pref: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Preferred']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.syst: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.trad: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Traditional']/../../..//PC-InfoData_value_sval
-      exact.mass: //PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval
-      formula: //PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval
-      inchi: //PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval
-      inchikey: //PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval
-      logp: //PC-Urn_label[text()='Log P']/../../..//PC-InfoData_value_fval
-      molecular.weight: //PC-Urn_label[text()='Molecular Weight']/../../..//PC-InfoData_value_fval
-      smiles.canonical: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval
-      smiles.isomeric: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval
-    scheduler.n: 5
-    searchable.fields:
-        - name
-        - molecular.mass
-        - monoisotopic.mass
-    urls:
-      base.url: https://pubchem.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-      ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
-
-# NCBI PubChem Substance {{{2
-################################################################################
-  ncbi.pubchem.subst:
-    entry.content.type: xml
-    name: PubChem Substance
-    parsing.expr:
-      accession: //PC-ID_id
-      ncbi.pubchem.comp.id: //PC-CompoundType_id_cid
-    scheduler.n: 5
-    urls:
-      base.url: https://pubchem.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-      ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
-
 # NCI CACTUS {{{2
 ################################################################################
   nci.cactus:
@@ -468,22 +389,8 @@ fields:
     type: id
     card: many
 
-  ncbi.ccds.id:
-    description: NCBI CCDS ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
   ncbi.gene.id:
     description: NCBI Gene ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  nci.cactus.id:
-    description: NCI CACTUS ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -496,8 +403,8 @@ fields:
     type: id
     card: many
 
-  ncbi.pubchem.subst.id:
-    description: PubChem Substance ID
+  nci.cactus.id:
+    description: NCI CACTUS ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -610,14 +517,15 @@ fields:
 
   aa.seq:
     alias: sequence
-    computable.from: ncbi.ccds
     description: Amino acids sequence.
+
   aa.seq.length:
     alias:
     - seq.length
     - length
     class: integer
     description: Length of the amino acids sequence.
+
   aa.seq.location:
     alias:
     - seq.location
@@ -628,6 +536,7 @@ fields:
     case.insensitive: true
     forbids.duplicates: true
     card: many
+
   gene.symbol:
     alias:
     - gene.symbols
