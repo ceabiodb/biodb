@@ -172,26 +172,6 @@ databases:
     entry.content.type: list
     name: Mass SQLite
 
-# NCI CACTUS {{{2
-################################################################################
-  nci.cactus:
-    entry.content.type: sdf
-    name: NCI CACTUS
-    parsing.expr:
-      accession: NSC
-      name: DTP names
-      inchi: Standard InChI
-      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
-      formula: Formula
-      molecular.mass: Molecular Weight
-      cas.id: CAS
-    scheduler.n: 3
-    urls:
-      base.url: https://cactus.nci.nih.gov/
-      ws.url: https://cactus.nci.nih.gov/
-      dwnld.url: https://cactus.nci.nih.gov/download/nci/
-    dwnld.ext: gz
-
 # PeakForest Compound {{{2
 ################################################################################
   peakforest.compound:
@@ -398,13 +378,6 @@ fields:
 
   ncbi.pubchem.comp.id:
     description: PubChem Compound ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  nci.cactus.id:
-    description: NCI CACTUS ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
