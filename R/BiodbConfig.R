@@ -136,7 +136,7 @@ hasKey=function(key) {
     return(.self$.checkKey(key, fail=FALSE))
 },
 
-# Defined {{{3
+# Is defined {{{3
 ################################################################################
 
 isDefined=function(key, fail=TRUE) {
@@ -314,6 +314,24 @@ getAssocEnvVar=function(key) {
     return(env.var)
 },
 
+# Define {{{3
+################################################################################
+
+define=function(def) {
+    'Define config properties from a structured object, normally loaded from a
+    YAML file.'
+
+    .self$debug('Define config keys.')
+    # Loop on all keys
+    for (key in names(def)) {
+
+        v <- def[[key]]
+        v$key <- key
+        .self$debug('Define config key ', key, '.')
+        do.call(.self$.newKey, v)
+    }
+},
+
 # BiodbObserver methods {{{2
 ################################################################################
 
@@ -353,24 +371,6 @@ newObserver=function(obs) {
     return(svn.path)
 },
 
-
-# Define {{{3
-################################################################################
-
-define=function(def) {
-    'Define config properties from a structured object, normally loaded from a
-    YAML file.'
-
-    .self$debug('Define config keys.')
-    # Loop on all keys
-    for (key in names(def)) {
-        
-        v <- def[[key]]
-        v$key <- key
-        .self$debug('Define config key ', key, '.')
-        do.call(.self$.newKey, v)
-    }
-},
 
 # Get from env {{{3
 ################################################################################
@@ -427,7 +427,7 @@ define=function(def) {
     # Set as deprecated
     if ( ! is.null(deprecated))
         .self$.keys[[key]][['deprecated']] <- deprecated
-    
+
     # Initialize value
     if (is.null(deprecated) && ! is.null(default))
         .self$set(key, default)

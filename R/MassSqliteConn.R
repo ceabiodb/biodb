@@ -26,6 +26,8 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import methods
+#' @import RSQLite
 #' @include BiodbMassdbConn.R
 #' @include BiodbEditable.R
 #' @include BiodbWritable.R

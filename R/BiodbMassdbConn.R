@@ -18,7 +18,7 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get connector
-#' conn <- mybiodb$getFactory()$createConn('massbank')
+#' conn <- mybiodb$getFactory()$createConn('mass.csv.file')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

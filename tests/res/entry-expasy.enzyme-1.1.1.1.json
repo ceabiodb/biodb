@@ -1,6 +1,0 @@
-{
-	"accession": "1.1.1.1",
-	"name": ["Alcohol dehydrogenase", "Aldehyde reductase"],
-    "cofactor": "Zn(2+) or Fe cation",
-    "catalytic.activity": ["(1) A primary alcohol + NAD(+) = an aldehyde + NADH", "(2) A secondary alcohol + NAD(+) = a ketone + NADH"]
-}

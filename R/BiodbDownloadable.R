@@ -20,17 +20,21 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Use a downloadable database
-#' mirbase <- mybiodb$getFactory()$getConn('mirbase.mature')
+#' \dontrun{
+#' conn <- mybiodb$getFactory()$getConn('my_database')
+#' }
 #'
 #' # Check if database has been downloaded
-#' mirbase$isDownloaded()
+#' \dontrun{
+#' conn$isDownloaded()
+#' }
 #'
 #' # Download the whole database content
 #' \dontrun{
-#' mirbase$download()
+#' conn$download()
 #' }
-#' # Not though that you do not need to call this method explicitly. This is
-#' # will be done automatically by Biodb if needed.
+#' # Note though that you do not need to call this method explicitly. This
+#' # will be done automatically by biodb if needed.
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -64,7 +68,7 @@ getDownloadPath=function() {
     \nReturned value: The path where the downloaded database is written.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
@@ -88,7 +92,7 @@ isDownloaded=function() {
     \nReturned value: TRUE if the database content has already been downloaded.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     dwnlded  <- cch$markerExist(.self$getCacheId(),
                     name='downloaded')
 
@@ -109,7 +113,7 @@ isExtracted=function() {
     extracted, FALSE otherwise.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
                            name='extracted'))
 },
@@ -122,7 +126,7 @@ download=function() {
     \nReturned value: None.
     "
 
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
 
     # Download
     cfg <- .self$getBiodb()$getConfig()

@@ -11,6 +11,16 @@
 #' This is an abstract class for handling database entries whose content is in
 #' CSV format.
 #'
+#' @examples
+#' # Create a concrete entry class inheriting from CSV class:
+#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbCsvEntry",
+#'   methods=list(
+#'
+#'     initialize=function() {
+#'       super(sep="\t", na.strings=c("", "-"))
+#'     }
+#' ))
+#'
 #' @include BiodbEntry.R
 #' @export BiodbCsvEntry
 #' @exportClass BiodbCsvEntry

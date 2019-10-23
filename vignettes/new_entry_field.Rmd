@@ -29,13 +29,12 @@ First we instantiate the package:
 mybiodb <- biodb::Biodb$new()
 ```
 
-# Get an entry
+# Get a connector
 
-For the example, we will use a connector to the LIPID MAPS Structure database:
+For the example, we will use a connector to the ChEBI database:
 ```{r}
-conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+conn <- mybiodb$getFactory()$getConn('chebi')
 ```
-This database returns its entries as CSV files, which are fairly simple to parse. A good choice for this first vignette about entry field parsing.
 
 # Look at the fields already parsed
 
@@ -43,52 +42,51 @@ The expressions for parsing entry fields are stored inside the `parsing.expr` pr
 ```{r}
 conn$getPropertyValue('parsing.expr')
 ```
-As you can see, the parsing expressions are quite simple, they only indicate the column name where to find the field value inside the CSV file.
-
-In order to illustrate the mechanism of field parsing, we will define a new field `formula2`, which will be the exact equivalent of the field `formula`.
+The expressions are in a format called XPath that is used to describe a search into XML.
 
 # Look at the entry content
 
-In order to know the name of the column in which the value of our field is stored, we need to see the CSV file returned by the database web service. One way to do this, is by passing one or more entry IDs to the `getEntryContent()`:
+We want to get the field `n_stars`, which indicates the number of stars, synonymous of quality, of a chemical entity. The first thing to know is understand how it is stored by ChEBI. For this we need to look at the entry content, which is in XML.
+
+We run `getEntryContent()` to print the content of a ChEBI entry:
 ```{r}
-cat(conn$getEntryContent('LMFA00000001')[[1]])
+cat(conn$getEntryContent('15440')[[1]])
 ```
 Another possibility, when using the persistent cache, is to get the file path to the cache file:
 ```{r}
-conn$getCacheFile('LMFA00000001')
+conn$getCacheFile('15440')
 ```
 You can then open the file inside your preferred application.
 
-Now look for the information we want to extract, which is the chemical formula, and get the corresponding column name: `FORMULA`.
+Now we need to look for the information we want to extract, which is the `n_stars` indicator, and we see in the content that there is a tag `entityStar` that contains the information we want: `<entityStar>3</entityStar>`.
 
 # Create the new field and its parsing expression
 
-We have defined the new `formula2` field and its parsing expression inside a YAML file:
+We have defined the new `n_stars` field and its parsing expression inside a YAML file:
 ```{r}
-def_file <- system.file("extdata", "new_entry_field.yml", package = "biodb")
+defFile <- system.file("extdata", "new_entry_field.yml", package = "biodb")
 ```
 Here is its content:
 ```{r}
-writeLines(readLines(def_file))
+writeLines(readLines(defFile))
 ```
 
 Now we load this definition file:
 ```{r}
-mybiodb$loadDefinitions(def_file)
+mybiodb$loadDefinitions(defFile)
+```
+
+We can check that the new definition exists:
+```{r}
+mybiodb$getEntryFields()$get('n_stars')
 ```
 
 And delete the current connector for recreating a new one just after:
 ```{r}
 mybiodb$getFactory()$deleteConn(conn$getId())
-conn <- mybiodb$getFactory()$getConn('lipidmaps.structure')
+conn <- mybiodb$getFactory()$getConn('chebi')
 ```
-
-We can check that the new definition exists:
-```{r}
-mybiodb$getEntryFields()$get('formula2')
-```
-
-And the new parsing expression has been registered:
+This allows the new connector to have new parsing expression registered, as we check it here:
 ```{r}
 conn$getPropertyValue('parsing.expr')
 ```
@@ -97,8 +95,8 @@ conn$getPropertyValue('parsing.expr')
 
 Now we can get the entry and print the value of our new field:
 ```{r}
-entry <- conn$getEntry('LMFA00000001')
-entry$getFieldValue('formula2')
+entry <- conn$getEntry('15440')
+entry$getFieldValue('n_stars')
 ```
 
 # Closing biodb instance

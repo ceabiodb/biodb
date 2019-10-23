@@ -30,8 +30,9 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Create a request object
-#' u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+#' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 #' url <- BiodbUrl(url=u)
+#' url$setParam('chebiId', 15440)
 #' request <- BiodbRequest(method='get', url=url)
 #'
 #' # Send request
@@ -44,6 +45,7 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
+#' @import openssl
 #' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
@@ -76,7 +78,7 @@ initialize=function(url, method=c('get', 'post'), header=character(),
     .self$conn <- NULL
 },
 
-# Set the associated connector {{{1
+# Set the associated connector {{{3
 ################################################################################
 
 setConn=function(conn) {
@@ -94,7 +96,7 @@ setConn=function(conn) {
     invisible(NULL)
 },
 
-# Get the associated connector {{{1
+# Get the associated connector {{{3
 ################################################################################
 
 getConn=function() {
@@ -165,12 +167,12 @@ getCurlOptions=function(useragent) {
 ################################################################################
 
 getUniqueKey=function() {
-    ":\n\nGets a unique key to identify this request. The key is an MD5 computed
-    from the string representation of this request.
+    ":\n\nGets a unique key to identify this request. The key is an MD5 sum
+    computed from the string representation of this request.
     \nReturned value: A unique key as an MD5 sum.
     "
 
-    key <- digest::digest(.self$toString(), algo='md5')
+    key <- openssl::md5(.self$toString())
 
     return(key)
 },

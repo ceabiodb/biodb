@@ -205,6 +205,16 @@ Tests if this connector is able to write into the database (i.e.: the
 Returned value: Returns TRUE if the database is writable.
     }
 
+\item{\code{makeRequest(...)}}{:
+
+Makes a BiodbRequest instance using the passed parameters, and set
+    ifself as the associated connector.
+    
+...: Those parameters are passed to the initializer of BiodbRequest.
+    
+Returned value: The BiodbRequest instance.
+    }
+
 \item{\code{makesRefToEntry(id, db, oid, any = FALSE, recurse = FALSE)}}{:
 
 Tests if some entry of this database makes reference to another entry

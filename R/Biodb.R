@@ -15,11 +15,11 @@
 #' The constructor takes no argument.
 #'
 #' Once the instance is created, some other important classes
-#' (\code{BiodbFactory}, \code{BiodbCache}, \code{BiodbConfig}, ...) are
-#' instantiated (just once) and their instances are later accessible through
+#' (\code{BiodbFactory}, \code{BiodbPersistentCache}, \code{BiodbConfig}, ...)
+#' are instantiated (just once) and their instances are later accessible through
 #' get*() methods.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
 #' \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
 #' \code{\link{BiodbDbsInfo}}.
@@ -36,6 +36,7 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
+#' @import yaml
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb
@@ -45,7 +46,7 @@ Biodb <- methods::setRefClass("Biodb",
         .factory="ANY",
         .observers="ANY",
         .config="ANY",
-        .cache="ANY",
+        persistentCache="ANY",
         .entry.fields="ANY",
         .dbsinfo="ANY",
         .request.scheduler="ANY"),
@@ -73,7 +74,7 @@ initialize=function() {
 
     # Create instances of children
     .self$.config <- BiodbConfig$new(parent=.self)
-    .self$.cache <- BiodbPersistentCache$new(parent = .self)
+    .self$persistentCache <- BiodbPersistentCache$new(parent = .self)
     .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
     .self$.factory <- BiodbFactory$new(parent=.self)
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
@@ -148,16 +149,16 @@ getConfig=function() {
     return(.self$.config)
 },
 
-# Get cache {{{3
+# Get persistent cache {{{3
 ################################################################################
 
-getCache=function() {
-    ":\n\nReturns the single instance of the \\code{BiodbCache} class.
-    \nReturned value: The instance of the \\code{BiodbCache} class attached to
+getPersistentCache=function() {
+    ":\n\nReturns the single instance of the BiodbPersistentCache class.
+    \nReturned value: The instance of the BiodbPersistentCache class attached to
     this Biodb instance.
     "
 
-    return(.self$.cache)
+    return(.self$persistentCache)
 },
 
 # Get dbs info {{{3

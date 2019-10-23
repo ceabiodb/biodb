@@ -155,15 +155,17 @@ deleteConn=function(conn) {
     if (methods::is(conn, 'BiodbConn'))
         .self$deleteConn(conn$getId())
 
-    .self$.assertIs(conn, 'character')
+    else {
+        .self$.assertIs(conn, 'character')
 
-    if ( ! conn %in% names(.self$.conn))
-        .self$error('Connector "', conn, '" is unknown.')
+        if ( ! conn %in% names(.self$.conn))
+            .self$error('Connector "', conn, '" is unknown.')
 
-    .self$deleteAllCacheEntries(conn)
-    .self$.conn[[conn]]$.terminate()
-    .self$.conn[[conn]] <- NULL
-    .self$info('Connector "', conn, '" deleted.')
+        .self$deleteAllCacheEntries(conn)
+        .self$.conn[[conn]]$.terminate()
+        .self$.conn[[conn]] <- NULL
+        .self$info('Connector "', conn, '" deleted.')
+    }
 
     invisible(NULL)
 },

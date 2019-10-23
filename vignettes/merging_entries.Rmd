@@ -34,16 +34,11 @@ Request entries from Uniprot:
 uniprot.entries <- mybiodb$getFactory()$getEntry('uniprot', id = c('P02461', 'P08123', 'Q31611'))
 ```
 
-Request entries from LIPID MAPS Structure:
-```{r}
-lipidmaps.entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = c('LMFA08040013'))
-```
-
 ## Get a data frame of all these entries
 
-We call then the `entriesToDataframe()` on all those entries, selectin the fields we want in the output:
+We call then the `entriesToDataframe()` on all those entries, selection the fields we want in the output:
 ```{r}
-mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries, lipidmaps.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
+mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
 ```
 
 ## Closing biodb instance

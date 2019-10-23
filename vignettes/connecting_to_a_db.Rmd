@@ -35,14 +35,14 @@ mybiodb$getDbsInfo()$getIds()
 
 Creating a connector is done through the factory:
 ```{r}
-conn <- mybiodb$getFactory()$getConn('kegg.compound')
+conn <- mybiodb$getFactory()$getConn('chebi')
 ```
 
 ## Getting an entry from the database
 
 Retrieving an entry from the database is done using the `getEntry()` method:
 ```{r}
-entry <- conn$getEntry('C00005')
+entry <- conn$getEntry('15440')
 ```
 
 ## Accessing entry fields

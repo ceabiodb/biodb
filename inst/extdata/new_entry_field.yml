@@ -1,7 +1,8 @@
 databases:
-  lipidmaps.structure:
+  chebi:
     parsing.expr:
-      formula2: FORMULA
+      n_stars: //chebi:return/chebi:entityStar
 fields:
-  formula2:
-    description: Another formula field for vignettes.
+  n_stars:
+    description: The ChEBI stars indicator.
+    class: integer

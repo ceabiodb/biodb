@@ -427,14 +427,14 @@ getSearchCategories=function() {
 ################################################################################
 
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    
+
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
              'getCompleteEntity')
-    
+
     urls <- vapply(id, function(x) BiodbUrl(url=url,
                                             params=list(chebiId=x))$toString(),
                    FUN.VALUE='')
-    
+
     return(urls)
 },
 
