@@ -18,9 +18,7 @@ Suggests:
 	devtools,
 	testthat (>= 2.0.0),
 	knitr,
-	rmarkdown,
-	igraph,
-	magick
+	rmarkdown
 Imports:
 	methods,
 	XML,
@@ -40,8 +38,6 @@ Collate:
     'BiodbObject.R'
     'Biodb.R'
     'BiodbChildObject.R'
-    'BiodbShape.R'
-    'BiodbCircle.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
     'BiodbCompounddbConn.R'
@@ -66,7 +62,6 @@ Collate:
     'BiodbLogger.R'
     'BiodbMassdbConn.R'
     'BiodbPersitentCache.R'
-    'BiodbRect.R'
     'BiodbRequestScheduler.R'
     'BiodbRemotedbConn.R'
     'BiodbUrl.R'
