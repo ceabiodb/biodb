@@ -18,3 +18,5 @@ script:
 branches:
     only:
         - master
+        - /^dev_.*$/
+        - /^release_.*$/
