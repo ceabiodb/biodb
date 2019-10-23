@@ -14,8 +14,8 @@ this class.
 The constructor takes no argument.
 
 Once the instance is created, some other important classes
-(\code{BiodbFactory}, \code{BiodbCache}, \code{BiodbConfig}, ...) are
-instantiated (just once) and their instances are later accessible through
+(\code{BiodbFactory}, \code{BiodbPersistentCache}, \code{BiodbConfig}, ...)
+are instantiated (just once) and their instances are later accessible through
 get*() methods.
 }
 \section{Methods}{
@@ -222,14 +222,6 @@ Returned value: A data frame containing in columns the requested field
 DEPRECATED method to test if a field is an atomic field. The new
     method is \code{BiodbEntryField::isVector()}.}
 
-\item{\code{getCache()}}{:
-
-Returns the single instance of the \code{BiodbCache} class.
-    
-Returned value: The instance of the \code{BiodbCache} class attached to
-    this Biodb instance.
-    }
-
 \item{\code{getConfig()}}{:
 
 Returns the single instance of the \code{BiodbConfig} class.
@@ -272,6 +264,14 @@ DEPRECATED method to get the class of a field. The new method is
 Gets the list of registered observers.
     
 Returned value: The list or registered observers.
+    }
+
+\item{\code{getPersistentCache()}}{:
+
+Returns the single instance of the BiodbPersistentCache class.
+    
+Returned value: The instance of the BiodbPersistentCache class attached to
+    this Biodb instance.
     }
 
 \item{\code{getRequestScheduler()}}{:
@@ -328,7 +328,7 @@ mybiodb <- NULL
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
+\code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
 \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
 \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
 \code{\link{BiodbDbsInfo}}.

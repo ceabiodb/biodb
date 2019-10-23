@@ -50,17 +50,21 @@ Returned value: TRUE if the downloaded database content has been
 mybiodb <- biodb::Biodb()
 
 # Use a downloadable database
-mirbase <- mybiodb$getFactory()$getConn('mirbase.mature')
+\dontrun{
+conn <- mybiodb$getFactory()$getConn('my_database')
+}
 
 # Check if database has been downloaded
-mirbase$isDownloaded()
+\dontrun{
+conn$isDownloaded()
+}
 
 # Download the whole database content
 \dontrun{
-mirbase$download()
+conn$download()
 }
-# Not though that you do not need to call this method explicitly. This is
-# will be done automatically by Biodb if needed.
+# Note though that you do not need to call this method explicitly. This
+# will be done automatically by biodb if needed.
 
 # Terminate instance.
 mybiodb$terminate()

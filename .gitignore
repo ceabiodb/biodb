@@ -21,3 +21,4 @@ biodb_*.tgz
 biodb_*.tar.gz
 biodb.Rcheck
 vignettes/figure
+cache

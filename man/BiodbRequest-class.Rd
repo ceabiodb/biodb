@@ -32,6 +32,14 @@ Gets the body.
 Returned values: The body as a character value.
     }
 
+\item{\code{getConn()}}{:
+
+gets the associated connector (usually the connector that created this
+    request).
+    
+Returned value: The associated connector as a BiodbConn object.
+    }
+
 \item{\code{getCurlOptions(useragent)}}{:
 
 Gets the options object to pass to cURL library.
@@ -65,8 +73,8 @@ Returned value: The method as a character value.
 
 \item{\code{getUniqueKey()}}{:
 
-Gets a unique key to identify this request. The key is an MD5 computed
-    from the string representation of this request.
+Gets a unique key to identify this request. The key is an MD5 sum
+    computed from the string representation of this request.
     
 Returned value: A unique key as an MD5 sum.
     }
@@ -76,6 +84,16 @@ Returned value: A unique key as an MD5 sum.
 Gets the URL.
     
 Returned value: The URL as a BiodbUrl object.
+    }
+
+\item{\code{setConn(conn)}}{:
+
+Sets the associated connector (usually the connector that created this
+    request).
+    
+conn: A valid BiodbConn object.
+    
+Returned value: None.
     }
 
 \item{\code{toString()}}{:
@@ -91,8 +109,9 @@ Returned value: A single string giving a representation of this instance.
 mybiodb <- biodb::Biodb()
 
 # Create a request object
-u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 url <- BiodbUrl(url=u)
+url$setParam('chebiId', 15440)
 request <- BiodbRequest(method='get', url=url)
 
 # Send request

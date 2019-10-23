@@ -154,10 +154,9 @@ addNewEntry=function(entry) {
         entry$setFieldValue(id.field, id)
 
     # Remove entry from non-volatile cache
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     if (cch$isWritable())
-        cch$deleteFile(.self$getCacheId(), subfolder='shortterm', name=id,
-                       ext=.self$getEntryFileExt())
+        cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
 
     # Flag entry as new
     entry$.setAsNew(TRUE)

@@ -99,7 +99,7 @@ clone=function(db.class=NULL) {
     ":\n\nClones this entry.
     \ndb.class: The database class (the Biodb database ID) of the clone. By
     setting this parameter, you can specify a different database for the clone,
-    so you may clone a Massbank entry into a MassCsvFile entry if you wish. By
+    so you may clone an entry into another database if you wish. By
     default the class of the clone will be the same as the original entry.
     \nReturned value: The clone, as a new BiodbEntry instance.
     "

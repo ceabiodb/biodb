@@ -77,6 +77,15 @@ value: A value.
 Returned value: The corrected value.
     }
 
+\item{\code{equals(other)}}{:
+
+Compares this instance with another, and tests if they are equal.
+    
+other: Another BiodbEntryField instance.
+    
+Returned value: TRUE if they are equal, FALSE otherwise.
+    }
+
 \item{\code{forbidsDuplicates()}}{:
 
 Tests if this field forbids duplicates.

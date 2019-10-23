@@ -1,5 +1,5 @@
 Package: biodb
-Title: Biodb, a Library for Connecting to Chemical and Biological Databases
+Title: biodb, a library for connecting to chemical and biological databases
 Version: 0.99.0
 Authors@R: c(person("Pierrick", "Roger", email = "pierrick.roger@cea.fr", role = c("aut", "cre")),
              person("Alexis", "Delabrière", email = "delabriere@imsb.biol.ethz.ch", role = "ctb"))
@@ -18,11 +18,8 @@ Suggests:
 	devtools,
 	testthat (>= 2.0.0),
 	knitr,
-	rmarkdown,
-	igraph,
-	magick
+	rmarkdown
 Imports:
-	Rcpp,
 	methods,
 	XML,
 	stringr,
@@ -31,8 +28,6 @@ Imports:
 	jsonlite,
 	RCurl,
 	stats,
-	R.utils,
-	digest,
 	openssl,
 	RSQLite
 LinkingTo:
@@ -43,9 +38,6 @@ Collate:
     'BiodbObject.R'
     'Biodb.R'
     'BiodbChildObject.R'
-    'BiodbCache.R'
-    'BiodbShape.R'
-    'BiodbCircle.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
     'BiodbCompounddbConn.R'
@@ -69,7 +61,7 @@ Collate:
     'BiodbListEntry.R'
     'BiodbLogger.R'
     'BiodbMassdbConn.R'
-    'BiodbRect.R'
+    'BiodbPersitentCache.R'
     'BiodbRequestScheduler.R'
     'BiodbRemotedbConn.R'
     'BiodbUrl.R'
@@ -82,60 +74,14 @@ Collate:
     'BiodbWritable.R'
     'ChebiConn.R'
     'ChebiEntry.R'
-    'ChemspiderConn.R'
-    'ChemspiderEntry.R'
-    'ExpasyEnzymeConn.R'
-    'ExpasyEnzymeEntry.R'
-    'HmdbMetabolitesConn.R'
-    'HmdbMetabolitesEntry.R'
-    'KeggConn.R'
-    'KeggCompoundConn.R'
-    'KeggEntry.R'
-    'KeggCompoundEntry.R'
-    'KeggEnzymeConn.R'
-    'KeggEnzymeEntry.R'
-    'KeggGenesConn.R'
-    'KeggGenesEntry.R'
-    'KeggModuleConn.R'
-    'KeggModuleEntry.R'
-    'KeggOrthologyConn.R'
-    'KeggOrthologyEntry.R'
-    'KeggPathwayConn.R'
-    'KeggPathwayEntry.R'
-    'KeggReactionConn.R'
-    'KeggReactionEntry.R'
-    'LipidmapsStructureConn.R'
-    'LipidmapsStructureEntry.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
-    'MassbankConn.R'
-    'MassbankEntry.R'
-    'MirbaseConn.R'
-    'MirbaseMatureConn.R'
-    'MirbaseMatureEntry.R'
-    'NcbiConn.R'
-    'NcbiCcdsConn.R'
-    'NcbiCcdsEntry.R'
-    'NcbiEntrezConn.R'
-    'NcbiGeneConn.R'
-    'NcbiGeneEntry.R'
-    'NcbiPubchemConn.R'
-    'NcbiPubchemCompConn.R'
-    'NcbiPubchemEntry.R'
-    'NcbiPubchemCompEntry.R'
-    'NcbiPubchemSubstConn.R'
-    'NcbiPubchemSubstEntry.R'
-    'NciCactusConn.R'
-    'NciCactusEntry.R'
-    'PeakforestConn.R'
-    'PeakforestCompoundConn.R'
-    'PeakforestCompoundEntry.R'
-    'PeakforestMassConn.R'
-    'PeakforestMassEntry.R'
     'UniprotConn.R'
     'UniprotEntry.R'
-    'biodb-package.R'
+    'generic_tests.R'
     'mass_helpers.R'
+    'package.R'
     'spec-dist.R'
+    'test_framework.R'

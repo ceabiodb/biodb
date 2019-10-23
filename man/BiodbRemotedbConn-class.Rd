@@ -70,13 +70,13 @@ Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
 mybiodb <- biodb::Biodb()
 
 # Get connector
-conn <- mybiodb$getFactory()$createConn('chemspider')
+conn <- mybiodb$getFactory()$createConn('chebi')
 
 # Get the picture URL of an entry
-picture.url <- conn$getEntryImageUrl('2')
+picture.url <- conn$getEntryImageUrl('15440')
 
 # Get the page URL of an entry
-page.url <- conn$getEntryPageUrl('2')
+page.url <- conn$getEntryPageUrl('15440')
 
 # Terminate instance.
 mybiodb$terminate()

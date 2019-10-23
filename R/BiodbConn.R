@@ -48,6 +48,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
+#' @import openssl
 #' @include BiodbConnBase.R
 #' @export BiodbConn
 #' @exportClass BiodbConn
@@ -128,9 +129,8 @@ getCacheFile=function(entry.id) {
     IDs.
     "
 
-    c <- .self$getBiodb()$getCache()
-    fp <- c$getFilePath(.self$getCacheId(), 'shortterm', entry.id,
-                        .self$getEntryFileExt())
+    c <- .self$getBiodb()$getPersistentCache()
+    fp <- c$getFilePath(.self$getCacheId(), entry.id, .self$getEntryFileExt())
 
     return(fp)
 },
@@ -147,7 +147,7 @@ getEntryContent=function(id) {
     "
 
     content <- list()
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     nm <- .self$getPropertyValue('name')
 
     if ( ! is.null(id) && length(id) > 0) {
@@ -166,7 +166,7 @@ getEntryContent=function(id) {
         if (cch$isReadable() && ! is.null(.self$getCacheId())) {
             # Load content from cache
             content <- cch$loadFileContent(.self$getCacheId(),
-                                          subfolder='shortterm', name=id,
+                                          name=id,
                                           ext=.self$getEntryFileExt())
             missing.ids <- id[vapply(content, is.null, FUN.VALUE=TRUE)]
         }
@@ -218,7 +218,6 @@ getEntryContent=function(id) {
                     && ! is.null(.self$getCacheId()) && cch$isWritable())
                     cch$saveContentToFile(ec,
                                           cache.id=.self$getCacheId(),
-                                          subfolder='shortterm',
                                           name=ch.missing.ids,
                                           ext=.self$getEntryFileExt())
 
@@ -541,6 +540,23 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
                            FUN.VALUE=TRUE)
     }
     return(makes_ref)
+},
+
+# Make request {{{3
+################################################################################
+
+makeRequest=function(...) {
+    ":\n\nMakes a BiodbRequest instance using the passed parameters, and set
+    ifself as the associated connector.
+    \n...: Those parameters are passed to the initializer of BiodbRequest.
+    \nReturned value: The BiodbRequest instance.
+    "
+
+    req <- BiodbRequest(...)
+
+    req$setConn(.self)
+
+    return(req)
 },
 
 # Private methods {{{2

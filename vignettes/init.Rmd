@@ -89,7 +89,7 @@ config <- mybiodb$getConfig()
 
 To get the cache system instance:
 ```{r}
-cache <- mybiodb$getCache()
+cache <- mybiodb$getPersistentCache()
 ```
 
 To get the database information instance:

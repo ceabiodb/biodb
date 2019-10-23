@@ -19,9 +19,6 @@
 #' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls',
 #' 'base.url')
 #'
-#' # Setting a token:
-#' mybiodb$getDbsInfo()$get('chemspider')$setToken('my.chemspider.token')
-#'
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'

@@ -23,7 +23,7 @@
 #' other: Another object inheriting from \code{BiodbBaseConn}, and
 #'        from which property values will be copied.
 #'
-#' db.class: The class of the database (\code{"massbank", "hmdb.metabolies",
+#' db.class: The class of the database (\code{"mass.csv.file", "chebi",
 #'           ...}).
 #'
 #' properties: Some properties to set at initialization.

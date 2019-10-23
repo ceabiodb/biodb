@@ -91,7 +91,7 @@ wsQuery=function(query='', columns=NULL, format=NULL, limit=NULL,
         params[['limit']] <- limit
     url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'base.url'), ''),
                     params=params)
-    request <- BiodbRequest(method='get', url=url)
+    request <- .self$makeRequest(method='get', url=url)
 
     # Return request
     if (retfmt == 'request')
