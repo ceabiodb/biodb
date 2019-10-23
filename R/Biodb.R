@@ -36,6 +36,7 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
+#' @import yaml
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb

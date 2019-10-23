@@ -45,6 +45,7 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
+#' @import openssl
 #' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
@@ -166,12 +167,12 @@ getCurlOptions=function(useragent) {
 ################################################################################
 
 getUniqueKey=function() {
-    ":\n\nGets a unique key to identify this request. The key is an MD5 computed
-    from the string representation of this request.
+    ":\n\nGets a unique key to identify this request. The key is an MD5 sum
+    computed from the string representation of this request.
     \nReturned value: A unique key as an MD5 sum.
     "
 
-    key <- digest::digest(.self$toString(), algo='md5')
+    key <- openssl::md5(.self$toString())
 
     return(key)
 },

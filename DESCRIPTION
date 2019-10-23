@@ -22,7 +22,6 @@ Suggests:
 	igraph,
 	magick
 Imports:
-	Rcpp,
 	methods,
 	XML,
 	stringr,
@@ -31,8 +30,6 @@ Imports:
 	jsonlite,
 	RCurl,
 	stats,
-	R.utils,
-	digest,
 	openssl,
 	RSQLite
 LinkingTo:

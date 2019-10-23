@@ -48,6 +48,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
+#' @import openssl
 #' @include BiodbConnBase.R
 #' @export BiodbConn
 #' @exportClass BiodbConn

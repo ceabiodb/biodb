@@ -73,8 +73,8 @@ Returned value: The method as a character value.
 
 \item{\code{getUniqueKey()}}{:
 
-Gets a unique key to identify this request. The key is an MD5 computed
-    from the string representation of this request.
+Gets a unique key to identify this request. The key is an MD5 sum
+    computed from the string representation of this request.
     
 Returned value: A unique key as an MD5 sum.
     }

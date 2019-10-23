@@ -15,6 +15,8 @@
 #' # Create a concrete entry class inheriting from CSV class:
 #' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbTxtEntry")
 #'
+#' @import methods
+#' @import stringr
 #' @include BiodbEntry.R
 #' @export BiodbTxtEntry
 #' @exportClass BiodbTxtEntry
