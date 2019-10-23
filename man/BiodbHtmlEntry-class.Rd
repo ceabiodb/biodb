@@ -12,6 +12,6 @@ HTML format.
 
 \examples{
 # Create a concrete entry class inheriting from this class:
-MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry"(
+MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry")
 
 }
