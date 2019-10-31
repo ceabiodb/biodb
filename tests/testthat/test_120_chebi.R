@@ -62,16 +62,12 @@ test_chebi_convCasToChebi <- function(conn) {
 ################################################################
 
 test_chebi_convInchiToChebi <- function(conn) {
-    
+
     # Build InChIs
-    x <- paste0('C15H24/c1-9(2)11-7-8-15(4)12-6-5-10(3)14(15)13(11)12/h5,9,11',
-                '-14H,6-',
-                '8H2,1-4H3/t11?,12?,13?,14?,15-/m0/s1')
-    inchi <- paste0('InChI=1/', x) # non standard InChI
-    stdinchi <- paste0('InChI=1S/', x) # standard InChI
+    inchi <- paste0('InChI=1S/C15H24/c1-9(2)11-7-8-15(4)12-6-5-10(3)14(15)13(11)12/h5,9,11',
+                '-14H,6-8H2,1-4H3/t11?,12?,13?,14?,15-/m0/s1')
     inchikey <- 'VLXDPFLIRFYIME-MWHZVNNOSA-N'
     testthat::expect_equal(conn$convInchiToChebi(inchi), '10341')
-    testthat::expect_equal(conn$convInchiToChebi(stdinchi), '10341')
     testthat::expect_equal(conn$convInchiToChebi(inchikey), '10341')
 }
 
