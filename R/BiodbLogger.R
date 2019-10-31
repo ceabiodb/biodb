@@ -126,7 +126,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
             cat(m, "\n", sep='', file=.self$.file)
     }
 
-    invisible(NULL)
+    invisible()
 }
 
 ))

@@ -211,12 +211,34 @@ set=function(key, value) {
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
-    .self$debug('info', "Set key ", key, ' to ', displayed.value, '.')
+    .self$info2("Set key ", key, ' to ', displayed.value, '.')
 
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))
 
     invisible(NULL)
+},
+
+# Reset {{{3
+################################################################################
+
+reset=function(key=NULL) {
+    ":\n\nReset the value of a key.
+    \nkey: The name of a configuration key. If NULL, all keys will be reset.
+    \nReturned value: None.
+    "
+
+    # Set keys to reset
+    if (is.null(key))
+        keys <- names(.self$.keys)
+    else {
+        .self$.checkKey(key)
+        keys <- key
+    }
+
+    # Loop on all keys
+    for (k in keys)
+        .self$set(k, .self$.keys[[key]]$default)
 },
 
 # Enable {{{3
@@ -321,9 +343,16 @@ define=function(def) {
     'Define config properties from a structured object, normally loaded from a
     YAML file.'
 
-    .self$debug('Define config keys.')
+    # Get key names
+    keys <- names(def)
+
+    # Move some keys at first position
+    for (key in rev(c('msg.debug.lvl', 'msg.info.lvl')))
+        if (key %in% keys)
+            keys <- c(key, keys[keys != key])
+
     # Loop on all keys
-    for (key in names(def)) {
+    for (key in keys) {
 
         v <- def[[key]]
         v$key <- key

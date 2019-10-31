@@ -37,15 +37,17 @@ getBiodb=function() {
 ################################################################################
 
 notify=function(fct, args) {
-    
+
     # Get observers
     obs <- .self$getBiodb()$getObservers()
-    
+
     # Build call code
     call <- paste0('do.call(o$', fct, ', args)')
 
     # Notify each observer
     lapply(obs, function(o) eval(parse(text=call)) )
+
+    invisible()
 },
 
 # Progress message {{{3
@@ -55,6 +57,8 @@ progressMsg=function(msg, index, first, total=NA_integer_, type='info',
                      laptime=10L) {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
                                   first=first, laptime=laptime))
+
+    invisible()
 },
 
 # Message {{{3
@@ -64,7 +68,7 @@ progressMsg=function(msg, index, first, total=NA_integer_, type='info',
 message=function(type, msg, lvl=1) {
 
     type <- tolower(type)
-    
+
     # Get biodb instance
     biodb <- NULL
     if (length(.self$.message.enabled) == 1 # length is 0
@@ -94,6 +98,8 @@ message=function(type, msg, lvl=1) {
                warning=warning(caller.info, msg),
                base::message(caller.info, msg))
     }
+
+    invisible()
 },
 
 # Debug message {{{3
@@ -101,6 +107,8 @@ message=function(type, msg, lvl=1) {
 
 debug=function(...) {
     .self$message(type='debug', msg=paste0(...))
+
+    invisible()
 },
 
 # Debug message level 2 {{{3
@@ -108,13 +116,15 @@ debug=function(...) {
 
 debug2=function(...) {
     .self$message(type='debug', msg=paste0(...), lvl=2)
+
+    invisible()
 },
 
 # Debug message level 2 for printing list {{{3
 ################################################################################
 
 debug2List=function(msg, lst, cut=10) {
-    
+
     if (length(lst) == 0)
         s <- 'none'
     else {
@@ -123,6 +133,8 @@ debug2List=function(msg, lst, cut=10) {
         s <- paste0('"', s, '"')
     }
     .self$debug2(msg, '[', length(lst), ']: ', s, '.')
+
+    invisible()
 },
 
 # Error message {{{3
@@ -130,6 +142,8 @@ debug2List=function(msg, lst, cut=10) {
 
 error=function(...) {
     .self$message(type='error', msg=paste0(...))
+
+    invisible()
 },
 
 # Warning message {{{3
@@ -137,6 +151,8 @@ error=function(...) {
 
 warning=function(...) {
     .self$message(type='warning', msg=paste0(...))
+
+    invisible()
 },
 
 # Caution message {{{3
@@ -144,6 +160,8 @@ warning=function(...) {
 
 caution=function(...) {
     .self$message(type='caution', msg=paste0(...))
+
+    invisible()
 },
 
 # Info message {{{3
@@ -151,6 +169,8 @@ caution=function(...) {
 
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
+
+    invisible()
 },
 
 # Info message level 2 {{{3
@@ -158,6 +178,8 @@ info=function(...) {
 
 info2=function(...) {
     .self$message(type='info', msg=paste0(...), lvl=2)
+
+    invisible()
 },
 
 # Private methods {{{2

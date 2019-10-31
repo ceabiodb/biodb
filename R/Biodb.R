@@ -700,7 +700,9 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
 ################################################################################
 
 show=function() {
-    'Prints object information.'
+    ":\n\nPrints object information.
+    \nReturned value: None.
+    "
 
     # Print version
     v <- as.character(packageVersion('biodb'))
@@ -716,6 +718,31 @@ show=function() {
         cat("The following connectors are disabled: ",
             paste(dbnames, collapse=', '), ".\n", sep='')
     }
+},
+
+# Enable debug {{{3
+################################################################################
+
+enableDebug=function() {
+    ":\n\nEnable debug mode: set levels of all message types to maximum.
+    \nReturned value: None.
+    "
+    
+    for (type in c('info', 'caution', 'debug'))
+        .self$getConfig()$set(paste('msg', type, 'lvl', sep='.'), 10)
+},
+
+# Disable debug {{{3
+################################################################################
+
+disableDebug=function() {
+    ":\n\nDisable debug mode: reset levels of all message types to their default
+    value.
+    \nReturned value: None.
+    "
+    
+    for (type in c('caution', 'debug', 'info'))
+        .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
 },
 
 # Private methods {{{2
