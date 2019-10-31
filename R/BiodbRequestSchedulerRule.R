@@ -24,8 +24,6 @@
 #'
 #' @import methods
 #' @include BiodbChildObject.R
-#' @export BiodbRequestSchedulerRule
-#' @exportClass BiodbRequestSchedulerRule
 BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule",
     contains="BiodbChildObject",
     fields=list(
