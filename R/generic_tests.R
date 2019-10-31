@@ -852,7 +852,7 @@ test.msmsSearch.self.match <- function(db) {
 			peaks <- spectrum.entry$getFieldValue('peaks')
 			int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
 			peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
-			peaks <- peaks[1:2, ]
+			peaks <- peaks[seq(2), ]
 
 			# Run MSMS search
 			results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = mode, npmin = 2, dist.fun = dist.fct, msms.mz.tol = 3, msms.mz.tol.min = 0.005)
@@ -966,7 +966,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
 	testthat::expect_true(nrow(peaks) >= length(mzs))
 	testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
 	testthat::expect_true(ncol(peaks) > 1)
-	testthat::expect_true(! all(is.na(peaks[1:(nrow(peaks) - 1), ])))
+	testthat::expect_true(! all(is.na(peaks[seq(nrow(peaks) - 1), ])))
 	testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
 

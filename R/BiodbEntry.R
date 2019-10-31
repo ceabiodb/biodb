@@ -342,7 +342,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
 
     # Limit
     if (limit > 0 && ! is.null(val) && length(val) > limit)
-        val <- val[1:limit]
+        val <- val[seq(limit)]
 
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
