@@ -316,9 +316,9 @@ connSchedulerFrequencyUpdated=function(conn) {
 
         # No rule exists => create new one
         if (is.null(rule)) {
-            host <- BiodbUrl(url =url)$getDomain()
+            host <- BiodbUrl(url=url)$getDomain()
             .self$debug('Create new rule for URL "', host,'" of connector "',
-                        conn$getId(), '"')
+                        conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule$new(parent=.self, host=host,
                                                   conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule

@@ -32,7 +32,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
     .self$checkMessageType(type)
     setlvl <- .self$getLevel(type)
 
-    if (setlvl >= lvl && type == 'info')
+    if (setlvl >= lvl && type %in% c('info', 'debug', 'caution'))
         base::message(msg)
 }
 
