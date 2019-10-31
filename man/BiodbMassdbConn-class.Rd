@@ -304,5 +304,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbConn}}.
+Super class \code{\link{BiodbConn}}.
 }

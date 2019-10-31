@@ -15,3 +15,6 @@ text format.
 MyEntry <- methods::setRefClass("MyEntry", contains="BiodbTxtEntry")
 
 }
+\seealso{
+Super class \code{\link{BiodbEntry}}.
+}

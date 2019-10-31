@@ -26,3 +26,6 @@ e <- conn$getEntry('PR010001')
 mybiodb$terminate()
 
 }
+\seealso{
+Super class \code{\link{BiodbCsvEntry}}.
+}

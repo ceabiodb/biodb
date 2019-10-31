@@ -270,6 +270,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
-         \code{\link{BiodbMassdbConn}}.
+Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
+\code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
 }

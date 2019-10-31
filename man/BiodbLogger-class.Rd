@@ -75,5 +75,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbObserver}}.
+\code{\link{Biodb}} and super \code{\link{BiodbObserver}}.
 }

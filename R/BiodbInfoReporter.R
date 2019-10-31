@@ -11,7 +11,7 @@
 #' This class is not meant to be used directly. It is automatically instantiated
 #' inside biodb constructor in order to report information messages.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
+#' @seealso \code{\link{Biodb}} and super class \code{\link{BiodbObserver}}.
 #'
 #' @import methods
 #' @include BiodbObserver.R

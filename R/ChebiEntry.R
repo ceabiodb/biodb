@@ -9,6 +9,8 @@
 #' ChEBI entry class.
 #'
 #' This is the entry class for ChEBI database.
+#'
+#' @seealso Super class \code{\link{BiodbXmlEntry}}.
 #' 
 #' @examples
 #' # Create an instance with default settings:

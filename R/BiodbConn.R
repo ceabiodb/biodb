@@ -28,8 +28,8 @@
 #'
 #' cache.id: The identifier used in the disk cache.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
-#'          \code{\link{BiodbMassdbConn}}.
+#' @seealso Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
+#' \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

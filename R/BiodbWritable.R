@@ -11,6 +11,8 @@
 #' A database class that implements this interface must allow the addition of
 #' new entries.
 #'
+#' @seealso \code{\link{BiodbConn}}.
+#'
 #' @param entry An entry instance.
 #'
 #' @import methods

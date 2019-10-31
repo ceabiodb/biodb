@@ -106,6 +106,21 @@ limit: The number of entries of the source database to copy. If set to
 Returned value: None.
     }
 
+\item{\code{disableDebug()}}{:
+
+Disable debug mode: reset levels of all message types to their default
+    value.
+    
+Returned value: None.
+    }
+
+\item{\code{enableDebug()}}{:
+
+Enable debug mode: set levels of all message types to maximum.
+    
+Returned value: None.
+    }
+
 \item{\code{entriesFieldToVctOrLst(entries, field, flatten = FALSE, compute = TRUE,
   limit = 0, withNa = TRUE)}}{:
 

@@ -11,7 +11,7 @@
 #' All Mass spectra databases inherit from this class. It thus defines methods
 #' specific to mass spectrometry.
 #'
-#' @seealso \code{\link{BiodbConn}}.
+#' @seealso Super class \code{\link{BiodbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

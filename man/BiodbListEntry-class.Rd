@@ -15,3 +15,6 @@ list format.
 MyEntry <- methods::setRefClass("MyEntry", contains="BiodbListEntry")
 
 }
+\seealso{
+Super class \code{\link{BiodbEntry}}.
+}

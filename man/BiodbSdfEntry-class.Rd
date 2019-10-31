@@ -15,3 +15,6 @@ SDF format.
 MyEntry <- methods::setRefClass("MyEntry", contains="BiodbSdfEntry")
 
 }
+\seealso{
+Super class \code{\link{BiodbTxtEntry}}.
+}

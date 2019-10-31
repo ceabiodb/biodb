@@ -14,7 +14,7 @@
 #' instance of this class, call the \code{getFactory()} method of class
 #' \code{Biodb}.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}},
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}} and
 #' \code{\link{BiodbEntry}}.
 #'
 #' @examples

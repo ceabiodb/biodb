@@ -21,3 +21,6 @@ MyEntry <- methods::setRefClass("MyEntry", contains="BiodbCsvEntry",
 ))
 
 }
+\seealso{
+Super class \code{\link{BiodbEntry}}.
+}

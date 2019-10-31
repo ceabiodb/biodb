@@ -23,3 +23,6 @@ e <- conn$getEntry('15440')
 mybiodb$terminate()
 
 }
+\seealso{
+Super class \code{\link{BiodbXmlEntry}}.
+}

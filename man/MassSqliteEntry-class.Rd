@@ -26,3 +26,6 @@ e <- conn$getEntry('34.pos.col12.0.78')
 mybiodb$terminate()
 
 }
+\seealso{
+Super class \code{\link{BiodbListEntry}}.
+}

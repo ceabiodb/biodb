@@ -15,3 +15,6 @@ HTML format.
 MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry")
 
 }
+\seealso{
+Super class \code{\link{BiodbXmlEntry}}.
+}

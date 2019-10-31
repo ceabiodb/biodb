@@ -119,6 +119,15 @@ Returned value: A data frame containing four columns: Key, Type, Default
     value and Description.
     }
 
+\item{\code{reset(key = NULL)}}{:
+
+Reset the value of a key.
+    
+key: The name of a configuration key. If NULL, all keys will be reset.
+    
+Returned value: None.
+    }
+
 \item{\code{set(key, value)}}{:
 
 Set the value of a key.

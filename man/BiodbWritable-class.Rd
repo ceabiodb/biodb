@@ -55,3 +55,6 @@ Returned value: TRUE if writing is allowed for this database, FALSE
     }
 }}
 
+\seealso{
+\code{\link{BiodbConn}}.
+}

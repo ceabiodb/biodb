@@ -58,5 +58,5 @@ Returned value: None.
 }}
 
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbObserver}}.
+\code{\link{Biodb}} and super class \code{\link{BiodbObserver}}.
 }

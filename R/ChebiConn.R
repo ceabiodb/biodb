@@ -11,6 +11,9 @@
 #' This is the connector class for connecting to the ChEBI database through its
 #' web services.
 #'
+#' @seealso Super classes \code{\link{BiodbRemotedbConn}} and
+#' \code{\link{BiodbCompounddbConn}}.
+#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()

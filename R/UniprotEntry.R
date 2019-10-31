@@ -10,6 +10,8 @@
 #'
 #' This is the entry class for Uniprot database.
 #'
+#' @seealso Super class \code{\link{BiodbXmlEntry}}.
+#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()

@@ -44,7 +44,7 @@
 #' computable.from: The Biodb ID of a database, from which this field can be
 #' computed.
 #'
-#' @seealso \code{\link{BiodbEntryFields}}.
+#' @seealso Parent class \code{\link{BiodbEntryFields}}.
 #'
 #' @examples
 #' # Get the class of the InChI field.

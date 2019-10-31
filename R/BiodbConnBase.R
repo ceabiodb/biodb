@@ -28,7 +28,7 @@
 #'
 #' properties: Some properties to set at initialization.
 #'
-#' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
+#' @seealso Sub-classes \code{\link{BiodbDbInfo}} and \code{\link{BiodbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

@@ -10,6 +10,9 @@
 #'
 #' This is the connector class for a MASS CSV file database.
 #'
+#' @seealso Super classes \code{\link{BiodbMassdbConn}},
+#' \code{\link{BiodbWritable}} and \code{\link{BiodbEditable}}.
+#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()

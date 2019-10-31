@@ -84,6 +84,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+Super classes \code{\link{BiodbRemotedbConn}} and
 \code{\link{BiodbCompounddbConn}}.
 }

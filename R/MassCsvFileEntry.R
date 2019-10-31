@@ -10,6 +10,8 @@
 #'
 #' This is the entry class for MASS CSV file databases.
 #'
+#' @seealso Super class \code{\link{BiodbCsvEntry}}.
+#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()

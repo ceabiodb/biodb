@@ -181,3 +181,7 @@ conn$convInchiToChebi('YYGNTYWPHWGJRM-AAJYLUCBSA-N')
 mybiodb$terminate()
 
 }
+\seealso{
+Super classes \code{\link{BiodbRemotedbConn}} and
+\code{\link{BiodbCompounddbConn}}.
+}

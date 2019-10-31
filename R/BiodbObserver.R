@@ -12,8 +12,9 @@
 #' to the observers. You can define new observer classes by inherting from this
 #' class.
 #'
-#' @seealso \code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}},
-#'          \code{\link{BiodbErrorReporter}}.
+#' @seealso Sub-classes \code{\link{BiodbLogger}},
+#' \code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}},
+#' \code{\link{BiodbErrorReporter}}.
 #'
 #' @examples
 #' # Define a new observer class

@@ -162,6 +162,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbConn}},
+\code{\link{Biodb}}, \code{\link{BiodbConn}} and
 \code{\link{BiodbEntry}}.
 }

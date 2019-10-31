@@ -15,3 +15,6 @@ JSON format.
 MyEntry <- methods::setRefClass("MyEntry", contains="BiodbJsonEntry")
 
 }
+\seealso{
+Super class \code{\link{BiodbEntry}}.
+}

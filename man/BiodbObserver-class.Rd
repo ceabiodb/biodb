@@ -132,6 +132,7 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbLogger}}, \code{\link{BiodbWarningReporter}},
-         \code{\link{BiodbErrorReporter}}.
+Sub-classes \code{\link{BiodbLogger}},
+\code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}},
+\code{\link{BiodbErrorReporter}}.
 }

@@ -24,5 +24,6 @@ mybiodb <- NULL
 
 }
 \seealso{
-\code{\link{BiodbDbsInfo}}, \code{\link{BiodbConnBase}}.
+Parent class \code{\link{BiodbDbsInfo}} and super class
+\code{\link{BiodbConnBase}}.
 }

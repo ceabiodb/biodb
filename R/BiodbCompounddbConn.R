@@ -11,7 +11,7 @@
 #' This interface is inherited by all compound databases. It declares
 #' method headers specific to compound databases.
 #'
-#' @seealso \code{\link{BiodbConn}}.
+#' @seealso Super class \code{\link{BiodbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

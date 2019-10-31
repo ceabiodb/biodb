@@ -12,7 +12,8 @@
 #' characteristics, and returning them through the \code{get()} method.
 #' This class inherits from \code{\link{BiodbConnBase}}.
 #'
-#' @seealso \code{\link{BiodbDbsInfo}}, \code{\link{BiodbConnBase}}.
+#' @seealso Parent class \code{\link{BiodbDbsInfo}} and super class
+#' \code{\link{BiodbConnBase}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

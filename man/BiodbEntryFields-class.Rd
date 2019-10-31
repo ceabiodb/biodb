@@ -108,5 +108,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
+\code{\link{Biodb}} and child class \code{\link{BiodbEntryField}}.
 }

@@ -10,6 +10,8 @@
 #'
 #' This is the entry class for a MASS SQLite database.
 #'
+#' @seealso Super class \code{\link{BiodbListEntry}}.
+#'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()

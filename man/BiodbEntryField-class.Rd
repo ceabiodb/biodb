@@ -231,5 +231,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbEntryFields}}.
+Parent class \code{\link{BiodbEntryFields}}.
 }

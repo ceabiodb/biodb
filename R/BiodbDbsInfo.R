@@ -11,7 +11,7 @@
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class
 #' and accessed through the \code{getDbsInfo()} method.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.
+#' @seealso \code{\link{Biodb}} and child class \code{\link{BiodbDbInfo}}.
 #'
 #' @examples
 #' # Getting the base URL of a database:

@@ -14,7 +14,7 @@
 #' (see interface \code{BiodbWritable}), you must call the method \code{write}
 #' on the connector.
 #'
-#' @seealso \code{\link{BiodbWritable}}.
+#' @seealso \code{\link{BiodbConn}} and \code{\link{BiodbWritable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

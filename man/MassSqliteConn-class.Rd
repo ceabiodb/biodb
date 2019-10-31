@@ -53,3 +53,7 @@ e <- conn$getEntry('34.pos.col12.0.78')
 mybiodb$terminate()
 
 }
+\seealso{
+Super classes \code{\link{BiodbMassdbConn}},
+\code{\link{BiodbWritable}} and \code{\link{BiodbEditable}}.
+}

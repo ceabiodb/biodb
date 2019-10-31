@@ -83,5 +83,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.
+Super class \code{\link{BiodbConn}} and
+\code{\link{BiodbRequestScheduler}}.
 }

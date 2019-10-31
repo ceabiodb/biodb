@@ -13,7 +13,7 @@
 #' Only specific methods are described here. See super classes for the
 #' description of inherited methods.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbRemotedbConn}},
+#' @seealso Super classes \code{\link{BiodbRemotedbConn}} and
 #' \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples

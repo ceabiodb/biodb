@@ -79,5 +79,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbDbInfo}}.
+\code{\link{Biodb}} and child class \code{\link{BiodbDbInfo}}.
 }

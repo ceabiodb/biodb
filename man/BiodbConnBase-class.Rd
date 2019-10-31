@@ -211,5 +211,5 @@ mybiodb <- NULL
 
 }
 \seealso{
-\code{\link{BiodbDbsInfo}}, \code{\link{BiodbConn}}.
+Sub-classes \code{\link{BiodbDbInfo}} and \code{\link{BiodbConn}}.
 }

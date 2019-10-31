@@ -80,5 +80,5 @@ mybiodb <- NULL
 
 }
 \seealso{
-\code{\link{BiodbWritable}}.
+\code{\link{BiodbConn}} and \code{\link{BiodbWritable}}.
 }

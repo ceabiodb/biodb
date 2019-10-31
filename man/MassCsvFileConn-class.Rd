@@ -170,3 +170,7 @@ e <- conn$getEntry('PR010001')
 mybiodb$terminate()
 
 }
+\seealso{
+Super classes \code{\link{BiodbMassdbConn}},
+\code{\link{BiodbWritable}} and \code{\link{BiodbEditable}}.
+}

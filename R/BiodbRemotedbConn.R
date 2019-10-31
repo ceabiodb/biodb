@@ -14,7 +14,8 @@
 #' constructor. Nevertheless we provide in the Fields section information about
 #' the constructor parameters, for eventual developers.
 #'
-#' @seealso \code{\link{BiodbConn}}, \code{\link{BiodbRequestScheduler}}.
+#' @seealso Super class \code{\link{BiodbConn}} and
+#' \code{\link{BiodbRequestScheduler}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

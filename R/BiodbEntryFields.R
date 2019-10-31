@@ -11,7 +11,7 @@
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class
 #' and accessed through the \code{getEntryFields()} method.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbEntryField}}.
+#' @seealso \code{\link{Biodb}} and child class \code{\link{BiodbEntryField}}.
 #'
 #' @examples
 #' # Getting information about the accession field:
