@@ -32,10 +32,10 @@ test.default.messages <- function(biodb, obs) {
 
     msg <- "Hello"
 
-    testthat::expect_message(biodb$info(msg), "^Hello$", perl=TRUE)
+    testthat::expect_message(biodb$info(msg), "^Info message: Hello$", perl=TRUE)
     testthat::expect_message(biodb$progressMsg(msg, index=0, total=10,
                                                first=TRUE, laptime=0),
-                             "^Hello.*ETA.*$", perl=TRUE)
+                             "^Info message: Hello.*ETA.*$", perl=TRUE)
     testthat::expect_warning(biodb$warning(msg), "^.* Hello$", perl=TRUE)
     testthat::expect_error(biodb$error(msg), "^.* Hello$", perl=TRUE)
 }
