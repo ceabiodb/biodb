@@ -83,7 +83,7 @@ test: check.version
 	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
-	R $(RFLAGS) -e "devtools::build_win('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
 
 conda_install_%: clean
 	docker build -t biodb.$@ -f tests/dockerfiles/$@.dockerfile .
