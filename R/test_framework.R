@@ -28,7 +28,7 @@ initialize=function(...) {
 
     callSuper(...)
 
-    .last.index <<- 0
+    .self$.last.index <- 0
 },
 
 # Msg {{{2
@@ -101,8 +101,8 @@ BiodbTestMsgRec <- methods::setRefClass("BiodbTestMsgRec",
 ################################################################################
 
 initialize=function(...) {
-    .msgs <<- character()
-    .msgs.by.type <<- list()
+    .self$.msgs <- character()
+    .self$.msgs.by.type <- list()
 },
 
 # Msg {{{2
@@ -112,7 +112,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
     # Overrides super class' method.
 
-    .msgs <<- c(.self$.msgs, msg)
+    .self$.msgs <- c(.self$.msgs, msg)
     .self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
 
     invisible(NULL)
@@ -206,8 +206,8 @@ clearMessages = function() {
     \nReturned value: None.
     "
 
-    .msgs <<- character()
-    .msgs.by.type <<- list()
+    .self$.msgs <- character()
+    .self$.msgs.by.type <- list()
 
     invisible(NULL)
 }
