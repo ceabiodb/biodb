@@ -5,9 +5,6 @@
 \alias{BiodbWritable-class}
 \alias{BiodbWritable}
 \title{An abstract class (more like an interface) to model a writable database.}
-\arguments{
-\item{entry}{An entry instance.}
-}
 \description{
 A database class that implements this interface must allow the addition of
 new entries.
@@ -55,6 +52,32 @@ Returned value: TRUE if writing is allowed for this database, FALSE
     }
 }}
 
+\examples{
+# Create an instance with default settings:
+mybiodb <- biodb::Biodb()
+
+# Create an empty MASS SQLite database
+mydb <- mybiodb$getFactory()$createConn('mass.sqlite')
+
+# Create new entry object
+entry <- mybiodb$getFactory()$createNewEntry('mass.sqlite')
+entry$setFieldValue('accession', '0')
+entry$setFieldValue('name', 'Some Entry')
+
+# Add the new entry
+mydb$allowEditing()
+mydb$addNewEntry(entry)
+
+# Write the database
+mydb$allowWriting()
+mydb$setUrl('base.url', 'mydatabase.sqlite')
+mydb$write()
+
+# Terminate instance.
+mybiodb$terminate()
+mybiodb <- NULL
+
+}
 \seealso{
 \code{\link{BiodbConn}}.
 }

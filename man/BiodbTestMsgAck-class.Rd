@@ -58,3 +58,12 @@ Returned value: None.
     }
 }}
 
+\examples{
+# To use the acknowledger, set ack=TRUE when creating the Biodb test
+# instance:
+biodb <- createBiodbTestInstance(ack=TRUE)
+
+# Terminate the Biodb instance
+biodb$terminate()
+
+}

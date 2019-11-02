@@ -28,9 +28,20 @@ This will allow to print the call to the test function also into the test log
 file, if logger is used for tests.
 }
 \examples{
-#
-\dontrun{
-biodb::testThat("My test works", my_test_function, biodb=mybiodb)
+# Instantiate a Biodb instance for testing
+biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+
+# Define a context before running tests:
+setTestContext(biodb, "Test my database connector.")
+
+# Define a test function
+my_test_function <- function(biodb) {
+  # Do my tests...
 }
 
+# Run test
+biodb::testThat("My test works", my_test_function, biodb=biodb)
+
+# Terminate the instance
+biodb$terminate()
 }

@@ -1247,6 +1247,22 @@ test.convertMzTolToRange <- function(db) {
 #' @param conn A valid biodb connector.
 #' @return Nothing.
 #'
+#' @examples
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance()
+#'
+#' # Create a connector instance
+#' lcmsdb <- system.file("extdata", "lcmsdb.tsv", package="biodb")
+#' conn <- biodb$getFactory()$createConn('mass.csv.file', lcmsdb)
+#'
+#' # Run generic tests
+#' \dontrun{
+#' biodb::runGenericTests(conn)
+#' }
+#'
+#' # Terminate the instance
+#' biodb$terminate()
+#'
 #' @export
 runGenericTests <- function(conn) {
 
