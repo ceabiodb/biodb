@@ -13,7 +13,30 @@
 #'
 #' @seealso \code{\link{BiodbConn}}.
 #'
-#' @param entry An entry instance.
+#' @examples
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Create an empty MASS SQLite database
+#' mydb <- mybiodb$getFactory()$createConn('mass.sqlite')
+#'
+#' # Create new entry object
+#' entry <- mybiodb$getFactory()$createNewEntry('mass.sqlite')
+#' entry$setFieldValue('accession', '0')
+#' entry$setFieldValue('name', 'Some Entry')
+#'
+#' # Add the new entry
+#' mydb$allowEditing()
+#' mydb$addNewEntry(entry)
+#'
+#' # Write the database
+#' mydb$allowWriting()
+#' mydb$setUrl('base.url', 'mydatabase.sqlite')
+#' mydb$write()
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
+#' mybiodb <- NULL
 #'
 #' @import methods
 #' @include BiodbObject.R

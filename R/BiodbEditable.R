@@ -20,7 +20,7 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
-#' # Create an empty writable database
+#' # Create an empty MASS SQLite database
 #' mydb <- mybiodb$getFactory()$createConn('mass.sqlite')
 #'
 #' # Create new entry object
@@ -28,7 +28,7 @@
 #' entry$setFieldValue('accession', '0')
 #' entry$setFieldValue('name', 'Some Entry')
 #'
-#' # Add an entry
+#' # Add the new entry
 #' mydb$allowEditing()
 #' mydb$addNewEntry(entry)
 #'

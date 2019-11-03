@@ -22,9 +22,13 @@ to print the test context also into the test log file, if logger is used
 for tests.
 }
 \examples{
+# Instantiate a Biodb instance for testing
+biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+
 # Define a context before running tests:
-\dontrun{
 setTestContext(biodb, "Test my database connector.")
-}
+
+# Terminate the instance
+biodb$terminate()
 
 }

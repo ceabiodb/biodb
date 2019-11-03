@@ -9,6 +9,14 @@
 #' message is received. This is used when running tests on Travis-CI, so Travis
 #' does not stop tests because no change is detected in output.
 #'
+#' @examples
+#' # To use the acknowledger, set ack=TRUE when creating the Biodb test
+#' # instance:
+#' biodb <- createBiodbTestInstance(ack=TRUE)
+#'
+#' # Terminate the Biodb instance
+#' biodb$terminate()
+#'
 #' @import methods
 #' @include BiodbObserver.R
 #' @export BiodbTestMsgAck
@@ -84,6 +92,28 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 #'
 #' The main purpose of this class is to give access to last sent messages of the
 #' different types: "error", "warning", "caution", "info" and "debug".
+#'
+#' @examples
+#' # To use the message recorder, the easiest way is to call addMsgRecObs()
+#' # after instantiating the Biodb test instance.
+#'
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
+#' # Get a message recorder observer
+#' obs <- biodb::addMsgRecObs(biodb)
+#'
+#' # Create a connector
+#' conn <- biodb$getFactory()$createConn('mass.csv.file')
+#'
+#' # Delete the connector
+#' biodb$getFactory()$deleteConn(conn)
+#'
+#' # Get last message
+#' obs$getLastMsg()
+#'
+#' # Terminate the instance
+#' biodb$terminate()
 #'
 #' @import methods
 #' @include BiodbObserver.R
@@ -230,10 +260,14 @@ clearMessages = function() {
 #' @return No value returned.
 #'
 #' @examples
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
 #' # Define a context before running tests:
-#' \dontrun{
 #' setTestContext(biodb, "Test my database connector.")
-#' }
+#'
+#' # Terminate the instance
+#' biodb$terminate()
 #'
 #' @export
 setTestContext <- function(biodb, text) {
@@ -270,11 +304,22 @@ setTestContext <- function(biodb, text) {
 #' @return No value returned.
 #'
 #' @examples
-#' #
-#' \dontrun{
-#' biodb::testThat("My test works", my_test_function, biodb=mybiodb)
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
+#' # Define a context before running tests:
+#' setTestContext(biodb, "Test my database connector.")
+#'
+#' # Define a test function
+#' my_test_function <- function(biodb) {
+#'   # Do my tests...
 #' }
 #'
+#' # Run test
+#' biodb::testThat("My test works", my_test_function, biodb=biodb)
+#'
+#' # Terminate the instance
+#' biodb$terminate()
 #' @export
 testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 
@@ -431,23 +476,22 @@ addMsgRecObs <- function(biodb) {
 #' List test reference entries.
 #'
 #' Lists the reference entries in the test folder for a specified connector.
+#' The test reference files must be in `<pkg>/tests/testthat/res/` folder and
+#' their names must match `entry-<database_name>-<entry_accession>.json` (e.g.:
+#' `entry-chebi-15440.json`).
 #'
 #' @param conn.id A valid Biodb connector ID.
 #' @return A list of entry IDs.
 #'
 #' @examples
 #' # List IDs of test reference entries for ChEBI:
-#' \dontrun{
 #' biodb::listTestRefEntries('chebi')
-#' }
 #'
 #' @export
 listTestRefEntries <- function(conn.id) {
 
     # List json files
     files <- Sys.glob(file.path(getwd(), 'res', paste('entry', conn.id, '*.json', sep = '-')))
-    if (length(files) == 0)
-        stop(paste0("No JSON reference files for database ", conn.id, "."))
 
     # Extract ids
     ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)

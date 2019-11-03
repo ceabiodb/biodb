@@ -78,3 +78,26 @@ Returned value: None.
     }
 }}
 
+\examples{
+# To use the message recorder, the easiest way is to call addMsgRecObs()
+# after instantiating the Biodb test instance.
+
+# Instantiate a Biodb instance for testing
+biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+
+# Get a message recorder observer
+obs <- biodb::addMsgRecObs(biodb)
+
+# Create a connector
+conn <- biodb$getFactory()$createConn('mass.csv.file')
+
+# Delete the connector
+biodb$getFactory()$deleteConn(conn)
+
+# Get last message
+obs$getLastMsg()
+
+# Terminate the instance
+biodb$terminate()
+
+}

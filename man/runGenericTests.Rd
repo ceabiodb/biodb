@@ -16,3 +16,20 @@ Nothing.
 This function must be used in tests on all connector classes, before any
 specific tests.
 }
+\examples{
+# Instantiate a Biodb instance for testing
+biodb <- biodb::createBiodbTestInstance()
+
+# Create a connector instance
+lcmsdb <- system.file("extdata", "lcmsdb.tsv", package="biodb")
+conn <- biodb$getFactory()$createConn('mass.csv.file', lcmsdb)
+
+# Run generic tests
+\dontrun{
+biodb::runGenericTests(conn)
+}
+
+# Terminate the instance
+biodb$terminate()
+
+}
