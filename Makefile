@@ -59,8 +59,8 @@ compile:
 # Check and test {{{1
 ################################################################
 
-check: $(ZIPPED_PKG)
-	time R CMD check --no-build-vignettes "$<"
+check: clean.vignettes $(ZIPPED_PKG)
+	time R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
 #     cannot coerce ‘FALSE false’ to logical
@@ -68,12 +68,12 @@ check: $(ZIPPED_PKG)
 #     missing value where TRUE/FALSE needed
 #   Execution halted
 
-full.check: $(ZIPPED_PKG)
-	time R CMD check "$<"
+full.check: clean.vignettes $(ZIPPED_PKG)
+	time R CMD check "$(ZIPPED_PKG)"
 
-bioc.check: $(ZIPPED_PKG)
+bioc.check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
-	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$<"
+	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
 
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
@@ -100,9 +100,8 @@ $(ZIPPED_PKG) build: doc
 doc:
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
-vignettes:
+vignettes: clean.vignettes
 	@echo Build vignettes for already installed package, not from local soures.
-	$(RM) doc/*
 	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1
@@ -134,11 +133,14 @@ uninstall:
 # Clean {{{1
 ################################################################
 
-clean: clean.build
+clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/output tests/test\ *.log
 	$(RM) -r biodb.Rcheck
 	$(RM) -r Meta
+
+clean.vignettes:
+	$(RM) -r doc
 
 clean.build:
 	$(RM) biodb_*.tar.gz
