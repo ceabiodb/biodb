@@ -14,11 +14,12 @@ A list of entry IDs.
 }
 \description{
 Lists the reference entries in the test folder for a specified connector.
+The test reference files must be in `<pkg>/tests/testthat/res/` folder and
+their names must match `entry-<database_name>-<entry_accession>.json` (e.g.:
+`entry-chebi-15440.json`).
 }
 \examples{
 # List IDs of test reference entries for ChEBI:
-\dontrun{
 biodb::listTestRefEntries('chebi')
-}
 
 }
