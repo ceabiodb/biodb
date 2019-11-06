@@ -136,8 +136,7 @@ uninstall:
 clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/output tests/test\ *.log
-	$(RM) -r biodb.Rcheck
-	$(RM) -r Meta
+	$(RM) -r biodb.Rcheck Meta man
 
 clean.vignettes:
 	$(RM) -r doc
