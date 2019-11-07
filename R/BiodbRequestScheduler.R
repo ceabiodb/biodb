@@ -193,11 +193,12 @@ downloadFile=function(url, dest.file) {
     path <- dirname(dest.file)
     if ( ! dir.exists(path))
         dir.create(path, recursive=TRUE)
- 
+
     # Download
     .self$info2('Downloading file "', url, '".')
+    infoLvl <- .self$getBiodb()$getConfig()$get('msg.info.lvl')
     utils::download.file(url=url, destfile=dest.file, mode='wb',
-                         method='libcurl', cacheOK=FALSE, quiet=TRUE)
+                         method='libcurl', cacheOK=FALSE, quiet=infoLvl==0)
 },
 
 # Private methods {{{2
