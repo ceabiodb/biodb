@@ -80,9 +80,12 @@ initialize=function() {
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
     .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
 
-    # Load definitions
-    file <- system.file("definitions.yml", package="biodb")
-    .self$loadDefinitions(file)
+    # Load definitions from all biodb* packages
+    pkgs <- grep('^biodb', installed.packages(fields='Package'), value=TRUE)
+    for (pkg in pkgs) {
+        file <- system.file("definitions.yml", package=pkg)
+        .self$loadDefinitions(file)
+    }
 
     # Check locale
     .self$.checkLocale()
@@ -119,22 +122,25 @@ loadDefinitions=function(file) {
     \nReturned value: None.
     "
 
-    .self$debug('Load definitions from file "', file, '".')
+    if ( ! is.null(file) && ! is.na(file) && file != '' && file.exists(file)) {
 
-    # Load file
-    def <- yaml::read_yaml(file)
+        .self$debug('Load definitions from file "', file, '".')
 
-    # Define config properties
-    if ('config' %in% names(def))
-        .self$getConfig()$define(def$config)
+        # Load file
+        def <- yaml::read_yaml(file)
 
-    # Define databases
-    if ('databases' %in% names(def))
-        .self$getDbsInfo()$define(def$databases)
+        # Define config properties
+        if ('config' %in% names(def))
+            .self$getConfig()$define(def$config)
 
-    # Define fields
-    if ('fields' %in% names(def))
-        .self$getEntryFields()$define(def$fields)
+        # Define databases
+        if ('databases' %in% names(def))
+            .self$getDbsInfo()$define(def$databases)
+
+        # Define fields
+        if ('fields' %in% names(def))
+            .self$getEntryFields()$define(def$fields)
+    }
 },
 
 # Get configuration {{{3
