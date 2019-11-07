@@ -83,6 +83,7 @@ initialize=function() {
     # Load definitions from all biodb* packages
     pkgs <- grep('^biodb', installed.packages(fields='Package'), value=TRUE)
     for (pkg in pkgs) {
+        .self$info('Loading definitions from package ', pkg, '.')
         file <- system.file("definitions.yml", package=pkg)
         .self$loadDefinitions(file)
     }
