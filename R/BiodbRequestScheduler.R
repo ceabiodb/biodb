@@ -189,6 +189,11 @@ downloadFile=function(url, dest.file) {
     # Convert URL to string
     url <- url$toString()
 
+    # Make sure path exists
+    path <- dirname(dest.file)
+    if ( ! dir.exists(path))
+        dir.create(path, recursive=TRUE)
+ 
     # Download
     .self$info2('Downloading file "', url, '".')
     utils::download.file(url=url, destfile=dest.file, mode='wb',
