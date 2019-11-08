@@ -51,25 +51,30 @@ initialize=function(...) {
 # Define {{{3
 ################################################################################
 
-define=function(def) {
+define=function(def, package='biodb') {
     ":\n\nDefine databases from a structured object, normally loaded from a YAML
     file.
     \ndef: A named list of database definitions. The names of the list will be 
     the IDs of the databases.
+    \npackage: The package to which belong the new definitions.
     \nReturned value: None.
     "
 
     # Loop on all db info
-    for (db in names(def))
+    for (db in names(def)) {
+
+        dbdef <- def[[db]]
+        dbdef[['package']] <- package
 
         # Database already defined
         if (db %in% names(.self$.dbs))
-            .self$.dbs[[db]]$updatePropertiesDefinition(def[[db]])
+            .self$.dbs[[db]]$updatePropertiesDefinition(dbdef)
 
         # Define new database
         else
             .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
-                                                properties=def[[db]])
+                                                properties=dbdef)
+    }
 },
 
 # Get list of database IDs {{{3

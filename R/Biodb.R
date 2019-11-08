@@ -85,7 +85,7 @@ initialize=function() {
     for (pkg in pkgs) {
         .self$info('Loading definitions from package ', pkg, '.')
         file <- system.file("definitions.yml", package=pkg)
-        .self$loadDefinitions(file)
+        .self$loadDefinitions(file, package=pkg)
     }
 
     # Check locale
@@ -116,10 +116,11 @@ terminate=function() {
 # Load definitions {{{3
 ################################################################################
 
-loadDefinitions=function(file) {
+loadDefinitions=function(file, package='biodb') {
     ":\n\nLoads databases and entry fields definitions from YAML file.
     \nfile: The path to a YAML file containing definitions for \\code{Biodb}
     (databases, fields or configuration keys).
+    \npackage: The package to which belong the new definitions.
     \nReturned value: None.
     "
 
@@ -136,7 +137,7 @@ loadDefinitions=function(file) {
 
         # Define databases
         if ('databases' %in% names(def))
-            .self$getDbsInfo()$define(def$databases)
+            .self$getDbsInfo()$define(def$databases, package=package)
 
         # Define fields
         if ('fields' %in% names(def))

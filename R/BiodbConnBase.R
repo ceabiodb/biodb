@@ -137,6 +137,8 @@ hasProp=function(name) {
     \nReturned value: Returns true if the property `name` exists.
     "
 
+    .self$.checkProperty(name)
+
     return (name %in% names(.self$.prop))
 },
 
@@ -147,10 +149,36 @@ hasPropSlot=function(name, slot) {
     ":\n\nTests if a slot property has a specific slot.
     \nname: The name of a property.
     \nslot: The slot name to check.
-    \nReturned value: Returns true if the property `name` exists and has the slot `slot`
-    defined."
+    \nReturned value: Returns TRUE if the property `name` exists and has the
+    slot `slot` defined, and FALSE otherwise."
+
+    .self$.checkProperty(name, slot=slot)
 
     return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
+},
+
+# Property exists {{{3
+################################################################################
+
+propExists=function(name) {
+    ":\n\nChecks if property exists.
+    \nname: The name of a property.
+    \nReturned value: Returns TRUE if the property `name` exists, and FALSE
+    otherwise."
+
+    return(.self$.checkProperty(name, fail=FALSE))
+},
+
+# Is slot property {{{3
+################################################################################
+
+isSlotProp=function(name) {
+    ":\n\nTests if a property is a slot property.
+    \nname: The name of a property.
+    \nReturned value: Returns TRUE if the property is a slot propert, FALSE
+    otherwise."
+
+    return(.self$.checkProperty(name, slot=TRUE, fail=FALSE))
 },
 
 # Get property value slot {{{3
@@ -189,15 +217,18 @@ updatePropertiesDefinition=function(def) {
     # Loop on properties
     for (prop in names(def)) {
 
-        # Set single value
-        if ( ! prop %in% names(.self$.prop)
-            || is.null(names(def[[prop]])))
-            .self$setPropertyValue(def[[prop]])
+        # Set value to an unset property
+        if ( ! prop %in% names(.self$.prop))
+            .self$setPropertyValue(prop, def[[prop]])
 
-        # Set named values
-        else
+        # Update value of a slot property
+        else if (.self$isSlotProp(prop))
             for (slot in names(def[[prop]]))
                 .self$setPropValSlot(prop, slot, def[[prop]][[slot]])
+
+        # Update a single value
+        else
+            .self$setPropertyValue(prop, def[[prop]])
     }
 },
 
@@ -261,9 +292,12 @@ getConnClass=function() {
     \nReturned value: Returns the connector OOP class.
     "
 
+    # Load associated package
+    pkg <- .self$getPropertyValue('package')
+    require(pkg, character.only=TRUE)
+
     return(get(.self$getConnClassName()))
 },
-
 
 # Get entry class name {{{3
 ################################################################################
@@ -287,6 +321,10 @@ getEntryClass=function() {
     ":\n\nGets the associated entry class.
     \nReturned value: Returns the associated entry class.
     "
+
+    # Load associated package
+    pkg <- .self$getPropertyValue('package')
+    require(pkg, character.only=TRUE)
 
     return(get(.self$getEntryClassName()))
 },
@@ -345,7 +383,8 @@ setPropertyValue=function(name, value) {
     # Is this property already set and not modifiable?
     if (name %in% names(.self$.prop)
         && 'modifiable' %in% names(.self$.prop.def[[name]])
-        && ! .self$.prop.def[[name]]$modifiable)
+        && ! .self$.prop.def[[name]]$modifiable
+        && ! identical(.self$.prop[[name]], value))
         .self$error('Property "', name, '" of database "', .self$getDbClass(),
                    '" is not modifiable.')
 
@@ -445,17 +484,40 @@ setPropValSlot=function(name, slot, value) {
 # Check property {{{3
 ################################################################################
 
-.checkProperty=function(name, slot=NULL) {
+.checkProperty=function(name, slot=NULL, fail=TRUE) {
 
-    if ( ! name %in% names(.self$.prop.def))
-        .self$error('Unknown property "', name, '" for database ',
-                    .self$getDbClass(), '.')
+    # Check that property exists
+    if ( ! name %in% names(.self$.prop.def)) {
+        if (fail)
+            .self$error('Unknown property "', name, '" for database ',
+                        .self$getDbClass(), '.')
+        else
+            return(FALSE)
+    }
 
+    # Get property definition
     pdef <- .self$.prop.def[[name]]
-    if ( ! is.null(slot) && ! 'named' %in% names(pdef))
-        .self$error('Unauthorized use of slot "', slot, '" with unnamed", 
-                    " property "', name, '" of database "', .self$getDbClass(),
-                    '".')
+
+    # Check that it is a property slot
+    if (is.logical(slot) && slot && ! 'named' %in% names(pdef)) {
+        if (fail)
+            .self$error('Property "', name, '" of database "',
+                        .self$getDbClass(), '" is not a slot property.')
+        else
+            return(FALSE)
+    }
+
+    # Check that it is a property slot
+    if ( ! is.null(slot) && ! 'named' %in% names(pdef)) {
+        if (fail)
+            .self$error('Unauthorized use of slot "', slot, '" with unnamed", "
+                        property "', name, '" of database "',
+                        .self$getDbClass(), '".')
+        else
+            return(FALSE)
+    }
+
+    return(if (fail) invisible() else TRUE)
 },
 
 # Check property value {{{3
@@ -569,6 +631,8 @@ setPropValSlot=function(name, slot, value) {
                                   na.allowed=FALSE, modifiable=FALSE),
         name=list(class='character', default=NA_character_,
                     na.allowed=FALSE, modifiable=FALSE),
+        package=list(class='character', default='biodb', na.allowed=FALSE,
+                     modifiable=FALSE),
         parsing.expr=list(class='list', default=NULL, named=TRUE,
                             mult=TRUE, allowed_item_types='character',
                             na.allowed=FALSE,
