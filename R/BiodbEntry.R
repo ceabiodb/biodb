@@ -576,7 +576,7 @@ show=function() {
     \nReturned value: None.
     "
 
-    db <- .self$getParent()$getName()
+    db <- .self$getParent()$getPropertyValue('name')
     id <- .self$getFieldValue('accession', compute=FALSE)
     id <- if (is.na(id)) 'ID unknown' else id
     cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
