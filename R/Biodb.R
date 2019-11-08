@@ -80,9 +80,13 @@ initialize=function() {
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
     .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
 
-    # Load definitions
-    file <- system.file("definitions.yml", package="biodb")
-    .self$loadDefinitions(file)
+    # Load definitions from all biodb* packages
+    pkgs <- grep('^biodb', installed.packages(fields='Package'), value=TRUE)
+    for (pkg in pkgs) {
+        .self$info('Loading definitions from package ', pkg, '.')
+        file <- system.file("definitions.yml", package=pkg)
+        .self$loadDefinitions(file, package=pkg)
+    }
 
     # Check locale
     .self$.checkLocale()
@@ -112,29 +116,33 @@ terminate=function() {
 # Load definitions {{{3
 ################################################################################
 
-loadDefinitions=function(file) {
+loadDefinitions=function(file, package='biodb') {
     ":\n\nLoads databases and entry fields definitions from YAML file.
     \nfile: The path to a YAML file containing definitions for \\code{Biodb}
     (databases, fields or configuration keys).
+    \npackage: The package to which belong the new definitions.
     \nReturned value: None.
     "
 
-    .self$debug('Load definitions from file "', file, '".')
+    if ( ! is.null(file) && ! is.na(file) && file != '' && file.exists(file)) {
 
-    # Load file
-    def <- yaml::read_yaml(file)
+        .self$debug('Load definitions from file "', file, '".')
 
-    # Define config properties
-    if ('config' %in% names(def))
-        .self$getConfig()$define(def$config)
+        # Load file
+        def <- yaml::read_yaml(file)
 
-    # Define databases
-    if ('databases' %in% names(def))
-        .self$getDbsInfo()$define(def$databases)
+        # Define config properties
+        if ('config' %in% names(def))
+            .self$getConfig()$define(def$config)
 
-    # Define fields
-    if ('fields' %in% names(def))
-        .self$getEntryFields()$define(def$fields)
+        # Define databases
+        if ('databases' %in% names(def))
+            .self$getDbsInfo()$define(def$databases, package=package)
+
+        # Define fields
+        if ('fields' %in% names(def))
+            .self$getEntryFields()$define(def$fields)
+    }
 },
 
 # Get configuration {{{3
