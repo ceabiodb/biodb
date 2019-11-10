@@ -284,6 +284,9 @@ getEntry=function(conn.id, id, drop=TRUE) {
     # Get connector
     conn <- .self$getConn(conn.id)
 
+    # Correct IDs
+    id <- conn$correctIds(id)
+
     # What entries are missing from cache?
     missing.ids <- conn$.getEntryMissingFromCache(id)
 

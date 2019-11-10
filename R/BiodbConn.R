@@ -89,6 +89,18 @@ getId=function() {
     return(.self$.id)
 },
 
+# Correct IDs {{{3
+################################################################################
+
+correctIds=function(ids) {
+    ":\n\nCorrect a vector of IDs by formatting them to the database official format, if required and possible.
+    \nids: A character vector of IDs.
+    \nReturned values: The vector of IDs corrected.
+    "
+
+    return(ids)
+},
+
 # Get entry {{{3
 ################################################################################
 
