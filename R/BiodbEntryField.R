@@ -559,6 +559,24 @@ show=function() {
     "
 
     cat("Entry field \"", .self$.name, "\".\n", sep='')
+    cat("  Description: ", .self$.description, "\n", sep='')
+    cat("  Class: ", .self$.class, ".\n", sep='')
+    if (.self$.class == 'character') {
+        case <-  if (.self$.case.insensitive) 'insensitive' else 'sensitive'
+        lower <- if (.self$.lower.case) ' Value will be forced to lower case.'
+            else ''
+        cat("  Case: ", case, '.', lower, "\n", sep='')
+    }
+    if ( ! is.na(.self$.type))
+        cat("  Type: ", .self$.type, ".\n", sep='')
+    cat("  Cardinality: ", .self$.cardinality, ".\n", sep='')
+    if (.self$.cardinality == 'many')
+        cat("  Duplicates: ", if (.self$.forbids.duplicates) 'forbidden' else
+            'allowed', ".\n", sep='')
+    cat("  Aliases: ", paste(.self$.alias, collapse=', '), ".\n", sep='')
+    if ( ! is.null(.self$.allowed.values))
+        cat("  Allowed values: ", paste(.self$.allowed.values, collapse=', '),
+            ".\n", sep='')
 },
 
 # Deprecated methods {{{2

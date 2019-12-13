@@ -32,8 +32,9 @@ Imports:
 LinkingTo:
 	Rcpp
 NeedsCompilation: yes
-RoxygenNote: 6.1.1
-Collate: 
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+Collate:
     'BiodbObject.R'
     'Biodb.R'
     'BiodbChildObject.R'

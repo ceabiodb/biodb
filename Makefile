@@ -121,7 +121,7 @@ install.deps:
 
 install: uninstall install.local list.classes
 
-install.local:
+install.local: doc
 	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
 
 list.classes:

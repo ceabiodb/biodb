@@ -22,3 +22,4 @@ biodb_*.tar.gz
 biodb.Rcheck
 vignettes/figure
 cache
+man

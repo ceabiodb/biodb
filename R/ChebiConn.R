@@ -202,28 +202,28 @@ convIdsToChebiIds=function(ids, search.category, simplify=TRUE) {
     to get a full list of search categories.
     \nReturned value: Depending on the value of simplify.
     "
-    
+
     chebi <- list()
     msg <- paste('Converting', search.category, 'IDs to ChEBI IDs.')
-    
+
     # Loop on all cas IDs
     i <- 0
     for (id in ids) {
-        
+
         # Get ChEBI IDs for this ID
         if (is.na(id))
             x <- character()
         else
             x <- .self$wsGetLiteEntity(id, search.category=search.category,
                                        retfmt='ids')
-        
+
         chebi <- c(chebi, list(x))
-        
+
         # Send progress message
         i <- i + 1
         .self$progressMsg(msg=msg, index=i, total=length(ids), first=(i == 1))
     }
-    
+
     # Simplify
     if (simplify && all(vapply(chebi, length, FUN.VALUE=1L) < 2)) {
         chebi <- lapply(chebi, function(x) if (length(x) == 0) NA_character_
@@ -245,7 +245,7 @@ convInchiToChebi=function(inchi, simplify=TRUE) {
     is returned.
     \nReturned value: Depending on the value of simplify.
     "
-    
+
     return(.self$convIdsToChebiIds(inchi, search.category='INCHI/INCHI KEY',
                                    simplify=simplify))
 },
@@ -261,7 +261,7 @@ convCasToChebi=function(cas, simplify=TRUE) {
     is returned.
     \nReturned value: Depending on the value of simplify.
     "
-    
+
     return(.self$convIdsToChebiIds(cas, search.category='REGISTRY NUMBERS',
                                    simplify=simplify))
 },

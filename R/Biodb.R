@@ -717,7 +717,11 @@ show=function() {
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
 
-    # List disabled databases
+    # List loaded connectors
+    ids <- sort(.self$getDbsInfo()$getIds())
+    cat("Available connectors are: ", paste(ids, collapse=", "), ".\n", sep='')
+    
+    # List disabled connectors
     dbs <- .self$getDbsInfo()$getAll()
     fct <- function(x) x$getPropertyValue('disabled')
     disabled <- vapply(dbs, fct, FUN.VALUE=TRUE)
