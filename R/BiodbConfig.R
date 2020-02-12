@@ -432,6 +432,7 @@ newObserver=function(obs) {
 
     # Check duplicated key
     if (key %in% names(.self$.keys))
+        # TODO If key is the same, does not raise error.
         .self$message('error',
                       paste("Key", key,
                              "has already been defined in configuration."))

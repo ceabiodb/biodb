@@ -83,6 +83,8 @@ initialize=function() {
     # Load definitions from all biodb* packages
     pkgs <- installed.packages()[, 'Version']
     pkgs <- pkgs[grep('^biodb', names(pkgs))]
+    pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
+                                      # while building vignettes.
     for (pkg in names(pkgs)) {
         .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
         file <- system.file("definitions.yml", package=pkg)
