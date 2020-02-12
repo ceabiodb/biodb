@@ -1,21 +1,24 @@
 ---
-title: "Checking database IDs"
+title: "*biodb*: Checking database IDs"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to check IDs contained in a table.
 vignette: |
   %\VignetteIndexEntry{Checking database IDs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Checking database IDs
-
-## Introduction
+# Introduction
 
 Supposing that you have a table containing IDs of different databases, this vignette will show you how to quickly check that your IDs are coherent.
 
@@ -24,7 +27,7 @@ First we instantiate the package:
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Creating a table of IDs
+# Creating a table of IDs
 
 For the example, we create a table containing database IDs:
 ```{r}
@@ -32,7 +35,7 @@ table <- data.frame(chebi = c('2528', '17053', '37600'), kegg = c('C08811', 'C00
 ```
 Here we expect that the KEGG IDs correspond to the ChEBI IDs in the first column. We are going to check that in the next chapters.
 
-## Requesting entries from ChEBI
+# Requesting entries from ChEBI
 
 We create a connector to the ChEBI database:
 ```{r}
@@ -44,21 +47,21 @@ Then we retrieve the entries:
 entries <- conn$getEntry(table[['chebi']])
 ```
 
-## Getting a data frame of all these entries
+# Getting a data frame of all these entries
 
 We put the fields we are interested in inside a data frame:
 ```{r}
 df <- mybiodb$entriesToDataframe(entries, fields = c('chebi.id', 'kegg.compound.id'))
 ```
 
-## Search for rows containing mistake in KEGG ID
+# Search for rows containing KEGG ID mistakes
 
 We identify the rows with wrong KEGG IDs:
 ```{r}
 table[table[['kegg']] != df[['kegg.compound.id']], ]
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

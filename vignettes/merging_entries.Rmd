@@ -1,28 +1,31 @@
 ---
-title: "Merging entries coming from different databases"
+title: "*biodb* Merging entries coming from different databases"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to build a data frame containing entries coming from different databases.
 vignette: |
   %\VignetteIndexEntry{Merging entries coming from different databases}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Merging entries coming from different databases
-
-## Introduction
+# Introduction
 
 First we instantiate the package:
 ```{r}
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Getting the entries
+# Getting the entries
 
 Request entries from ChEBI, using accession numbers:
 ```{r}
@@ -34,14 +37,14 @@ Request entries from Uniprot:
 uniprot.entries <- mybiodb$getFactory()$getEntry('uniprot', id = c('P02461', 'P08123', 'Q31611'))
 ```
 
-## Get a data frame of all these entries
+# Get a data frame of all these entries
 
 We call then the `entriesToDataframe()` on all those entries, selection the fields we want in the output:
 ```{r}
 mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

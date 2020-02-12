@@ -1,21 +1,24 @@
 ---
-title: "Configuring biodb"
+title: "*biodb*: Configuring"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to configure biodb package.
 vignette: |
   %\VignetteIndexEntry{Configuring biodb}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Configuring biodb
-
-## Introduction
+# Introduction
 
 In this vignette, we will explain how to configure biodb behaviour.
 
@@ -27,7 +30,7 @@ You get, by default (i.e.: when not setting `info = FALSE`), a list of configura
 
 This configuration setting can be modified either directly inside R with the `BiodbConfig` class or beforehand by setting environment variables.
 
-## BiodbConfig instance
+# BiodbConfig instance
 
 The main way to tune *biodb* to your needs is to use the `BiodbConfig` single instance, accessible through the `biodb` instance:
 ```{r}
@@ -39,7 +42,7 @@ If you look at the config instance, you will get a list of keys with their curre
 config
 ```
 
-## Keys information and value
+# Keys information and value
 
 Get all available configuration keys:
 ```{r}
@@ -66,7 +69,7 @@ To get a complete of all configuration keys and their description, call:
 config$listKeys()
 ```
 
-## Setting a value
+# Setting a value
 
 Set a field value:
 ```{r}
@@ -80,14 +83,14 @@ config$enable('offline')    # set to TRUE
 config$disable('offline')   # set to FALSE
 ```
 
-## Default values
+# Default values
 
 Get field default value:
 ```{r}
 config$getDefaultValue('cache.directory')
 ```
 
-## Environment variables
+# Environment variables
 
 Environment variables can be used to overwrite default values.
 
@@ -96,7 +99,7 @@ To get the name of the environment variable associated with a particular key, ca
 config$getAssocEnvVar('cache.directory')
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

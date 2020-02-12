@@ -34,7 +34,7 @@ mzdf <- data.frame(mz=c(282.083871, 283.0623, 346.0546, 821.3964),
                    rt=c(334, 872, 536, 740))
 ```
 
-## Annotation using a chemical database
+# Annotation using a chemical database
 
 We will use the ChEBI database for this example:
 ```{r Create a connector for ChEBI}
@@ -63,7 +63,7 @@ Note the use of the following parameters:
 
 For more details on the `annotateMzValues()` method, please this the help page of `BiodbCompounddbConn`.
 
-## Annotation using an LCMS database
+# Annotation using an LCMS database
 
 Annotation is also possible using an LCMS database.
 
@@ -99,7 +99,7 @@ inhouse$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.', chrom.co
 
 For more details on the `searchMsPeaks()` method, please this the help page of `BiodbMassdbConn`.
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r Closing of the biodb instance}

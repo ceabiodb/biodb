@@ -1,21 +1,24 @@
 ---
-title: "In-house MSMS database"
+title: "*biodb*: In-house MSMS database"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to define an in-house MSMS database and run spectrum annotation on it.
 vignette: |
   %\VignetteIndexEntry{In-house MSMS database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# In-house MSMS database
-
-## Introduction
+# Introduction
 
 In this vignette, we will define an in-house MSMS database and try to match a spectrum on it.
 
@@ -23,7 +26,7 @@ In this vignette, we will define an in-house MSMS database and try to match a sp
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Defining the database
+# Defining the database
 
 We create the data frame containing the peaks:
 ```{r}
@@ -76,7 +79,7 @@ conn$setField('peak.mztheo', 'peak.mz')
 conn$setField('peak.mz', 'peak.mz')
 ```
 
-## Searching for entries
+# Searching for entries
 
 We can search for entries containing certain M/Z values with the following method:
 ```{r}
@@ -88,7 +91,7 @@ It is also possible to call it with a tolerance:
 conn$searchMsEntries(mz = 115, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)
 ```
 
-## Spectrum matching
+# Spectrum matching
 
 The spectrum to search for must be defined inside a data frame:
 ```{r}
@@ -100,7 +103,7 @@ Then we call the `msmsSearch()` method:
 conn$msmsSearch(spectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
