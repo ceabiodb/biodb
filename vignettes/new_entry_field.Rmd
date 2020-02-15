@@ -70,6 +70,7 @@ Here is its content:
 ```{r}
 writeLines(readLines(defFile))
 ```
+The expression `//...` is an XPath expression that used to extract information from an XML file. See [XPath Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp) for an introduction to XPath.
 
 Now we load this definition file:
 ```{r}
