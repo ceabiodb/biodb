@@ -1,0 +1,76 @@
+databases:
+
+  my.kegg.conn:
+    entry.content.type: txt
+    name: My KEGG Compound
+    parsing.expr:
+      accession: ^ENTRY\s+(\S+)\s+Compound
+      exact.mass: ^EXACT_MASS\s+(\S+)$
+      formula: ^FORMULA\s+(\S+)$
+      molecular.weight: ^MOL_WEIGHT\s+(\S+)$
+    scheduler.n: 3
+    searchable.fields:
+        - name
+        - monoisotopic.mass
+        - molecular.mass
+    urls:
+      base.url: https://www.kegg.jp/
+      entry.page.url: https://www.genome.jp/dbget-bin
+      ws.url: http://rest.kegg.jp/
+
+fields:
+
+  kegg.organism.code:
+    description: The 3-4 characters organism code used un KEGG.
+
+# Database IDs {{{2
+################################################################################
+
+  kegg.compound.id:
+    description: KEGG Compound ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.enzyme.id:
+    description: KEGG Enzyme ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.genes.id:
+    description: KEGG Genes ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.module.id:
+    description: KEGG Module ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.orthology.id:
+    description: KEGG Orthology ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.pathway.id:
+    description: KEGG Pathway ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  kegg.reaction.id:
+    description: KEGG Reaction ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
