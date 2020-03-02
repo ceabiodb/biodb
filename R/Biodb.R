@@ -59,7 +59,7 @@ methods=list(
 # Initialize {{{3
 ################################################################################
 
-initialize=function() {
+initialize=function(loadAllBiodbPkgs=TRUE) {
 
     callSuper() # Call BiodbObject constructor.
 
@@ -80,10 +80,16 @@ initialize=function() {
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
     .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
 
-    # Load definitions from all biodb* packages
-    pkgs <- grep('^biodb', installed.packages(fields='Package'), value=TRUE)
-    for (pkg in pkgs) {
-        .self$info('Loading definitions from package ', pkg, '.')
+    # List biodb* packages to load
+    regex <- if (loadAllBiodbPkgs) '^biodb' else '^biodb$'; # itself
+    pkgs <- installed.packages()[, 'Version']
+    pkgs <- pkgs[grep(regex, names(pkgs))]
+    pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
+                                      # while building vignettes.
+    
+    # Load definitions from selected biodb* packages
+    for (pkg in names(pkgs)) {
+        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
         file <- system.file("definitions.yml", package=pkg)
         .self$loadDefinitions(file, package=pkg)
     }
@@ -716,7 +722,11 @@ show=function() {
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
 
-    # List disabled databases
+    # List loaded connectors
+    ids <- sort(.self$getDbsInfo()$getIds())
+    cat("Available connectors are: ", paste(ids, collapse=", "), ".\n", sep='')
+    
+    # List disabled connectors
     dbs <- .self$getDbsInfo()$getAll()
     fct <- function(x) x$getPropertyValue('disabled')
     disabled <- vapply(dbs, fct, FUN.VALUE=TRUE)

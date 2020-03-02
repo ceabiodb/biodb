@@ -1,21 +1,24 @@
 ---
-title: "In-house LCMS database"
+title: "*biodb*: In-house LCMS database"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to define an in-house LCMS database and run annotation using it.
 vignette: |
   %\VignetteIndexEntry{In-house LCMS database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# In-house LCMS database
-
-## Introduction
+# Introduction
 
 To define an in-house LCMS database, we are going to use the mass.csv.file database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
 
@@ -24,7 +27,7 @@ We first create an instance of the `Biodb` class:
 mybiodb <- biodb::Biodb()
 ```
 
-## Building an MS database from a data frame
+# Building an MS database from a data frame
 
 For the example we will use a data.frame as input for the database connector, however the connector can directly read from a file too.
 
@@ -58,7 +61,7 @@ conn$addField('ms.level', 1)
 conn$addField('chrom.rt.unit', 's')
 ```
 
-## Searching for entries
+# Searching for entries
 
 Searching by M/Z:
 ```{r}
@@ -83,7 +86,7 @@ Other parameters can be used in `searchMsEntries()`:
  * Matching of precursor peak.
  * Maximum of results.
 
-## Peak annotation
+# Peak annotation
 
 Peak annotation can be done with `searchMsPeaks()` method.
 
@@ -98,7 +101,7 @@ Then we run the annotation:
 conn$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
 ```
 
-## Closing biodb instance
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}

@@ -21,6 +21,9 @@ With *biodb* you can:
  * Search for MS and MSMS spectra by peaks in Mass spectra databases.
  * Export any database into a CSV file.
 
+## Examples
+
+
 ## Databases and fields accesible with biodb
 
 *biodb* contains the following database connectors:
@@ -81,22 +84,26 @@ devtools::install_local('/your/path/to/biodb', dependencies = TRUE, build_vignet
 
 ## Documentation
 
-Documentation is available on the [Wiki](https://github.com/pkrog/biodb/wiki) page. You will find there all the R vignettes, but without the output of code snippets.
-
-Once in R, you can get documentation about main classes with the standard help function:
+Once in R, you can get an introduction to the package with:
 ```r
-?biodb::Biodb
+?biodb
 ```
-Some of the classes you can get help about are: Biodb, BiodbFactory, BiodbConfig, BiodbCache, BiodbDbsInfo, BiodbEntryFields, BiodbObserver, BiodbConn, BiodbEntry, MassdbConn, RemotedbConn.
+
+Then each class has its documentation. For instance, to get help about `ChebiConn` class:
+```r
+?biodb::ChebiConn
+```
+
+Some of the classes you can get help about are: `Biodb`, `BiodbFactory`, `BiodbConfig`, `BiodbPersistentCache`, `BiodbDbsInfo`, `BiodbEntryFields`, `BiodbObserver`, `BiodbConn`, `BiodbEntry`, `MassdbConn`, `RemotedbConn`, `ChebiConn`, `UniprotConn`, `MassCsvFileConn`, `MassSqliteConn`.
 
 Several vignettes are also available. To get a list of them run:
 ```r
-vignette(package = 'biodb')
+vignette(package='biodb')
 ```
 
 To open a vignette in a browser, use its name:
 ```r
-vignette('init', package = 'biodb')
+vignette('init', package='biodb')
 ```
 
 ## Contributing
