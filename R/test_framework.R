@@ -1,8 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbTestMsgAck observer class {{{1
-################################################################################
-
 #' A class for acknowledging messages during tests.
 #'
 #' This observer is used to call a testthat::expect_*() method each time a
@@ -29,18 +24,12 @@ BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',
 
     methods=list(
 
-# Initialize {{{2
-################################################################
-
 initialize=function(...) {
 
     callSuper(...)
 
     .self$.last.index <- 0
 },
-
-# Msg {{{2
-################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
@@ -50,9 +39,6 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 
     invisible(NULL)
 },
-
-# Progress {{{2
-################################################################
 
 progress=function(type='info', msg, index, first, total=NA_character_,
                     lvl=1L, laptime=10L) {
@@ -84,9 +70,6 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 
 ))
 
-
-# BiodbTestMsgRec observer class {{{1
-################################################################################
 
 #' A class for recording messages during tests.
 #'
@@ -127,16 +110,10 @@ BiodbTestMsgRec <- methods::setRefClass("BiodbTestMsgRec",
                   ),
     methods=list(
 
-# Initialize {{{2
-################################################################################
-
 initialize=function(...) {
     .self$.msgs <- character()
     .self$.msgs.by.type <- list()
 },
-
-# Msg {{{2
-################################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
@@ -147,9 +124,6 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 
     invisible(NULL)
 },
-
-# hasMsgs {{{2
-################################################################################
 
 hasMsgs=function(type=NULL) {
     ":\n\nChecks if at least one message has been received.
@@ -174,9 +148,6 @@ hasMsgs=function(type=NULL) {
     return(f)
 },
 
-# getLastMsg {{{2
-################################################################################
-
 getLastMsg = function() {
     ":\n\nGet the last message received.
     \nReturned value: The last message received as a character value.
@@ -190,9 +161,6 @@ getLastMsg = function() {
 
     return(m)
 },
-
-# getLastMsgByType {{{2
-################################################################################
 
 getLastMsgByType = function(type) {
     ":\n\nGet the last message of a certain type.
@@ -210,9 +178,6 @@ getLastMsgByType = function(type) {
     return(m)
 },
 
-# getMsgsByType {{{2
-################################################################################
-
 getMsgsByType = function(type) {
     ":\n\nGet all messages of a certain type.
     \ntype: The type of the messages to retrieve.
@@ -228,9 +193,6 @@ getMsgsByType = function(type) {
     return(msgs)
 },
 
-# clearMessages {{{2
-################################################################################
-
 clearMessages = function() {
     ":\n\nErase all lists of messages.
     \nReturned value: None.
@@ -243,9 +205,6 @@ clearMessages = function() {
 }
 
 ))
-
-# Set test context {{{1
-################################################################################
 
 #' Set a test context.
 #'
@@ -284,9 +243,6 @@ setTestContext <- function(biodb, text) {
 
     invisible(NULL)
 }
-
-# Test that {{{1
-################################################################
 
 #' Run a test.
 #'
@@ -371,9 +327,6 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     invisible(NULL)
 }
 
-# Create Biodb test instance {{{1
-################################################################
-
 #' Creating a Biodb instance for tests.
 #'
 #' Creates a Biodb instance with options specially adapted for tests.
@@ -402,7 +355,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
 
     # Create instance
-    biodb <- Biodb$new()
+    biodb <- Biodb$new(loadAllBiodbPkgs=FALSE)
 
     # Add logger
     if ( ! is.null(log) && is.character(log) && length(log) == 1
@@ -424,9 +377,6 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
 
     return(biodb)
 }
-
-# Add message recorder observer {{{1
-################################################################################
 
 #' Add a message recorder to a Biodb instance.
 #'
@@ -470,9 +420,6 @@ addMsgRecObs <- function(biodb) {
     return(obs)
 }
 
-# List test reference entries {{{1
-################################################################
-
 #' List test reference entries.
 #'
 #' Lists the reference entries in the test folder for a specified connector.
@@ -502,9 +449,6 @@ listTestRefEntries <- function(conn.id) {
     return(ids)
 }
 
-# Load ref entry {{{1
-################################################################
-
 loadTestRefEntry <- function(db, id) {
 
 	# Replace forbidden characters
@@ -526,9 +470,6 @@ loadTestRefEntry <- function(db, id) {
 
 	return(json)
 }
-
-# Load reference entries {{{1
-################################################################
 
 loadTestRefEntries <- function(db) {
 
@@ -555,9 +496,6 @@ loadTestRefEntries <- function(db) {
 
 	return(entries.desc)
 }
-
-# Get test output directory {{{1
-################################################################################
 
 #' Get the test output directory.
 #'

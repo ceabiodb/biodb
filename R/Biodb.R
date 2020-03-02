@@ -59,7 +59,7 @@ methods=list(
 # Initialize {{{3
 ################################################################################
 
-initialize=function() {
+initialize=function(loadAllBiodbPkgs=TRUE) {
 
     callSuper() # Call BiodbObject constructor.
 
@@ -80,11 +80,14 @@ initialize=function() {
     .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
     .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
 
-    # Load definitions from all biodb* packages
+    # List biodb* packages to load
+    regex <- if (loadAllBiodbPkgs) '^biodb' else '^biodb$'; # itself
     pkgs <- installed.packages()[, 'Version']
-    pkgs <- pkgs[grep('^biodb', names(pkgs))]
+    pkgs <- pkgs[grep(regex, names(pkgs))]
     pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
                                       # while building vignettes.
+    
+    # Load definitions from selected biodb* packages
     for (pkg in names(pkgs)) {
         .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
         file <- system.file("definitions.yml", package=pkg)

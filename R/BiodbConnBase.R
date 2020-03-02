@@ -386,7 +386,7 @@ setPropertyValue=function(name, value) {
         && ! .self$.prop.def[[name]]$modifiable
         && ! identical(.self$.prop[[name]], value))
         .self$error('Property "', name, '" of database "', .self$getDbClass(),
-                   '" is not modifiable.')
+                   '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".')
 
     # Set value
     .self$.prop[[name]] <- value
