@@ -119,7 +119,7 @@
 #' chebi <- fact$getConn('chebi')
 #'
 #' # Get an entry
-#' entry <- conn$getEntry('15440')
+#' entry <- chebi$getEntry('15440')
 #'
 #' # Get a list of available fields for this entry
 #' entry$getFieldNames()
