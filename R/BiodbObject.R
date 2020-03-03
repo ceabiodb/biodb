@@ -1,23 +1,9 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbObject {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 BiodbObject <- methods::setRefClass("BiodbObject",
     fields=list(
                 .message.enabled="logical"
                 ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function() {
 
@@ -26,22 +12,13 @@ initialize=function() {
     .self$.message.enabled <- TRUE
 },
 
-# Get biodb {{{3
-################################################################################
-
 getBiodb=function() {
     .self$abstract.method()
 },
 
-# Help {{{3
-################################################################################
-
 help=function() {
     utils::help(class(.self), 'biodb')
 },
-
-# Notify observers {{{3
-################################################################################
 
 notify=function(fct, args) {
 
@@ -57,9 +34,6 @@ notify=function(fct, args) {
     invisible()
 },
 
-# Progress message {{{3
-################################################################################
-
 progressMsg=function(msg, index, first, total=NA_integer_, type='info',
                      laptime=10L) {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
@@ -67,9 +41,6 @@ progressMsg=function(msg, index, first, total=NA_integer_, type='info',
 
     invisible()
 },
-
-# Message {{{3
-################################################################################
 
 # Send a message to observers
 message=function(type, msg, lvl=1) {
@@ -109,26 +80,17 @@ message=function(type, msg, lvl=1) {
     invisible()
 },
 
-# Debug message {{{3
-################################################################################
-
 debug=function(...) {
     .self$message(type='debug', msg=paste0(...))
 
     invisible()
 },
 
-# Debug message level 2 {{{3
-################################################################################
-
 debug2=function(...) {
     .self$message(type='debug', msg=paste0(...), lvl=2)
 
     invisible()
 },
-
-# Debug message level 2 for printing list {{{3
-################################################################################
 
 debug2List=function(msg, lst, cut=10) {
 
@@ -144,17 +106,11 @@ debug2List=function(msg, lst, cut=10) {
     invisible()
 },
 
-# Error message {{{3
-################################################################################
-
 error=function(...) {
     .self$message(type='error', msg=paste0(...))
 
     invisible()
 },
-
-# Warning message {{{3
-################################################################################
 
 warning=function(...) {
     .self$message(type='warning', msg=paste0(...))
@@ -162,17 +118,11 @@ warning=function(...) {
     invisible()
 },
 
-# Caution message {{{3
-################################################################################
-
 caution=function(...) {
     .self$message(type='caution', msg=paste0(...))
 
     invisible()
 },
-
-# Info message {{{3
-################################################################################
 
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
@@ -180,20 +130,11 @@ info=function(...) {
     invisible()
 },
 
-# Info message level 2 {{{3
-################################################################################
-
 info2=function(...) {
     .self$message(type='info', msg=paste0(...), lvl=2)
 
     invisible()
 },
-
-# Private methods {{{2
-################################################################################
-
-# Abstract class {{{3R
-################################################################################
 
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
@@ -202,9 +143,6 @@ info2=function(...) {
         .self$error('Class ', class, ' is abstract and thus cannot be ',
                     'instantiated.')
 },
-
-# Abstract method {{{3
-################################################################################
 
 # This method is used to declare a method as abstract.
 .abstractMethod=function() {
@@ -217,9 +155,6 @@ info2=function(...) {
 
     .self$error("Method ", method, " is not implemented in ", class, " class.")
 },
-
-# Deprecated method {{{3
-################################################################################
 
 # This method is used to declare a method as deprecated.
 .deprecatedMethod=function(new.method=NA_character_) {
@@ -238,9 +173,6 @@ info2=function(...) {
     .self$message('caution', msg)
 },
 
-# Assert not NA {{{3
-################################################################################
-
 .assertNotNa=function(param, msg.type='error', sys.call.level=0,
                       param.name=NULL) {
 
@@ -257,9 +189,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert not NULL {{{3
-################################################################################
-
 .assertNotNull=function(param, msg.type='error', sys.call.level=0,
                             param.name=NULL) {
 
@@ -274,9 +203,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert inferior {{{3
-################################################################################
 
 .assertInferior=function(param1, param2, msg.type='error',
                             na.allowed=TRUE) {
@@ -301,9 +227,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert equal length {{{3
-################################################################################
-
 .assertEqualLength=function(param1, param2, msg.type='error') {
     if (length(param1) != length(param2)) {
         param1.name <- as.character(sys.call(0))[[2]]
@@ -316,9 +239,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert positive {{{3
-################################################################################
 
 .assertPositive=function(param, na.allowed=TRUE, zero=TRUE,
                             sys.call.level=0, msg.type='error',
@@ -344,9 +264,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert length one {{{3
-################################################################################
-
 .assertLengthOne=function(param, sys.call.level=0, msg.type='error',
                               param.name=NULL) {
 
@@ -363,9 +280,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert in {{{3
-################################################################################
-
 .assertIn=function(param, values, msg.type='error') {
     if ( ! is.na(param) && ! param %in% values) {
         param.name <- as.character(sys.call(0))[[2]]
@@ -376,9 +290,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert is {{{3
-################################################################################
 
 .assertIs=function(param, type, sys.call.level=0, msg.type='error',
                       param.name=NULL) {
@@ -397,9 +308,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert inherits from {{{3
-################################################################################
-
 .assertInheritsFrom=function(param, super.class, msg.type='error') {
     if ( ! is.null(param) && ! is(param, super.class)) {
         param.name <- as.character(sys.call(0))[[2]]
@@ -409,9 +317,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert number {{{3
-################################################################################
 
 .assertNumber=function(param, length.one=TRUE, null.allowed=FALSE,
                           na.allowed=FALSE, zero=TRUE, negative=TRUE,

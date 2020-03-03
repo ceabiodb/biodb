@@ -1,8 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbPersistentCache {{{1
-################################################################
-
 #' A class for handling file caching.
 #'
 #' This class manages a cache system for saving downloaded files and request
@@ -43,12 +38,6 @@ BiodbPersistentCache <- methods::setRefClass("BiodbPersistentCache",
     contains='BiodbChildObject',
     methods=list(
 
-# Public methods {{{2
-################################################################################
-
-# Get version {{{3
-################################################################
-
 getVersion=function() {
     ":\n\nReturns the cache version.
     \nReturned value: The current cache version.
@@ -64,9 +53,6 @@ getVersion=function() {
     return(version)
 },
 
-# Get directory {{{3
-################################################################################
-
 getDir=function() {
     ":\n\nGets the absolute path to the cache directory.
     \nReturned value: The absolute path of the cache directory.
@@ -81,9 +67,6 @@ getDir=function() {
     return(cachedir)
 },
 
-# Is readable {{{3
-################################################################################
-
 isReadable=function() {
     ":\n\nChecks if the cache system is readable.
     \nReturned value: \\code{TRUE} if the cache system is readable,
@@ -93,9 +76,6 @@ isReadable=function() {
     cfg <- .self$getBiodb()$getConfig()
     return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir()))
 },
-
-# Is writable {{{3
-################################################################################
 
 isWritable=function() {
     ":\n\nChecks if the cache system is writable.
@@ -107,9 +87,6 @@ isWritable=function() {
     return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir())
            && ! cfg$get('cache.read.only'))
 },
-
-# File exists {{{3
-################################################################################
 
 fileExist=function(cache.id, name, ext) {
     ":\n\nTests if files exist in the cache.
@@ -125,9 +102,6 @@ fileExist=function(cache.id, name, ext) {
 
     return(exists)
 },
-
-# Marker exists {{{3
-################################################################################
 
 markerExist=function(cache.id, name) {
     ":\n\nTests if markers exist in the cache. Markers are used, for instance, by
@@ -145,9 +119,6 @@ markerExist=function(cache.id, name) {
     return(b)
 },
 
-# Set marker {{{3
-################################################################################
-
 setMarker=function(cache.id, name) {
     ":\n\nSets a marker.
     \ncache.id: The cache ID to use.
@@ -164,9 +135,6 @@ setMarker=function(cache.id, name) {
 
     writeChar('', marker.path)
 },
-
-# Get file path {{{3
-################################################################################
 
 getFilePath=function(cache.id, name, ext) {
     ":\n\nGets path of file in cache system.
@@ -189,9 +157,6 @@ getFilePath=function(cache.id, name, ext) {
 
     return(filepaths)
 },
-
-# Load file content {{{3
-################################################################################
 
 loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     ":\n\nLoads content of files from the cache.
@@ -263,9 +228,6 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     return(content)
 },
 
-# Save content into file {{{3
-################################################################################
-
 saveContentToFile=function(content, cache.id, name, ext) {
     ":\n\nSaves content to files into the cache.
     \ncontent: A list or a character vector containing the contents of the
@@ -276,14 +238,7 @@ saveContentToFile=function(content, cache.id, name, ext) {
     \nReturned value: None.
     "
 
-    if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
-
-    # Make sure the path exists
-    path <- file.path(.self$getDir(), cache.id)
-    if ( ! dir.exists(path))
-        dir.create(path, recursive=TRUE)
+    .self$.checkWritable(cache.id)
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, name, ext)
@@ -301,16 +256,51 @@ saveContentToFile=function(content, cache.id, name, ext) {
     # Write content to files
     .self$debug2List('Saving to cache', file.paths)
     if (ext == 'RData')
-        mapply(function(c, f) { save(c, file=f) }, content, file.paths)
+        mapply(function(cnt, f) { save(cnt, file=f) }, content, file.paths)
     else
         # Use cat instead of writeChar, because writeChar was not working with
         # some unicode string (wrong string length).
-        mapply(function(c, f) { if ( ! is.null(c)) cat(c, file=f) },
+        mapply(function(cnt, f) { if ( ! is.null(cnt)) cat(cnt, file=f) },
                content, file.paths)
 },
 
-# Erase folder {{{3
-################################################################################
+.checkWritable=function(cache.id) {
+
+    if ( ! .self$isWritable())
+        .self$error('Attempt to write into non-writable cache. "',
+                    .self$getDir(), '".')
+
+    # Make sure the path exists
+    path <- file.path(.self$getDir(), cache.id)
+    if ( ! dir.exists(path))
+        dir.create(path, recursive=TRUE)
+},
+
+moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
+    ":\n\nMoves exisiting files into the cache.
+    \nsrc.file.paths: The current paths of the source files, as a character
+    vector.
+    \ncache.id: The cache ID to use.
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \nReturned value: None.
+    "
+
+    .self$.checkWritable(cache.id)
+
+    # Get destination file paths
+    dstFilePaths <- .self$getFilePath(cache.id, name, ext)
+
+    # Check that we have the same number of src and dst file paths
+    if (length(src.file.paths) != length(dstFilePaths))
+        .self$error('The number of files to move (', length(src.file.paths),
+                    ') is different from the number of destination paths (',
+                    length(dstFilePaths), ').')
+
+    # Move files
+    .self$debug2List('Moving files to cache', src.file.paths)
+    file.rename(src.file.paths, dstFilePaths)
+},
 
 erase=function() {
     ":\n\nErases the whole cache.
@@ -323,9 +313,6 @@ erase=function() {
 
     invisible(NULL)
 },
-
-# Delete file {{{3
-################################################################################
 
 deleteFile=function(cache.id, name, ext) {
     ":\n\nDeletes a list of files inside the cache system.
@@ -348,9 +335,6 @@ deleteFile=function(cache.id, name, ext) {
     invisible(NULL)
 },
 
-# Delete all files of a cache ID {{{3
-################################################################################
-
 deleteAllFiles=function(cache.id) {
     ":\n\nDeletes all files one cache ID in the cache system.
     \ncache.id: The cache ID to use.
@@ -363,9 +347,6 @@ deleteAllFiles=function(cache.id) {
 
     invisible(NULL)
 },
-
-# Delete files {{{3
-################################################################################
 
 deleteFiles=function(cache.id, ext) {
     ":\n\nDeletes all files with the specific extension of one cache ID in the
@@ -389,9 +370,6 @@ deleteFiles=function(cache.id, ext) {
     
     invisible(NULL)
 },
-
-# List files {{{3
-################################################################################
 
 listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE) {
     ":\n\nLists files present in the cache system.
@@ -427,9 +405,6 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE) {
     return(files)
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nDisplays information about this object."
 
@@ -439,12 +414,6 @@ show=function() {
     cat("  The cache is ", (if (.self$isWritable()) "" else "not "),
         "writable.\n", sep='')
 },
-
-# Deprecated methods {{{2
-################################################################################
-
-# Enabled {{{3
-################################################################################
 
 enabled=function() {
     ":\n\nDEPRECATED method. Use now
@@ -456,9 +425,6 @@ enabled=function() {
     return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
 },
 
-# Enable {{{3
-################################################################################
-
 enable=function() {
     ":\n\nDEPRECATED method. Use now
     \\code{BiodbConfig::enable('cache.system')}.
@@ -468,9 +434,6 @@ enable=function() {
 
     .self$getBiodb()$getConfig()$enable('cache.system')
 },
-
-# Disable {{{3
-################################################################################
 
 disable=function() {
     ":\n\nDEPRECATED method. Use now
