@@ -136,6 +136,27 @@ setMarker=function(cache.id, name) {
     writeChar('', marker.path)
 },
 
+getTmpFolderPath=function() {
+    ":\n\nGets path to the cache system temporary folder.
+    \nReturned value: A string containing the path to the folder.
+    "
+
+    tmp_dir <- file.path(.self$getDir(), 'tmp')
+    if ( ! dir.exists(tmp_dir))
+        dir.create(tmp_dir)
+
+    return(tmp_dir)
+},
+
+getFolderPath=function(cache.id) {
+    ":\n\nGets path to the cache system sub-folder dedicated to this cache ID.
+    \ncache.id: The cache ID to use.
+    \nReturned value: A string containing the path to the folder.
+    "
+
+    return(file.path(.self$getDir(), cache.id))
+},
+
 getFilePath=function(cache.id, name, ext) {
     ":\n\nGets path of file in cache system.
     \ncache.id: The cache ID to use.
@@ -149,7 +170,7 @@ getFilePath=function(cache.id, name, ext) {
     name <- gsub('[^A-Za-z0-9._-]', '_', name)
 
     # Set file path
-    filepaths <- file.path(.self$getDir(), cache.id,
+    filepaths <- file.path(.self$getFolderPath(cache.id),
                            paste(name, '.', ext, sep=''))
 
     # Set NA values
@@ -298,8 +319,10 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
                     length(dstFilePaths), ').')
 
     # Move files
-    .self$debug2List('Moving files to cache', src.file.paths)
+    .self$debug2List('Moving files to cache ', src.file.paths)
+    .self$debug2List('Destination files are ', dstFilePaths)
     file.rename(src.file.paths, dstFilePaths)
+    .self$debug('Done moving files.')
 },
 
 erase=function() {
