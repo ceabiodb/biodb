@@ -251,7 +251,7 @@ getEntryFileExt=function() {
     "
 
     if (.self$getPropertyValue('entry.content.type') == 'list')
-        ext <- 'RData'
+        ext <- 'json'
     else
         ext <- .self$getPropertyValue('entry.content.type')
 
