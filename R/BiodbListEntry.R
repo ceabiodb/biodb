@@ -32,6 +32,10 @@ methods=list(
 ################################################################################
 
 .doParseContent=function(content) {
+
+    if (is.character(content))
+        content <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)
+
     return(content) # Nothing to parse
 },
 

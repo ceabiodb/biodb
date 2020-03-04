@@ -271,18 +271,21 @@ saveContentToFile=function(content, cache.id, name, ext) {
                     length(file.paths), ').')
 
     # Replace NA values with 'NA' string
-    if (ext != 'RData')
-        content[is.na(content)] <- 'NA'
+    content[is.na(content)] <- 'NA'
 
     # Write content to files
     .self$debug2List('Saving to cache', file.paths)
-    if (ext == 'RData')
-        mapply(function(cnt, f) { save(cnt, file=f) }, content, file.paths)
-    else
-        # Use cat instead of writeChar, because writeChar was not working with
-        # some unicode string (wrong string length).
-        mapply(function(cnt, f) { if ( ! is.null(cnt)) cat(cnt, file=f) },
-               content, file.paths)
+    fct <- function(cnt, f) {
+        if ( ! is.null(cnt)) {
+            if ( ! is.character(cnt))
+                cnt <- jsonlite::toJSON(cnt, pretty=TRUE,
+                                        digits=NA_integer_)
+            # Use cat instead of writeChar, because writeChar was not
+            # working with some unicode string (wrong string length).
+            cat(cnt, file=f)
+        }
+    }
+    mapply(fct, content, file.paths)
 },
 
 .checkWritable=function(cache.id) {
