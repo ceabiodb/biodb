@@ -78,8 +78,6 @@ Collate:
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
-    'UniprotConn.R'
-    'UniprotEntry.R'
     'generic_tests.R'
     'mass_helpers.R'
     'package.R'

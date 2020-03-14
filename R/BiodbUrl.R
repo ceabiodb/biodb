@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbUrl {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class URL.
 #'
 #' This class represents a URL object that can be used in requests.
@@ -36,13 +28,7 @@ BiodbUrl <- methods::setRefClass("BiodbUrl",
         .params='character'
         ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(url=character(), params=character()) {
 
@@ -60,9 +46,6 @@ initialize=function(url=character(), params=character()) {
     .self$.params <- params
 },
 
-# Get domain {{{3
-################################################################################
-
 getDomain=function() {
     ":\n\nGets the domain.
     \nReturned value: None.
@@ -73,20 +56,14 @@ getDomain=function() {
     return(domain)
 },
 
-# Set URL {{{3
-################################################################################
-
 setUrl=function(url) {
     ":\n\nSets the base URL string.
     \nurl: The base URL string.
     \nReturned value: None.
     "
-    
+
     .self$.url <- url
 },
-
-# Set parameter {{{3
-################################################################################
 
 setParam=function(key, value) {
     ":\n\nSets a parameter.
@@ -98,19 +75,13 @@ setParam=function(key, value) {
     .self$.params[[key]] <- value
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nDisplays information about this instance.
     \nReturned value: None.
     "
-    
+
     cat(.self$toString(), "\n", sep='')
 },
-
-# To string {{{3
-################################################################################
 
 toString=function(encode=TRUE) {
     ":\n\nGets the URL as a string representation.

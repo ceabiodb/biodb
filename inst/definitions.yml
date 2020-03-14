@@ -164,42 +164,6 @@ databases:
     entry.content.type: list
     name: Mass SQLite
 
-# UniProt {{{2
-################################################################################
-  uniprot:
-    entry.content.type: xml
-    name: UniProt
-    parsing.expr:
-      accession: //uniprot:accession[1]
-      ec:
-        attr: id
-        path: //uniprot:dbReference[@type='EC']
-      expasy.enzyme.id:
-        attr: id
-        path: //uniprot:dbReference[@type='EC']
-      gene.symbols: //uniprot:gene/uniprot:name
-      kegg.genes.id:
-        attr: id
-        path: //uniprot:dbReference[@type='KEGG']
-      molecular.mass:
-        attr: mass
-        path: //uniprot:entry/uniprot:sequence
-      name: /uniprot:uniprot/uniprot:entry/uniprot:name
-      ncbi.gene.id:
-        attr: id
-        path: //uniprot:dbReference[@type='GeneID']
-      aa.seq: //uniprot:entry/uniprot:sequence
-      aa.seq.length:
-        attr: length
-        path: //uniprot:entry/uniprot:sequence
-    searchable.fields:
-        - name
-        - molecular.mass
-    urls:
-      base.url: https://www.uniprot.org/uniprot/
-    xml.ns:
-      uniprot: http://uniprot.org/uniprot
-
 # FIELDS {{{1
 ################################################################################
 
@@ -250,13 +214,6 @@ fields:
     type: id
     card: many
 
-  expasy.enzyme.id:
-    description: ExPASy ENZYME ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
   hmdb.metabolites.id:
     description: HMDB Metabolites ID
     case.insensitive: true
@@ -301,13 +258,6 @@ fields:
 
   ncbi.pubchem.comp.id:
     description: PubChem Compound ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  uniprot.id:
-    description: UniProt ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -397,37 +347,11 @@ fields:
 # Proteins and genes {{{2
 ################################################################################
 
-  aa.seq:
-    alias: sequence
-    description: Amino acids sequence.
-
-  aa.seq.length:
-    alias:
-    - seq.length
-    - length
-    class: integer
-    description: Length of the amino acids sequence.
-
   aa.seq.location:
     alias:
     - seq.location
     - location
     description: Location of the amino acids sequence.
-  ec:
-    description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
-    case.insensitive: true
-    forbids.duplicates: true
-    card: many
-
-  gene.symbol:
-    alias:
-    - gene.symbols
-    - symbol
-    - genesymbols
-    card: many
-    case.insensitive: true
-    description: A list of gene symbols.
-    forbids.duplicates: true
   nt.seq:
     description: Nucleotids sequence.
   nt.seq.length:

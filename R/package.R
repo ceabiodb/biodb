@@ -44,12 +44,13 @@
 #'
 #' # Available database connectors
 #'
-#' This package is delivered with four connectors: ChEBI, Uniprot, MassCsvFile
-#' annd MassSqlite. However it is extendable, and in fact other packages
-#' already exist or will soon be made available on Bioconductor or GitHub for
-#' accessing other databases like HMDB, KEGG, Massbank or Lipidmaps. You may
-#' also write your own connector by extending *biodb*. If you are interested, a
-#' vignette explains what you need to do in details.
+#' This package is delivered with two connectors for local databasses:
+#' MassCsvFile annd MassSqlite. However it is extendable, and in fact other
+#' packages already exist or will soon be made available on Bioconductor or
+#' GitHub for accessing other databases like ChEBI, Uniprot, HMDB, KEGG,
+#' Massbank or Lipidmaps.  You may also write your own connector by extending
+#' *biodb*. If you are interested, a vignette explains what you need to do in
+#' details.
 #'
 #' When creating the instance of the `Biodb` class you should have received a
 #' message like "Loading definitions from package ..." if any extending package
