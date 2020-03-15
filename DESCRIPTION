@@ -74,6 +74,7 @@ Collate:
     'BiodbWritable.R'
     'ChebiConn.R'
     'ChebiEntry.R'
+    'CsvFileConn.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'

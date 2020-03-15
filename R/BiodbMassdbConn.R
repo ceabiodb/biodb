@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbMassdbConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The mother class of all Mass spectra databases.
 #'
 #' All Mass spectra databases inherit from this class. It thus defines methods
@@ -30,22 +22,13 @@
 BiodbMassdbConn <- methods::setRefClass("BiodbMassdbConn",
     contains="BiodbConn",
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbMassdbConn')
 },
-
-# Get chromatographic columns {{{3
-################################################################################
 
 getChromCol=function(ids=NULL) {
     ":\n\nGets a list of chromatographic columns contained in this database.
@@ -57,9 +40,6 @@ getChromCol=function(ids=NULL) {
 
     .self$.abstractMethod()
 },
-
-# Get mz values {{{3
-################################################################################
 
 getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
                      precursor=FALSE, ms.level=0) {
@@ -77,9 +57,6 @@ getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
                          precursor=precursor, ms.level=ms.level)
 },
 
-# Get nb peaks {{{3
-################################################################################
-
 getNbPeaks=function(mode=NULL, ids=NULL) {
     ":\n\nGets the number of peaks contained in the database.
     \nmode: The MS mode. Set it to either 'neg' or 'pos' to limit the counting
@@ -91,9 +68,6 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
     .self$.abstractMethod()
 },
-
-# Filter entries on retention time {{{3
-################################################################################
 
 filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                            chrom.col.ids, match.rt) {
@@ -193,9 +167,6 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
 
     return(entry.ids)
 },
-
-# Search MS entries {{{3
-################################################################################
 
 searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
                          mz.tol=NA_real_, mz.tol.unit='plain', 
@@ -305,9 +276,6 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
 
     return(ids)
 },
-
-# Search MS peaks {{{3
-################################################################################
 
 searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     mz.tol.unit='plain', min.rel.int=NA_real_, ms.mode=NA_character_,
@@ -514,9 +482,6 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     return(results)
 },
 
-# MS-MS search {{{3
-################################################################################
-
 msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     ms.mode, npmin=2,
     dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
@@ -543,7 +508,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     order and gives the number of the peak that was matched with it inside the
     matched spectrum whose ID is inside the `id` column.
     "
-    
+
     peak.tables <- list()
     dist.fun <- match.arg(dist.fun)
 
@@ -582,9 +547,6 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     return(res)
 },
 
-# Collapse results data frame {{{3
-################################################################################
-
 collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
                                   sep='|') {
     ":\n\nCollapse rows of a results data frame, by outputing a data frame with only
@@ -604,12 +566,6 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
     return(x)
 },
 
-# Deprecated methods {{{2
-################################################################################
-
-# Search by M/Z within range {{{3
-################################################################################
-
 searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
                        ms.mode=NA_character_, max.results=NA_integer_,
                        precursor=FALSE, ms.level=0) {
@@ -621,9 +577,6 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
-
-# Search by M/Z within tolerance {{{3
-################################################################################
 
 searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
                      ms.mode=NA_character_, max.results=NA_integer_,
@@ -637,12 +590,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
-
-# Private methods {{{2
-################################################################################
-
-# Convert M/Z tolerance to range {{{3
-################################################################################
 
 .convertMzTolToRange=function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
@@ -659,9 +606,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(list(min=mz.min, max=mz.max))
 },
 
-# Do search M/Z with tolerance {{{3
-################################################################################
-
 .doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
                         max.results, precursor, ms.level) {
 
@@ -673,24 +617,14 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
         precursor=precursor, ms.level=ms.level))
 },
 
-# Do search M/Z range {{{3
-################################################################################
-
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
                           precursor, ms.level) {
     .self$.abstractMethod()
 },
 
-# Do get mz values {{{3
-################################################################################
-
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     .self$.abstractMethod()
 },
-
-# Convert RT values {{{3
-
-################################################################################
 
 .convertRt=function(rt, units, wanted.unit) {
 
@@ -716,13 +650,10 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(rt)
 },
 
-# Check M/Z min/max parameters {{{3
-################################################################################
-
 .checkMzMinMaxParam=function(mz.min, mz.max) {
 
     use.min.max <- ! is.null(mz.min) && ! is.null(mz.max)
-    
+
     if (use.min.max) {
         .self$.assertIs(mz.min, c('numeric', 'integer'))
         .self$.assertIs(mz.max, c('numeric', 'integer'))
@@ -734,9 +665,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 
     return(use.min.max)
 },
-
-# Check M/Z tolerance parameters {{{3
-################################################################################
 
 .checkMzTolParam=function(mz, mz.shift, mz.tol, mz.tol.unit) {
 
@@ -753,9 +681,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(use.tol)
 },
 
-# Check M/Z parmaters {{{3
-################################################################################
-
 .checkMzParam=function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit) {
 
     use.tol <- .self$.checkMzTolParam(mz=mz, mz.shift=mz.shift, mz.tol=mz.tol,
@@ -768,9 +693,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 
     return(list(use.tol=use.tol, use.min.max=use.min.max))
 },
-
-# Check RT parameters {{{3
-################################################################################
 
 .checkRtParam=function(rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
                        match.rt) {
@@ -789,9 +711,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
         .self$.assertLengthOne(rt.unit)
     }
 },
-
-# Check searchMs params {{{3
-################################################################################
 
 .checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz',
     rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz, mz.shift,
@@ -861,9 +780,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
                 input.df=input.df))
 },
 
-# Compute chrom col RT range {{{3
-################################################################################
-
 .computeChromColRtRange=function(entry) {
 
     rt.col.unit <- entry$getFieldValue('chrom.rt.unit')
@@ -883,9 +799,6 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 
     return(list(min=rt.col.min, max=rt.col.max))
 },
-
-# Compute RT range {{{3
-################################################################################
 
 .computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
 
