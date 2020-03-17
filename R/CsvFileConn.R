@@ -254,19 +254,17 @@ defineParsingExpressions=function() {
     # Loop on all fields defined in database
     for (field in names(.self$.fields)) {
         f <- entry.fields$get(field)
-        # TODO IMPORTANT handle peak group
-        if (is.null(f) || is.na(f$getGroup()) || f$getGroup() != 'peak')
+        if (is.null(f))
             .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
     }
 
     # Loop on all entry fields
     for (field in entry.fields$getFieldNames())
         if ( ! field %in% names(.self$.fields)) {
-        f <- entry.fields$get(field)
-        # TODO IMPORTANT handle peak group
-        if (is.na(f$getGroup()) || f$getGroup() != 'peak')
-            .self$setPropValSlot('parsing.expr', field, field)
-    }
+            f <- entry.fields$get(field)
+            if ( ! f$isVirtual())
+                .self$setPropValSlot('parsing.expr', field, field)
+        }
 },
 
 .doWrite=function() {

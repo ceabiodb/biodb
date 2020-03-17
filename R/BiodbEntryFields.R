@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbEntryFields {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for handling description of all entry fields.
 #'
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class
@@ -39,12 +31,6 @@ BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
                   .aliasToName="character"),
     methods=list(
 
-# Public methods {{{2
-################################################################################
-
-# Initialize {{{3
-################################################################################
-
 initialize=function(...) {
 
     callSuper(...)
@@ -52,9 +38,6 @@ initialize=function(...) {
     .self$.fields <- list()
     .self$.aliasToName <- character(0)
 },
-
-# Is alias {{{3
-################################################################################
 
 isAlias=function(name) {
     ":\n\nTests if names are aliases.
@@ -65,21 +48,15 @@ isAlias=function(name) {
     return(tolower(name) %in% names(.self$.aliasToName))
 },
 
-# Is defined {{{3
-################################################################################
-
 isDefined=function(name) {
     ":\n\nTests if names are defined fields.
     \nname: A character vector of names or aliases to test.
     \nReturned value: A logical vector, the same length as `name`, with TRUE
     for name values that corresponds to a defined field.
     "
-    
+
     return(tolower(name) %in% names(.self$.fields) | .self$isAlias(name))
 },
-
-# Check is defined {{{3
-################################################################################
 
 checkIsDefined=function(name) {
     ":\n\nTests if names are valid defined fields. Throws an error if any name
@@ -93,9 +70,6 @@ checkIsDefined=function(name) {
         .self$error("Field(s) \"", paste(name[ ! def], collapse=", "),
                     "\" is/are not defined.")
 },
-
-# Get real name {{{3
-################################################################################
 
 getRealName=function(name) {
     ":\n\nGets the real names (main names) of fields. If some name is not
@@ -114,9 +88,6 @@ getRealName=function(name) {
     return(name)
 },
 
-# Get {{{3
-################################################################################
-
 get=function(name) {
     ":\n\nGets a BiodbEntryField instance.
     \nname: A character vector of names or aliases.
@@ -128,13 +99,15 @@ get=function(name) {
     return(field)
 },
 
-# Get field names {{{3
-################################################################################
-
-getFieldNames=function(type=NULL) {
+getFieldNames=function(type=NULL, computable=NULL) {
     ":\n\nGets the main names of all fields.
-    \ntype: If set, returns only the field names corresponding to this type.
-    \nReturned value: A character vector containing all field names.
+    \ntype: Set this parameter to a character vector in order to
+    return only the names of the fields corresponding to the types
+    specified.
+    \ncomputable: If set to TRUE, returns only the names of
+    computable fields. If set to FALSE, returns only the names of
+    fields that are not computable.
+    \nReturned value: A character vector containing all selected field names.
     "
 
     # Filter by type
@@ -148,11 +121,16 @@ getFieldNames=function(type=NULL) {
     else
         fields <- names(.self$.fields)
 
+    # Filter on computability
+    if ( ! is.null(computable)) {
+        fct <- function(f) {
+            .self$.fields[[f]]$isComputable()
+        }
+        fields <- Filter(fct, fields)
+    }
+
     return(sort(fields))
 },
-
-# Get database id field {{{3
-################################################################################
 
 getDatabaseIdField=function(database) {
     ":\n\nGets a database ID field.
@@ -165,9 +143,6 @@ getDatabaseIdField=function(database) {
     return(.self$get(dbs$get(database)$getIdFieldName()))
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nPrints information about the instance.
     \nReturned value: None.
@@ -175,9 +150,6 @@ show=function() {
 
     cat("Biodb entry fields information instance.\n")
 },
-
-# Define {{{3
-################################################################################
 
 define=function(def) {
     ":\n\nDefines fields.
@@ -193,12 +165,6 @@ define=function(def) {
         do.call(.self$.defineField, args)
     }
 },
-
-# Private methods {{{2
-################################################################################
-
-# Define field {{{3
-################################################################################
 
 .defineField=function(name, ...) {
 

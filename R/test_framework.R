@@ -70,7 +70,6 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 
 ))
 
-
 #' A class for recording messages during tests.
 #'
 #' The main purpose of this class is to give access to last sent messages of the
@@ -448,7 +447,6 @@ listTestRefEntries <- function(conn.id) {
 
     return(ids)
 }
-
 loadTestRefEntry <- function(db, id) {
 
 	# Replace forbidden characters
@@ -470,7 +468,6 @@ loadTestRefEntry <- function(db, id) {
 
 	return(json)
 }
-
 loadTestRefEntries <- function(db) {
 
 	entries.desc <- NULL

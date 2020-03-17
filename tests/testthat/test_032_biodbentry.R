@@ -33,7 +33,7 @@ test.getFieldValue <- function(biodb, obs) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

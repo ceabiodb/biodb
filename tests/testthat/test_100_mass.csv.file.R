@@ -511,7 +511,7 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test Mass CSV File connector.")

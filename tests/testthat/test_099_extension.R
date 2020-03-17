@@ -42,7 +42,7 @@ test_new_parsing_expr <- function(biodb) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

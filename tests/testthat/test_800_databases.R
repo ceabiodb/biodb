@@ -6,7 +6,7 @@ source('common.R', local=TRUE)
 ################################################################
 
 # Create biodb instance
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Loop on test databases

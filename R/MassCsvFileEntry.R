@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# MassCsvFileEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Mass CSV File entry class.
 #'
 #' This is the entry class for MASS CSV file databases.
@@ -34,24 +26,12 @@
 MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry",
     contains='BiodbCsvEntry',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(sep="\t", ...)
 },
-
-# Private methods {{{2
-################################################################################
-
-# Parse chromatographic columns {{{3
-################################################################################
 
 .parseChromatoCols=function() {
 
@@ -63,9 +43,6 @@ initialize=function(...) {
         .self$setFieldValue('chrom.col.name',
                             .self$getFieldValue('chrom.col.id'))
 },
-
-# Parse precursor {{{3
-################################################################################
 
 .parsePrecursor=function() {
 
@@ -101,63 +78,57 @@ initialize=function(...) {
     }
 },
 
-# Parse peak table {{{3
-################################################################################
-
-.parsePeakTable=function(parsed.content) {
-
-    entry.fields <- .self$getBiodb()$getEntryFields()
+#.parsePeakTable=function(parsed.content) {
+#
+#    entry.fields <- .self$getBiodb()$getEntryFields()
 
     # Make peak table
-    peaks <- NULL
-    for (field in entry.fields$getFieldNames()) {
+#    peaks <- NULL
+#    for (field in entry.fields$getFieldNames()) {
+#
+#        # Process only peak fields
+#        f <- entry.fields$get(field)
+#        if ( ! is.na(f$getGroup()) && f$getGroup() == 'peak') {
+#
+#            # Is the field is present in the parsed content data frame
+#            if (field %in% names(.self$getParent()$.fields))
+#                col.name <- .self$getParent()$.fields[[field]]
+#            else
+#                col.name <- field
+#            if (col.name %in% colnames(parsed.content)) {
+#
+#                # Get vector of values
+#                values <- parsed.content[[col.name]]
+#
+#                # Correct values
+#                values <- f$correctValue(values)
+#
+#                # Add values to peak data frame
+#                if (is.null(peaks)) {
+#                    peaks <- data.frame(x=values, stringsAsFactors=FALSE)
+#                    colnames(peaks) <- field
+#                }
+#                else
+#                    peaks[[field]] <- values
+#            }
+#        }
+#    }
 
-        # Process only peak fields
-        f <- entry.fields$get(field)
-        if ( ! is.na(f$getGroup()) && f$getGroup() == 'peak') {
-
-            # Is the field is present in the parsed content data frame
-            if (field %in% names(.self$getParent()$.fields))
-                col.name <- .self$getParent()$.fields[[field]]
-            else
-                col.name <- field
-            if (col.name %in% colnames(parsed.content)) {
-
-                # Get vector of values
-                values <- parsed.content[[col.name]]
-
-                # Correct values
-                values <- f$correctValue(values)
-
-                # Add values to peak data frame
-                if (is.null(peaks)) {
-                    peaks <- data.frame(x=values, stringsAsFactors=FALSE)
-                    colnames(peaks) <- field
-                }
-                else
-                    peaks[[field]] <- values
-            }
-        }
-    }
-
-    # Add MZ column if missing
-    if ( ! is.null(peaks) && ! 'peak.mz' %in% colnames(peaks))
-        for (mz.col in c('peak.mztheo', 'peak.mzexp'))
-            if (mz.col %in% colnames(peaks))
-                peaks[['peak.mz']] <- peaks[[mz.col]]
+#    # Add MZ column if missing
+#    if ( ! is.null(peaks) && ! 'peak.mz' %in% colnames(peaks))
+#        for (mz.col in c('peak.mztheo', 'peak.mzexp'))
+#            if (mz.col %in% colnames(peaks))
+#                peaks[['peak.mz']] <- peaks[[mz.col]]
 
     # Set peaks table in field
-    if ( ! is.null(peaks))
-        .self$setFieldValue('peaks', peaks)
-},
-
-# Parse fields step 2 {{{3
-################################################################################
+#    if ( ! is.null(peaks))
+#        .self$setFieldValue('peaks', peaks)
+#},
 
 .parseFieldsStep2=function(parsed.content) {
 
     # Peak table
-    .self$.parsePeakTable(parsed.content)
+#    .self$.parsePeakTable(parsed.content)
 
     # Chromatographic column id and name
     .self$.parseChromatoCols()
