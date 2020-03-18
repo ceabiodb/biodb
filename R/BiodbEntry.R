@@ -287,16 +287,18 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
         # Gather other fields to build data frame
         if (field.def$isDataFrame() && ! is.null(gbt))
             val <- .self$getFieldsAsDataframe(fields.type=gbt)
+
         else
             .self$error('Do not know how to compute virtual field "', field,'"
                         for entry "', .self$getFieldValue('accession'), '".')
     }
 
     # Unset field
-    else
+    else {
         # Return NULL or NA
         val <- if (field.def$isVector())
             as.vector(NA, mode=field.def$getClass()) else NULL
+            }
 
     # Get last value only
     if (last && field.def$hasCardMany() && length(val) > 1)

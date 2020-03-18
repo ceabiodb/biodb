@@ -321,7 +321,7 @@ isVirtual=function() {
     otherwise.
     "
 
-    return( ! is.null(.self$virtual))
+    return(.self$virtual)
 },
 
 getVirtualGroupByType=function() {
