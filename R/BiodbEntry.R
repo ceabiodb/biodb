@@ -495,7 +495,8 @@ parseContent=function(content) {
             value <- NULL
 
             # Database is itself
-            if (db == 'self' || db == .self$getParent()$getId()) {
+            if (db == 'self' || (methods::is(.self$getParent(), 'BiodbConn')
+                                 && db == .self$getParent()$getId())) {
                 # Look for field in entry
                 if ('fields' %in% names(directive))
                     for (otherField in directive$fields)
@@ -504,7 +505,7 @@ parseContent=function(content) {
                             break
                         }
             }
-            
+
             # Look into another database
             else {
                 # Have we a reference for this database?
@@ -524,7 +525,7 @@ parseContent=function(content) {
                         value <- db.entry$getFieldValue(field, compute=FALSE)
                 }
             }
-            
+
             # Set found value
             if ( ! is.null(value)) {
                 .self$setFieldValue(field, value)

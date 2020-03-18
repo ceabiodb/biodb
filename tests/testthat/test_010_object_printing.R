@@ -35,13 +35,23 @@ test.BiodbEntry.show <- function(biodb) {
 
 	# Create database and connector
 	id <- 'C1'
-	db.df <- rbind(data.frame(), list(accession = id, ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+	db.df <- rbind(data.frame(), list(accession=id,
+                                      ms.mode='POS',
+                                      peak.mztheo=112.07569,
+                                      peak.comp='P9Z6W410 O',
+                                      peak.attr='[(M+H)-(H2O)-(NH3)]+',
+                                      formula="J114L6M62O2",
+                                      molecular.mass=146.10553,
+                                      name='Blablaine'),
+                   stringsAsFactors=FALSE)
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
 	# Get entry
 	entry <- conn$getEntry(id)
-	testthat::expect_output(entry$show(), regexp = '^Biodb .* entry instance .*\\.$')
+    entry$show()
+	testthat::expect_output(entry$show(),
+                            regexp='^Biodb .* entry instance .*\\.$')
 
 	# Destroy connector
 	biodb$getFactory()$deleteConn(conn$getId())

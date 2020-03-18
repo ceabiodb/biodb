@@ -252,11 +252,8 @@ defineParsingExpressions=function() {
     entry.fields <- .self$getBiodb()$getEntryFields()
 
     # Loop on all fields defined in database
-    for (field in names(.self$.fields)) {
-        f <- entry.fields$get(field)
-        if (is.null(f))
-            .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
-    }
+    for (field in names(.self$.fields))
+        .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
 
     # Loop on all entry fields
     for (field in entry.fields$getFieldNames())
