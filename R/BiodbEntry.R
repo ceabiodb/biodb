@@ -286,7 +286,10 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
         gbt <- field.def$getVirtualGroupByType()
         # Gather other fields to build data frame
         if (field.def$isDataFrame() && ! is.null(gbt))
-            val <- .self$getFieldsAsDataframe(fields.type=gbt)
+            val <- .self$getFieldsAsDataframe(fields.type=gbt,
+                                              flatten=FALSE,
+                                              duplicate.rows=FALSE,
+                                              only.atomic=FALSE)
 
         else
             .self$error('Do not know how to compute virtual field "', field,'"
@@ -340,7 +343,7 @@ getFieldsByType=function(type) {
 getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
                               fields.type=NULL,
                               flatten=TRUE, limit=0, only.card.one=FALSE,
-                              own.id=TRUE) {
+                              own.id=TRUE, duplicate.rows=TRUE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
     (i.e.: of type vector and length one).
@@ -361,6 +364,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     be extracted.
     \nown.id: If set to TRUE includes the database id field named
     `<database_name>.id` whose values are the same as the `accession` field.
+    \nduplicate.rows: If set to TRUE and merging field values with cardinality greater than one, values will be duplicated.
     \nReturned value: A data frame containg the values of the fields.
     "
 
@@ -408,8 +412,14 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
         }
 
         # Merge value into data frame
-        if (is.data.frame(v) && nrow(v) > 0)
-            df <- if (nrow(df) == 0) v else merge(df, v)
+        if (is.data.frame(v) && nrow(v) > 0) {
+            if (nrow(df) == 0)
+                df <- v
+            else if ( ! duplicate.rows && nrow(df) == nrow(v))
+                df <- cbind(df, v)
+            else
+                df <- merge(df, v)
+        }
     }
 
     return(df)

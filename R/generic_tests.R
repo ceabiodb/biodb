@@ -14,13 +14,19 @@ test.entry.fields <- function(db) {
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-    testthat::expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
+    testthat::expect_equal(length(entries), length(ref.ids),
+                           info=paste0("Error while retrieving entries. ",
+                                       length(entries),
+                                       " entrie(s) obtained instead of ",
+                                       length(ref.ids), "."))
 
     # Compute fields
     biodb$computeFields(entries)
 
     # Save downloaded entries as JSON
-    json.files <- file.path(getTestOutputDir(), paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
+    json.files <- file.path(getTestOutputDir(),
+                            paste(db.name, '-entry-', ref.ids, '.json',
+                                  sep = ''))
     biodb$saveEntriesAsJson(entries, json.files)
 
     # Loop on all entries
@@ -43,6 +49,7 @@ test.entry.fields <- function(db) {
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
+        ef <- biodb$getEntryFields()
 
         # Loop on all reference fields
         for (f in names(ref.entry)) {
@@ -52,7 +59,7 @@ test.entry.fields <- function(db) {
                 v = as.data.frame(v, stringsAsFactors = FALSE)
 
             # Check value
-            testthat::expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+            testthat::expect_true(ef$get(f)$isVirtual() || e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
             testthat::expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
             testthat::expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
@@ -64,7 +71,7 @@ test.entry.fields <- function(db) {
         # Loop on all fields of loaded entry
         for (f in e$getFieldNames())
             if ( ! f %in% c(db.id.field, 'peaks'))
-                testthat::expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
+                testthat::expect_true(any(ef$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
 
         # Store all encountered fields
         entry.fields <- c(entry.fields, e$getFieldNames())

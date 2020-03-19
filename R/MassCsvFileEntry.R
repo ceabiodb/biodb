@@ -46,25 +46,27 @@ initialize=function(...) {
 
 .parsePrecursor=function() {
 
-    peaks <- .self$getFieldValue('peaks')
-
-    if ( ! is.null(peaks) && 'peak.attr' %in% colnames(peaks)) {
+    if (.self$hasField('peak.attr')) {
+        pkmz <- .self$getFieldValue('peak.mz')
+        pkattr <- .self$getFieldValue('peak.attr')
         precursors.attr <- .self$getParent()$getPrecursorFormulae()
-        precursors <- peaks[['peak.attr']] %in% precursors.attr
+        precursors <- pkattr %in% precursors.attr
+        # Select the unique precursor found
         if (sum(precursors) == 1)
-            .self$setFieldValue('msprecmz', peaks[precursors, 'peak.mz'])
+            .self$setFieldValue('msprecmz', pkmz[precursors])
+
+        # Select peak with highest intensity for precursor
         else if (sum(precursors) > 1) {
             .self$caution("Found more than one precursor inside entry ",
                           .self$getFieldValue('accession', compute=FALSE),
-                          ': ', paste(peaks[precursors, 'peak.attr'],
-                                      collapse=", "),
+                          ': ', paste(pkattr[precursors], collapse=", "),
                           ". Trying to take the one with highest intensity.")
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
-                if (int.col %in% colnames(peaks)) {
-                    s <- which(order(peaks[precursors, int.col],
-                                     decreasing=TRUE) == 1)
-                    strongest.precursor.mz <- peaks[precursors, 'peak.mz'][[s]]
+                if (.self$hasField(int.col)) {
+                    int <- .self$getFieldValue(int.col)
+                    s <- which(order(int[precursors], decreasing=TRUE) == 1)
+                    strongest.precursor.mz <- pkmz[precursors][[s]]
                 }
             if (is.null(strongest.precursor.mz))
                 .self$caution('No intensity information found for choosing',
@@ -127,8 +129,19 @@ initialize=function(...) {
 
 .parseFieldsStep2=function(parsed.content) {
 
-    # Peak table
-#    .self$.parsePeakTable(parsed.content)
+    # Check peaks table
+    mz <- .self$getFieldValue('peak.mz')
+    x <- .self$getFieldsAsDataframe(fields=c('peak.mz', 'peak.comp'), only.atomic=FALSE, flatten=FALSE, duplicate.rows=FALSE)
+    peaks <- .self$getFieldValue('peaks')
+    if ( ! is.null(mz)) {
+        if (is.null(peaks))
+            .self$error('No peaks table while a peak.mz field exists for entry ',
+                        .self$getFieldValue('accession'), ' .')
+        if (nrow(peaks) != length(mz))
+            .self$error('Peaks table (nrow=', nrow(peaks), ') does not have ',
+                        'the same number of elements as peak.mz field (',
+                        length(mz), ') for entry ', .self$getFieldValue('accession'), '.')
+    }
 
     # Chromatographic column id and name
     .self$.parseChromatoCols()
