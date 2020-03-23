@@ -306,52 +306,61 @@ fields:
   peak.attr:
     description: Peak attribution.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.comp:
     description: Peak comp.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.error.ppm:
     class: double
     description: Peak error in PPM.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.formula:
     description: Peak formula.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.intensity:
     class: double
     description: Peak intensity.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.mass:
     class: double
     description: Peak mass.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.mztheo:
     class: double
     description: Peak theoretical M/Z.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.mzexp:
     class: double
     description: Peak experimental M/Z.
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peak.mz:
     class: double
     description: Peak M/Z.
     type: peak
+    dataFrameGroup: peaks
     card: many
     computable.from:
       - database: self
@@ -363,6 +372,7 @@ fields:
     class: double
     description: Peak relative intensity, in percentage (from 0 to 100).
     type: peak
+    dataFrameGroup: peaks
     card: many
 
   peaks:

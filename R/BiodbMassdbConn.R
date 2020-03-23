@@ -368,6 +368,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
 
     # Loop on the list of M/Z values
     .self$message('debug', 'Looping on all M/Z values.')
+    .self$debug2List('M/Z values to process', input.df[[input.df.colnames[['mz']]]])
     for (i in seq_along(input.df[[input.df.colnames[['mz']]]])) {
 
         # Compute M/Z range
@@ -378,13 +379,11 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         # Search for spectra
         .self$debug('Searching for spectra that contains M/Z value in range [',
                     mz.range$min, ', ', mz.range$max, '].')
-        ids <- .self$searchMzRange(mz.min=mz.range$min, mz.max=mz.range$max,
+        ids <- .self$searchMsEntries(mz.min=mz.range$min, mz.max=mz.range$max,
             min.rel.int=min.rel.int, ms.mode=ms.mode,
             max.results=if (check.param$use.rt.match) NA_integer_
             else max.results, ms.level=ms.level)
-        .self$debug('Found ', length(ids), ' spectra: ',
-                    paste((if (length(ids) <= 10) ids else ids[seq_len(10)]),
-                          collapse=', '), '.')
+        .self$debug2List('Found spectra', ids)
 
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {
@@ -427,10 +426,12 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
 
         # Convert to data frame
         .self$message('debug', 'Converting list of entries to data frame.')
-        df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE,
+        df <- .self$getBiodb()$entriesToDataframe(entries,
+                                                  only.atomic=FALSE,
                                                   compute=compute,
+                                                  flatten=FALSE,
                                                   limit=fieldsLimit)
-        .self$message('debug', paste('Data frame contains', nrow(df), 'rows.'))
+        .self$debug2Dataframe('Entries obtained', df)
 
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
@@ -440,7 +441,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         .self$debug("Filtering entries data frame on M/Z range [", mz.range$min,
                     ', ', mz.range$max, '].')
         df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
-        .self$debug('Data frame contains', nrow(df), 'rows.')
+        .self$debug2Dataframe('After filtering on M/Z range', df)
 
         # Select fields
         if ( ! is.null(fields))
@@ -476,6 +477,13 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     if ( ! is.null(results)) {
         isAnInputCol <- ! colnames(results) %in% result.columns
         inputCols <- colnames(results)[isAnInputCol]
+        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 100')
+        print(results)
+        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 101')
+        print(inputCols)
+        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 102')
+        print(result.columns)
+        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 103')
         results <- results[, c(inputCols, sort(result.columns)), drop=FALSE]
     }
 
@@ -612,7 +620,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     range <- .self$.convertMzTolToRange(mz=mz, mz.shift=0.0, mz.tol=mz.tol,
                                         mz.tol.unit=mz.tol.unit)
 
-    return(.self$searchMzRange(mz.min=range$min, mz.max=range$max,
+    return(.self$searchMsEntries(mz.min=range$min, mz.max=range$max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },

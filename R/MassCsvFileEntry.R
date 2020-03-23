@@ -46,7 +46,7 @@ initialize=function(...) {
 
 .parsePrecursor=function() {
 
-    if (.self$hasField('peak.attr')) {
+    if ( ! .self$hasField('msprecmz') && .self$hasField('peak.attr')) {
         pkmz <- .self$getFieldValue('peak.mz')
         pkattr <- .self$getFieldValue('peak.attr')
         precursors.attr <- .self$getParent()$getPrecursorFormulae()
@@ -131,7 +131,6 @@ initialize=function(...) {
 
     # Check peaks table
     mz <- .self$getFieldValue('peak.mz')
-    x <- .self$getFieldsAsDataframe(fields=c('peak.mz', 'peak.comp'), only.atomic=FALSE, flatten=FALSE, duplicate.rows=FALSE)
     peaks <- .self$getFieldValue('peaks')
     if ( ! is.null(mz)) {
         if (is.null(peaks))

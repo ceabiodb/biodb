@@ -289,7 +289,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
             val <- .self$getFieldsAsDataframe(fields.type=gbt,
                                               flatten=FALSE,
                                               duplicate.rows=FALSE,
-                                              only.atomic=FALSE)
+                                              only.atomic=FALSE,
+                                              sort=TRUE)
 
         else
             .self$error('Do not know how to compute virtual field "', field,'"
@@ -299,9 +300,9 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
     # Unset field
     else {
         # Return NULL or NA
-        val <- if (field.def$isVector())
+        val <- if (field.def$isVector() && field.def$hasCardOne())
             as.vector(NA, mode=field.def$getClass()) else NULL
-            }
+    }
 
     # Get last value only
     if (last && field.def$hasCardMany() && length(val) > 1)
@@ -332,7 +333,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
 getFieldsByType=function(type) {
     ":\n\nGets the fields of this entry that have the specified type.
     \nReturned value: A character vector containing the field names."
-    
+
     ef <- .self$getBiodb()$getEntryFields()
     fct <- function(f) { ef$get(f)$getType() == type }
     fields <- Filter(fct, names(.self$.fields))
@@ -341,9 +342,10 @@ getFieldsByType=function(type) {
 },
 
 getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
-                              fields.type=NULL,
-                              flatten=TRUE, limit=0, only.card.one=FALSE,
-                              own.id=TRUE, duplicate.rows=TRUE) {
+                              fields.type=NULL, flatten=TRUE, limit=0,
+                              only.card.one=FALSE, own.id=TRUE,
+                              duplicate.rows=TRUE, sort=FALSE,
+                              virtualFields=FALSE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
     (i.e.: of type vector and length one).
@@ -365,10 +367,11 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     \nown.id: If set to TRUE includes the database id field named
     `<database_name>.id` whose values are the same as the `accession` field.
     \nduplicate.rows: If set to TRUE and merging field values with cardinality greater than one, values will be duplicated.
+    \nsort: If set to TRUE sort the order of columns alphabetically, otherwise do not sort.
+    \nvirtualFields: If set to TRUE includes also virtual fields, otherwise excludes them.
     \nReturned value: A data frame containg the values of the fields.
     "
 
-    df <- data.frame(stringsAsFactors=FALSE)
     if ( ! is.null(fields))
         fields <- tolower(fields)
 
@@ -376,53 +379,35 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     if (compute)
         .self$computeFields(fields)
 
-    # Set fields to get
-    if ( ! is.null(fields.type))
-        fields <- .self$getFieldsByType(fields.type)
-    else if (is.null(fields))
-        fields <- names(.self$.fields)
+    # Select fields
+    fields <- .self$.selectFields(fields=fields, fields.type=fields.type,
+                                  own.id=own.id, only.atomic=only.atomic,
+                                  only.card.one=only.card.one)
 
-    # Loop on fields
-    for (f in fields) {
+    # Organize fields by groups
+    groups <- .self$.organizeFieldsByGroups(fields)
 
-        field.def <- .self$getBiodb()$getEntryFields()$get(f)
-
-        # Ignore own ID field
-        if ( ! own.id && f == .self$getParent()$getEntryIdField())
-            next
-
-        # Ignore non atomic values
-        if (only.atomic && ! field.def$isVector())
-            next
-
-        # Ignore field with cardinality > one
-        if (only.card.one && ! field.def$hasCardOne())
-            next
-
-        # Ignore if no value for this field
-        if ( ! f %in% names(.self$.fields))
-            next
-
-        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
-
-        # Transform vector into data frame
-        if (is.vector(v)) {
-            v <- as.data.frame(v, stringsAsFactors=FALSE)
-            colnames(v) <- f
-        }
-
-        # Merge value into data frame
-        if (is.data.frame(v) && nrow(v) > 0) {
-            if (nrow(df) == 0)
-                df <- v
-            else if ( ! duplicate.rows && nrow(df) == nrow(v))
-                df <- cbind(df, v)
-            else
-                df <- merge(df, v)
-        }
+    # Process data frame groups
+    fct <-  function(fields) {
+        .self$.fieldsToDataframe(fields, flatten=flatten, duplicate.rows=FALSE,
+                                 limit=limit)
     }
+    groupsDf <- lapply(groups$dfGrps, fct)
 
-    return(df)
+    # Process single fields
+    singlesDf <- .self$.fieldsToDataframe(groups$singles,
+                                          duplicate.rows=duplicate.rows,
+                                          flatten=flatten, limit=limit)
+
+    # Merge all data frames
+    outdf <- .self$.mergeDataframes(c(list(singlesDf), groupsDf),
+                                    duplicate.rows=duplicate.rows)
+
+    # Sort
+    if (sort)
+        outdf <- outdf[, sort(names(outdf))]
+
+    return(outdf)
 },
 
 getFieldsAsJson=function(compute=TRUE) {
@@ -697,6 +682,104 @@ fieldHasBasicClass=function(field) {
     .self$.deprecatedMethod('BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
-}
+},
 
+.organizeFieldsByGroups=function(fields) {
+
+    singles <- character()
+    dfGrps <- list()
+    ef <- .self$getBiodb()$getEntryFields()
+    .self$debug2List('Fields', fields)
+
+    for (field in fields) {
+        fieldDef <- ef$get(field)
+
+        # Data frame groups
+        dfGrp <- fieldDef$getDataFrameGroup()
+        if ( ! is.na(dfGrp))
+            dfGrps[[dfGrp]] <- c(dfGrps[[dfGrp]], field)
+
+        # Single fields
+        else
+            singles <- c(singles, field)
+    }
+
+    # Build groups
+    groups <- list(singles=singles, dfGrps=dfGrps)
+    .self$debug2List('Groups', groups)
+
+    return(groups)
+},
+
+.selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one) {
+
+    .self$debug2List('Fields', fields)
+    .self$debug2('Fields type: ', fields.type)
+
+    # Set fields to get
+    .self$debug2('Fields is null: ', is.null(fields))
+    .self$debug2('Fields.type is null: ', is.null(fields.type))
+    if ( ! is.null(fields.type))
+        fields <- .self$getFieldsByType(fields.type)
+    else if (is.null(fields))
+        fields <- names(.self$.fields)
+    .self$debug2List('Fields', fields)
+
+    # Filter out unwanted fields
+    ef <- .self$getBiodb()$getEntryFields()
+    if ( ! own.id) {
+        ownIdField <- .self$getParent()$getEntryIdField()
+        fields <- Filter(function(f) f != ownIdField, fields)
+    }
+    if (only.atomic)
+        fields <- Filter(function(f) ef$get(f)$isVector(), fields)
+    if (only.card.one)
+        fields <- Filter(function(f) ef$get(f)$hasCardOne(), fields)
+    # Ignore if value is not data frame or vector
+    fields <- Filter(function(f) ef$get(f)$isVector() || ef$get(f)$isDataFrame(), fields)
+    # Keep only fields with a value
+    fields <- fields[fields %in% names(.self$.fields)]
+
+    .self$debug2List('Fields', fields)
+    return(fields)
+},
+
+.fieldsToDataframe=function(fields, duplicate.rows, flatten, limit) {
+
+    # Transform values in data frames
+    toDf <- function(f) {
+        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
+
+        # Transform vector into data frame
+        if (is.vector(v)) {
+            v <- as.data.frame(v, stringsAsFactors=FALSE)
+            colnames(v) <- f
+        }
+
+        return(v)
+    }
+    dataFrames <- lapply(fields, toDf)
+
+    # Merge data frames
+    outdf <- .self$.mergeDataframes(dataFrames, duplicate.rows=duplicate.rows)
+
+    return(outdf)
+},
+
+.mergeDataframes=function(dataframes, duplicate.rows) {
+
+    outdf <- data.frame(stringsAsFactors=FALSE)
+
+    for (v in dataframes)
+        if (nrow(v) > 0) {
+            if (nrow(outdf) == 0)
+                outdf <- v
+            else if ( ! duplicate.rows && nrow(outdf) == nrow(v))
+                outdf <- cbind(outdf, v)
+            else
+                outdf <- merge(outdf, v)
+        }
+
+   return(outdf)
+}
 ))

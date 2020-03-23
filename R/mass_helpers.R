@@ -95,7 +95,7 @@ compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
         ####the list is ordered with the chosen metric.
         sim <- vapply(vall, '[[', i="similarity", FUN.VALUE=1)
         matched <- lapply(vall, '[[', i="matched")
-        
+
         res[seq_len(length(sim)), 'score'] <- sim
         for (i in seq_len(length(matched)))
             res[i, peak.cols] <- matched[[i]]

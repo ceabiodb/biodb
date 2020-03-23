@@ -6,7 +6,7 @@ MASS.SQLITE.URL = file.path(getwd(), 'res', 'mass.sqlite.file.sqlite')
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
+biodb <- biodb::createBiodbTestInstance(log='masssqlite_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test Mass SQLite connector.")

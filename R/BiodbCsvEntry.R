@@ -92,7 +92,8 @@ initialize=function(sep=',', na.strings='NA', ...) {
             v <- v[ ! is.na(v)]
 
             # Remove duplicated values
-            v <- v[ ! duplicated(v)]
+            if (field.def$forbidsDuplicates() || field.def$hasCardOne())
+                v <- v[ ! duplicated(v)]
 
             # Split
             if (field.def$hasCardMany() && length(v) == 1)

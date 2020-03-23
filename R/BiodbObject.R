@@ -42,8 +42,8 @@ progressMsg=function(msg, index, first, total=NA_integer_, type='info',
     invisible()
 },
 
+message=function(type, msg, lvl=1, callerLvl=0) {
 # Send a message to observers
-message=function(type, msg, lvl=1) {
 
     type <- tolower(type)
 
@@ -59,7 +59,7 @@ message=function(type, msg, lvl=1) {
 
     # Get class and method information
     class <- class(.self)
-    method <- sys.call(length(sys.calls()) - 1)
+    method <- sys.call(sys.nframe() - (callerLvl + 1))
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
 
     if ( ! is.null(biodb))
@@ -86,22 +86,47 @@ debug=function(...) {
     invisible()
 },
 
-debug2=function(...) {
-    .self$message(type='debug', msg=paste0(...), lvl=2)
+debug2=function(..., callerLvl=0) {
+    .self$message(type='debug', msg=paste0(...), lvl=2, callerLvl=callerLvl+1)
 
     invisible()
 },
 
-debug2List=function(msg, lst, cut=10) {
+debug2Dataframe=function(msg, x, rowCut=5, colCut=5) {
+
+    size <- ''
+
+    if (is.null(x))
+        s <- 'NULL'
+    else if ( ! is.data.frame(x))
+        s <- 'not a dataframe'
+    else {
+        size <- paste0('[', nrow(x), ', ', ncol(x), ']')
+        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
+        s <- paste0('[', paste(colNames, collapse=', '), ']')
+        for (nRow in seq_len(min(rowCut, nrow(x)))) {
+            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
+            s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
+        }
+        if (nrow(x) > rowCut)
+            s <- paste(s, '...')
+    }
+
+    .self$debug2(msg, size, ': ', s, '.')
+
+    invisible()
+},
+
+debug2List=function(msg, lst, nCut=10, callerLvl=0) {
 
     if (length(lst) == 0)
         s <- 'none'
     else {
-        s <- paste(if (length(lst) > 10) c(lst[seq_len(10)], '...') else lst,
+        s <- paste(if (length(lst) > nCut) c(lst[seq_len(nCut)], '...') else lst,
                    collapse=", ")
         s <- paste0('"', s, '"')
     }
-    .self$debug2(msg, '[', length(lst), ']: ', s, '.')
+    .self$debug2(msg, '[', length(lst), ']: ', s, '.', callerLvl=callerLvl+1)
 
     invisible()
 },

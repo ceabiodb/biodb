@@ -507,11 +507,37 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
+test_massCsvFile_entry_instantiation <- function(biodb) {
+
+    # Create database
+    db <- data.frame(
+        accession=c("A1", "A1", "A1", "A1", "A1"),
+        peak.mztheo=c(80, 90, 100, 110, 120),
+        msprecmz=90,
+        stringsAsFactors=FALSE)
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(db)
+
+    # Get entry
+    entry <- conn$getEntry("A1")
+    testthat::expect_is(entry, "BiodbEntry")
+
+    # Test
+    x <- entry$getFieldsAsDataframe(fields='accession')
+    expX <- data.frame(accession='A1', stringsAsFactors=FALSE)
+    testthat::expect_identical(x, expX)
+
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn$getId())
+}
+
 # Main {{{1
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
+biodb <- biodb::createBiodbTestInstance(log='masscsvfile_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test Mass CSV File connector.")
@@ -524,6 +550,8 @@ biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have
 
 # Run tests
 biodb::runGenericTests(conn)
+biodb::testThat("Mass CSV file entry construction works.",
+                test_massCsvFile_entry_instantiation, biodb=biodb)
 biodb::testThat("MassCsvFileConn methods are correct", test.basic.mass.csv.file, conn = conn)
 biodb::testThat("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns, conn = conn)
 

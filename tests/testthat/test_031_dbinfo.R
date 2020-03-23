@@ -18,7 +18,7 @@ test.namedProp <- function(biodb) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
+biodb <- biodb::createBiodbTestInstance(log='dbinfo_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

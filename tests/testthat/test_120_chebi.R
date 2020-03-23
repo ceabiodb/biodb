@@ -75,7 +75,7 @@ test_chebi_convInchiToChebi <- function(conn) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
+biodb <- biodb::createBiodbTestInstance(log='chebi_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test ChEBI connector.")

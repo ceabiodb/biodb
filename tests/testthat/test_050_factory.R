@@ -66,7 +66,7 @@ test.connectorDefaultValues <- function(biodb, obs) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
+biodb <- biodb::createBiodbTestInstance(log='factory_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

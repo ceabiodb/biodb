@@ -74,6 +74,7 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField",
         .lower.case='logical',
         .case.insensitive='logical',
         .computable.from='ANY',
+        dataFrameGroup='character',
         virtual='logical',
         virtualGroupByType='character'
         ),
@@ -86,7 +87,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
                     forbids.duplicates=FALSE, description=NA_character_,
                     allowed.values=NULL, lower.case=FALSE,
                     case.insensitive=FALSE, computable.from=NULL, virtual=FALSE,
-                    virtual.group.by.type=NULL, ...) {
+                    virtual.group.by.type=NULL, dataFrameGroup=NA_character_,...) {
 
     callSuper(...)
 
@@ -167,6 +168,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
+    .self$dataFrameGroup <- dataFrameGroup
 },
 
 .setComputableFrom=function(computable.from) {
@@ -262,6 +264,14 @@ isComputable=function() {
     "
 
     return( ! is.null(.self$.computable.from))
+},
+
+getDataFrameGroup=function() {
+    ":\n\nGets the defined data frame group, if any.
+    \nReturned value: The data frame group, as a character value.
+    "
+
+    return(.self$dataFrameGroup)
 },
 
 getComputableFrom=function() {

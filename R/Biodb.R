@@ -335,26 +335,30 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        .self$message('error', "Parameter 'entries' must be a list.")
+        .self$error("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
     if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
-        .self$message('debug', paste(length(entries),
-                                     "entrie(s) to convert in data frame."))
+        .self$debug(length(entries), "entrie(s) to convert in data frame.")
 
         # Convert list of entries to a list of data frames.
-        df.list <- .self$.entriesToListOfDataframes(entries, only.atomic,
-                                                    compute, fields, flatten,
-                                                    limit, only.card.one,
-                                                    own.id, null.to.na)
+        df.list <- .self$.entriesToListOfDataframes(entries=entries,
+                                                    only.atomic=only.atomic,
+                                                    compute=compute,
+                                                    fields=fields,
+                                                    flatten=flatten,
+                                                    limit=limit,
+                                                    only.card.one=only.card.one,
+                                                    own.id=own.id,
+                                                    null.to.na=null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            .self$message('debug', paste("Merging data frames with a single",
-                                         "entry each into a single data frame",
-                                         "with all entries."))
+            .self$debug("Merging data frames with a single",
+                        "entry each into a single data frame",
+                        "with all entries.")
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()
@@ -753,6 +757,7 @@ disableDebug=function() {
                                            own.id=own.id)
         }
 
+        .self$debug2Dataframe("Entry converted to data frame", e.df)
         df.list <- c(df.list, list(e.df))
     }
 
@@ -768,6 +773,7 @@ disableDebug=function() {
         df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
+    .self$debug("Converted", length(df.list), "entry/ies to data frame(s).")
     return(df.list)
 },
 
