@@ -259,6 +259,7 @@ getEntryIds=function(max.results=NA_integer_, ...) {
         || length(ids) < max.results) {
         mx <- if (is.null(max.results)) NA_integer_ else max.results
         db.ids <- .self$.doGetEntryIds(mx, ...)
+        db.ids <- as.character(db.ids)
         if ( ! is.null(db.ids))
             ids <- c(ids, db.ids[ ! db.ids %in% ids])
     }

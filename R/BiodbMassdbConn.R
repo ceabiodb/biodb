@@ -477,13 +477,6 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     if ( ! is.null(results)) {
         isAnInputCol <- ! colnames(results) %in% result.columns
         inputCols <- colnames(results)[isAnInputCol]
-        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 100')
-        print(results)
-        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 101')
-        print(inputCols)
-        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 102')
-        print(result.columns)
-        print('-------------------------------- BiodbMassdbConn::searchMsPeaks 103')
         results <- results[, c(inputCols, sort(result.columns)), drop=FALSE]
     }
 
@@ -537,7 +530,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
                                                           drop=FALSE)
         fct <- function(x) x$getFieldsAsDataframe(only.atomic=FALSE,
-                                                  fields='PEAKS')
+                                                  fields=c('peak.mz', 'peak.relative.intensity', 'peak.intensity'))
         peak.tables <- lapply(entries, fct)
     }
 

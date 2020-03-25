@@ -1,11 +1,6 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
 MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
 MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_header.tsv')
 MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_nb_cols.tsv')
-
-# Test basic mass.csv.file {{{1
-################################################################
 
 test.basic.mass.csv.file <- function(db) {
 
@@ -40,9 +35,6 @@ test.basic.mass.csv.file <- function(db) {
 	expect_gt(length(db$getMzValues('pos')), 1)
 }
 
-# Test output columns {{{1
-################################################################
-
 test.mass.csv.file.output.columns <- function(db) {
 
 	biodb <- db$getBiodb()
@@ -67,9 +59,6 @@ test.mass.csv.file.output.columns <- function(db) {
 }
 
 
-# Test setting database with a data frame {{{1
-################################################################
-
 test.mass.csv.file.data.frame <- function(biodb) {
 
 	# Define database data frame
@@ -93,9 +82,6 @@ test.mass.csv.file.data.frame <- function(biodb) {
 	expect_identical(ids, conn$getEntryIds())
 }
 
-# Test old col names {{{1
-################################################################
-
 test.mass.csv.file.old.col.names <- function(biodb) {
 
 	# Define data frame
@@ -112,13 +98,11 @@ test.mass.csv.file.old.col.names <- function(biodb) {
 	expect_is(cols, "data.frame")
 }
 
-# Test fields {{{1
-################################################################
-
 test.fields <- function(biodb) {
 
 	# Create new connector to same file db
-	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL, fail.if.exists = FALSE)
+	conn <- biodb$getFactory()$createConn('mass.csv.file', url=MASSFILEDB.URL,
+                                          fail.if.exists=FALSE)
 	conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
 
 	# Get fields
@@ -144,26 +128,17 @@ test.fields <- function(biodb) {
 	conn$setField('accession', 'compound.id')
 }
 
-# Test undefined fields {{{1
-################################################################
-
 test.undefined.fields <- function(biodb) {
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.HEADER.URL)
 	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test wrong nb cols {{{1
-################################################################
-
 test.wrong.nb.cols <- function(biodb) {
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.NB.COLS.URL)
 	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
 	biodb$getFactory()$deleteConn(conn$getId())
 }
-
-# Test field card one {{{1
-################################################################
 
 test.field.card.one <- function(biodb) {
 
@@ -183,9 +158,6 @@ test.field.card.one <- function(biodb) {
 	conn$setField('peak.mztheo', 'mz')
 	expect_error(conn$checkDb(), regexp = '^.* Cannot set more that one value .* into single value field .*\\.$')
 }
-
-# Test getMzValues() without peak.attr field {{{1
-################################################################
 
 test.getMzValues.without.peak.attr <- function(biodb) {
 
@@ -208,16 +180,14 @@ test.getMzValues.without.peak.attr <- function(biodb) {
 	expect_length(mzs, 0)
 }
 
-# Test col names of entry peaks table {{{1
-################################################################
-
 test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
 
 	# Define db data frame
 	id <- 'BML80005'
-	df <- rbind(data.frame(),
-            	list(accession = id, mode = 'pos', mztheo = 219.1127765, peakcomp = 'CHON', peakattr = '[(M+H)-(H2O)-(NH3)]+', int = 373076,  relint = 999),
-            	stringsAsFactors = FALSE)
+	df <- rbind(data.frame(), list(accession=id, mode='pos', mztheo=219.1127765,
+                                   peakcomp='CHON',
+                                   peakattr='[(M+H)-(H2O)-(NH3)]+', int=373076,
+                                   relint=999), stringsAsFactors=FALSE)
 
 	# Create connector
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -232,7 +202,6 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
 	# Get entry and peaks
 	entry <- biodb$getFactory()$getEntry(conn$getId(), id)
 	expect_is(entry, 'MassCsvFileEntry')
-	expect_true(entry$hasField('peaks'))
 	peaks <- entry$getFieldValue('peaks')
 	expect_is(peaks, 'data.frame')
 	expect_equal(nrow(peaks), 1)
@@ -244,9 +213,6 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
 	# Check that colnames of peaks table are all official field names (not aliases)
 	expect_true(all(vapply(names(peaks), function(field) biodb$getEntryFields()$get(field)$getName() == field, FUN.VALUE = FALSE)))
 }
-
-# Test column sorting in searchMsPeaks() {{{1
-################################################################
 
 test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
 
@@ -265,9 +231,6 @@ test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
 	expected.cols <- sort(c(colnames(db.df), 'peak.mz', 'mass.csv.file.id'))
 	expect_identical(expected.cols, colnames(results))
 }
-
-# Test M/Z matching limits {{{1
-################################################################
 
 test.mass.csv.file.mz.matching.limits <- function(biodb) {
 
@@ -309,9 +272,6 @@ test.mass.csv.file.mz.matching.limits <- function(biodb) {
 		expect_identical(colnames(results6.1), 'mz')
 	}
 }
-
-# Test RT matching limits {{{1
-################################################################
 
 test.mass.csv.file.rt.matching.limits <- function(biodb) {
 
@@ -359,9 +319,6 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
 	expect_identical(colnames(results6.1), c('mz', 'rt'))
 }
 
-# Test MS mode values {{{1
-################################################################
-
 test.mass.csv.file.ms.mode.values <- function(biodb) {
 
 	# Define db data frame
@@ -386,9 +343,6 @@ test.mass.csv.file.ms.mode.values <- function(biodb) {
 	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
 	expect_is(results, 'data.frame')
 }
-
-# Test precursor match {{{1
-################################################################
 
 test.mass.csv.file.precursor.match <- function(biodb) {
 
@@ -431,9 +385,6 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 }
 
 
-# Test cache ID {{{1
-################################################################
-
 test.mass.csv.file.cache.id <- function(biodb) {
 
 	# Open a connector with no URL
@@ -463,9 +414,6 @@ test.mass.csv.file.cache.id <- function(biodb) {
 	# Close the connector
 	biodb$getFactory()$deleteConn(conn$getId())
 }
-
-# Test cache confusion {{{1
-################################################################
 
 test.mass.csv.file.cache.confusion <- function(biodb) {
 
@@ -533,8 +481,7 @@ test_massCsvFile_entry_instantiation <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Main {{{1
-################################################################
+# MAIN
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='masscsvfile_test.log')
@@ -552,24 +499,24 @@ biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId()) # Make sure we have
 biodb::runGenericTests(conn)
 biodb::testThat("Mass CSV file entry construction works.",
                 test_massCsvFile_entry_instantiation, biodb=biodb)
-biodb::testThat("MassCsvFileConn methods are correct", test.basic.mass.csv.file, conn = conn)
-biodb::testThat("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns, conn = conn)
+biodb::testThat("MassCsvFileConn methods are correct", test.basic.mass.csv.file, conn=conn)
+biodb::testThat("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns, conn=conn)
 
-biodb::testThat('Test fields manipulation works correctly.', test.fields, biodb = biodb)
-biodb::testThat('Test that we detect undefined fields', test.undefined.fields, biodb = biodb)
-biodb::testThat('Setting database with a data frame works.', test.mass.csv.file.data.frame, biodb = biodb)
-biodb::testThat('Failure occurs when loading database file with a line containing wrong number of values.', test.wrong.nb.cols, biodb = biodb)
-biodb::testThat('Failure occurs when a field with a cardinality of one has several values for the same accession number.', test.field.card.one, biodb = biodb)
-biodb::testThat('We can search for precursor M/Z values without peak.attr column defined.', test.getMzValues.without.peak.attr, biodb = biodb)
-biodb::testThat('Old column names are still recognized.', test.mass.csv.file.old.col.names, biodb = biodb)
-biodb::testThat('Peaks table of entry has official field names.', test.mass.csv.file.entry.peaks.table.col.names, biodb = biodb)
-biodb::testThat('M/Z matching limits (mz.min and mz.max) are respected.', test.mass.csv.file.mz.matching.limits, biodb = biodb)
-biodb::testThat('RT matching limits (rt.min and rt.max) are respected.', test.mass.csv.file.rt.matching.limits, biodb = biodb)
-biodb::testThat('We can set additional values for MS mode.', test.mass.csv.file.ms.mode.values, biodb = biodb)
-biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, biodb = biodb)
-biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb = biodb)
-biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb = biodb)
-biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id, biodb = biodb)
+biodb::testThat('Test fields manipulation works correctly.', test.fields, biodb=biodb)
+biodb::testThat('Test that we detect undefined fields', test.undefined.fields, biodb=biodb)
+biodb::testThat('Setting database with a data frame works.', test.mass.csv.file.data.frame, biodb=biodb)
+biodb::testThat('Failure occurs when loading database file with a line containing wrong number of values.', test.wrong.nb.cols, biodb=biodb)
+biodb::testThat('Failure occurs when a field with a cardinality of one has several values for the same accession number.', test.field.card.one, biodb=biodb)
+biodb::testThat('We can search for precursor M/Z values without peak.attr column defined.', test.getMzValues.without.peak.attr, biodb=biodb)
+biodb::testThat('Old column names are still recognized.', test.mass.csv.file.old.col.names, biodb=biodb)
+biodb::testThat('Peaks table of entry has official field names.', test.mass.csv.file.entry.peaks.table.col.names, biodb=biodb)
+biodb::testThat('M/Z matching limits (mz.min and mz.max) are respected.', test.mass.csv.file.mz.matching.limits, biodb=biodb)
+biodb::testThat('RT matching limits (rt.min and rt.max) are respected.', test.mass.csv.file.rt.matching.limits, biodb=biodb)
+biodb::testThat('We can set additional values for MS mode.', test.mass.csv.file.ms.mode.values, biodb=biodb)
+biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, biodb=biodb)
+biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb=biodb)
+biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb=biodb)
+biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

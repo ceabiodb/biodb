@@ -80,6 +80,11 @@ config:
     description: The character used as separator when concatenating multiple values of a field.
     default: ';'
 
+  intra.field.name.sep:
+    type: character
+    description: The character to use for separating words inside a field name. When defining or accessing a field, all non alphanumeric characters will be replaced by this character.
+    default: '.'
+
   entries.sep:
     type: character
     description: The character used as separator when concatenating values from different entries.

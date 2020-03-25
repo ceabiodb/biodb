@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# MassSqliteEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Mass SQLite entry class.
 #'
 #' This is the entry class for a MASS SQLite database.
@@ -32,4 +24,4 @@
 #' @export MassSqliteEntry
 #' @exportClass MassSqliteEntry
 MassSqliteEntry <- methods::setRefClass("MassSqliteEntry",
-    contains="BiodbListEntry")
+                                        contains="BiodbListEntry")

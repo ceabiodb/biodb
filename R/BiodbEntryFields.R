@@ -26,17 +26,28 @@
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
-    contains="BiodbChildObject",
+    contains=c("BiodbChildObject", "BiodbObserver"),
     fields=list( .fields="list",
-                  .aliasToName="character"),
+                  .aliasToName="character",
+                  .field.name.sep='character'
+                  ),
     methods=list(
 
 initialize=function(...) {
 
     callSuper(...)
+    bdb <- .self$getBiodb()
 
     .self$.fields <- list()
     .self$.aliasToName <- character(0)
+    .self$.field.name.sep <- bdb$getConfig()$get('intra.field.name.sep')
+    bdb$addObservers(.self)
+},
+
+cfgKVUpdate=function(k, v) {
+    # Overrides BiodbObserver function.
+    if (k == 'intra.field.name.sep')
+        .self$.field.name.sep <- v
 },
 
 isAlias=function(name) {
@@ -45,7 +56,23 @@ isAlias=function(name) {
     \nReturned value: A logical vector, the same length as `name`, with TRUE
     for name values that are an alias of a field, and FALSE otherwise."
 
-    return(tolower(name) %in% names(.self$.aliasToName))
+    name <- .self$formatName(name)
+    is_alias <- name %in% names(.self$.aliasToName)
+
+    return(is_alias)
+},
+
+formatName=function(name) {
+    ":\n\nFormat field name(s) for biodb format: set to lower case and remove
+    dot or underscore characters depending on configuration.
+    \nname: A character vector of names or aliases to test.
+    \nReturned value: A character vector of formatted names.
+    "
+
+    name <- tolower(name)
+    name <- gsub('[^a-z0-9]', .self$.field.name.sep, name)
+
+    return(name)
 },
 
 isDefined=function(name) {
@@ -55,7 +82,9 @@ isDefined=function(name) {
     for name values that corresponds to a defined field.
     "
 
-    return(tolower(name) %in% names(.self$.fields) | .self$isAlias(name))
+    name <- .self$formatName(name)
+
+    return(name %in% names(.self$.fields) | .self$isAlias(name))
 },
 
 checkIsDefined=function(name) {
@@ -80,10 +109,14 @@ getRealName=function(name) {
     real name).
     "
 
+    name <- .self$formatName(name)
+
+    # Check name
     .self$checkIsDefined(name)
 
-    if ( ! tolower(name) %in% names(.self$.fields))
-        name <- .self$.aliasToName[[tolower(name)]]
+    # Get real name
+    if ( ! name %in% names(.self$.fields))
+        name <- .self$.aliasToName[[name]]
 
     return(name)
 },
@@ -168,8 +201,7 @@ define=function(def) {
 
 .defineField=function(name, ...) {
 
-    # Make sure name is in lower case
-    name <- tolower(name)
+    name <- .self$formatName(name)
 
     # Create new field instance
     field <- BiodbEntryField$new(parent=.self, name=name, ...)
