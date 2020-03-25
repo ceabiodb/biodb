@@ -2,8 +2,9 @@
 #'
 #' This is the connector class for a MASS CSV file database.
 #'
-#' @seealso Super classes \code{\link{BiodbMassdbConn}},
-#' \code{\link{BiodbWritable}} and \code{\link{BiodbEditable}}.
+#' @seealso Super class \code{\link{CsvFileConn}} and interfaces
+#' \code{\link{BiodbMassdbConn}}, \code{\link{BiodbWritable}} and
+#' \code{\link{BiodbEditable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -219,7 +220,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     return(db)
 },
 
-.doSelect=function(db, cols=NULL, mode=NULL, compound.ids=NULL, mz.min=NULL,
+.doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL,
                    mz.max=NULL, min.rel.int=NA_real_, precursor=FALSE, level=0)
 {
 
@@ -237,12 +238,6 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     if (level > 0)
         db <- .self$.selectByMsLevel(db, level)
 
-    # Get subset of columns
-    if ( ! is.null(cols) && ! is.na(cols)) {
-        .self$.checkFields(cols)
-        db <- db[, .self$.fields[cols], drop=FALSE]
-    }
-
     return(db)
 },
 
@@ -254,8 +249,8 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
                          level=ms.level))
 },
 
-# Inherited from BiodbMassdbConn.
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    # Inherited from BiodbMassdbConn.
 
     # Get mz values
     mz <- .self$.select(cols='peak.mztheo', mode=ms.mode, drop=TRUE, uniq=TRUE,

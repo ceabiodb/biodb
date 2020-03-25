@@ -157,6 +157,12 @@ databases:
       chebi: https://www.ebi.ac.uk/webservices/chebi
       xsd: http://www.w3.org/2001/XMLSchema
 
+# Compound CSV File {{{2
+################################################################################
+  comp.csv.file:
+    entry.content.type: tsv
+    name: Compound CSV File
+
 # Mass CSV File {{{2
 ################################################################################
   mass.csv.file:
@@ -214,6 +220,13 @@ fields:
 
   chemspider.id:
     description: ChemSpider ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  comp.csv.file.id:
+    description: Compound CSV File ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

@@ -404,7 +404,7 @@ show=function() {
 
             # Send progress message
             i <- i + 1
-            .self$progressMsg(msg='Getting entry contents.', index=i,
+            .self$progressMsg(msg='Creating entry instances from contents', index=i,
                               total=length(content), first=(i == 1))
 
             # Create empty entry instance

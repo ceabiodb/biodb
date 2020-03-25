@@ -58,7 +58,6 @@ test.mass.csv.file.output.columns <- function(db) {
 	expect_true(all(colnames(db.df) %in% colnames(entries.df)), paste("Columns ", paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)], collapse = ', '), " are not included in output.", sep = ''))
 }
 
-
 test.mass.csv.file.data.frame <- function(biodb) {
 
 	# Define database data frame

@@ -6,7 +6,18 @@
 #' \code{\link{CompoundCsvFileConn}} and \code{\link{MassCsvFileConn}}.
 #'
 #' @examples
-#' # TODO
+#' # Create an instance with default settings:
+#' mybiodb <- biodb::Biodb()
+#'
+#' # Get a connector that inherits from CsvFileConn:
+#' chebi_file <- system.file("extdata", "chebi_extract.tsv", package="biodb")
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi_file)
+#'
+#' # Get an entry
+#' e <- conn$getEntry('')
+#'
+#' # Terminate instance.
+#' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
 #' @export CsvFileConn
@@ -351,7 +362,7 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.select=function(ids=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
+.select=function(ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
                  max.rows=NA_integer_, ...) {
 
     # Init db
@@ -364,6 +375,12 @@ defineParsingExpressions=function() {
     if ( ! is.null(ids))
         db <- .self$.selectByIds(db, ids)
     db <- .self$.doSelect(db, ...)
+
+    # Get subset of columns
+    if ( ! is.null(cols) && ! is.na(cols)) {
+        .self$.checkFields(cols)
+        db <- db[, .self$.fields[cols], drop=FALSE]
+    }
 
     # Remove duplicates
     if (uniq)
