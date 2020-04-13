@@ -1,8 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Simplify spectrum {{{1
-################################################################################
-
 simplifySpectrum <- function(spec) {
     if(length(spec) == 0){
         return(NA_real_)
@@ -42,9 +37,6 @@ simplifySpectrum <- function(spec) {
     return(spec)
 }
 
-# Calc distance {{{1
-################################################################################
-
 calcDistance <-
     function(spec1 ,
              spec2,
@@ -52,7 +44,7 @@ calcDistance <-
              fun=c("wcosine"),
              params=list()) {
         #fun <- match.arg(fun)
-        
+
         #SPec are always notmlized in pourcentage toa voir issues;
         spec1 <- simplifySpectrum(spec1)
         spec2 <- simplifySpectrum(spec2)
@@ -69,16 +61,13 @@ calcDistance <-
              similarity=res$measure)
     }
 
-# Compare spectra {{{1
-################################################################################
-
-###The returned sim list is not ordered
 compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
                            params=list()) {
+###The returned sim list is not ordered
 
     res <- data.frame(score=numeric(0))
 
-    # Add for peaks
+    # Create one result column for each input spectrum peak
     if ( ! is.null(spec)) {
         peak.cols <- paste('peak', seq(nrow(spec)), sep='.')
         for (p in peak.cols)
@@ -88,14 +77,14 @@ compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
     if ( ! is.null(libspec) && ! is.null(spec) && length(libspec) > 0
         && nrow(spec) > 0) {
 
-        ####spec is directly normalized.
+        # `spec` is supposed to be already normalized.
         vall <- lapply(libspec, calcDistance, spec1=spec, npmin=npmin,
                        params=params, fun=fun)
 
-        ####the list is ordered with the chosen metric.
+        # The list is ordered with the chosen metric.
         sim <- vapply(vall, '[[', i="similarity", FUN.VALUE=1)
         matched <- lapply(vall, '[[', i="matched")
-        
+
         res[seq_len(length(sim)), 'score'] <- sim
         for (i in seq_len(length(matched)))
             res[i, peak.cols] <- matched[[i]]

@@ -31,7 +31,6 @@ With *biodb* you can:
  * ChEBI.
  * Mass CSV File (an in-house database stored inside a CSV file).
  * Mass SQLite (an in-house database stored inside an SQLite file).
- * UniProt.
 
 Here are some of the fields accessible through the retrieved entries:
 
@@ -94,7 +93,7 @@ Then each class has its documentation. For instance, to get help about `ChebiCon
 ?biodb::ChebiConn
 ```
 
-Some of the classes you can get help about are: `Biodb`, `BiodbFactory`, `BiodbConfig`, `BiodbPersistentCache`, `BiodbDbsInfo`, `BiodbEntryFields`, `BiodbObserver`, `BiodbConn`, `BiodbEntry`, `MassdbConn`, `RemotedbConn`, `ChebiConn`, `UniprotConn`, `MassCsvFileConn`, `MassSqliteConn`.
+Some of the classes you can get help about are: `Biodb`, `BiodbFactory`, `BiodbConfig`, `BiodbPersistentCache`, `BiodbDbsInfo`, `BiodbEntryFields`, `BiodbObserver`, `BiodbConn`, `BiodbEntry`, `MassdbConn`, `RemotedbConn`, `ChebiConn`, `MassCsvFileConn`, `MassSqliteConn`.
 
 Several vignettes are also available. To get a list of them run:
 ```r
@@ -119,10 +118,3 @@ Debugging, enhancement or creation of a database connector or an entry parser ar
 <http://www.ebi.ac.uk/chebi/>
 
  * Hastings, J., de Matos, P., Dekker, A., Ennis, M., Harsha, B., Kale, N., Muthukrishnan, V., Owen, G., Turner, S., Williams, M., and Steinbeck, C. (2013) The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013. Nucleic Acids Res, <http://dx.doi.org/10.1093/nar/gks1146>.
-
-### Uniprot
-
-<http://www.uniprot.org>
-
- * The UniProt Consortium. UniProt: the universal protein knowledgebase. Nucleic Acids Res. 45: D158-D169 (2017), <https://doi.org/10.1093/nar/gkw1099>.
- * Pundir S., Martin M.J., O’Donovan C. (2017) UniProt Protein Knowledgebase. In: Wu C., Arighi C., Ross K. (eds) Protein Bioinformatics. Methods in Molecular Biology, vol 1558. Humana Press, New York, NY. <https://doi.org/10.1007/978-1-4939-6783-4_2>.

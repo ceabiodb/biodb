@@ -1,8 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Test entry fields {{{1
-################################################################
-
 test.entry.fields <- function(db) {
 
     biodb <- db$getBiodb()
@@ -14,13 +9,19 @@ test.entry.fields <- function(db) {
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-    testthat::expect_equal(length(entries), length(ref.ids), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", length(ref.ids), "."))
+    testthat::expect_equal(length(entries), length(ref.ids),
+                           info=paste0("Error while retrieving entries. ",
+                                       length(entries),
+                                       " entrie(s) obtained instead of ",
+                                       length(ref.ids), "."))
 
     # Compute fields
     biodb$computeFields(entries)
 
     # Save downloaded entries as JSON
-    json.files <- file.path(getTestOutputDir(), paste(db.name, '-entry-', ref.ids, '.json', sep = ''))
+    json.files <- file.path(getTestOutputDir(),
+                            paste(db.name, '-entry-', ref.ids, '.json',
+                                  sep = ''))
     biodb$saveEntriesAsJson(entries, json.files)
 
     # Loop on all entries
@@ -43,28 +44,29 @@ test.entry.fields <- function(db) {
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
+        ef <- biodb$getEntryFields()
 
         # Loop on all reference fields
         for (f in names(ref.entry)) {
-            v = ref.entry[[f]]
-            w = e$getFieldValue(f)
+            v <- ref.entry[[f]]
+            w <- e$getFieldValue(f)
             if (is.data.frame(v))
-                v = as.data.frame(v, stringsAsFactors = FALSE)
+                v <- as.data.frame(v, stringsAsFactors=FALSE)
 
             # Check value
-            testthat::expect_true(e$hasField(f), info = paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
-            testthat::expect_equal(typeof(w), typeof(v), info = paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
-            testthat::expect_equal(length(w), length(v), info = paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
+            testthat::expect_true(ef$get(f)$isVirtual() || e$hasField(f), info=paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+            testthat::expect_equal(typeof(w), typeof(v), info=paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+            testthat::expect_equal(length(w), length(v), info=paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
-                testthat::expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse = ', '), ') is different in reference entry (', paste(v, collapse = ', '), ').'))
+                testthat::expect_identical(w, v, info=paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse=', '), ') is different in reference entry (', paste(v, collapse=', '), ').'))
             else
-                testthat::expect_identical(w, v, info = paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE = ''), collapse = ', '), '.'))
+                testthat::expect_identical(w, v, info=paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
         }
 
         # Loop on all fields of loaded entry
         for (f in e$getFieldNames())
             if ( ! f %in% c(db.id.field, 'peaks'))
-                testthat::expect_true(any(biodb$getEntryFields()$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
+                testthat::expect_true(any(ef$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
 
         # Store all encountered fields
         entry.fields <- c(entry.fields, e$getFieldNames())
@@ -78,9 +80,6 @@ test.entry.fields <- function(db) {
         biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
 }
 
-# Test wrong entry {{{1
-################################################################
-
 test.wrong.entry <- function(db) {
 
     biodb <- db$getBiodb()
@@ -90,9 +89,6 @@ test.wrong.entry <- function(db) {
     wrong.entry <- biodb$getFactory()$getEntry(db.name, id = 'WRONGA')
     testthat::expect_null(wrong.entry)
 }
-
-# Test wrong entry among good ones {{{1
-################################################################
 
 test.wrong.entry.among.good.ones <- function(db) {
 
@@ -109,10 +105,6 @@ test.wrong.entry.among.good.ones <- function(db) {
    testthat::expect_null(entries[[1]])
    testthat::expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
-
-
-# Test peak table {{{1
-################################################################
 
 test.peak.table <- function(db) {
 
@@ -143,18 +135,12 @@ test.peak.table <- function(db) {
     }
 }
 
-# Test nb entries {{{1
-################################################################
-
 test.nb.entries <- function(db) {
 
     # Test getNbEntries()
     n <- db$getNbEntries()
     testthat::expect_true(is.na(n) || n >= 0)
 }
-
-# Test entry ids {{{1
-################################################################
 
 test.entry.ids <- function(db) {
 
@@ -164,9 +150,6 @@ test.entry.ids <- function(db) {
     testthat::expect_is(ids, 'character')
     testthat::expect_true(length(ids) <= max)
 }
-
-# Test RT unit {{{1
-################################################################
 
 test.rt.unit <- function(db) {
 
@@ -181,9 +164,6 @@ test.rt.unit <- function(db) {
         testthat::expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
-# Test entry page URL {{{1
-################################################################
-
 test.entry.page.url <- function(db) {
 
     # Get IDs of reference entries
@@ -197,9 +177,6 @@ test.entry.page.url <- function(db) {
     testthat::expect_length(urls, length(ref.ids))
 }
 
-# Test entry image URL {{{1
-################################################################
-
 test.entry.image.url <- function(db) {
 
     # Get IDs of reference entries
@@ -212,9 +189,6 @@ test.entry.image.url <- function(db) {
     testthat::expect_is(urls, 'character')
     testthat::expect_length(urls, length(ref.ids))
 }
-
-# Test entry page URL download {{{1
-################################################################
 
 test.entry.page.url.download <- function(db) {
 
@@ -234,9 +208,6 @@ test.entry.page.url.download <- function(db) {
     }
 }
 
-# Test entry image URL download {{{1
-################################################################
-
 test.entry.image.url.download <- function(db) {
 
     # Get IDs of reference entries
@@ -253,15 +224,9 @@ test.entry.image.url.download <- function(db) {
     }
 }
 
-# Test create connector with same URL {{{1
-################################################################
-
 test.create.conn.with.same.url = function(conn) {
     testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
 }
-
-# Test database edition {{{1
-################################################################
 
 test.db.editing = function(conn) {
 
@@ -283,9 +248,6 @@ test.db.editing = function(conn) {
     # Delete connector
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
-
-# Test database writing with column addition {{{1
-################################################################
 
 test.db.writing.with.col.add = function(conn) {
 
@@ -333,9 +295,6 @@ test.db.writing.with.col.add = function(conn) {
     conn.2$write()
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
-
-# Test database writing {{{1
-################################################################
 
 test.db.writing = function(conn) {
 
@@ -393,9 +352,6 @@ test.db.writing = function(conn) {
     biodb$getFactory()$deleteConn(conn.3$getId())
 }
 
-# Test database copy {{{1
-################################################################
-
 test.db.copy = function(conn) {
 
     biodb = conn$getBiodb()
@@ -427,9 +383,6 @@ test.db.copy = function(conn) {
     biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
-# Test searchByName() {{{1
-################################################################
-
 test.searchByName = function(conn) {
 
     if (conn$isSearchableByField('name')) {
@@ -458,9 +411,6 @@ test.searchByName = function(conn) {
         testthat::expect_null(conn$searchByName(name = ''))
     }
 }
-
-# Test searchCompound {{{1
-################################################################
 
 test.searchCompound <- function(db) {
 
@@ -544,15 +494,9 @@ test.searchCompound <- function(db) {
 	}
 }
 
-# Test searchCompound() no mass.field {{{1
-################################################################
-
 test.searchCompound.no.mass.field <- function(db) {
 	testthat::expect_error(db$searchCompound(mass=45))
 }
-
-# Test annotateMzValues() {{{1
-################################################################
 
 test.annotateMzValues <- function(conn) {
 
@@ -569,9 +513,6 @@ test.annotateMzValues <- function(conn) {
 	# An error should be raised if the field name does not exist
 	testthat::expect_error(conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg', fields='foo'))
 }
-
-# Test annotateMzValues() with real values {{{1
-################################################################
 
 test.annotateMzValues_real_values <- function(conn) {
 
@@ -627,9 +568,6 @@ test.annotateMzValues_real_values <- function(conn) {
 	}
 }
 
-# Test that we can input a vector in annotateMzValues() {{{1
-################################################################################
-
 test_annotateMzValues_input_vector <- function(conn) {
 
 	# Mass of a proton
@@ -666,9 +604,6 @@ test_annotateMzValues_input_vector <- function(conn) {
 		}
 	}
 }
-
-# Test that we can ask for additional fields in annotateMzValues() {{{1
-################################################################################
 
 test_annotateMzValues_additional_fields <- function(conn) {
 
@@ -718,9 +653,6 @@ test_annotateMzValues_additional_fields <- function(conn) {
 	}
 }
 
-# Test that PPM tolerance works in annotateMzValues() {{{1
-################################################################################
-
 test_annotateMzValues_ppm_tol <- function(conn) {
 
 	# Mass of a proton
@@ -757,9 +689,6 @@ test_annotateMzValues_ppm_tol <- function(conn) {
 		}
 	}
 }
-
-# Test that input data frame is output untouched in annotateMzValues() {{{1
-################################################################################
 
 test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 
@@ -811,9 +740,6 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
 		}
 	}
 }
-
-# Test msmsSearch self match {{{1
-################################################################
 
 test.msmsSearch.self.match <- function(db) {
 
@@ -867,9 +793,6 @@ test.msmsSearch.self.match <- function(db) {
 		}
 }
 
-# Test msmsSearch empty spectrum {{{1
-################################################################
-
 test.msmsSearch.empty.spectrum <- function(db) {
 
 	# Define spectrum to match:
@@ -885,9 +808,6 @@ test.msmsSearch.empty.spectrum <- function(db) {
 	testthat::expect_true(all(cols %in% colnames(result)))
 }
 
-# Test msmsSearch null spectrum {{{1
-################################################################
-
 test.msmsSearch.null.spectrum <- function(db) {
 
 	# Search for match:
@@ -900,21 +820,15 @@ test.msmsSearch.null.spectrum <- function(db) {
 	testthat::expect_true(all(cols %in% colnames(result)))
 }
 
-# Test getMzValues() {{{1
-################################################################
-
 test.getMzValues <- function(db) {
 	max <- 10
 	for (mode in c('neg', 'pos')) {
-		mz <- db$getMzValues(ms.mode = mode, max.results = max)
+		mz <- db$getMzValues(ms.mode=mode, max.results=max)
 		testthat::expect_true(is.double(mz))
 		n <- length(mz)
 		testthat::expect_true(n >= 1 && n <= max)
 	}
 }
-
-# Test searchMzTol() {{{1
-################################################################
 
 test.searchMzTol <- function(db) {
 
@@ -932,18 +846,12 @@ test.searchMzTol <- function(db) {
 	}
 }
 
-# Test searchMsEntries() with N/A value in input {{{1
-################################################################
-
 test.searchMsEntries.with.NA.value <- function(db) {
 
 	ids <- db$searchMsEntries(mz = NA_real_, mz.tol = 5.0, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = 'pos')
 	testthat::expect_is(ids, 'character')
 	testthat::expect_length(ids, 0)
 }
-
-# Test searchMsPeaks() with N/A value {{{1
-################################################################
 
 test.searchMsPeaks.with.NA.value <- function(db) {
 
@@ -969,9 +877,6 @@ test.searchMsPeaks.with.NA.value <- function(db) {
 	testthat::expect_true(! all(is.na(peaks[seq(nrow(peaks) - 1), ])))
 	testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
-
-# Test searchMzTol() with multiple M/Z values {{{1
-################################################################
 
 test.searchMzTol.multiple.mz <- function(db) {
 
@@ -999,9 +904,6 @@ test.searchMzTol.multiple.mz <- function(db) {
 	# List of IDs must be the same
 	testthat::expect_true(all(all.ids.2 %in% all.ids))
 }
-
-# Test searchMzTol() with precursor {{{1
-################################################################
 
 test.searchMzTol.with.precursor <- function(db) {
 
@@ -1050,9 +952,6 @@ test.searchMzTol.with.precursor <- function(db) {
 	}
 }
 
-#  Test searchMzTol() with precursor and multiple inputs {{{1
-################################################################
-
 test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 
 	# Input values
@@ -1067,18 +966,12 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 	testthat::expect_is(ids, 'character')
 }
 
-# Test getChromCol() {{{1
-################################################################
-
 test.getChromCol <- function(db) {
 	chrom.col <- db$getChromCol(ids = biodb::listTestRefEntries(db$getId()))
 	testthat::expect_is(chrom.col, 'data.frame')
 	testthat::expect_identical(names(chrom.col), c('id', 'title'))
 	testthat::expect_gt(nrow(chrom.col), 0)
 }
-
-# Test searchMsPeaks() {{{1
-################################################################
 
 test.searchMsPeaks <- function(db) {
 
@@ -1138,9 +1031,6 @@ test.searchMsPeaks <- function(db) {
 	testthat::expect_true(all(results[['some.col']] == some.col[[1]]))
 }
 
-# Test collapseResultsDataFrame() {{{1
-################################################################
-
 test.collapseResultsDataFrame <- function(db) {
 
 	mode <- 'neg'
@@ -1158,9 +1048,6 @@ test.collapseResultsDataFrame <- function(db) {
 	testthat::expect_equal(nrow(collapsed.results), length(mzs))
 	testthat::expect_identical(collapsed.results[['mz']], mzs)
 }
-
-# Test searchMsPeaks by M/Z and RT {{{1
-################################################################
 
 test.searchMsPeaks.rt <- function(db) {
 
@@ -1204,9 +1091,6 @@ test.searchMsPeaks.rt <- function(db) {
 	testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
 }
 
-# Test msmsSearch when no IDs are found {{{1
-################################################################
-
 test.msmsSearch.no.ids <- function(db) {
 	tspec <- data.frame(mz = 1, int = 10000)
 	results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos", msms.mz.tol = 10, msms.mz.tol.min = 0.01, npmin = 2)
@@ -1214,9 +1098,6 @@ test.msmsSearch.no.ids <- function(db) {
 	testthat::expect_equal(nrow(results), 0)
 	testthat::expect_true(all(c('id', 'score') %in% names(results)))
 }
-
-# Test convertMzTolToRange() {{{1
-################################################################
 
 test.convertMzTolToRange <- function(db) {
 
@@ -1235,9 +1116,6 @@ test.convertMzTolToRange <- function(db) {
 	testthat::expect_is(range, 'list')
 	testthat::expect_identical(range, list(min = NA_real_, max = NA_real_))
 }
-
-# Run generic tests {{{1
-################################################################
 
 #' Run generic tests.
 #'
@@ -1330,6 +1208,6 @@ runGenericTests <- function(conn) {
         biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn = conn)
         biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn = conn)
     }
-    
+
     invisible(NULL)
 }

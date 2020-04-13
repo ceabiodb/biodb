@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbConfig {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for storing configuration values.
 #'
 #' This class is responsible for storing configuration. You must go through the
@@ -53,13 +45,7 @@ BiodbConfig <- methods::setRefClass("BiodbConfig",
         .keys="list"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -73,9 +59,6 @@ initialize=function(...) {
     .self$getBiodb()$addObservers(.self)
 },
 
-# Get keys {{{3
-################################################################################
-
 getKeys=function() {
     ":\n\nGet the list of available keys.
     \nReturned value: A character vector containing the config key names.
@@ -83,9 +66,6 @@ getKeys=function() {
 
     return(names(.self$.keys))
 },
-
-# Get description {{{3
-################################################################################
 
 getDescription=function(key) {
     ":\n\nGet the description of a key.
@@ -104,9 +84,6 @@ getDescription=function(key) {
     return(description)
 },
 
-# Get default value {{{3
-################################################################################
-
 getDefaultValue=function(key) {
     ":\n\nGet the default value of a key.
     \nkey: The name of a configuration key.
@@ -124,9 +101,6 @@ getDefaultValue=function(key) {
     return(default)
 },
 
-# Has key {{{3
-################################################################################
-
 hasKey=function(key) {
     ":\n\nTest if a key exists.
     \nkey: The name of a configuration key.
@@ -135,9 +109,6 @@ hasKey=function(key) {
 
     return(.self$.checkKey(key, fail=FALSE))
 },
-
-# Is defined {{{3
-################################################################################
 
 isDefined=function(key, fail=TRUE) {
     ":\n\nTest if a key is defined (i.e.: if a value exists for this key).
@@ -152,9 +123,6 @@ isDefined=function(key, fail=TRUE) {
 
     return(FALSE)
 },
-
-# Is enabled {{{3
-################################################################################
 
 isEnabled=function(key) {
     ":\n\nTest if a boolean key is set to TRUE. This method will raise an error
@@ -175,9 +143,6 @@ isEnabled=function(key) {
     return(value)
 },
 
-# Get {{{3
-################################################################################
-
 get=function(key) {
     ":\n\nGet the value of a key.
     \nkey: The name of a configuration key.
@@ -194,9 +159,6 @@ get=function(key) {
 
     return(value)
 },
-
-# Set {{{3
-################################################################################
 
 set=function(key, value) {
     ":\n\nSet the value of a key.
@@ -219,9 +181,6 @@ set=function(key, value) {
     invisible(NULL)
 },
 
-# Reset {{{3
-################################################################################
-
 reset=function(key=NULL) {
     ":\n\nReset the value of a key.
     \nkey: The name of a configuration key. If NULL, all keys will be reset.
@@ -241,9 +200,6 @@ reset=function(key=NULL) {
         .self$set(k, .self$.keys[[key]]$default)
 },
 
-# Enable {{{3
-################################################################################
-
 enable=function(key) {
     ":\n\nSet a boolean key to TRUE.
     \nkey: The name of a configuration key.
@@ -256,9 +212,6 @@ enable=function(key) {
     .self$.values[[key]] <- TRUE
 },
 
-# Disable {{{3
-################################################################################
-
 disable=function(key) {
     ":\n\nSet a boolean key to FALSE.
     \nkey: The name of a configuration key.
@@ -270,9 +223,6 @@ disable=function(key) {
     .self$message('info', paste("Disable ", key, ".", sep=''))
     .self$.values[[key]] <- FALSE
 },
-
-# Show {{{3
-################################################################################
 
 show=function() {
     ":\n\nPrint list of configuration keys and their values.
@@ -290,9 +240,6 @@ show=function() {
                 cat("    ", key, ": ", .self$get(key), "\n")
     }
 },
-
-# List keys {{{3
-################################################################################
 
 listKeys=function() {
     ":\n\nGet the full list of keys as a data frame.
@@ -316,9 +263,6 @@ listKeys=function() {
     return(df)
 },
 
-# Get associated environment variable {{{3
-################################################################################
-
 getAssocEnvVar=function(key) {
     ":\n\nReturns the environment variable associated with this configuration
     key.
@@ -335,9 +279,6 @@ getAssocEnvVar=function(key) {
 
     return(env.var)
 },
-
-# Define {{{3
-################################################################################
 
 define=function(def) {
     'Define config properties from a structured object, normally loaded from a
@@ -361,24 +302,12 @@ define=function(def) {
     }
 },
 
-# BiodbObserver methods {{{2
-################################################################################
-
-# New observer {{{3
-################################################################################
-
 newObserver=function(obs) {
 
     # Loop on all keys
     for(key in names(.self$.values))
         .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
 },
-
-# Private methods {{{2
-################################################################################
-
-# Get SVN binary path {{{3
-################################################################################
 
 .getSvnBinaryPath=function() {
 
@@ -401,9 +330,6 @@ newObserver=function(obs) {
 },
 
 
-# Get from env {{{3
-################################################################################
-
 .getFromEnv=function(key) {
 
     value <- NULL
@@ -419,9 +345,6 @@ newObserver=function(obs) {
 
     return(value)
 },
-
-# New key {{{3
-################################################################################
 
 .newKey=function(key, type, default=NULL, description=NA_character_,
                    deprecated=NULL) {
@@ -463,9 +386,6 @@ newObserver=function(obs) {
         .self$set(key, default)
 },
 
-# Check key {{{3
-################################################################################
-
 .checkKey=function(key, type=NA_character_, fail=TRUE) {
 
     # Check key
@@ -502,9 +422,6 @@ newObserver=function(obs) {
     return(TRUE)
 },
 
-# Get type {{{3
-################################################################################
-
 .getType=function(key) {
 
     .self$.checkKey(key)
@@ -512,12 +429,7 @@ newObserver=function(obs) {
     return(.self$.keys[[key]][['type']])
 },
 
-
-# Is deprecated {{{3
-################################################################################
-
 .isDeprecated=function(key) {
     return('deprecated' %in% names(.self$.keys[[key]]))
 }
-
 ))

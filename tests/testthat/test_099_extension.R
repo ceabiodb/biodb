@@ -25,8 +25,8 @@ test_new_parsing_expr <- function(biodb) {
     testthat::expect_true(ef$isDefined('n_stars'))
 
     # Define new parsing expression
-    expr_def <- list(chebi =
-                     list(parsing.expr = list(n_stars = '//chebi:return/chebi:entityStar')))
+    xpathExpr <- '//chebi:return/chebi:entityStar'
+    expr_def <- list(chebi=list(parsing.expr=list(n_stars=xpathExpr)))
     di <- biodb$getDbsInfo()
     di$define(expr_def)
 
@@ -42,7 +42,7 @@ test_new_parsing_expr <- function(biodb) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='extension_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

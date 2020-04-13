@@ -1,20 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Constants {{{1
-################################################################################
-
-.HTTP.STATUS.OK <- 200
-.HTTP.STATUS.NOT.FOUND <- 404
-.HTTP.STATUS.REQUEST.TIMEOUT <- 408
-.HTTP.STATUS.INTERNAL.SERVER.ERROR <- 500
-.HTTP.STATUS.SERVICE.UNAVAILABLE <- 503
-
-# BiodbRequestScheduler {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class for handling requests.
 #'
 #' This class handles GET and POST requests, as well as file downloading. Each
@@ -64,13 +47,7 @@ BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler",
         .connid2rules="list"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -81,9 +58,6 @@ initialize=function(...) {
     .self$.nb.max.tries <- 10L
     .self$.ssl.verifypeer <- TRUE
 },
-
-# Send soap request {{{3
-################################################################################
 
 sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
                          encoding=integer()) {
@@ -108,9 +82,6 @@ sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
 
     return(results)
 },
-
-# Send request {{{3
-################################################################################
 
 sendRequest=function(request, cache.read=TRUE) {
     ":\n\nSends a request, and returns content result.
@@ -169,9 +140,6 @@ sendRequest=function(request, cache.read=TRUE) {
     return(content)
 },
 
-# Download file {{{3
-################################################################################
-
 downloadFile=function(url, dest.file) {
     ":\n\nDownloads the content of a URL and save it into the specified
     destination file.
@@ -201,26 +169,14 @@ downloadFile=function(url, dest.file) {
                          method='libcurl', cacheOK=FALSE, quiet=infoLvl==0)
 },
 
-# Private methods {{{2
-################################################################################
-
-# Terminating {{{3
-################################################################################
-
 connTerminating=function(conn) {
     .self$.unregisterConnector(conn)
 },
-
-# URLs updated {{{3
-################################################################################
 
 connUrlsUpdated=function(conn) {
     .self$.unregisterConnector(conn)
     .self$.registerConnector(conn)
 },
-
-# Scheduler frequency updated {{{3
-################################################################################
 
 connSchedulerFrequencyUpdated=function(conn) {
 
@@ -236,18 +192,12 @@ connSchedulerFrequencyUpdated=function(conn) {
     }
 },
 
-# Check offline mode {{{3
-################################################################################
-
 .checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
         .self$error("Offline mode is enabled. All connections are forbidden.")
 },
 
-
-# Register connector {{{3
-################################################################################
 
 .registerConnector=function(conn) {
 
@@ -265,9 +215,6 @@ connSchedulerFrequencyUpdated=function(conn) {
         .self$.addConnectorRules(conn)
     }
 },
-
-# Unregister connector {{{3
-################################################################################
 
 .unregisterConnector=function(conn) {
 
@@ -287,9 +234,6 @@ connSchedulerFrequencyUpdated=function(conn) {
 },
 
 
-# Find rule {{{3
-################################################################################
-
 .findRule=function(url, fail=TRUE) {
 
     .self$.assertNotNull(url)
@@ -306,9 +250,6 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     return(.self$.host2rule[[domain]])
 },
-
-# Add connector rules {{{3
-################################################################################
 
 .addConnectorRules=function(conn) {
 
@@ -342,23 +283,14 @@ connSchedulerFrequencyUpdated=function(conn) {
     }
 },
 
-# Get all rules {{{3
-################################################################################
-
 .getAllRules=function() {
     return(.self$.host2rule)
 },
-
-# Get connector rules {{{3
-################################################################################
 
 .getConnectorRules=function(conn) {
     .self$.assertNotNull(conn)
     return(.self$.connid2rules[[conn$getId()]])
 },
-
-# Remove connector rules {{{3
-################################################################################
 
 .removeConnectorRules=function(conn) {
 
@@ -377,9 +309,6 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Remove connector
     .self$.connid2rules[[conn$getId()]] <- NULL
 },
-
-# Process request errors {{{3
-################################################################################
 
 .processRequestErrors=function(content, hdr, err_msg, retry) {
 
@@ -420,9 +349,6 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     return(list(retry=retry, err_msg=err_msg))
 },
-
-# Do send request once {{{3
-################################################################################
 
 .doSendRequestOnce=function(request) {
 
@@ -490,9 +416,6 @@ connSchedulerFrequencyUpdated=function(conn) {
     return(list(content=content, err_msg=res$err_msg, retry=res$retry))
 },
 
-# Do send request loop {{{3
-################################################################################
-
 .doSendRequestLoop=function(request, rule) {
 
     content <- NA_character_
@@ -535,12 +458,6 @@ connSchedulerFrequencyUpdated=function(conn) {
     return(content)
 },
 
-# Deprecated methods {{{2
-################################################################################
-
-# Get URL string {{{3
-################################################################################
-
 getUrlString=function(url, params=list()) {
     "Build a URL string, using a base URL and parameters to be passed."
 
@@ -550,9 +467,6 @@ getUrlString=function(url, params=list()) {
 
     return(url)
 },
-
-# Get URL {{{3
-################################################################################
 
 getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
                 body=character(), encoding=integer()) {

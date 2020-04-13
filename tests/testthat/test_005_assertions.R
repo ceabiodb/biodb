@@ -93,7 +93,7 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='assertions_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

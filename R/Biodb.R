@@ -59,29 +59,16 @@ initialize=function(loadAllBiodbPkgs=TRUE) {
     .self$info('This is biodb version ', packageVersion('biodb'), '.')
 
     # Create instances of children
-    .self$.config <- BiodbConfig$new(parent=.self)
-    .self$persistentCache <- BiodbPersistentCache$new(parent = .self)
-    .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
-    .self$.factory <- BiodbFactory$new(parent=.self)
-    .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
-    .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
-
-    # List biodb* packages to load
-    if (loadAllBiodbPkgs) {
-        pkgs <- installed.packages()[, 'Version']
-        pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
-        pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
-                                          # while building vignettes.
-    } else
-        pkgs <- character()
-    pkgs[['biodb']] <- packageVersion('biodb')
+    .self$.config <- NULL
+    .self$persistentCache <- NULL
+    .self$.dbsinfo <- NULL
+    .self$.factory <- NULL
+    .self$.entry.fields <- NULL
+    .self$.request.scheduler <- NULL
 
     # Load definitions from selected biodb* packages
-    for (pkg in sort(names(pkgs))) {
-        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
-        file <- system.file("definitions.yml", package=pkg)
-        .self$loadDefinitions(file, package=pkg)
-    }
+    pkgs <- .self$.listBiodbPkgsToLoad(loadAllBiodbPkgs)
+    .self$.loadBiodbPkgsDefinitions(pkgs)
 
     # Check locale
     .self$.checkLocale()
@@ -98,7 +85,8 @@ terminate=function() {
     .self$info('Closing Biodb instance...')
 
     # Terminate factory
-    .self$.factory$.terminate()
+    if ( ! is.null(.self$.factory))
+        .self$.factory$.terminate()
 
     # Terminate observers
     for (obs in .self$.observers)
@@ -134,11 +122,38 @@ loadDefinitions=function(file, package='biodb') {
     }
 },
 
+.listBiodbPkgsToLoad=function(loadAllBiodbPkgs) {
+
+    if (loadAllBiodbPkgs) {
+        pkgs <- installed.packages()[, 'Version']
+        pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
+        pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
+                                          # while building vignettes.
+    } else
+        pkgs <- character()
+
+    # Load biodb itself in all cases
+    pkgs[['biodb']] <- packageVersion('biodb')
+
+    return(pkgs)
+},
+
+.loadBiodbPkgsDefinitions=function(pkgs) {
+    for (pkg in sort(names(pkgs))) {
+        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
+        file <- system.file("definitions.yml", package=pkg)
+        .self$loadDefinitions(file, package=pkg)
+    }
+},
+
 getConfig=function() {
     ":\n\nReturns the single instance of the \\code{BiodbConfig} class.
     \nReturned value: The instance of the \\code{BiodbConfig} class attached to
     this Biodb instance.
     "
+
+    if (is.null(.self$.config))
+        .self$.config <- BiodbConfig$new(parent=.self)
 
     return(.self$.config)
 },
@@ -149,6 +164,9 @@ getPersistentCache=function() {
     this Biodb instance.
     "
 
+    if (is.null(.self$persistentCache))
+        .self$persistentCache <- BiodbPersistentCache$new(parent = .self)
+
     return(.self$persistentCache)
 },
 
@@ -157,6 +175,9 @@ getDbsInfo=function() {
     \nReturned value: The instance of the \\code{BiodbDbsInfo} class attached to
     this Biodb instance.
     "
+
+    if (is.null(.self$.dbsinfo))
+        .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
 
     return(.self$.dbsinfo)
 },
@@ -167,6 +188,9 @@ getEntryFields=function() {
     attached to this Biodb instance.
     "
 
+    if (is.null(.self$.entry.fields))
+        .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
+
     return(.self$.entry.fields)
 },
 
@@ -176,6 +200,9 @@ getFactory=function() {
     this Biodb instance.
     "
 
+    if (is.null(.self$.factory))
+        .self$.factory <- BiodbFactory$new(parent=.self)
+
     return(.self$.factory)
 },
 
@@ -184,6 +211,9 @@ getRequestScheduler=function() {
     \nReturned value: The instance of the \\code{BiodbRequestScheduler} class
     attached to this Biodb instance.
     "
+
+    if (is.null(.self$.request.scheduler))
+        .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
 
     return(.self$.request.scheduler)
 },
@@ -335,26 +365,30 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        .self$message('error', "Parameter 'entries' must be a list.")
+        .self$error("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
     if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
-        .self$message('debug', paste(length(entries),
-                                     "entrie(s) to convert in data frame."))
+        .self$debug(length(entries), "entrie(s) to convert in data frame.")
 
         # Convert list of entries to a list of data frames.
-        df.list <- .self$.entriesToListOfDataframes(entries, only.atomic,
-                                                    compute, fields, flatten,
-                                                    limit, only.card.one,
-                                                    own.id, null.to.na)
+        df.list <- .self$.entriesToListOfDataframes(entries=entries,
+                                                    only.atomic=only.atomic,
+                                                    compute=compute,
+                                                    fields=fields,
+                                                    flatten=flatten,
+                                                    limit=limit,
+                                                    only.card.one=only.card.one,
+                                                    own.id=own.id,
+                                                    null.to.na=null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            .self$message('debug', paste("Merging data frames with a single",
-                                         "entry each into a single data frame",
-                                         "with all entries."))
+            .self$debug("Merging data frames with a single",
+                        "entry each into a single data frame",
+                        "with all entries.")
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()
@@ -753,6 +787,7 @@ disableDebug=function() {
                                            own.id=own.id)
         }
 
+        .self$debug2Dataframe("Entry converted to data frame", e.df)
         df.list <- c(df.list, list(e.df))
     }
 
@@ -768,6 +803,7 @@ disableDebug=function() {
         df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
+    .self$debug("Converted", length(df.list), "entry/ies to data frame(s).")
     return(df.list)
 },
 

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbCsvEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Entry class for content in CSV format.
 #'
 #' This is an abstract class for handling database entries whose content is in
@@ -32,13 +24,7 @@ BiodbCsvEntry <- methods::setRefClass("BiodbCsvEntry",
                 .sep='character',
                 .na.strings='character'),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(sep=',', na.strings='NA', ...) {
 
@@ -48,12 +34,6 @@ initialize=function(sep=',', na.strings='NA', ...) {
     .self$.sep <- sep
     .self$.na.strings <- na.strings
 },
-
-# Private methods {{{2
-################################################################################
-
-# Do parse content {{{3
-################################################################################
 
 .doParseContent=function(content) {
 
@@ -80,20 +60,14 @@ initialize=function(sep=',', na.strings='NA', ...) {
     return(df)
 },
 
-# Is parsed content correct {{{3
-################################################################################
-
 .isParsedContentCorrect=function(parsed.content) {
     return(nrow(parsed.content) > 0)
 },
 
-# Parse fields step 1 {{{3
-################################################################################
-
 .parseFieldsStep1=function(parsed.content) {
 
     cfg <- .self$getBiodb()$getConfig()
-    
+
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
@@ -118,7 +92,8 @@ initialize=function(sep=',', na.strings='NA', ...) {
             v <- v[ ! is.na(v)]
 
             # Remove duplicated values
-            v <- v[ ! duplicated(v)]
+            if (field.def$forbidsDuplicates() || field.def$hasCardOne())
+                v <- v[ ! duplicated(v)]
 
             # Split
             if (field.def$hasCardMany() && length(v) == 1)

@@ -44,7 +44,7 @@ test.default.messages <- function(biodb, obs) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='observers_test.log')
 obs <- biodb::addMsgRecObs(biodb)
 
 # Set context

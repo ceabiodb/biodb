@@ -164,7 +164,7 @@ test.BiodbUrl <- function(biodb) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+biodb <- biodb::createBiodbTestInstance(log='scheduler_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test scheduler.")
