@@ -1208,6 +1208,6 @@ runGenericTests <- function(conn) {
         biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn = conn)
         biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn = conn)
     }
-    
+
     invisible(NULL)
 }

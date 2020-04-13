@@ -232,6 +232,13 @@ fields:
     type: id
     card: many
 
+  expasy.enzyme.id:
+    description: ExPASy ENZYME ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
   hmdb.metabolites.id:
     description: HMDB Metabolites ID
     case.insensitive: true

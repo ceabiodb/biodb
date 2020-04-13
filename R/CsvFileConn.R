@@ -3,7 +3,7 @@
 #' This is the abstract connector class for all CSV file databases.
 #'
 #' @seealso Super class \code{\link{BiodbConn}}, and sub-classes
-#' \code{\link{CompoundCsvFileConn}} and \code{\link{MassCsvFileConn}}.
+#' \code{\link{CompCsvFileConn}} and \code{\link{MassCsvFileConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
