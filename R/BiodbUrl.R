@@ -91,19 +91,15 @@ toString=function(encode=TRUE) {
 
     # Remove '/' at start and end of each element of the URL
     url <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url)
-    
+
     # Concatenate URL elements together
     url <- paste(url, collapse='/')
 
     # Add parameters to URL
     if (length(.self$.params) > 0) {
-        
+
         pn <- names(.self$.params)
         pv <- unname(.self$.params)
-        
-        # Encode parameter values
-        if (encode)
-            pv <- vapply(pv, utils::URLencode, FUN.VALUE='', USE.NAMES=FALSE)
 
         # Build parameters string
         fct <- function(i) {
@@ -114,6 +110,10 @@ toString=function(encode=TRUE) {
         }
         kv.list <- vapply(seq_along(pv), fct, FUN.VALUE='')
         params.str <- paste(kv.list, collapse='&')
+
+        # Encode parameter values
+        if (encode)
+            params.str <- utils::URLencode(params.str)
 
         # Concatenate URL with parameters
         url <- paste(url, params.str, sep='?')

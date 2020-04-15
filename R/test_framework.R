@@ -205,13 +205,9 @@ clearMessages = function() {
 
 ))
 
-#' Set a test context.
+#' Set a test context. DEPRECATED
 #'
-#' Define a context for tests using testthat framework.
-#' In addition to calling `testthat::context()`, the function will call
-#' `biodb::Biodb::info()` to signal the context to observers. This will allow
-#' to print the test context also into the test log file, if logger is used
-#' for tests.
+#' Use testContext() instead.
 #'
 #' @param biodb A valid Biodb instance.
 #' @param text The text to print as test context.
@@ -229,16 +225,45 @@ clearMessages = function() {
 #'
 #' @export
 setTestContext <- function(biodb, text) {
+    testContext(text, biodb=biodb)
+}
+
+#' Set a test context. DEPRECATED
+#'
+#' Define a context for tests using testthat framework.
+#' In addition to calling `testthat::context()`, the function will call
+#' `biodb::Biodb::info()` to signal the context to observers. This will allow
+#' to print the test context also into the test log file, if logger is used
+#' for tests.
+#'
+#' @param text The text to print as test context.
+#' @param biodb A valid Biodb instance or NULL.
+#' @return No value returned.
+#'
+#' @examples
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#'
+#' # Define a context before running tests:
+#' testContext"Test my database connector.", biodb)
+#'
+#' # Terminate the instance
+#' biodb$terminate()
+#'
+#' @export
+testContext <- function(text, biodb=NULL) {
 
     # Set testthat context
     testthat::context(text)
 
     # Print banner in log file
-    biodb$info("")
-    biodb$info(paste(rep('*', 80), collapse=''))
-    biodb$info(paste("Test context", text, sep = " - "))
-    biodb$info(paste(rep('*', 80), collapse=''))
-    biodb$info("")
+    if ( ! is.null(biodb)) {
+        biodb$info("")
+        biodb$info(paste(rep('*', 80), collapse=''))
+        biodb$info(paste("Test context", text, sep = " - "))
+        biodb$info(paste(rep('*', 80), collapse=''))
+        biodb$info("")
+    }
 
     invisible(NULL)
 }
@@ -284,9 +309,6 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     if ( ! is.null(conn) && ! methods::is(conn, 'BiodbConn'))
         stop("`conn` parameter must be a rightful biodb::BiodbConn instance.")
     bdb <- if (is.null(conn)) biodb else conn$getBiodb()
-    if (is.null(bdb))
-        stop("You must at least set one of `biodb` or `conn` parameter when",
-             " calling testThat().")
 
     # Get function name
     if (methods::is(fct, 'function'))
@@ -295,7 +317,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         fname <- fct
 
     # Get list of test functions to run
-    if (bdb$getConfig()$isDefined('test.functions')) {
+    if ( ! is.null(bdb) && bdb$getConfig()$isDefined('test.functions')) {
         functions <- strsplit(bdb$getConfig()$get('test.functions'), ',')[[1]]
         runFct <- fname %in% functions
     }
@@ -305,10 +327,12 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
     if (runFct) {
 
         # Send message to logger
-        bdb$info('')
-        bdb$info(paste('Running test function ', fname, ' ("', msg, '").'))
-        bdb$info(paste(rep('-', 80), collapse=''))
-        bdb$info('')
+        if ( ! is.null(bdb)) {
+            bdb$info('')
+            bdb$info(paste('Running test function ', fname, ' ("', msg, '").'))
+            bdb$info(paste(rep('-', 80), collapse=''))
+            bdb$info('')
+        }
 
         # Call test function
         if ( ! is.null(biodb) && ! is.null(obs))
@@ -320,7 +344,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         else if ( ! is.null(conn))
             testthat::test_that(msg, do.call(fct, list(conn)))
         else
-            stop(paste0('Do not know how to call test function "', fname, '".'))
+            testthat::test_that(msg, do.call(fct, list()))
     }
 
     invisible(NULL)
