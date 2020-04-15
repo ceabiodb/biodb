@@ -15,6 +15,8 @@ test_biodburl_encoding <- function() {
                            'my.site.com?a%20b=my%20value&n')
     testthat::expect_equal(urlWithSpace$toString(FALSE),
                            'my.site.com?a b=my value&n')
+    testthat::expect_equal(BiodbUrl('my site')$toString(), 'my%20site')
+    testthat::expect_equal(BiodbUrl('my site')$toString(FALSE), 'my site')
 }
 
 # Main
