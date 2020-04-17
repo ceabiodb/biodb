@@ -58,28 +58,24 @@ Here are some of the fields accessible through the retrieved entries:
 
 ## Installation
 
+This development branch `dev_0.99` contains the latest developments. Its aim is the submission of the package to BioConductor.
+You can install it with:
+```r
+devtools::install_github('pkrog/biodb', ref='dev_0.99', dependencies=TRUE, build_vignettes=FALSE)
+```
+In this version, connectors to web databases have been moved to separate repositories. You must thus install them separately. Here is an example for KEGG:
+```r
+devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
+```
+
+Full list of web database repositories available:
+ * biodbHmdb.
+ * biodbKegg.
+ * biodbUniprot.
+
+### Installation with bioconda
+
 **biodb** is part of [bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using conda. This means also that it is possible to install it automatically in Galaxy, for a tool, if the conda system is enabled.
-
-**biodb** is also installable directly from GitHub, or from a local repository. See below for details.
-
-### Install from GitHub
-
-Using package `devtools` you can install Biodb directly from GitHub:
-```r
-devtools::install_github('pkrog/biodb', dependencies = TRUE, build_vignettes = FALSE)
-```
-
-### Install from local repository
-
-First, you need to clone the GitHub repos:
-```bash
-git clone -b master https://github.com/pkrog/biodb.git
-```
-
-Then you install *biodb* using the `devtools` package:
-```r
-devtools::install_local('/your/path/to/biodb', dependencies = TRUE, build_vignettes = FALSE)
-```
 
 ## Documentation
 
