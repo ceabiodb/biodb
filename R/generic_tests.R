@@ -53,9 +53,13 @@ test.entry.fields <- function(db) {
             if (is.data.frame(v))
                 v <- as.data.frame(v, stringsAsFactors=FALSE)
 
-            # Check value
+            # Check that field exists
             testthat::expect_true(ef$get(f)$isVirtual() || e$hasField(f), info=paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+
+            # Check field type
             testthat::expect_equal(typeof(w), typeof(v), info=paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+
+            # Check length
             testthat::expect_equal(length(w), length(v), info=paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
                 testthat::expect_identical(w, v, info=paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse=', '), ') is different in reference entry (', paste(v, collapse=', '), ').'))

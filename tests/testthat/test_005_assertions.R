@@ -1,8 +1,3 @@
-# vi: fdm=marker
-
-# Test assert.positive {{{1
-################################################################
-
 test.assertPositive <- function(biodb, obs) {
 
 	for (mz in c(10, 0))
@@ -12,9 +7,6 @@ test.assertPositive <- function(biodb, obs) {
 	expect_equal(obs$getLastMsg(), "mz (-1) cannot be negative.")
 }
 
-# Test assert.in {{{1
-################################################################
-
 test.assertIn <- function(biodb, obs) {
 
 	biodb$.assertIn('aaa', c('aaa', 'bbb'))
@@ -22,9 +14,6 @@ test.assertIn <- function(biodb, obs) {
 	expect_error(biodb$.assertIn(str, c('aaa', 'bbb')))
 	expect_equal(obs$getLastMsg(), "str cannot be set to ccc. Allowed values are: aaa, bbb.")
 }
-
-# Test assert.not.na {{{1
-################################################################
 
 test.assertNotNa <- function(biodb, obs) {
 
@@ -36,9 +25,6 @@ test.assertNotNa <- function(biodb, obs) {
 	}
 }
 
-# Test assert.not.null {{{1
-################################################################
-
 test.assertNotNull <- function(biodb, obs) {
 
 	biodb$.assertNotNull(10)
@@ -46,9 +32,6 @@ test.assertNotNull <- function(biodb, obs) {
 	expect_error(biodb$.assertNotNull(myvar))
 	expect_equal(obs$getLastMsg(), "myvar cannot be NULL.")
 }
-
-# Test assert.inferior {{{1
-################################################################
 
 test.assertInferior <- function(biodb, obs) {
 
@@ -60,9 +43,6 @@ test.assertInferior <- function(biodb, obs) {
 	expect_equal(obs$getLastMsg(), "big (20) cannot be greater than small (10).")
 }
 
-# Test assert.length.one {{{1
-################################################################
-
 test.assertLengthOne <- function(biodb, obs) {
 
 	biodb$.assertLengthOne(10)
@@ -70,9 +50,6 @@ test.assertLengthOne <- function(biodb, obs) {
 	expect_error(biodb$.assertLengthOne(myvar))
 	expect_equal(obs$getLastMsg(), "Length of myvar (2) must be one.")
 }
-
-# Test searchMsEntries assert {{{1
-################################################################
 
 test.searchMsEntries.assert <- function(biodb, obs) {
 
@@ -89,8 +66,8 @@ test.searchMsEntries.assert <- function(biodb, obs) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Main {{{1
-################################################################
+# Main
+################################################################################
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='assertions_test.log')
