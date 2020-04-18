@@ -245,7 +245,7 @@ setTestContext <- function(biodb, text) {
 #' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
 #'
 #' # Define a context before running tests:
-#' testContext"Test my database connector.", biodb)
+#' testContext("Test my database connector.", biodb)
 #'
 #' # Terminate the instance
 #' biodb$terminate()
