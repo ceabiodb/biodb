@@ -17,6 +17,14 @@ test_new_field <- function(biodb) {
 
 test_new_parsing_expr <- function(biodb) {
 
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+
     # Define new field
     field_def <- list(n_stars=list(description='The ChEBI stars indicator.',
                                    class='integer'))
@@ -26,12 +34,12 @@ test_new_parsing_expr <- function(biodb) {
 
     # Define new parsing expression
     xpathExpr <- '//chebi:return/chebi:entityStar'
-    expr_def <- list(chebi=list(parsing.expr=list(n_stars=xpathExpr)))
+    expr_def <- list(chebi.ex=list(parsing.expr=list(n_stars=xpathExpr)))
     di <- biodb$getDbsInfo()
     di$define(expr_def)
 
     # Check that the expression works
-    conn <- biodb$getFactory()$getConn('chebi')
+    conn <- biodb$getFactory()$getConn('chebi.ex')
     entry <- conn$getEntry('15440')
     testthat::expect_is(entry, 'BiodbEntry')
     v <- entry$getFieldValue('n_stars')

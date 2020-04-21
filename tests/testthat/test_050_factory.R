@@ -21,13 +21,19 @@ test.connectorAlreadyExists <- function(biodb, obs) {
 	expect_match(obs$getLastMsgByType('caution'), "A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file with the same URL ", , perl = TRUE)
 
 	# Test with ChEBI
-	biodb$getFactory()$deleteConnByClass('chebi')
-	conn.chebi <- biodb$getFactory()$createConn('chebi')
-	testthat::expect_error(biodb$getFactory()$createConn('chebi'))
-	expect_match(obs$getLastMsg(), "^A connector \\(chebi\\) already exists for database chebi with the same URL .*$", perl = TRUE)
-	conn.chebi.2 <- biodb$getFactory()$createConn('chebi', fail.if.exists = FALSE)
+	biodb$getFactory()$deleteConnByClass('chebi.ex')
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+	conn.chebi <- biodb$getFactory()$createConn('chebi.ex')
+	testthat::expect_error(biodb$getFactory()$createConn('chebi.ex'))
+	expect_match(obs$getLastMsg(), "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl = TRUE)
+	conn.chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists = FALSE)
 	expect_is(conn.chebi.2, 'BiodbConn')
-	expect_match(obs$getLastMsgByType('caution'), "^A connector \\(chebi\\) already exists for database chebi with the same URL .*$", perl = TRUE)
+	expect_match(obs$getLastMsgByType('caution'), "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl = TRUE)
 }
 
 # Test connector deletion {{{1
@@ -37,9 +43,17 @@ test.connectorDeletion <- function(biodb, obs) {
 
 	biodb$getFactory()$deleteAllConnectors()
 
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+
 	# Create more than one connector
-	chebi.1 <- biodb$getFactory()$createConn('chebi')
-	chebi.2 <- biodb$getFactory()$createConn('chebi', fail.if.exists = FALSE)
+	chebi.1 <- biodb$getFactory()$createConn('chebi.ex')
+	chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists = FALSE)
 
 	# Delete all connectors
 	testthat::expect_true(length(biodb$getFactory()$getAllConnectors()) >= 2)
@@ -55,8 +69,14 @@ test.connectorDeletion <- function(biodb, obs) {
 test.connectorDefaultValues <- function(biodb, obs) {
 
 	biodb$getFactory()$deleteAllConnectors()
-	chebi <- biodb$getFactory()$createConn('chebi')
-	chebi.info <- biodb$getDbsInfo()$get('chebi')
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+	chebi <- biodb$getFactory()$createConn('chebi.ex')
+	chebi.info <- biodb$getDbsInfo()$get('chebi.ex')
 	testthat::expect_equal(chebi.info$getBaseUrl(), chebi$getBaseUrl())
 	testthat::expect_equal(chebi.info$getSchedulerNParam(), chebi$getSchedulerNParam())
 	testthat::expect_equal(chebi.info$getSchedulerTParam(), chebi$getSchedulerTParam())

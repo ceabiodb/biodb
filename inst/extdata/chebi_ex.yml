@@ -31,7 +31,7 @@ databases:
 
 fields:
 
-  my.chebi.id:
+  chebi.ex.id:
     description: ChEBI ID
     case.insensitive: true
     forbids.duplicates: true

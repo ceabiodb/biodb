@@ -11,8 +11,16 @@ test.schedulerRightRule <- function(biodb) {
 	# Get scheduler
 	scheduler <- biodb$getRequestScheduler()
 
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+
 	# Get ChEBI connector
-	chebi <- biodb$getFactory()$getConn('chebi')
+	chebi <- biodb$getFactory()$getConn('chebi.ex')
 
 	# Get connector rule
 	rules <- scheduler$.getConnectorRules(chebi)
@@ -36,8 +44,16 @@ test.schedulerRuleFrequency <- function(biodb) {
 	# Get scheduler
 	scheduler <- biodb$getRequestScheduler()
 
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+
 	# Get ChEBI connector
-	chebi <- biodb$getFactory()$getConn('chebi')
+	chebi <- biodb$getFactory()$getConn('chebi.ex')
 	chebi$setSchedulerNParam(3)
 	chebi$setSchedulerTParam(1)
 
@@ -51,7 +67,7 @@ test.schedulerRuleFrequency <- function(biodb) {
 	testthat::expect_equal(rule$getT(), chebi$getSchedulerTParam())
 
 	# Create another ChEBI connector
-	chebi.2 <- biodb$getFactory()$createConn('chebi', fail.if.exists = FALSE)
+	chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists = FALSE)
 	testthat::expect_length(scheduler$.getConnectorRules(chebi.2), 1)
 	testthat::expect_identical(rule, scheduler$.getConnectorRules(chebi.2)[[1]])
 	testthat::expect_equal(rule$getN(), chebi$getSchedulerNParam())
@@ -90,8 +106,16 @@ test.schedulerSleepTime <- function(biodb) {
 	# Get scheduler
 	scheduler <- biodb$getRequestScheduler()
 
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+
 	# Get ChEBI connector
-	chebi <- biodb$getFactory()$getConn('chebi')
+	chebi <- biodb$getFactory()$getConn('chebi.ex')
 	chebi$setSchedulerNParam(n)
 	chebi$setSchedulerTParam(t)
 

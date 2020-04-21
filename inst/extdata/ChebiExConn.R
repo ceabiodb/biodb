@@ -4,10 +4,7 @@ ChebiExConn <- methods::setRefClass("ChebiExConn",
 methods=list(
 
 initialize=function(...) {
-
     callSuper(...)
-
-    .self$initFields(wsdl=NULL, ws.values=list())
 },
 
 getEntryPageUrl=function(id) {

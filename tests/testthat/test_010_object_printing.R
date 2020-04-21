@@ -49,7 +49,6 @@ test.BiodbEntry.show <- function(biodb) {
 
 	# Get entry
 	entry <- conn$getEntry(id)
-    entry$show()
 	testthat::expect_output(entry$show(),
                             regexp='^Biodb .* entry instance .*\\.$')
 
@@ -62,11 +61,12 @@ test.BiodbEntry.show <- function(biodb) {
 
 test.BiodbConn.show <- function(biodb) {
 
-	# Get connection
-	conn <- biodb$getFactory()$getConn('chebi')
+    # Get connection
+    chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+    conn <- biodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 
-	# Test printing
-	expect_output(conn$show(), regexp = '^Biodb .* connector instance, using URL .*\\.$')
+    # Test printing
+    expect_output(conn$show(), regexp = '^Biodb .* connector instance, using URL .*\\.$')
 }
 
 # Test BiodbDbsInfo show {{{1
