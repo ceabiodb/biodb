@@ -123,40 +123,6 @@ config:
 
 databases:
 
-# ChEBI {{{2
-################################################################################
-
-  chebi:
-    entry.content.encoding: UTF-8
-    entry.content.type: xml
-    name: ChEBI
-    parsing.expr:
-      accession: substring-after(//chebi:return/chebi:chebiId,'CHEBI:')
-      charge: //chebi:charge
-      formula:
-      - //chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data
-      - (//chebi:Formulae/chebi:data)[1]
-      inchi: //chebi:return/chebi:inchi
-      inchikey: //chebi:return/chebi:inchiKey
-      kegg.compound.id: //chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data
-      mass: //chebi:mass
-      monoisotopic.mass: //chebi:monoisotopicMass
-      name:
-      - //chebi:chebiAsciiName
-      - //chebi:Synonyms/chebi:data
-      smiles: //chebi:return/chebi:smiles
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - monoisotopic.mass
-        - molecular.mass
-    urls:
-      base.url: https://www.ebi.ac.uk/chebi/
-      ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
-    xml.ns:
-      chebi: https://www.ebi.ac.uk/webservices/chebi
-      xsd: http://www.w3.org/2001/XMLSchema
-
 # Compound CSV File {{{2
 ################################################################################
   comp.csv.file:

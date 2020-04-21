@@ -20,9 +20,10 @@ output:
 
 # Introduction
 
+<!-- TODO Use ChebiEx. -->
+
 Use KEGG Compound for the example.
 
-Connectors for accessing KEGG databases are implemented in [biodbKegg](...) library. See the [README](...) for an introduction. Capabilities of the full library:
+A full connector for accessing ChEBI database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of the full library:
 
-TODO
-
+<!-- TODO -->

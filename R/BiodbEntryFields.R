@@ -14,7 +14,7 @@
 #' mybiodb$getEntryFields()$isAlias('genesymbols')
 #'
 #' # Test if a name is associated with a defined field
-#' mybiodb$getEntryFields()$isDefined('chebi.id')
+#' mybiodb$getEntryFields()$isDefined('name')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

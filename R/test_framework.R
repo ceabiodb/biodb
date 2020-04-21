@@ -448,14 +448,14 @@ addMsgRecObs <- function(biodb) {
 #' Lists the reference entries in the test folder for a specified connector.
 #' The test reference files must be in `<pkg>/tests/testthat/res/` folder and
 #' their names must match `entry-<database_name>-<entry_accession>.json` (e.g.:
-#' `entry-chebi-15440.json`).
+#' `entry-comp.csv.file-1018.json`).
 #'
 #' @param conn.id A valid Biodb connector ID.
 #' @return A list of entry IDs.
 #'
 #' @examples
-#' # List IDs of test reference entries for ChEBI:
-#' biodb::listTestRefEntries('chebi')
+#' # List IDs of test reference entries:
+#' biodb::listTestRefEntries('comp.csv.file')
 #'
 #' @export
 listTestRefEntries <- function(conn.id) {

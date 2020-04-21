@@ -16,11 +16,14 @@
 #' # Obtain the factory instance:
 #' factory <- mybiodb$getFactory()
 #'
-#' # Create a connection:
-#' conn <- factory$createConn('chebi')
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
+#' # Create a connector:
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Get a database entry:
-#' entry <- factory$getEntry('chebi', id='2528')
+#' entry <- conn$getEntry(conn$getEntryIds(1))
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

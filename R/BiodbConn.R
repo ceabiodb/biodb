@@ -27,8 +27,11 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
 #' # Create a connector
-#' conn <- mybiodb$getFactory()$createConn('chebi')
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Get 10 identifiers from the database:
 #' ids <- conn$getEntryIds(10)
@@ -245,7 +248,9 @@ getEntryIds=function(max.results=NA_integer_, ...) {
     set.
     \nmax.results: The maximum of elements to return from the method.
     \n...: First arguments to be passed to private .doGetEntryIds() method.
-    \nReturned value: A character vector containing entry IDs from the database.
+    \nReturned value: A character vector containing entry IDs from the
+    database. An empty vector for a remote database may mean that the database
+    does not support requesting for entry accessions.
     "
 
     ids <- character()
@@ -259,9 +264,10 @@ getEntryIds=function(max.results=NA_integer_, ...) {
         || length(ids) < max.results) {
         mx <- if (is.null(max.results)) NA_integer_ else max.results
         db.ids <- .self$.doGetEntryIds(mx, ...)
-        db.ids <- as.character(db.ids)
-        if ( ! is.null(db.ids))
+        if ( ! is.null(db.ids)) {
+            db.ids <- as.character(db.ids)
             ids <- c(ids, db.ids[ ! db.ids %in% ids])
+        }
     }
 
     # Cut

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbCompounddbConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' An interface for all compound databases.
 #'
 #' This interface is inherited by all compound databases. It declares
@@ -17,8 +9,11 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
 #' # Get the connector of a compound database
-#' conn <- mybiodb$getFactory()$createConn('chebi')
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Search for compounds
 #' conn$searchCompound(name='prion protein', max.results=10)
@@ -32,22 +27,13 @@
 BiodbCompounddbConn <- methods::setRefClass("BiodbCompounddbConn",
     contains="BiodbConn",
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbCompounddbConn')
 },
-
-# Search compound {{{3
-################################################################################
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
                         mass.tol=0.01, mass.tol.unit='plain',
@@ -72,9 +58,6 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 
     return(ids)
 },
-
-# Annotate M/Z values {{{3
-################################################################################
 
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
                           mass.field='monoisotopic.mass',
@@ -202,12 +185,6 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
     return(ret)
 },
-
-# Private methods {{{2
-################################################################################
-
-# Check mass field {{{3
-################################################################################
 
 .checkMassField=function(mass, mass.field) {
 

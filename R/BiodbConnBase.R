@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbConnBase {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Base class of \code{BiodbConn} for encapsulating all needed information for
 #' database access.
 #'
@@ -23,8 +15,8 @@
 #' other: Another object inheriting from \code{BiodbBaseConn}, and
 #'        from which property values will be copied.
 #'
-#' db.class: The class of the database (\code{"mass.csv.file", "chebi",
-#'           ...}).
+#' db.class: The class of the database (\code{"mass.csv.file"},
+#'           \code{"comp.csv.file"}, ...).
 #'
 #' properties: Some properties to set at initialization.
 #'
@@ -33,25 +25,21 @@
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
-#' 
+#'
 #' # Accessing BiodbConnBase methods when using a BiodbDbInfo object
-#' dbinf <- mybiodb$getDbsInfo()$get('chebi')
+#' dbinf <- mybiodb$getDbsInfo()$get('comp.csv.file')
 #'
 #' # Test if a property exists
-#' dbinf$hasProp('token')
+#' dbinf$hasProp('name')
 #'
 #' # Get a property value
 #' dbinf$getPropertyValue('name')
-#'
-#' # Set a property value
-#' dbinf$setPropertyValue('token', 'MyTokenValue')
 #'
 #' # Get a property value slot
 #' dbinf$getPropValSlot('urls', 'base.url')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
-#' mybiodb <- NULL
 #'
 #' @import methods
 #' @include BiodbChildObject.R
@@ -66,13 +54,7 @@ BiodbConnBase <- methods::setRefClass("BiodbConnBase",
         .prop='list',
         .run.hooks='character'),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
@@ -101,9 +83,6 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
     .self$.defineProperties(other, properties)
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nPrints the values of the properties of this connector.
     \nReturned value: None.
@@ -128,9 +107,6 @@ show=function() {
     cat(msg)
 },
 
-# Has property {{{3
-################################################################################
-
 hasProp=function(name) {
     ":\n\nTests if this connector has a property.
     \nname: The name of the property to check.
@@ -141,9 +117,6 @@ hasProp=function(name) {
 
     return (name %in% names(.self$.prop))
 },
-
-# Has property slot {{{3
-################################################################################
 
 hasPropSlot=function(name, slot) {
     ":\n\nTests if a slot property has a specific slot.
@@ -157,9 +130,6 @@ hasPropSlot=function(name, slot) {
     return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
 },
 
-# Property exists {{{3
-################################################################################
-
 propExists=function(name) {
     ":\n\nChecks if property exists.
     \nname: The name of a property.
@@ -169,9 +139,6 @@ propExists=function(name) {
     return(.self$.checkProperty(name, fail=FALSE))
 },
 
-# Is slot property {{{3
-################################################################################
-
 isSlotProp=function(name) {
     ":\n\nTests if a property is a slot property.
     \nname: The name of a property.
@@ -180,9 +147,6 @@ isSlotProp=function(name) {
 
     return(.self$.checkProperty(name, slot=TRUE, fail=FALSE))
 },
-
-# Get property value slot {{{3
-################################################################################
 
 getPropValSlot=function(name, slot) {
     ":\n\nRetrieve the value of a slot of a property.
@@ -203,9 +167,6 @@ getPropValSlot=function(name, slot) {
 
     return(value)
 },
-
-# Update properties definition {{{3
-################################################################################
 
 updatePropertiesDefinition=function(def) {
     ":\n\nUpdate the definition of properties.
@@ -232,18 +193,12 @@ updatePropertiesDefinition=function(def) {
     }
 },
 
-# Define parsing expressions {{{3
-################################################################################
-
 defineParsingExpressions=function() {
     ":\n\nReimplement this method in your connector class to define parsing
     expressions dynamically.
     \nReturned value: None.
     "
 },
-
-# Get entry file extension {{{3
-################################################################################
 
 getEntryFileExt=function() {
     ":\n\nReturns the entry file extension used by this connector.
@@ -258,9 +213,6 @@ getEntryFileExt=function() {
     return(ext)
 },
 
-# Get database class {{{3
-################################################################################
-
 getDbClass=function() {
     ":\n\nGets the Biodb name of the database associated with this connector.
     \nReturned value: A character value containing the Biodb database name.
@@ -268,9 +220,6 @@ getDbClass=function() {
 
     return(.self$.db.class)
 },
-
-# Get connector class name {{{3
-################################################################################
 
 getConnClassName=function() {
     ":\n\nGets the name of the associated connector OOP class.
@@ -284,9 +233,6 @@ getConnClassName=function() {
     return(conn.class.name)
 },
 
-# Get connector class {{{3
-################################################################################
-
 getConnClass=function() {
     ":\n\nGets the associated connector OOP class.
     \nReturned value: Returns the connector OOP class.
@@ -298,9 +244,6 @@ getConnClass=function() {
 
     return(get(.self$getConnClassName()))
 },
-
-# Get entry class name {{{3
-################################################################################
 
 getEntryClassName=function() {
     ":\n\nGets the name of the associated entry class.
@@ -314,9 +257,6 @@ getEntryClassName=function() {
     return(entry.class.name)
 },
 
-# Get entry class {{{3
-################################################################################
-
 getEntryClass=function() {
     ":\n\nGets the associated entry class.
     \nReturned value: Returns the associated entry class.
@@ -329,9 +269,6 @@ getEntryClass=function() {
     return(get(.self$getEntryClassName()))
 },
 
-# Get entry ID field {{{3
-################################################################################
-
 getEntryIdField=function() {
     ":\n\nGets the name of the corresponding database ID field in entries.
     \nReturned value: Returns the name of the database ID field.
@@ -339,9 +276,6 @@ getEntryIdField=function() {
 
     return(paste(.self$.db.class, 'id', sep='.'))
 },
-
-# Get property value {{{3
-################################################################################
 
 getPropertyValue=function(name) {
     ":\n\nGets a property value.
@@ -366,9 +300,6 @@ getPropertyValue=function(name) {
 
     return(value)
 },
-
-# Set property value {{{3
-################################################################################
 
 setPropertyValue=function(name, value) {
     ":\n\nSets the value of a property.
@@ -399,9 +330,6 @@ setPropertyValue=function(name, value) {
             obs$connUrlsUpdated(.self)
 },
 
-# Set property value slot {{{3
-################################################################################
-
 setPropValSlot=function(name, slot, value) {
     ":\n\nSet the value of the slot of a property.
     \nname: The name of the property.
@@ -422,12 +350,6 @@ setPropValSlot=function(name, slot, value) {
     .self$setPropertyValue(name, curval)
 },
 
-# Private methods {{{2
-################################################################################
-
-# Terminate {{{3
-################################################################################
-
 .terminate=function() {
 
     # Notify observers
@@ -438,14 +360,8 @@ setPropValSlot=function(name, slot, value) {
     .self$.doTerminate()
 },
 
-# Do terminate {{{3
-################################################################################
-
 .doTerminate=function() {
 },
-
-# Register observer {{{3
-################################################################################
 
 .registerObserver=function(obs) {
 
@@ -460,9 +376,6 @@ setPropValSlot=function(name, slot, value) {
     else
         .self$.observers <- c(.self$.observers, obs)
 },
-
-# Unregister observer {{{3
-################################################################################
 
 .unregisterObserver=function(obs) {
 
@@ -480,9 +393,6 @@ setPropValSlot=function(name, slot, value) {
     else
         .self$.observers <- .self$.observers[ ! found.obs ]
 },
-
-# Check property {{{3
-################################################################################
 
 .checkProperty=function(name, slot=NULL, fail=TRUE) {
 
@@ -519,9 +429,6 @@ setPropValSlot=function(name, slot, value) {
 
     return(if (fail) invisible() else TRUE)
 },
-
-# Check property value {{{3
-################################################################################
 
 .chkPropVal=function(name, value) {
 
@@ -565,9 +472,6 @@ setPropValSlot=function(name, slot, value) {
     return(value)
 },
 
-# Define properties {{{3
-################################################################################
-
 .defineProperties=function(other, properties) {
 
     # Set list of property definitions
@@ -594,18 +498,12 @@ setPropValSlot=function(name, slot, value) {
             .self$.prop[[p]] <- .self$.chkPropVal(p, properties[[p]])
 },
 
-# Reset propertyValues {{{3
-################################################################################
-
 .resetPropertyValues=function() {
 
     .self$.prop <- list()
     for (p in names(.self$.prop.def))
         .self$setPropertyValue(p, .self$.prop.def[[p]]$default)
 },
-
-# Get full list of property definitions {{{3
-################################################################################
 
 .getFullPropDefList=function() {
 
@@ -652,15 +550,9 @@ setPropValSlot=function(name, slot, value) {
     return(prop.def)
 },
 
-# Check setting of URL {{{3
-################################################################################
-
 .checkSettingOfUrl=function(key, value) {
     # Accept setting by default
 },
-
-# Get class name prefix {{{3
-################################################################################
 
 .getClassNamePrefix=function() {
 
@@ -677,12 +569,6 @@ setPropValSlot=function(name, slot, value) {
     return(s)
 },
 
-# Deprecated methods {{{2
-################################################################################
-
-# Get base URL {{{3
-################################################################################
-
 getBaseUrl=function() {
     "Returns the base URL."
 
@@ -690,9 +576,6 @@ getBaseUrl=function() {
 
     return(.self$getUrl('base.url'))
 },
-
-# Set base URL {{{3
-################################################################################
 
 setBaseUrl=function(url) {
     "Sets the base URL."
@@ -702,9 +585,6 @@ setBaseUrl=function(url) {
     .self$setUrl('base.url', url)
 },
 
-# Get web sevices URL {{{3
-################################################################################
-
 getWsUrl=function() {
     "Returns the web sevices URL."
 
@@ -712,9 +592,6 @@ getWsUrl=function() {
 
     return(.self$getUrl('ws.url'))
 },
-
-# Set web sevices URL {{{3
-################################################################################
 
 setWsUrl=function(ws.url) {
     "Sets the web sevices URL."
@@ -724,9 +601,6 @@ setWsUrl=function(ws.url) {
     .self$setUrl('ws.url', ws.url)
 },
 
-# Get token {{{3
-################################################################################
-
 getToken=function() {
     "Returns the access token."
 
@@ -734,9 +608,6 @@ getToken=function() {
 
     return(.self$getPropertyValue('token'))
 },
-
-# Set token {{{3
-################################################################################
 
 setToken=function(token) {
     "Sets the access token."
@@ -746,9 +617,6 @@ setToken=function(token) {
     .self$setPropertyValue('token', token)
 },
 
-# Get name {{{3
-################################################################################
-
 getName=function() {
     "Returns the full database name."
 
@@ -756,9 +624,6 @@ getName=function() {
 
     return(.self$getPropertyValue('name'))
 },
-
-# Get entry content type {{{3
-################################################################################
 
 getEntryContentType=function() {
     "Returns the entry content type."
@@ -768,9 +633,6 @@ getEntryContentType=function() {
     return(.self$getPropertyValue('entry.content.type'))
 },
 
-# Get scheduler N paramater {{{3
-################################################################################
-
 getSchedulerNParam=function() {
     "Returns the N parameter for the scheduler."
 
@@ -778,9 +640,6 @@ getSchedulerNParam=function() {
 
     return(.self$getPropertyValue('scheduler.n'))
 },
-
-# Set scheduler N paramater {{{3
-################################################################################
 
 setSchedulerNParam=function(n) {
     "Sets the N parameter for the scheduler."
@@ -790,9 +649,6 @@ setSchedulerNParam=function(n) {
     .self$setPropertyValue('scheduler.n', n)
 },
 
-# Get scheduler T paramater {{{3
-################################################################################
-
 getSchedulerTParam=function() {
     "Returns the T parameter for the scheduler."
 
@@ -800,9 +656,6 @@ getSchedulerTParam=function() {
 
     return(.self$getPropertyValue('scheduler.t'))
 },
-
-# Set scheduler T paramater {{{3
-################################################################################
 
 setSchedulerTParam=function(t) {
     "Sets the T parameter for the scheduler."
@@ -812,9 +665,6 @@ setSchedulerTParam=function(t) {
     .self$setPropertyValue('scheduler.t', t)
 },
 
-# Get URLs {{{3
-################################################################################
-
 getUrls=function() {
     "Returns the URLs."
 
@@ -823,9 +673,6 @@ getUrls=function() {
     return(.self$getPropertyValue('urls'))
 },
 
-# Get a URL {{{3
-################################################################################
-
 getUrl=function(name) {
     "Returns a URL."
 
@@ -833,9 +680,6 @@ getUrl=function(name) {
 
     return(.self$getPropValSlot(name='urls', slot=name))
 },
-
-# Set a URL {{{3
-################################################################################
 
 setUrl=function(name, url) {
     "Returns a URL."
@@ -847,9 +691,6 @@ setUrl=function(name, url) {
 
 #   .self$.checkSettingOfUrl(name, url)
 },
-
-# Get XML namespace {{{3
-################################################################################
 
 getXmlNs=function() {
     "Returns the XML namespace."

@@ -2,6 +2,7 @@ databases:
   chebi:
     parsing.expr:
       n_stars: //chebi:return/chebi:entityStar
+
 fields:
   n_stars:
     description: The ChEBI stars indicator.

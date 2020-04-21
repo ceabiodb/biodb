@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 
-
-# BiodbDbInfo {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for describing the characteristics of a database.
 #'
 #' This class is used by \code{\link{BiodbDbsInfo}} for storing database
@@ -18,13 +10,12 @@
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
-#' 
+#'
 #' # Get a BiodbDbInfo object for a database:
-#' mybiodb$getDbsInfo()$get('chebi')
+#' mybiodb$getDbsInfo()$get('comp.csv.file')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
-#' mybiodb <- NULL
 #'
 #' @import methods
 #' @include BiodbConnBase.R
