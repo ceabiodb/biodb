@@ -4,5 +4,6 @@
 	"formula": "C2H8AsNO3",
 	"smiles": "NCC[As](O)(O)=O",
 	"monoisotopic.mass": 168.97201,
+	"molecular.mass": 169.012,
 	"kegg.compound.id": "C07279"
 }

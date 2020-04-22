@@ -1,5 +1,4 @@
 CHEBI_FILE <- system.file("extdata", "chebi_extract.tsv", package="biodb")
-UNIPROT_FILE <- system.file("extdata", "uniprot_extract.tsv", package="biodb")
 
 # MAIN
 
