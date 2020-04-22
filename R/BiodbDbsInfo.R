@@ -11,7 +11,7 @@
 #'
 #' # Getting the entry content type of a database:
 #' db.inf <- mybiodb$getDbsInfo()$get('comp.csv.file')
-#' cont.type <- db.inf$getPropVal('entry.content.type')
+#' cont.type <- db.inf$getPropertyValue('entry.content.type')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()

@@ -14,7 +14,7 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Define ChEBI connector example
-#' defFile <- system.file("extdata", "chebi_ex_stars_field.yml", package="biodb")
+#' defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
 #' connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
 #' entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
 #' mybiodb$loadDefinitions(defFile)

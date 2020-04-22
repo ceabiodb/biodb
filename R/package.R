@@ -71,7 +71,7 @@
 #' the factory instance. Here is an example with a compound CSV file database:
 #' ```
 #' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
-#' conn <- mybiodb$getFactory()$getConn('comp.csv.file', url=chebi.tsv)
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #' ```
 #'
 #' Then the connector allows you to send requests to the database
@@ -119,7 +119,7 @@
 #'
 #' # Get a connector
 #' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
-#' conn <- mybiodb$getFactory()$getConn('comp.csv.file', url=chebi.tsv)
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Get an entry
 #' entry <- conn$getEntry('1018')

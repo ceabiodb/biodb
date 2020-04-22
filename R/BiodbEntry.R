@@ -35,7 +35,7 @@
 #'
 #' # Test if a field is defined:
 #' if (entry$hasField('name'))
-#'   print(paste('The entry's name is ', entry$getFieldValue('name'),
+#'   print(paste("The entry's name is ", entry$getFieldValue('name'),
 #'   '.', sep=''))
 #'
 #' # Export an entry as a data frame:
