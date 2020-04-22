@@ -244,6 +244,34 @@ getAliases=function() {
     return(aliases)
 },
 
+addAlias=function(alias) {
+    ":\n\nAdds an alias to the list of aliases. 
+    \nalias: The name of a valid alias.
+    \nReturned value: None.
+    "
+
+    if ( ! alias %in% .self$.alias) {
+        
+        # Check that alias does not already exist
+        if (.self$getParent()$isAlias(alias))
+            .self$error("Alias ", alias, " already exists.")
+
+        # Add alias
+        if ( ! alias %in% .self$.alias)
+            .self$.alias <- c(.self$.alias, alias)
+    }
+},
+
+removeAlias=function(alias) {
+    ":\n\nRemoves an alias from the list of aliases. 
+    \nalias: The name of a valid alias.
+    \nReturned value: None.
+    "
+    
+    if (alias %in% .self$.alias)
+        .self$.alias <- .self$.alias[.self$.alias != alias]
+},
+
 getAllNames=function() {
     ":\n\nGets all names.
     \nReturned value: The list of all names (main name and aliases).
@@ -274,12 +302,51 @@ getDataFrameGroup=function() {
     return(.self$dataFrameGroup)
 },
 
-getComputableFrom=function() {
+isComputableFrom=function() {
     ":\n\nGets the ID of the database from which this field can be computed.
     \nReturned value: The list of databases where to find this field's value.
     "
 
     return(.self$.computable.from)
+},
+
+addComputableFrom=function(directive) {
+    ":\n\nAdds a directive from the list of computableFrom.
+    \ndirective: A valid \"computable from\" directive.
+    \nReturned value: None.
+    "
+
+    # Has a "database" field
+    if ( ! 'database' %in% names(directive))
+        .self$error('You must specified the database for directive',
+                    ', for field "', .self$.name, '".')
+
+    # Search if the directive exists
+    for (d in .self$.computable.from) {
+        if (d$database == directive$database)
+            .self$error()
+    }
+
+    # Add the new directive
+    .self$.computable.from <- if (is.null(.self$.computable.from))
+        list(directive) else c(.self$.computable.from, directive)
+},
+
+removeComputableFrom=function(directive) {
+    ":\n\nRemoves a directive from the list of computableFrom.
+    \ndirective: A valid \"computable from\" directive.
+    \nReturned value: None.
+    "
+
+    # Search for directive
+    n <- 0
+    for (d in .self$.computable.from) {
+        n <- n + 1
+        if (d$database == directive$database) {
+            .self$.computable.from[n] <- NULL
+            break
+        }
+    }
 },
 
 correctValue=function(value) {
@@ -507,18 +574,21 @@ isVector=function() {
     return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 },
 
-equals=function(other) {
+equals=function(other, fail=FALSE) {
     ":\n\nCompares this instance with another, and tests if they are equal.
     \nother: Another BiodbEntryField instance.
+    \nfail: If set to TRUE, then throws error instead of returning FALSE.
     \nReturned value: TRUE if they are equal, FALSE otherwise.
     "
+
+    if ( ! methods::is(other, "BiodbEntryField"))
+        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
 
     eq <- TRUE
 
     # Fields to test
-    fields <- c('name', 'type', 'class', 'cardinality',
-                'forbids.duplicates', 'description', 'alias', 'allowed.values',
-                'lower.case', 'case.insensitive', 'computable.from')
+    fields <- c('name', 'type', 'class', 'cardinality', 'forbids.duplicates',
+                'allowed.values', 'lower.case', 'case.insensitive')
 
     # Loop on all fields
     for (f in fields) {
@@ -532,7 +602,32 @@ equals=function(other) {
         }
     }
 
+    if (fail && ! eq)
+        .self$error("Field \"", other[['name']], "\" has already been defined.")
+
     return(eq)
+},
+
+updateWithValuesFrom=function(other) {
+    ":\n\nUpdates fields using values from `other` instance. The updated fields
+    are: 'alias' and 'computable.from'. No values will be removed from those
+    vectors. The new values will only be appended. This allows to extend an
+    existing field inside a new connector definition.
+    \nother: Another BiodbEntryField instance.
+    \nReturned value: None.
+    "
+
+    if ( ! methods::is(other, "BiodbEntryField"))
+        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
+
+    # Update fields
+    for (a in other$.alias)
+        .self$addAlias(a)
+    if ( ! is.null(other$.computable.from))
+        for (directive in other$.computable.from)
+            .self$addComputableFrom(directive)
+
+    invisible(NULL)
 },
 
 show=function() {

@@ -487,7 +487,7 @@ parseContent=function(content) {
     if ( ! .self$hasField(field) && ef$isComputable()) {
 
         # Loop on all computing directives
-        for (directive in ef$getComputableFrom()) {
+        for (directive in ef$isComputableFrom()) {
 
             db <- directive$database
             value <- NULL

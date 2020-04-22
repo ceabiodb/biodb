@@ -207,14 +207,13 @@ define=function(def) {
     field <- BiodbEntryField$new(parent=.self, name=name, ...)
 
     # Is field already defined?
-    defined <- FALSE
     if (.self$isDefined(name)) {
-        defined <- TRUE
-        if ( ! .self$.fields[[name]]$equals(field))
-            .self$error("Field \"", name, "\" has already been defined.")
+       .self$.fields[[name]]$equals(field, fail=TRUE)
+       .self$.fields[[name]]$updateWithValuesFrom(field)
     }
 
-    if ( ! defined) {
+    # Register new field
+    else {
         # Register new field inside fields list
         .self$.fields[[name]] <- field
 

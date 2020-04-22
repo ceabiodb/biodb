@@ -37,8 +37,6 @@ test_createSQLiteDbFromCsvFile <- function(biodb) {
     testthat::expect_true(file.exists(MASS.SQLITE.URL))
 }
 
-# Main
-
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='masssqlite_test.log')
 

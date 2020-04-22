@@ -275,8 +275,6 @@ fields:
     - mass
     - molecular.weight
     class: double
-    computable.from:
-      - database: chebi
     description: Molecular mass (also called molecular weight), in u (unified atomic mass units) or Da (Dalton). It is computed from the atomic masses of each nuclide present in the molecule, taking into account the various possible isotops of each atom. See https://en.wikipedia.org/wiki/Molecular_mass.
     type: mass
 
@@ -473,12 +471,8 @@ fields:
   formula:
     description: Empirical molecular formula.
   inchi:
-    computable.from:
-      - database: chebi
     description: International Chemical Identifier (InChI).
   inchikey:
-    computable.from:
-      - database: chebi
     description: Hash key of the International Chemical Identifier (InChIKey).
   logp:
     class: double
