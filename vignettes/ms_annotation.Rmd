@@ -36,9 +36,10 @@ mzdf <- data.frame(mz=c(282.083871, 283.0623, 346.0546, 821.3964),
 
 # Annotation using a chemical database
 
-We will use the ChEBI database for this example:
-```{r Create a connector for ChEBI}
-chebi <- mybiodb$getFactory()$getConn('chebi')
+We will use an extract from the ChEBI database for this example:
+```{r}
+chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+chebi <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 ```
 
 Annotation is done using the `annotateMzValues()` method, which is a general method. It is thus available for all compound databases that allow search on masses.
