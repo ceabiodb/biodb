@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbDbsInfo {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for describing the available databases.
 #'
 #' The unique instance of this class is handle by the \code{\link{Biodb}} class
@@ -14,10 +6,12 @@
 #' @seealso \code{\link{Biodb}} and child class \code{\link{BiodbDbInfo}}.
 #'
 #' @examples
-#' # Getting the base URL of a database:
+#' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
-#' chebi.base.url <- mybiodb$getDbsInfo()$get('chebi')$getPropValSlot('urls',
-#' 'base.url')
+#'
+#' # Getting the entry content type of a database:
+#' db.inf <- mybiodb$getDbsInfo()$get('comp.csv.file')
+#' cont.type <- db.inf$getPropertyValue('entry.content.type')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -33,13 +27,7 @@ BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
         .dbs="list"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -47,9 +35,6 @@ initialize=function(...) {
 
     .self$.dbs <- list()
 },
-
-# Define {{{3
-################################################################################
 
 define=function(def, package='biodb') {
     ":\n\nDefine databases from a structured object, normally loaded from a YAML
@@ -77,9 +62,6 @@ define=function(def, package='biodb') {
     }
 },
 
-# Get list of database IDs {{{3
-################################################################################
-
 getIds=function() {
     ":\n\nGets the database IDs.
     \nReturned value: A character vector containing all the IDs of the defined
@@ -88,9 +70,6 @@ getIds=function() {
 
     return(names(.self$.dbs))
 },
-
-# Is defined {{{3
-################################################################################
 
 isDefined=function(db.id) {
     ":\n\nTests if a database is defined.
@@ -102,9 +81,6 @@ isDefined=function(db.id) {
     return(db.id %in% names(.self$.dbs))
 },
 
-# Check is defined {{{3
-################################################################################
-
 checkIsDefined=function(db.id) {
     ":\n\nChecks if a database is defined. Throws an error if the specified id
     does not correspond to a defined database.
@@ -115,9 +91,6 @@ checkIsDefined=function(db.id) {
     if ( ! .self$isDefined(db.id))
         .self$error("Database \"", db.id, "\" is not defined.")
 },
-
-# Get {{{3
-################################################################################
 
 get=function(db.id) {
     ":\n\nGets information on a database.
@@ -131,18 +104,12 @@ get=function(db.id) {
     return(db)
 },
 
-# Get all {{{3
-################################################################################
-
 getAll=function() {
     ":\n\nGets informations on all databases.
     \nReturned value: A list of all BiodbDbInfo instances."
 
     return(unname(.self$.dbs))
 },
-
-# Show {{{3
-################################################################################
 
 show=function() {
     ":\n\nPrints informations about this instance, listing also all databases

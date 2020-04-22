@@ -25,9 +25,7 @@
 #' request <- BiodbRequest(method='get', url=url)
 #'
 #' # Send request
-#' \dontrun{
 #' sched$sendRequest(request)
-#' }
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -233,8 +231,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     }
 },
 
-
-.findRule=function(url, fail=TRUE) {
+.findRule=function(url, create=TRUE) {
 
     .self$.assertNotNull(url)
     if ( ! is(url, 'BiodbUrl')) {
@@ -245,8 +242,12 @@ connSchedulerFrequencyUpdated=function(conn) {
     domain <- url$getDomain()
 
     # Rule does not exist
-    if (fail && ! domain %in% names(.self$.host2rule))
-        .self$error('No rule exists for domain "', domain, '".')
+    if (create && ! domain %in% names(.self$.host2rule)) {
+        .self$info('No rule exists for domain "', domain,
+                   '". Creating a default one.')
+        rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
+        .self$.host2rule[[domain]] <- rule
+    }
 
     return(.self$.host2rule[[domain]])
 },
@@ -259,15 +260,15 @@ connSchedulerFrequencyUpdated=function(conn) {
     for (url in conn$getPropertyValue('urls')) {
 
         # Check if a rule already exists
-        rule <- .self$.findRule(url, fail=FALSE)
+        rule <- .self$.findRule(url, create=FALSE)
 
         # No rule exists => create new one
         if (is.null(rule)) {
             host <- BiodbUrl(url=url)$getDomain()
             .self$debug('Create new rule for URL "', host,'" of connector "',
                         conn$getId(), '".')
-            rule <- BiodbRequestSchedulerRule$new(parent=.self, host=host,
-                                                  conn=conn)
+            rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
+                                              conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
         }
 

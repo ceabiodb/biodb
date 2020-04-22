@@ -16,8 +16,14 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
 #' # Get a connector instance:
-#' conn <- mybiodb$getFactory()$createConn('chebi')
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
+#'
+#' # Get all entries
+#' entries <- conn$getEntry(conn$getEntryIds())
 #'
 #' # Get the cache instance:
 #' cache <- mybiodb$getPersistentCache()

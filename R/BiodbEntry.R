@@ -7,7 +7,7 @@
 #' for different types of entry contents: \code{BiodbTxtEntry},
 #' \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and
 #' \code{BiodbHtmlEntry}. Then concrete classes are derived for each database:
-#' \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no
+#' \code{CompCsvEntry}, \code{MassCsvEntry}, etc. For biodb users, there is no
 #' need to know this hierarchy; the knowledge of this class and its methods is
 #' sufficient.
 #'
@@ -18,28 +18,31 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
+#' # Get the connector of a compound database
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
+#'
 #' # Get an entry:
-#' entry <- mybiodb$getFactory()$getEntry('chebi', '1')
+#' entry <- conn$getEntry(conn$getEntryIds(1))
 #'
 #' # Get all defined fields:
 #' entry$getFieldNames()
 #'
 #' # Get a field value:
-#' smiles <- entry$getFieldValue('smiles')
+#' accession <- entry$getFieldValue('accession')
 #'
 #' # Test if a field is defined:
-#' if (entry$hasField('charge'))
-#'   print(paste('The entry has a charge of ', entry$getFieldValue('charge'),
+#' if (entry$hasField('name'))
+#'   print(paste("The entry's name is ", entry$getFieldValue('name'),
 #'   '.', sep=''))
 #'
 #' # Export an entry as a data frame:
 #' df <- entry$getFieldsAsDataframe()
 #'
-#' # Even if you may not do it, you can set a field's value yourselves:
+#' # You can set or reset a field's value:
 #' entry$setFieldValue('mass', 1893.1883)
-#'
-#' # Or even add a new field:
-#' entry$setFieldValue('chemspider.id', '388394')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -484,7 +487,7 @@ parseContent=function(content) {
     if ( ! .self$hasField(field) && ef$isComputable()) {
 
         # Loop on all computing directives
-        for (directive in ef$getComputableFrom()) {
+        for (directive in ef$isComputableFrom()) {
 
             db <- directive$database
             value <- NULL

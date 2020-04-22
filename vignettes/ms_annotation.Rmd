@@ -36,9 +36,10 @@ mzdf <- data.frame(mz=c(282.083871, 283.0623, 346.0546, 821.3964),
 
 # Annotation using a chemical database
 
-We will use the ChEBI database for this example:
-```{r Create a connector for ChEBI}
-chebi <- mybiodb$getFactory()$getConn('chebi')
+We will use an extract from the ChEBI database for this example:
+```{r}
+chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+chebi <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 ```
 
 Annotation is done using the `annotateMzValues()` method, which is a general method. It is thus available for all compound databases that allow search on masses.
@@ -69,20 +70,20 @@ Annotation is also possible using an LCMS database.
 
 For this example we use an in-house database saved as a TSV file:
 ```{r Instantiate an in-house LCMS database}
-lcmsdb <- system.file("extdata", "lcmsdb.tsv", package="biodb")
-inhouse <- mybiodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
+lcmsdb <- system.file("extdata", "massbank_extract.tsv", package="biodb")
+massbank <- mybiodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
 ```
 The database file was built using Massbank data. The accession numbers correspond to real Massbank entries.
 
 Now that the database is loaded, we define some missing fields (MS level and RT unit):
 ```{r Set missing fields on database}
-inhouse$addField('ms.level', 1)
-inhouse$addField('chrom.rt.unit', 's')
+massbank$addField('ms.level', 1)
+massbank$addField('chrom.rt.unit', 's')
 ```
 
 We will now annotate our M/Z peaks, selecting a set of fields from the database to write in the output data frame:
 ```{r Annotate M/Z values with an in-house LCMS database}
-inhouse$searchMsPeaks(mzdf, mz.tol=1e-3, fields=c('accession', 'name', 'formula', 'chebi.id'), prefix='mydb.')
+massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=c('accession', 'name', 'formula', 'chebi.id'), prefix='mydb.')
 ```
 
 Annotation is also possible using retention times.
@@ -94,7 +95,7 @@ fields <- c('accession', 'name', 'formula', 'chebi.id', 'chrom.rt', 'chrom.col.i
 
 Finally we run the annotation on M/Z and RT values:
 ```{r Annotate using RT values}
-inhouse$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.', chrom.col.ids=chromColIds, rt.unit='s', rt.tol=10, match.rt=TRUE)
+massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.', chrom.col.ids=chromColIds, rt.unit='s', rt.tol=10, match.rt=TRUE)
 ```
 
 For more details on the `searchMsPeaks()` method, please this the help page of `BiodbMassdbConn`.

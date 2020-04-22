@@ -101,7 +101,7 @@ doc:
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
 vignettes: clean.vignettes
-	@echo Build vignettes for already installed package, not from local soures.
+	@echo Build vignettes for already installed package, not from local sources.
 	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbRequest {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class Request.
 #'
 #' This class represents a Request object that can be used with the Request
@@ -36,13 +28,10 @@
 #' request <- BiodbRequest(method='get', url=url)
 #'
 #' # Send request
-#' \dontrun{
 #' mybiodb$getRequestScheduler()$sendRequest(request)
-#' }
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
-#' mybiodb <- NULL
 #'
 #' @import methods
 #' @import openssl
@@ -59,13 +48,7 @@ BiodbRequest <- methods::setRefClass("BiodbRequest",
         conn='ANY'
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(url, method=c('get', 'post'), header=character(),
                     body=character(), encoding=integer(), conn=NULL) {
@@ -77,9 +60,6 @@ initialize=function(url, method=c('get', 'post'), header=character(),
     .self$.encoding <- encoding
     .self$conn <- NULL
 },
-
-# Set the associated connector {{{3
-################################################################################
 
 setConn=function(conn) {
     ":\n\nSets the associated connector (usually the connector that created this
@@ -96,9 +76,6 @@ setConn=function(conn) {
     invisible(NULL)
 },
 
-# Get the associated connector {{{3
-################################################################################
-
 getConn=function() {
     ":\n\ngets the associated connector (usually the connector that created this
     request).
@@ -108,9 +85,6 @@ getConn=function() {
     return(.self$conn)
 },
 
-# Get URL {{{3
-################################################################################
-
 getUrl=function() {
     ":\n\nGets the URL.
     \nReturned value: The URL as a BiodbUrl object.
@@ -118,9 +92,6 @@ getUrl=function() {
 
     return(.self$.url)
 },
-
-# Get method {{{3
-################################################################################
 
 getMethod=function() {
     ":\n\nGets the method.
@@ -130,9 +101,6 @@ getMethod=function() {
     return(.self$.method)
 },
 
-# Get encoding {{{3
-################################################################################
-
 getEncoding=function() {
     ":\n\nGets the encoding. 
     \nReturned value: The encoding.
@@ -140,9 +108,6 @@ getEncoding=function() {
 
     return(.self$.encoding)
 },
-
-# Get Curl options {{{3
-################################################################################
 
 getCurlOptions=function(useragent) {
     ":\n\nGets the options object to pass to cURL library.
@@ -163,9 +128,6 @@ getCurlOptions=function(useragent) {
     return(opts)
 },
 
-# Get unique key {{{3
-################################################################################
-
 getUniqueKey=function() {
     ":\n\nGets a unique key to identify this request. The key is an MD5 sum
     computed from the string representation of this request.
@@ -176,9 +138,6 @@ getUniqueKey=function() {
 
     return(key)
 },
-
-# Get header as single string {{{3
-################################################################################
 
 getHeaderAsSingleString=function() {
     ":\n\nGets the HTTP header as a string, concatenating all its information
@@ -197,30 +156,21 @@ getHeaderAsSingleString=function() {
     return(s)
 },
 
-# Get body {{{3
-################################################################################
-
 getBody=function() {
     ":\n\nGets the body.
     \nReturned values: The body as a character value.
     "
-    
+
     return(.self$.body)
 },
-
-# Show {{{3
-################################################################################
 
 show=function() {
     ":\n\nDisplays information about this instance.
     \nReturned value: None.
     "
-    
+
     cat("Biodb request object on ", .self$.url$toString(), "\n", sep='')
 },
-
-# To string {{{3
-################################################################################
 
 toString=function() {
     ":\n\nGets a string representation of this instance.

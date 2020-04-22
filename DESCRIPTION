@@ -78,8 +78,6 @@ Collate:
     'BiodbSqlValue.R'
     'BiodbWarningReporter.R'
     'BiodbWritable.R'
-    'ChebiConn.R'
-    'ChebiEntry.R'
     'CsvFileConn.R'
     'CompCsvFileConn.R'
     'CompCsvFileEntry.R'

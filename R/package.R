@@ -68,16 +68,17 @@
 #' # Getting a database connector
 #'
 #' To access a database you need a connector that you obtain from
-#' the factory instance. Here is an example with ChEBI:
+#' the factory instance. Here is an example with a compound CSV file database:
 #' ```
-#' chebi <- mybiodb$getFactory()$getConn('chebi')
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #' ```
 #'
 #' Then the connector allows you to send requests to the database
 #' to retrieve entries directly or run more complex queries:
 #' ```
-#' chebi$getEntry('15440')
-#' chebi$convInchiToChebi('InChI=1S/CH4/h1H4')
+#' conn$getEntry('1018')
+#' conn$searchCompound(mass=136.05, mass.field='monoisotopic.mass')
 #' ```
 #'
 #' # Biodb messages
@@ -116,11 +117,12 @@
 #' # Get the factory instance
 #' fact <- mybiodb$getFactory()
 #'
-#' # Get a ChEBI connector
-#' chebi <- fact$getConn('chebi')
+#' # Get a connector
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Get an entry
-#' entry <- chebi$getEntry('15440')
+#' entry <- conn$getEntry('1018')
 #'
 #' # Get a list of available fields for this entry
 #' entry$getFieldNames()

@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbRemotedbConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The mother class of all remote database connectors.
 #'
 #' This is the super class of remote database connectors. It thus defines
@@ -21,8 +13,16 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Define ChEBI connector example
+#' defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+#' connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+#' entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+#' mybiodb$loadDefinitions(defFile)
+#' source(connFile)
+#' source(entryFile)
+#'
 #' # Get connector
-#' conn <- mybiodb$getFactory()$createConn('chebi')
+#' conn <- mybiodb$getFactory()$createConn('chebi.ex')
 #'
 #' # Get the picture URL of an entry
 #' picture.url <- conn$getEntryImageUrl('15440')
@@ -41,13 +41,7 @@
 BiodbRemotedbConn <- methods::setRefClass("BiodbRemotedbConn",
     contains="BiodbConn",
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -58,17 +52,11 @@ initialize=function(...) {
     .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 },
 
-# Get entry content from database {{{3
-################################################################################
-
 getEntryContentFromDb=function(entry.id) {
     # Overrides super class' method.
 
     return(.self$.doGetEntryContentOneByOne(entry.id))
 },
-
-# Get entry content request {{{3
-################################################################################
 
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
     ":\n\nGets the URL to use in order to get the contents of the specified
@@ -123,9 +111,6 @@ possible, sending requests with several identifiers at once.
     return(urls)
 },
 
-# Get entry image url {{{3
-################################################################################
-
 getEntryImageUrl=function(entry.id) {
     ":\n\nGets the URL to a picture of the entry (e.g.: a picture of the
     molecule in case of a compound entry).
@@ -137,9 +122,6 @@ getEntryImageUrl=function(entry.id) {
     return(rep(NA_character_, length(entry.id)))
 },
 
-# Get entry page url {{{3
-################################################################################
-
 getEntryPageUrl=function(entry.id) {
     ":\n\nGets the URL to the page of the entry on the database web site.
     \nentry.id: A character vector with the IDs of entries to retrieve.
@@ -149,24 +131,12 @@ getEntryPageUrl=function(entry.id) {
     .self$.abstractMethod()
 },
 
-# Private methods {{{2
-################################################################################
-
-# Set request scheduler rules {{{3
-################################################################################
-
 .setRequestSchedulerRules=function() {
 },
-
-# Do get entry content request {{{3
-################################################################################
 
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
     .self$.abstractMethod()
 },
-
-# Do get entry content one by one {{{3
-################################################################################
 
 .doGetEntryContentOneByOne=function(entry.id) {
 
@@ -198,9 +168,6 @@ getEntryPageUrl=function(entry.id) {
 
     return(content)
 },
-
-# Terminate {{{3
-################################################################################
 
 .terminate=function() {
 

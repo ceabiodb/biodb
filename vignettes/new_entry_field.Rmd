@@ -20,6 +20,9 @@ output:
 
 # Introduction
 
+<!-- TODO Or use a compound csv database with new unknown column for which to add field? -->
+<!-- TODO And use ChebiEx after. -->
+
 For practical reasons, in biodb, when a connector is created we do not implement the parsing of all available data. Thus it may happen that one particular data that you see in entries on the database website, is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
 
 In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
@@ -29,14 +32,32 @@ First we instantiate the package:
 mybiodb <- biodb::Biodb$new()
 ```
 
-# Get a connector
+## Adding a new field for a CSV file database
 
-For the example, we will use a connector to the ChEBI database:
+## Adding a new field for a remote database
+
+In this section we will use the ChEBI connector example from the "Creating a new connector" vignette.
+
+First we get the ChebiEx connector files:
 ```{r}
-conn <- mybiodb$getFactory()$getConn('chebi')
+defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
 ```
 
-# Look at the fields already parsed
+And we load the definition file as well as the classes:
+```{r}
+mybiodb$loadDefinitions(defFile)
+source(connFile)
+source(entryFile)
+```
+
+We can then create a connector to the ChEBI database:
+```{r}
+conn <- mybiodb$getFactory()$getConn('chebi.ex')
+```
+
+### Look at the fields already parsed
 
 The expressions for parsing entry fields are stored inside the `parsing.expr` property:
 ```{r}
@@ -44,7 +65,7 @@ conn$getPropertyValue('parsing.expr')
 ```
 The expressions are in a format called XPath that is used to describe a search into XML.
 
-# Look at the entry content
+### Look at the entry content
 
 We want to get the field `n_stars`, which indicates the number of stars, synonymous of quality, of a chemical entity. The first thing to know is understand how it is stored by ChEBI. For this we need to look at the entry content, which is in XML.
 
@@ -60,11 +81,11 @@ You can then open the file inside your preferred application.
 
 Now we need to look for the information we want to extract, which is the `n_stars` indicator, and we see in the content that there is a tag `entityStar` that contains the information we want: `<entityStar>3</entityStar>`.
 
-# Create the new field and its parsing expression
+### Create the new field and its parsing expression
 
 We have defined the new `n_stars` field and its parsing expression inside a YAML file:
 ```{r}
-defFile <- system.file("extdata", "new_entry_field.yml", package="biodb")
+defFile <- system.file("extdata", "chebi_ex_stars_field.yml", package="biodb")
 ```
 Here is its content:
 ```{r}
@@ -85,9 +106,9 @@ mybiodb$getEntryFields()$get('n_stars')
 And delete the current connector for recreating a new one just after:
 ```{r}
 mybiodb$getFactory()$deleteConn(conn$getId())
-conn <- mybiodb$getFactory()$getConn('chebi')
+conn <- mybiodb$getFactory()$getConn('chebi.ex')
 ```
-This allows the new connector to have new parsing expression registered, as we check it here:
+This allows the new connector to have the new parsing expression registered, as we check it here:
 ```{r}
 conn$getPropertyValue('parsing.expr')
 ```

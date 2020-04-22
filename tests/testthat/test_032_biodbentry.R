@@ -49,10 +49,8 @@ test.getFieldValue <- function(biodb) {
     testthat::expect_identical(e$getFieldValue('peak.mztheo', limit=2), mz[1:2])
 }
 
-# Main
-
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodbentry_test.log')
+biodb <- biodb::createBiodbTestInstance(log='entry_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test BiodbEntry.")
