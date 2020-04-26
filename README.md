@@ -23,6 +23,28 @@ With *biodb* you can:
 
 ## Examples
 
+### Getting entries from a remote database
+
+Here is an example on how to retrieve entries from ChEBI database and get a data frames of them (you must first install both *biodb* and *biodbChebi* packages):
+```r
+bdb <- biodb::Biodb()
+chebi <- bdb$getFactory()$createConn('chebi')
+entries <- chebi$getEntry(c('2528', '7799', '15440'))
+bdb$entriesToDataframe(entries)
+```
+
+## Installation
+
+The package is currently in submission to BioConductor.
+
+In the meantime you can install the latest stable version with:
+```r
+devtools::install_github('pkrog/biodb', dependencies=TRUE, build_vignettes=FALSE)
+```
+
+### Installation with bioconda
+
+**biodb** is part of [bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using conda. This means also that it is possible to install it automatically in Galaxy, for a tool, if the conda system is enabled.
 
 ## Databases and fields accesible with biodb
 
@@ -32,12 +54,17 @@ The *biodb* package contains the following in-house database connectors:
  * Mass CSV File (an in-house database stored inside a CSV file).
  * Mass SQLite (an in-house database stored inside an SQLite file).
 
-Alongside *biodb* you can install the following R packages that use  *biodb* for implementing connectors to online databases:
+Alongside *biodb* you can install the following R extension packages that use  *biodb* for implementing connectors to online databases:
 
  * [biodbChebi](https://github.com/pkrog/biodbChebi) for accessing the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
  * [biodbHmdb](https://github.com/pkrog/biodbHmdb) for accessing the [HMDB](http://www.hmdb.ca/) database.
  * [biodbKegg](https://github.com/pkrog/biodbKegg) for accessing the [KEGG](https://www.kegg.jp/) databases.
  * [biodbUniprot](https://github.com/pkrog/biodbUniprot) for accessing the [Uniprot](https://www.uniprot.org/) database.
+
+Installation of one of those extension packages can be done with the following command (replace 'biodbKegg' with the name of the wanted package):
+```r
+devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
+```
 
 Here are some of the fields accessible through the retrieved entries:
 
@@ -68,22 +95,6 @@ Here are some of the fields accessible through the retrieved entries:
  * Chromatographic retention time.
  * Chromatographic retention time unit.
 
-## Installation
-
-This development branch `dev_0.99` contains the latest developments. Its aim is the submission of the package to BioConductor.
-You can install it with:
-```r
-devtools::install_github('pkrog/biodb', ref='dev_0.99', dependencies=TRUE, build_vignettes=FALSE)
-```
-In this version, connectors to web databases have been moved to separate repositories. You must thus install them separately. Here is an example for KEGG:
-```r
-devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
-```
-
-### Installation with bioconda
-
-**biodb** is part of [bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using conda. This means also that it is possible to install it automatically in Galaxy, for a tool, if the conda system is enabled.
-
 ## Documentation
 
 Once in R, you can get an introduction to the package with:
@@ -91,12 +102,10 @@ Once in R, you can get an introduction to the package with:
 ?biodb
 ```
 
-Then each class has its documentation. For instance, to get help about `ChebiConn` class:
+Then each class has its own documentation. For instance, to get help about the `BiodbFactory` class:
 ```r
-?biodb::ChebiConn
+?biodb::BiodbFactory
 ```
-
-Some of the classes you can get help about are: `Biodb`, `BiodbFactory`, `BiodbConfig`, `BiodbPersistentCache`, `BiodbDbsInfo`, `BiodbEntryFields`, `BiodbObserver`, `BiodbConn`, `BiodbEntry`, `MassdbConn`, `RemotedbConn`, `ChebiConn`, `MassCsvFileConn`, `MassSqliteConn`.
 
 Several vignettes are also available. To get a list of them run:
 ```r
@@ -105,7 +114,7 @@ vignette(package='biodb')
 
 To open a vignette in a browser, use its name:
 ```r
-vignette('init', package='biodb')
+vignette('new_connector', package='biodb')
 ```
 
 ## Contributing
