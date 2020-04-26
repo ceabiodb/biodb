@@ -106,11 +106,3 @@ vignette('init', package='biodb')
 If you wish to contribute to the *biodb* package, you first need to create an account under GitHub. You can then either ask to become a contributor or fork the project and submit a merge request.
 
 Debugging, enhancement or creation of a database connector or an entry parser are of course most welcome.
-
-## Citations
-
-### ChEBI
-
-<http://www.ebi.ac.uk/chebi/>
-
- * Hastings, J., de Matos, P., Dekker, A., Ennis, M., Harsha, B., Kale, N., Muthukrishnan, V., Owen, G., Turner, S., Williams, M., and Steinbeck, C. (2013) The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013. Nucleic Acids Res, <http://dx.doi.org/10.1093/nar/gks1146>.
