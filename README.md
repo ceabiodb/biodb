@@ -26,11 +26,18 @@ With *biodb* you can:
 
 ## Databases and fields accesible with biodb
 
-*biodb* contains the following database connectors:
+The *biodb* package contains the following in-house database connectors:
 
- * ChEBI.
+ * Compound CSV File (an in-house database stored inside a CSV file).
  * Mass CSV File (an in-house database stored inside a CSV file).
  * Mass SQLite (an in-house database stored inside an SQLite file).
+
+Alongside *biodb* you can install the following R packages that use  *biodb* for implementing connectors to online databases:
+
+ * [biodbChebi](https://github.com/pkrog/biodbChebi) for accessing the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
+ * [biodbHmdb](https://github.com/pkrog/biodbHmdb) for accessing the [HMDB](http://www.hmdb.ca/) database.
+ * [biodbKegg](https://github.com/pkrog/biodbKegg) for accessing the [KEGG](https://www.kegg.jp/) databases.
+ * [biodbUniprot](https://github.com/pkrog/biodbUniprot) for accessing the [Uniprot](https://www.uniprot.org/) database.
 
 Here are some of the fields accessible through the retrieved entries:
 
@@ -48,7 +55,12 @@ Here are some of the fields accessible through the retrieved entries:
  * MS mode.
  * MS precursor M/Z.
  * MS precursor annotation.
- * Peak table (containing M/Z, intensity, relative intensity, attribution, composition).
+ * Peaks' M/Z values.
+ * Peaks' intensities.
+ * Peaks' relative intensities.
+ * Attributions of peaks.
+ * Compositions of peaks.
+ * Peak table.
  * Chromatographic column name.
  * Chromatographic column length.
  * Chromatographic column diameter.
@@ -67,11 +79,6 @@ In this version, connectors to web databases have been moved to separate reposit
 ```r
 devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
 ```
-
-Full list of web database repositories available:
- * biodbHmdb.
- * biodbKegg.
- * biodbUniprot.
 
 ### Installation with bioconda
 
