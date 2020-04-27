@@ -122,7 +122,7 @@ install.deps:
 install: uninstall install.local list.classes
 
 install.local: doc
-	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
+	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies=TRUE, build_manual=TRUE, build_vignettes=TRUE)"
 
 list.classes:
 	R $(RFLAGS) -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\n", sep = ""), sep = "\n")'
