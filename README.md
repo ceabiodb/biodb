@@ -7,7 +7,7 @@ An R package for connecting to chemical and biological databases.
 
 ## Introduction
 
-*biodb* is a framework for developing database connectors. It is delivered with connector examples (see next chapter).
+*biodb* is a framework for developing database connectors. It is delivered with some non-remote connectors (for CSV file or SQLite db), but the main interest of the package is to ease development of your own connectors. Some connectors are already available in other packages (e.g.: biodbChebi, biodbHmdb, biodbKegg, biodbUniprot) on GitHub or Bioconductor.
 For now, the targeted databases are the ones that store molecules, proteins, lipids and MS spectra. However other type of databases (NMR database for instance) could also be targeted.
 
 With *biodb* you can:
@@ -19,34 +19,34 @@ With *biodb* you can:
  * Rely on *biodb* to access correctly the database, respecting the published access policy (i.e.: not sending too much requests). *biodb* uses a special class for scheduling requests on each database.
  * Switch from one database to another easily (providing they offer the same type of information), not changing a line in your code. This is because entries are populated with values found from the database, using always the same keys.
  * Search for MS and MSMS spectra by peaks in Mass spectra databases.
- * Export any database into a CSV file.
-
-## Examples
-
-### Getting entries from a remote database
-
-Here is an example on how to retrieve entries from ChEBI database and get a data frames of them (you must first install both *biodb* and *biodbChebi* packages):
-```r
-bdb <- biodb::Biodb()
-chebi <- bdb$getFactory()$createConn('chebi')
-entries <- chebi$getEntry(c('2528', '7799', '15440'))
-bdb$entriesToDataframe(entries)
-```
+ * Export any database into a CSV file or record it into an SQLite file.
 
 ## Installation
 
-The package is currently in submission to BioConductor.
+The package is currently in submission to Bioconductor.
 
 In the meantime you can install the latest stable version with:
 ```r
-devtools::install_github('pkrog/biodb', dependencies=TRUE, build_vignettes=FALSE)
+devtools::install_github('pkrog/biodb', dependencies=TRUE)
 ```
 
-### Installation with bioconda
+Alongside *biodb* you can install the following R extension packages that use  *biodb* for implementing connectors to online databases:
 
-**biodb** is part of [bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using conda. This means also that it is possible to install it automatically in Galaxy, for a tool, if the conda system is enabled.
+ * [biodbChebi](https://github.com/pkrog/biodbChebi) for accessing the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
+ * [biodbHmdb](https://github.com/pkrog/biodbHmdb) for accessing the [HMDB](http://www.hmdb.ca/) database.
+ * [biodbKegg](https://github.com/pkrog/biodbKegg) for accessing the [KEGG](https://www.kegg.jp/) databases.
+ * [biodbUniprot](https://github.com/pkrog/biodbUniprot) for accessing the [UniProt](https://www.uniprot.org/) database.
 
-## Databases and fields accesible with biodb
+Installation of one of those extension packages can be done with the following command (replace 'biodbKegg' with the name of the wanted package):
+```r
+devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
+```
+
+### Installation with Bioconda
+
+**biodb** is part of [Bioconda](https://github.com/orgs/bioconda/dashboard), so you can install it using Conda. This means also that it is possible to install it automatically in Galaxy, for a tool, if the Conda system is enabled.
+
+## Databases and fields accessible with biodb
 
 The *biodb* package contains the following in-house database connectors:
 
@@ -54,19 +54,7 @@ The *biodb* package contains the following in-house database connectors:
  * Mass CSV File (an in-house database stored inside a CSV file).
  * Mass SQLite (an in-house database stored inside an SQLite file).
 
-Alongside *biodb* you can install the following R extension packages that use  *biodb* for implementing connectors to online databases:
-
- * [biodbChebi](https://github.com/pkrog/biodbChebi) for accessing the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
- * [biodbHmdb](https://github.com/pkrog/biodbHmdb) for accessing the [HMDB](http://www.hmdb.ca/) database.
- * [biodbKegg](https://github.com/pkrog/biodbKegg) for accessing the [KEGG](https://www.kegg.jp/) databases.
- * [biodbUniprot](https://github.com/pkrog/biodbUniprot) for accessing the [Uniprot](https://www.uniprot.org/) database.
-
-Installation of one of those extension packages can be done with the following command (replace 'biodbKegg' with the name of the wanted package):
-```r
-devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
-```
-
-Here are some of the fields accessible through the retrieved entries:
+Here are some of the fields accessible through the retrieved entries (more fields are defined in extension packages):
 
  * Chemical formula.
  * InChI.
@@ -94,6 +82,104 @@ Here are some of the fields accessible through the retrieved entries:
  * Chromatographic solvent.
  * Chromatographic retention time.
  * Chromatographic retention time unit.
+
+## Examples
+
+### Getting entries from a remote database
+
+Here is an example on how to retrieve entries from ChEBI database and get a data frames of them (you must first install both *biodb* and *biodbChebi* packages):
+```r
+bdb <- biodb::Biodb()
+chebi <- bdb$getFactory()$createConn('chebi')
+entries <- chebi$getEntry(c('2528', '7799', '15440'))
+bdb$entriesToDataframe(entries)
+```
+
+### Searching for a compound
+
+All compound databases (ChEBI, Compound CSV File, KEGG Compound, ...) can be searched for compounds using the same function. Once you have your connector instance, you just have to call `searchCompound()` on it:
+```r
+myconn$searchCompound(name='phosphate')
+```
+The function will return a character vector containing all identifiers of matching entries.
+
+It is also possible to search by mass, choosing the mass field you want (if this mass particular field is handled by the database):
+```r
+myconn$searchCompound(mass=230.02, mass.field='monoisotopic.mass', mass.tol=0.01)
+```
+
+Searching by both name and mass is also possible.
+```r
+myconn$searchCompound(name='phosphate', mass=230.02, mass.field='monoisotopic.mass', mass.tol=0.01)
+```
+
+### Searching for a mass spectrum
+
+All mass spectra databases (Mass CSV File and Mass SQLite) can be searched for mass spectra using the same function `searchMsEntries()`:
+```r
+myconn$searchMsEntries(mz.min=40, mz.max=41)
+```
+The function will return a character vector containing all identifiers of matching entries (i.e.: spectra containing at least one peak inside this M/Z range).
+
+### Annotating a mass spectrum
+
+Annotating a mass spectrum can be done either using a mass spectra database or a compound database.
+
+When using a mass spectra database, the function to call is `searchMsPeaks()`:
+```r
+myMassConn$searchMsPeaks(myInputDataFrame, mz.tol=0.1, mz.tol.unit='plain', ms.mode='pos')
+```
+It returns a new data frame containing the annotations.
+
+When using a compound database, the function to call is `annotateMzValues()`:
+```r
+myCompoundConn$annotateMzValues(myInputDataFrame, mz.tol=0.1, mz.tol.unit='plain', ms.mode='neg')
+```
+It returns a new data frame containing the annotations.
+
+### Defining a new field
+
+Defining a new field for a database is done in two steps, using definitions written inside a YAML file.
+
+First we define the new field. Here we define the ChEBI database field for stars indicator (quality curation indicator):
+```yaml
+fields:
+  n_stars:
+    description: The ChEBI example stars indicator.
+    class: integer
+```
+
+Then we define the parsing expression to use in ChEBI connector in order to parse the field's value:
+```yaml
+databases:
+  chebi:
+    parsing.expr:
+      n_stars: //chebi:return/chebi:entityStar
+```
+
+We now have just to load the YAML file definition into biodb (in extension packages, this is done automatically):
+```r
+mybiodb$loadDefinitions('my_definitions.yml')
+```
+
+Parsing may be more complex for some fields or databases. In that case it is possible to write specific code in the database entry class for parsing these fields.
+
+### Defining a new connector
+
+Defining a new connector is done by writing two RC classes and a YAML definition:
+ * An RC class for the connector, named `MyDatabaseConn.R`.
+ * An RC class for the entry, named `MyDatabaseEntry.R`.
+ * A definition YAML file containing metadata about the new connector, like:
+  + The URLs (main URL, web service base URL, etc.) for a remote database.
+  + The timing for querying a remote database (maximum number of requests per second).
+  + The name.
+  + The parsing expressions used for parsing the entry fields.
+  + The type of content retrieved from the database when downloading an entry (plain text, XML, HTML, JSON, ...).
+
+For a good starting example of defining a new remote connector, see *biodbChebi* the ChEBI extension for *biodb* at <https://github.com/pkrog/biodbChebi>. In particular:
+ * [The connector class](https://github.com/pkrog/biodbChebi/blob/master/R/ChebiConn.R).
+ * [The entry class](https://github.com/pkrog/biodbChebi/blob/master/R/ChebiEntry.R).
+ * [The definitions file](https://github.com/pkrog/biodbChebi/blob/master/inst/definitions.yml).
 
 ## Documentation
 
