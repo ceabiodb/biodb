@@ -34,12 +34,6 @@ db.tsv <- system.file("extdata", "massbank_extract_msms.tsv", package='biodb')
 conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=db.tsv)
 ```
 
-For runnning the MSMS search we need to define a `peak.mztheo` field and keep the original `peak.mz` field:
-```{r}
-conn$setField('peak.mztheo', 'peak.mz')
-conn$setField('peak.mz', 'peak.mz')
-```
-
 # Searching for entries
 
 We can search for entries containing certain M/Z values with the following method:
