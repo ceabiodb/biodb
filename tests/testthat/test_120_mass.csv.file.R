@@ -383,7 +383,6 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 	expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
 }
 
-
 test.mass.csv.file.cache.id <- function(biodb) {
 
 	# Open a connector with no URL
@@ -480,6 +479,18 @@ test_massCsvFile_entry_instantiation <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
+test_msmsSearch_R4.0_non_regression <- function(biodb) {
+    db.tsv <- system.file("extdata", "massbank_extract_msms.tsv",
+                          package='biodb')
+    conn <- biodb$getFactory()$createConn('mass.csv.file', url=db.tsv)
+    testthat::expect_is(conn, 'BiodbConn')
+    spectrum <- data.frame(mz=c(286.1456, 287.1488, 288.1514),
+                           rel.int=c(100, 45, 18))
+    result <- conn$msmsSearch(spectrum, precursor.mz=286.1438, mz.tol=0.1,
+                              mz.tol.unit='plain', ms.mode='pos')
+    testthat::expect_s3_class(result, 'data.frame')
+}
+
 # MAIN
 
 # Instantiate Biodb
@@ -516,6 +527,7 @@ biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, bi
 biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb=biodb)
 biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb=biodb)
 biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id, biodb=biodb)
+biodb::testThat('R 4.0 error "NA\'s are not allowed in y !" with msmsSearch() call does not come back.', test_msmsSearch_R4.0_non_regression, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

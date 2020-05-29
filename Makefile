@@ -97,7 +97,7 @@ $(ZIPPED_PKG) build: doc
 # Documentation {{{1
 ################################################################
 
-doc:
+doc: install.deps
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
 vignettes: clean.vignettes

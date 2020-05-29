@@ -369,9 +369,12 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     be extracted.
     \nown.id: If set to TRUE includes the database id field named
     `<database_name>.id` whose values are the same as the `accession` field.
-    \nduplicate.rows: If set to TRUE and merging field values with cardinality greater than one, values will be duplicated.
-    \nsort: If set to TRUE sort the order of columns alphabetically, otherwise do not sort.
-    \nvirtualFields: If set to TRUE includes also virtual fields, otherwise excludes them.
+    \nduplicate.rows: If set to TRUE and merging field values with cardinality
+    greater than one, values will be duplicated.
+    \nsort: If set to TRUE sort the order of columns alphabetically, otherwise
+    do not sort.
+    \nvirtualFields: If set to TRUE includes also virtual fields, otherwise
+    excludes them.
     \nReturned value: A data frame containg the values of the fields.
     "
 

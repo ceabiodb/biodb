@@ -37,15 +37,11 @@ simplifySpectrum <- function(spec) {
     return(spec)
 }
 
-calcDistance <-
-    function(spec1 ,
-             spec2,
-             npmin=2,
-             fun=c("wcosine"),
-             params=list()) {
+calcDistance <- function(spec1, spec2, npmin=2, fun=c("wcosine"),
+                         params=list()) {
         #fun <- match.arg(fun)
 
-        #SPec are always notmlized in pourcentage toa voir issues;
+        #Spec are always normalized in percentage
         spec1 <- simplifySpectrum(spec1)
         spec2 <- simplifySpectrum(spec2)
         if(any(is.na(spec1)) || any(is.na(spec2)))
