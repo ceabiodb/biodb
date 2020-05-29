@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbRequestSchedulerRule {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Scheduler rule class.
 #'
 #' This class represents a rule for the request scheduler.
@@ -24,8 +16,6 @@
 #'
 #' @import methods
 #' @include BiodbChildObject.R
-#' @export BiodbRequestSchedulerRule
-#' @exportClass BiodbRequestSchedulerRule
 BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule",
     contains="BiodbChildObject",
     fields=list(
@@ -37,65 +27,53 @@ BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule",
         .conn='list'
      ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
 
-# Initialize {{{3
-################################################################################
-
-initialize=function(host, n, t, conn, ...) {
+initialize=function(host, conn=NULL, ...) {
 
     callSuper(...)
 
-    .self$.assertInheritsFrom(conn, 'BiodbConn')
     .self$.assertIs(host, 'character')
     .self$.host <- host
     .self$.last.time <- list()
-    .self$.n.index <- as.integer(0)
-    .self$.conn <- list(conn)
-    .self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
-                       t=conn$getPropertyValue('scheduler.t'))
+    .self$.n.index <- 0L
+    if ( ! is.null(conn)) {
+        .self$.assertInheritsFrom(conn, 'BiodbConn')
+        .self$.conn <- list(conn)
+        .self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
+                           t=conn$getPropertyValue('scheduler.t'))
+    }
+    else {
+        .self$.conn <- list()
+        .self$setFrequency(n=3L, t=1L)
+    }
 },
-
-# Get hostname {{{3
-################################################################################
 
 getHost=function() {
     ":\n\nGets host.
     \nReturned value: Returns the host.
     "
-    
+
     return(.self$.host)
 },
-
-# Get N {{{3
-################################################################################
 
 getN=function() {
     ":\n\nGets N value. The number of connections allowed during a period of
     T seconds.
     \nReturned value: Returns N as an integer.
     "
-    
+
     return(.self$.n)
 },
-
-# Get T {{{3
-################################################################################
 
 getT=function() {
     ":\n\nGets T value. The number of seconds during which N connections
     are allowed.
     \nReturned value: Returns T as a numeric.
     "
-    
+
     return(.self$.t)
 },
-
-# Set frequency {{{3
-################################################################################
 
 setFrequency=function(n, t) {
     ":\n\nSets both N and T.
@@ -125,9 +103,6 @@ setFrequency=function(n, t) {
     .self$.t <- t
 },
 
-# Get connectors {{{3
-################################################################################
-
 getConnectors=function() {
     ":\n\nGets connectors associaated with this rule.
     \nReturned value: A list of BiodbConn objects.
@@ -135,9 +110,6 @@ getConnectors=function() {
 
     return(.self$.conn)
 },
-
-# Add connector {{{3
-################################################################################
 
 addConnector=function(conn) {
     ":\n\nAssociate a connector with this rule.
@@ -163,9 +135,6 @@ addConnector=function(conn) {
     }
 },
 
-# Remove connector {{{3
-################################################################################
-
 removeConnector=function(conn) {
     ":\n\nDisassociate a connector from this rule.
     \nconn: A BiodbConn instance.
@@ -190,9 +159,6 @@ removeConnector=function(conn) {
     }
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nDisplays information about this instance.
     \nReturned value: None.
@@ -207,12 +173,6 @@ show=function() {
         sep='')
 },
 
-# Private methods {{{2
-################################################################################
-
-# Store current time {{{3
-################################################################################
-
 .storeCurrentTime=function(cur.time=NULL) {
 
     if (is.null(cur.time))
@@ -222,9 +182,6 @@ show=function() {
                                  else .self$.n.index + 1)
     .self$.last.time[[.self$.n.index]] <- cur.time
 },
-
-# Compute sleep time {{{3
-################################################################################
 
 .computeSleepTime=function(cur.time=NULL) {
 
@@ -261,9 +218,6 @@ show=function() {
     return(sleep.time)
 },
 
-# Wait as needed {{{3
-################################################################################
-
 .waitAsNeeded=function() {
 
     # Compute sleep time
@@ -278,9 +232,6 @@ show=function() {
     # Store current time
     .self$.storeCurrentTime()
 },
-
-# Recompute frequency {{{3
-################################################################################
 
 .recomputeFrequency=function() {
 

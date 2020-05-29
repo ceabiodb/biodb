@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbEditable {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' An interface to model an editable database.
 #'
 #' A database class that implements this interface allows the addition of new
@@ -14,13 +6,13 @@
 #' (see interface \code{BiodbWritable}), you must call the method \code{write}
 #' on the connector.
 #'
-#' @seealso \code{\link{BiodbWritable}}.
+#' @seealso \code{\link{BiodbConn}} and \code{\link{BiodbWritable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
-#' # Create an empty writable database
+#' # Create an empty MASS SQLite database
 #' mydb <- mybiodb$getFactory()$createConn('mass.sqlite')
 #'
 #' # Create new entry object
@@ -28,7 +20,7 @@
 #' entry$setFieldValue('accession', '0')
 #' entry$setFieldValue('name', 'Some Entry')
 #'
-#' # Add an entry
+#' # Add the new entry
 #' mydb$allowEditing()
 #' mydb$addNewEntry(entry)
 #'
@@ -46,13 +38,7 @@ BiodbEditable <- methods::setRefClass("BiodbEditable",
         .editing.allowed='logical'
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -65,9 +51,6 @@ initialize=function(...) {
     # "contained" class is called.).
 },
 
-# Editing is allowed {{{3
-################################################################################
-
 editingIsAllowed=function() {
     ":\n\nTests if editing is allowed.
     \nReturned value: TRUE if editing is allowed for this database, FALSE
@@ -79,9 +62,6 @@ editingIsAllowed=function() {
     return(.self$.editing.allowed)
 },
 
-# Allow editing {{{3
-################################################################################
-
 allowEditing=function() {
     ":\n\nAllows editing for this database.
     \nReturned value: None.
@@ -90,9 +70,6 @@ allowEditing=function() {
     .self$setEditingAllowed(TRUE)
 },
 
-# Disallow editing {{{3
-################################################################################
-
 disallowEditing=function() {
     ":\n\nDisallows editing for this database.
     \nReturned value: None.
@@ -100,9 +77,6 @@ disallowEditing=function() {
     
     .self$setEditingAllowed(FALSE)
 },
-
-# Set editing allowed {{{3
-################################################################################
 
 setEditingAllowed=function(allow) {
     ":\n\nAllow or disallow editing for this database.
@@ -113,9 +87,6 @@ setEditingAllowed=function(allow) {
     .self$.assertIs(allow, 'logical')
     .self$.editing.allowed <- allow
 },
-
-# Add new entry {{{3
-################################################################################
 
 addNewEntry=function(entry) {
     ":\n\nAdds a new entry to the database. The passed entry must have been
@@ -154,10 +125,9 @@ addNewEntry=function(entry) {
         entry$setFieldValue(id.field, id)
 
     # Remove entry from non-volatile cache
-    cch <- .self$getBiodb()$getCache()
+    cch <- .self$getBiodb()$getPersistentCache()
     if (cch$isWritable())
-        cch$deleteFile(.self$getCacheId(), subfolder='shortterm', name=id,
-                       ext=.self$getEntryFileExt())
+        cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
 
     # Flag entry as new
     entry$.setAsNew(TRUE)
@@ -169,28 +139,18 @@ addNewEntry=function(entry) {
     .self$.addEntriesToCache(id, list(entry))
 },
 
-# Private methods {{{2
-################################################################################
-
-# Init parameters {{{3
-################################################################################
-
 .initEditable=function() {
     if (length(.self$.editing.allowed) == 0)
         .self$setEditingAllowed(FALSE)
 },
 
-# Check that editing is allowed {{{3
-################################################################################
-
 .checkEditingIsAllowed=function() {
-    
+
     .self$.initEditable()
-    
+
     if ( ! .self$.editing.allowed)
         .self$error('Editing is not enabled for this database. However this',
                     ' database type is editable. Please call allowEditing()',
                     ' method to enable editing.')
 }
-
 ))

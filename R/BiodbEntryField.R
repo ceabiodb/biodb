@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbEntryField {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for describing an entry field.
 #'
 #' This class is used by \code{\link{BiodbEntryFields}} for storing field
@@ -20,9 +12,6 @@
 #' alias: A character vector containing zero or more aliases for the field.
 #'
 #' type: A type describing the field. One of: "mass", "name" or "id". Optional.
-#'
-#' group: The group of the field. For now only one group exists: "peak".
-#' Optional.
 #'
 #' class: The class of the field. One of: "character", "integer", "double",
 #' "logical", "object", "data.frame".
@@ -44,7 +33,13 @@
 #' computable.from: The Biodb ID of a database, from which this field can be
 #' computed.
 #'
-#' @seealso \code{\link{BiodbEntryFields}}.
+#' virtual: If set to \code{TRUE}, the field is computed from other fields, and
+#' thus cannot be modified.
+#'
+#' virtual.group.by.type: For a virtual field of class data.frame, this indicates to
+#' gather all fields of the specified type to build a data frame.
+#'
+#' @seealso Parent class \code{\link{BiodbEntryFields}}.
 #'
 #' @examples
 #' # Get the class of the InChI field.
@@ -70,7 +65,6 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField",
     fields=list(
         .name='character',
         .type='character',
-        .group='character',
         .class='character',
         .cardinality='character',
         .forbids.duplicates='logical',
@@ -79,24 +73,21 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField",
         .allowed.values="ANY",
         .lower.case='logical',
         .case.insensitive='logical',
-        .computable.from='character'
+        .computable.from='ANY',
+        dataFrameGroup='character',
+        virtual='logical',
+        virtualGroupByType='character'
         ),
-
-# Public methods {{{2
-################################################################################
 
 methods=list(
 
-# Initialize {{{3
-################################################################################
-
 initialize=function(name, alias=NA_character_, type=NA_character_,
-                    group=NA_character_,
                     class=c('character', 'integer', 'double', 'logical',
                             'object', 'data.frame'), card=c('one', 'many'),
                     forbids.duplicates=FALSE, description=NA_character_,
                     allowed.values=NULL, lower.case=FALSE,
-                    case.insensitive=FALSE, computable.from=NULL, ...) {
+                    case.insensitive=FALSE, computable.from=NULL, virtual=FALSE,
+                    virtual.group.by.type=NULL, dataFrameGroup=NA_character_,...) {
 
     callSuper(...)
 
@@ -107,14 +98,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     .self$.name <- tolower(name)
 
     # Set type
-    if ( ! is.na(type) && ! type %in% c('mass', 'name', 'id'))
-        .self$error("Unknown type \"", type, "\" for field \"", name, "\".")
     .self$.type <- type
-
-    # Set group
-    if ( ! is.na(group) && ! group %in% c('peak'))
-        .self$error("Unknown group \"", group, "\" for field \"", name, "\".")
-    .self$.group <- group
 
     # Set class
     class <- match.arg(class)
@@ -122,6 +106,9 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Set cardinality
     card <- match.arg(card)
+    if (.self$.class == 'data.frame' && card != 'one')
+        .self$error('Cardinality "', card, '" is forbidden for class "',
+                    .self$.class, '" for field "', name, '"')
     .self$.cardinality <- card
 
     # Set description
@@ -167,15 +154,50 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     .self$.lower.case <- lower.case
 
     # Computable from
-    .self$.computable.from <- if (is.null(computable.from)) character()
-        else computable.from
+    .self$.setComputableFrom(computable.from)
+
+    # Virtual
+    .self$virtual <- virtual
+    .self$virtualGroupByType <- if (is.null(virtual.group.by.type)) character() else virtual.group.by.type
+    if ( ! .self$virtual && length(.self$virtualGroupByType) > 0)
+        .self$error('virtual.group.by.type is not usable with non-virtual field "',
+                    name, '".')
+    if (length(.self$virtualGroupByType) > 0 && .self$.class != 'data.frame')
+        .self$error('virtual.group.by.type is only usable for virtual field of class
+                    data.frame. Error for field "', name, '".')
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
+    .self$dataFrameGroup <- dataFrameGroup
 },
 
-# Get name {{{3
-################################################################################
+.setComputableFrom=function(computable.from) {
+
+    if ( ! is.null(computable.from)) {
+
+        # Is a list
+        if ( ! is.list(computable.from) || ! is.null(names(computable.from)))
+            .self$error('computable.from must be an unnamed list, for field "',
+                        .self$.name, '".')
+
+        # Loop on all directives
+        for (directive in computable.from) {
+
+            # Has a "database" field
+            if ( ! 'database' %in% names(directive))
+                .self$error('You must specified the database for directive',
+                            ', for field "', .self$.name, '".')
+
+            # Check list of fields
+            if ('fields' %in% names(directive)
+                && ! is.character(directive$fields))
+                .self$error('In directive of field "', .self$.name,
+                            '", "fields" must be a list of field names.')
+        }
+    }
+
+    .self$.computable.from <- computable.from
+},
 
 getName=function() {
     ":\n\nGets the name.
@@ -185,9 +207,6 @@ getName=function() {
     return(.self$.name)
 },
 
-# Get type {{{3
-################################################################################
-
 getType=function() {
     ":\n\nGets field's type.
     \nReturned value: The type of this field.
@@ -195,20 +214,6 @@ getType=function() {
 
     return(.self$.type)
 },
-
-# Get group {{{3
-################################################################################
-
-getGroup=function() {
-    ":\n\nGet field's group.
-    \nReturned value: The group of this field.
-    "
-
-    return(.self$.group)
-},
-
-# Get description {{{3
-################################################################################
 
 getDescription=function() {
     ":\n\nGet field's description.
@@ -218,9 +223,6 @@ getDescription=function() {
     return(.self$.description)
 },
 
-# Has aliases {{{3
-################################################################################
-
 hasAliases=function() {
     ":\n\nTests if this field has aliases.
     \nReturned value: TRUE if this entry field defines aliases, FALSE otherwise.
@@ -228,9 +230,6 @@ hasAliases=function() {
 
     return( ! any(is.na(.self$.alias)))
 },
-
-# Get aliases {{{3
-################################################################################
 
 getAliases=function() {
     ":\n\nGet aliases.
@@ -241,12 +240,37 @@ getAliases=function() {
 
     if (.self$hasAliases())
         aliases <- .self$.alias
-    
+
     return(aliases)
 },
 
-# Get all names {{{3
-################################################################################
+addAlias=function(alias) {
+    ":\n\nAdds an alias to the list of aliases. 
+    \nalias: The name of a valid alias.
+    \nReturned value: None.
+    "
+
+    if ( ! alias %in% .self$.alias) {
+        
+        # Check that alias does not already exist
+        if (.self$getParent()$isAlias(alias))
+            .self$error("Alias ", alias, " already exists.")
+
+        # Add alias
+        if ( ! alias %in% .self$.alias)
+            .self$.alias <- c(.self$.alias, alias)
+    }
+},
+
+removeAlias=function(alias) {
+    ":\n\nRemoves an alias from the list of aliases. 
+    \nalias: The name of a valid alias.
+    \nReturned value: None.
+    "
+    
+    if (alias %in% .self$.alias)
+        .self$.alias <- .self$.alias[.self$.alias != alias]
+},
 
 getAllNames=function() {
     ":\n\nGets all names.
@@ -257,23 +281,73 @@ getAllNames=function() {
     names <- .self$getName()
     if ( ! is.null(aliases))
         names <- c(names, aliases)
-    
+
     return(names)
 },
 
-# Get computable from {{{3
-################################################################################
+isComputable=function() {
+    ":\n\nTests if this field is computable from another field or another
+    database.
+    \nReturned value: TRUE if the field is computable, FALSE otherwise.
+    "
 
-getComputableFrom=function() {
-    ":\n\nGet the ID of the database from which this field can be computed.
+    return( ! is.null(.self$.computable.from))
+},
+
+getDataFrameGroup=function() {
+    ":\n\nGets the defined data frame group, if any.
+    \nReturned value: The data frame group, as a character value.
+    "
+
+    return(.self$dataFrameGroup)
+},
+
+isComputableFrom=function() {
+    ":\n\nGets the ID of the database from which this field can be computed.
     \nReturned value: The list of databases where to find this field's value.
     "
 
     return(.self$.computable.from)
 },
 
-# Correct value {{{3
-################################################################################
+addComputableFrom=function(directive) {
+    ":\n\nAdds a directive from the list of computableFrom.
+    \ndirective: A valid \"computable from\" directive.
+    \nReturned value: None.
+    "
+
+    # Has a "database" field
+    if ( ! 'database' %in% names(directive))
+        .self$error('You must specified the database for directive',
+                    ', for field "', .self$.name, '".')
+
+    # Search if the directive exists
+    for (d in .self$.computable.from) {
+        if (d$database == directive$database)
+            .self$error()
+    }
+
+    # Add the new directive
+    .self$.computable.from <- if (is.null(.self$.computable.from))
+        list(directive) else c(.self$.computable.from, directive)
+},
+
+removeComputableFrom=function(directive) {
+    ":\n\nRemoves a directive from the list of computableFrom.
+    \ndirective: A valid \"computable from\" directive.
+    \nReturned value: None.
+    "
+
+    # Search for directive
+    n <- 0
+    for (d in .self$.computable.from) {
+        n <- n + 1
+        if (d$database == directive$database) {
+            .self$.computable.from[n] <- NULL
+            break
+        }
+    }
+},
 
 correctValue=function(value) {
     ":\n\nCorrects a value so it is compatible with this field.
@@ -308,21 +382,32 @@ correctValue=function(value) {
     return(value)
 },
 
-# Is enumerate {{{3
-################################################################################
-
 isEnumerate=function() {
     ":\n\nTests if this field is an enumerate type (i.e.: it defines allowed
     values).
     \nReturned value: TRUE if this field defines some allowed values, FALSE
     otherwise.
     "
-    
+
     return( ! is.null(.self$.allowed.values))
 },
 
-# Get allowed values {{{3
-################################################################################
+isVirtual=function() {
+    ":\n\nTests if this field is a virtual field.
+    \nReturned value: TRUE if this field is virtual, FALSE
+    otherwise.
+    "
+
+    return(.self$virtual)
+},
+
+getVirtualGroupByType=function() {
+    ":\n\nGets type for grouping field values when building a virtual data frame.
+    \nReturned value: The type, as a character value.
+    "
+
+    return(.self$virtualGroupByType)
+},
 
 getAllowedValues=function(value=NULL) {
     ":\n\nGets allowed values.
@@ -367,9 +452,6 @@ getAllowedValues=function(value=NULL) {
     return(values)
 },
 
-# Add allowed value {{{3
-################################################################################
-
 addAllowedValue=function(key, value) {
     ":\n\nAdds an allowed value, as a synonym to already an existing value. Note
     that not all enumerate fields accept synonyms.
@@ -407,9 +489,6 @@ addAllowedValue=function(key, value) {
     .self$.allowed.values[[key]] <- c(.self$.allowed.values[[key]], value)
 },
 
-# Check value {{{3
-################################################################################
-
 checkValue=function(value) {
     ":\n\nChecks if a value is correct. Fails if `value` is incorrect.
     \nvalue: The value to check.
@@ -428,9 +507,6 @@ checkValue=function(value) {
     }
 },
 
-# Has card one {{{3
-################################################################################
-
 hasCardOne=function() {
     ":\n\nTests if this field has a cardinality of one.
     \nReturned value: TRUE if the cardinality of this field is one, FALSE
@@ -439,9 +515,6 @@ hasCardOne=function() {
 
     return(.self$.cardinality == 'one')
 },
-
-# Has card many {{{3
-################################################################################
 
 hasCardMany=function() {
     ":\n\nTests if this field has a cardinality greater than one.
@@ -452,9 +525,6 @@ hasCardMany=function() {
     return(.self$.cardinality == 'many')
 },
 
-# Forbids duplicates {{{3
-################################################################################
-
 forbidsDuplicates=function() {
     ":\n\nTests if this field forbids duplicates.
     \nReturned value: TRUE if this field forbids duplicated values, FALSE
@@ -464,9 +534,6 @@ forbidsDuplicates=function() {
     return(.self$.forbids.duplicates)
 },
 
-# Is case insensitive {{{3
-################################################################################
-
 isCaseInsensitive=function() {
     ":\n\nTests if this field is case sensitive.
     \nReturned value: TRUE if this field is case insensitive, FALSE otherwise.
@@ -474,9 +541,6 @@ isCaseInsensitive=function() {
 
     return(.self$.case.insensitive)
 },
-
-# Get class {{{3
-################################################################################
 
 getClass=function() {
     ":\n\nGets the class of this field's value.
@@ -486,9 +550,6 @@ getClass=function() {
     return(.self$.class)
 },
 
-# Is object {{{3
-################################################################################
-
 isObject=function() {
     ":\n\nTests if this field's type is a class.
     \nReturned value: TRUE if field's type is a class, FALSE otherwise.
@@ -497,18 +558,12 @@ isObject=function() {
     return(.self$.class == 'object')
 },
 
-# Is data frame {{{3
-################################################################################
-
 isDataFrame=function() {
     ":\n\nTests if this field's type is `data.frame`.
     \nReturned value: TRUE if field's type is data frame, FALSE otherwise."
 
     return(.self$.class == 'data.frame')
 },
-
-# Is vector {{{3 
-################################################################################
 
 isVector=function() {
     ":\n\nTests if this field's type is a basic vector type.
@@ -519,8 +574,61 @@ isVector=function() {
     return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
 },
 
-# Show {{{3 
-################################################################################
+equals=function(other, fail=FALSE) {
+    ":\n\nCompares this instance with another, and tests if they are equal.
+    \nother: Another BiodbEntryField instance.
+    \nfail: If set to TRUE, then throws error instead of returning FALSE.
+    \nReturned value: TRUE if they are equal, FALSE otherwise.
+    "
+
+    if ( ! methods::is(other, "BiodbEntryField"))
+        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
+
+    eq <- TRUE
+
+    # Fields to test
+    fields <- c('name', 'type', 'class', 'cardinality', 'forbids.duplicates',
+                'allowed.values', 'lower.case', 'case.insensitive')
+
+    # Loop on all fields
+    for (f in fields) {
+        a <- .self[[f]]
+        b <- other[[f]]
+        if ( ! ((is.na(a) && is.na(b)) || (is.null(a) && is.null(b))
+                || ( ! is.na(a) && ! is.na(b) && ! is.null(a) && ! is.null(b)
+                     && a == b))) {
+            eq <- FALSE
+            break
+        }
+    }
+
+    if (fail && ! eq)
+        .self$error("Field \"", other[['name']], "\" has already been defined.")
+
+    return(eq)
+},
+
+updateWithValuesFrom=function(other) {
+    ":\n\nUpdates fields using values from `other` instance. The updated fields
+    are: 'alias' and 'computable.from'. No values will be removed from those
+    vectors. The new values will only be appended. This allows to extend an
+    existing field inside a new connector definition.
+    \nother: Another BiodbEntryField instance.
+    \nReturned value: None.
+    "
+
+    if ( ! methods::is(other, "BiodbEntryField"))
+        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
+
+    # Update fields
+    for (a in other$.alias)
+        .self$addAlias(a)
+    if ( ! is.null(other$.computable.from))
+        for (directive in other$.computable.from)
+            .self$addComputableFrom(directive)
+
+    invisible(NULL)
+},
 
 show=function() {
     ":\n\nPrint informations about this entry.
@@ -528,13 +636,31 @@ show=function() {
     "
 
     cat("Entry field \"", .self$.name, "\".\n", sep='')
+    cat("  Description: ", .self$.description, "\n", sep='')
+    cat("  Class: ", .self$.class, ".\n", sep='')
+    if (.self$virtual) {
+        cat("Virtual.")
+        if ( ! is.null(.self$virtualGroupByType))
+            cat('Grouped by type "', .self$virtualGroupByType, '".')
+        cat("\n")
+    }
+    if (.self$.class == 'character') {
+        case <-  if (.self$.case.insensitive) 'insensitive' else 'sensitive'
+        lower <- if (.self$.lower.case) ' Value will be forced to lower case.'
+            else ''
+        cat("  Case: ", case, '.', lower, "\n", sep='')
+    }
+    if ( ! is.na(.self$.type))
+        cat("  Type: ", .self$.type, ".\n", sep='')
+    cat("  Cardinality: ", .self$.cardinality, ".\n", sep='')
+    if (.self$.cardinality == 'many')
+        cat("  Duplicates: ", if (.self$.forbids.duplicates) 'forbidden' else
+            'allowed', ".\n", sep='')
+    cat("  Aliases: ", paste(.self$.alias, collapse=', '), ".\n", sep='')
+    if ( ! is.null(.self$.allowed.values))
+        cat("  Allowed values: ", paste(.self$.allowed.values, collapse=', '),
+            ".\n", sep='')
 },
-
-# Deprecated methods {{{2
-################################################################################
-
-# Get cardinality {{{3
-################################################################################
 
 getCardinality=function() {
     .self$.deprecatedMethod('hasCardOne() or hasCardMany()')

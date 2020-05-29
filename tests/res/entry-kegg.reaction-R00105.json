@@ -1,8 +1,0 @@
-{
-	"accession": "R00105",
-	"name": "ATP:NADH 2'-phosphotransferase",
-	"kegg.enzyme.id": "2.7.1.86",
-	"equation": "C00002 + C00004 <=> C00008 + C00005",
-	"substrates": ["C00002", "C00004"],
-	"products": ["C00008", "C00005"]
-}

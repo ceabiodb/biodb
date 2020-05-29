@@ -1,7 +1,0 @@
-databases:
-  lipidmaps.structure:
-    parsing.expr:
-      formula2: FORMULA
-fields:
-  formula2:
-    description: Another formula field for vignettes.

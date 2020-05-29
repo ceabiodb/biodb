@@ -11,7 +11,7 @@
 #' This class is not meant to be used directly. It is automatically instantiated
 #' inside biodb constructor in order to report information messages.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
+#' @seealso \code{\link{Biodb}} and super class \code{\link{BiodbObserver}}.
 #'
 #' @import methods
 #' @include BiodbObserver.R
@@ -32,9 +32,11 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
     .self$checkMessageType(type)
     setlvl <- .self$getLevel(type)
 
-    if (setlvl >= lvl && type == 'info')
-        base::message(msg)
+    if (setlvl >= lvl && type %in% c('info', 'debug', 'caution'))
+        base::message(toupper(substr(type, 1, 1)), substr(type, 2, nchar(type)),
+                      ' message: ', msg)
+
+    invisible()
 }
 
 ))
-

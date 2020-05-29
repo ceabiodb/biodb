@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The mother abstract class of all database entry classes.
 #'
 #' An entry is an element of a database, identifiable by its accession number.
@@ -15,7 +7,7 @@
 #' for different types of entry contents: \code{BiodbTxtEntry},
 #' \code{BiodbXmlEntry}, \code{BiodbCsvEntry}, \code{BiodbJsonEntry} and
 #' \code{BiodbHtmlEntry}. Then concrete classes are derived for each database:
-#' \code{ChebiEntry}, \code{ChemspiderEntru}, etc. For biodb users, there is no
+#' \code{CompCsvEntry}, \code{MassCsvEntry}, etc. For biodb users, there is no
 #' need to know this hierarchy; the knowledge of this class and its methods is
 #' sufficient.
 #'
@@ -26,28 +18,31 @@
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
+#' # Get the connector of a compound database
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
+#'
 #' # Get an entry:
-#' entry <- mybiodb$getFactory()$getEntry('chebi', '1')
+#' entry <- conn$getEntry(conn$getEntryIds(1))
 #'
 #' # Get all defined fields:
 #' entry$getFieldNames()
 #'
 #' # Get a field value:
-#' smiles <- entry$getFieldValue('smiles')
+#' accession <- entry$getFieldValue('accession')
 #'
 #' # Test if a field is defined:
-#' if (entry$hasField('charge'))
-#'   print(paste('The entry has a charge of ', entry$getFieldValue('charge'),
+#' if (entry$hasField('name'))
+#'   print(paste("The entry's name is ", entry$getFieldValue('name'),
 #'   '.', sep=''))
 #'
 #' # Export an entry as a data frame:
 #' df <- entry$getFieldsAsDataframe()
 #'
-#' # Even if you may not do it, you can set a field's value yourselves:
+#' # You can set or reset a field's value:
 #' entry$setFieldValue('mass', 1893.1883)
-#'
-#' # Or even add a new field:
-#' entry$setFieldValue('chemspider.id', '388394')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -63,13 +58,7 @@ BiodbEntry <- methods::setRefClass("BiodbEntry",
         .new='logical'
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -80,9 +69,6 @@ initialize=function(...) {
     .self$.new <- FALSE
 },
 
-# Parent is connector {{{3
-################################################################################
-
 parentIsAConnector=function() {
     ":\n\nTests if the parent of this entry is a connector instance.
     \nReturned value: TRUE if this entry belongs to a connector, FALSE
@@ -92,14 +78,11 @@ parentIsAConnector=function() {
     return(is(.self$getParent(), "BiodbConn"))
 },
 
-# Clone {{{3
-################################################################################
-
 clone=function(db.class=NULL) {
     ":\n\nClones this entry.
     \ndb.class: The database class (the Biodb database ID) of the clone. By
     setting this parameter, you can specify a different database for the clone,
-    so you may clone a Massbank entry into a MassCsvFile entry if you wish. By
+    so you may clone an entry into another database if you wish. By
     default the class of the clone will be the same as the original entry.
     \nReturned value: The clone, as a new BiodbEntry instance.
     "
@@ -114,9 +97,6 @@ clone=function(db.class=NULL) {
     return(clone)
 },
 
-# Get ID {{{3
-################################################################################
-
 getId=function() {
     ":\n\nGets the entry ID.
     \nReturned value: the entry ID, which is the value if the `accession` field.
@@ -125,9 +105,6 @@ getId=function() {
     return(.self$getFieldValue('accession'))
 },
 
-# Is new {{{3
-################################################################################
-
 isNew=function() {
     ":\n\nTests if this entry is new.
     \nReturned value: TRUE if this entry was newly created, FALSE otherwise.
@@ -135,9 +112,6 @@ isNew=function() {
 
     return(.self$.new)
 },
-
-# Get database class {{{3
-################################################################################
 
 getDbClass=function() {
     ":\n\nGets the ID of the database associated with this entry.
@@ -166,9 +140,6 @@ getDbClass=function() {
 
     return(s)
 },
-
-# Set field value {{{3
-################################################################################
 
 setFieldValue=function(field, value) {
     ":\n\nSets the value of a field. If the field is not already set for this
@@ -228,9 +199,6 @@ setFieldValue=function(field, value) {
     .self$.fields[[field.def$getName()]] <- value
 },
 
-# Append field value {{{3
-################################################################################
-
 appendFieldValue=function(field, value) {
     ":\n\nAppends a value to an existing field. If the field is not defined for
     this entry, then the field will be created and set to this value. Only
@@ -246,9 +214,6 @@ appendFieldValue=function(field, value) {
         .self$setFieldValue(field, value)
 },
 
-# Get field names {{{3
-################################################################################
-
 getFieldNames=function() {
     ":\n\nGets a list of all fields defined for this entry.
     \nReturned value: A character vector containing all field names defined in
@@ -257,9 +222,6 @@ getFieldNames=function() {
 
     return(sort(names(.self$.fields)))
 },
-
-# Has field {{{3
-################################################################################
 
 hasField=function(field) {
     ":\n\nTests if a field is defined in this entry.
@@ -275,9 +237,6 @@ hasField=function(field) {
     return(tolower(field) %in% names(.self$.fields))
 },
 
-# Remove field {{{3
-################################################################################
-
 removeField=function(field) {
     ":\n\nRemoves the specified field from this entry.
     \nfield: The name of a field.
@@ -287,9 +246,6 @@ removeField=function(field) {
     if (.self$hasField(field))
         .self$.fields <- .self$.fields[names(.self$.fields) != tolower(field)]
 },
-
-# Get field value {{{3
-################################################################################
 
 getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
                        withNa=TRUE) {
@@ -321,16 +277,35 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
     field <- field.def$getName()
 
     # Compute field value
-    if (compute && ! .self$hasField(field))
+    if (compute && ! .self$hasField(field) && ! field.def$isVirtual())
         .self$computeFields(field)
 
-    # Get value
+    # Get value for real field
     if (.self$hasField(field))
         val <- .self$.fields[[field]]
-    else
+
+    # Get value of virtual field
+    else if (field.def$isVirtual()) {
+        gbt <- field.def$getVirtualGroupByType()
+        # Gather other fields to build data frame
+        if (field.def$isDataFrame() && ! is.null(gbt))
+            val <- .self$getFieldsAsDataframe(fields.type=gbt,
+                                              flatten=FALSE,
+                                              duplicate.rows=FALSE,
+                                              only.atomic=FALSE,
+                                              sort=TRUE)
+
+        else
+            .self$error('Do not know how to compute virtual field "', field,'"
+                        for entry "', .self$getFieldValue('accession'), '".')
+    }
+
+    # Unset field
+    else {
         # Return NULL or NA
-        val <- if (field.def$isVector())
+        val <- if (field.def$isVector() && field.def$hasCardOne())
             as.vector(NA, mode=field.def$getClass()) else NULL
+    }
 
     # Get last value only
     if (last && field.def$hasCardMany() && length(val) > 1)
@@ -342,7 +317,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
 
     # Limit
     if (limit > 0 && ! is.null(val) && length(val) > limit)
-        val <- val[1:limit]
+        val <- val[seq(limit)]
 
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
@@ -358,12 +333,22 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
     return(val)
 },
 
-# Get fields as data frame {{{3
-################################################################################
+getFieldsByType=function(type) {
+    ":\n\nGets the fields of this entry that have the specified type.
+    \nReturned value: A character vector containing the field names."
+
+    ef <- .self$getBiodb()$getEntryFields()
+    fct <- function(f) { ef$get(f)$getType() == type }
+    fields <- Filter(fct, names(.self$.fields))
+
+    return(fields)
+},
 
 getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
-                              flatten=TRUE, limit=0, only.card.one=FALSE,
-                              own.id=TRUE) {
+                              fields.type=NULL, flatten=TRUE, limit=0,
+                              only.card.one=FALSE, own.id=TRUE,
+                              duplicate.rows=TRUE, sort=FALSE,
+                              virtualFields=FALSE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
     (i.e.: of type vector and length one).
@@ -372,6 +357,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     undefined.
     \nfields: Set to character vector of field names in order to restrict
     execution to this set of fields.
+    \nfields.type: If set, output all the fields of the specified type.
     \nflatten: If set to TRUE and a field's value is a vector of more than one
     element, then export the field's value as a single string composed of the
     field's value concatenated and separated by the character defined in the
@@ -383,10 +369,15 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     be extracted.
     \nown.id: If set to TRUE includes the database id field named
     `<database_name>.id` whose values are the same as the `accession` field.
+    \nduplicate.rows: If set to TRUE and merging field values with cardinality
+    greater than one, values will be duplicated.
+    \nsort: If set to TRUE sort the order of columns alphabetically, otherwise
+    do not sort.
+    \nvirtualFields: If set to TRUE includes also virtual fields, otherwise
+    excludes them.
     \nReturned value: A data frame containg the values of the fields.
     "
 
-    df <- data.frame(stringsAsFactors=FALSE)
     if ( ! is.null(fields))
         fields <- tolower(fields)
 
@@ -394,49 +385,36 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     if (compute)
         .self$computeFields(fields)
 
-    # Set fields to get
-    if (is.null(fields))
-        fields <- names(.self$.fields)
+    # Select fields
+    fields <- .self$.selectFields(fields=fields, fields.type=fields.type,
+                                  own.id=own.id, only.atomic=only.atomic,
+                                  only.card.one=only.card.one)
 
-    # Loop on fields
-    for (f in fields) {
+    # Organize fields by groups
+    groups <- .self$.organizeFieldsByGroups(fields)
 
-        field.def <- .self$getBiodb()$getEntryFields()$get(f)
-
-        # Ignore own ID field
-        if ( ! own.id && f == .self$getParent()$getEntryIdField())
-            next
-
-        # Ignore non atomic values
-        if (only.atomic && ! field.def$isVector())
-            next
-
-        # Ignore field with cardinality > one
-        if (only.card.one && ! field.def$hasCardOne())
-            next
-
-        # Ignore if no value for this field
-        if ( ! f %in% names(.self$.fields))
-            next
-
-        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
-
-        # Transform vector into data frame
-        if (is.vector(v)) {
-            v <- as.data.frame(v, stringsAsFactors=FALSE)
-            colnames(v) <- f
-        }
-
-        # Merge value into data frame
-        if (is.data.frame(v) && nrow(v) > 0)
-            df <- if (nrow(df) == 0) v else merge(df, v)
+    # Process data frame groups
+    fct <-  function(fields) {
+        .self$.fieldsToDataframe(fields, flatten=flatten, duplicate.rows=FALSE,
+                                 limit=limit)
     }
+    groupsDf <- lapply(groups$dfGrps, fct)
 
-    return(df)
+    # Process single fields
+    singlesDf <- .self$.fieldsToDataframe(groups$singles,
+                                          duplicate.rows=duplicate.rows,
+                                          flatten=flatten, limit=limit)
+
+    # Merge all data frames
+    outdf <- .self$.mergeDataframes(c(list(singlesDf), groupsDf),
+                                    duplicate.rows=duplicate.rows)
+
+    # Sort
+    if (sort)
+        outdf <- outdf[, sort(names(outdf))]
+
+    return(outdf)
 },
-
-# Get fields as json {{{3
-################################################################################
 
 getFieldsAsJson=function(compute=TRUE) {
     ":\n\nConverts this entry into a JSON string.
@@ -452,9 +430,6 @@ getFieldsAsJson=function(compute=TRUE) {
 
     return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_))
 },
-
-# Parse content {{{3
-################################################################################
 
 parseContent=function(content) {
     ":\n\nParses content string and set values accordingly for this entry's
@@ -504,43 +479,36 @@ parseContent=function(content) {
     }
 },
 
-# Compute fields {{{3
-################################################################################
-
-computeFields=function(fields=NULL) {
-    ":\n\nComputes fields. Look at all missing fields, and try to compute them
-    using references to other databases, if a rule exists.
-    \nfields: A list of fields to review for computing. By default all fields
-    will be reviewed.
-    \nReturned value: None.
-    "
+.computeField=function(field) {
+    # Compute one single field
 
     success <- FALSE
-    ef <- .self$getBiodb()$getEntryFields()
-    if ( ! is.null(fields))
-        fields <- tolower(fields)
 
-    if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
+    ef <- .self$getBiodb()$getEntryFields()$get(field)
 
-        # Set of fields to compute
-        if (is.null(fields))
-            fields <- ef$getFieldNames()
+    # Skip this field if we already have a value for it
+    if ( ! .self$hasField(field) && ef$isComputable()) {
 
-        # Loop on all fields
-        for(f in fields) {
+        # Loop on all computing directives
+        for (directive in ef$isComputableFrom()) {
 
-            # Skip this field if we already have a value for it
-            if (.self$hasField(f))
-                next
+            db <- directive$database
+            value <- NULL
 
-            # Loop on all databases where we can look for a value
-            for (db in ef$get(f)$getComputableFrom()) {
+            # Database is itself
+            if (db == 'self' || (methods::is(.self$getParent(), 'BiodbConn')
+                                 && db == .self$getParent()$getId())) {
+                # Look for field in entry
+                if ('fields' %in% names(directive))
+                    for (otherField in directive$fields)
+                        if (.self$hasField(otherField)) {
+                            value <- .self$getFieldValue(otherField)
+                            break
+                        }
+            }
 
-                # Database is itself
-                if ( ! methods::is(.self$getParent(), 'BiodbConn')
-                    || db == .self$getParent()$getId())
-                    next
-
+            # Look into another database
+            else {
                 # Have we a reference for this database?
                 db.id.field <- paste(db, 'id', sep='.')
                 if ( ! .self$hasField(db.id.field))
@@ -549,18 +517,21 @@ computeFields=function(fields=NULL) {
                 if ( ! is.na(db.id)) {
 
                     # Get value for this field in the database
-                    .self$debug("Compute value for field \"", f, "\".") 
+                    .self$debug("Compute value for field \"", field, "\".") 
                     db.entry <- .self$getBiodb()$getFactory()$getEntry(db,
                                                                        id=db.id)
 
-                    # Set found value
-                    if ( ! is.null(db.entry)) {
-                        v <- db.entry$getFieldValue(f, compute=FALSE)
-                        .self$setFieldValue(f, v)
-                        success <- TRUE
-                        break
-                    }
+                    # Get found value
+                    if ( ! is.null(db.entry))
+                        value <- db.entry$getFieldValue(field, compute=FALSE)
                 }
+            }
+
+            # Set found value
+            if ( ! is.null(value)) {
+                .self$setFieldValue(field, value)
+                success <- TRUE
+                break
             }
         }
     }
@@ -568,22 +539,47 @@ computeFields=function(fields=NULL) {
     return(success)
 },
 
-# Show {{{3
-################################################################################
+computeFields=function(fields=NULL) {
+    ":\n\nComputes fields. Look at all missing fields, and try to compute them
+    using references to other databases, if a rule exists.
+    \nfields: A list of fields to review for computing. By default all fields
+    will be reviewed.
+    \nReturned value: TRUE if at least one field was computed successfully,
+    FALSE otherwise.
+    "
+
+    success <- FALSE
+    if ( ! is.null(fields))
+        fields <- tolower(fields)
+
+    if (.self$getBiodb()$getConfig()$isEnabled('compute.fields')) {
+
+        # Set of fields to compute
+        if (is.null(fields)) {
+            ef <- .self$getBiodb()$getEntryFields()
+            fields <- ef$getFieldNames(computable=TRUE)
+        }
+
+        # Loop on all fields
+        for(f in fields) {
+            s <- .self$.computeField(f)
+            success <- success || s
+        }
+    }
+
+    return(success)
+},
 
 show=function() {
     ":\n\nDisplays short information about this instance.
     \nReturned value: None.
     "
 
-    db <- .self$getParent()$getName()
+    db <- .self$getParent()$getPropertyValue('name')
     id <- .self$getFieldValue('accession', compute=FALSE)
     id <- if (is.na(id)) 'ID unknown' else id
     cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
 },
-
-# Get name {{{3
-################################################################################
 
 getName=function() {
     ":\n\nGets a short text describing this entry instance.
@@ -596,9 +592,6 @@ getName=function() {
     return(name)
 },
 
-# Makes reference to entry  {{{3
-################################################################################
-
 makesRefToEntry=function(db, oid, recurse=FALSE) {
     ":\n\nTests if this entry makes reference to another entry.
     \ndb: Another database connector.
@@ -609,7 +602,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
     \nReturned value: TRUE if this entry makes reference to the entry oid from database
     db, FALSE otherwise.
     "
-    
+
     makes_ref <- FALSE
     field <- paste(db, 'id', sep='.')
 
@@ -626,25 +619,13 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
     return(makes_ref)
 },
 
-# Private methods {{{2
-################################################################################
-
-# Makes reference to entry  {{{3
-################################################################################
-
 .makesRefToEntryRecurse=function(db, oid) {
     return(FALSE)
 },
 
-# Set as new {{{3
-################################################################################
-
 .setAsNew=function(new) {
     .self$.new <- new
 },
-
-# Is content correct {{{3
-################################################################################
 
 .isContentCorrect=function(content) {
 
@@ -657,15 +638,9 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
     return(correct)
 },
 
-# Do parse content {{{3
-################################################################################
-
 .doParseContent=function(content) {
     .self$.abstractMethod()
 },
-
-# Is parsed content correct {{{3
-################################################################################
 
 .isParsedContentCorrect=function(parsed.content) {
     return( ! is.null(parsed.content)
@@ -673,46 +648,25 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
                || ! is.na(parsed.content)))
 },
 
-# Parse fields step 1 {{{3
-################################################################################
-
 .parseFieldsStep1=function(parsed.content) {
     .self$.abstractMethod()
 },
 
-# Parse fields step 2 {{{3
-################################################################################
-
 .parseFieldsStep2=function(parsed.content) {
 },
 
-# Check database ID field {{{3
-################################################################################
-
 .checkDbIdField=function() {
 },
-
-# Deprecated methods {{{2
-################################################################################
-
-# Get Field {{{3
-################################################################################
 
 getField=function(field) {
     .self$.deprecatedMethod("getFieldValue()")
     return(.self$getFieldValue(field))
 },
 
-# Set Field {{{3
-################################################################################
-
 setField=function(field, value) {
     .self$.deprecatedMethod("setFieldValue()")
     .self$setFieldValue(field, value)
 },
-
-# Get field class {{{3
-################################################################################
 
 getFieldClass=function(field) {
 
@@ -720,9 +674,6 @@ getFieldClass=function(field) {
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 },
-
-# Get field cardinality {{{3
-################################################################################
 
 getFieldCardinality=function(field) {
 
@@ -732,9 +683,6 @@ getFieldCardinality=function(field) {
     return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
 },
 
-# Field has basic class {{{3
-################################################################################
-
 fieldHasBasicClass=function(field) {
 
     .self$.deprecatedMethod('BiodbEntryField::isVector()')
@@ -742,14 +690,102 @@ fieldHasBasicClass=function(field) {
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 },
 
-# Compute field {{{3
-################################################################################
+.organizeFieldsByGroups=function(fields) {
 
-.computeField=function(fields=NULL) {
+    singles <- character()
+    dfGrps <- list()
+    ef <- .self$getBiodb()$getEntryFields()
+    .self$debug2List('Fields', fields)
 
-    .self$.deprecatedMethod('BiodbEntry::computeFields()')
+    for (field in fields) {
+        fieldDef <- ef$get(field)
 
-    return(.self$computeFields(fields=fields))
+        # Data frame groups
+        dfGrp <- fieldDef$getDataFrameGroup()
+        if ( ! is.na(dfGrp))
+            dfGrps[[dfGrp]] <- c(dfGrps[[dfGrp]], field)
+
+        # Single fields
+        else
+            singles <- c(singles, field)
+    }
+
+    # Build groups
+    groups <- list(singles=singles, dfGrps=dfGrps)
+    .self$debug2List('Groups', groups)
+
+    return(groups)
+},
+
+.selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one) {
+
+    .self$debug2List('Fields', fields)
+    .self$debug2('Fields type: ', fields.type)
+
+    # Set fields to get
+    .self$debug2('Fields is null: ', is.null(fields))
+    .self$debug2('Fields.type is null: ', is.null(fields.type))
+    if ( ! is.null(fields.type))
+        fields <- .self$getFieldsByType(fields.type)
+    else if (is.null(fields))
+        fields <- names(.self$.fields)
+    .self$debug2List('Fields', fields)
+
+    # Filter out unwanted fields
+    ef <- .self$getBiodb()$getEntryFields()
+    if ( ! own.id) {
+        ownIdField <- .self$getParent()$getEntryIdField()
+        fields <- Filter(function(f) f != ownIdField, fields)
+    }
+    if (only.atomic)
+        fields <- Filter(function(f) ef$get(f)$isVector(), fields)
+    if (only.card.one)
+        fields <- Filter(function(f) ef$get(f)$hasCardOne(), fields)
+    # Ignore if value is not data frame or vector
+    fields <- Filter(function(f) ef$get(f)$isVector() || ef$get(f)$isDataFrame(), fields)
+    # Keep only fields with a value
+    fields <- fields[fields %in% names(.self$.fields)]
+
+    .self$debug2List('Fields', fields)
+    return(fields)
+},
+
+.fieldsToDataframe=function(fields, duplicate.rows, flatten, limit) {
+
+    # Transform values in data frames
+    toDf <- function(f) {
+        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
+
+        # Transform vector into data frame
+        if (is.vector(v)) {
+            v <- as.data.frame(v, stringsAsFactors=FALSE)
+            colnames(v) <- f
+        }
+
+        return(v)
+    }
+    dataFrames <- lapply(fields, toDf)
+
+    # Merge data frames
+    outdf <- .self$.mergeDataframes(dataFrames, duplicate.rows=duplicate.rows)
+
+    return(outdf)
+},
+
+.mergeDataframes=function(dataframes, duplicate.rows) {
+
+    outdf <- data.frame(stringsAsFactors=FALSE)
+
+    for (v in dataframes)
+        if (nrow(v) > 0) {
+            if (nrow(outdf) == 0)
+                outdf <- v
+            else if ( ! duplicate.rows && nrow(outdf) == nrow(v))
+                outdf <- cbind(outdf, v)
+            else
+                outdf <- merge(outdf, v)
+        }
+
+   return(outdf)
 }
-
 ))

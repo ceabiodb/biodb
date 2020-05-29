@@ -11,6 +11,12 @@
 #' This is an abstract class for handling database entries whose content is in
 #' JSON format.
 #'
+#' @seealso Super class \code{\link{BiodbEntry}}.
+#'
+#' @examples
+#' # Create a concrete entry class inheriting from CSV class:
+#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbJsonEntry")
+#'
 #' @include BiodbEntry.R
 #' @export BiodbJsonEntry
 #' @exportClass BiodbJsonEntry
@@ -28,7 +34,7 @@ method=list(
 .doParseContent=function(content) {
 
     # Parse JSON
-    json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)  
+    json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)
 
     return(json)
 },

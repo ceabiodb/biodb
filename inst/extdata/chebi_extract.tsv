@@ -1,0 +1,14 @@
+accession	formula	monoisotopic.mass	 molecular.mass	kegg.compound.id	name	smiles
+1018	C2H8AsNO3	168.97201	 169.012	C07279	2-Aminoethylarsonate	NCC[As](O)(O)=O
+1390	C8H8O2	136.05243	 136.148	C06224	3,4-Dihydroxystyrene	Oc1ccc(C=C)cc1O
+1456	C3H9NO2	91.06333	 91.109	C06057	3-aminopropane-1,2-diol	NC[C@H](O)CO
+1549	C3H5O3R	89.02387	 89.07	C03834	3-hydroxymonocarboxylic acid	OC([*])CC(O)=O
+1894	C5H11NO	101.08406	 101.147	C10974	4-Methylaminobutanal	CNCCCC=O
+1932	C6H6NR	92.05002	 92.119	C03084	4-Substituted aniline	Nc1ccc([*])cc1
+1997	C6H6Cl2	147.98466	 149.018	C11352	5,6-Dichloro-1,3-cyclohexadiene	ClC1C=CC=CC1Cl
+10561	C8H15N	125.12045	 125.212	C10138	gamma-Coniceine	CCCC1=NCCCC1
+16750	C10H13N5O5	283.0917	 283.2409	C00387	guanosine	Nc1nc2n(cnc2c(=O)[nH]1)[C@@H]1O[C@H](CO)[C@@H](O)[C@H]1O
+35485	C10H13N5O5	283.0917	 283.2409	NA	adenosine 1-oxide	Nc1c2ncn([C@@H]3O[C@H](CO)[C@@H](O)[C@H]3O)c2ncn1=O
+40304	C10H13N5O5	283.0917	 283.2407	NA	8-hydroxy-2'-deoxyguanosine	Nc1nc2n([C@H]3C[C@H](O)[C@@H](CO)O3)c(O)nc2c(=O)[nH]1
+64679	C9H18NO11P	347.0618	 347.2131	NA	O-(alpha-D-mannose-1-phosphoryl)-L-serine	N[C@@H](COP(O)(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@@H]1O)C(O)=O
+15939	C42H62O16	822.4038	 822.9321	C02284	glycyrrhizinic acid	[H][C@@]12C[C@](C)(CC[C@]1(C)CC[C@]1(C)C2=CC(=O)[C@]2([H])[C@@]3(C)CC[C@H](O[C@H]4O[C@@H]([C@@H](O)[C@H](O)[C@H]4O[C@@H]4O[C@@H]([C@@H](O)[C@H](O)[C@H]4O)C(O)=O)C(O)=O)C(C)(C)[C@]3([H])CC[C@@]12C)C(O)=O

@@ -1,23 +1,9 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbObject {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 BiodbObject <- methods::setRefClass("BiodbObject",
     fields=list(
                 .message.enabled="logical"
                 ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function() {
 
@@ -26,45 +12,41 @@ initialize=function() {
     .self$.message.enabled <- TRUE
 },
 
-# Get biodb {{{3
-################################################################################
-
 getBiodb=function() {
     .self$abstract.method()
 },
 
-# Notify observers {{{3
-################################################################################
+help=function() {
+    utils::help(class(.self), 'biodb')
+},
 
 notify=function(fct, args) {
-    
+
     # Get observers
     obs <- .self$getBiodb()$getObservers()
-    
+
     # Build call code
     call <- paste0('do.call(o$', fct, ', args)')
 
     # Notify each observer
     lapply(obs, function(o) eval(parse(text=call)) )
-},
 
-# Progress message {{{3
-################################################################################
+    invisible()
+},
 
 progressMsg=function(msg, index, first, total=NA_integer_, type='info',
                      laptime=10L) {
     .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
                                   first=first, laptime=laptime))
+
+    invisible()
 },
 
-# Message {{{3
-################################################################################
-
+message=function(type, msg, lvl=1, callerLvl=0) {
 # Send a message to observers
-message=function(type, msg, lvl=1) {
 
     type <- tolower(type)
-    
+
     # Get biodb instance
     biodb <- NULL
     if (length(.self$.message.enabled) == 1 # length is 0
@@ -77,7 +59,7 @@ message=function(type, msg, lvl=1) {
 
     # Get class and method information
     class <- class(.self)
-    method <- sys.call(length(sys.calls()) - 1)
+    method <- sys.call(sys.nframe() - (callerLvl + 1))
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
 
     if ( ! is.null(biodb))
@@ -94,77 +76,90 @@ message=function(type, msg, lvl=1) {
                warning=warning(caller.info, msg),
                base::message(caller.info, msg))
     }
-},
 
-# Debug message {{{3
-################################################################################
+    invisible()
+},
 
 debug=function(...) {
     .self$message(type='debug', msg=paste0(...))
+
+    invisible()
 },
 
-# Debug message level 2 {{{3
-################################################################################
+debug2=function(..., callerLvl=0) {
+    .self$message(type='debug', msg=paste0(...), lvl=2, callerLvl=callerLvl+1)
 
-debug2=function(...) {
-    .self$message(type='debug', msg=paste0(...), lvl=2)
+    invisible()
 },
 
-# Debug message level 2 for printing list {{{3
-################################################################################
+debug2Dataframe=function(msg, x, rowCut=5, colCut=5) {
 
-debug2List=function(msg, lst, cut=10) {
-    
+    size <- ''
+
+    if (is.null(x))
+        s <- 'NULL'
+    else if ( ! is.data.frame(x))
+        s <- 'not a dataframe'
+    else {
+        size <- paste0('[', nrow(x), ', ', ncol(x), ']')
+        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
+        s <- paste0('[', paste(colNames, collapse=', '), ']')
+        for (nRow in seq_len(min(rowCut, nrow(x)))) {
+            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
+            s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
+        }
+        if (nrow(x) > rowCut)
+            s <- paste(s, '...')
+    }
+
+    .self$debug2(msg, size, ': ', s, '.')
+
+    invisible()
+},
+
+debug2List=function(msg, lst, nCut=10, callerLvl=0) {
+
     if (length(lst) == 0)
         s <- 'none'
     else {
-        s <- paste(if (length(lst) > 10) c(lst[seq_len(10)], '...') else lst,
+        s <- paste(if (length(lst) > nCut) c(lst[seq_len(nCut)], '...') else lst,
                    collapse=", ")
         s <- paste0('"', s, '"')
     }
-    .self$debug2(msg, '[', length(lst), ']: ', s, '.')
-},
+    .self$debug2(msg, '[', length(lst), ']: ', s, '.', callerLvl=callerLvl+1)
 
-# Error message {{{3
-################################################################################
+    invisible()
+},
 
 error=function(...) {
     .self$message(type='error', msg=paste0(...))
-},
 
-# Warning message {{{3
-################################################################################
+    invisible()
+},
 
 warning=function(...) {
     .self$message(type='warning', msg=paste0(...))
-},
 
-# Caution message {{{3
-################################################################################
+    invisible()
+},
 
 caution=function(...) {
     .self$message(type='caution', msg=paste0(...))
-},
 
-# Info message {{{3
-################################################################################
+    invisible()
+},
 
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
-},
 
-# Info message level 2 {{{3
-################################################################################
+    invisible()
+},
 
 info2=function(...) {
     .self$message(type='info', msg=paste0(...), lvl=2)
+
+    invisible()
 },
-
-# Private methods {{{2
-################################################################################
-
-# Abstract class {{{3R
-################################################################################
 
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
@@ -173,9 +168,6 @@ info2=function(...) {
         .self$error('Class ', class, ' is abstract and thus cannot be ',
                     'instantiated.')
 },
-
-# Abstract method {{{3
-################################################################################
 
 # This method is used to declare a method as abstract.
 .abstractMethod=function() {
@@ -188,9 +180,6 @@ info2=function(...) {
 
     .self$error("Method ", method, " is not implemented in ", class, " class.")
 },
-
-# Deprecated method {{{3
-################################################################################
 
 # This method is used to declare a method as deprecated.
 .deprecatedMethod=function(new.method=NA_character_) {
@@ -209,9 +198,6 @@ info2=function(...) {
     .self$message('caution', msg)
 },
 
-# Assert not NA {{{3
-################################################################################
-
 .assertNotNa=function(param, msg.type='error', sys.call.level=0,
                       param.name=NULL) {
 
@@ -228,9 +214,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert not NULL {{{3
-################################################################################
-
 .assertNotNull=function(param, msg.type='error', sys.call.level=0,
                             param.name=NULL) {
 
@@ -245,9 +228,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert inferior {{{3
-################################################################################
 
 .assertInferior=function(param1, param2, msg.type='error',
                             na.allowed=TRUE) {
@@ -272,9 +252,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert equal length {{{3
-################################################################################
-
 .assertEqualLength=function(param1, param2, msg.type='error') {
     if (length(param1) != length(param2)) {
         param1.name <- as.character(sys.call(0))[[2]]
@@ -287,9 +264,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert positive {{{3
-################################################################################
 
 .assertPositive=function(param, na.allowed=TRUE, zero=TRUE,
                             sys.call.level=0, msg.type='error',
@@ -315,9 +289,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert length one {{{3
-################################################################################
-
 .assertLengthOne=function(param, sys.call.level=0, msg.type='error',
                               param.name=NULL) {
 
@@ -334,9 +305,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert in {{{3
-################################################################################
-
 .assertIn=function(param, values, msg.type='error') {
     if ( ! is.na(param) && ! param %in% values) {
         param.name <- as.character(sys.call(0))[[2]]
@@ -347,9 +315,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert is {{{3
-################################################################################
 
 .assertIs=function(param, type, sys.call.level=0, msg.type='error',
                       param.name=NULL) {
@@ -368,9 +333,6 @@ info2=function(...) {
     return(TRUE)
 },
 
-# Assert inherits from {{{3
-################################################################################
-
 .assertInheritsFrom=function(param, super.class, msg.type='error') {
     if ( ! is.null(param) && ! is(param, super.class)) {
         param.name <- as.character(sys.call(0))[[2]]
@@ -380,9 +342,6 @@ info2=function(...) {
     }
     return(TRUE)
 },
-
-# Assert number {{{3
-################################################################################
 
 .assertNumber=function(param, length.one=TRUE, null.allowed=FALSE,
                           na.allowed=FALSE, zero=TRUE, negative=TRUE,

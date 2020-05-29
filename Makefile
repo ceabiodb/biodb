@@ -34,14 +34,16 @@ ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 # Display values of main variables
 $(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
-$(info "BIODB_OFFLINE=$(BIODB_OFFLINE)")
-# TODO Set an option for only writing to cache, not reading. This way we can run test and update the cache only.
-$(info "DATABASES=$(DATABASES)")
-$(info "FUNCTIONS=$(FUNCTIONS)")
 $(info "PKG_VERSION=$(PKG_VERSION)")
-$(info "GIT_VERSION=$(GIT_VERSION)")
 
 RFLAGS=--slave --no-restore
+
+# Set test file filter
+ifndef TEST_FILE
+TEST_FILE=NULL
+else
+TEST_FILE:='$(TEST_FILE)'
+endif
 
 # Default target {{{1
 ################################################################
@@ -57,8 +59,8 @@ compile:
 # Check and test {{{1
 ################################################################
 
-check: $(ZIPPED_PKG)
-	time R CMD check --no-build-vignettes "$<"
+check: clean.vignettes $(ZIPPED_PKG)
+	time R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
 #     cannot coerce ‘FALSE false’ to logical
@@ -66,22 +68,22 @@ check: $(ZIPPED_PKG)
 #     missing value where TRUE/FALSE needed
 #   Execution halted
 
-full.check: $(ZIPPED_PKG)
-	time R CMD check "$<"
+full.check: clean.vignettes $(ZIPPED_PKG)
+	time R CMD check "$(ZIPPED_PKG)"
 
-bioc.check: $(ZIPPED_PKG)
+bioc.check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
-	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$<"
+	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
 
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 # Does not work anymore
 
 test: check.version
-	R $(RFLAGS) -e "devtools::test('$(CURDIR)', reporter = c('$(TESTTHAT_REPORTER)', 'fail'))"
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
-	R $(RFLAGS) -e "devtools::build_win('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
 
 conda_install_%: clean
 	docker build -t biodb.$@ -f tests/dockerfiles/$@.dockerfile .
@@ -95,12 +97,11 @@ $(ZIPPED_PKG) build: doc
 # Documentation {{{1
 ################################################################
 
-doc:
+doc: install.deps
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
-vignettes:
-	@echo Build vignettes for already installed package, not from local soures.
-	R $(RFLAGS) -e "devtools::clean_vignettes('$(CURDIR)')"
+vignettes: clean.vignettes
+	@echo Build vignettes for already installed package, not from local sources.
 	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 # Deprecated {{{1
@@ -120,8 +121,8 @@ install.deps:
 
 install: uninstall install.local list.classes
 
-install.local:
-	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies = TRUE)"
+install.local: doc
+	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', dependencies=TRUE, build_manual=TRUE, build_vignettes=TRUE)"
 
 list.classes:
 	R $(RFLAGS) -e 'library(biodb) ; cat("Exported methods and classes:", paste(" ", ls("package:biodb"), collapse = "\n", sep = ""), sep = "\n")'
@@ -132,10 +133,13 @@ uninstall:
 # Clean {{{1
 ################################################################
 
-clean: clean.build
+clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/output tests/test\ *.log
-	$(RM) -r biodb.Rcheck
+	$(RM) -r biodb.Rcheck Meta man
+
+clean.vignettes:
+	$(RM) -r doc
 
 clean.build:
 	$(RM) biodb_*.tar.gz

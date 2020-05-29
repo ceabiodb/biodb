@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbUrl {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class URL.
 #'
 #' This class represents a URL object that can be used in requests.
@@ -36,13 +28,7 @@ BiodbUrl <- methods::setRefClass("BiodbUrl",
         .params='character'
         ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(url=character(), params=character()) {
 
@@ -60,9 +46,6 @@ initialize=function(url=character(), params=character()) {
     .self$.params <- params
 },
 
-# Get domain {{{3
-################################################################################
-
 getDomain=function() {
     ":\n\nGets the domain.
     \nReturned value: None.
@@ -73,20 +56,14 @@ getDomain=function() {
     return(domain)
 },
 
-# Set URL {{{3
-################################################################################
-
 setUrl=function(url) {
     ":\n\nSets the base URL string.
     \nurl: The base URL string.
     \nReturned value: None.
     "
-    
+
     .self$.url <- url
 },
-
-# Set parameter {{{3
-################################################################################
 
 setParam=function(key, value) {
     ":\n\nSets a parameter.
@@ -94,23 +71,17 @@ setParam=function(key, value) {
     \nvalue:
     \nReturned value: None.
     "
-    
+
     .self$.params[[key]] <- value
 },
-
-# Show {{{3
-################################################################################
 
 show=function() {
     ":\n\nDisplays information about this instance.
     \nReturned value: None.
     "
-    
+
     cat(.self$toString(), "\n", sep='')
 },
-
-# To string {{{3
-################################################################################
 
 toString=function(encode=TRUE) {
     ":\n\nGets the URL as a string representation.
@@ -119,20 +90,16 @@ toString=function(encode=TRUE) {
     "
 
     # Remove '/' at start and end of each element of the URL
-    url <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url)
-    
+    u <- gsub('^/*([^/].*[^/])/*$', '\\1', .self$.url)
+
     # Concatenate URL elements together
-    url <- paste(url, collapse='/')
+    u <- paste(u, collapse='/')
 
     # Add parameters to URL
     if (length(.self$.params) > 0) {
-        
+
         pn <- names(.self$.params)
         pv <- unname(.self$.params)
-        
-        # Encode parameter values
-        if (encode)
-            pv <- vapply(pv, utils::URLencode, FUN.VALUE='', USE.NAMES=FALSE)
 
         # Build parameters string
         fct <- function(i) {
@@ -145,10 +112,14 @@ toString=function(encode=TRUE) {
         params.str <- paste(kv.list, collapse='&')
 
         # Concatenate URL with parameters
-        url <- paste(url, params.str, sep='?')
+        u <- paste(u, params.str, sep='?')
     }
 
-    return(url)
+    # Encode parameter values
+    if (encode)
+        u <- utils::URLencode(u)
+
+    return(u)
 }
 
 ))

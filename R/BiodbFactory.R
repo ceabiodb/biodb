@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbFactory {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for constructing biodb objects.
 #'
 #' This class is responsible for the creation of database connectors and
@@ -14,7 +6,7 @@
 #' instance of this class, call the \code{getFactory()} method of class
 #' \code{Biodb}.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}},
+#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}} and
 #' \code{\link{BiodbEntry}}.
 #'
 #' @examples
@@ -24,11 +16,14 @@
 #' # Obtain the factory instance:
 #' factory <- mybiodb$getFactory()
 #'
-#' # Create a connection:
-#' conn <- factory$createConn('chebi')
+#' # Get a compound CSV file database
+#' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+#'
+#' # Create a connector:
+#' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Get a database entry:
-#' entry <- factory$getEntry('chebi', id='2528')
+#' entry <- conn$getEntry(conn$getEntryIds(1))
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -43,13 +38,7 @@ BiodbFactory <- methods::setRefClass("BiodbFactory",
         .conn="list"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
@@ -57,9 +46,6 @@ initialize=function(...) {
 
     .self$.conn <- list()
 },
-
-# Create connector {{{3
-################################################################################
 
 createConn=function(db.class, url=NULL, token=NA_character_,
                     fail.if.exists=TRUE, conn.id=NULL, cache.id=NULL) {
@@ -131,9 +117,6 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     return (conn)
 },
 
-# Connector exists {{{3
-################################################################################
-
 connExists=function(conn.id) {
     ":\n\nTests if a connector exists.
     \nconn.id: A connector ID.
@@ -142,9 +125,6 @@ connExists=function(conn.id) {
 
     return(conn.id %in% names(.self$.conn))
 },
-
-# Delete connector {{{3
-################################################################################
 
 deleteConn=function(conn) {
     ":\n\nDeletes an existing connector.
@@ -155,21 +135,20 @@ deleteConn=function(conn) {
     if (methods::is(conn, 'BiodbConn'))
         .self$deleteConn(conn$getId())
 
-    .self$.assertIs(conn, 'character')
+    else {
+        .self$.assertIs(conn, 'character')
 
-    if ( ! conn %in% names(.self$.conn))
-        .self$error('Connector "', conn, '" is unknown.')
+        if ( ! conn %in% names(.self$.conn))
+            .self$error('Connector "', conn, '" is unknown.')
 
-    .self$deleteAllCacheEntries(conn)
-    .self$.conn[[conn]]$.terminate()
-    .self$.conn[[conn]] <- NULL
-    .self$info('Connector "', conn, '" deleted.')
+        .self$deleteAllCacheEntries(conn)
+        .self$.conn[[conn]]$.terminate()
+        .self$.conn[[conn]] <- NULL
+        .self$info('Connector "', conn, '" deleted.')
+    }
 
     invisible(NULL)
 },
-
-# Delete connectors by class {{{3
-################################################################################
 
 deleteConnByClass=function(db.class) {
     ":\n\nDeletes all existing connectors from a same class.
@@ -194,9 +173,6 @@ deleteConnByClass=function(db.class) {
     invisible(NULL)
 },
 
-# Get all connectors {{{3
-################################################################################
-
 getAllConnectors=function() {
     ":\n\nGets all connectors.
     \nReturned value: A list of all created connectors.
@@ -204,9 +180,6 @@ getAllConnectors=function() {
 
     return(.self$.conn)
 },
-
-# Delete all connectors {{{3
-################################################################################
 
 deleteAllConnectors=function() {
     ":\n\nDeletes all connectors.
@@ -220,9 +193,6 @@ deleteAllConnectors=function() {
     for (conn in connectors)
         .self$deleteConn(conn$getId())
 },
-
-# Get connector {{{3
-################################################################################
 
 getConn=function(conn.id) {
     ":\n\nGets a connector instance, creating it if necessary and possible.
@@ -262,9 +232,6 @@ getConn=function(conn.id) {
 },
 
 
-# Get entry {{{3
-################################################################################
-
 getEntry=function(conn.id, id, drop=TRUE) {
     ":\n\nRetrieves database entry objects from IDs (accession numbers), for the
     specified connector.
@@ -282,6 +249,9 @@ getEntry=function(conn.id, id, drop=TRUE) {
     # Get connector
     conn <- .self$getConn(conn.id)
 
+    # Correct IDs
+    id <- conn$correctIds(id)
+
     # What entries are missing from cache?
     missing.ids <- conn$.getEntryMissingFromCache(id)
 
@@ -297,9 +267,6 @@ getEntry=function(conn.id, id, drop=TRUE) {
 
     return(entries)
 },
-
-# Create new entry {{{3
-################################################################################
 
 createNewEntry=function(db.class) {
     ":\n\nCreates a new entry from scratch. This entry is not stored in cache.
@@ -319,9 +286,6 @@ createNewEntry=function(db.class) {
     return(entry)
 },
 
-# Get all cache entries {{{3
-################################################################################
-
 getAllCacheEntries=function(conn.id) {
     ":\n\nFor a connector, gets all entries stored in the cache.
     \nconn.id: A connector ID.
@@ -335,9 +299,6 @@ getAllCacheEntries=function(conn.id) {
 
     return(.self$.conn[[conn.id]]$getAllCacheEntries())
 },
-
-# Delete all cache entries {{{3
-################################################################################
 
 deleteAllCacheEntries=function(conn.id) {
     ":\n\nFor a connector, deletes all entries stored in the cache.
@@ -353,9 +314,6 @@ deleteAllCacheEntries=function(conn.id) {
     .self$.conn[[conn.id]]$deleteAllCacheEntries()
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nPrints information about this instance.
     \nReturned values: None.
@@ -363,12 +321,6 @@ show=function() {
 
     cat("Biodb factory instance.\n")
 },
-
-# Private methods {{{2
-################################################################################
-
-# Create new entries {{{3
-################################################################################
 
 .loadEntries=function(conn.id, ids, drop) {
 
@@ -395,9 +347,6 @@ show=function() {
 
     return(new.entries)
 },
-
-# Check if a connector already exists {{{3
-################################################################################
 
 .checkConnExists=function(new.conn, error) {
 
@@ -431,15 +380,9 @@ show=function() {
         }
 },
 
-# Terminate {{{3
-################################################################################
-
 .terminate=function() {
     .self$deleteAllConnectors()
 },
-
-# Create entry from content {{{3
-################################################################################
 
 .createEntryFromContent=function(conn.id, content, drop=TRUE) {
 
@@ -464,7 +407,7 @@ show=function() {
 
             # Send progress message
             i <- i + 1
-            .self$progressMsg(msg='Getting entry contents.', index=i,
+            .self$progressMsg(msg='Creating entry instances from contents', index=i,
                               total=length(content), first=(i == 1))
 
             # Create empty entry instance

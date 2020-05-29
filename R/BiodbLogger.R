@@ -27,7 +27,7 @@
 #'             `terminate()`. If it is set to FALSE, the connection will not be
 #'             closed.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbObserver}}.
+#' @seealso \code{\link{Biodb}} and super \code{\link{BiodbObserver}}.
 #'
 #' @examples
 #' # Create a file logger
@@ -126,7 +126,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
             cat(m, "\n", sep='', file=.self$.file)
     }
 
-    invisible(NULL)
+    invisible()
 }
 
 ))

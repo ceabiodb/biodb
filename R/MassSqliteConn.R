@@ -1,21 +1,16 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# MassSqliteConn {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class for handling a Mass spectrometry database in SQLite format.
 #'
 #' This is the connector class for a MASS SQLite database.
+#'
+#' @seealso Super classes \code{\link{BiodbMassdbConn}},
+#' \code{\link{BiodbWritable}} and \code{\link{BiodbEditable}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get path to LCMS database example file
-#' lcmsdb <- system.file("extdata", "lcmsdb.sqlite", package="biodb")
+#' lcmsdb <- system.file("extdata", "massbank_extract.sqlite", package="biodb")
 #'
 #' # Create a connector
 #' conn <- mybiodb$getFactory()$createConn('mass.sqlite', url=lcmsdb)
@@ -26,6 +21,8 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
+#' @import methods
+#' @import RSQLite
 #' @include BiodbMassdbConn.R
 #' @include BiodbEditable.R
 #' @include BiodbWritable.R
@@ -35,23 +32,14 @@ MassSqliteConn <- methods::setRefClass('MassSqliteConn',
         .db="ANY"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
 
-# Initialize {{{3
-################################################################################
-
-initialize=function(...) { 
+initialize=function(...) {
 
     callSuper(...)
 
     .self$.db <- NULL
 },
-
-# Get entry content from database {{{3
-################################################################################
 
 getEntryContentFromDb=function(entry.id) {
     # Overrides super class' method.
@@ -72,21 +60,23 @@ getEntryContentFromDb=function(entry.id) {
             i <- i + 1
             entry <- list()
 
-            # Loop on all other tables
-            for (table in DBI::dbListTables(.self$.db)) {
+            # Loop on all tables
+            for (tableName in DBI::dbListTables(.self$.db)) {
 
                 # Get data frame
-                q <- paste0("select * from `", table, "` where accession='",
+                q <- paste0("select * from ",
+                            DBI::dbQuoteIdentifier(.self$.db, tableName),
+                            " where accession='",
                             accession, "';")
                 df <- DBI::dbGetQuery(.self$.db, q)
 
                 # Set value
-                if (table == 'entries')
+                if (tableName == 'entries')
                     entry <- c(entry, as.list(df))
                 else {
                     cols <- colnames(df)[colnames(df) != 'accession']
-                    drop <- ef$get(table)$hasCardMany()
-                    entry[[table]]=df[, cols, drop=drop]
+                    drop <- ef$get(tableName)$hasCardMany()
+                    entry[[tableName]]=df[, cols, drop=drop]
                 }
             }
 
@@ -97,9 +87,6 @@ getEntryContentFromDb=function(entry.id) {
 
     return(content)
 },
-
-# Get chromatographic columns {{{3
-################################################################################
 
 getChromCol=function(ids=NULL) {
     # Overrides super class' method.
@@ -143,12 +130,6 @@ getChromCol=function(ids=NULL) {
     return(chrom.cols)
 },
 
-# Private methods {{{2
-################################################################################
-
-# Do write {{{3
-################################################################################
-
 .doWrite=function() {
 
     .self$.initDb()
@@ -177,7 +158,7 @@ getChromCol=function(ids=NULL) {
                 # Write into main table
                 df <- .self$getBiodb()$entriesToDataframe(list(entry),
                                                           only.card.one=TRUE)
-                .self$.appendToTable(table='entries', values=df)
+                .self$.appendToTable(tableName='entries', values=df)
 
                 # Loop on all fields
                 for (field.name in entry$getFieldNames()) {
@@ -188,14 +169,14 @@ getChromCol=function(ids=NULL) {
                     if (field$getClass() == 'data.frame') {
                         v <- cbind(accession=acc,
                                    entry$getFieldValue(field.name))
-                        .self$.appendToTable(table=field.name, values=v)
+                        .self$.appendToTable(tableName=.self$.fieldToSqlId(field.name), values=v)
                     }
 
                     # Write multiple values field
                     else if (field$hasCardMany()) {
                         values <- list(accession=acc)
-                        values[[field.name]] <- entry$getFieldValue(field.name)
-                        DBI::dbWriteTable(conn=.self$.db, name=field.name,
+                        values[[.self$.fieldToSqlId(field.name)]] <- entry$getFieldValue(field.name)
+                        DBI::dbWriteTable(conn=.self$.db, name=.self$.fieldToSqlId(field.name),
                                           value=as.data.frame(values),
                                           append=TRUE)
                     }
@@ -216,18 +197,12 @@ getChromCol=function(ids=NULL) {
     }
 },
 
-# Init db {{{3
-################################################################################
-
 .initDb=function() {
 
     u <- .self$getPropValSlot('urls', 'base.url')
     if (is.null(.self$.db) && ! is.null(u) && ! is.na(u))
         .self$.db <-  DBI::dbConnect(RSQLite::SQLite(), dbname=u)
 },
-
-# Do terminate {{{3
-################################################################################
 
 .doTerminate=function() {
 
@@ -237,28 +212,22 @@ getChromCol=function(ids=NULL) {
     }
 },
 
-# Find right M/Z field {{{3
-################################################################################
-
 .findMzField=function() {
 
-    mzcol <- NULL
+    mzfield <- NULL
 
-    peak.fields <- DBI::dbListFields(.self$.db, 'peaks')
-    for (c in c('peak.mztheo', 'peak.mz', 'peak.mzexp'))
-        if (c %in% peak.fields) {
-            mzcol <- c
+    tables <- DBI::dbListTables(.self$.db)
+    for (field in c('peak_mztheo', 'peak_mz', 'peak_mzexp'))
+        if (field %in% tables) {
+            mzfield <- field
             break
         }
 
-    return(mzcol)
+    return(mzfield)
 },
 
-# Do get mz values {{{3
-################################################################################
-
-# Inherited from BiodbMassdbConn.
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    # Inherited from BiodbMassdbConn.
 
     mz <- numeric()
 
@@ -266,18 +235,17 @@ getChromCol=function(ids=NULL) {
 
     if ( ! is.null(.self$.db)) {
 
-        # List tables
-        tables <- DBI::dbListTables(.self$.db)
+        # Get M/Z field name
+        mzfield <- .self$.findMzField()
 
-        if ('peaks' %in% tables) {
-
-            mzcol <- .self$.findMzField()
+        if ( ! is.null(mzfield)) {
+            mzfield <- .self$.fieldToSqlId(mzfield)
 
             # Build query
-            query <- .self$.createMsQuery(mzcol=mzcol, ms.mode=ms.mode,
+            query <- .self$.createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
                                           ms.level=ms.level,
                                           precursor=precursor)
-            query$addField(field=mzcol)
+            query$addField(field=mzfield)
             if ( ! is.null(max.results) && ! is.na(max.results))
                 query$setLimit(max.results)
             .self$message('debug', paste0('Run query "', query$toString(),
@@ -292,30 +260,27 @@ getChromCol=function(ids=NULL) {
     return(mz)
 },
 
-# Create MS query object {{{3
-################################################################################
-
-.createMsQuery=function(mzcol, ms.mode=NULL, ms.level=0, precursor=FALSE) {
+.createMsQuery=function(mzfield, ms.mode=NULL, ms.level=0, precursor=FALSE) {
 
     query <- BiodbSqlQuery()
-    query$setTable('peaks')
+    query$setTable(mzfield)
     query$setDistinct(TRUE)
     query$setWhere(BiodbSqlLogicalOp(op='and'))
 
     if (precursor) {
-        query$addJoin(table1='msprecmz', field1='accession', table2='peaks',
+        query$addJoin(table1='msprecmz', field1='accession', table2=mzfield,
                       field2='accession')
         expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='msprecmz',
                                                      field='msprecmz'),
                                  op='=',
-                                 rexpr=BiodbSqlField(table='peaks',
-                                                     field=mzcol))
+                                 rexpr=BiodbSqlField(table=mzfield,
+                                                     field=mzfield))
         query$getWhere()$addExpr(expr)
     }
     if ( ! is.null(ms.level) && ! is.na(ms.level)
         && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
         query$addJoin(table1='entries', field1='accession',
-                      table2='peaks', field2='accession')
+                      table2=mzfield, field2='accession')
         expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='entries',
                                                      field='ms.level'),
                                  op='=', rexpr=BiodbSqlValue(ms.level))
@@ -323,7 +288,7 @@ getChromCol=function(ids=NULL) {
     }
     if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
         query$addJoin(table1='entries', field1='accession',
-                      table2='peaks', field2='accession')
+                      table2=mzfield, field2='accession')
         expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='entries',
                                                      field='ms.mode'),
                                  op='=', rexpr=BiodbSqlValue(ms.mode))
@@ -332,9 +297,6 @@ getChromCol=function(ids=NULL) {
 
     return(query)
 },
-
-# Do search M/Z range {{{3
-################################################################################
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
                           precursor, ms.level) {
@@ -345,43 +307,44 @@ getChromCol=function(ids=NULL) {
 
     if ( ! is.null(.self$.db)) {
 
-        # List tables
-        tables <- DBI::dbListTables(.self$.db)
+        # Get M/Z field name
+        mzfield <- .self$.findMzField()
 
-        if ('peaks' %in% tables) {
-
-            mzcol <- .self$.findMzField()
+        if ( ! is.null(mzfield)) {
+            mzfield <- DBI::dbQuoteIdentifier(.self$.db, mzfield)
 
             # Build query
-            query <- .self$.createMsQuery(mzcol=mzcol, ms.mode=ms.mode,
+            query <- .self$.createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
                                           ms.level=ms.level,
                                           precursor=precursor)
-            query$addField(table='peaks', field='accession')
+            query$addField(table=mzfield, field='accession')
             mz.range.or=BiodbSqlLogicalOp('or')
             for (i in seq_along(if (is.null(mz.max)) mz.min else mz.max)) {
                 and=BiodbSqlLogicalOp('and')
                 if ( ! is.null(mz.min) && ! is.na(mz.min[[i]])) {
                     rval <- BiodbSqlValue(as.numeric(mz.min[[i]]))
-                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='peaks',
-                                                                 field=mzcol),
+                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table=mzfield,
+                                                                 field=mzfield),
                                              op='>=', rexpr=rval)
                     and$addExpr(expr)
                 }
                 if ( ! is.null(mz.max) && ! is.na(mz.max[[i]])) {
                     rval <- BiodbSqlValue(as.numeric(mz.max[[i]]))
-                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='peaks',
-                                                                 field=mzcol),
+                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table=mzfield,
+                                                                 field=mzfield),
                                              op='<=', rexpr=rval)
                     and$addExpr(expr)
                 }
                 mz.range.or$addExpr(and)
             }
             query$getWhere()$addExpr(mz.range.or)
-            if ('peak.relative.intensity' %in% DBI::dbListFields(.self$.db,
-                                                                 'peaks')
+            if ('peak.relative.intensity' %in% DBI::dbListTables(.self$.db)
                 && ! is.null(min.rel.int) && ! is.na(min.rel.int)
                 && (is.numeric(min.rel.int) || is.integer(min.rel.int))) {
-                lval <- BiodbSqlField(table='peaks',
+                query$addJoin(table1=mzfield, field1='accession',
+                              table2='peak.relative.intensity',
+                              field2='peak.relative.intensity')
+                lval <- BiodbSqlField(table='peak.relative.intensity',
                                       field='peak.relative.intensity')
                 rval <- BiodbSqlValue(min.rel.int)
                 expr <- BiodbSqlBinaryOp(lexpr=lval, op='>=', rexpr=rval)
@@ -400,21 +363,18 @@ getChromCol=function(ids=NULL) {
     return(ids)
 },
 
-# Append to table {{{3
-################################################################################
-
-.appendToTable=function(table, values) {
+.appendToTable=function(tableName, values) {
 
     # Append to existing table
-    if (table %in% DBI::dbListTables(.self$.db)) {
+    if (tableName %in% DBI::dbListTables(.self$.db)) {
 
         # Create new columns
-        current.fields <- DBI::dbListFields(.self$.db, name=table)
+        current.fields <- DBI::dbListFields(.self$.db, name=tableName)
         new.fields <- colnames(values)[ ! colnames(values) %in% current.fields]
         for (field in new.fields) {
             query <- paste0('alter table ',
-                            DBI::dbQuoteIdentifier(DBI::ANSI(), table),
-                            ' add ', DBI::dbQuoteIdentifier(DBI::ANSI(), field),
+                            DBI::dbQuoteIdentifier(.self$.db, tableName),
+                            ' add ', DBI::dbQuoteIdentifier(.self$.db, field),
                             ' ', DBI::dbDataType(.self$.db, values[[field]]),
                             ';')
             result <- DBI::dbSendQuery(.self$.db, query)
@@ -422,15 +382,13 @@ getChromCol=function(ids=NULL) {
         }
 
         # Append to table
-        DBI::dbWriteTable(conn=.self$.db, name=table, value=values, append=TRUE)
+        DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values,
+                          append=TRUE)
 
     # Create table
     } else
-        DBI::dbWriteTable(conn=.self$.db, name=table, value=values)
+        DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values)
 },
-
-# Get entry ids {{{3
-################################################################################
 
 .doGetEntryIds=function(max.results=NA_integer_) {
 
@@ -458,6 +416,13 @@ getChromCol=function(ids=NULL) {
     }
 
     return(ids)
+},
+
+.fieldToSqlId=function(f) {
+
+    f <- gsub('\\.', '_', f)
+
+    return(f)
 }
 
 ))

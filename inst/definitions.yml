@@ -38,10 +38,6 @@ config:
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 
-  chemspider.token:
-    type: character
-    description: The token to access ChemSpider database.
-
   compute.fields:
     type: logical
     description: If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.
@@ -62,6 +58,7 @@ config:
     type: character
     description: The name of the long term cache subfolder.
     default: longterm
+    deprecated: We do not use anymore a longterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   msg.caution.lvl:
     type: integer
@@ -83,6 +80,11 @@ config:
     description: The character used as separator when concatenating multiple values of a field.
     default: ';'
 
+  intra.field.name.sep:
+    type: character
+    description: The character to use for separating words inside a field name. When defining or accessing a field, all non alphanumeric characters will be replaced by this character.
+    default: '.'
+
   entries.sep:
     type: character
     description: The character used as separator when concatenating values from different entries.
@@ -93,14 +95,6 @@ config:
     description: If set to TRUE, all network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
 
-  peakforest.mass.token:
-    type: character
-    description: The token to access PeakForest Mass database.
-
-  peakforest.compound.token:
-    type: character
-    description: The token to access PeakForest Compound database.
-
   proton.mass:
     type: numeric
     description: The mass of a proton, in u or Da.
@@ -110,10 +104,15 @@ config:
     type: character
     description: The name of the short term cache subfolder.
     default: shortterm
+    deprecated: We do not use anymore a shortterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   svn.binary.path:
     type: character
     description: The path to the SubVersion binary (svn).
+
+  test.functions:
+    type: character
+    description: A comma separated list of test functions to run during tests. Only those functions will be run.
 
   useragent:
     type: character
@@ -124,242 +123,11 @@ config:
 
 databases:
 
-# ChEBI {{{2
+# Compound CSV File {{{2
 ################################################################################
-
-  chebi:
-    entry.content.encoding: UTF-8
-    entry.content.type: xml
-    name: ChEBI
-    parsing.expr:
-      accession: substring-after(//chebi:return/chebi:chebiId,'CHEBI:')
-      charge: //chebi:charge
-      formula:
-      - //chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data
-      - (//chebi:Formulae/chebi:data)[1]
-      inchi: //chebi:return/chebi:inchi
-      inchikey: //chebi:return/chebi:inchiKey
-      kegg.compound.id: //chebi:DatabaseLinks/chebi:type[text()='KEGG COMPOUND accession']/../chebi:data
-      mass: //chebi:mass
-      monoisotopic.mass: //chebi:monoisotopicMass
-      name:
-      - //chebi:chebiAsciiName
-      - //chebi:Synonyms/chebi:data
-      smiles: //chebi:return/chebi:smiles
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - monoisotopic.mass
-        - molecular.mass
-    urls:
-      base.url: https://www.ebi.ac.uk/chebi/
-      ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
-    xml.ns:
-      chebi: https://www.ebi.ac.uk/webservices/chebi
-      xsd: http://www.w3.org/2001/XMLSchema
-
-# ChemSpider {{{2
-################################################################################
-  chemspider:
-    disabled: true
-    disabling.reason: "ChemSpider free plan has a limit of 1000 requests per month, which has limited the possibility of testing. We are working on reenabling this connector."
-    entry.content.type: json
-    name: ChemSpider
-    parsing.expr:
-      accession: id
-      average.mass: averageMass
-      formula: formula
-      inchi: inchi
-      inchikey: inchiKey
-      molecular.weight: molecularWeight
-      monoisotopic.mass: monoisotopicMass
-      name: commonName
-      nominal.mass: nominalMass
-      smiles: smiles
-    scheduler.n: 3
-    urls:
-      base.url: http://www.chemspider.com/
-      ws.url: https://api.rsc.org/compounds/v1/
-
-# ExPASy ENZYME {{{2
-################################################################################
-  expasy.enzyme:
-    entry.content.type: txt
-    name: ExPASy ENZYME
-    parsing.expr:
-      accession: ^ID\s+([0-9.]+)$
-      catalytic.activity: ^CA\s+(.+?)\.?$
-      cofactor: ^CF\s+(.+?)\.?$
-      name: ^DE\s+(.+?)\.?$
-    scheduler.n: 3
-    urls:
-      base.url: https://enzyme.expasy.org/
-
-# HMDB Metabolites {{{2
-################################################################################
-  hmdb.metabolites:
-    entry.content.type: xml
-    name: HMDB Metabolites
-    parsing.expr:
-      accession: /metabolite/accession
-      average.mass: //average_molecular_weight
-      cas.id: //cas_registry_number
-      chebi.id: //chebi_id
-      chemspider.id: //chemspider_id
-      comp.iupac.name.syst: //iupac_name
-      comp.iupac.name.trad: //traditional_iupac
-      formula: /metabolite/chemical_formula
-      inchi: //inchi
-      inchikey: //inchikey
-      kegg.compound.id: //kegg_id
-      monoisotopic.mass: //monisotopic_molecular_weight
-      name: /metabolite/name
-      ncbi.pubchem.comp.id: //pubchem_compound_id
-      smiles: //smiles
-      super.class: //super_class
-    scheduler.n: 3
-    urls:
-      base.url: http://www.hmdb.ca/
-    dwnld.ext: zip
-
-# KEGG Compound {{{2
-################################################################################
-  kegg.compound:
-    entry.content.type: txt
-    name: KEGG Compound
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Compound
-      exact.mass: ^EXACT_MASS\s+(\S+)$
-      formula: ^FORMULA\s+(\S+)$
-      molecular.weight: ^MOL_WEIGHT\s+(\S+)$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - monoisotopic.mass
-        - molecular.mass
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Enzyme {{{2
-################################################################################
-  kegg.enzyme:
-    entry.content.type: txt
-    name: KEGG Enzyme
-    parsing.expr:
-      accession: ^ENTRY\s+EC (\S+)\s+Enzyme
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Genes {{{2
-################################################################################
-  kegg.genes:
-    entry.content.type: txt
-    name: KEGG Genes
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+.*
-      description: ^DEFINITION\s+(.*)$
-      kegg.organism.code: ^ORGANISM\s+(\S+)\s+.*$
-      organism: ^ORGANISM\s+\S+\s+(.*)$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Module {{{2
-################################################################################
-  kegg.module:
-    entry.content.type: txt
-    name: KEGG Module
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Pathway
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Orthology {{{2
-################################################################################
-
-  kegg.orthology:
-    entry.content.type: txt
-    name: KEGG Orthology
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+KO
-      description: ^DEFINITION\s+(\S+)\s*$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Pathway {{{2
-################################################################################
-  kegg.pathway:
-    entry.content.type: txt
-    name: KEGG Pathway
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Pathway
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# KEGG Reaction {{{2
-################################################################################
-  kegg.reaction:
-    entry.content.type: txt
-    name: KEGG Reaction
-    parsing.expr:
-      accession: ^ENTRY\s+(\S+)\s+Reaction
-      equation: ^EQUATION\s+(.+)\s*$
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.kegg.jp/
-      entry.page.url: https://www.genome.jp/dbget-bin
-      ws.url: http://rest.kegg.jp/
-
-# LIPID MAPS Structure {{{2
-################################################################################
-  lipidmaps.structure:
-    entry.content.type: csv
-    name: LIPID MAPS Structure
-    parsing.expr:
-      accession: LM_ID
-      chebi.id: CHEBI_ID
-      comp.iupac.name.syst: SYSTEMATIC_NAME
-      exact.mass: MASS
-      formula: FORMULA
-      hmdb.metabolites.id: HMDBID
-      kegg.compound.id: KEGG_ID
-      name: COMMON_NAME
-      ncbi.pubchem.comp.id: PUBCHEM_COMPOUND_ID
-    scheduler.n: 1
-    scheduler.t: 20
-    searchable.fields:
-        - name
-        - monoisotopic.mass
-    urls:
-      base.url: http://www.lipidmaps.org/data/
+  comp.csv.file:
+    entry.content.type: tsv
+    name: Compound CSV File
 
 # Mass CSV File {{{2
 ################################################################################
@@ -373,265 +141,6 @@ databases:
     entry.content.type: list
     name: Mass SQLite
 
-# MassBank {{{2
-################################################################################
-  massbank:
-    disabled: true
-    disabling.reason: "The API is being migrated to a new version (not yet available). In the meantime the curent API is broken and not maintained. See https://github.com/pkrog/biodb/issues/30."
-    entry.content.type: txt
-    name: MassBank
-    parsing.expr:
-      accession: '^ACCESSION: (.+)$'
-      cas.id: '^CH\$LINK: CAS\s+(.+)$'
-      chebi.id: '^CH\$LINK: CHEBI\s+(.+)$'
-      chemspider.id: '^CH\$LINK: CHEMSPIDER\s+(.+)$'
-      chrom.col.name: '^AC\$CHROMATOGRAPHY: COLUMN_NAME\s+(.+)$'
-      chrom.flow.gradient: '^AC\$CHROMATOGRAPHY: FLOW_GRADIENT\s+(.+)$'
-      chrom.flow.rate: '^AC\$CHROMATOGRAPHY: FLOW_RATE\s+(.+)$'
-      chrom.solvent: '^AC\$CHROMATOGRAPHY: SOLVENT\s+(.+)$'
-      exact.mass: ^CH\$EXACT_MASS:\s+(.+)$
-      formula: ^CH\$FORMULA:\s+(.+)$
-      hmdb.metabolites.id: '^CH\$LINK: HMDB\s+(HMDB[0-9]+)'
-      inchi: ^CH\$IUPAC:\s+(.+)$
-      inchikey: '^CH\$LINK: INCHIKEY\s+(.+)$'
-      kegg.compound.id: '^CH\$LINK: KEGG\s+(.+)$'
-      msdev: '^AC\$INSTRUMENT: (.+)$'
-      msdevtype: '^AC\$INSTRUMENT_TYPE: (.+)$'
-      msmode: '^AC\$MASS_SPECTROMETRY: ION_MODE (.+)$'
-      msprecannot: '^MS\$FOCUSED_ION: PRECURSOR_TYPE (.+)$'
-      mstype: '^AC\$MASS_SPECTROMETRY: MS_TYPE (.+)$'
-      name: ^CH\$NAME:\s+(.+)$
-      nb.peaks: '^PK\$NUM_PEAK: ([0-9]+)$'
-      ncbi.pubchem.comp.id: '^CH\$LINK: PUBCHEM\s+((CID:)?[0-9]+)'
-      ncbi.pubchem.subst.id: '^CH\$LINK: PUBCHEM\s+.*(SID:[0-9]+)'
-      smiles: ^CH\$SMILES:\s+(.+)$
-    scheduler.n: 3
-    urls:
-      base.url: https://massbank.eu/
-      db.tar.url: https://github.com/MassBank/MassBank-data/archive/master.tar.gz
-      prefixes.file.url: https://raw.githubusercontent.com/MassBank/MassBank-data/master/List_of_Contributors_Prefixes_and_Projects.md
-    dwnld.ext: tar.gz
-
-# miRBase Mature {{{2
-################################################################################
-  mirbase.mature:
-    entry.content.type: txt
-    name: miRBase Mature
-    parsing.expr:
-      accession: ^>[^ ]+ *(MIMAT[0-9]+) .*$
-      description: ^>[^ ]+ *MIMAT[0-9]+ (.*)$
-      name: ^>([^ ]+) *MIMAT[0-9]+ .*$
-      sequence: ^([ACGU]+)$
-    scheduler.n: 3
-    urls:
-      base.url: http://www.mirbase.org/
-      ftp.url: ftp://mirbase.org/pub/mirbase/CURRENT/
-    dwnld.ext: gz
-
-# NCBI CCDS {{{2
-################################################################################
-  ncbi.ccds:
-    entry.content.type: html
-    name: NCBI CCDS
-    parsing.expr:
-      accession:
-        attr: value
-        path: //input[@id='DATA']
-      sequence: //b[starts-with(.,'Nucleotide Sequence')]/../tt
-    scheduler.n: 3
-    urls:
-      base.url: https://www.ncbi.nlm.nih.gov/CCDS/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
-
-# NCBI Gene {{{2
-################################################################################
-  ncbi.gene:
-    entry.content.type: xml
-    name: NCBI Gene
-    parsing.expr:
-      accession: //Gene-track_geneid
-      description: //Gene-ref_desc
-      location: //Gene-ref_maploc
-      symbol: //Gene-ref_locus
-      synonyms: //Gene-ref_syn_E
-      uniprot.id: //Gene-commentary_heading[text()='UniProtKB']/..//Dbtag_db[text()='UniProtKB/Swiss-Prot']/..//Object-id_str
-    scheduler.n: 3
-    searchable.fields:
-        - name
-    urls:
-      base.url: https://www.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-
-# NCBI PubChem Compound {{{2
-################################################################################
-  ncbi.pubchem.comp:
-    entry.content.type: xml
-    name: PubChem Compound
-    parsing.expr:
-      accession: //PC-CompoundType_id_cid
-      comp.iupac.name.allowed: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Allowed']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.cas: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='CAS-like
-        Style']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.pref: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Preferred']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.syst: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Systematic']/../../..//PC-InfoData_value_sval
-      comp.iupac.name.trad: //PC-Urn_label[text()='IUPAC Name']/../PC-Urn_name[text()='Traditional']/../../..//PC-InfoData_value_sval
-      exact.mass: //PC-Urn_label[text()='Mass']/../../..//PC-InfoData_value_fval
-      formula: //PC-Urn_label[text()='Molecular Formula']/../../..//PC-InfoData_value_sval
-      inchi: //PC-Urn_label[text()='InChI']/../../..//PC-InfoData_value_sval
-      inchikey: //PC-Urn_label[text()='InChIKey']/../../..//PC-InfoData_value_sval
-      logp: //PC-Urn_label[text()='Log P']/../../..//PC-InfoData_value_fval
-      molecular.weight: //PC-Urn_label[text()='Molecular Weight']/../../..//PC-InfoData_value_fval
-      smiles.canonical: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Canonical']/../../..//PC-InfoData_value_sval
-      smiles.isomeric: //PC-Urn_label[text()='SMILES']/../PC-Urn_name[text()='Isomeric']/../../..//PC-InfoData_value_sval
-    scheduler.n: 5
-    searchable.fields:
-        - name
-        - molecular.mass
-        - monoisotopic.mass
-    urls:
-      base.url: https://pubchem.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-      ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
-
-# NCBI PubChem Substance {{{2
-################################################################################
-  ncbi.pubchem.subst:
-    entry.content.type: xml
-    name: PubChem Substance
-    parsing.expr:
-      accession: //PC-ID_id
-      ncbi.pubchem.comp.id: //PC-CompoundType_id_cid
-    scheduler.n: 5
-    urls:
-      base.url: https://pubchem.ncbi.nlm.nih.gov/
-      ws.url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-      ws2.url: https://pubchem.ncbi.nlm.nih.gov/rest/pug/
-
-# NCI CACTUS {{{2
-################################################################################
-  nci.cactus:
-    entry.content.type: sdf
-    name: NCI CACTUS
-    parsing.expr:
-      accession: NSC
-      name: DTP names
-      inchi: Standard InChI
-      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
-      formula: Formula
-      molecular.mass: Molecular Weight
-      cas.id: CAS
-    scheduler.n: 3
-    urls:
-      base.url: https://cactus.nci.nih.gov/
-      ws.url: https://cactus.nci.nih.gov/
-      dwnld.url: https://cactus.nci.nih.gov/download/nci/
-    dwnld.ext: gz
-
-# PeakForest Compound {{{2
-################################################################################
-  peakforest.compound:
-    entry.content.type: json
-    name: PeakForest Compound
-    parsing.expr:
-      accession: id
-      average.mass: averageMass
-      chebi.id: ChEBI
-      formula: formula
-      hmdb.metabolites.id: HMDB
-      inchi: inChI
-      inchikey: inChIKey
-      kegg.compound.id: KEGG
-      logp: logP
-      monoisotopic.mass: monoisotopicMass
-      name: mainName
-      ncbi.pubchem.comp.id: PubChemCID
-      smiles: canSmiles
-    scheduler.n: 3
-    searchable.fields:
-        - name
-        - average.mass
-        - monoisotopic.mass
-    urls:
-      base.url: https://metabohub.peakforest.org/webapp/home
-      ws.url: https://metabohub.peakforest.org/rest/
-
-# PeakForest Mass {{{2
-################################################################################
-  peakforest.mass:
-    entry.content.type: json
-    name: PeakForest Mass
-    parsing.expr:
-      accession: id
-      chrom.col.constructor:
-      - liquidChromatography
-      - columnConstructorAString
-      chrom.col.diameter:
-      - liquidChromatography
-      - columnDiameter
-      chrom.col.id:
-      - liquidChromatography
-      - columnCode
-      chrom.col.length:
-      - liquidChromatography
-      - columnLength
-      chrom.col.method.protocol:
-      - liquidChromatography
-      - methodProtocol
-      chrom.col.name:
-      - liquidChromatography
-      - columnName
-      chrom.col.rt.max: RTmax
-      chrom.col.rt.min: RTmin
-      msdev:
-      - analyzerMassSpectrometerDevice
-      - instrumentName
-      msdevtype:
-      - analyzerMassSpectrometerDevice
-      - ionAnalyzerType
-      msmode: polarity
-      msprecmz: parentIonMZ
-      mstype: type
-    scheduler.n: 3
-    urls:
-      base.url: https://metabohub.peakforest.org/webapp/home
-      ws.url: https://metabohub.peakforest.org/rest/
-
-# UniProt {{{2
-################################################################################
-  uniprot:
-    entry.content.type: xml
-    name: UniProt
-    parsing.expr:
-      accession: //uniprot:accession[1]
-      ec:
-        attr: id
-        path: //uniprot:dbReference[@type='EC']
-      expasy.enzyme.id:
-        attr: id
-        path: //uniprot:dbReference[@type='EC']
-      gene.symbols: //uniprot:gene/uniprot:name
-      kegg.genes.id:
-        attr: id
-        path: //uniprot:dbReference[@type='KEGG']
-      molecular.mass:
-        attr: mass
-        path: //uniprot:entry/uniprot:sequence
-      name: /uniprot:uniprot/uniprot:entry/uniprot:name
-      ncbi.gene.id:
-        attr: id
-        path: //uniprot:dbReference[@type='GeneID']
-      aa.seq: //uniprot:entry/uniprot:sequence
-      aa.seq.length:
-        attr: length
-        path: //uniprot:entry/uniprot:sequence
-    searchable.fields:
-        - name
-        - molecular.mass
-    urls:
-      base.url: https://www.uniprot.org/uniprot/
-    xml.ns:
-      uniprot: http://uniprot.org/uniprot
-
 # FIELDS {{{1
 ################################################################################
 
@@ -639,7 +148,7 @@ fields:
 
 # General fields {{{2
 ################################################################################
-    
+
   accession:
     description: The accession number of the entry.
 
@@ -659,7 +168,7 @@ fields:
 
 # Database IDs {{{2
 ################################################################################
-    
+
   cas.id:
     alias: casid
     card: many
@@ -667,7 +176,7 @@ fields:
     description: CAS ID
     forbids.duplicates: true
     type: id
-    
+
   chebi.id:
     description: ChEBI ID
     case.insensitive: true
@@ -677,6 +186,13 @@ fields:
 
   chemspider.id:
     description: ChemSpider ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  comp.csv.file.id:
+    description: Compound CSV File ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -703,50 +219,8 @@ fields:
     type: id
     card: many
 
-  kegg.enzyme.id:
-    description: KEGG Enzyme ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
   kegg.genes.id:
     description: KEGG Genes ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.module.id:
-    description: KEGG Module ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.orthology.id:
-    description: KEGG Orthology ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.pathway.id:
-    description: KEGG Pathway ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  kegg.reaction.id:
-    description: KEGG Reaction ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  lipidmaps.structure.id:
-    description: LIPID MAPS Structure ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -766,36 +240,8 @@ fields:
     type: id
     card: many
 
-  massbank.id:
-    description: MassBank ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  mirbase.mature.id:
-    description: miRBase Mature ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  ncbi.ccds.id:
-    description: NCBI CCDS ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
   ncbi.gene.id:
     description: NCBI Gene ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  nci.cactus.id:
-    description: NCI CACTUS ID
     case.insensitive: true
     forbids.duplicates: true
     type: id
@@ -808,34 +254,6 @@ fields:
     type: id
     card: many
 
-  ncbi.pubchem.subst.id:
-    description: PubChem Substance ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  peakforest.compound.id:
-    description: PeakForest Compound ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  peakforest.mass.id:
-    description: PeakForest Mass ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-
-  uniprot.id:
-    description: UniProt ID
-    case.insensitive: true
-    forbids.duplicates: true
-    type: id
-    card: many
-    
   compound.id:
     alias: compoundid
     card: many
@@ -857,7 +275,6 @@ fields:
     - mass
     - molecular.weight
     class: double
-    computable.from: chebi
     description: Molecular mass (also called molecular weight), in u (unified atomic mass units) or Da (Dalton). It is computed from the atomic masses of each nuclide present in the molecule, taking into account the various possible isotops of each atom. See https://en.wikipedia.org/wiki/Molecular_mass.
     type: mass
 
@@ -866,89 +283,101 @@ fields:
     class: double
     description: Monoisotopic mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass of the primary isotope of the elements including the mass defect (mass difference between neutron and proton, and nuclear binding energy). Used with high resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
     type: mass
-    
+
   nominal.mass:
     class: integer
     description: Nominal mass, in u (unified atomic mass units) or Da (Dalton). It is computed using the mass number of the most abundant isotope of each atom. Typically used with low resolution mass spectrometers. See https://en.wikipedia.org/wiki/Monoisotopic_mass.
     type: mass
 
-# Peak table fields {{{2
+# Peak fields {{{2
 ################################################################################
+
+  peak.attr:
+    description: Peak attribution.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.comp:
+    description: Peak comp.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.error.ppm:
+    class: double
+    description: Peak error in PPM.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.formula:
+    description: Peak formula.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.intensity:
+    class: double
+    description: Peak intensity.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.mass:
+    class: double
+    description: Peak mass.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.mztheo:
+    class: double
+    description: Peak theoretical M/Z.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.mzexp:
+    class: double
+    description: Peak experimental M/Z.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+
+  peak.mz:
+    class: double
+    description: Peak M/Z.
+    type: peak
+    dataFrameGroup: peaks
+    card: many
+    computable.from:
+      - database: self
+        fields:
+          - peak.mzexp
+          - peak.mztheo
+
+  peak.relative.intensity:
+    class: double
+    description: Peak relative intensity, in percentage (from 0 to 100).
+    type: peak
+    dataFrameGroup: peaks
+    card: many
 
   peaks:
     class: data.frame
     description: Peaks table.
-
-  peak.attr:
-    description: Peak attribution.
-    group: peak
-  peak.comp:
-    description: Peak comp.
-    group: peak
-  peak.error.ppm:
-    class: double
-    description: Peak error in PPM.
-    group: peak
-  peak.formula:
-    description: Peak formula.
-    group: peak
-  peak.intensity:
-    class: double
-    description: Peak intensity.
-    group: peak
-  peak.mass:
-    class: double
-    description: Peak mass.
-    group: peak
-  peak.mz:
-    class: double
-    description: Peak M/Z.
-    group: peak
-  peak.mzexp:
-    class: double
-    description: Peak experimental M/Z.
-    group: peak
-  peak.mztheo:
-    class: double
-    description: Peak theoretical M/Z.
-    group: peak
-  peak.relative.intensity:
-    class: double
-    description: Peak relative intensity, in percentage (from 0 to 100).
-    group: peak
+    virtual: true
+    virtual.group.by.type: peak
 
 # Proteins and genes {{{2
 ################################################################################
 
-  aa.seq:
-    alias: sequence
-    computable.from: ncbi.ccds
-    description: Amino acids sequence.
-  aa.seq.length:
-    alias:
-    - seq.length
-    - length
-    class: integer
-    description: Length of the amino acids sequence.
   aa.seq.location:
     alias:
     - seq.location
     - location
     description: Location of the amino acids sequence.
-  ec:
-    description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
-    case.insensitive: true
-    forbids.duplicates: true
-    card: many
-  gene.symbol:
-    alias:
-    - gene.symbols
-    - symbol
-    - genesymbols
-    card: many
-    case.insensitive: true
-    description: A list of gene symbols.
-    forbids.duplicates: true
   nt.seq:
     description: Nucleotids sequence.
   nt.seq.length:
@@ -1042,13 +471,9 @@ fields:
   formula:
     description: Empirical molecular formula.
   inchi:
-    computable.from: chebi
     description: International Chemical Identifier (InChI).
   inchikey:
-    computable.from: chebi
     description: Hash key of the International Chemical Identifier (InChIKey).
-  kegg.organism.code:
-    description: The 3-4 characters organism code used un KEGG.
   logp:
     class: double
     description: logP

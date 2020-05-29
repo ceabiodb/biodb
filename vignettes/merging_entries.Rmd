@@ -1,54 +1,132 @@
 ---
-title: "Merging entries coming from different databases"
+title: "*biodb* Merging entries coming from different databases"
 author: "Pierrick Roger"
-output:
-  html_document:
-    theme: null
-package: biodb
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
 abstract: |
   How to build a data frame containing entries coming from different databases.
 vignette: |
   %\VignetteIndexEntry{Merging entries coming from different databases}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
 ---
 
-# Merging entries coming from different databases
+# Introduction
 
-## Introduction
+In this vignette we will merge entries from three different databases into a single database.
 
 First we instantiate the package:
 ```{r}
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Getting the entries
+# Getting the connectors
 
-Request entries from ChEBI, using accession numbers:
+We will use compound databases instantiated from TSV files. These files have been built using data from three public databases: ChEBI, Uniprot and ExPASy enzyme.
+
+First we instantiate the connector to the ChEBI data:
 ```{r}
-chebi.entries <- mybiodb$getFactory()$getEntry('chebi', id = c('2528', '17053'))
+chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+chebi <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 ```
 
-Request entries from Uniprot:
+Then the connector to the Uniprot data:
 ```{r}
-uniprot.entries <- mybiodb$getFactory()$getEntry('uniprot', id = c('P02461', 'P08123', 'Q31611'))
+uniprot.tsv <- system.file("extdata", "uniprot_extract.tsv", package='biodb')
+uniprot <- mybiodb$getFactory()$createConn('comp.csv.file', url=uniprot.tsv)
 ```
 
-Request entries from LIPID MAPS Structure:
+And finally the connector to the ExPASy Enzyme data:
 ```{r}
-lipidmaps.entries <- mybiodb$getFactory()$getEntry('lipidmaps.structure', id = c('LMFA08040013'))
+expasy.tsv <- system.file("extdata", "expasy_enzyme_extract.tsv", package='biodb')
+expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
 ```
 
-## Get a data frame of all these entries
 
-We call then the `entriesToDataframe()` on all those entries, selectin the fields we want in the output:
+# Merging the entries
+
+We will now merge the entries into a single database. However we will use differently the entries of the three databases.
+The ChEBI and Uniprot will just be put together since they have no link between them. But we will use the ExPASy entries to add missing fields to the uniprot entries. We will be able to do that because the uniprot entries have a field `'expasy.enzyme.id'` that we can use to make the link with the ExPASy entries.
+
+We will write a function that takes a Uniprot entry and search for the ExPASy entry referenced and take missing fields from it:
 ```{r}
-mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries, lipidmaps.entries), fields = c('accession', 'molecular.mass', 'monoisotopic.mass', 'inchikey', 'name'))
+completeUniprotEntry <- function(e) {
+	expasy.id <- e$getFieldValue('expasy.enzyme.id');
+	if ( ! is.na(expasy.id)) {
+		ex <- expasy$getEntry(expasy.id)
+		if ( ! is.null(ex)) {
+			for (field in c('catalytic.activity', 'cofactor')) {
+				v <- ex$getFieldValue(field)
+				if ( ! is.na(v) && length(v) > 0)
+					e$setFieldValue(field, v)
+			}
+		}
+	}
+}
+```
+Remember that we use RC (Reference Classes, or R5) OOP model in biodb. This means that we use references to objects. Thus we can modify an instance at any place inside the code.
+
+Now we will get all entries from Uniprot and run the function to complete all entries:
+```{r}
+uniprot.entries <- uniprot$getEntry(uniprot$getEntryIds())
+invisible(lapply(uniprot.entries, completeUniprotEntry))
 ```
 
-## Closing biodb instance
+Finally we get all entries from our ChEBI extract, merge all our entries into a single data frame and save it in a file:
+```{r}
+chebi.entries <- chebi$getEntry(chebi$getEntryIds())
+all.entries.df <- mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries))
+output.file <- tempfile(pattern="biodb_merged_entries", fileext='.tsv')
+write.table(all.entries.df, file=output.file, sep="\t", row.names=FALSE)
+all.entries.df
+```
+
+# Use a writable database
+
+There exists another method to merge entries and write them into a file. We can create a writable database. Here is a new file database for which we enable edition (for inserting new entries) and writing (for saving it onto disk):
+```{r}
+newDbOutputFile <- tempfile(pattern="biodb_merged_entries_new_db", fileext='.tsv')
+newDbConn <- mybiodb$getFactory()$createConn('comp.csv.file', url=newDbOutputFile)
+newDbConn$allowEditing()
+newDbConn$allowWriting()
+```
+
+Now we copy entries into this new database:
+```{r}
+mybiodb$copyDb(chebi, newDbConn)
+mybiodb$copyDb(uniprot, newDbConn)
+```
+
+And finally we write the database:
+```{r}
+newDbConn$write()
+```
+
+# Closing biodb instance
 
 Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
 mybiodb$terminate()
 ```
+
+# Citations
+
+<http://www.ebi.ac.uk/chebi/>
+
+ * Hastings, J., de Matos, P., Dekker, A., Ennis, M., Harsha, B., Kale, N., Muthukrishnan, V., Owen, G., Turner, S., Williams, M., and Steinbeck, C. (2013) The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013. Nucleic Acids Res, <http://dx.doi.org/10.1093/nar/gks1146>.
+
+<https://enzyme.expasy.org>
+
+ * Bairoch A. The ENZYME database in 2000. Nucleic Acids Res 28:304-305(2000), <https://enzyme.expasy.org/data/enz00.pdf>.
+
+<http://www.uniprot.org>
+
+ * The UniProt Consortium. UniProt: the universal protein knowledgebase. Nucleic Acids Res. 45: D158-D169 (2017), <https://doi.org/10.1093/nar/gkw1099>.
+ * Pundir S., Martin M.J., O’Donovan C. (2017) UniProt Protein Knowledgebase. In: Wu C., Arighi C., Ross K. (eds) Protein Bioinformatics. Methods in Molecular Biology, vol 1558. Humana Press, New York, NY. <https://doi.org/10.1007/978-1-4939-6783-4_2>.

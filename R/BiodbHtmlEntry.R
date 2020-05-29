@@ -11,6 +11,12 @@
 #' This is an abstract class for handling database entries whose content is in
 #' HTML format.
 #'
+#' @seealso Super class \code{\link{BiodbXmlEntry}}.
+#'
+#' @examples
+#' # Create a concrete entry class inheriting from this class:
+#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry")
+#'
 #' @include BiodbXmlEntry.R
 #' @export BiodbHtmlEntry
 #' @exportClass BiodbHtmlEntry

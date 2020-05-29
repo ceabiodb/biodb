@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbRequest {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Class Request.
 #'
 #' This class represents a Request object that can be used with the Request
@@ -30,20 +22,19 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Create a request object
-#' u <- 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1/XML'
+#' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 #' url <- BiodbUrl(url=u)
+#' url$setParam('chebiId', 15440)
 #' request <- BiodbRequest(method='get', url=url)
 #'
 #' # Send request
-#' \dontrun{
 #' mybiodb$getRequestScheduler()$sendRequest(request)
-#' }
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
-#' mybiodb <- NULL
 #'
 #' @import methods
+#' @import openssl
 #' @include BiodbUrl.R
 #' @export BiodbRequest
 #' @exportClass BiodbRequest
@@ -53,29 +44,46 @@ BiodbRequest <- methods::setRefClass("BiodbRequest",
         .method='character',
         .header='character',
         .body='character',
-        .encoding='ANY'
+        .encoding='ANY',
+        conn='ANY'
     ),
-
-# Public methods {{{2
-################################################################################
 
 methods=list(
 
-# Initialize {{{3
-################################################################################
-
 initialize=function(url, method=c('get', 'post'), header=character(),
-                    body=character(), encoding=integer()) {
+                    body=character(), encoding=integer(), conn=NULL) {
 
     .self$.url <- url
     .self$.method <- match.arg(method)
     .self$.header <- header
     .self$.body <- body
     .self$.encoding <- encoding
+    .self$conn <- NULL
 },
 
-# Get URL {{{3
-################################################################################
+setConn=function(conn) {
+    ":\n\nSets the associated connector (usually the connector that created this
+    request).
+    \nconn: A valid BiodbConn object.
+    \nReturned value: None.
+    "
+
+    if ( ! methods::is(conn, 'BiodbConn'))
+        stop("Parameter conn must be a BiodbConn object.")
+
+    .self$conn <- conn
+
+    invisible(NULL)
+},
+
+getConn=function() {
+    ":\n\ngets the associated connector (usually the connector that created this
+    request).
+    \nReturned value: The associated connector as a BiodbConn object.
+    "
+
+    return(.self$conn)
+},
 
 getUrl=function() {
     ":\n\nGets the URL.
@@ -85,9 +93,6 @@ getUrl=function() {
     return(.self$.url)
 },
 
-# Get method {{{3
-################################################################################
-
 getMethod=function() {
     ":\n\nGets the method.
     \nReturned value: The method as a character value.
@@ -96,9 +101,6 @@ getMethod=function() {
     return(.self$.method)
 },
 
-# Get encoding {{{3
-################################################################################
-
 getEncoding=function() {
     ":\n\nGets the encoding. 
     \nReturned value: The encoding.
@@ -106,9 +108,6 @@ getEncoding=function() {
 
     return(.self$.encoding)
 },
-
-# Get Curl options {{{3
-################################################################################
 
 getCurlOptions=function(useragent) {
     ":\n\nGets the options object to pass to cURL library.
@@ -129,22 +128,16 @@ getCurlOptions=function(useragent) {
     return(opts)
 },
 
-# Get unique key {{{3
-################################################################################
-
 getUniqueKey=function() {
-    ":\n\nGets a unique key to identify this request. The key is an MD5 computed
-    from the string representation of this request.
+    ":\n\nGets a unique key to identify this request. The key is an MD5 sum
+    computed from the string representation of this request.
     \nReturned value: A unique key as an MD5 sum.
     "
 
-    key <- digest::digest(.self$toString(), algo='md5')
+    key <- openssl::md5(.self$toString())
 
     return(key)
 },
-
-# Get header as single string {{{3
-################################################################################
 
 getHeaderAsSingleString=function() {
     ":\n\nGets the HTTP header as a string, concatenating all its information
@@ -163,30 +156,21 @@ getHeaderAsSingleString=function() {
     return(s)
 },
 
-# Get body {{{3
-################################################################################
-
 getBody=function() {
     ":\n\nGets the body.
     \nReturned values: The body as a character value.
     "
-    
+
     return(.self$.body)
 },
-
-# Show {{{3
-################################################################################
 
 show=function() {
     ":\n\nDisplays information about this instance.
     \nReturned value: None.
     "
-    
+
     cat("Biodb request object on ", .self$.url$toString(), "\n", sep='')
 },
-
-# To string {{{3
-################################################################################
 
 toString=function() {
     ":\n\nGets a string representation of this instance.

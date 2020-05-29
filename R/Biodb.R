@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Biodb {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The central class of the biodb package.
 #'
 #' The main class of the \code{biodb} package.
@@ -15,11 +7,11 @@
 #' The constructor takes no argument.
 #'
 #' Once the instance is created, some other important classes
-#' (\code{BiodbFactory}, \code{BiodbCache}, \code{BiodbConfig}, ...) are
-#' instantiated (just once) and their instances are later accessible through
+#' (\code{BiodbFactory}, \code{BiodbPersistentCache}, \code{BiodbConfig}, ...)
+#' are instantiated (just once) and their instances are later accessible through
 #' get*() methods.
 #'
-#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbCache}},
+#' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
 #' \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
 #' \code{\link{BiodbDbsInfo}}.
@@ -36,6 +28,7 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
+#' @import yaml
 #' @include BiodbObject.R
 #' @export Biodb
 #' @exportClass Biodb
@@ -45,20 +38,14 @@ Biodb <- methods::setRefClass("Biodb",
         .factory="ANY",
         .observers="ANY",
         .config="ANY",
-        .cache="ANY",
+        persistentCache="ANY",
         .entry.fields="ANY",
         .dbsinfo="ANY",
         .request.scheduler="ANY"),
 
 methods=list(
 
-# Public methods {{{2
-################################################################################
-
-# Initialize {{{3
-################################################################################
-
-initialize=function() {
+initialize=function(loadAllBiodbPkgs=TRUE) {
 
     callSuper() # Call BiodbObject constructor.
 
@@ -72,25 +59,22 @@ initialize=function() {
     .self$info('This is biodb version ', packageVersion('biodb'), '.')
 
     # Create instances of children
-    .self$.config <- BiodbConfig$new(parent=.self)
-    .self$.cache <- BiodbCache$new(parent=.self)
-    .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
-    .self$.factory <- BiodbFactory$new(parent=.self)
-    .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
-    .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
+    .self$.config <- NULL
+    .self$persistentCache <- NULL
+    .self$.dbsinfo <- NULL
+    .self$.factory <- NULL
+    .self$.entry.fields <- NULL
+    .self$.request.scheduler <- NULL
 
-    # Load definitions
-    file <- system.file("definitions.yml", package="biodb")
-    .self$loadDefinitions(file)
+    # Load definitions from selected biodb* packages
+    pkgs <- .self$.listBiodbPkgsToLoad(loadAllBiodbPkgs)
+    .self$.loadBiodbPkgsDefinitions(pkgs)
 
     # Check locale
     .self$.checkLocale()
 
     .self$info('Created successfully new Biodb instance.')
 },
-
-# Terminate {{{3
-################################################################################
 
 terminate=function() {
     ":\n\nCloses \\code{Biodb} instance. Call this method when you are done with
@@ -101,43 +85,66 @@ terminate=function() {
     .self$info('Closing Biodb instance...')
 
     # Terminate factory
-    .self$.factory$.terminate()
+    if ( ! is.null(.self$.factory))
+        .self$.factory$.terminate()
 
     # Terminate observers
     for (obs in .self$.observers)
         obs$terminate()
 },
 
-# Load definitions {{{3
-################################################################################
-
-loadDefinitions=function(file) {
+loadDefinitions=function(file, package='biodb') {
     ":\n\nLoads databases and entry fields definitions from YAML file.
     \nfile: The path to a YAML file containing definitions for \\code{Biodb}
     (databases, fields or configuration keys).
+    \npackage: The package to which belong the new definitions.
     \nReturned value: None.
     "
 
-    .self$debug('Load definitions from file "', file, '".')
+    if ( ! is.null(file) && ! is.na(file) && file != '' && file.exists(file)) {
 
-    # Load file
-    def <- yaml::read_yaml(file)
+        .self$debug('Load definitions from file "', file, '".')
 
-    # Define config properties
-    if ('config' %in% names(def))
-        .self$getConfig()$define(def$config)
+        # Load file
+        def <- yaml::read_yaml(file)
 
-    # Define databases
-    if ('databases' %in% names(def))
-        .self$getDbsInfo()$define(def$databases)
+        # Define config properties
+        if ('config' %in% names(def))
+            .self$getConfig()$define(def$config)
 
-    # Define fields
-    if ('fields' %in% names(def))
-        .self$getEntryFields()$define(def$fields)
+        # Define databases
+        if ('databases' %in% names(def))
+            .self$getDbsInfo()$define(def$databases, package=package)
+
+        # Define fields
+        if ('fields' %in% names(def))
+            .self$getEntryFields()$define(def$fields)
+    }
 },
 
-# Get configuration {{{3
-################################################################################
+.listBiodbPkgsToLoad=function(loadAllBiodbPkgs) {
+
+    if (loadAllBiodbPkgs) {
+        pkgs <- installed.packages()[, 'Version']
+        pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
+        pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
+                                          # while building vignettes.
+    } else
+        pkgs <- character()
+
+    # Load biodb itself in all cases
+    pkgs[['biodb']] <- packageVersion('biodb')
+
+    return(pkgs)
+},
+
+.loadBiodbPkgsDefinitions=function(pkgs) {
+    for (pkg in sort(names(pkgs))) {
+        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
+        file <- system.file("definitions.yml", package=pkg)
+        .self$loadDefinitions(file, package=pkg)
+    }
+},
 
 getConfig=function() {
     ":\n\nReturns the single instance of the \\code{BiodbConfig} class.
@@ -145,23 +152,23 @@ getConfig=function() {
     this Biodb instance.
     "
 
+    if (is.null(.self$.config))
+        .self$.config <- BiodbConfig$new(parent=.self)
+
     return(.self$.config)
 },
 
-# Get cache {{{3
-################################################################################
-
-getCache=function() {
-    ":\n\nReturns the single instance of the \\code{BiodbCache} class.
-    \nReturned value: The instance of the \\code{BiodbCache} class attached to
+getPersistentCache=function() {
+    ":\n\nReturns the single instance of the BiodbPersistentCache class.
+    \nReturned value: The instance of the BiodbPersistentCache class attached to
     this Biodb instance.
     "
 
-    return(.self$.cache)
-},
+    if (is.null(.self$persistentCache))
+        .self$persistentCache <- BiodbPersistentCache$new(parent = .self)
 
-# Get dbs info {{{3
-################################################################################
+    return(.self$persistentCache)
+},
 
 getDbsInfo=function() {
     ":\n\nReturns the single instance of the \\code{BiodbDbsInfo} class.
@@ -169,11 +176,11 @@ getDbsInfo=function() {
     this Biodb instance.
     "
 
+    if (is.null(.self$.dbsinfo))
+        .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
+
     return(.self$.dbsinfo)
 },
-
-# Get entry fields {{{3
-################################################################################
 
 getEntryFields=function() {
     ":\n\nReturns the single instance of the \\code{BiodbEntryFields} class.
@@ -181,11 +188,11 @@ getEntryFields=function() {
     attached to this Biodb instance.
     "
 
+    if (is.null(.self$.entry.fields))
+        .self$.entry.fields <- BiodbEntryFields$new(parent=.self)
+
     return(.self$.entry.fields)
 },
-
-# Get factory {{{3
-################################################################################
 
 getFactory=function() {
     ":\n\nReturns the single instance of the \\code{BiodbFactory} class.
@@ -193,11 +200,11 @@ getFactory=function() {
     this Biodb instance.
     "
 
+    if (is.null(.self$.factory))
+        .self$.factory <- BiodbFactory$new(parent=.self)
+
     return(.self$.factory)
 },
-
-# Get request scheduler {{{3
-################################################################################
 
 getRequestScheduler=function() {
     ":\n\nReturns the single instance of the \\code{BiodbRequestScheduler} class.
@@ -205,11 +212,11 @@ getRequestScheduler=function() {
     attached to this Biodb instance.
     "
 
+    if (is.null(.self$.request.scheduler))
+        .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
+
     return(.self$.request.scheduler)
 },
-
-# Add observers {{{3
-################################################################################
 
 addObservers=function(observers) {
     ":\n\nAdds new observers. Observers will be called each time an event occurs.
@@ -241,9 +248,6 @@ addObservers=function(observers) {
         lapply(old_obs, function(o) o$newObserver(no))
 },
 
-# Get observers {{{3
-################################################################################
-
 getObservers=function() {
     ":\n\nGets the list of registered observers.
     \nReturned value: The list or registered observers.
@@ -251,9 +255,6 @@ getObservers=function() {
 
     return(.self$.observers)
 },
-
-# Get biodb {{{3
-################################################################################
 
 getBiodb=function() {
     ":\n\nReturns the biodb instance, which is itself in the case of the
@@ -263,9 +264,6 @@ getBiodb=function() {
 
     return(.self)
 },
-
-# Convert entry id field to database name {{{3
-################################################################################
 
 convertEntryIdFieldToDbClass=function(entry.id.field) {
     ":\n\nGets the database class name corresponding to an entry ID field.
@@ -281,9 +279,6 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 
     return(db.name)
 },
-
-# Entries field to vector or list {{{3
-################################################################################
 
 entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
                                 limit=0, withNa=TRUE) {
@@ -336,9 +331,6 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
     return(val)
 },
 
-# Entries to data frame {{{3
-################################################################################
-
 entriesToDataframe=function(entries, only.atomic=TRUE,
                             null.to.na=TRUE, compute=TRUE,
                             fields=NULL, limit=0, drop=FALSE,
@@ -373,26 +365,30 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        .self$message('error', "Parameter 'entries' must be a list.")
+        .self$error("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
     if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
-        .self$message('debug', paste(length(entries),
-                                     "entrie(s) to convert in data frame."))
+        .self$debug(length(entries), "entrie(s) to convert in data frame.")
 
         # Convert list of entries to a list of data frames.
-        df.list <- .self$.entriesToListOfDataframes(entries, only.atomic,
-                                                    compute, fields, flatten,
-                                                    limit, only.card.one,
-                                                    own.id, null.to.na)
+        df.list <- .self$.entriesToListOfDataframes(entries=entries,
+                                                    only.atomic=only.atomic,
+                                                    compute=compute,
+                                                    fields=fields,
+                                                    flatten=flatten,
+                                                    limit=limit,
+                                                    only.card.one=only.card.one,
+                                                    own.id=own.id,
+                                                    null.to.na=null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            .self$message('debug', paste("Merging data frames with a single",
-                                         "entry each into a single data frame",
-                                         "with all entries."))
+            .self$debug("Merging data frames with a single",
+                        "entry each into a single data frame",
+                        "with all entries.")
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()
@@ -417,9 +413,6 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
     return(entries.df)
 },
-
-# Entry IDs to data frame {{{3
-################################################################################
 
 entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
                              own.id=FALSE) {
@@ -464,9 +457,6 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
     return(x)
 },
 
-# Add columns to data frame {{{3
-################################################################################
-
 addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     ":\n\nUsing 
     \nx: A data frame containing at least one column with Biodb entry IDs
@@ -502,12 +492,9 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
         if (is.data.frame(y) && nrow(y) > 0)
             x <- cbind(x, y)
     }
-    
+
     return(x)
 },
-
-# Entries to JSON {{{3
-################################################################################
 
 entriesToJson=function(entries, compute=TRUE) {
     ":\n\nConverts a list of \\code{BiodbEntry} objects into JSON. Returns a
@@ -522,9 +509,6 @@ entriesToJson=function(entries, compute=TRUE) {
 
     return(json)
 },
-
-# Collapse rows {{{3
-################################################################################
 
 collapseRows=function(x, sep='|', cols=1L) {
     ":\n\nCollapses rows of a data frame, by looking for duplicated values in the
@@ -585,9 +569,6 @@ collapseRows=function(x, sep='|', cols=1L) {
     return(y)
 },
 
-# Entries to single field values {{{3
-################################################################################
-
 entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE) {
 
     # Get values
@@ -607,9 +588,6 @@ entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE)
     return(values)
 },
 
-# Entry IDs to single field values {{{3
-################################################################################
-
 entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE) {
 
     # Get connector
@@ -623,9 +601,6 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE
                                      sortOutput=sortOutput, uniq=uniq)
 },
 
-# Compute fields {{{3
-################################################################################
-
 computeFields=function(entries) {
     ":\n\nComputes missing fields in entries, for those fields that are
     comptable.
@@ -637,9 +612,6 @@ computeFields=function(entries) {
     for (e in entries)
         e$computeFields()
 },
-
-# Save entries as JSON {{{3
-################################################################################
 
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
     ":\n\nSaves a list of entries in JSON format. Each entry will be saved in a
@@ -658,9 +630,6 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
         writeChar(json, files[[i]])
     }
 },
-
-# Copy database {{{3
-################################################################################
 
 copyDb=function(conn.from, conn.to, limit=NULL) {
     ":\n\nCopies all entries of a database into another database. The connector
@@ -695,17 +664,20 @@ copyDb=function(conn.from, conn.to, limit=NULL) {
     }
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
-    'Prints object information.'
+    ":\n\nPrints object information.
+    \nReturned value: None.
+    "
 
     # Print version
     v <- as.character(packageVersion('biodb'))
     cat("Biodb instance, version ", v, ".\n", sep='')
 
-    # List disabled databases
+    # List loaded connectors
+    ids <- sort(.self$getDbsInfo()$getIds())
+    cat("Available connectors are: ", paste(ids, collapse=", "), ".\n", sep='')
+
+    # List disabled connectors
     dbs <- .self$getDbsInfo()$getAll()
     fct <- function(x) x$getPropertyValue('disabled')
     disabled <- vapply(dbs, fct, FUN.VALUE=TRUE)
@@ -717,20 +689,30 @@ show=function() {
     }
 },
 
-# Private methods {{{2
-################################################################################
+enableDebug=function() {
+    ":\n\nEnable debug mode: set levels of all message types to maximum.
+    \nReturned value: None.
+    "
 
-# Send progress message {{{3
-################################################################################
+    for (type in c('info', 'caution', 'debug'))
+        .self$getConfig()$set(paste('msg', type, 'lvl', sep='.'), 10)
+},
+
+disableDebug=function() {
+    ":\n\nDisable debug mode: reset levels of all message types to their default
+    value.
+    \nReturned value: None.
+    "
+
+    for (type in c('caution', 'debug', 'info'))
+        .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
+},
 
 .sendProgress=function(msg, index, total, first) {
     lapply(.self$getObservers(),
            function(x) x$progress(type='info', msg=msg, index=index,
                                   total=total, first=first))
 },
-
-# Check locale {{{3
-################################################################################
 
 .checkLocale=function() {
 
@@ -758,9 +740,6 @@ show=function() {
                                 "'en_US.UTF-8'."))
     }
 },
-
-# Entries to list of data frames {{{3
-################################################################################
 
 .entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
                                     flatten, limit, only.card.one, own.id,
@@ -808,6 +787,7 @@ show=function() {
                                            own.id=own.id)
         }
 
+        .self$debug2Dataframe("Entry converted to data frame", e.df)
         df.list <- c(df.list, list(e.df))
     }
 
@@ -823,14 +803,9 @@ show=function() {
         df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
+    .self$debug("Converted", length(df.list), "entry/ies to data frame(s).")
     return(df.list)
 },
-
-# Deprecated methods {{{2
-################################################################################
-
-# Field is atomic {{{3
-################################################################################
 
 fieldIsAtomic=function(field) {
     ":\n\nDEPRECATED method to test if a field is an atomic field. The new
@@ -840,9 +815,6 @@ fieldIsAtomic=function(field) {
 
     return(.self$getEntryFields()$get(field)$isVector())
 },
-
-# Get field class {{{3
-################################################################################
 
 getFieldClass=function(field) {
     ":\n\nDEPRECATED method to get the class of a field. The new method is

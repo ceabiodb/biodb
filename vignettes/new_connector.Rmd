@@ -1,0 +1,29 @@
+---
+title: "*biodb*: Creating a new connector."
+author: "Pierrick Roger"
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
+abstract: |
+  How to create a new connector class for accessing a database.
+vignette: |
+  %\VignetteIndexEntry{Creating a new connector class for accessing a database.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Introduction
+
+<!-- TODO Use ChebiEx. -->
+
+Use KEGG Compound for the example.
+
+A full connector for accessing ChEBI database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of the full library:
+
+<!-- TODO -->

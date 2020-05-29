@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbChildObject {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' @include BiodbObject.R
 BiodbChildObject <- methods::setRefClass("BiodbChildObject",
     contains='BiodbObject',
@@ -13,13 +5,7 @@ BiodbChildObject <- methods::setRefClass("BiodbChildObject",
         .parent="ANY"
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(parent, ...) {
 
@@ -28,25 +14,13 @@ initialize=function(parent, ...) {
     .self$.setParent(parent)
 },
 
-# Get parent {{{3
-################################################################################
-
 getParent=function() {
     return(.self$.parent)
 },
 
-# Get biodb {{{3
-################################################################################
-
 getBiodb=function() {
     return(.self$getParent()$getBiodb())
 },
-
-# Private methods {{{2
-################################################################################
-
-# Set parent {{{3
-################################################################################
 
 .setParent=function(parent) {
 
