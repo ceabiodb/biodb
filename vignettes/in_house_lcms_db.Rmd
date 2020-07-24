@@ -20,7 +20,7 @@ output:
 
 # Introduction
 
-To define an in-house LCMS database, we are going to use the mass.csv.file database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
+To load an in-house LCMS database, we are going to use the `mass.csv.file` database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
 
 We first create an instance of the `Biodb` class:
 ```{r}

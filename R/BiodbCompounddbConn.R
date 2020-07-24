@@ -54,7 +54,7 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
     ids <- NULL
 
     .self$caution('Database ', .self$getDbClass(),
-                  ' is not searchable by mass.')
+                  ' is not searchable by mass or name.')
 
     return(ids)
 },

@@ -1,0 +1,92 @@
+---
+title: "*biodb*: In-house compound database"
+author: "Pierrick Roger"
+date: "`r doc_date()`"
+package: "`r pkg_ver('biodb')`"
+abstract: |
+  How to define and use an in-house compound database.
+vignette: |
+  %\VignetteIndexEntry{In-house LCMS database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Introduction
+
+*biodb* is able to handle an in-house compound database stored inside a CSV file, using the `comp.csv.file` connector.
+The CSV file must use the tabulation as the separator character. In order to facilitate the loading of the file, you should name the columns of your file with *biodb* standard field names. However you have also the possibility to declare the mapping between column names of your file and *biodb* field names just before loading the file.
+
+To start we create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+
+# Connector creation and file loading
+
+We will use an extract of ChEBI database for our example:
+```{r}
+fileUrl <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+```
+
+We instantiate the connector by passing the file URL to it:
+```{r}
+conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
+```
+
+Now the database is immediatly usable, through the connector access, because we used *biodb* field names for the column names.
+However, if you have some custom column names in your file, you need to map them with *biodb* field. Here is an example, where we redefine a mapping that was defined automatically by *biodb*:
+```{r}
+conn$setField('formula', # The biodb field.
+              'formula'  # The name of the column inside the CSV file.
+             )
+```
+Note that you can define a mapping between one *biodb* field and several columns, in which case the a new column will be created in memory and the values will the concatenation of all the columns. This is useful in the case where several columns must be used to identify an entry, and thus we need to define the `accession` field as the concatenation of those columns.
+
+Up to now, the file has not been read by *biodb*. It will be when calling the first function accessing data that the file will be loaded.
+
+# Retrieving entries
+
+As for any connector in *biodb* you can retrieve entry objets using their accession numbers:
+```{r}
+entries <- conn$getEntry(c('1018', '1456'))
+entries
+```
+
+From a list of entries, you can obtain a data frame:
+```{r}
+conn$entriesToDataframe(entries)
+```
+
+# Searching for entries
+
+For compound databases, it is possible to search for compounds by name:
+```{r}
+conn$searchCompound(name='guanosine')
+```
+The function returns a list of accession numbers that you can use with the `getEntry()` function.
+
+But also by mass:
+```{r}
+conn$searchCompound(mass=283.0917, massfield='monoisotopic.mass')
+```
+
+Or both:
+```{r}
+conn$searchCompound(name='guanosine', mass=283.0917, massfield='monoisotopic.mass')
+```
+
+# Annotation of an MS file
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r Closing of the biodb instance}
+mybiodb$terminate()
+```

@@ -23,7 +23,7 @@ output:
 <!-- TODO Or use a compound csv database with new unknown column for which to add field? -->
 <!-- TODO And use ChebiEx after. -->
 
-For practical reasons, in biodb, when a connector is created we do not implement the parsing of all available data. Thus it may happen that one particular data that you see in entries on the database website, is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
+In many cases, in biodb, a connector does not implement the parsing of all available data, the reason being the amount of data would require an excessive amount of coding. The author usually focuses his efforts on a small number of fields, in which he is directly interested. Thus it may happen that one particular data that you see in entries on the database website is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
 
 In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
 
