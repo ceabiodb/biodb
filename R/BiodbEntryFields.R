@@ -100,7 +100,7 @@ checkIsDefined=function(name) {
                     "\" is/are not defined.")
 },
 
-getRealName=function(name) {
+getRealName=function(name, fail=TRUE) {
     ":\n\nGets the real names (main names) of fields. If some name is not
     found neither in aliases nor in real names, an error is thrown.
     \nname: A character vector of names or aliases.
@@ -112,10 +112,12 @@ getRealName=function(name) {
     name <- .self$formatName(name)
 
     # Check name
-    .self$checkIsDefined(name)
+    if (fail)
+        .self$checkIsDefined(name)
 
     # Get real name
-    if ( ! name %in% names(.self$.fields))
+    if ( ! name %in% names(.self$.fields) &&
+        (fail || name %in% names(.self$.aliasToName)))
         name <- .self$.aliasToName[[name]]
 
     return(name)

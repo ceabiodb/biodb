@@ -41,5 +41,32 @@ initialize=function(...) {
 
 .doSelect=function(db) {
     return(db)
+},
+
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
+                        mass.tol=0.01, mass.tol.unit='plain',
+                        max.results=NA_integer_) {
+    # Overrides super class' method.
+
+    .self$.checkMassField(mass=mass, mass.field=mass.field)
+    
+    db <- NULL
+    ids <- character()
+
+    # Search for name
+    if ( ! is.null(name))
+        db <- .self$.selectBySubstring(db, 'name', name)
+
+    # Search for mass
+    if ( ! is.null(mass)) {
+        rng <- convertTolToRange(mass, mass.tol, mass.tol.unit)
+        db <- .self$.selectByRange(db=db, field=mass.field,
+                                   minValue=rng$a, maxValue=rng$b)
+    }
+    
+    if ( ! is.null(db))
+        ids <- .self$.select(db=db, cols='accession', drop=TRUE, uniq=TRUE)
+    
+    return(ids)
 }
 ))

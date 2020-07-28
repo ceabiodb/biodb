@@ -47,21 +47,40 @@ initialize=function(...) {
     .self$.parsing.expr <- list()
 },
 
+getFieldNames=function() {
+    fields <- names(.self$.fields)
+    ef <- .self$getBiodb()$getEntryFields()
+    fct <- function(f) {
+        return(ef$getRealName(f))
+    }
+    fields <- vapply(fields, fct, FUN.VALUE='')
+    return(fields)
+},
+
 hasField=function(field) {
     ":\n\nTests if a field is defined for this database instance.
     \nfield: A valid Biodb entry field name.
     \nReturned value: TRUE of the field is defined, FALSE otherwise.
     "
 
-    field <- tolower(field)
-
     if (is.null(field) || is.na(field))
         .self$error("No field specified.")
+
+    ef <- .self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field, fail=FALSE)
 
     # Load database file
     .self$.initDb()
 
-    return(field %in% names(.self$.fields))
+    return(field %in% .self$getFieldNames())
+},
+
+isSearchableByField=function(field) {
+    # Overrides super class' method.
+
+    v <- callSuper(field)
+    v <- v && .self$hasField(field)
+    return(v)
 },
 
 addField=function(field, value) {
@@ -76,16 +95,17 @@ addField=function(field, value) {
 
     .self$.checkParsingHasBegan()
 
-    field <- tolower(field)
-
     if (is.null(field) || is.na(field))
         .self$error("No field specified.")
+
+    ef <- .self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field, fail=FALSE)
 
     # Load database file
     .self$.initDb()
 
     # Field already defined?
-    if (field %in% names(.self$.fields))
+    if (field %in% .self$getFieldNames())
         .self$error("Database field \"", field, "\" is already defined.")
     if (field %in% names(.self$.db))
         .self$error("Database column \"", field, "\" is already defined.")
@@ -104,16 +124,17 @@ getFieldColName=function(field) {
     \nReturned value: The column name from the CSV file.
     "
 
-    field <- tolower(field)
-
     if (is.null(field) || is.na(field))
         .self$error("No field specified.")
+
+    ef <- .self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field)
 
     # Load database file
     .self$.initDb()
 
     # Check that this field is defined in the fields list
-    if ( ! field %in% names(.self$.fields))
+    if ( ! field %in% .self$getFieldNames())
         .self$error("Database field \"", field, "\" is not defined.")
 
     return(.self$.fields[[field]])
@@ -133,10 +154,10 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
 
     .self$.checkParsingHasBegan()
 
-    field <- tolower(field)
-
     .self$.assertNotNull(field)
     .self$.assertNotNa(field)
+    ef <- .self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field, fail=FALSE)
     .self$.assertNotNull(colname)
     .self$.assertNotNa(colname)
 
@@ -144,14 +165,11 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     .self$.initDb()
 
     # Check that this is a correct field name
-    if ( ! .self$getBiodb()$getEntryFields()$isDefined(field)) {
+    if ( ! ef$isDefined(field)) {
         if ( ! ignore.if.missing)
             .self$error("Database field \"", field, "\" is not valid.")
         return()
     }
-
-    # Set real name (i.e.: official name) for field
-    field <- .self$getBiodb()$getEntryFields()$getRealName(field)
 
     # Fail if column names are not found in file
     if ( ! all(colname %in% names(.self$.db))) {
@@ -263,12 +281,12 @@ defineParsingExpressions=function() {
     entry.fields <- .self$getBiodb()$getEntryFields()
 
     # Loop on all fields defined in database
-    for (field in names(.self$.fields))
+    for (field in .self$getFieldNames())
         .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
 
     # Loop on all entry fields
     for (field in entry.fields$getFieldNames())
-        if ( ! field %in% names(.self$.fields)) {
+        if ( ! field %in% .self$getFieldNames()) {
             f <- entry.fields$get(field)
             if ( ! f$isVirtual())
                 .self$setPropValSlot('parsing.expr', field, field)
@@ -342,7 +360,7 @@ defineParsingExpressions=function() {
     .self$.initDb()
 
     # Check if fields are defined in file database
-    undefined.fields <- fields[ ! fields %in% names(.self$.fields)]
+    undefined.fields <- fields[ ! fields %in% .self$getFieldNames()]
     if (length(undefined.fields) > 0) {
         .self$message((if (fail) 'error' else 'debug'),
                       paste0("Field(s) ",
@@ -362,14 +380,14 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.select=function(ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
+.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
                  max.rows=NA_integer_, ...) {
-
-    # Init db
-    .self$.initDb()
-
-    # Get db
-    db <- .self$.db
+    
+    # Get database
+    if (is.null(db)) {
+        .self$.initDb()
+        db <- .self$.db
+    }
 
     # Filtering
     if ( ! is.null(ids))
@@ -397,6 +415,74 @@ defineParsingExpressions=function() {
     # Drop
     if (drop && ncol(db) == 1)
         db <- db[[1]]
+
+    return(db)
+},
+
+.selectByRange=function(db, field, minValue, maxValue) {
+    
+    # Get database
+    if (is.null(db)) {
+        .self$.initDb()
+        db <- .self$.db
+    }
+
+    # Check range
+    if (is.null(minValue) || is.null(maxValue))
+        .self$error('You must set both min and max values.')
+    if (length(minValue) != length(maxValue))
+        .self$error("'minValue' and 'maxValue' must have equal lengths.",
+                    " 'minValue' has ", length(minValue), " element(s),",
+                    " and 'maxValue' has ", length(maxValue), "element(s).")
+    .self$debug('Filtering on field "', field, '", with range: ',
+                paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.')
+    
+    # Check field
+    .self$.checkFields(field)
+    f <- .self$.fields[[field]]
+    values <- db[[f]]
+    .self$debug(length(values), ' values to filter on field ', field, '.')
+
+    # For all couples in vectors minValue and maxValue, verify which values
+    # are in the range. For each couple of minValue/maxValue we get a vector of
+    # booleans the same length as `values` vector.
+    fct <- function(minV, maxV) {
+        if (is.na(minV) && is.na(maxV))
+            rep(FALSE, length(values))
+        else
+            ((if (is.na(minV)) rep(TRUE, length(values)) else values >= minV)
+             & (if (is.na(maxV)) rep(TRUE, length(values)) else  values <= maxV))
+    }
+    s <- mapply(fct, minValue, maxValue)
+
+    # Now we select the values that are in at least one of the ranges.
+    if (is.matrix(s))
+        s <- apply(s, 1, function(x) Reduce("|", x))
+    else if (is.list(s))
+        s <- unlist(s)
+
+    # Filter
+    db <- db[s, , drop=FALSE]
+
+    return(db)
+},
+
+.selectBySubstring=function(db, field, value) {
+    
+    # Get database
+    if (is.null(db)) {
+        .self$.initDb()
+        db <- .self$.db
+    }
+
+    # Check field
+    .self$.checkFields(field)
+    f <- .self$.fields[[field]]
+    values <- db[[f]]
+    .self$debug(length(values), ' values to filter on field ', field, '.')
+
+    # Filter
+    db <- db[grep(value, values), , drop=FALSE]
 
     return(db)
 },
