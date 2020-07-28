@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: Creating a new field for entries."
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to parse a new field for entries.
 vignette: |

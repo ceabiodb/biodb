@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: MS annotation"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to annotate a list of M/Z values with chemical and MS databases.
 vignette: |
@@ -30,8 +30,8 @@ mybiodb <- biodb::Biodb()
 
 Here is the input data frame we want to annotate with both M/Z values and RT values in seconds:
 ```{r Set a list of M/Z values}
-mzdf <- data.frame(mz=c(282.083871, 283.0623, 346.0546, 821.3964),
-                   rt=c(334, 872, 536, 740))
+ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
+mzdf <- read.table(ms.tsv, sep="\t")
 ```
 
 # Annotation using a chemical database

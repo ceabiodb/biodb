@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: In-house compound database"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to define and use an in-house compound database.
 vignette: |
@@ -61,7 +61,7 @@ entries
 
 From a list of entries, you can obtain a data frame:
 ```{r}
-conn$entriesToDataframe(entries)
+mybiodb$entriesToDataframe(entries)
 ```
 
 # Searching for entries
@@ -74,15 +74,32 @@ The function returns a list of accession numbers that you can use with the `getE
 
 But also by mass:
 ```{r}
-conn$searchCompound(mass=283.0917, massfield='monoisotopic.mass')
+conn$searchCompound(mass=283.0917, mass.field='monoisotopic.mass')
 ```
 
 Or both:
 ```{r}
-conn$searchCompound(name='guanosine', mass=283.0917, massfield='monoisotopic.mass')
+conn$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+```
+
+To check if a connector is searchable by a mass field, use the following method:
+```{r}
+conn$isSearchableByField('monoisotopic.mass')
 ```
 
 # Annotation of an MS file
+
+```{r Loading of M/Z table}
+ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
+mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
+mzdf
+```
+
+```{r Annotate}
+conn$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), fieldsLimit=1)
+```
+
+See the vignette "MS annotation" for more details.
 
 # Closing biodb instance
 

@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: Configuring"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to configure biodb package.
 vignette: |

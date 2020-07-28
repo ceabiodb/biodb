@@ -1,8 +1,8 @@
 ---
 title: "*biodb* Merging entries coming from different databases"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to build a data frame containing entries coming from different databases.
 vignette: |
