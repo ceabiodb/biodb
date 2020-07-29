@@ -31,7 +31,7 @@ mybiodb <- biodb::Biodb()
 Here is the input data frame we want to annotate with both M/Z values and RT values in seconds:
 ```{r Set a list of M/Z values}
 ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
-mzdf <- read.table(ms.tsv, sep="\t")
+mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
 ```
 
 # Annotation using a chemical database

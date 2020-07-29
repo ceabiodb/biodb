@@ -4,9 +4,9 @@ author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
-  How to define and use an in-house compound database.
+  How to load and use an in-house compound database.
 vignette: |
-  %\VignetteIndexEntry{In-house LCMS database}
+  %\VignetteIndexEntry{In-house compound database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output:
@@ -47,9 +47,9 @@ conn$setField('formula', # The biodb field.
               'formula'  # The name of the column inside the CSV file.
              )
 ```
-Note that you can define a mapping between one *biodb* field and several columns, in which case the a new column will be created in memory and the values will the concatenation of all the columns. This is useful in the case where several columns must be used to identify an entry, and thus we need to define the `accession` field as the concatenation of those columns.
+Note that you can define a mapping between one *biodb* field and several columns, in which case the new column will be created in memory and the values will be the concatenation of all the columns. This is useful when several columns must be used to identify an entry ; we can then easily define the `accession` field as the concatenation of those columns.
 
-Up to now, the file has not been read by *biodb*. It will be when calling the first function accessing data that the file will be loaded.
+Up to now, the database loading has been postponed by *biodb*. It file will be read when calling the first function that accesses data.
 
 # Retrieving entries
 
@@ -68,16 +68,16 @@ mybiodb$entriesToDataframe(entries)
 
 For compound databases, it is possible to search for compounds by name:
 ```{r}
-conn$searchCompound(name='guanosine')
+conn$searchCompound(name='deoxyguanosine')
 ```
 The function returns a list of accession numbers that you can use with the `getEntry()` function.
 
-But also by mass:
+It is also possible to search by mass (using any mass field that is defined inside the database):
 ```{r}
 conn$searchCompound(mass=283.0917, mass.field='monoisotopic.mass')
 ```
 
-Or both:
+Or to search by both mass and name:
 ```{r}
 conn$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
 ```
@@ -89,12 +89,16 @@ conn$isSearchableByField('monoisotopic.mass')
 
 # Annotation of an MS file
 
+Your in-house chemical database can be used to annotate an MS file, using a data frame as input. You will obtain a new data frame with appended columns taken from the chemical database.
+
+Here is an input data frame example with M/Z values in a column:
 ```{r Loading of M/Z table}
 ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
 mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
 mzdf
 ```
 
+To run the annotation function, you must specify some parameters, like the tolerance, the MS mode and the wanted output fields:
 ```{r Annotate}
 conn$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), fieldsLimit=1)
 ```
