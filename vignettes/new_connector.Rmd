@@ -4,7 +4,7 @@ author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
-  How to create a new connector class for accessing a database.
+  How to create a new connector class for accessing a database not handled by biodb or one of the biodb* packages. This vignette shows how to write a connector for a remote compound database, whose entry contents are sent in XML format.
 vignette: |
   %\VignetteIndexEntry{Creating a new connector class for accessing a database.}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,10 +20,161 @@ output:
 
 # Introduction
 
-<!-- TODO Use ChebiEx. -->
+*biodb* is framework designed to help you implement new connectors for databases. To illustrate this, we will show you a practical example with the [ChEBI](https://www.ebi.ac.uk/chebi/) database. In this example, we will present you a small implementation of a ChEBI connector, and show you how to declare it to your *biodb* instance.
 
-Use KEGG Compound for the example.
+A more complete and functional connector for accessing ChEBI database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of this connector:
 
-A full connector for accessing ChEBI database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of the full library:
+To start we create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
 
-<!-- TODO -->
+We will now implement the connector classes and define the needed *biodb* information, as a YAML file.
+
+# Implementing the classes
+
+When defining a new connector, two classes must be implemented: a connector class and an entry class.
+Their names are important, since they must match the *biodb* name that will be used in the YAML definition file. In our example the *biodb* name of our connector is `chebi.ex` (for "ChEBI example"). From this name, *biodb* will put in uppercase the first letter and the ones that are after a dot and then remove the dots. It will append `"Entry"` to this prefix to get the entry class name (`ChebiExEntry`), and `"Conn"` to obtain the connector class name (`ChebiExConn`).
+
+## The entry class
+
+The entry class represents an entry from the database. Each instance of an entry contains the values parsed from the database downloaded content.
+A entry class must inherit from the `BiodbEntry` class and define some methods. To simplify this step, several generic entry classes have been defined in *biodb*, depending on the type of content downloaded from the database:
+ * `BiodbCsvEntry`: for CSV file.
+ * `BiodbHtmlEntry`: for HTML, the parsing will be done using XPath expressions.
+ * `BiodbJsonEntry`: for JSON.
+ * `BiodbListEntry`: for R list.
+ * `BiodbSdfEntry`: for SDF file (chemical data file format).
+ * `BiodbTxtEntry`: for text file, the parsing will be done using regular expressions.
+ * `BiodbXmlEntry`: for XML file, the parsing will be done using XPath expressions.
+Each of these entry classes, facilitate the parsing of the corresponding content type.
+
+```{r, echo=FALSE, results='hide'}
+entryClass <- system.file("extdata", "ChebiExEntry.R", package='biodb')
+```
+
+Our entry class has to inherit from `BiodbXmlEntry` since ChEBI returns XML files when retrieving entries:
+```{r, code=readLines(entryClass)}
+```
+In the *biodb* definition file, we will write XPath expressions for the different desired fields in order to parse values from inside the downloaded XML.
+
+We remind here the reader, that *biodb* uses the [Reference classes](http://adv-r.had.co.nz/R5.html) as OOP (Object Oriented Programming) model.
+
+## The connector class
+
+The connector class is responsible for the connection to the database. In our case, the database is a remote database, thus our connector class must inherit from `BiodbRemotedbConn` class. But it is also a compound database, so it must also inherit from `BiodbCompounddbConn`. Both those super classes require the implementation of specific functions, see \@ref(tab:remoteMethods) and \@ref(tab:compMethods) for a description of those methods.
+
+Method                        | Description
+----------------------------- | --------------------------------
+`getEntryPageUrl()`           | This public method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`getEntryImageUrl()`          | This public method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`.doGetEntryContentRequest()` | This protected method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
+`.doGetEntryIds()`            | This protected method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
+
+: (\#tab:remoteMethods) `BiodbRemotedbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbRemotedbConn` class.
+
+Method              | Description
+------------------- | --------------------------------
+`searchCompound()` | This method implements the search of compounds by name and/or by mass. For our example, we have kept it empty, because a real call to ChEBI API would require much code. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package which implements the ChEBI connector.
+
+: (\#tab:compMethods) `BiodbCompounddbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbCompounddbConn` class.
+
+See the help about `BiodbRemotedbConn` and `BiodbCompounddbConn` for details about the parameters of those functions.
+
+```{r, echo=FALSE, results='hide'}
+connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
+```
+
+Here is our implementation of the connector class:
+```{r, code=readLines(connClass)}
+```
+
+In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and `.doGetEntryContentRequest()`, you may have notice that the `getPropValSlot()` to get URLs (`"base.url"`, `"ws.url"`). These values are defined inside the connector YAML definition file that we will detail below.
+Also, in those methods, we use the `BiobdUrl` class to build the URLs. `BiodbUrl` handles the building of the URL parameters, as well as the encoding of special characters.
+
+# Defining the new connector for biodb
+
+Now we have to write a definition of the connector for *biodb*. This step is done using a YAML file:
+```{r, eval=FALSE, highlight=FALSE, code=readLines(system.file("extdata", "chebi_ex.yml", package='biodb'))}
+```
+
+This YAML file contains two main parts: `databases` and `fields`. The `databases` part is where you list the new connectors you've created, and the `fields` part is where you define the new entry fields your new connectors need.
+We just have one new field to define: `chebi.ex.id`. This is the accession field for our new connector. All connector accession fields are in the form `<connector_class_id>.id`. This accession field is mainly used inside other databases, when they make references to other databases. The field `accession`, which is used in all entries of *biodb* connectors, contains the same value as the connector accession field (`chebi.ex.id` in our case) and is preferable when accessing an entry.
+The definition of the new field is quite simple, See \@ref(tab:fielddecl) for explanations of the different parameters.
+
+Parameter            | Description
+-------------------- | --------------------------------
+`description`        | A free description of your field.
+`type`               | The type of the field. Here we declare that this is an accession (identifier) field: `id`.
+`card`               | The cardinality of the field: `one` if field accepts only one value, or `many` if multiple values can be stored inside the field.
+`forbids.duplicates` | If `TRUE` then duplicates are forbidden. This supposes that we allow to store multiple values inside this field (i.e.: cardinality is set to `many`).
+`case.insensitive`   | If `TRUE` then values will be compared in case insensitive mode. This is mostly useful when looking for duplicates.
+
+: (\#tab:fielddecl) Field's parameters. Description of the parameters used when declaring a new entry field.
+
+The main part is the declaration of the new connector. This is done in the `databases` section, under the key `chebi.id`, which is the database identifier. See \@ref(tab:conndecl) for explanations of the different parameters.
+
+Parameter                | Description
+------------------------ | --------------------------------
+`name`                   | The full name of your new connector.
+`urls`                   | A list (key/values) of URLs of the remote database. The common URLs to define are `base.url` to access pages of the database website, and `ws.url` for web service URLs. Those URLs are just "prefix" and are used inside the connector class for building real URLs. You can define as much URLs as the remote database requires, like a second base URL (`base2.url`) or a second web service URL (`ws2.url`), or any other URL with the key name you want.
+`xml.ns`                 | This parameter defines namespaces for XML documents returned by the remote database. This is thus only useful for databases that return data in XML format.
+`scheduler.n`            | The maximum number of queries to send to the remote database, each T (stored as `scheduler.t`) seconds.
+`scheduler.t`            | The time (in seconds) during which a maximum of N (stored as `scheduler.n`) queries is allowed.
+`entry.content.type`     | The type of content sent by the database for an entry. Here we have specified `xml`. Allowed values are: `html`, `sdf`, `txt`, `xml`, `csv`, `tsv`, `json`, `list`. This is mainly used to add an extension to the file saved inside *biodb* cache.
+`entry.content.encoding` | The text encoding used inside the entry's content by the database.
+`parsing.expr`           | This is the most important part of the declaration. It is lists the different expressions to use in order to parse the values of the entry fields. The format is a key/value list, the key being the *biodb* field name, and the value the expression to run. Since the entry content type is XML, we have to use XPath expressions here. See this [XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp), for instance, to get an introduction to XPath. Note that we can define multiple expressions, like for `formula` field, in case of XPath expressions. If the first expression fails, then next expressions will be tried.
+`searchable.fields`      | A list of *biodb* entry fields that are searchable when calling a search function like `searchCompound()`.
+
+: (\#tab:conndecl) Connector declaration's parameters. Description of the parameters used when declaring a new connector. 
+
+# Declaring the new connector
+
+To declare the new connector, we load the YAML definition file inside our *biodb* instance:
+```{r}
+defFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
+mybiodb$loadDefinitions(defFile)
+```
+
+Now our *biodb* instance is aware of our new connector, and is ready to create instances of it.
+
+# Instantiating and using the new connector
+
+Create an effective connection with our new connector class, is made the same way as for any connector class: we call the `createConn()` onto the factory instance, with the identifier of the connector class:
+```{r}
+conn <- mybiodb$getFactory()$createConn('chebi.ex')
+```
+
+Now we can retrieve a ChEBI entry from the remote database:
+```{r}
+conn$getEntry('17001')
+```
+
+# Connector for a mass spectra database
+
+# Connector for a local database
+
+# Connector for a downloadable database
+
+# How to implement other types of entry classes
+
+## HTML content
+
+## JSON content
+
+## List content
+
+## CSV content
+
+## SDF content
+
+## Text content
+
+## Specific parsing
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r Closing of the biodb instance}
+mybiodb$terminate()
+```
