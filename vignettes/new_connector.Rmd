@@ -73,8 +73,8 @@ Method                        | Description
 
 : (\#tab:remoteMethods) `BiodbRemotedbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbRemotedbConn` class.
 
-Method              | Description
-------------------- | --------------------------------
+Method             | Description
+------------------ | --------------------------------
 `searchCompound()` | This method implements the search of compounds by name and/or by mass. For our example, we have kept it empty, because a real call to ChEBI API would require much code. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package which implements the ChEBI connector.
 
 : (\#tab:compMethods) `BiodbCompounddbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbCompounddbConn` class.
@@ -147,12 +147,26 @@ conn <- mybiodb$getFactory()$createConn('chebi.ex')
 
 Now we can retrieve a ChEBI entry from the remote database:
 ```{r}
-conn$getEntry('17001')
+entry <- conn$getEntry('17001')
+entry$getFieldsAsDataframe()
 ```
 
 # Connector for a mass spectra database
 
 # Connector for a local database
+
+With *biodb* you can also write a connector for a local database. In that case, your class has to inherit directly from `BiodbConn`, not from `BiodbRemotedbConn`.
+All the connectors included in *biodb* package are local connectors only: `mass.csv.file`, `comp.csv.file` and `mass.sqlite`. See \@ref(tab:connMethods) for a list of methods to implement when writing a local connector.
+
+Method                       | Description
+---------------------------- | --------------------------------
+`isSearchableByField()`      | .
+`getNbEntries()`             |
+`getEntryContentFromDb()`    |
+`defineParsingExpressions()` |
+`.doGetEntryIds()`           | See above in \@ref(tab:remoteMethods) for a description of this method.
+
+: (\#tab:connMethods) `BiodbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbConn` class.
 
 # Connector for a downloadable database
 
