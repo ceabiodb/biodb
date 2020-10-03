@@ -13,29 +13,9 @@ notifications:
 before_install:
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
     - R --slave --no-restore RHOME
-    - pwd
-    - echo $HOME
-    - ls -lh ~
-    - ls -lh ~/R
-    - ls -lh ~/R/Library
-    - ls -lh ~/R/Library/BiocCheck
-    - ls -lh ~/R/Library/BiocCheck/script
-      #    - ~/R/Library/BiocCheck/script/BiocCheck -h
-    - ls /opt
-    - ls -lh /opt/R/4.0.2/lib/R/
-    - ls -lh /opt/R/4.0.2/lib/R/bin
-    - ls -lh /opt/R/4.0.2/lib/R/library
-    - echo $PATH
-    - PATH="$PATH:$HOME/R/Library/BiocCheck/script"
-    - echo $PATH
-    - which BiocCheck
-      #    - BiocCheck -h
-      #    - cp ~/R/Library/BiocCheck/script/BiocCheck /opt/R/4.0.2/lib/R/bin/
+    - PATH="$PATH:$HOME/R/Library/BiocCheck/script" # Add BiocCheck script dir to PATH because of failure while installing scripts to /opt/R/4.0.2/lib/R/bin (owned by root) as travis user.
 
 script:
-  #    - PATH="$PATH:~/R/Library/BiocCheck/script/"
-    - echo $PATH
-    - which BiocCheck
     - make build
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
     - which BiocCheck
