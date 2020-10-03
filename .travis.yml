@@ -14,21 +14,22 @@ before_install:
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
     - R --slave --no-restore RHOME
     - pwd
+    - echo $HOME
     - ls -lh ~
     - ls -lh ~/R
     - ls -lh ~/R/Library
     - ls -lh ~/R/Library/BiocCheck
     - ls -lh ~/R/Library/BiocCheck/script
-    - ~/R/Library/BiocCheck/script/BiocCheck -h
+      #    - ~/R/Library/BiocCheck/script/BiocCheck -h
     - ls /opt
     - ls -lh /opt/R/4.0.2/lib/R/
     - ls -lh /opt/R/4.0.2/lib/R/bin
     - ls -lh /opt/R/4.0.2/lib/R/library
     - echo $PATH
-    - PATH="$PATH:~/R/Library/BiocCheck/script"
+    - PATH="$PATH:$HOME/R/Library/BiocCheck/script"
     - echo $PATH
     - which BiocCheck
-    - BiocCheck -h
+      #    - BiocCheck -h
       #    - cp ~/R/Library/BiocCheck/script/BiocCheck /opt/R/4.0.2/lib/R/bin/
 
 script:
