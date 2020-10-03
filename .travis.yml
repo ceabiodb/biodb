@@ -28,6 +28,7 @@ before_install:
       #    - cp ~/R/Library/BiocCheck/script/BiocCheck /opt/R/4.0.2/lib/R/bin/
 
 script:
+    - PATH="$PATH:~/R/Library/BiocCheck/script/"
     - make build
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
     - make bioc.check
