@@ -17,9 +17,3 @@ script:
     - make build
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
     - make bioc.check
-
-branches:
-    only:
-        - master
-        - /^dev_.*$/
-        - /^release_.*$/
