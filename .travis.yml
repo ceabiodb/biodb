@@ -14,6 +14,8 @@ before_install:
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
     - R --slave --no-restore RHOME
     - ls /opt
+    - ls /opt/R/4.0.2/lib/R/
+    - ls /opt/R/4.0.2/lib/R/bin
 
 script:
     - make build
