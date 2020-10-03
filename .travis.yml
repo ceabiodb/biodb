@@ -22,7 +22,10 @@ before_install:
     - ls -lh /opt/R/4.0.2/lib/R/
     - ls -lh /opt/R/4.0.2/lib/R/bin
     - ls -lh /opt/R/4.0.2/lib/R/library
-    - cp ~/R/Library/BiocCheck/script/BiocCheck /opt/R/4.0.2/lib/R/bin/
+    - echo $PATH
+    - PATH="$PATH:~/R/Library/BiocCheck/script/"
+    - echo $PATH
+      #    - cp ~/R/Library/BiocCheck/script/BiocCheck /opt/R/4.0.2/lib/R/bin/
 
 script:
     - make build
