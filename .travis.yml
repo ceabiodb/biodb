@@ -29,6 +29,9 @@ before_install:
 
 script:
     - PATH="$PATH:~/R/Library/BiocCheck/script/"
+    - echo $PATH
+    - which BiocCheck
     - make build
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
+    - which BiocCheck
     - make bioc.check
