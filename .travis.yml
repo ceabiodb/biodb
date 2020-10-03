@@ -16,6 +16,7 @@ before_install:
     - ls -lh ~
     - ls -lh ~/R
     - ls -lh ~/R/Library
+    - ls -lh ~/R/Library/BiocCheck
     - ls /opt
     - ls -lh /opt/R/4.0.2/lib/R/
     - ls -lh /opt/R/4.0.2/lib/R/bin
