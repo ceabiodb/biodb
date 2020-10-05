@@ -29,33 +29,18 @@ mybiodb <- biodb::Biodb()
 
 # Building an MS database from a data frame
 
-For the example we will use a data.frame as input for the database connector, however the connector can directly read from a file too.
-
-Here is the data frame:
+We will use an extract of Massbank database for our example:
 ```{r}
-db.df <- rbind.data.frame(
-           list(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 78, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
-           list(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mztheo = 86,  peak.intensity = 407, chrom.col.id = 'mycol', chrom.rt = 78, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
-           list(accession = "PR010001", smiles = "NCCCN",                      mass = 74.0844,   ms.mode = "pos", peak.mztheo = 174, peak.intensity = 481, chrom.col.id = 'mycol', chrom.rt = 78, formula = "C3H10N2",  name = "1,3-Diaminopropane"                    ),
-           list(accession = "PR010002", smiles = "OCC(O)(C1)OCC(O)(CO)O1",     mass = 180.06339, ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 189, formula = "C6H12O6",  name = "1,3-Dihydroxyacetone dimer"            ),
-           list(accession = "PR010003", smiles = "OC(=O)CC(O)(CC(O)=O)C(O)=O", mass = 192.027,   ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 45, formula = "C6H8O7",   name = "Citric acid"                           ),
-           list(accession = "PR010004", smiles = "COc(c1)c(O)ccc(C=CC(O)=O)1", mass = 194.05791, ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 90, formula = "C10H10O4", name = "trans-4-Hydroxy-3-methoxycinnamate"    ),
-           list(accession = "PR010006", smiles = "CNC[C@H](O)c(c1)cc(O)cc1",   mass = 167.09463, ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 751, chrom.col.id = 'mycol', chrom.rt = 176, formula = "C9H13NO2", name = "(R)-(-)-Phenylephrine"                 ),
-           list(accession = "PR010006", smiles = "CNC[C@H](O)c(c1)cc(O)cc1",   mass = 167.09463, ms.mode = "pos", peak.mztheo = 116, peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 176, formula = "C9H13NO2", name = "(R)-(-)-Phenylephrine"                 ),
-           list(accession = "PR010007", smiles = "OC(=O)C(N)(C1)C1",           mass = 101.04768, ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 120, formula = "C4H7NO2",  name = "1-Aminocyclopropane-1-carboxylic acid" ),
-           list(accession = "PR010007", smiles = "OC(=O)C(N)(C1)C1",           mass = 101.04768, ms.mode = "pos", peak.mztheo = 147, peak.intensity = 533, chrom.col.id = 'mycol', chrom.rt = 120, formula = "C4H7NO2",  name = "1-Aminocyclopropane-1-carboxylic acid" ),
-           list(accession = "PR010008", smiles = "OC(=O)Cc(c1)ccc(O)c1",       mass = 152.04734, ms.mode = "pos", peak.mztheo = 73,  peak.intensity = 999, chrom.col.id = 'mycol', chrom.rt = 156, formula = "C8H8O3",   name = "4-Hydroxyphenylacetic acid"            )
-         , stringsAsFactors = FALSE)
+fileUrl <- system.file("extdata", "massbank_extract_lcms_2.tsv", package='biodb')
 ```
-Part of those data were extracted from MassBank.
 
 We create the connector from the data frame, and will use this connector for all subsequent examples.
 ```{r}
-conn <- mybiodb$getFactory()$createConn('mass.csv.file')
-conn$setDb(db.df)
+conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=fileUrl)
 ```
 
-We define some missing fields (MS level and RT unit):
+Two fields are missing inside this database: the MS level and unit used for chromatography retention times.
+We define them using the `addField()` method:
 ```{r}
 conn$addField('ms.level', 1)
 conn$addField('chrom.rt.unit', 's')

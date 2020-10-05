@@ -49,7 +49,6 @@ expasy.tsv <- system.file("extdata", "expasy_enzyme_extract.tsv", package='biodb
 expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
 ```
 
-
 # Merging the entries
 
 We will now merge the entries into a single database. However we will use differently the entries of the three databases.

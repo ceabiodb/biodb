@@ -75,8 +75,8 @@ getEntryContentFromDb=function(entry.id) {
                     entry <- c(entry, as.list(df))
                 else {
                     cols <- colnames(df)[colnames(df) != 'accession']
-                    drop <- ef$get(tableName)$hasCardMany()
-                    entry[[tableName]]=df[, cols, drop=drop]
+                    dropFlag <- ef$get(tableName)$hasCardMany()
+                    entry[[tableName]] <- df[, cols, drop=dropFlag]
                 }
             }
 
@@ -128,6 +128,19 @@ getChromCol=function(ids=NULL) {
     }
 
     return(chrom.cols)
+},
+
+defineParsingExpressions=function() {
+    # Overrides super class' method.
+
+    entry.fields <- .self$getBiodb()$getEntryFields()
+
+    # Loop on all entry fields
+    for (field in entry.fields$getFieldNames()) {
+        f <- entry.fields$get(field)
+        if ( ! f$isVirtual())
+            .self$setPropValSlot('parsing.expr', field, if (f$hasCardOne()) field else .self$.fieldToSqlId(field))
+    }
 },
 
 .doWrite=function() {

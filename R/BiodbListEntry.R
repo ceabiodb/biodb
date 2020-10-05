@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbListEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Entry class for content in list format.
 #'
 #' This is an abstract class for handling database entries whose content is in
@@ -23,24 +15,17 @@
 BiodbListEntry <- methods::setRefClass("BiodbListEntry",
     contains='BiodbEntry',
 
-# Private methods {{{2
-################################################################################
-
 methods=list(
-
-# Do parse content {{{3
-################################################################################
 
 .doParseContent=function(content) {
 
+    # Content may come from a cached file, hence as a string in JSON format, or
+    # directly from memory as a list object.
     if (is.character(content))
         content <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)
 
-    return(content) # Nothing to parse
+    return(content)
 },
-
-# Is parsed content correct {{{3
-################################################################################
 
 .isParsedContentCorrect=function(parsed.content) {
     return(is.list(parsed.content) && length(parsed.content) > 0
@@ -48,23 +33,27 @@ methods=list(
            && length(names(parsed.content)) > 0)
 },
 
-# Parse fields step 1 {{{3
-################################################################################
-
 .parseFieldsStep1=function(parsed.content) {
 
+    # Get parsing expressions
+    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+
     # Loop on all field names
-    for (field.name in names(parsed.content)) {
+    for (field.name in names(parsing.expr)) {
 
-        # Get value
-        value <- parsed.content[[field.name]]
+        # Is field in content?
+        if (parsing.expr[[field.name]] %in% names(parsed.content)) {
 
-        # Skip empty vector or NA value
-        if (is.vector(value) && (length(value) == 0 || all(is.na(value))))
-            next
+            # Get value
+            value <- parsed.content[[parsing.expr[[field.name]]]]
 
-        # Set value
-        .self$setFieldValue(field.name, value)
+            # Skip empty vector or NA value
+            if (is.vector(value) && (length(value) == 0 || all(is.na(value))))
+                next
+
+            # Set value
+            .self$setFieldValue(field.name, value)
+        }
     }
 }
 

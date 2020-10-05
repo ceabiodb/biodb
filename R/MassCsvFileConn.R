@@ -113,7 +113,6 @@ getChromCol=function(ids=NULL) {
     return(chrom.cols)
 },
 
-# Inherited from BiodbMassdbConn.
 getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 
@@ -210,6 +209,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
                           precursor, ms.level) {
+    # Overrides super class' method.
     return(.self$.select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
                          mode=ms.mode, max.rows=max.results, cols='accession',
                          drop=TRUE, uniq=TRUE, sort=TRUE, precursor=precursor,
@@ -217,7 +217,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    # Inherited from BiodbMassdbConn.
+    # Overrides super class' method.
 
     # Get mz values
     mz <- .self$.select(cols='peak.mztheo', mode=ms.mode, drop=TRUE, uniq=TRUE,

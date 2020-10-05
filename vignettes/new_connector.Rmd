@@ -151,8 +151,6 @@ entry <- conn$getEntry('17001')
 entry$getFieldsAsDataframe()
 ```
 
-# Connector for a mass spectra database
-
 # Connector for a local database
 
 With *biodb* you can also write a connector for a local database. In that case, your class has to inherit directly from `BiodbConn`, not from `BiodbRemotedbConn`.
@@ -160,31 +158,107 @@ All the connectors included in *biodb* package are local connectors only: `mass.
 
 Method                       | Description
 ---------------------------- | --------------------------------
-`isSearchableByField()`      | .
-`getNbEntries()`             |
-`getEntryContentFromDb()`    |
-`defineParsingExpressions()` |
+`getNbEntries()`             | Must return the number of entries contained in the database.
+`getEntryContentFromDb()`    | Return the content(s), as strings, of one or more entries from the database.
+`defineParsingExpressions()` | May be overriden in order to define parsing expressions dynamically (see `CsvFileConn` class for an example).
 `.doGetEntryIds()`           | See above in \@ref(tab:remoteMethods) for a description of this method.
 
 : (\#tab:connMethods) `BiodbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbConn` class.
 
+# Connector for a mass spectra database
+
+In the example above, we have implemented a compound database. Another type of database is a mass spectra database. *biodb* defines the abstract mass database connector `BiodbMassdbConn` in order to help implement a new connector of this type.
+The following connectors included in *biodb* package are mass spectra database connectors: `mass.csv.file` and `mass.sqlite`. See \@ref(tab:massdbConnMethods) for a list of methods to implement when writing a mass spectra database connector.
+
+Method                       | Description
+---------------------------- | --------------------------------
+`getChromCol()`              | Returns a data frame containing the description of the chromatographic columns.
+`getNbPeaks()`               | Returns the total number of MS peaks contained in the database.
+`.doGetMzValues()`           | Returns a list of M/Z values contained inside the database, with the possibility of filtering on MS mode, MS level, and some other variables.
+`.doSearchMzRange()`         | Searches for spectra using an M/Z range and optional filtering on some other variables.
+
+: (\#tab:massdbConnMethods) `BiodbMassdbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbMassdbConn` class.
+
 # Connector for a downloadable database
+
+Some database servers do not propose web services, or other connection to the database, but propose to download the whole database for local processing. *biodb* offers the possibility to handle the connection to such database servers, by implementing the `BiodbDownloadable` interface into your connector class (which already inherits from `BiodbRemotedbConn`. See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
+
+Method                       | Description
+---------------------------- | --------------------------------
+`requiresDownload()`         | This method must return TRUE if the connector requires to download files locally with the `BiodbDownloadable` interface.
+`.doDownload()`              | This method must implement the download of the database file.
+`.doExtractDownload()`       | This method must implement the extraction of the database files (e.g.: from a zip).
+
+: (\#tab:downloadableMethods) `BiodbDownloadable` methods to implement. The list of methods to override when implementing the `BiodbDownloadable`interface. 
 
 # How to implement other types of entry classes
 
+We have seen in the example how to parse XML entries by writing an entry class that inherits from the `BiodbXmlEntry` class. As stated before, *biodb* provides other types of abstract entry classes, that facilitate the parsing of diverse entry content formats.
+
 ## HTML content
+
+To parse HTML content, your entry class must inherit from `BiodbHtmlEntry`. The parsing expressions must be written in *XPath* language, as for XML content, but it uses a special parsing algorithm since HTML is less strict than XML and allows some "illegal" constructs.
+
+Example of a parsing expression:
+```
+path: //input[@id='DATA']
+```
 
 ## JSON content
 
+To parse JSON content, your entry class must inherit from `BiodbJsonEntry`. The parsing expressions are written in the form of lists of keys to follow as a path inside the JSON tree. Here is an example:
+```
+chrom.col.id:
+- liquidChromatography
+- columnCode
+```
+
 ## List content
+
+If your connector gets entry contents directly as an R list object, like in the case of `MassSqliteConn`, you have interest in making your entry class inherit from `BiodbListEntry` abstract class.
+With this class, the entry content is provided as a flat named R list object, although it is also possible to pass a JSON string containing flat key/value pairs instead.
+The parsing expressions are the names used inside the list object. Here is an example:
+```
+accession: id
+compound.id: comp_id
+formula: chem_form
+```
 
 ## CSV content
 
+The `BiodbCsvEntry` class helps you handle entry content in CSV (or any other separator than the comma) format. When declaring the constructor for your own entry class, do not forget to call the mother class constructor to pass it your separator and/or the string values that have to be converted to `NA`:
+```{r}
+MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
+	methods=list(
+		initialize=function() {
+			callSuper(sep=';', na.strings=c('', 'NA'))
+		}
+))
+```
+The parsing expressions are the column names of the CSV file:
+```
+accession: id
+name: fullname
+```
+
 ## SDF content
+
+If your entry content is in SDF (Structure Data File) chemical file format, make you entry class inherit from `BiodbSdfEntry` abstract class.
+Since the SDF format is an official standard format, the parsing expressions are useless in this case, your class only has to inherit from `BiodbSdfEntry`.
 
 ## Text content
 
+The `BiodbTxtEntry` abstract class allows you to handle any text file content for entries. Parsing expressions are defined as regular expressions. Here is an example:
+```
+accession: ^ENTRY\s+(\S+)\s+Compound
+exact.mass: ^EXACT_MASS\s+(\S+)$
+formula: ^FORMULA\s+(\S+)$
+```
+
 ## Specific parsing
+
+If you write your own entry class, inheriting directly from `BiodbEntry`, you have at least two methods to implement. The first is `.doParseContent()`, which parses a string into the acceptable format for the second function, `.parseFieldsStep1()`.
+When inheriting from one of the abstract class listed above (`BiodbTxtEntry`, `BiodbJsonEntry`, `BiodbXmlEntry`, ...), you also have the opportunity to write some custom parsing code by implementing `.parseFieldsStep2()`. This method will be called just after `.parseFieldsStep1()`, which is implemented by the abstract class.
 
 # Closing biodb instance
 

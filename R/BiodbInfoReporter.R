@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbInfoReporter {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for display info messages for the user.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated
@@ -18,13 +10,7 @@
 BiodbInfoReporter <- methods::setRefClass("BiodbInfoReporter",
     contains='BiodbObserver',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Message {{{3
-################################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {

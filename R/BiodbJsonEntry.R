@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Class declaration {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Entry class for content in JSON format.
 #'
 #' This is an abstract class for handling database entries whose content is in
@@ -23,13 +15,7 @@
 BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry",
     contains='BiodbEntry',
 
-# Public methods {{{2
-################################################################################
-
 method=list(
-
-# Initialize {{{3
-################################################################################
 
 .doParseContent=function(content) {
 
@@ -38,9 +24,6 @@ method=list(
 
     return(json)
 },
-
-# Parse fields step 1 {{{3
-################################################################################
 
 .parseFieldsStep1=function(parsed.content) {
 

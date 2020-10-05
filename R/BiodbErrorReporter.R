@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbErrorReporter {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for throwing an error.
 #'
 #' This class is not meant to be used directly. It is automatically instantiated
@@ -18,13 +10,7 @@
 BiodbErrorReporter <- methods::setRefClass("BiodbErrorReporter",
     contains='BiodbObserver',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Message {{{3
-################################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_,
              lvl=1) {
@@ -44,9 +30,6 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 
     invisible(NULL)
 },
-
-# Info progress {{{3
-################################################################################
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
                   laptime=10L) {

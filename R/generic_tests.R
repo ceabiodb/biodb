@@ -34,13 +34,13 @@ test.entry.fields <- function(db) {
 
         # Get entry
         e <- entries[[i]]
-        testthat::expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
+        testthat::expect_false(is.null(e), info=paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
 
         # Check IDs
-        testthat::expect_true(e$hasField('accession'), info = paste0(db.name, ' entry ', id, ' has no accession number.'))
-        testthat::expect_true(e$hasField(db.id.field), info = paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
-        testthat::expect_equal(id, e$getFieldValue('accession'), info = paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
-        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
+        testthat::expect_true(e$hasField('accession'), info=paste0(db.name, ' entry ', id, ' has no accession number.'))
+        testthat::expect_true(e$hasField(db.id.field), info=paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
+        testthat::expect_equal(id, e$getFieldValue('accession'), info=paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
