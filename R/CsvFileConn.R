@@ -29,8 +29,7 @@ CsvFileConn <- methods::setRefClass("CsvFileConn",
         .file.quote="character",
         .db="ANY",
         .db.orig.colnames="character",
-        .fields="character",
-        .parsing.expr='list'
+        .fields="character"
                 ),
 methods=list(
 
@@ -44,7 +43,6 @@ initialize=function(...) {
     .self$.file.sep <- "\t"
     .self$.file.quote <- "\""
     .self$.fields <- character()
-    .self$.parsing.expr <- list()
 },
 
 getFieldNames=function() {
@@ -92,8 +90,6 @@ addField=function(field, value) {
     \nvalue: The value to set for this field.
     \nReturned value: None.
     "
-
-    .self$.checkParsingHasBegan()
 
     if (is.null(field) || is.na(field))
         .self$error("No field specified.")
@@ -152,8 +148,6 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     \nReturned value: None.
     "
 
-    .self$.checkParsingHasBegan()
-
     .self$.assertNotNull(field)
     .self$.assertNotNa(field)
     ef <- .self$getBiodb()$getEntryFields()
@@ -201,6 +195,7 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
 
         # Set field
         .self$.fields[[field]] <- colname
+        .self$setPropValSlot('parsing.expr', field, colname)
     }
 
     # Use several column to join together
@@ -519,13 +514,6 @@ defineParsingExpressions=function() {
 
     # Save column names
     .self$.db.orig.colnames <- colnames(.self$.db)
-},
-
-.checkParsingHasBegan=function() {
-
-    # Parsing has began?
-    if (length(.self$.parsing.expr) > 0)
-        .self$error('Action impossible, parsing of entries has already began.')
 },
 
 .doGetEntryIds=function(max.results=NA_integer_) {

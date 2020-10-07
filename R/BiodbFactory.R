@@ -141,7 +141,7 @@ deleteConn=function(conn) {
         if ( ! conn %in% names(.self$.conn))
             .self$error('Connector "', conn, '" is unknown.')
 
-        .self$deleteAllCacheEntries(conn)
+        .self$deleteAllEntriesFromVolatileCache(conn)
         .self$.conn[[conn]]$.terminate()
         .self$.conn[[conn]] <- NULL
         .self$info('Connector "', conn, '" deleted.')
@@ -231,7 +231,6 @@ getConn=function(conn.id) {
     return(conn)
 },
 
-
 getEntry=function(conn.id, id, drop=TRUE) {
     ":\n\nRetrieves database entry objects from IDs (accession numbers), for the
     specified connector.
@@ -300,8 +299,9 @@ getAllCacheEntries=function(conn.id) {
     return(.self$.conn[[conn.id]]$getAllCacheEntries())
 },
 
-deleteAllCacheEntries=function(conn.id) {
-    ":\n\nFor a connector, deletes all entries stored in the cache.
+deleteAllEntriesFromVolatileCache=function(conn.id) {
+    ":\n\nDeletes all entries stored in the cache of the given connector. This
+    method is deprecated, please use deleteAllEntriesFromVolatileCache() instead.
     \nconn.id: A connector ID.
     \nReturned values: None.
     "
@@ -311,7 +311,16 @@ deleteAllCacheEntries=function(conn.id) {
     if ( ! conn.id %in% names(.self$.conn))
         .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
 
-    .self$.conn[[conn.id]]$deleteAllCacheEntries()
+    .self$.conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
+},
+
+deleteAllCacheEntries=function(conn.id) { # DEPRECATED
+    ":\n\nDeletes all entries stored in the cache of the given connector.
+    \nconn.id: A connector ID.
+    \nReturned values: None.
+    "
+    .self$.deprecatedMethod("deleteAllEntriesFromVolatileCache()")
+    .self$deleteAllCacheEntries(conn.id)
 },
 
 show=function() {

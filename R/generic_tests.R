@@ -1152,7 +1152,7 @@ runGenericTests <- function(conn) {
     testthat::expect_is(conn, 'BiodbConn')
 
     # Delete cache entries
-    conn$getBiodb()$getFactory()$deleteAllCacheEntries(conn$getId())
+    conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())
 
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
