@@ -13,7 +13,6 @@ databases:
     entry.content.type: xml
     parsing.expr:
       accession: substring-after(//chebi:return/chebi:chebiId,'CHEBI:')
-      charge: //chebi:charge
       formula:
         - //chebi:Formulae/chebi:source[text()='ChEBI']/../chebi:data
         - (//chebi:Formulae/chebi:data)[1]
