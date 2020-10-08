@@ -368,7 +368,7 @@ deleteFile=function(cache.id, name, ext) {
 },
 
 deleteAllFiles=function(cache.id) {
-    ":\n\nDeletes all files one cache ID in the cache system.
+    ":\n\nDeletes, in the cache system, all files associated with this cache ID.
     \ncache.id: The cache ID to use.
     \nReturned value: None.
     "
@@ -381,7 +381,7 @@ deleteAllFiles=function(cache.id) {
 },
 
 deleteFiles=function(cache.id, ext) {
-    ":\n\nDeletes all files with the specific extension of one cache ID in the
+    ":\n\nDeletes all files with the specific extension of the cache ID in the
     cache system.
     \ncache.id: The cache ID to use.
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).

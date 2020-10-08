@@ -113,7 +113,6 @@ getChromCol=function(ids=NULL) {
     return(chrom.cols)
 },
 
-# Inherited from BiodbMassdbConn.
 getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 
@@ -149,41 +148,8 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
 .selectByMzValues=function(db, mz.min, mz.max) {
 
-    if (is.null(mz.min) || is.null(mz.max))
-        .self$error('You must set both mz.min and mz.max.')
-    if (length(mz.min) != length(mz.max))
-        .self$error("'mz.min' and 'mz.max' must have equal lengths.",
-                    " 'mz.min' has ", length(mz.min), " element(s),",
-                    " and 'mz.max' has ", length(mz.max), "element(s).")
-
-    .self$debug('Filtering on M/Z ranges: ', paste0('[', mz.min, ', ', mz.max,
-                                                    ']', collapse=', '), '.')
-    .self$.checkFields('peak.mztheo')
-    f <- .self$.fields[['peak.mztheo']]
-    mz <- db[[f]]
-    .self$message('debug', paste(length(mz), 'M/Z values to filter.'))
-
-    # For all couples in vectors mz.min and mz.max, verify which M/Z values in
-    # mz are in the range. For each couple of mz.min/mz.max we get a vector of
-    # booleans the same length as mz.
-    fct <- function(mzmin, mzmax) {
-        if (is.na(mzmin) && is.na(mzmax))
-            rep(FALSE, length(mz))
-        else
-            ((if (is.na(mzmin)) rep(TRUE, length(mz)) else mz >= mzmin)
-             & (if (is.na(mzmax)) rep(TRUE, length(mz)) else  mz <= mzmax))
-    }
-    s <- mapply(fct, mz.min, mz.max)
-
-    # Now we select the M/Z values that are in at least one of the M/Z ranges.
-    if (is.matrix(s))
-        s <- apply(s, 1, function(x) Reduce("|", x))
-    else if (is.list(s))
-        s <- unlist(s)
-
-    db <- db[s, , drop=FALSE]
-
-    return(db)
+    return(.self$.selectByRange(db=db, field='peak.mztheo', minValue=mz.min,
+                                maxValue=mz.max))
 },
 
 .selectByRelInt=function(db, min.rel.int) {
@@ -243,6 +209,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
                           precursor, ms.level) {
+    # Overrides super class' method.
     return(.self$.select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
                          mode=ms.mode, max.rows=max.results, cols='accession',
                          drop=TRUE, uniq=TRUE, sort=TRUE, precursor=precursor,
@@ -250,7 +217,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    # Inherited from BiodbMassdbConn.
+    # Overrides super class' method.
 
     # Get mz values
     mz <- .self$.select(cols='peak.mztheo', mode=ms.mode, drop=TRUE, uniq=TRUE,

@@ -417,12 +417,46 @@ getAllCacheEntries=function() {
     return(entries)
 },
 
-deleteAllCacheEntries=function() {
-    ":\n\nDelete all entries from the memory cache.
+deleteAllEntriesFromVolatileCache=function() {
+    ":\n\nDelete all entries from the volatile cache (memory cache).
     \nReturned value: None.
     "
 
     .self$.entries <- list()
+},
+
+deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
+    ":\n\nDelete all entries from the persistent cache (disk cache).
+    \ndeleteVolatile: If TRUE deletes also all entries from the volatile cache
+    (memory cache).
+    \nReturned value: None.
+    "
+
+    if (deleteVolatile)
+        .self$deleteAllEntriesFromVolatileCache()
+    fileExt <- .self$getPropertyValue('entry.content.type')
+    .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(), ext=fileExt)
+},
+
+deleteWholePersistentCache=function(deleteVolatile=TRUE) {
+    ":\n\nDelete all files associated with this connector from the persistent
+    cache (disk cache).  \ndeleteVolatile: If TRUE deletes also all entries
+    from the volatile cache (memory cache).
+    \nReturned value: None.
+    "
+
+    if (deleteVolatile)
+        .self$deleteAllEntriesFromVolatileCache()
+    .self$getBiodb()$getPersistentCache()$deleteAllFiles(.self$getCacheId())
+},
+
+deleteAllCacheEntries=function() { # DEPRECATED
+    ":\n\nDelete all entries from the memory cache. This method is deprecated,
+    please use deleteAllEntriesFromVolatileCache() instead.
+    \nReturned value: None.
+    "
+    .self$.deprecatedMethod("deleteAllEntriesFromVolatileCache()")
+    .self$deleteAllEntriesFromVolatileCache()
 },
 
 getCacheId=function() {

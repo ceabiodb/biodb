@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbObserver {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' The mother abstract class of all observer classes.
 #'
 #' This abstract class defines all the methods that can be used to send messages
@@ -45,13 +37,7 @@ BiodbObserver <- methods::setRefClass("BiodbObserver",
         .progress.initial.time='list'
     ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function() {
     .self$cfg.lvl <- integer()
@@ -59,9 +45,6 @@ initialize=function() {
     .self$.lastime.progress <- list()
     .self$.progress.initial.time <- list()
 },
-
-# Terminate {{{3
-################################################################################
 
 terminate=function() {
     ":\n\nTerminates the instance. This method will be called
@@ -72,9 +55,6 @@ terminate=function() {
     invisible()
 },
 
-# Show {{{3
-################################################################################
-
 show=function() {
     ":\n\nDisplays information about this observer instance.
     \nReturned valued: none.
@@ -83,18 +63,12 @@ show=function() {
     cat('Observer of class ', class(.self), ".\n", sep='')
 },
 
-# New observer {{{3
-################################################################################
-
 newObserver=function(obs) {
     ":\n\nCalled by Biodb when a new observer is registered.
     \nobs: The observer newly registered by the Biodb instance.
     \nReturned valued: none.
     "
 },
-
-# Config key value update {{{3
-################################################################################
 
 cfgKVUpdate=function(k, v) {
     ":\n\nThis method is called by BiodbConfig when the value of one of its keys
@@ -110,9 +84,6 @@ cfgKVUpdate=function(k, v) {
             .self$cfg.lvl[[type]] <- v
     }
 },
-
-# Get level {{{3
-################################################################################
 
 getLevel=function(type) {
     ":\n\nGets the level associated with a message type. This is the maximum
@@ -133,9 +104,6 @@ getLevel=function(type) {
     return(lvl)
 },
 
-# Set level {{{3
-################################################################################
-
 setLevel=function(type, lvl) {
     ":\n\nSets the level for a type. This is the maximum level a message must
     have in order to be processed.
@@ -148,9 +116,6 @@ setLevel=function(type, lvl) {
     .self$checkMessageType(type)
     .self$cust.lvl[[type]] <- as.integer(lvl)
 },
-
-# Message {{{3
-################################################################################
 
 msg=function(type='info', msg, class=NA_character_,
              method=NA_character_, lvl=1) {
@@ -169,9 +134,6 @@ msg=function(type='info', msg, class=NA_character_,
 
     .self$checkMessageType(type)
 },
-
-# Info progress {{{3
-################################################################################
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
                   laptime=10L) {
@@ -210,9 +172,6 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
 
     invisible(NULL)
 },
-
-# Check message type {{{3
-################################################################################
 
 checkMessageType=function(type) {
     ":\n\nChecks a message type. An error will be raised if the type is unknown.

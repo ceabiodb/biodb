@@ -1,0 +1,113 @@
+---
+title: "*biodb*: In-house compound database"
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
+abstract: |
+  How to load and use an in-house compound database.
+vignette: |
+  %\VignetteIndexEntry{In-house compound database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Introduction
+
+*biodb* is able to handle an in-house compound database stored inside a CSV file, using the `comp.csv.file` connector.
+The CSV file must use the tabulation as the separator character. In order to facilitate the loading of the file, you should name the columns of your file with *biodb* standard field names. However you have also the possibility to declare the mapping between column names of your file and *biodb* field names just before loading the file.
+
+To start we create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+
+# Connector creation and file loading
+
+We will use an extract of ChEBI database for our example:
+```{r}
+fileUrl <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+```
+
+We instantiate the connector by passing the file URL to it:
+```{r}
+conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
+```
+
+Now the database is immediatly usable, through the connector access, because we used *biodb* field names for the column names.
+However, if you have some custom column names in your file, you need to map them with *biodb* field. Here is an example, where we redefine a mapping that was defined automatically by *biodb*:
+```{r}
+conn$setField('formula', # The biodb field.
+              'formula'  # The name of the column inside the CSV file.
+             )
+```
+Note that you can define a mapping between one *biodb* field and several columns, in which case the new column will be created in memory and the values will be the concatenation of all the columns. This is useful when several columns must be used to identify an entry ; we can then easily define the `accession` field as the concatenation of those columns.
+
+Up to now, the database loading has been postponed by *biodb*. It file will be read when calling the first function that accesses data.
+
+# Retrieving entries
+
+As for any connector in *biodb* you can retrieve entry objets using their accession numbers:
+```{r}
+entries <- conn$getEntry(c('1018', '1456'))
+entries
+```
+
+From a list of entries, you can obtain a data frame:
+```{r}
+mybiodb$entriesToDataframe(entries)
+```
+
+# Searching for entries
+
+For compound databases, it is possible to search for compounds by name:
+```{r}
+conn$searchCompound(name='deoxyguanosine')
+```
+The function returns a list of accession numbers that you can use with the `getEntry()` function.
+
+It is also possible to search by mass (using any mass field that is defined inside the database):
+```{r}
+conn$searchCompound(mass=283.0917, mass.field='monoisotopic.mass')
+```
+
+Or to search by both mass and name:
+```{r}
+conn$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+```
+
+To check if a connector is searchable by a mass field, use the following method:
+```{r}
+conn$isSearchableByField('monoisotopic.mass')
+```
+
+# Annotation of an MS file
+
+Your in-house chemical database can be used to annotate an MS file, using a data frame as input. You will obtain a new data frame with appended columns taken from the chemical database.
+
+Here is an input data frame example with M/Z values in a column:
+```{r Loading of M/Z table}
+ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
+mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
+mzdf
+```
+
+To run the annotation function, you must specify some parameters, like the tolerance, the MS mode and the wanted output fields:
+```{r Annotate}
+conn$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), fieldsLimit=1)
+```
+
+See the vignette "MS annotation" for more details.
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r Closing of the biodb instance}
+mybiodb$terminate()
+```

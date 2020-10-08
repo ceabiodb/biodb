@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: In-house MSMS database"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to define an in-house MSMS database and run spectrum annotation on it.
 vignette: |

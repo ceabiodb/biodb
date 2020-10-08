@@ -1,8 +1,8 @@
 ---
 title: "*biodb* Merging entries coming from different databases"
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to build a data frame containing entries coming from different databases.
 vignette: |
@@ -48,7 +48,6 @@ And finally the connector to the ExPASy Enzyme data:
 expasy.tsv <- system.file("extdata", "expasy_enzyme_extract.tsv", package='biodb')
 expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
 ```
-
 
 # Merging the entries
 

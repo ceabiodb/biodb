@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbDownloadable {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' An abstract class (more like an interface) to model a remote database that
 #' can be downloaded locally.
 #'
@@ -47,21 +39,12 @@
 BiodbDownloadable <- methods::setRefClass("BiodbDownloadable",
     contains='BiodbObject',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
     callSuper(...)
     .self$.abstractClass('BiodbDownloadable')
 },
-
-# Get download path {{{3
-################################################################################
 
 getDownloadPath=function() {
     ":\n\nGets the path where the downloaded content is written.
@@ -77,15 +60,9 @@ getDownloadPath=function() {
     return(path)
 },
 
-# Requires download {{{3
-################################################################################
-
 requiresDownload=function() {
     return(FALSE)
 },
-
-# Is downloaded {{{3
-################################################################################
 
 isDownloaded=function() {
     ":\n\nTests if the database has been downloaded.
@@ -103,9 +80,6 @@ isDownloaded=function() {
     return(dwnlded)
 },
 
-# Is extracted {{{3
-################################################################################
-
 isExtracted=function() {
     ":\n\nTests if the downloaded database has been extracted (in case the
     database needs extraction).
@@ -117,9 +91,6 @@ isExtracted=function() {
     return(cch$markerExist(.self$getCacheId(),
                            name='extracted'))
 },
-
-# Download {{{3
-################################################################################
 
 download=function() {
     ":\n\nDownloads the database content locally.
@@ -154,13 +125,11 @@ download=function() {
     }
 },
 
-# Private methods {{{2
-################################################################################
-
-# Do download {{{3
-################################################################################
-
 .doDownload=function() {
+    .self$.abstractMethod()
+},
+
+.doExtractDownload=function() {
     .self$.abstractMethod()
 }
 

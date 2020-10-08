@@ -1,7 +1,7 @@
 test_annotateWithMassCsvFileDb <- function(biodb) {
     mzdf <- data.frame(mz=c(282.083871, 283.0623, 346.0546, 821.3964),
                        rt=c(334, 872, 536, 740))
-    lcmsdb <- system.file("extdata", "massbank_extract.tsv", package="biodb")
+    lcmsdb <- system.file("extdata", "massbank_extract_lcms_1.tsv", package="biodb")
     massbank <- biodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
     massbank$addField('ms.level', 1)
     massbank$addField('chrom.rt.unit', 's')

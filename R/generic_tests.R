@@ -34,13 +34,13 @@ test.entry.fields <- function(db) {
 
         # Get entry
         e <- entries[[i]]
-        testthat::expect_false(is.null(e), info = paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
+        testthat::expect_false(is.null(e), info=paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
 
         # Check IDs
-        testthat::expect_true(e$hasField('accession'), info = paste0(db.name, ' entry ', id, ' has no accession number.'))
-        testthat::expect_true(e$hasField(db.id.field), info = paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
-        testthat::expect_equal(id, e$getFieldValue('accession'), info = paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
-        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info = paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
+        testthat::expect_true(e$hasField('accession'), info=paste0(db.name, ' entry ', id, ' has no accession number.'))
+        testthat::expect_true(e$hasField(db.id.field), info=paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
+        testthat::expect_equal(id, e$getFieldValue('accession'), info=paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
+        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
@@ -431,7 +431,7 @@ test.searchCompound <- function(db) {
 	testthat::expect_gt(length(name), 0)
 	name <- name[[1]]
 	testthat::expect_true( ! is.na(name))
-	ids <- db$searchCompound(name = name)
+	ids <- db$searchCompound(name=name)
 	if (db$isSearchableByField('name')) {
 		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
 		testthat::expect_true( ! is.null(ids), msg)
@@ -1152,65 +1152,65 @@ runGenericTests <- function(conn) {
     testthat::expect_is(conn, 'BiodbConn')
 
     # Delete cache entries
-    conn$getBiodb()$getFactory()$deleteAllCacheEntries(conn$getId())
+    conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())
 
-    biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn = conn)
+    biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
-              test.wrong.entry.among.good.ones, conn = conn)
-    biodb::testThat("Entry fields have a correct value", test.entry.fields, conn = conn)
-    biodb::testThat("The peak table is correct.", test.peak.table, conn = conn)
-    biodb::testThat("RT unit is defined when there is an RT value.", test.rt.unit, conn = conn)
-    biodb::testThat("Nb entries is positive.", test.nb.entries, conn = conn)
-    biodb::testThat("We can get a list of entry ids.", test.entry.ids, conn = conn)
-    biodb::testThat("We can search for an entry by name.", test.searchByName, conn = conn)
+              test.wrong.entry.among.good.ones, conn=conn)
+    biodb::testThat("Entry fields have a correct value", test.entry.fields, conn=conn)
+    biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
+    biodb::testThat("RT unit is defined when there is an RT value.", test.rt.unit, conn=conn)
+    biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
+    biodb::testThat("We can get a list of entry ids.", test.entry.ids, conn=conn)
+    biodb::testThat("We can search for an entry by name.", test.searchByName, conn=conn)
     if (conn$isRemotedb()) {
-        biodb::testThat("We can get a URL pointing to the entry page.", test.entry.page.url, conn = conn)
-        biodb::testThat("We can get a URL pointing to the entry image.", test.entry.image.url, conn = conn)
-        biodb::testThat("The entry page URL can be downloaded.", test.entry.page.url.download, conn = conn)
-        biodb::testThat("The entry image URL can be downloaded.", test.entry.image.url.download, conn = conn)
+        biodb::testThat("We can get a URL pointing to the entry page.", test.entry.page.url, conn=conn)
+        biodb::testThat("We can get a URL pointing to the entry image.", test.entry.image.url, conn=conn)
+        biodb::testThat("The entry page URL can be downloaded.", test.entry.page.url.download, conn=conn)
+        biodb::testThat("The entry image URL can be downloaded.", test.entry.image.url.download, conn=conn)
     }
     if (conn$isEditable()) {
-        biodb::testThat('We can edit a database.', test.db.editing, conn = conn)
+        biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
         if (conn$isWritable()) {
-            biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn = conn)
-            biodb::testThat('Database writing works.', test.db.writing, conn = conn)
-            biodb::testThat('We can write entries having new fields.', test.db.writing.with.col.add, conn = conn)
-            biodb::testThat('Database copy works.', test.db.copy, conn = conn)
+            biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn=conn)
+            biodb::testThat('Database writing works.', test.db.writing, conn=conn)
+            biodb::testThat('We can write entries having new fields.', test.db.writing.with.col.add, conn=conn)
+            biodb::testThat('Database copy works.', test.db.copy, conn=conn)
         }
     }
 
     if (conn$isCompounddb()) {
-        biodb::testThat('searchCompound() fails if no mass field is set.', test.searchCompound.no.mass.field, conn = conn)
-        biodb::testThat('We can search for a compound', test.searchCompound, conn = conn)
-        biodb::testThat('annotateMzValues() works correctly.', test.annotateMzValues, conn = conn)
-        biodb::testThat('annotateMzValues() works correctly with real values.', test.annotateMzValues_real_values, conn = conn)
-        biodb::testThat('We can use a single vector as input for annotateMzValues()', test_annotateMzValues_input_vector, conn = conn)
-        biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn = conn)
-        biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', test_annotateMzValues_ppm_tol, conn = conn)
-        biodb::testThat('Input data frame is output untouched for annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn = conn)
+        biodb::testThat('searchCompound() fails if no mass field is set.', test.searchCompound.no.mass.field, conn=conn)
+        biodb::testThat('We can search for a compound', test.searchCompound, conn=conn)
+        biodb::testThat('annotateMzValues() works correctly.', test.annotateMzValues, conn=conn)
+        biodb::testThat('annotateMzValues() works correctly with real values.', test.annotateMzValues_real_values, conn=conn)
+        biodb::testThat('We can use a single vector as input for annotateMzValues()', test_annotateMzValues_input_vector, conn=conn)
+        biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn=conn)
+        biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', test_annotateMzValues_ppm_tol, conn=conn)
+        biodb::testThat('Input data frame is output untouched for annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
     }
 
     if (conn$isMassdb()) {
 
-        biodb::testThat("M/Z tolerance values are converted correctly to M/Z range.", test.convertMzTolToRange, conn = conn)
+        biodb::testThat("M/Z tolerance values are converted correctly to M/Z range.", test.convertMzTolToRange, conn=conn)
 
-        biodb::testThat("We can retrieve a list of M/Z values.", test.getMzValues, conn = conn)
-        biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn = conn)
-        biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn = conn)
-        biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn = conn)
-        biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn = conn)
-        biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn = conn)
-        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn = conn)
+        biodb::testThat("We can retrieve a list of M/Z values.", test.getMzValues, conn=conn)
+        biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
+        biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
+        biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
+        biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
+        biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
+        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
 
-        biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn = conn)
-        biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn = conn)
-        biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn = conn)
-        biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn = conn)
+        biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn=conn)
+        biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn=conn)
+        biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
+        biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
 
-        biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn = conn)
-        biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn = conn)
-        biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn = conn)
-        biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn = conn)
+        biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+        biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
+        biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
+        biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
     }
 
     invisible(NULL)

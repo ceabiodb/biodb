@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbLogger {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' A class for logging biodb messages either to standard stream or into a file.
 #'
 #' This class implements a logger for the biodb package. When creating an
@@ -53,13 +45,7 @@ BiodbLogger <- methods::setRefClass("BiodbLogger",
         .close.file='logical'
         ),
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
 
@@ -85,9 +71,6 @@ initialize=function(file=NULL, mode='w', close.file=TRUE, ...) {
     .self$.close.file <- close.file
 },
 
-# Terminate {{{3
-################################################################################
-
 terminate=function() {
     # Overrides super class' method.
 
@@ -95,9 +78,6 @@ terminate=function() {
         && ! methods::is(.self$.file, 'terminal'))
         close(.self$.file)
 },
-
-# Message {{{3
-################################################################################
 
 msg=function(type='info', msg, class=NA_character_, method=NA_character_, lvl=1)
 {

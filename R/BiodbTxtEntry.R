@@ -1,11 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# BiodbTxtEntry {{{1
-################################################################################
-
-# Declaration {{{2
-################################################################################
-
 #' Entry class for content in text format.
 #'
 #' This is an abstract class for handling database entries whose content is in
@@ -25,25 +17,13 @@
 BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry",
     contains='BiodbEntry',
 
-# Public methods {{{2
-################################################################################
-
 methods=list(
-
-# Initialize {{{3
-################################################################################
 
 initialize=function(...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbTxtEntry')
 },
-
-# Private methods {{{2
-################################################################################
-
-# Do parse content {{{3
-################################################################################
 
 .doParseContent=function(content) {
 
@@ -52,9 +32,6 @@ initialize=function(...) {
 
     return(lines)
 },
-
-# Parse fields step 1 {{{3
-################################################################################
 
 .parseFieldsStep1=function(parsed.content) {
 

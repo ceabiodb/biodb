@@ -1,8 +1,8 @@
 ---
 title: "*biodb*: Creating a new field for entries."
 author: "Pierrick Roger"
-date: "`r doc_date()`"
-package: "`r pkg_ver('biodb')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   How to parse a new field for entries.
 vignette: |
@@ -20,105 +20,128 @@ output:
 
 # Introduction
 
-<!-- TODO Or use a compound csv database with new unknown column for which to add field? -->
-<!-- TODO And use ChebiEx after. -->
+In many cases, in biodb, a connector does not implement the parsing of all available data, the reason being that the amount of available data in an entry would require an excessive amount of coding. Thus the focus is set on a small number of fields, in which we are directly interested. Thus it may happen that one particular data that you see in entries on the database website is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
 
-For practical reasons, in biodb, when a connector is created we do not implement the parsing of all available data. Thus it may happen that one particular data that you see in entries on the database website, is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
-
-In this vignette we will create a new field, and parse information from an entry content downloaded from a database for setting the value into the new field.
+In this vignette we will create a new field, and parse information from the entry content for setting the value of this field.
 
 First we instantiate the package:
 ```{r}
 mybiodb <- biodb::Biodb$new()
 ```
 
-## Adding a new field for a CSV file database
+## Defining a new parsing of a field
 
-## Adding a new field for a remote database
+Before going with the creation of a new field, we will look at the different ways of parsing a value for an existing *biodb* field that is not handled by a connector.
+Two cases will be used as examples: `CompCsvFileConn` and the `ChebiExConn` defined for the **New Connector** vignette.
 
-In this section we will use the ChEBI connector example from the "Creating a new connector" vignette.
+### CompCsvFileConn
 
-First we get the ChebiEx connector files:
+The `CompCsvFileConn` class implements a connector to a local CSV file database of chemical compounds.
+
+We use an extract from ChEBI database as the input CSV database file:
 ```{r}
-defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
-connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
-entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+fileUrl <- system.file("extdata", "chebi_extract_with_unknown_column.tsv", package='biodb')
+```
+Here is the content of this file as a data frame:
+```{r}
+read.table(fileUrl, header=TRUE, sep="\t", quote="")
+```
+In this file, the column name `elecCharge` does not correspond to any *biodb* field, thus the column will not be automatically parsed by the `CompCsvFileEntry` class. We can verify this by printing the content of an entry:
+```{r}
+conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
+conn$getEntry('1932')$getFieldsAsDataframe()
 ```
 
-And we load the definition file as well as the classes:
+For parsing the new column, we need to declare a mapping between the column name and the *biodb* field name (here `charge`). With the `CompCsvFileConn` class, this is done by calling the `setField()` method:
+```{r}
+conn$setField('charge', 'elecCharge')
+```
+Now the new column will be parsed when getting the entry. But before we must remove the current entry object from memory:
+```{r}
+conn$deleteAllEntriesFromVolatileCache()
+```
+And then reload the same entry again:
+```{r}
+conn$getEntry('1932')$getFieldsAsDataframe()
+```
+
+### ChebiExConn
+
+The `ChebiExConn` class implements a connector to the [ChEBI](https://www.ebi.ac.uk/chebi/) remote database.
+
+Here we will use the new definition of a parsing expression to handle the parsing of the wanted data.
+
+As seen in the *New Connector* vignette, the `ChebiExConn` definitions are kept in the following file:
+```{r}
+defFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
+```
+Here is the content:
+```{r, eval=FALSE, highlight=FALSE, code=readLines(defFile)}
+```
+As in the previous example, we will add parsing for the molecule electrical charge.
+For this we will define another YAML file:
+```{r}
+chargeParsingDefFile <- system.file("extdata", "chebi_ex_charge_parsing.yml", package='biodb')
+```
+This file contains only the needed parsing:
+```{r, eval=FALSE, highlight=FALSE, code=readLines(chargeParsingDefFile)}
+```
+
+Now we just have to load both definitions:
 ```{r}
 mybiodb$loadDefinitions(defFile)
-source(connFile)
-source(entryFile)
+mybiodb$loadDefinitions(chargeParsingDefFile)
 ```
-
-We can then create a connector to the ChEBI database:
+Before creating the connector:
 ```{r}
-conn <- mybiodb$getFactory()$getConn('chebi.ex')
+conn <- mybiodb$getFactory()$createConn('chebi.ex')
 ```
-
-### Look at the fields already parsed
-
-The expressions for parsing entry fields are stored inside the `parsing.expr` property:
+And get the entry:
 ```{r}
-conn$getPropertyValue('parsing.expr')
+conn$getEntry('17001')$getFieldsAsDataframe()
 ```
-The expressions are in a format called XPath that is used to describe a search into XML.
+Note the `charge` field, which now appears in the list of fields of the ChEBI entry.
 
-### Look at the entry content
+## Creating a new field and parsing its value
 
-We want to get the field `n_stars`, which indicates the number of stars, synonymous of quality, of a chemical entity. The first thing to know is understand how it is stored by ChEBI. For this we need to look at the entry content, which is in XML.
+Sometimes you just do not need to parse some value for setting an existing *biodb* field, but you need to parse a value that does not correspond to any defined *biodb* field. In this case, you need to define the new field alongside defining your parsing.
 
-We run `getEntryContent()` to print the content of a ChEBI entry:
+For this demonstration we will use again the ChEBI connector example from the *New connector* vignette.
+
+In ChEBI database, each entry (i.e.: molecule) gets a score (a number of stars) reflecting its curation status.
+This field is not present inside the current ChEBI connector example.
+In the XML entry content returned by the ChEBI server, this field is stored inside the `n_stars` element.
+To get this number of stars we define the new field and its parsing expression inside the following YAML file:
 ```{r}
-cat(conn$getEntryContent('15440')[[1]])
-```
-Another possibility, when using the persistent cache, is to get the file path to the cache file:
-```{r}
-conn$getCacheFile('15440')
-```
-You can then open the file inside your preferred application.
-
-Now we need to look for the information we want to extract, which is the `n_stars` indicator, and we see in the content that there is a tag `entityStar` that contains the information we want: `<entityStar>3</entityStar>`.
-
-### Create the new field and its parsing expression
-
-We have defined the new `n_stars` field and its parsing expression inside a YAML file:
-```{r}
-defFile <- system.file("extdata", "chebi_ex_stars_field.yml", package="biodb")
+nStarsDefFile <- system.file("extdata", "chebi_ex_stars_field.yml", package='biodb')
 ```
 Here is its content:
-```{r}
-writeLines(readLines(defFile))
+```{r, eval=FALSE, highlight=FALSE, code=readLines(nStarsDefFile)}
 ```
-The expression `//...` is an XPath expression that used to extract information from an XML file. See [XPath Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp) for an introduction to XPath.
+The parsing expression is defined as we have already seen, inside the database `parsing.expr` property. The value is an XPath expression describing the path to follow inside the XML tree to get to the *stars* element. See [XPath Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp) for an introduction to XPath.
 
-Now we load this definition file:
+In order to construct a parsing expression, we need to have a look at the raw content of some entries. In *biodb* you can directly access the raw content of an entry by calling the `getEntryContent()` method:
 ```{r}
-mybiodb$loadDefinitions(defFile)
+conn$getEntryContent('17001')
 ```
-
-We can check that the new definition exists:
+Another way is to get the path to the cache file associated with an entry, and then open the file inside your preferred editor. This is done by calling the `getCacheFile()` method:
 ```{r}
-mybiodb$getEntryFields()$get('n_stars')
+conn$getCacheFile('17001')
 ```
 
-And delete the current connector for recreating a new one just after:
-```{r}
-mybiodb$getFactory()$deleteConn(conn$getId())
-conn <- mybiodb$getFactory()$getConn('chebi.ex')
-```
-This allows the new connector to have the new parsing expression registered, as we check it here:
-```{r}
-conn$getPropertyValue('parsing.expr')
-```
+Bellow is the definition of the new field (i.e.: `n_stars`). The `description` property is where you must describe the purpose of your field. The `class` property indicates the type of the field: `integer`, `character`, `double` or `logical`. The cardinality can also be specified with the `card` property, which can be set to either `one`, the default, or `many`, meaning the field will be a vector.
 
-# Get the entry and see the new field
-
-Now we can get the entry and print the value of our new field:
+We can now load the new definitions:
 ```{r}
-entry <- conn$getEntry('15440')
-entry$getFieldValue('n_stars')
+mybiodb$loadDefinitions(nStarsDefFile)
+```
+Remove entries from memory:
+```{r}
+conn$deleteAllEntriesFromVolatileCache()
+```
+And reload an entry to check if the new field is parsed:
+```{r}
+conn$getEntry('17001')$getFieldsAsDataframe()
 ```
 
 # Closing biodb instance
