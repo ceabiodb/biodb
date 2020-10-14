@@ -20,9 +20,9 @@ output:
 
 # Introduction
 
-*biodb* is framework designed to help you implement new connectors for databases. To illustrate this, we will show you a practical example with the [ChEBI](https://www.ebi.ac.uk/chebi/) database. In this example, we will present you a small implementation of a ChEBI connector, and show you how to declare it to your *biodb* instance.
+*biodb* is framework designed to help you implement new connectors for databases. To illustrate this, we will show you a practical example with the [ChEBI](https://www.ebi.ac.uk/chebi/) database. In this example, we will present you a small implementation of a *ChEBI* connector, and show you how to declare it to your *biodb* instance.
 
-A more complete and functional connector for accessing ChEBI database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of this connector:
+A more complete and functional connector for accessing *ChEBI* database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of this connector:
 
 To start we create an instance of the `Biodb` class:
 ```{r}
@@ -34,26 +34,29 @@ We will now implement the connector classes and define the needed *biodb* inform
 # Implementing the classes
 
 When defining a new connector, two classes must be implemented: a connector class and an entry class.
-Their names are important, since they must match the *biodb* name that will be used in the YAML definition file. In our example the *biodb* name of our connector is `chebi.ex` (for "ChEBI example"). From this name, *biodb* will put in uppercase the first letter and the ones that are after a dot and then remove the dots. It will append `"Entry"` to this prefix to get the entry class name (`ChebiExEntry`), and `"Conn"` to obtain the connector class name (`ChebiExConn`).
+Their names are important, since they must match the *biodb* name that will be used in the YAML definition file. In our example the *biodb* name of our connector is `chebi.ex` (for "*ChEBI* example"). From this name, *biodb* will put in uppercase the first letter and the ones that are after a dot and then remove the dots. It will append `"Entry"` to this prefix to get the entry class name (`ChebiExEntry`), and `"Conn"` to obtain the connector class name (`ChebiExConn`).
 
 ## The entry class
 
 The entry class represents an entry from the database. Each instance of an entry contains the values parsed from the database downloaded content.
-A entry class must inherit from the `BiodbEntry` class and define some methods. To simplify this step, several generic entry classes have been defined in *biodb*, depending on the type of content downloaded from the database:
- * `BiodbCsvEntry`: for CSV file.
- * `BiodbHtmlEntry`: for HTML, the parsing will be done using XPath expressions.
- * `BiodbJsonEntry`: for JSON.
- * `BiodbListEntry`: for R list.
- * `BiodbSdfEntry`: for SDF file (chemical data file format).
- * `BiodbTxtEntry`: for text file, the parsing will be done using regular expressions.
- * `BiodbXmlEntry`: for XML file, the parsing will be done using XPath expressions.
-Each of these entry classes, facilitate the parsing of the corresponding content type.
+A entry class must inherit from the `BiodbEntry` class and define some methods. To simplify this step, several generic entry classes have been defined in *biodb* (see \@ref(tab:entryClasses)), depending on the type of content downloaded from the database.
+
+Entry class      | Content type handled
+---------------- | --------------------------------
+`BiodbCsvEntry`  | CSV file.
+`BiodbHtmlEntry` | HTML, the parsing will be done using XPath expressions.
+`BiodbJsonEntry` | JSON.
+`BiodbListEntry` | R list.
+`BiodbSdfEntry`  | SDF file (chemical data file format).
+`BiodbTxtEntry`  | Text file, the parsing will be done using regular expressions.
+`BiodbXmlEntry`  | XML file, the parsing will be done using XPath expressions.
+: (\#tab:entryClasses) Provided entry classes. The list of entry classes already defined inside *biodb* framework. The goal of each entry class is to facilitate the parsing of the corresponding content type.
 
 ```{r, echo=FALSE, results='hide'}
 entryClass <- system.file("extdata", "ChebiExEntry.R", package='biodb')
 ```
 
-Our entry class has to inherit from `BiodbXmlEntry` since ChEBI returns XML files when retrieving entries:
+Our entry class has to inherit from `BiodbXmlEntry` since *ChEBI* returns XML files when retrieving entries:
 ```{r, code=readLines(entryClass)}
 ```
 In the *biodb* definition file, we will write XPath expressions for the different desired fields in order to parse values from inside the downloaded XML.
@@ -73,13 +76,50 @@ Method                        | Description
 
 : (\#tab:remoteMethods) `BiodbRemotedbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbRemotedbConn` class.
 
-Method             | Description
------------------- | --------------------------------
-`searchCompound()` | This method implements the search of compounds by name and/or by mass. For our example, we have kept it empty, because a real call to ChEBI API would require much code. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package which implements the ChEBI connector.
+Method              | Description
+------------------- | --------------------------------
+`searchCompound()`  | This method implements the search of compounds by name and/or by mass. For our example, we have kept it simple by implementing only the search by name, because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
+`wsGetLiteEntity()` | This is the implementation of the call to the `getLiteEntity` *ChEBI* web service. It used by our `searchCompound()` implementation for running the search of compounds by name. Note the use of pure *ChEBI* web service parameters (`search`, `search.category` and `stars`) and *biodb* standard parameters (`max.results` and `retfmt`).
 
 : (\#tab:compMethods) `BiodbCompounddbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbCompounddbConn` class.
 
 See the help about `BiodbRemotedbConn` and `BiodbCompounddbConn` for details about the parameters of those functions.
+
+The implemented `BiodbRemotedbConn`'s methods are used for three different goals.
+First to build web site URLs: to get the URL to an entry page (`getEntryPageUrl()`) or to get the URL to an entry picture (`getEntryImageUrl()`) like a molecule representation.
+Second to get a list of database entry identifiers (`.doGetEntryIds()`).
+Third to Get the content of an entry (`.doGetEntryContentRequest()`).
+In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and `.doGetEntryContentRequest()`, you may have notice that the `getPropValSlot()` to get URLs (`"base.url"`, `"ws.url"`). These values are defined inside the connector YAML definition file that we will detail below.
+Also, in those methods, we use the `BiobdUrl` class to build the URLs. `BiodbUrl` handles the building of the URL parameters, as well as the encoding of special characters.
+
+The implemented `BiodbCompounddbConn`'s method (`searchCompound()`) is used to search for compounds inside the database by compound name, mass or both. For our example we have decided to implement only the search by name in order to keep the code as simple and short as possible. To see a full implementation of this method, look at the official *biodb* *ChEBI* connector at [biodbChebi](https://github.com/pkrog/biodbChebi). Inside the method's code you will see that the implementation of the call to the *ChEBI* web service API has been left to the dedicated method `wsGetLiteEntity()`.
+
+In *biodb* official implementations of remote connectors, the implementations of calls to web services are done in separate dedicated methods having in common some principles. The method's name starts with the prefix `ws`, which stands for *web service*, and is followed by the API name of the web service written in Java style (i.e.: an uppercase letter for the start of each word and lowercase letters for the rest). The first parameters of the method are the web service parameters. The last parameters (`max.results` and `retfmt`) are *biodb* specific.
+`max.results` controls the maximum number of results wanted, and must have a default value (usually `10`).
+`retfmt`, which stands for *return format*, controls the format of the method's returned value. The default value of `retfmt` is set to a vector and then processed inside the method with the `match.arg()` method. Thus the "real" default value is the first value of the vector, which must always be `"plain"`. The set of possible values for `retfmt` is variable from one web service method to another. However some of the values are compulsory. See \@ref(tab:retfmtValues) for a full list of `retfmt` possible values officially accepted by *biodb*.
+
+Value        | Compulsory | Description
+------------ | ---------- | --------------------------------
+`plain`      |     yes    | Results are returned verbatim, without any change on the data returned by the server.
+`parsed`     |     yes    | Results are parsed according to the data format expected from the server (JSON, CSV, ...) before being returned.
+`request`    |     yes    | Instead of returning the results of the query, the query is returned as a `BiodbRequest` object. The query is only built, and is never sent to the server.
+`ids`        |     no     | Results are returned as a character vector of entry identifiers.
+`queryid`    |     no     | This value is used when dealing with an asynchronous web service. The value returned is the ID of the asynchronous query extracted from the parsed results returned by the server. This query ID is then used to query the query status and to query the query results, usually with two other web services.
+`status`     |     no     | When dealing with an asynchronous web service query, this value asks for the current status of the query.
+`data.frame` |     no     | Results are formatted into a data frame.
+
+: (\#tab:retfmtValues) `retfmt` accepted values. The list of values of `retfmt` officially accepted by *biodb*.
+
+You may want to look into some of *biodb* implementations of connectors to official remote databases, and see how the calls to web services have been implemented in dedicated web service methods. See \@ref(tab:biodbOfficialRemoteConns).
+
+Package                                               | Official database site
+----------------------------------------------------- | --------------------------------
+[biodbChebi](https://github.com/pkrog/biodbChebi)     | [ChEBI](https://www.ebi.ac.uk/chebi/)
+[biodbHmdb](https://github.com/pkrog/biodbHmdb)       | [HMDB](https://hmdb.ca/)
+[biodbKegg](https://github.com/pkrog/biodbKegg)       | [KEGG](https://www.kegg.jp/)
+[biodbUniprot](https://github.com/pkrog/biodbUniprot) | [UniProt](https://www.uniprot.org/)
+
+: (\#tab:biodbOfficialRemoteConns) *biodb* connectors to remote databases. Some of the *biodb* packages implementing connectors to official remote databases.
 
 ```{r, echo=FALSE, results='hide'}
 connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
@@ -88,9 +128,6 @@ connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
 Here is our implementation of the connector class:
 ```{r, code=readLines(connClass)}
 ```
-
-In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and `.doGetEntryContentRequest()`, you may have notice that the `getPropValSlot()` to get URLs (`"base.url"`, `"ws.url"`). These values are defined inside the connector YAML definition file that we will detail below.
-Also, in those methods, we use the `BiobdUrl` class to build the URLs. `BiodbUrl` handles the building of the URL parameters, as well as the encoding of special characters.
 
 # Defining the new connector for biodb
 
@@ -145,7 +182,7 @@ Create an effective connection with our new connector class, is made the same wa
 conn <- mybiodb$getFactory()$createConn('chebi.ex')
 ```
 
-Now we can retrieve a ChEBI entry from the remote database:
+Now we can retrieve a *ChEBI* entry from the remote database:
 ```{r}
 entry <- conn$getEntry('17001')
 entry$getFieldsAsDataframe()
@@ -181,7 +218,7 @@ Method                       | Description
 
 # Connector for a downloadable database
 
-Some database servers do not propose web services, or other connection to the database, but propose to download the whole database for local processing. *biodb* offers the possibility to handle the connection to such database servers, by implementing the `BiodbDownloadable` interface into your connector class (which already inherits from `BiodbRemotedbConn`. See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
+Some database servers do not propose web services, or other connection to the database, but propose to download the whole database for local processing. *biodb* offers the possibility to handle the connection to such database servers, by implementing the `BiodbDownloadable` interface into your connector class, which already inherits from `BiodbRemotedbConn`. See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
