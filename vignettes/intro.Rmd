@@ -24,6 +24,40 @@ output:
 
 <!-- TODO
 besoin, contexte, qu'est-ce qui existe et qu'est-ce qui n'existe pas, à quel besoin/manque répond biodb
+
+ * respect remote database server policy on request frequency.
+ * cache request results for speeding up future requests (or frequent re-runs)
+ * get entries in a similar way in order to ease data comparison and merging (same naming of fields)
+ * have an internal architecture of classes that facilitate the implementation of new connectors (i.e.: facilitate writing of extensions).
+
+https://cran.r-project.org/web/packages/webchem/
+
+Several KEGG packages. Some of them:
+http://www.bioconductor.org/packages/release/bioc/html/KEGGREST.html
+On graphs:
+https://www.bioconductor.org/packages/release/data/annotation/html/KEGG.db.html
+https://www.rdocumentation.org/packages/KEGGprofile/versions/1.14.0
+https://www.rdocumentation.org/packages/KEGGgraph/versions/1.30.0
+
+HMDB:
+https://bioconductor.org/packages/release/bioc/html/hmdbQuery.html
+
+UniProt:
+https://cran.r-project.org/web/packages/UniprotR/
+
+Package to export into MassBank:
+http://www.bioconductor.org/packages/release/bioc/html/RMassBank.html
+
+MetabolomeXchange is a web portal proposing web services that focus on metabolomics dataset search and retrieval, but is restricted to 3 databases and offers a limited set of services.
+http://www.metabolomexchange.org/site/
+
+BioServices is a Python module proposing a unified connection mechanism toward 25 biology web services.
+https://academic.oup.com/bioinformatics/article/29/24/3241/194040/BioServices-a-common-Python-package-to-access
+
+MAPI is a Java general framework for developing client applications for accessing web resources.
+https://www.ncbi.nlm.nih.gov/pubmed/23311574
+
+Having dependencies on other languages (=! C/C++) Not good for distribution 
 -->
 *biodb* originates in the need of merging chemical and biological data downloaded from different public databases (*ChEBI*, *UniProt*, *miRBase*, *NCBI*). With the growing desire to connect to other databases (KEGG, PeakForest, Massbank, ChemSpider, HMDB, local in-house database), features were extended from getting entries and merging them, to mass spectra annotation, mass spectra matching, pathway search, writing to local in-house database file and framework for easy extension development. See table \@ref(tab:features) for a list of the features.
 
