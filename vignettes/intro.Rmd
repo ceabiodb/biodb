@@ -1,0 +1,249 @@
+---
+title: "*biodb*: Introduction."
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
+abstract: |
+  An introduction to *biodb*.
+vignette: |
+  %\VignetteIndexEntry{Introduction to the biodb package.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Purpose
+
+*biodb* provides access to chemical and biological databases.
+
+<!-- TODO
+besoin, contexte, qu'est-ce qui existe et qu'est-ce qui n'existe pas, à quel besoin/manque répond biodb
+-->
+*biodb* originates in the need of merging chemical and biological data downloaded from different public databases (*ChEBI*, *UniProt*, *miRBase*, *NCBI*). With the growing desire to connect to other databases (KEGG, PeakForest, Massbank, ChemSpider, HMDB, local in-house database), features were extended from getting entries and merging them, to mass spectra annotation, mass spectra matching, pathway search, writing to local in-house database file and framework for easy extension development. See table \@ref(tab:features) for a list of the features.
+
+Features            | Description
+------------------- | ----------------------------------------------------------------
+Getting entries     | Retrieval of entries by accession number, and search for entries.
+Merging entries     | Merging entries from different databases.
+Exporting entries   | Extracting values of entries into data frames.
+In-house db reading | Connection to a local in-house database (CSV file or SQLite database file).
+In-house db writing | Writing entries into an in-house database.
+LCMS annotation     | Annotating an LCMS spectra using a spectra database.
+MSMS matching       | Search for matching MSMS spectra into a database.
+Framework           | Development framework for easy implementation of *biodb* extension packages.
+: (\#tab:features) Provided entry classes. The list of entry classes already defined inside *biodb* framework. The goal of each entry class is to facilitate the parsing of the corresponding content type.
+
+In this vignette we will introduce you to the basic features of *biodb*, allowing you to be quickly productive.
+Pointers toward other documents are included along the way, for going into details or learning advanced features.
+
+# Initialization
+
+The first step in using *biodb*, is to create an instance of the
+main class `Biodb`. This is done by calling the constructor of
+the class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+During this step the configuration is set up, the cache system is initialized and extension packages are loaded.
+
+We will see at the end of this vignette that the *biodb* instance needs to be terminated with a call to the `terminate()` method.
+
+# Connecting to a database
+
+In *biodb* the connection to a database is handled by a connector instance that you can get from the factory.
+Here we create a connector to a CSV file database of chemical compounds:
+```{r}
+compUrl <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+compdb <- mybiodb$getFactory()$createConn('comp.csv.file', url=compUrl)
+```
+<!-- TODO 
+ Montrer l'intérieur du fichier CSV
+ Detailler getFactory, Factory class, createConn, instances, operateur $, parameter url, parameter 'comp.csv.file'.
+ expliquer les refClass
+ OOP refClass expliquer
+ verifer R studio completion $
+-->
+With this connector instance you are now able to get entries and search for them by either name or mass.
+
+# Accessing entries
+
+The main goal of the connector is to retrieve entries. The two main generic ways to retrieve entries with a connector are: getting entries using their identifiers (accession numbers), and searching for entries by name.
+For compound databases, there is also the possibility to search for entries by mass.
+
+In this section we will show how to get entries, convert them into a data frame and search for entries by name.
+For advanced features about entries, please see the vignette `entries`.
+
+## Getting entries
+
+Getting entries is done with the `getEntry()` methods to which you pass a character vector of one or more identifiers:
+```{r}
+entries <- compdb$getEntry(c('1018', '1549', '64679'))
+entries
+```
+
+<!-- the entries are instances of BiodbEntry ==> functions applicable -->
+
+## Getting field values from an entry
+
+In *biodb* the definition of fields are global. Thus they are shared between databases, and the same field will have the same name in two entries of two different databases.
+
+We access the list of fields in an entry with the method `getFieldNames()`:
+```{r}
+entries[[1]]$getFieldNames()
+```
+
+`getFieldValue()` is used to get the value of a field:
+```{r}
+entries[[1]]$getFieldValue('formula')
+```
+
+## Exporting entries into a data frame
+
+Another way to access field values of entries, is to export them as a data frame.
+
+You can export the values of one single entry:
+```{r}
+entries[[1]]$getFieldsAsDataframe()
+```
+
+Or export the values of a set of entries:
+```{r}
+mybiodb$entriesToDataframe(entries)
+```
+
+## Searching for entries
+
+In *biodb* each database connector offers the possibility to search entries by their name, although some database servers do not propose this feature in which case an explicit error message will be returned.
+
+Searching by name is done with the `searchCompound()` method, which returns a character vector containing identifiers of matchings entries:
+```{r}
+compdb$searchCompound(name='deoxyguanosine')
+```
+
+In our particular case of a compound database, we can also search the entries by mass:
+```{r}
+compdb$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+```
+
+# Mass spectra
+
+Another feature of *biodb* is the ability to annotate an LCMS spectra or to search for an MSMS spectra matching.
+In this section we will see the annotation of LCMS spectra and matching of MSMS spectra.
+For advanced features about mass spectra, please see the vignettes `ms_annotation`, `in_house_lcms_db` and `in_house_msms_db.Rmd`.
+
+## Mass spectra annotation with a compound database
+
+Using a compound database it is possible to annotate a mass spectra.
+You will get a data frame containing your data frame input (with your M/Z values) completed by annotations from the compound database:
+```{r}
+ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
+mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
+compdb$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), fieldsLimit=1)
+```
+
+## Mass spectra annotation with a mass spectra database
+
+In a similar with the annotation using a compound database, it is possible to annotate LCMS experimental data using a mass spectra database.
+You will again get a data frame containing your data frame input (with your M/Z values) completed by annotations from the database:
+```{r}
+massUrl <- system.file("extdata", "massbank_extract_lcms_2.tsv", package='biodb')
+massDb <- mybiodb$getFactory()$createConn('mass.csv.file', url=massUrl)
+massDb$addField('ms.level', 1)
+massDb$addField('chrom.rt.unit', 's')
+input <- data.frame(mz=c(73.01, 116.04, 174.2), rt=c(79, 173, 79))
+massDb$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
+```
+
+## MSMS matching
+
+Using an MSMS database, you can search for matches of your experimental spectrum:
+```{r}
+msmsUrl <- system.file("extdata", "massbank_extract_msms.tsv", package='biodb')
+msmsdb <- mybiodb$getFactory()$createConn('mass.csv.file', url=msmsUrl)
+myspectrum <- data.frame(mz = c(286.1456, 287.1488, 288.1514), rel.int = c(100, 45, 18))
+msmsdb$msmsSearch(myspectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
+```
+
+# Creating and improving connectors
+
+A powerful feature of *biodb* is its architecture as a development framework.
+Connectors can be extended dynamically by created new rules to parse field values, or creating new fields.
+New connectors can also be defined. This feature has been used to create connectors to public databases like: KEGG, ChEBI, HMDB or UniProt.
+
+See the vignettes `new_entry_field` and `new_connector` for details about connector creation and defining new entry fields.
+
+# Biodb extension packages
+
+Several extension packages for *biodb* exist today on GitHub. See \@ref(tab:extensions) for a list of those extension and a short description.
+
+For installing them, please first make sure that you have the package `devtools` installed and run:
+```{r, eval=FALSE}
+devtools::install_github('pkrog/biodbChebi', dependencies=TRUE, build_vignettes=TRUE)
+```
+Replace `'pkrog/biodbChebi'` by the appropriate repository.
+
+The extensions whose status is marked as `Functional` are in working order and can be installed and used safely with *biodb*. They may still need some updates in the documentation or the tests, thus do not hesitate to contact us if you have doubts on the API, the behaviour or if you would like to improve the extension.
+The extensions whose status is marked as `In maintenance` are currently non functional due to the refactoring of *biodb* into a development framework, but will be upgraded as soon as possible.
+If have the need to re-enable a currently `in maintenance` extension, do not hesitate to contact us, we may be able to accelerate the upgrade or propose you with our support to upgrade it yourself.
+If you have the desire to develop a new extension, please contact us, as we will be able accompany you in the process.
+
+Extension                                                   | Database                                  | Status         | Description
+----------------------------------------------------------- | ----------------------------------------- | -------------- | ----------------------------------------------------------------
+[biodbChebi](https://github.com/pkrog/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | Functional     | Connector to ChEBI.
+[biodbKegg](https://github.com/pkrog/biodbKegg)             | [KEGG](https://www.kegg.jp/)              | Functional     | Connectors to KEGG Compound, Enzyme, Genes, Module, Orthology, Pathway and Reaction.
+[biodbHmdb](https://github.com/pkrog/biodbHmdb)             | [HMDB](https://hmdb.ca/)                  | Functional     | Connector to HMDB Metabolites.
+[biodbUniprot](https://github.com/pkrog/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | Functional     | Connector to UniProt KB.
+[biodbExpasy](https://github.com/pkrog/biodbExpasy)         | [ExPASy](https://www.expasy.org/)         | In maintenance | Connector to [ExPASy Enzyme](https://enzyme.expasy.org/).
+[biodbLipidmaps](https://github.com/pkrog/biodbLipidmaps)   | [LIPID MAPS](https://www.lipidmaps.org/)  | In maintenance | Connector to Lipid Maps Structure.
+[biodbNcbi](https://github.com/pkrog/biodbNcbi)             | [NCBI](https://www.ncbi.nlm.nih.gov/)     | In maintenance | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
+[biodbMassbank](https://github.com/pkrog/biodbMassbank)     | [MassBank](https://massbank.eu/MassBank/) | In maintenance | Connector to MassBank.
+[biodbNci](https://github.com/pkrog/biodbNci)               | [NCI](https://www.cancer.gov/)            | In maintenance | Connector to NCI CACTUS.
+[biodbChemspider](https://github.com/pkrog/biodbChemspider) | [ChemSpider](http://www.chemspider.com)   | In maintenance | Connector to ChemSpider.
+[biodbMirbase](https://github.com/pkrog/biodbMirbase)       | [miRBase](http://mirbase.org)             | In maintenance | Connector miRBase Mature.
+[biodbPeakforest](https://github.com/pkrog/biodbPeakforest) | [PeakForest](https://peakforest.org/)     | In maintenance | Connectors to PeakForest Compound and PeakForest Mass.
+: (\#tab:extensions) Available *biodb* extensions. A list of currently available extensions with their description and their status.
+
+# Sources of documentation
+
+Several vignettes are available. Among them you will find help for creating
+a new connector, adding an entry field to an existing connector, searching
+for compounds by mass or name, merging entries from different databases into
+a local database, annotation of a mass spectrum, etc.
+See \@ref(tab:vignettes) for a full list of available vignettes.
+
+Title      | Description
+---------- | ----------------------
+```{r, echo=FALSE, results='asis'}
+files <- Sys.glob('*.Rmd')
+for (f in files) {
+	vignette <- sub('^(.*)\\.Rmd', '\\1', f, perl=TRUE)
+	lines <- readLines(f)
+	desc <- grep("%\\\\VignetteIndexEntry", lines, value=TRUE)
+	desc <- sub('^.*VignetteIndexEntry{(.*)}.*$', '\\1', desc, perl=TRUE)
+	cat(vignette, " | ", desc, "\n", sep='')
+}
+```
+: (\#tab:vignettes) Available vignettes. The list of *biodb* available vignettes with their short description.
+
+Explain simplified architecture:
+ * Connectors
+ * Entries
+
+You will also find documentation inside the R manual of the package. All
+*biodb* public classes have a help page. On each help page you will find a
+description of the class as well as a list of all its public methods with a
+description of their parameters. For instance you can get help on `BiodbEntry`
+class with `?BiodbEntry`.
+
+# Closing biodb instance
+
+When done with your *biodb* instance you have to terminate it, in order to ensure release of resources (file handles, database connection, etc):
+```{r}
+mybiodb$terminate()
+```

@@ -1,0 +1,162 @@
+---
+title: "*biodb*: Details."
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
+abstract: |
+  Details on general *biodb* usage and principles: configuration, architecture, ...
+vignette: |
+  %\VignetteIndexEntry{Details on general *biodb* usage and principles.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+---
+
+# Introduction
+
+<!-- TODO -->
+
+# Architecture
+
+*biodb* uses an initialization/termination scheme. You must first initialize library by creating an instance:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+And when you are done with the library, you have to terminate the instance explicitly:
+```{r}
+mybiodb$terminate()
+```
+
+When you are done working with your *biodb* instance, you must release it by
+calling the `terminate()` method on it.
+
+## Connector and entry classes
+
+<!-- TODO
+Connectors:
+ * Share the same methods through the common super classes `BiodbConn`, `BiodbRemotedbConn`, ...
+Entries:
+ * Share the same methods through the common super class `BiodbEntry`.
+ * the definition of fields are in common between database, thus the same field will have the same name in two entries of two different databases.
+ Factory :
+  * creates a new connector (createConn)
+  * stores connectors in memory.
+  * gives you back an existing connector (getConn)
+  * creates entries
+  * stores entries in memory (volatile cache).
+  * gives you back existing entries (instead of reloading them)
+  * you can delete entries from memory
+  * you can delete connectors from memory
+URL request scheduler:
+ * run requests on a database server.
+ * controls the frequency of requests for a database server.
+ * Use the cache system to store results of requests.
+ * Use cached request result instead of sending again the request.
+Cache system :
+ * stores entries on disk (persistence cache).
+ * gives back entries instead of reloading them from database.
+ * allows you to delete cached entries from disk.
+ * allows you to delete all cached files for a database.
+-->
+
+## Management classes
+
+<!-- TODO ==> put that in separate vignette about architecture. -->
+
+Several class instances are attached to the *biodb* instance for managing different aspects of *biodb*: creating connectors, configuring *biodb*, accessing the cache system, etc.
+
+### Factory
+
+### Configuration
+
+### Cache system
+
+### Databases information
+
+### Entry fields information
+
+# Configuration
+
+This configuration setting can be modified either directly inside R with the `BiodbConfig` class or beforehand by setting environment variables.
+
+## BiodbConfig instance
+
+The main way to tune *biodb* to your needs is to use the `BiodbConfig` single instance, accessible through the `biodb` instance:
+```{r}
+config <- mybiodb$getConfig()
+```
+
+If you look at the config instance, you will get a list of keys with their current values:
+```{r}
+config
+```
+
+## Keys information and value
+
+Get all available configuration keys:
+```{r}
+config$getKeys()
+```
+
+Get description of a field:
+```{r}
+config$getDescription('cache.directory')
+```
+
+Get a field value:
+```{r}
+config$get('cache.directory')
+```
+
+If the field is boolean, you can use the following method instead:
+```{r}
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+```
+
+To get a complete of all configuration keys and their description, call:
+```{r}
+config$listKeys()
+```
+
+## Setting a value
+
+Set a field value:
+```{r}
+config$set('cache.directory', '~/my.biodb.cache')
+config$get('cache.directory') # See modifications
+```
+
+If the field is boolean, you can use the following methods instead:
+```{r}
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
+```
+
+## Default values
+
+Get field default value:
+```{r}
+config$getDefaultValue('cache.directory')
+```
+
+## Environment variables
+
+Environment variables can be used to overwrite default values.
+
+To get the name of the environment variable associated with a particular key, call the following method:
+```{r}
+config$getAssocEnvVar('cache.directory')
+```
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

@@ -1,12 +1,9 @@
 #' @details
 #'
-#' # Initialization
-#'
-#' The first step in using *biodb*, is to create an instance of the
-#' main class `Biodb`. This is done by calling the constructor of
-#' the class:
+#' To get a presentation of the *biodb* package and get started with it, please
+#' see the "intro" vignette. 
 #' ```
-#' mybiodb <- biodb::Biodb()
+#' vignette('intro', package='biodb')
 #' ```
 #'
 #' # OOP mechanism
@@ -98,11 +95,6 @@
 #' cfg$mybiodb$getConfig()$set('msg.caution.lvl', 0)
 #' cfg$mybiodb$getConfig()$set('msg.info.lvl', 0)
 #' ```
-#'
-#' # Termination
-#'
-#' When you are done working with your *biodb* instance, you must release it by
-#' calling the `terminate()` method on it.
 #'
 #' @examples
 #' # Create an instance of the Biodb class:
