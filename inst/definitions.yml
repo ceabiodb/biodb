@@ -126,8 +126,9 @@ databases:
 # Compound CSV File {{{2
 ################################################################################
   comp.csv.file:
-    entry.content.type: tsv
     name: Compound CSV File
+    description: A connector to handle a compound database stored inside a CSV file. It is possible to choose the separator for the CSV file.
+    entry.content.type: tsv
     searchable.fields:
       - name
       - monoisotopic.mass

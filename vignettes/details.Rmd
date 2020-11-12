@@ -1,12 +1,12 @@
 ---
-title: "*biodb*: Details."
+title: "Details on biodb"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
   Details on general *biodb* usage and principles: configuration, architecture, ...
 vignette: |
-  %\VignetteIndexEntry{Details on general *biodb* usage and principles.}
+  %\VignetteIndexEntry{Details on general *biodb* usage and principles}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output:
@@ -21,6 +21,107 @@ output:
 # Introduction
 
 <!-- TODO -->
+
+<!-- origins -->
+*biodb* originates in the need of merging chemical and biological data
+downloaded from different public databases (*ChEBI*, *UniProt*, *miRBase*,
+*NCBI*). With the growing desire to connect to other databases (KEGG,
+PeakForest, Massbank, ChemSpider, HMDB, local in-house database), features were
+extended from getting entries and merging them, to mass spectra annotation,
+mass spectra matching, pathway search, writing to local in-house database file
+and framework for easy extension development.
+
+# Comparison to other packages
+
+<!-- webchem package -->
+The R package most similar to *biodb* is *webchem* [@szocs2020]. Both packages
+permit access to chemical databases and like *biodb*, *webchem* ensures the
+respect of request frequency limit enacted by the different web database sites.
+However several differences between the two packages make *biodb* special.
+
+<!-- biology & MS -->
+To begin with, the domain is different. While *webchem* is oriented toward
+toxic compounds, *biodb* is centered around **biological compounds** and **mass
+spectra**. Which leads to features specific to *biodb* like the access to
+**protein** databases, **pathway** databases, and the **annotation** of mass spectra.
+
+<!-- dev framework -->
+Then, *biodb* has a distinctive approach concerning contributions. The authors
+of *webchem* welcome contributors in a classical manner through the access to
+their code repository.
+With *biodb* we have decided to turn the package into a **development
+framework** in order to simplify the development of new database connectors,
+and see contributions to *biodb* as extension packages (i.e. plug-ins) instead
+of code to be integrated into the main package repository. The consequence is a
+greater independence for contributors, who can create and maintain their
+extension package without the need to intervene into main package's code.
+
+<!-- other features not in webchem -->
+Finally *biodb* includes other specific features like a cache system that
+avoids sending the same requests twice, the handling of in-house local
+databases (CSV files and SQLite files), the search of compounds by mass and
+name and a unified API that allows to use of generic methods (i.e. common to
+between connectors) for entries access, entries search, spectra annotation and
+spectra matching. See table \@ref(tab:features) for a list of main features.
+
+```{r, child=c('includes/features_table.Rmd')}
+```
+
+<!-- TODO other packages -->
+<!-- TODO
+
+Linked R projects:
+ * rpubchem (Guha 2016)
+ * ChemmineR (Cao, Charisi, Cheng, Jiang, and Girke 2008)
+ * WikidataR (Keyes and Graul 2017)
+
+Python:
+ * Python (Van Rossum et al. 2011) ecosystem 
+ * PubChempy (Swain 2017)
+ * ChemSpiPy (Swain 2018)
+ * CIRpy (Swain 2016)
+
+Web:
+ * Chemical Translation Service (Wohlgemuth et al. 2010)
+
+
+Several KEGG packages. Some of them:
+http://www.bioconductor.org/packages/release/bioc/html/KEGGREST.html
+On graphs:
+https://www.bioconductor.org/packages/release/data/annotation/html/KEGG.db.html
+https://www.rdocumentation.org/packages/KEGGprofile/versions/1.14.0
+https://www.rdocumentation.org/packages/KEGGgraph/versions/1.30.0
+
+HMDB:
+https://bioconductor.org/packages/release/bioc/html/hmdbQuery.html
+
+UniProt:
+https://cran.r-project.org/web/packages/UniprotR/
+
+Package to export into MassBank:
+http://www.bioconductor.org/packages/release/bioc/html/RMassBank.html
+
+MetabolomeXchange is a web portal proposing web services that focus on metabolomics dataset search and retrieval, but is restricted to 3 databases and offers a limited set of services.
+http://www.metabolomexchange.org/site/
+
+BioServices is a Python module proposing a unified connection mechanism toward 25 biology web services.
+https://academic.oup.com/bioinformatics/article/29/24/3241/194040/BioServices-a-common-Python-package-to-access
+
+MAPI is a Java general framework for developing client applications for accessing web resources.
+https://www.ncbi.nlm.nih.gov/pubmed/23311574
+
+Having dependencies on other languages (=! C/C++) Not good for distribution 
+-->
+
+# Object oriented programming model
+
+As you will see shortly in the next chapter, we use a call to a constructor to obtain an instance of the class `Biodb`. This means that *biodb* uses an object oriented programming (or OOP) model.
+
+In R, you certainly already know the two classical OOP models *S3* and *S4*. *S4* is certainly the most used model, and is based on an original system of generic methods that can be specialized for each class.
+
+Two more recent OOP models exist in R: *Reference Classes* (aka *RC* or *R5*) and *R6*. These two models are very similar. At the time *biodb* was created, only *R5* existed, and thus it has been chosen for the implementation of the package.
+
+<!-- TODO Explain why R5 and not S4. -->
 
 # Architecture
 
@@ -59,6 +160,7 @@ URL request scheduler:
  * Use the cache system to store results of requests.
  * Use cached request result instead of sending again the request.
 Cache system :
+a
  * stores entries on disk (persistence cache).
  * gives back entries instead of reloading them from database.
  * allows you to delete cached entries from disk.
@@ -160,3 +262,5 @@ Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
 mybiodb$terminate()
 ```
+
+# References

@@ -84,17 +84,23 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 },
 
 show=function() {
-    ":\n\nPrints the values of the properties of this connector.
+    ":\n\nPrints a description this connector.
     \nReturned value: None.
     "
 
     # General info
+    type <- (if (class(.self) %in% c('BiodbConnBase', 'BiodbDbInfo')) "class"
+             else "instance")
     msg <- paste0("Biodb ", .self$getPropertyValue('name'),
-                  " connector instance")
+                  " connector ", type)
     if (.self$hasPropSlot('urls', 'base.url'))
         msg <- paste0(msg, ', using URL "',
                       .self$getPropValSlot('urls', 'base.url'), '"')
     msg <- paste0(msg, ".\n")
+    
+    # Description
+    if (.self$hasProp('description'))
+        msg <- paste0(msg, .self$getPropertyValue('description'), "\n")
 
     # Disabled
     if (.self$getPropertyValue('disabled')) {
@@ -529,6 +535,8 @@ setPropValSlot=function(name, slot, value) {
                                   na.allowed=FALSE, modifiable=FALSE),
         name=list(class='character', default=NA_character_,
                     na.allowed=FALSE, modifiable=FALSE),
+        description=list(class='character', default=NA_character_,
+                    na.allowed=TRUE, modifiable=FALSE),
         package=list(class='character', default='biodb', na.allowed=FALSE,
                      modifiable=FALSE),
         parsing.expr=list(class='list', default=NULL, named=TRUE,

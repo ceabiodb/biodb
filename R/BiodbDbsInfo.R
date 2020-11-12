@@ -120,7 +120,13 @@ show=function() {
     cat("Biodb databases information instance.\n")
     cat("The following databases are defined:\n")
     for (id in names(.self$.dbs)) {
-        cat("  ", id, ".", sep='')
+        cc <- .self$.dbs[[id]] # connector class
+        cat("  ", id, ": ", cc$getPropertyValue('name'),
+            " connector class", sep='')
+        if (cc$hasPropSlot('urls', 'base.url'))
+            cat(', using URL "', cc$getPropValSlot('urls', 'base.url'),
+                '"', sep='')
+        cat(".", sep='')
         db <- .self$get(id)
         if (db$getPropertyValue('disabled'))
             cat(" DISABLED (", db$getPropertyValue('disabling.reason'),").",
