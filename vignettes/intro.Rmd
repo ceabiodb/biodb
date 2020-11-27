@@ -16,8 +16,8 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
+bibliography: references.bib
 ---
-<!--bibliography: references.bib -->
 
 ```{r, code=readLines('includes/vignettes_ref.R'), echo=FALSE}
 ```
@@ -35,16 +35,14 @@ but few are easily accessible from a programming environment, and new databases
 are published every year.
 
 <!-- Package incomplete, no capitalization. -->
-In R, connectors to databases, when they exist, are presented in separate
-packages, each proposing its own API.
-When such a package does not offer the services the scientific programmer
+In R, packages with public database connectors, most often propose to connect
+to one single database with a specific API, and do not offer a **development
+framework** [@szocs2020_webchem; @guha2016_rpubchem; @tenenbaum2020_keggrest; @carey2020_hmbdQuery; @soudy2020_uniprotr; @carlson2020_uniprotws; @wolf2019_chemspiderapi; @stravs2013_rmassbank; @drost2017_biomartr; @winter2020_rentrez].
+When a package does not offer the services the scientific programmer
 requests, or when no package exists for the targeted database, a homemade
 solution is implemented.
 In such a case, the effort spent is often lost and never capitalized for the
 good of the community.
-<!-- TODO ref revue des packages existants OU liste des packages existants.
-note spéciale sur webchem
--->
 
 <!-- Development framework. -->
 *biodb* has been designed and implemented as a unified API to databases and a
@@ -158,6 +156,8 @@ for explanations about the OOP model chosen for *biodb*.
 
 ```{r compTable, echo=FALSE, results='asis'}
 compDf <- read.table(compUrl, sep="\t", header=TRUE, quote="")
+# Prevent RMarkdown from interpreting @ character as a reference:
+compDf$smiles <- vapply(compDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(head(compDf), "pipe", caption="Excerpt from compound database TSV file.")
 ```
 
@@ -232,6 +232,8 @@ entryDf <- entries[[1]]$getFieldsAsDataframe()
 See \@ref(tab:entryTable) for the exported data frame.
 
 ```{r entryTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entryDf$smiles <- vapply(entryDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(entryDf, "pipe", caption="Values of one entry of the compound database.")
 ```
 
@@ -242,6 +244,8 @@ entriesDf <- mybiodb$entriesToDataframe(entries)
 See \@ref(tab:entriesTable) for the exported data frame. 
 
 ```{r entriesTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(entriesDf, "pipe", caption="Values of a set of entries from the compound database.")
 ```
 
@@ -465,14 +469,13 @@ with our support to upgrade it yourself.
 If you have the desire to develop a new extension, please contact us, as we
 will be able accompany you in the process.
 
-<!-- Insert links to database website in "Description" column. -->
 Extension                                                   | Database                                  | Status         | Description
 ----------------------------------------------------------- | ----------------------------------------- | -------------- | ----------------------------------------------------------------
 [biodbChebi](https://github.com/pkrog/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | Functional     | Connector to ChEBI.
 [biodbKegg](https://github.com/pkrog/biodbKegg)             | [KEGG](https://www.kegg.jp/)              | Functional     | Connectors to KEGG Compound, Enzyme, Genes, Module, Orthology, Pathway and Reaction.
 [biodbHmdb](https://github.com/pkrog/biodbHmdb)             | [HMDB](https://hmdb.ca/)                  | Functional     | Connector to HMDB Metabolites.
 [biodbUniprot](https://github.com/pkrog/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | Functional     | Connector to UniProt KB.
-[biodbExpasy](https://github.com/pkrog/biodbExpasy)         | [ExPASy](https://www.expasy.org/)         | In maintenance | Connector to [ExPASy Enzyme](https://enzyme.expasy.org/).
+[biodbExpasy](https://github.com/pkrog/biodbExpasy)         | [ExPASy](https://www.expasy.org/)         | In maintenance | Connector to ExPASy Enzyme.
 [biodbLipidmaps](https://github.com/pkrog/biodbLipidmaps)   | [LIPID MAPS](https://www.lipidmaps.org/)  | In maintenance | Connector to Lipid Maps Structure.
 [biodbNcbi](https://github.com/pkrog/biodbNcbi)             | [NCBI](https://www.ncbi.nlm.nih.gov/)     | In maintenance | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
 [biodbMassbank](https://github.com/pkrog/biodbMassbank)     | [MassBank](https://massbank.eu/MassBank/) | In maintenance | Connector to MassBank.
@@ -496,16 +499,6 @@ x <- biodbVignettes[, c('link', 'desc')]
 names(x) <- c('Vignette', 'Description')
 knitr::kable(x, "pipe", caption="List of *biodb* available vignettes with their short description.")
 ```
-
-<!-- TODO use knitr::kable(). Remove name column, and insert a link to vignette HTML file. -->
-Name   | Title      | Description
------- | ---------- | ----------------------
-```{r, echo=FALSE, results='asis'}
-```
-
-Explain simplified architecture:
- * Connectors
- * Entries
 
 You will also find documentation inside the R manual of the package. All
 *biodb* public classes have a help page. On each help page you will find a
