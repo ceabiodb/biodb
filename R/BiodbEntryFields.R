@@ -123,15 +123,22 @@ getRealName=function(name, fail=TRUE) {
     return(name)
 },
 
-get=function(name) {
+get=function(name, drop=TRUE) {
     ":\n\nGets a BiodbEntryField instance.
     \nname: A character vector of names or aliases.
-    \nReturned value: The BiodbEntryField instance associated with `name`.
+    \ndrop: If TRUE and only one name has been submitted, returns a single
+    BiodbEntryField instance instead of a list.
+    \nReturned value: A named list of BiodbEntryField instances. The names of
+    the list are the real names of the entry fields, thus they may be different
+    from the one provided inside the name argument.
     "
 
     name <- .self$getRealName(name)
-    field <- .self$.fields[[tolower(name)]]
-    return(field)
+    fields <- .self$.fields[tolower(name)]
+    if (drop && length(fields) == 1)
+        fields <- fields[[1]]
+
+    return(fields)
 },
 
 getFieldNames=function(type=NULL, computable=NULL) {
@@ -224,6 +231,9 @@ define=function(def) {
             for (alias in field$getAliases())
                 .self$.aliasToName[[alias]] <- name
     }
+    
+    # Check
+    .self$.fields[[name]]$.check()
 }
 
 ))

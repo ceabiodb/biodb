@@ -16,62 +16,81 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
-bibliography: references.bib 
 ---
+<!--bibliography: references.bib -->
 
-```{r, echo=FALSE, results='hide'}
-vignettes <- list()
-files <- Sys.glob('*.Rmd')
-for (f in files) {
-	vignette <- sub('^(.*)\\.Rmd', '\\1', f, perl=TRUE)
-	lines <- readLines(f, n=5)
-	title <- grep("^title:", lines, value=TRUE)
-	title <- sub('^title: *"(.*)\\.?"$', '\\1', title, perl=TRUE)
-	vignettes[[vignette]] <- title
-}
-
-make_vignette_ref <- function(vignette) {
-	cat('[', vignettes[[vignette]], '](', vignette, '.html)', sep='')
-}
+```{r, code=readLines('includes/vignettes_ref.R'), echo=FALSE}
 ```
 
 # Purpose
 
-*biodb* provides access to chemical, biological and mass spectra databases.
-It offers multiple services: retrieval of entries, chemical and biological
-compound search by mass and name, mass spectra annotation, MSMS matching, read
-and write of in-house local databases, access to web databases and their web
-services through multiple extension packages (KEGG, HMDB, UniProt, ChEBI, ...).
-*biodb* is designed as a development framework and thus allows you to write
-your own extension package for connection to a web database, your own in-house
-database format or other systems.
-See table \@ref(tab:features) for a list of available features.
+<!-- What offers biodb. -->
+*biodb* provides access to **chemical**, **biological** and **mass spectra**
+databases, and offers a **development framework** that facilitates the writing
+of new connectors.
 
-In comparison, *webchem* [@szocs2020], another R package providing access to chemical
-databases, centers on toxic compounds, does not provide access to biological
-and mass spectra databases, does not offer an open development framework for
-facilitating extensions, does not use a cache system for web requests, and does
-not include in-house databases.
-See vignette
-```{r, echo=FALSE, results='asis'}
-make_vignette_ref('details')
-```
-for a more thorough comparison of *biodb* with other packages.
+<!-- Many databases. -->
+Many public databases from which scientific need to extract data exist today
+but few are easily accessible from a programming environment, and new databases
+are published every year.
+
+<!-- Package incomplete, no capitalization. -->
+In R, connectors to databases, when they exist, are presented in separate
+packages, each proposing its own API.
+When such a package does not offer the services the scientific programmer
+requests, or when no package exists for the targeted database, a homemade
+solution is implemented.
+In such a case, the effort spent is often lost and never capitalized for the
+good of the community.
+<!-- TODO ref revue des packages existants OU liste des packages existants.
+note spéciale sur webchem
+-->
+
+<!-- Development framework. -->
+*biodb* has been designed and implemented as a unified API to databases and a
+**development framework**.
+The unified API allows to access the databases in a standardized way, while
+allowing original database services to be accessed directly.
+The **development framework** has for goal to help scientific programmers to
+capitalize on their effort to improve connection to databases and share it with
+the community.
+The framework lowers the effort needed by the developer to improve an existing
+connector or implement a new one.
+Most *biodb* connectors are distributed inside separated packages, that are
+automatically recognized by the main package.
+This system of extensions gives more independence for developing new connectors
+and distributing them, since developers do not need to request any modification
+inside the main package code.
+
+<!-- Database services. -->
+The database services provided by the unified API of *biodb*: retrieval of
+entries, chemical and biological compound search by mass and name, mass spectra
+annotation, MSMS matching, read and write of in-house local databases.
+Alongside the unified API, connectors to public databases furnishes also access
+to specific web services through dedicated methods.
+See table \@ref(tab:features) for a list of available features.
 
 ```{r, child=c('includes/features_table.Rmd')}
 ```
 
+<!-- What we will see in this vignette -->
 In this vignette we will introduce you to the basic features of *biodb*,
 allowing you to be quickly productive.
 Pointers toward other documents are included along the way, for going into
 details or learning advanced features.
+
+For a complete list of featuresSee vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('details')
+```
+for a more more information of *biodb* with other packages.
 
 # Initialization
 
 The first step in using *biodb*, is to create an instance of the
 main class `Biodb`. This is done by calling the constructor of
 the class:
-```{r}
+```{r, results='hide'}
 mybiodb <- biodb::Biodb()
 ```
 During this step the configuration is set up, the cache system is initialized
@@ -90,66 +109,111 @@ content) of chemical compounds:
 compUrl <- system.file("extdata", "chebi_extract.tsv", package='biodb')
 compdb <- mybiodb$getFactory()$createConn('comp.csv.file', url=compUrl)
 ```
-The two parameters passed to the `createConn()` are the identifier of the Compound CSV File connector class and the URL (i.e.: the path) of the TSV file.
+The two parameters passed to the `createConn()` are the identifier of the
+Compound CSV File connector class and the URL (i.e.: the path) of the TSV file.
 With this connector instance you are now able to get entries and search for
 them by either name or mass.
+By default *biodb* will use the TAB character as separator for the CSV file,
+and the standard *biodb* entry field names for the column names of the file.
+To load a CSV file with a different separator and custom column names, you have
+to define them inside the connector instance.
+Please see vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('in_house_compound_db')
+```
+for learning how to define the character separator and the column names of your
+file inside the CSV database connector.
 
-To get a list of all connector classes available with their name, call an instance of `BiodbDbsInfo`:
+To get a list of all connector classes available with their names, call an
+instance of `BiodbDbsInfo`:
 ```{r}
 mybiodb$getDbsInfo()
 ```
+To get available informations on these database connectors, use the `get()`
+method:
+```{r}
+mybiodb$getDbsInfo()$get(c('comp.csv.file', 'mass.csv.file'))
+```
 
 Here we must stop a moment to explain the use of the `$` operator.
-This operator is the call operator for the object oriented programming (OOP) model *R5*.
+This operator is the call operator for the object oriented programming (OOP)
+model *R5*.
 This OOP model is different from *S4*.
 While in *S4* the generic methods and their specialization are defined apart
 from the classes, in *R5* the two are defined together and a method definition
 is necessarily part of a class. Each method being part of a class, it is also
-part of each object of the class, hence the use of a call operator (`$`) on a object.
-In the code line above, the call `mybiodb$getFactory()` means to call `getFactory()` method onto `biodb` instance.
-This call will return another object (of class `BiodbFactory`) on which we call the method `createConn()`.
-Note that while in *R Studio*, you will benefit from the autosuggestion system to find all methods available for an instance.
+part of each object of the class, hence the use of a call operator (`$`) on a
+object.
+In the code line above, the call `mybiodb$getFactory()` means to call
+`getFactory()` method onto `biodb` instance.
+This call will return another object (of class `BiodbFactory`) on which we call
+the method `createConn()`.
+Note that while in *R Studio*, you will benefit from the autosuggestion system
+to find all methods available for an instance.
 See vignette
 ```{r, echo=FALSE, results='asis'}
 make_vignette_ref('details')
 ```
-for a explanations about the OOP model chosen for *biodb*.
+for explanations about the OOP model chosen for *biodb*.
 
 ```{r compTable, echo=FALSE, results='asis'}
 compDf <- read.table(compUrl, sep="\t", header=TRUE, quote="")
-knitr::kable(head(compDf), "pipe", caption="Excerpt from TSV file chebi_extract.tsv")
+knitr::kable(head(compDf), "pipe", caption="Excerpt from compound database TSV file.")
 ```
-
-<!-- TODO 
- Detailler parameter url, parameter 'comp.csv.file'.
--->
 
 # Accessing entries
 
-The main goal of the connector is to retrieve entries. The two main generic ways to retrieve entries with a connector are: getting entries using their identifiers (accession numbers), and searching for entries by name.
-For compound databases, there is also the possibility to search for entries by mass.
+The main goal of the connector is to retrieve entries. The two main generic
+ways to retrieve entries with a connector are: getting entries using their
+identifiers (accession numbers), and searching for entries by name.
+For compound databases, there is also the possibility to search for entries by
+mass.
 
-In this section we will show how to get entries, convert them into a data frame and search for entries by name.
+In this section we will show how to get entries, convert them into a data frame
+and search for entries by name.
 For advanced features about entries, please see the vignette `entries`.
 
 ## Getting entries
 
-Getting entries is done with the `getEntry()` methods to which you pass a character vector of one or more identifiers:
+Getting entries is done with the `getEntry()` methods to which you pass a
+character vector of one or more identifiers:
 ```{r}
 entries <- compdb$getEntry(c('1018', '1549', '64679'))
 entries
 ```
 
-<!-- the entries are instances of BiodbEntry ==> functions applicable -->
+The returned objects are instances of `BiodbEntry`, which means you can call on
+them all functions available in this class. Here is an example of calling the
+method `getFieldsJson()` on the first entry in order to get a JSON
+representation of the entry values:
+```{r}
+entries[[1]]$getFieldsAsJson()
+```
+
+## Getting all fields defined inside an entry
+
+To get the list of fields defined (i.e.: with an associated value) in an entry,
+call the method `getFieldNames()` on the entry instance:
+```{r}
+fields <- entries[[1]]$getFieldNames()
+fields
+```
+
+The names returned correspond to all the fields for which a value has been
+parsed from the content returned by the database.
+To know the significance of each field you have to call the method `get()` on
+the `BiodbEntryFields` class:
+```{r}
+mybiodb$getEntryFields()$get(fields)
+```
+The `BiodbEntryFields` gathers all information about entry fields, the same way
+the `BiodbDbsInfo` class gather information about all database connectors.
 
 ## Getting field values from an entry
 
-In *biodb* the definition of fields are global. Thus they are shared between databases, and the same field will have the same name in two entries of two different databases.
-
-We access the list of fields in an entry with the method `getFieldNames()`:
-```{r}
-entries[[1]]$getFieldNames()
-```
+In *biodb* the definition of fields are global. Thus they are shared between
+databases, and the same field will have the same name in two entries of two
+different databases.
 
 `getFieldValue()` is used to get the value of a field:
 ```{r}
@@ -158,94 +222,250 @@ entries[[1]]$getFieldValue('formula')
 
 ## Exporting entries into a data frame
 
-Another way to access field values of entries, is to export them as a data frame.
+Another way to access field values of entries, is to export them as a data
+frame.
 
 You can export the values of one single entry:
 ```{r}
-entries[[1]]$getFieldsAsDataframe()
+entryDf <- entries[[1]]$getFieldsAsDataframe()
+```
+See \@ref(tab:entryTable) for the exported data frame.
+
+```{r entryTable, echo=FALSE, results='asis'}
+knitr::kable(entryDf, "pipe", caption="Values of one entry of the compound database.")
 ```
 
 Or export the values of a set of entries:
 ```{r}
-mybiodb$entriesToDataframe(entries)
+entriesDf <- mybiodb$entriesToDataframe(entries)
+```
+See \@ref(tab:entriesTable) for the exported data frame. 
+
+```{r entriesTable, echo=FALSE, results='asis'}
+knitr::kable(entriesDf, "pipe", caption="Values of a set of entries from the compound database.")
 ```
 
 ## Searching for entries
 
-In *biodb* each database connector offers the possibility to search entries by their name, although some database servers do not propose this feature in which case an explicit error message will be returned.
+In *biodb* each database connector offers the possibility to search entries by
+their name, although some database servers do not propose this feature in which
+case an explicit error message will be returned.
 
-Searching by name is done with the `searchCompound()` method, which returns a character vector containing identifiers of matchings entries:
+The generic method for searching entries by name is `searchByName()`, it
+returns a character vector containing identifiers of matchings entries:
 ```{r}
-compdb$searchCompound(name='deoxyguanosine')
+compdb$searchByName('deoxyguanosine')
 ```
 
-In our particular case of a compound database, we can also search the entries by mass:
+A similar method is specific to compound database connectors, it is called
+`searchCompound()` and it can also be used to search by mass at the same time:
 ```{r}
 compdb$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+```
+When searching by mass, the *biodb* mass field to use must be selected. To get
+a list of all *biodb* mass fields, run:
+```{r}
+mybiodb$getEntryFields()$getFieldNames(type='mass')
+```
+To get information of any of these fields run:
+```{r}
+mybiodb$getEntryFields()$get('nominal.mass')
+```
+Then to know if you can run a search on a connector on a particular mass field
+run:
+```{r}
+compdb$isSearchableByField('average.mass')
 ```
 
 # Mass spectra
 
-Another feature of *biodb* is the ability to annotate an LCMS spectra or to search for an MSMS spectra matching.
-In this section we will see the annotation of LCMS spectra and matching of MSMS spectra.
-For advanced features about mass spectra, please see the vignettes `ms_annotation`, `in_house_lcms_db` and `in_house_msms_db.Rmd`.
+Another feature of *biodb* is the ability to annotate an LCMS spectra or to
+search for an MSMS spectra matching.
+In this section we will see the annotation of LCMS spectra and matching of MSMS
+spectra.
 
 ## Mass spectra annotation with a compound database
 
 Using a compound database it is possible to annotate a mass spectra.
-You will get a data frame containing your data frame input (with your M/Z values) completed by annotations from the compound database:
+You will get a data frame containing your data frame input (with your M/Z
+values) completed by annotations from the compound database.
+
+Here is an input data frame containing M/Z values in negative mode:
 ```{r}
 ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
 mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
-compdb$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), fieldsLimit=1)
 ```
+See \@ref(tab:mzdfTable) for the content of the input.
+
+```{r mzdfTable, echo=FALSE, results='asis'}
+knitr::kable(mzdf, "pipe", caption="Input M/Z values.")
+```
+
+We know call the `annotateMzValues()` method to run the annotation:
+```{r}
+annotMz <- compdb$annotateMzValues(mzdf, mz.tol=1e-3, ms.mode='neg')
+```
+The `mz.tol` option sets the M/Z tolerance (by default in plain value, thus
+`±0.1` in our case).
+The `ms.mode` option defines the MS mode of your input spectrum, either
+positive (`'pos'`) or negative (`'neg'`).
+See \@ref(tab:annotMzTable) for the content of the input.
+Note that in the output, columns coming from the database have their name
+prefixed with the database name.
+
+```{r annotMzTable, echo=FALSE, results='asis'}
+knitr::kable(annotMz, "pipe", caption="Annotation output.")
+```
+
+See vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('ms_annotation')
+```
+for more information on how to annotate a spectrum using a compound database,
+and in particular how to set the column names of the input file.
 
 ## Mass spectra annotation with a mass spectra database
 
-In a similar with the annotation using a compound database, it is possible to annotate LCMS experimental data using a mass spectra database.
-You will again get a data frame containing your data frame input (with your M/Z values) completed by annotations from the database:
+Using a mass spectra database it is as well possible to annotate a simple mass
+spectrum, but also LCMS data (i.e. including retention times).
+
+First we have to open a connection to the LCMS database (see
+\@ref(tab:lcms3Table) for content):
 ```{r}
-massUrl <- system.file("extdata", "massbank_extract_lcms_2.tsv", package='biodb')
+massUrl <- system.file("extdata", "massbank_extract_lcms_3.tsv", package='biodb')
 massDb <- mybiodb$getFactory()$createConn('mass.csv.file', url=massUrl)
-massDb$addField('ms.level', 1)
-massDb$addField('chrom.rt.unit', 's')
-input <- data.frame(mz=c(73.01, 116.04, 174.2), rt=c(79, 173, 79))
-massDb$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
 ```
 
-## MSMS matching
+```{r lcms3Table, echo=FALSE, results='asis'}
+massDf <- read.table(massUrl, sep="\t", header=TRUE, quote="")
+knitr::kable(head(massDf), "pipe", caption="Excerpt from LCMS database TSV file.")
+```
 
-Using an MSMS database, you can search for matches of your experimental spectrum:
+Then we create an input data frame containing M/Z and RT (retention time) values:
+```{r}
+input <- data.frame(mz=c(73.01, 116.04, 174.2), rt=c(79, 173, 79))
+```
+Unit of the retention times will be set when running the annotation.
+
+And finally we call the annotation function `searchMsPeaks()`:
+```{r}
+annotMzRt <- massDb$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
+```
+The `mz.tol` option sets the M/Z tolerance (by default in plain value, thus
+`±0.1` in our case).
+The `match.rt` option enables matching on retention time values, `rt.unit` sets
+the unit (`"s"` for second and `"min"` for minute) and `rt.tol` the tolerance.
+The `prefix` option specifies a custom prefix to use for naming the database
+columns inside the output.
+See \@ref(tab:annotMzRtTable) for the results.
+
+```{r annotMzRtTable, echo=FALSE, results='asis'}
+knitr::kable(head(annotMzRt), "pipe", caption="Results of annotation of an M/Z and RT input file with an LCMS database.")
+```
+
+See vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('in_house_lcms_db')
+```
+for more details on how to annotate an LCMS spectrum with an LCMS database.
+
+## MS/MS matching
+
+*biodb* also offers an MS/MS matching service, allowing you to compare your
+experimental spectrum with an MS/MS database.
+
+First we open a connection to a MS/MS TSV file database:
 ```{r}
 msmsUrl <- system.file("extdata", "massbank_extract_msms.tsv", package='biodb')
 msmsdb <- mybiodb$getFactory()$createConn('mass.csv.file', url=msmsUrl)
-myspectrum <- data.frame(mz = c(286.1456, 287.1488, 288.1514), rel.int = c(100, 45, 18))
-msmsdb$msmsSearch(myspectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
 ```
+See \@ref(tab:msmsTable) for content.
+
+```{r msmsTable, echo=FALSE, results='asis'}
+msmsDf <- read.table(msmsUrl, sep="\t", header=TRUE, quote="")
+knitr::kable(head(msmsDf), "pipe", caption="Excerpt from MS/MS database TSV file.")
+```
+
+Then we define an input spectrum:
+```{r}
+input <- data.frame(mz=c(286.1456, 287.1488, 288.1514), rel.int=c(100, 45, 18))
+```
+The `rel.int` column contains relative intensity in percentage.
+
+Finally we run the matching service by calling the `msmsSearch()` method:
+```{r}
+matchDf <- msmsdb$msmsSearch(input, precursor.mz=286.1438, mz.tol=0.1, mz.tol.unit='plain', ms.mode='pos')
+```
+The `precursor.mz` option sets the M/Z value for the precursor of your input
+spectrum.
+The `mz.tol` option defines the M/Z tolerance (by default in plain value, thus
+`±0.1` in our case).
+The `mz.tol.unit` option defines the mode use for the tolerance: either
+`'plain'` or `'ppm'`.
+The `ms.mode` option defines the MS mode of your input spectrum, either
+positive (`'pos'`) or negative (`'neg'`).
+
+The results are displayed in \@ref(tab:msmsMatchingTable).
+Each matching spectrum found in database is listed in the output data frame,
+along with a score and the number of the matched peak inside the database
+spectrum (the column names are the peak numbers of the input spectrum).
+
+```{r msmsMatchingTable, echo=FALSE, results='asis'}
+knitr::kable(head(matchDf), "pipe", caption="Results of running spectrum matching service on an MS/MS database.")
+```
+
+See vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('in_house_msms_db')
+```
+For more details on how to search for matching spectra inside an MS/MS database
+and explanations about the algorithm and the results.
 
 # Creating and improving connectors
 
 A powerful feature of *biodb* is its architecture as a development framework.
-Connectors can be extended dynamically by created new rules to parse field values, or creating new fields.
-New connectors can also be defined. This feature has been used to create connectors to public databases like: KEGG, ChEBI, HMDB or UniProt.
+Connectors can be extended dynamically by created new rules to parse field
+values, or creating new fields.
+New connectors can also be defined. This feature has been used to create
+connectors to public databases like: KEGG, ChEBI, HMDB or UniProt.
 
-See the vignettes `new_entry_field` and `new_connector` for details about connector creation and defining new entry fields.
+See the vignettes
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_entry_field')
+```
+and
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
+```
+for details about connector creation and defining new entry fields.
 
-# Biodb extension packages
+# Existing biodb extension packages
 
-Several extension packages for *biodb* exist today on GitHub. See \@ref(tab:extensions) for a list of those extension and a short description.
+Several extension packages for *biodb* exist today on GitHub. See
+\@ref(tab:extensions) for a list of those extension and a short description.
 
-For installing them, please first make sure that you have the package `devtools` installed and run:
+For installing them, please first make sure that you have the package
+`devtools` installed and run:
 ```{r, eval=FALSE}
 devtools::install_github('pkrog/biodbChebi', dependencies=TRUE, build_vignettes=TRUE)
 ```
 Replace `'pkrog/biodbChebi'` by the appropriate repository.
 
-The extensions whose status is marked as `Functional` are in working order and can be installed and used safely with *biodb*. They may still need some updates in the documentation or the tests, thus do not hesitate to contact us if you have doubts on the API, the behaviour or if you would like to improve the extension.
-The extensions whose status is marked as `In maintenance` are currently non functional due to the refactoring of *biodb* into a development framework, but will be upgraded as soon as possible.
-If have the need to re-enable a currently `in maintenance` extension, do not hesitate to contact us, we may be able to accelerate the upgrade or propose you with our support to upgrade it yourself.
-If you have the desire to develop a new extension, please contact us, as we will be able accompany you in the process.
+The extensions whose status is marked as `Functional` are in working order and
+can be installed and used safely with *biodb*. They may still need some updates
+in the documentation or the tests, thus do not hesitate to contact us if you
+have doubts on the API, the behaviour or if you would like to improve the
+extension.
+The extensions whose status is marked as `In maintenance` are currently non
+functional due to the refactoring of *biodb* into a development framework, but
+will be upgraded as soon as possible.
+If have the need to re-enable a currently `in maintenance` extension, do not
+hesitate to contact us, we may be able to accelerate the upgrade or propose you
+with our support to upgrade it yourself.
+If you have the desire to develop a new extension, please contact us, as we
+will be able accompany you in the process.
 
+<!-- Insert links to database website in "Description" column. -->
 Extension                                                   | Database                                  | Status         | Description
 ----------------------------------------------------------- | ----------------------------------------- | -------------- | ----------------------------------------------------------------
 [biodbChebi](https://github.com/pkrog/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | Functional     | Connector to ChEBI.
@@ -271,8 +491,9 @@ for compounds by mass or name, merging entries from different databases into
 a local database, annotation of a mass spectrum, etc.
 See \@ref(tab:vignettes) for a full list of available vignettes.
 
-Title      | Description
----------- | ----------------------
+<!-- TODO use knitr::kable(). Remove name column, and insert a link to vignette HTML file. -->
+Name   | Title      | Description
+------ | ---------- | ----------------------
 ```{r, echo=FALSE, results='asis'}
 files <- Sys.glob('*.Rmd')
 for (f in files) {
@@ -280,7 +501,9 @@ for (f in files) {
 	lines <- readLines(f, n=20)
 	desc <- grep("%\\\\VignetteIndexEntry", lines, value=TRUE)
 	desc <- sub('^.*VignetteIndexEntry{(.*)}.*$', '\\1', desc, perl=TRUE)
-	cat(vignette, " | ", desc, "\n", sep='')
+	title <- grep("^title:", lines, value=TRUE)
+	title <- sub('^title: *"(.*)\\.?"$', '\\1', title, perl=TRUE)
+	cat(vignette, " | ", title, " | ", desc, "\n", sep='')
 }
 ```
 : (\#tab:vignettes) Available vignettes. The list of *biodb* available vignettes with their short description.
@@ -297,7 +520,8 @@ class with `?BiodbEntry`.
 
 # Closing biodb instance
 
-When done with your *biodb* instance you have to terminate it, in order to ensure release of resources (file handles, database connection, etc):
+When done with your *biodb* instance you have to terminate it, in order to
+ensure release of resources (file handles, database connection, etc):
 ```{r}
 mybiodb$terminate()
 ```

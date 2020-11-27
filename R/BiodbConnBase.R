@@ -79,6 +79,13 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
     # Set observers
     .self$.observers <- list()
 
+    # Set if it is a remote database connector
+    if (methods::extends(.self$getConnClassName(), "BiodbRemotedbConn")
+        || ('scheduler.n' %in% names(properties) && ! is.na(properties$scheduler.n))
+        || ('scheduler.t' %in% names(properties) && ! is.na(properties$scheduler.t))
+        || ('urls' %in% names(properties) && 'base.url' %in% names(properties$url) && length(grep('^http', properties$url$base.url)) > 0))
+        properties$remotedb <- TRUE
+    
     # Set properties
     .self$.defineProperties(other, properties)
 },
@@ -88,29 +95,51 @@ show=function() {
     \nReturned value: None.
     "
 
-    # General info
-    type <- (if (class(.self) %in% c('BiodbConnBase', 'BiodbDbInfo')) "class"
-             else "instance")
-    msg <- paste0("Biodb ", .self$getPropertyValue('name'),
-                  " connector ", type)
-    if (.self$hasPropSlot('urls', 'base.url'))
-        msg <- paste0(msg, ', using URL "',
-                      .self$getPropValSlot('urls', 'base.url'), '"')
-    msg <- paste0(msg, ".\n")
+    # Title
+    type <- if (class(.self) %in% c('BiodbConnBase', 'BiodbDbInfo')) "class"
+        else "instance"
+    cat(.self$getPropertyValue('name'), ' ', type, ".\n", sep='')
     
+    # Name / ID
+    cat("  ID: ", .self$.db.class, ".\n", sep='')
+
+    # Package
+    cat('  Package: ', .self$getPropertyValue('package'), ".\n", sep='')
+
     # Description
-    if (.self$hasProp('description'))
-        msg <- paste0(msg, .self$getPropertyValue('description'), "\n")
+    if (.self$hasProp('description')
+        && ! is.na(.self$getPropertyValue('description')))
+        cat("  Description: ", .self$getPropertyValue('description'), ".\n",
+            sep='')
+
+    # Entry content type
+    cat('  Entry content type: ', .self$getPropertyValue('entry.content.type'),
+        ".\n", sep='')
+    
+    # URL
+    if (.self$hasProp('urls')) {
+        i <- 0
+        for (slot in .self$getPropSlots('urls')) {
+            cat(if (i == 0) '  URLs: ' else '        ')
+            cat(slot, ': ', .self$getPropValSlot('urls', slot), ".\n", sep='')
+            i <- i + 1
+        }
+    }
+
+    # Scheduler parameters
+    if (.self$getPropertyValue('remotedb')) {
+        st <- .self$getPropertyValue('scheduler.t')
+        sn <- .self$getPropertyValue('scheduler.n')
+        if ( ! is.na(st) && ! is.na(sn))
+            cat('  Request maximum rate: ', sn, ' request(s) every ',
+                st, ' second(s)', ".\n", sep='')
+    }
 
     # Disabled
     if (.self$getPropertyValue('disabled')) {
         reason <- .self$getPropertyValue('disabling.reason')
-        msg <- paste0(msg, 'This connector currently is DISABLED. ',
-                      reason, "\n")
+        cat('This connector currently is DISABLED. ', reason, "\n")
     }
-
-    # Print info
-    cat(msg)
 },
 
 hasProp=function(name) {
@@ -122,6 +151,17 @@ hasProp=function(name) {
     .self$.checkProperty(name)
 
     return (name %in% names(.self$.prop))
+},
+
+getPropSlots=function(name) {
+    ":\n\nGets the slot fields of a property.
+    \nname: The name of a property.
+    \nReturned value: Returns a character vector containing all slot names
+    defined."
+
+    .self$.checkProperty(name, slot=TRUE)
+
+    return (names(.self$.prop[[name]]))
 },
 
 hasPropSlot=function(name, slot) {
@@ -522,6 +562,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Define properties
     prop.def <- list(
+        description=list(class='character', default=NA_character_,
+                    na.allowed=TRUE, modifiable=FALSE),
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),
         disabling.reason=list(class='character', default=''),
         dwnld.ext=list(class='character', default=NA_character_,
@@ -535,14 +577,14 @@ setPropValSlot=function(name, slot, value) {
                                   na.allowed=FALSE, modifiable=FALSE),
         name=list(class='character', default=NA_character_,
                     na.allowed=FALSE, modifiable=FALSE),
-        description=list(class='character', default=NA_character_,
-                    na.allowed=TRUE, modifiable=FALSE),
         package=list(class='character', default='biodb', na.allowed=FALSE,
                      modifiable=FALSE),
         parsing.expr=list(class='list', default=NULL, named=TRUE,
                             mult=TRUE, allowed_item_types='character',
                             na.allowed=FALSE,
                             hook='defineParsingExpressions'),
+        remotedb=list(class='logical', default=FALSE, na.allowed=FALSE,
+                      modifiable=FALSE),
         searchable.fields=list(class='character', default=character(),
                                na.allowed=FALSE, modifiable=FALSE, mult=TRUE),
         scheduler.n=list(class='integer', default=1, na.allowed=FALSE),

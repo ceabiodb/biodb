@@ -66,7 +66,7 @@ test.BiodbConn.show <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 
     # Test printing
-    expect_output(conn$show(), regexp = '^Biodb .* connector instance, using URL .*\\.$')
+    expect_output(conn$show(), regexp = "^Compound CSV File instance\\.\n  ID: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*$")
 }
 
 # Test BiodbDbsInfo show {{{1

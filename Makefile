@@ -31,6 +31,9 @@ PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
 
+REF_BIB:=$(wildcard ../public-notes/references.bib)
+$(info "REF_BIB=$(REF_BIB)")
+
 # Display values of main variables
 $(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
@@ -101,8 +104,15 @@ doc: install.deps
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
 vignettes: clean.vignettes
-	@echo Build vignettes for already installed package, not from local sources.
+	@echo Building vignettes for already installed package, not from local sources.
 	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
+
+ifneq ($(REF_BIB),)
+vignettes: vignettes/references.bib
+
+vignettes/references.bib: $(REF_BIB)
+	cp $< $@
+endif
 
 # Deprecated {{{1
 ################################################################
@@ -118,6 +128,9 @@ devtools.build:
 
 install.deps:
 	R $(RFLAGS) -e "devtools::install_dev_deps('$(CURDIR)')"
+
+quick.install:
+	R $(RFLAGS) -e "devtools::install_local('$(CURDIR)', force=TRUE)"
 
 install: uninstall install.local list.classes
 

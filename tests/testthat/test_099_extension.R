@@ -46,6 +46,24 @@ test_new_parsing_expr <- function(biodb) {
     testthat::expect_is(v, 'integer')
 }
 
+test_chebiExShow <- function(biodb) {
+
+    # Load ChEBI connector definition
+    defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
+    connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
+    entryFile <- system.file("extdata", "ChebiExEntry.R", package="biodb")
+    biodb$loadDefinitions(defFile)
+    source(connFile)
+    source(entryFile)
+    
+    # Create connector
+    conn <- biodb$getFactory()$getConn('chebi.ex')
+    testthat::expect_is(conn, 'ChebiExConn')
+    
+    # Check scheduler parameters
+    testthat::expect_output(print(conn), '^.*Request maximum rate:.*$')
+}
+
 # Main {{{1
 ################################################################################
 
@@ -57,8 +75,9 @@ obs <- biodb::addMsgRecObs(biodb)
 biodb::setTestContext(biodb, "Test definition of extensions.")
 
 # Run tests
-biodb::testThat("We can define a new field.", test_new_field, biodb = biodb)
-biodb::testThat("We can define a new parsing expression.", test_new_parsing_expr, biodb = biodb)
+biodb::testThat("We can define a new field.", test_new_field, biodb=biodb)
+biodb::testThat("We can define a new parsing expression.", test_new_parsing_expr, biodb=biodb)
+biodb::testThat("show() method works correctly", test_chebiExShow, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

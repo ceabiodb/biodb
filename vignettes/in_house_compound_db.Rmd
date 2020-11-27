@@ -40,6 +40,8 @@ We instantiate the connector by passing the file URL to it:
 conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
 ```
 
+<!-- TODO explain better the default names for columns and the way to override them. -->
+<!-- TODO explain how to use a custom separator (',', ';', ...) -->
 Now the database is immediatly usable, through the connector access, because we used *biodb* field names for the column names.
 However, if you have some custom column names in your file, you need to map them with *biodb* field. Here is an example, where we redefine a mapping that was defined automatically by *biodb*:
 ```{r}

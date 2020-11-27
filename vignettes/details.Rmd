@@ -16,25 +16,42 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
+bibliography: references.bib 
 ---
 
 # Introduction
 
-<!-- TODO -->
+In this document are presented different aspects of *biodb* in more details:
+how it compares with other packages, the object oriented programming model
+adopted, its architecture and how to configure it.
 
-<!-- origins -->
+# History
+
+<!--Plutôt le besoin d'un point du contexte international : besoin, existant, limites, ce que l'on propose -->
 *biodb* originates in the need of merging chemical and biological data
 downloaded from different public databases (*ChEBI*, *UniProt*, *miRBase*,
-*NCBI*). With the growing desire to connect to other databases (KEGG,
+*NCBI*).
+With the growing desire to connect to other databases (KEGG,
 PeakForest, Massbank, ChemSpider, HMDB, local in-house database), features were
 extended from getting entries and merging them, to mass spectra annotation,
 mass spectra matching, pathway search, writing to local in-house database file
 and framework for easy extension development.
 
+With the last feature, the development framework, *biodb* were split into
+different packages, one main package (*biodb*) holds the core with connectors
+to local databases (in-house CSV file and SQLite databases), and several
+extension packages contain each one or more connectors to related web databases
+(KEGG, HMDB, ChEBI, ...).
+
+The *biodb* core package is designed to automatically recognize and load
+installed extension packages. No extension package is necessary for the core
+package to work. And more important, the development and publication of a new
+extension package can be made independently from the core package team.
+
 # Comparison to other packages
 
 <!-- webchem package -->
-The R package most similar to *biodb* is *webchem* [@szocs2020]. Both packages
+The R package most similar to *biodb* is *webchem* [@szocs2020_webchem]. Both packages
 permit access to chemical databases and like *biodb*, *webchem* ensures the
 respect of request frequency limit enacted by the different web database sites.
 However several differences between the two packages make *biodb* special.
@@ -67,23 +84,59 @@ spectra matching. See table \@ref(tab:features) for a list of main features.
 ```{r, child=c('includes/features_table.Rmd')}
 ```
 
+<!-- TODO The need 
+ - packages to connect to database are very different one from another (API and quality) ==> ...
+-->
+<!-- Facts -->
+In the chemical and biological fields, the numerous databases available online are used on a daily bases by researchers across the world.
+If manual online access through the web pages is usually well done on all public databases, this is not the case with automatic access from a program.
+Solutions vary from the download of the whole database, mixed or homemade services, to well design web services using SOAP or REST.
+We notice also a wide fluctuation in the formats used by databases for their entries and the results of requests: homemade formats, HTML, XML, JSON, CSV, SDF, etc.
+
+<!-- Needs -->
+For these reasons, developing and maintaining a code to access a database is not accessible to everyone and, for those who can, is time consuming.
+Some R packages provide access to public databases, however, as of today, only one (<!-- TODO cite packages -->) gives access to several databases in the domain of toxic chemical compounds, and others (<!-- TODO cite packages -->) gives access to just one database server.
+<!-- TODO so many databases, too few packages ==> need write homemade code to access db -->
+<!-- TODO packages to do not offer access to all web services of a databases and to all data (fields) of entries -->
+As a consequence many developers write their own code to access databases <!-- TODO to access the databases they want, and they do not share the code since packaging it into a library is time consuming -->
+<!-- TODO what would be an improvement would be to facilitate the writing of code to access database and facilitate the sharing of this code as an R package -->
+
+<!-- Comparison -->
+<!-- TODO Reformulate. Move to vignette "details". -->
+In comparison, *webchem* [@szocs2020_webchem], another R package providing access to chemical
+databases, centers on toxic compounds, does not provide access to biological
+and mass spectra databases, does not offer an open development framework for
+facilitating extensions, does not use a cache system for web requests, and does
+<!-- TODO forme positive: ce que biodb offre en plus -->
+not include in-house databases.
+
+
+<!-- Other packages -->
+Other R packages exist to access 
+
 <!-- TODO other packages -->
 <!-- TODO
 
 Linked R projects:
- * rpubchem (Guha 2016)
- * ChemmineR (Cao, Charisi, Cheng, Jiang, and Girke 2008)
- * WikidataR (Keyes and Graul 2017)
 
 Python:
  * Python (Van Rossum et al. 2011) ecosystem 
+   Van Rossum G, et al. (2011). Python Programming Language. URL http://www.python.org.
+
  * PubChempy (Swain 2017)
+   Swain M (2017). “PubChemPy.” URL https://github.com/mcs07/PubChemPy.
+
  * ChemSpiPy (Swain 2018)
+   Swain M (2018). “ChemSpiPy.” URL https://github.com/mcs07/ChemSpiPy.
+
  * CIRpy (Swain 2016)
+   Swain M (2016). “CIRpy.” URL https://github.com/mcs07/CIRpy.
 
 Web:
  * Chemical Translation Service (Wohlgemuth et al. 2010)
-
+   Wohlgemuth G, Haldiya PK, Willighagen E, Kind T, Fiehn O (2010). “The Chemical Trans-
+lation Service – A Web-Based Tool to Improve Standardization of Metabolomic Reports.”
+Bioinformatics, 26(20), 2647–2648. doi:10.1093/bioinformatics/btq476.
 
 Several KEGG packages. Some of them:
 http://www.bioconductor.org/packages/release/bioc/html/KEGGREST.html

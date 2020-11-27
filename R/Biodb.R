@@ -122,7 +122,7 @@ loadDefinitions=function(file, package='biodb') {
     }
 },
 
-.listBiodbPkgsToLoad=function(loadAllBiodbPkgs) {
+.listBiodbPkgsToLoad=function(loadAllBiodbPkgs=TRUE) {
 
     if (loadAllBiodbPkgs) {
         pkgs <- installed.packages()[, 'Version']
