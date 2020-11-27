@@ -491,22 +491,17 @@ for compounds by mass or name, merging entries from different databases into
 a local database, annotation of a mass spectrum, etc.
 See \@ref(tab:vignettes) for a full list of available vignettes.
 
+```{r vignettes, echo=FALSE, results='asis'}
+x <- biodbVignettes[, c('link', 'desc')]
+names(x) <- c('Vignette', 'Description')
+knitr::kable(x, "pipe", caption="List of *biodb* available vignettes with their short description.")
+```
+
 <!-- TODO use knitr::kable(). Remove name column, and insert a link to vignette HTML file. -->
 Name   | Title      | Description
 ------ | ---------- | ----------------------
 ```{r, echo=FALSE, results='asis'}
-files <- Sys.glob('*.Rmd')
-for (f in files) {
-	vignette <- sub('^(.*)\\.Rmd', '\\1', f, perl=TRUE)
-	lines <- readLines(f, n=20)
-	desc <- grep("%\\\\VignetteIndexEntry", lines, value=TRUE)
-	desc <- sub('^.*VignetteIndexEntry{(.*)}.*$', '\\1', desc, perl=TRUE)
-	title <- grep("^title:", lines, value=TRUE)
-	title <- sub('^title: *"(.*)\\.?"$', '\\1', title, perl=TRUE)
-	cat(vignette, " | ", title, " | ", desc, "\n", sep='')
-}
 ```
-: (\#tab:vignettes) Available vignettes. The list of *biodb* available vignettes with their short description.
 
 Explain simplified architecture:
  * Connectors
