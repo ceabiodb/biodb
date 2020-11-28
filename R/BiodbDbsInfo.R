@@ -51,11 +51,11 @@ define=function(def, package='biodb') {
         dbdef <- def[[db]]
         dbdef[['package']] <- package
 
-        # Database already defined
+        # Database connector already defined
         if (db %in% names(.self$.dbs))
             .self$.dbs[[db]]$updatePropertiesDefinition(dbdef)
 
-        # Define new database
+        # Define new database connector
         else
             .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
                                                 properties=dbdef)
@@ -84,23 +84,36 @@ isDefined=function(db.id) {
 checkIsDefined=function(db.id) {
     ":\n\nChecks if a database is defined. Throws an error if the specified id
     does not correspond to a defined database.
-    \ndb.id: A database ID, as a character string.
+    \ndb.id: A character vector of database IDs.
     \nReturned value: None.
     "
 
-    if ( ! .self$isDefined(db.id))
-        .self$error("Database \"", db.id, "\" is not defined.")
+    notDefined <- vapply(db.id, function(x) { ! .self$isDefined(x) }, FUN.VALUE=TRUE)
+    if (any(notDefined))
+        .self$error("Database(s) \"", paste(db.id[notDefined], collapse=", "),
+                    "\" is(are) not defined.")
 },
 
-get=function(db.id) {
+get=function(db.id=NULL, drop=TRUE) {
     ":\n\nGets information on a database.
-    \ndb.id: A database ID, as a character string.
-    \nReturned value: The BiodbDbInfo instance corresponding to the specified
-    database ID.
+    \ndb.id: Database IDs, as a character vector. If set to NULL, informations
+    on all databases will be returned.
+    \ndrop: If TRUE and only one database ID has been submitted, returns a
+    single BiodbDbInfo instance instead of a list.
+    \nReturned value: A list of BiodbDbInfo instances corresponding to the
+    specified database IDs.
     "
 
-    .self$checkIsDefined(db.id)
-    db <- .self$.dbs[[db.id]]
+    if (is.null(db.id))
+        db <- .self$.dbs
+    else {
+        .self$checkIsDefined(db.id)
+        db <- .self$.dbs[db.id]
+    }
+
+    if (drop && length(db) == 1)
+        db <- db[[1]]
+
     return(db)
 },
 
@@ -120,7 +133,13 @@ show=function() {
     cat("Biodb databases information instance.\n")
     cat("The following databases are defined:\n")
     for (id in names(.self$.dbs)) {
-        cat("  ", id, ".", sep='')
+        cc <- .self$.dbs[[id]] # connector class
+        cat("  ", id, ": ", cc$getPropertyValue('name'),
+            " connector class", sep='')
+        if (cc$hasPropSlot('urls', 'base.url'))
+            cat(', using URL "', cc$getPropValSlot('urls', 'base.url'),
+                '"', sep='')
+        cat(".", sep='')
         db <- .self$get(id)
         if (db$getPropertyValue('disabled'))
             cat(" DISABLED (", db$getPropertyValue('disabling.reason'),").",

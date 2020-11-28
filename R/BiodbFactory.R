@@ -48,7 +48,8 @@ initialize=function(...) {
 },
 
 createConn=function(db.class, url=NULL, token=NA_character_,
-                    fail.if.exists=TRUE, conn.id=NULL, cache.id=NULL) {
+                    fail.if.exists=TRUE, get.existing.conn=TRUE,
+                    conn.id=NULL, cache.id=NULL) {
     ":\n\nCreates a connector to a database.
     \ndb.class: The type of a database. The list of types can be obtained from
     the class BiodbDbsInfo.
@@ -59,7 +60,10 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     such a token for all or some of their webservices. Usually you obtain the
     token through your account on the database website.
     \nfail.if.exists: If set to TRUE, the method will fail if a connector for
-    the requested database already exists.
+    \nget.existing.conn: This argument will be used only if fail.if.exists is
+    set to FALSE and an identical connector already exists. If it set to TRUE,
+    the existing connector instance will be returned, otherwise NULL will be
+    returned.
     \nconn.id: If set, this identifier will be used for the new connector. An
     error will be raised in case another connector already exists with this
     identifier.
@@ -98,10 +102,6 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     }
 
     # Create connector instance
-    surl <- if (is.null(url) || is.na(url)) ''
-        else paste0(', with base URL "', url, '"')
-    .self$debug('Creating new connector ', conn.id, ' for database class ',
-                db.class, surl, '.')
     prop <- if (is.na(token)) list() else list(token=token)
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
                            properties=prop, parent=.self)
@@ -109,10 +109,18 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         conn$setPropValSlot('urls', 'base.url', url)
 
     # Check if an identical connector already exists
-    .self$.checkConnExists(conn, error=fail.if.exists)
-
-    # Register new instance
-    .self$.conn[[conn.id]] <- conn
+    if (.self$.checkConnExists(conn, error=fail.if.exists))
+        conn <- if (get.existing.conn) .self$getConn(db.class) else NULL
+    else {
+        # Debug message
+        surl <- if (is.null(url) || is.na(url)) ''
+            else paste0(', with base URL "', url, '"')
+        .self$debug('Creating new connector ', conn.id, ' for database class ',
+                    db.class, surl, '.')
+        
+        # Register new instance
+        .self$.conn[[conn.id]] <- conn
+    }
 
     return (conn)
 },
@@ -359,6 +367,8 @@ show=function() {
 
 .checkConnExists=function(new.conn, error) {
 
+    connExists <- FALSE
+
     # Loop on all connectors
     for (conn in .self$.conn)
         if (conn$getDbClass() == new.conn$getDbClass()) {
@@ -373,11 +383,10 @@ show=function() {
             # Compare tokens
             tk <- conn$getPropertyValue('token')
             ntk <- new.conn$getPropertyValue('token')
-            same.token <- if (is.na(tk) || is.na(ntk)) FALSE else tk == ntk
+            same.token <- (is.na(tk) && is.na(ntk)) || tk == ntk
 
             # Check
-            if (same.url && (is.na(new.conn$getPropertyValue('token'))
-                             || same.token)) {
+            if (same.url && same.token) {
                 msg <- paste0('A connector (', conn$getId(),
                               ') already exists for database ',
                               new.conn$getDbClass(), ' with the same URL (',
@@ -385,8 +394,11 @@ show=function() {
                               (if ( ! is.na(conn$getPropertyValue('token')))
                                   paste0(' and the same token')), '.')
                 .self$message(if (error) 'error' else 'caution', msg)
+                connExists <- TRUE
             }
         }
+    
+    return(connExists)
 },
 
 .terminate=function() {

@@ -1,0 +1,12 @@
+accession	smiles	mass	ms.mode	peak.mztheo	peak.intensity	chrom.col.id	chrom.rt	chrom.rt.unit	formula	name	ms.level
+PR010001	NCCCN	74.0844	pos	73	999	mycol	78	s	C3H10N2	1,3-Diaminopropane	1       
+PR010001	NCCCN	74.0844	pos	86	407	mycol	78	s	C3H10N2	1,3-Diaminopropane	1       
+PR010001	NCCCN	74.0844	pos	174	481	mycol	78	s	C3H10N2	1,3-Diaminopropane	1       
+PR010002	OCC(O)(C1)OCC(O)(CO)O1	180.06339	pos	73	999	mycol	189	s	C6H12O6	1,3-Dihydroxyacetone dimer	1       
+PR010003	OC(=O)CC(O)(CC(O)=O)C(O)=O	192.027	pos	73	999	mycol	45	s	C6H8O7	Citric acid	1       
+PR010004	COc(c1)c(O)ccc(C=CC(O)=O)1	194.05791	pos	73	999	mycol	90	s	C10H10O4	trans-4-Hydroxy-3-methoxycinnamate	1       
+PR010006	CNC[C@H](O)c(c1)cc(O)cc1	167.09463	pos	73	751	mycol	176	s	C9H13NO2	(R)-(-)-Phenylephrine	1       
+PR010006	CNC[C@H](O)c(c1)cc(O)cc1	167.09463	pos	116	999	mycol	176	s	C9H13NO2	(R)-(-)-Phenylephrine	1       
+PR010007	OC(=O)C(N)(C1)C1	101.04768	pos	73	999	mycol	120	s	C4H7NO2	1-Aminocyclopropane-1-carboxylic acid	1       
+PR010007	OC(=O)C(N)(C1)C1	101.04768	pos	147	533	mycol	120	s	C4H7NO2	1-Aminocyclopropane-1-carboxylic acid	1       
+PR010008	OC(=O)Cc(c1)ccc(O)c1	152.04734	pos	73	999	mycol	156	s	C8H8O3	4-Hydroxyphenylacetic acid	1       

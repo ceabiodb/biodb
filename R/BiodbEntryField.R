@@ -112,8 +112,6 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     .self$.cardinality <- card
 
     # Set description
-    if (is.null(description) || is.na(description))
-        .self$caution("Missing description for entry field \"", name, "\".")
     .self$.description <- description
 
     # Set alias
@@ -665,6 +663,18 @@ show=function() {
 getCardinality=function() {
     .self$.deprecatedMethod('hasCardOne() or hasCardMany()')
     return(.self$.cardinality)
+},
+
+.check=function() {
+    
+    # Check name
+    if (is.null(.self$.name) || is.na(.self$.name) || .self$.name == '')
+        .self$caution("Missing name for entry field.")
+    
+    # Check description
+    if (is.null(.self$.description) || is.na(.self$.description)
+        || .self$.description == '')
+        .self$caution("Missing description for entry field \"", .self$.name, "\".")
 }
 
 ))

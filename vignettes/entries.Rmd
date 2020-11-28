@@ -1,12 +1,12 @@
 ---
-title: "*biodb* Merging entries coming from different databases"
+title: "*biodb* Entries advanced featurescoming from different databases"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
 abstract: |
-  How to build a data frame containing entries coming from different databases.
+  This vignette presents advanced features about entries: merging entries coming from different databases, exporting entries into a data frame, searching for entries, deleting entries from the caches, etc.
 vignette: |
-  %\VignetteIndexEntry{Merging entries coming from different databases}
+  %\VignetteIndexEntry{Advanced features about entries}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output:
@@ -19,6 +19,8 @@ output:
 ---
 
 # Introduction
+
+<!-- TODO Rewrite this vignette: see title and abstract for new content. -->
 
 In this vignette we will merge entries from three different databases into a single database.
 

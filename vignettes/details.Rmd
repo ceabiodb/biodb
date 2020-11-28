@@ -1,0 +1,319 @@
+---
+title: "Details on biodb"
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
+abstract: |
+  Details on general *biodb* usage and principles: configuration, architecture, ...
+vignette: |
+  %\VignetteIndexEntry{Details on general *biodb* usage and principles}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+bibliography: references.bib 
+---
+
+# Introduction
+
+In this document are presented different aspects of *biodb* in more details:
+how it compares with other packages, the object oriented programming model
+adopted, its architecture and how to configure it.
+
+# History
+
+<!--Plutôt le besoin d'un point du contexte international : besoin, existant, limites, ce que l'on propose -->
+*biodb* originates in the need of merging chemical and biological data
+downloaded from different public databases (*ChEBI*, *UniProt*, *miRBase*,
+*NCBI*).
+With the growing desire to connect to other databases (KEGG,
+PeakForest, Massbank, ChemSpider, HMDB, local in-house database), features were
+extended from getting entries and merging them, to mass spectra annotation,
+mass spectra matching, pathway search, writing to local in-house database file
+and framework for easy extension development.
+
+With the last feature, the development framework, *biodb* were split into
+different packages, one main package (*biodb*) holds the core with connectors
+to local databases (in-house CSV file and SQLite databases), and several
+extension packages contain each one or more connectors to related web databases
+(KEGG, HMDB, ChEBI, ...).
+
+The *biodb* core package is designed to automatically recognize and load
+installed extension packages. No extension package is necessary for the core
+package to work. And more important, the development and publication of a new
+extension package can be made independently from the core package team.
+
+# Comparison to other packages
+
+<!-- webchem package -->
+The R package most similar to *biodb* is *webchem* [@szocs2020_webchem]. Both packages
+permit access to chemical databases and like *biodb*, *webchem* ensures the
+respect of request frequency limit enacted by the different web database sites.
+However several differences between the two packages make *biodb* special.
+
+<!-- biology & MS -->
+To begin with, the domain is different. While *webchem* is oriented toward
+toxic compounds, *biodb* is centered around **biological compounds** and **mass
+spectra**. Which leads to features specific to *biodb* like the access to
+**protein** databases, **pathway** databases, and the **annotation** of mass spectra.
+
+<!-- dev framework -->
+Then, *biodb* has a distinctive approach concerning contributions. The authors
+of *webchem* welcome contributors in a classical manner through the access to
+their code repository.
+With *biodb* we have decided to turn the package into a **development
+framework** in order to simplify the development of new database connectors,
+and see contributions to *biodb* as extension packages (i.e. plug-ins) instead
+of code to be integrated into the main package repository. The consequence is a
+greater independence for contributors, who can create and maintain their
+extension package without the need to intervene into main package's code.
+
+<!-- other features not in webchem -->
+Finally *biodb* includes other specific features like a cache system that
+avoids sending the same requests twice, the handling of in-house local
+databases (CSV files and SQLite files), the search of compounds by mass and
+name and a unified API that allows to use of generic methods (i.e. common to
+between connectors) for entries access, entries search, spectra annotation and
+spectra matching. See table \@ref(tab:features) for a list of main features.
+
+```{r, child=c('includes/features_table.Rmd')}
+```
+
+<!-- TODO The need 
+ - packages to connect to database are very different one from another (API and quality) ==> ...
+-->
+<!-- Facts -->
+In the chemical and biological fields, the numerous databases available online are used on a daily bases by researchers across the world.
+If manual online access through the web pages is usually well done on all public databases, this is not the case with automatic access from a program.
+Solutions vary from the download of the whole database, mixed or homemade services, to well design web services using SOAP or REST.
+We notice also a wide fluctuation in the formats used by databases for their entries and the results of requests: homemade formats, HTML, XML, JSON, CSV, SDF, etc.
+
+<!-- Needs -->
+For these reasons, developing and maintaining a code to access a database is not accessible to everyone and, for those who can, is time consuming.
+Some R packages provide access to public databases, however, as of today, only one (<!-- TODO cite packages -->) gives access to several databases in the domain of toxic chemical compounds, and others (<!-- TODO cite packages -->) gives access to just one database server.
+<!-- TODO so many databases, too few packages ==> need write homemade code to access db -->
+<!-- TODO packages to do not offer access to all web services of a databases and to all data (fields) of entries -->
+As a consequence many developers write their own code to access databases <!-- TODO to access the databases they want, and they do not share the code since packaging it into a library is time consuming -->
+<!-- TODO what would be an improvement would be to facilitate the writing of code to access database and facilitate the sharing of this code as an R package -->
+
+<!-- Comparison -->
+<!-- TODO Reformulate. Move to vignette "details". -->
+In comparison, *webchem* [@szocs2020_webchem], another R package providing access to chemical
+databases, centers on toxic compounds, does not provide access to biological
+and mass spectra databases, does not offer an open development framework for
+facilitating extensions, does not use a cache system for web requests, and does
+<!-- TODO forme positive: ce que biodb offre en plus -->
+not include in-house databases.
+
+
+<!-- Other packages -->
+Other R packages exist to access 
+
+<!-- TODO other packages -->
+<!-- TODO
+
+Linked R projects:
+
+Python:
+ * Python (Van Rossum et al. 2011) ecosystem 
+   Van Rossum G, et al. (2011). Python Programming Language. URL http://www.python.org.
+
+ * PubChempy (Swain 2017)
+   Swain M (2017). “PubChemPy.” URL https://github.com/mcs07/PubChemPy.
+
+ * ChemSpiPy (Swain 2018)
+   Swain M (2018). “ChemSpiPy.” URL https://github.com/mcs07/ChemSpiPy.
+
+ * CIRpy (Swain 2016)
+   Swain M (2016). “CIRpy.” URL https://github.com/mcs07/CIRpy.
+
+Web:
+ * Chemical Translation Service (Wohlgemuth et al. 2010)
+   Wohlgemuth G, Haldiya PK, Willighagen E, Kind T, Fiehn O (2010). “The Chemical Trans-
+lation Service – A Web-Based Tool to Improve Standardization of Metabolomic Reports.”
+Bioinformatics, 26(20), 2647–2648. doi:10.1093/bioinformatics/btq476.
+
+Several KEGG packages. Some of them:
+http://www.bioconductor.org/packages/release/bioc/html/KEGGREST.html
+On graphs:
+https://www.bioconductor.org/packages/release/data/annotation/html/KEGG.db.html
+https://www.rdocumentation.org/packages/KEGGprofile/versions/1.14.0
+https://www.rdocumentation.org/packages/KEGGgraph/versions/1.30.0
+
+HMDB:
+https://bioconductor.org/packages/release/bioc/html/hmdbQuery.html
+
+UniProt:
+https://cran.r-project.org/web/packages/UniprotR/
+
+Package to export into MassBank:
+http://www.bioconductor.org/packages/release/bioc/html/RMassBank.html
+
+MetabolomeXchange is a web portal proposing web services that focus on metabolomics dataset search and retrieval, but is restricted to 3 databases and offers a limited set of services.
+http://www.metabolomexchange.org/site/
+
+BioServices is a Python module proposing a unified connection mechanism toward 25 biology web services.
+https://academic.oup.com/bioinformatics/article/29/24/3241/194040/BioServices-a-common-Python-package-to-access
+
+MAPI is a Java general framework for developing client applications for accessing web resources.
+https://www.ncbi.nlm.nih.gov/pubmed/23311574
+
+Having dependencies on other languages (=! C/C++) Not good for distribution 
+-->
+
+# Object oriented programming model
+
+As you will see shortly in the next chapter, we use a call to a constructor to obtain an instance of the class `Biodb`. This means that *biodb* uses an object oriented programming (or OOP) model.
+
+In R, you certainly already know the two classical OOP models *S3* and *S4*. *S4* is certainly the most used model, and is based on an original system of generic methods that can be specialized for each class.
+
+Two more recent OOP models exist in R: *Reference Classes* (aka *RC* or *R5*) and *R6*. These two models are very similar. At the time *biodb* was created, only *R5* existed, and thus it has been chosen for the implementation of the package.
+
+<!-- TODO Explain why R5 and not S4. -->
+
+# Architecture
+
+*biodb* uses an initialization/termination scheme. You must first initialize library by creating an instance:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+And when you are done with the library, you have to terminate the instance explicitly:
+```{r}
+mybiodb$terminate()
+```
+
+When you are done working with your *biodb* instance, you must release it by
+calling the `terminate()` method on it.
+
+## Connector and entry classes
+
+<!-- TODO
+Connectors:
+ * Share the same methods through the common super classes `BiodbConn`, `BiodbRemotedbConn`, ...
+Entries:
+ * Share the same methods through the common super class `BiodbEntry`.
+ * the definition of fields are in common between database, thus the same field will have the same name in two entries of two different databases.
+ Factory :
+  * creates a new connector (createConn)
+  * stores connectors in memory.
+  * gives you back an existing connector (getConn)
+  * creates entries
+  * stores entries in memory (volatile cache).
+  * gives you back existing entries (instead of reloading them)
+  * you can delete entries from memory
+  * you can delete connectors from memory
+URL request scheduler:
+ * run requests on a database server.
+ * controls the frequency of requests for a database server.
+ * Use the cache system to store results of requests.
+ * Use cached request result instead of sending again the request.
+Cache system :
+a
+ * stores entries on disk (persistence cache).
+ * gives back entries instead of reloading them from database.
+ * allows you to delete cached entries from disk.
+ * allows you to delete all cached files for a database.
+-->
+
+## Management classes
+
+<!-- TODO ==> put that in separate vignette about architecture. -->
+
+Several class instances are attached to the *biodb* instance for managing different aspects of *biodb*: creating connectors, configuring *biodb*, accessing the cache system, etc.
+
+### Factory
+
+### Configuration
+
+### Cache system
+
+### Databases information
+
+### Entry fields information
+
+# Configuration
+
+This configuration setting can be modified either directly inside R with the `BiodbConfig` class or beforehand by setting environment variables.
+
+## BiodbConfig instance
+
+The main way to tune *biodb* to your needs is to use the `BiodbConfig` single instance, accessible through the `biodb` instance:
+```{r}
+config <- mybiodb$getConfig()
+```
+
+If you look at the config instance, you will get a list of keys with their current values:
+```{r}
+config
+```
+
+## Keys information and value
+
+Get all available configuration keys:
+```{r}
+config$getKeys()
+```
+
+Get description of a field:
+```{r}
+config$getDescription('cache.directory')
+```
+
+Get a field value:
+```{r}
+config$get('cache.directory')
+```
+
+If the field is boolean, you can use the following method instead:
+```{r}
+if (config$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
+```
+
+To get a complete of all configuration keys and their description, call:
+```{r}
+config$listKeys()
+```
+
+## Setting a value
+
+Set a field value:
+```{r}
+config$set('cache.directory', '~/my.biodb.cache')
+config$get('cache.directory') # See modifications
+```
+
+If the field is boolean, you can use the following methods instead:
+```{r}
+config$enable('offline')    # set to TRUE
+config$disable('offline')   # set to FALSE
+```
+
+## Default values
+
+Get field default value:
+```{r}
+config$getDefaultValue('cache.directory')
+```
+
+## Environment variables
+
+Environment variables can be used to overwrite default values.
+
+To get the name of the environment variable associated with a particular key, call the following method:
+```{r}
+config$getAssocEnvVar('cache.directory')
+```
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```
+
+# References

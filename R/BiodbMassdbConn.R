@@ -518,9 +518,9 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
         if ( ! is.na(max.results))
             .self$caution('Applying max.results =', max.results,'on call to',
-                ' searchMzTol(). This may results in no matches, while there',
+                ' searchMsEntries(). This may results in no matches, while there',
                 ' exist matching spectra inside the database.')
-        ids <- .self$searchMzTol(mz=precursor.mz, mz.tol=mz.tol,
+        ids <- .self$searchMsEntries(mz=precursor.mz, mz.tol=mz.tol,
             mz.tol.unit=mz.tol.unit, ms.mode=ms.mode, precursor=TRUE,
             ms.level=2, max.results=max.results)
     }

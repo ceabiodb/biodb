@@ -12,13 +12,13 @@ test.connectorAlreadyExists <- function(biodb, obs) {
 	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.URL))
 
 	# Make change to path
-	same.url <- normalizePath(MASSFILEDB.URL, mustWork = FALSE)
+	same.url <- normalizePath(MASSFILEDB.URL, mustWork=FALSE)
 	same.url <- file.path(dirname(dirname(same.url)), '..', basename(dirname(dirname(same.url))), basename(dirname(same.url)), basename(same.url))
 	testthat::expect_error(biodb$getFactory()$createConn('mass.csv.file', url = same.url))
-	expect_match(obs$getLastMsg(), '^A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file .*$', perl = TRUE)
-	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url = same.url, fail.if.exists = FALSE)
+	expect_match(obs$getLastMsg(), '^A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file .*$', perl=TRUE)
+	conn.2 <- biodb$getFactory()$createConn('mass.csv.file', url=same.url, fail.if.exists=FALSE)
 	expect_is(conn.2, 'BiodbConn')
-	expect_match(obs$getLastMsgByType('caution'), "A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file with the same URL ", , perl = TRUE)
+	expect_match(obs$getLastMsgByType('caution'), "A connector \\(mass\\.csv\\.file\\) already exists for database mass\\.csv\\.file with the same URL ", , perl=TRUE)
 
 	# Test with ChEBI
 	biodb$getFactory()$deleteConnByClass('chebi.ex')
@@ -30,10 +30,12 @@ test.connectorAlreadyExists <- function(biodb, obs) {
     source(entryFile)
 	conn.chebi <- biodb$getFactory()$createConn('chebi.ex')
 	testthat::expect_error(biodb$getFactory()$createConn('chebi.ex'))
-	expect_match(obs$getLastMsg(), "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl = TRUE)
-	conn.chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists = FALSE)
-	expect_is(conn.chebi.2, 'BiodbConn')
-	expect_match(obs$getLastMsgByType('caution'), "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl = TRUE)
+	testthat::expect_match(obs$getLastMsg(),
+                           "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl=TRUE)
+
+	conn.chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists=FALSE)
+	testthat::expect_is(conn.chebi.2, 'BiodbConn')
+	testthat::expect_match(obs$getLastMsgByType('caution'), "^A connector \\(chebi.ex\\) already exists for database chebi\\.ex with the same URL .*$", perl=TRUE)
 }
 
 # Test connector deletion {{{1
@@ -53,7 +55,9 @@ test.connectorDeletion <- function(biodb, obs) {
 
 	# Create more than one connector
 	chebi.1 <- biodb$getFactory()$createConn('chebi.ex')
-	chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists = FALSE)
+	chebi.2 <- biodb$getFactory()$createConn('chebi.ex', fail.if.exists=FALSE)
+	chebi.3 <- biodb$getFactory()$createConn('chebi.ex',
+                                             url='http://some.fake.chebi.site/')
 
 	# Delete all connectors
 	testthat::expect_true(length(biodb$getFactory()$getAllConnectors()) >= 2)
