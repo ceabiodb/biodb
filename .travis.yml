@@ -20,3 +20,6 @@ script:
     - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
     - which BiocCheck
     - make bioc.check
+
+after_success:
+    - Rscript -e 'covr::codecov()'
