@@ -19,7 +19,7 @@ output:
 bibliography: references.bib
 ---
 
-```{r, code=readLines('includes/vignettes_ref.R'), echo=FALSE}
+```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
 ```
 
 # Purpose
@@ -68,7 +68,8 @@ Alongside the unified API, connectors to public databases furnishes also access
 to specific web services through dedicated methods.
 See table \@ref(tab:features) for a list of available features.
 
-```{r, child=c('includes/features_table.Rmd')}
+```{r, echo=FALSE, results='asis'}
+insert_features_table()
 ```
 
 <!-- What we will see in this vignette -->
