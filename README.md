@@ -1,7 +1,7 @@
-Biodb
-=====
+# biodb package
 
 [![Build Status](https://travis-ci.org/pkrog/biodb.svg?branch=master)](https://travis-ci.org/pkrog/biodb)
+[![Codecov test coverage](https://codecov.io/gh/pkrog/biodb/branch/master/graph/badge.svg)](https://codecov.io/gh/pkrog/biodb?branch=master)
 
 An R package for connecting to chemical and biological databases.
 
