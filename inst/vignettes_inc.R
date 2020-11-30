@@ -17,3 +17,12 @@ for (f in files) {
 make_vignette_ref <- function(name) {
 	cat(biodbVignettes[biodbVignettes$name == name, 'link', drop=TRUE])
 }
+
+insert_features_table <- function() {
+    featuresFile <- system.file("features.tsv",
+                                package='biodb')
+    featuresDf <- read.table(featuresFile, sep="\t", header=TRUE, quote="",
+                             stringsAsFactors=FALSE)
+    knitr::kable(featuresDf, "pipe", label="features",
+                 caption="*biodb* main features. These are generic features (i.e.: present at top-level of architecture or present in at least a group of connectors), unless specified otherwise.")
+}

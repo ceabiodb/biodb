@@ -19,6 +19,9 @@ output:
 bibliography: references.bib 
 ---
 
+```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```
+
 # Introduction
 
 In this document are presented different aspects of *biodb* in more details:
@@ -81,7 +84,8 @@ name and a unified API that allows to use of generic methods (i.e. common to
 between connectors) for entries access, entries search, spectra annotation and
 spectra matching. See table \@ref(tab:features) for a list of main features.
 
-```{r, child=c('includes/features_table.Rmd')}
+```{r, echo=FALSE, results='asis'}
+insert_features_table()
 ```
 
 <!-- TODO The need 
