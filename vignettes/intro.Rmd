@@ -3,8 +3,6 @@ title: "An introduction to biodb"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
-abstract: |
-  An introduction to *biodb*.
 vignette: |
   %\VignetteIndexEntry{Introduction to the biodb package.}
   %\VignetteEngine{knitr::rmarkdown}
@@ -324,7 +322,7 @@ knitr::kable(annotMz, "pipe", caption="Annotation output.")
 
 See vignette
 ```{r, echo=FALSE, results='asis'}
-make_vignette_ref('ms_annotation')
+make_vignette_ref('in_house_compound_db')
 ```
 for more information on how to annotate a spectrum using a compound database,
 and in particular how to set the column names of the input file.
@@ -370,7 +368,7 @@ knitr::kable(head(annotMzRt), "pipe", caption="Results of annotation of an M/Z a
 
 See vignette
 ```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_lcms_db')
+make_vignette_ref('in_house_mass_db')
 ```
 for more details on how to annotate an LCMS spectrum with an LCMS database.
 
@@ -421,7 +419,7 @@ knitr::kable(head(matchDf), "pipe", caption="Results of running spectrum matchin
 
 See vignette
 ```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_msms_db')
+make_vignette_ref('in_house_mass_db')
 ```
 For more details on how to search for matching spectra inside an MS/MS database
 and explanations about the algorithm and the results.

@@ -3,8 +3,6 @@ title: "*biodb*: Creating a new connector."
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
-abstract: |
-  How to create a new connector class for accessing a database not handled by biodb or one of the biodb* packages. This vignette shows how to write a connector for a remote compound database, whose entry contents are sent in XML format.
 vignette: |
   %\VignetteIndexEntry{Creating a new connector class for accessing a database.}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,6 +14,7 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
+bibliography: references.bib
 ---
 
 # Introduction

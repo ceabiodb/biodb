@@ -1,3 +1,6 @@
+# Disable automatic loading of extra biodb packages
+Sys.setenv(BIODB_AUTOLOAD_EXTRA_PKGS="FALSE")
+
 biodbVignettes <- data.frame()
 files <- Sys.glob('*.Rmd')
 for (f in files) {

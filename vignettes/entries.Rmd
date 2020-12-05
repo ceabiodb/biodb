@@ -1,14 +1,14 @@
 ---
-title: "*biodb* Entries advanced featurescoming from different databases"
+title: "Entries"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
-abstract: |
-  This vignette presents advanced features about entries: merging entries coming from different databases, exporting entries into a data frame, searching for entries, deleting entries from the caches, etc.
 vignette: |
   %\VignetteIndexEntry{Advanced features about entries}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  This vignette
 output:
   BiocStyle::html_document:
     toc: yes
@@ -16,11 +16,18 @@ output:
     toc_float:
       collapsed: false
   BiocStyle::pdf_document: default
+bibliography: references.bib
 ---
 
 # Introduction
 
+<!-- TODO Write abstract -->
 <!-- TODO Rewrite this vignette: see title and abstract for new content. -->
+<!-- TODO searchByName() -->
+<!-- TODO conversion of one entry to data frame -->
+<!-- TODO conversion a list of entries to data frame -->
+<!-- TODO conversion a list of entries to JSON -->
+<!-- TODO getting list of defined fields of an entry -->
 
 In this vignette we will merge entries from three different databases into a single database.
 
@@ -29,7 +36,11 @@ First we instantiate the package:
 mybiodb <- biodb::Biodb$new()
 ```
 
-# Getting the connectors
+# Building a database from other databases
+
+Merging entries from different databases into a single new database.
+
+## Getting the connectors
 
 We will use compound databases instantiated from TSV files. These files have been built using data from three public databases: ChEBI, Uniprot and ExPASy enzyme.
 
@@ -51,7 +62,7 @@ expasy.tsv <- system.file("extdata", "expasy_enzyme_extract.tsv", package='biodb
 expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
 ```
 
-# Merging the entries
+## Merging the entries
 
 We will now merge the entries into a single database. However we will use differently the entries of the three databases.
 The ChEBI and Uniprot will just be put together since they have no link between them. But we will use the ExPASy entries to add missing fields to the uniprot entries. We will be able to do that because the uniprot entries have a field `'expasy.enzyme.id'` that we can use to make the link with the ExPASy entries.
@@ -89,7 +100,7 @@ write.table(all.entries.df, file=output.file, sep="\t", row.names=FALSE)
 all.entries.df
 ```
 
-# Use a writable database
+## Use a writable database
 
 There exists another method to merge entries and write them into a file. We can create a writable database. Here is a new file database for which we enable edition (for inserting new entries) and writing (for saving it onto disk):
 ```{r}
@@ -118,6 +129,8 @@ mybiodb$terminate()
 ```
 
 # Citations
+
+<!-- TODO Move those citations into references. -->
 
 <http://www.ebi.ac.uk/chebi/>
 

@@ -10,6 +10,11 @@ config:
     description: Download of huge files like whole database data is allowed.
     default: TRUE
 
+  autoload.extra.pkgs:
+    type: logical
+    description: If set to TRUE, automatically load all avaible extra biodb packages.
+    default: TRUE
+      
   cache.all.requests:
     type: logical
     description: All requests are cached. If disabled, only requests of entries by accession number are cached.

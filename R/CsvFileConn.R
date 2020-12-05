@@ -45,13 +45,73 @@ initialize=function(...) {
     .self$.fields <- character()
 },
 
+getCsvQuote=function() {
+    ":\n\nGets the characters used to delimit quotes in the CSV database file.
+    \nReturned value: The characters used to delimit quotes as a single
+    character value.
+    "
+
+    return(.self$.file.quote)
+},
+
+setCsvQuote=function(quote) {
+    ":\n\nSets the characters used to delimit quotes in the CSV database file.
+    \nquote: The characters used to delimit quotes as a single character value.
+    You may specify several characters. Example: \"\\\"'\".
+    \nReturned value: None.
+    "
+
+    .self$.assertNotNull(quote)
+    .self$.assertNotNa(quote)
+    .self$.assertIs(quote, 'character')
+    .self$.assertLengthOne(quote)
+    
+    if ( ! is.null(.self$.db))
+        .self$error("The CSV file has already been loaded. Modification of",
+                    " the quote parameter is not allowed.")
+    
+    .self$.file.quote <- quote
+},
+
+getCsvSep=function() {
+    ":\n\nGets the current CSV separator used for the database file.
+    \nReturned value: The CSV separator as a character value. 
+    "
+
+    return(.self$.file.sep)
+},
+
+setCsvSep=function(sep) {
+    ":\n\nSets the CSV separator to be used for the database file. If this
+    method is called after the loading of the database, it will throw an error.
+    \nsep: The CSV separator as a character value.
+    \nReturned value: None.
+    "
+
+    .self$.assertNotNull(sep)
+    .self$.assertNotNa(sep)
+    .self$.assertIs(sep, 'character')
+    .self$.assertLengthOne(sep)
+    
+    if ( ! is.null(.self$.db))
+        .self$error("The CSV file has already been loaded. Modification of",
+                    " the separator character parameter is not allowed.")
+    
+    .self$.file.sep <- sep
+},
+
 getFieldNames=function() {
+    ":\n\nGet the list of all biodb fields handled by this database.
+    \nReturned value: A character vector of the biodb field names.
+    "
+    
     fields <- names(.self$.fields)
     ef <- .self$getBiodb()$getEntryFields()
     fct <- function(f) {
         return(ef$getRealName(f))
     }
     fields <- vapply(fields, fct, FUN.VALUE='')
+
     return(fields)
 },
 

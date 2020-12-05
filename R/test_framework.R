@@ -378,7 +378,7 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
 
     # Create instance
-    biodb <- Biodb$new(loadAllBiodbPkgs=FALSE)
+    biodb <- Biodb$new(autoloadExtraPkgs=FALSE)
 
     # Add logger
     if ( ! is.null(log) && is.character(log) && length(log) == 1

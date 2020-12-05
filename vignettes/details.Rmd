@@ -3,8 +3,6 @@ title: "Details on biodb"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
-abstract: |
-  Details on general *biodb* usage and principles: configuration, architecture, ...
 vignette: |
   %\VignetteIndexEntry{Details on general *biodb* usage and principles}
   %\VignetteEngine{knitr::rmarkdown}
