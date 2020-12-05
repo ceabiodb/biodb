@@ -1,0 +1,171 @@
+---
+title: "In-house mass spectra database"
+author: "Pierrick Roger"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('biodb')`"
+vignette: |
+  %\VignetteIndexEntry{In-house LCMS database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+  BiocStyle::pdf_document: default
+bibliography: references.bib
+---
+
+# Introduction
+
+To load an in-house LCMS database, we are going to use the `mass.csv.file` database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
+
+We first create an instance of the `Biodb` class:
+```{r}
+mybiodb <- biodb::Biodb()
+```
+
+# Building an MS database from a data frame
+
+We will use an extract of Massbank database for our example:
+```{r}
+fileUrl <- system.file("extdata", "massbank_extract_lcms_2.tsv", package='biodb')
+```
+
+We create the connector from the data frame, and will use this connector for all subsequent examples.
+```{r}
+conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=fileUrl)
+```
+
+Two fields are missing inside this database: the MS level and unit used for chromatography retention times.
+We define them using the `addField()` method:
+```{r}
+conn$addField('ms.level', 1)
+conn$addField('chrom.rt.unit', 's')
+```
+
+# Searching for entries
+
+Searching by M/Z:
+```{r}
+conn$searchMsEntries(mz.min = 145.96, mz.max = 147.13)
+```
+
+Searching with multiple M/Z:
+```{r}
+conn$searchMsEntries(mz = c(86.000002, 146.999997), mz.tol = 10, mz.tol.unit = 'ppm')
+```
+
+Searching by M/Z and RT:
+```{r}
+conn$searchMsEntries(mz.min = 72.78, mz.max = 73.12, rt = 45.5, rt.tol = 1, rt.unit = 's')
+```
+
+Other parameters can be used in `searchMsEntries()`:
+
+ * MS level.
+ * MS mode.
+ * Minimum of relative intensity.
+ * Matching of precursor peak.
+ * Maximum of results.
+
+# Peak annotation
+
+Peak annotation can be done with `searchMsPeaks()` method.
+
+We must first define the data frame of inputs:
+```{r}
+input <- data.frame(mz=c(73.01, 116.04, 174.2),
+                    rt=c(79, 173, 79))
+```
+
+Then we run the annotation:
+```{r}
+conn$searchMsPeaks(input, mz.tol=0.1, rt.unit='s', rt.tol=10, match.rt=TRUE, prefix='match.')
+```
+
+# MS Annotation
+
+## Annotation using an LCMS database
+
+Here is the input data frame we want to annotate with both M/Z values and RT values in seconds:
+```{r Set a list of M/Z values}
+ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
+mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
+```
+
+Annotation is also possible using an LCMS database.
+
+For this example we use an in-house database saved as a TSV file:
+```{r Instantiate an in-house LCMS database}
+lcmsdb <- system.file("extdata", "massbank_extract_lcms_1.tsv", package="biodb")
+massbank <- mybiodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
+```
+The database file was built using Massbank data. The accession numbers correspond to real Massbank entries.
+
+Now that the database is loaded, we define some missing fields (MS level and RT unit):
+```{r Set missing fields on database}
+massbank$addField('ms.level', 1)
+massbank$addField('chrom.rt.unit', 's')
+```
+
+We will now annotate our M/Z peaks, selecting a set of fields from the database to write in the output data frame:
+```{r Annotate M/Z values with an in-house LCMS database}
+massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=c('accession', 'name', 'formula', 'chebi.id'), prefix='mydb.')
+```
+
+Annotation is also possible using retention times.
+We then choose the chromatographic columns on which we want to match, and the set of fields we want in output:
+```{r Set chromatographic columns and output fields}
+chromColIds <- c('TOSOH TSKgel ODS-100V  5um Part no. 21456')
+fields <- c('accession', 'name', 'formula', 'chebi.id', 'chrom.rt', 'chrom.col.id')
+```
+
+Finally we run the annotation on M/Z and RT values:
+```{r Annotate using RT values}
+massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.', chrom.col.ids=chromColIds, rt.unit='s', rt.tol=10, match.rt=TRUE)
+```
+
+For more details on the `searchMsPeaks()` method, please this the help page of `BiodbMassdbConn`.
+
+# MS/MS
+
+## Defining the database
+
+We create the connector to a CSV file database built with MS2 spectra extracted from Massbank:
+```{r}
+db.tsv <- system.file("extdata", "massbank_extract_msms.tsv", package='biodb')
+conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=db.tsv)
+```
+
+## Searching for entries
+
+We can search for entries containing certain M/Z values with the following method:
+```{r}
+conn$searchMsEntries(mz.min = 115, mz.max = 115.1, max.results = 5)
+```
+
+It is also possible to call it with a tolerance:
+```{r}
+conn$searchMsEntries(mz = 115, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)
+```
+
+## Spectrum matching
+
+The spectrum to search for must be defined inside a data frame:
+```{r}
+spectrum <- data.frame(mz = c(286.1456, 287.1488, 288.1514), rel.int = c(100, 45, 18))
+```
+
+Then we call the `msmsSearch()` method:
+```{r}
+conn$msmsSearch(spectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
+```
+
+# Closing biodb instance
+
+Do not forget to terminate your biodb instance once you are done with it:
+```{r}
+mybiodb$terminate()
+```

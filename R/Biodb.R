@@ -57,9 +57,6 @@ initialize=function(autoloadExtraPkgs=NULL) {
                              BiodbErrorReporter$new()
                              )
 
-    # Print package version
-    .self$info('This is biodb version ', packageVersion('biodb'), '.')
-
     # Create instances of children
     .self$.config <- NULL
     .self$persistentCache <- NULL
@@ -79,7 +76,8 @@ initialize=function(autoloadExtraPkgs=NULL) {
     # Check locale
     .self$.checkLocale()
 
-    .self$info('Created successfully new Biodb instance.')
+    .self$debug('Created successfully new Biodb instance.')
+    .self$debug('This is biodb version ', packageVersion('biodb'), '.')
 },
 
 terminate=function() {

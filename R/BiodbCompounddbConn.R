@@ -16,7 +16,7 @@
 #' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 #'
 #' # Search for compounds
-#' conn$searchCompound(name='prion protein', max.results=10)
+#' ids <- conn$searchCompound(name='prion protein', max.results=10)
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
@@ -38,7 +38,7 @@ initialize=function(...) {
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
                         mass.tol=0.01, mass.tol.unit='plain',
                         max.results=NA_integer_) {
-    "Search for compounds by name and/or by mass. At least one of name or mass
+    ":\n\nSearches for compounds by name and/or by mass. At least one of name or mass
     must be set.
     \nname: The name of a compound to search for.
     \nmass: The searched mass.
@@ -64,28 +64,32 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
                           max.results=3, mz.col='mz',
                           fields=NULL, prefix=NULL, insert.input.values=TRUE,
                           fieldsLimit=0) {
-    "Annotate 
-    \nx: Either a data frame or a numeric vector.
+    ":\n\nAnnotates a mass spectrum with the database. For each matching entry
+    the entry field values will be set inside columns appended to the data
+    frame. Names of these columns will use a common prefix in order to
+    distinguish them from other data from the input data frame.
+    \nx: Either a data frame or a numeric vector containing the M/Z values.
+    \nmz.col: The name of the column where to find M/Z values in case x is a
+    data frame.
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    \nmz.tol: The tolerance on the M/Z values. 
+    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    \nmass.field: The mass field to use for matching M/Z values. One of:
+    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
     \nfields: A character vector containing the additional entry fields you
     would like to get for each matched entry. Each field will be output in a
     different column.
     \ninsert.input.values: Insert input values at the beginning of the
     result data frame.
-    \nmass.field: The mass field to use for matching M/Z values. One of:
-    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
-    \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value. To get all the matches, set this parameter to NA_integer_.
-    Default value is 3.
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
-    \nmz.col: The name of the column where to find M/Z values in case x is a
-    data frame.
-    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
     \nprefix: A prefix that will be inserted before the name of each added
     column in the output. By default it will be set to the name of the database
     followed by a dot.
-    'plain'.
     \nfieldsLimit: The maximum of values to output for fields with multiple
     values. Set it to 0 to get all values.
+    \nmax.results: If set, it is used to limit the number of matches found for
+    each M/Z value. To get all the matches, set this parameter to NA_integer_.
+    Default value is 3.
     \nReturned value: A data frame containing the input values, and annotation
     columns appended at the end. The first annotation column contains the IDs
     of the matched entries. The following columns contain the fields you have
