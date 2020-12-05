@@ -4,7 +4,9 @@
 #' In order to use the biodb package, you need first to create an instance of
 #' this class.
 #'
-#' The constructor takes no argument.
+#' The constructor takes a single argument, \code{autoloadExtraPkgs}, to enable
+#' (\code{TRUE} or default) or disable (\code{FALSE}) autoloading of extra
+#' biodb packages.
 #'
 #' Once the instance is created, some other important classes
 #' (\code{BiodbFactory}, \code{BiodbPersistentCache}, \code{BiodbConfig}, ...)
@@ -45,7 +47,7 @@ Biodb <- methods::setRefClass("Biodb",
 
 methods=list(
 
-initialize=function(loadAllBiodbPkgs=TRUE) {
+initialize=function(autoloadExtraPkgs=NULL) {
 
     callSuper() # Call BiodbObject constructor.
 
@@ -66,8 +68,12 @@ initialize=function(loadAllBiodbPkgs=TRUE) {
     .self$.entry.fields <- NULL
     .self$.request.scheduler <- NULL
 
-    # Load definitions from selected biodb* packages
-    pkgs <- .self$.listBiodbPkgsToLoad(loadAllBiodbPkgs)
+    # Load biodb definitions
+    .self$.loadBiodbPkgsDefinitions(c(biodb=packageVersion('biodb')))
+    
+    # Load definitions from extra biodb packages
+
+    pkgs <- .self$.listBiodbPkgsToLoad(autoloadExtraPkgs)
     .self$.loadBiodbPkgsDefinitions(pkgs)
 
     # Check locale
@@ -122,18 +128,18 @@ loadDefinitions=function(file, package='biodb') {
     }
 },
 
-.listBiodbPkgsToLoad=function(loadAllBiodbPkgs=TRUE) {
+.listBiodbPkgsToLoad=function(autoloadExtraPkgs=NULL) {
+    
+    if (is.null(autoloadExtraPkgs))
+        autoloadExtraPkgs <- .self$getConfig()$get('autoload.extra.pkgs')
 
-    if (loadAllBiodbPkgs) {
+    if (autoloadExtraPkgs) {
         pkgs <- installed.packages()[, 'Version']
         pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
         pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
                                           # while building vignettes.
     } else
         pkgs <- character()
-
-    # Load biodb itself in all cases
-    pkgs[['biodb']] <- packageVersion('biodb')
 
     return(pkgs)
 },

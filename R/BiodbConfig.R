@@ -332,7 +332,6 @@ newObserver=function(obs) {
     return(svn.path)
 },
 
-
 .getFromEnv=function(key) {
 
     value <- NULL
