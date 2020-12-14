@@ -27,6 +27,7 @@ Imports:
 	yaml,
 	jsonlite,
 	RCurl,
+	rappdirs,
 	stats,
 	openssl,
 	RSQLite
