@@ -261,6 +261,7 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     # Use several column to join together
     else {
         fct <- function(i) { paste(.self$.db[i, colname], collapse='.') }
+        # Create new column in memory data frame
         .self$.db[[field]] <- vapply(seq(nrow(.self$.db)), fct, FUN.VALUE='')
         .self$.fields[[field]] <- field
     }

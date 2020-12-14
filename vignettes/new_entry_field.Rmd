@@ -1,5 +1,5 @@
 ---
-title: "*biodb*: Creating a new field for entries."
+title: "Creating a new field for entries."
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{Creating a new field for entries.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  This vignettte explains the process to create a new *biodb* **entry field**, and how to **parse** its value for a particular database connector.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -19,9 +21,52 @@ bibliography: references.bib
 
 # Introduction
 
-In many cases, in biodb, a connector does not implement the parsing of all available data, the reason being that the amount of available data in an entry would require an excessive amount of coding. Thus the focus is set on a small number of fields, in which we are directly interested. Thus it may happen that one particular data that you see in entries on the database website is not present inside the entries of biodb. If you are interested in this data that is missing, then this vignette is for you. Follow the subsequent explanations in order to understand how to add a new data field and how to parse its value from the downloaded content.
+In this vignette we will focus on creating a new *biodb* field to be used
+inside an existing connector.
+*biodb* fields are defined for all database connectors.
+They are definitions of what types of data may be set inside *biodb* entry
+objects.
+Since they are shared by all connectors, they need to be defined without any
+reference to a particular database.
+However many of them are linked to a particular science or technological domain
+(genetics, metabolomics, mass spectrometry, ...).
 
-In this vignette we will create a new field, and parse information from the entry content for setting the value of this field.
+An entry field is like a type definition.
+The definition is done at the top-level of *biodb*, and thus it not related to
+any particular connector.
+The definition includes: a name, a description, a class (integer, double,
+character, logical), a cardinality (single value or vector), a list of allowed
+values, a class (to group similar fields like "mass"), etc.
+
+For a particular connector, when an entry object is created in memory, a file
+containing the values is obtained from the database and a parsing is run in
+order to extract those values and affect them to associated *biodb* entry
+fields inside the *biodb* entry object.
+Thus the parsing of the value of a *biodb* entry field is different for each
+connector, while the *biodb* entry field is used by several different
+connectors.
+
+No *biodb* connector use all available *biodb* entry fields.
+However it can happen that a connector does not implement the parsing of some
+available data inside a database.
+The reason is that, in most cases, the amount of available data, and the
+diversity of it, inside a single entry would require an excessive amount of
+coding.
+As a consequence, we often restrict our development onto a subset of the
+available data, in which we are interested.
+
+When one particular data from the database is not present inside the entries of
+the corresponding *biodb* connector, this means that no parsing has been
+written for it inside the connector.
+Moreover it could also mean that no *biodb* entry field is defined to handled
+this particular type of data.
+Fortunately, *biodb* offers you a way to correct dynamically, inside your code,
+this shortage, creating a new *biodb* entry field if necessary and creating the
+corresponding parsing of the data for the connector.
+
+Follow the subsequent explanations in order to learn how to define a **new
+parsing** of a value for a connector and assign it to an existing entry field,
+and how to define a **new entry field**.
 
 First we instantiate the package:
 ```{r}
@@ -30,117 +75,297 @@ mybiodb <- biodb::Biodb$new()
 
 ## Defining a new parsing of a field
 
-Before going with the creation of a new field, we will look at the different ways of parsing a value for an existing *biodb* field that is not handled by a connector.
-Two cases will be used as examples: `CompCsvFileConn` and the `ChebiExConn` defined for the **New Connector** vignette.
+Before going with the creation of a new field, we will look at different ways
+of parsing a value for an existing *biodb* field that is not handled by a
+connector.
+Two connector cases will be used as examples: the `ChebiExConn` connector
+defined for the
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
+```
+vignette and the `CompCsvFileConn` connector from the *biodb* package.
 
-### CompCsvFileConn
+### Defining a parsing expression for a remote database connector (ChebiExConn)
 
-The `CompCsvFileConn` class implements a connector to a local CSV file database of chemical compounds.
+The `ChebiExConn` class implements an example connector to the *ChEBI*
+[@hastings2012_chebi] remote database.
+See vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
+```
+for the creation of this connector.
 
-We use an extract from ChEBI database as the input CSV database file:
-```{r}
-fileUrl <- system.file("extdata", "chebi_extract_with_unknown_column.tsv", package='biodb')
+We load dynamically the definition of this connector inside *biodb* as
+explained in the
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
 ```
-Here is the content of this file as a data frame:
+vignette:
 ```{r}
-read.table(fileUrl, header=TRUE, sep="\t", quote="")
+chebiexDefFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
+connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
+entryClass <- system.file("extdata", "ChebiExEntry.R", package='biodb')
+source(connClass)
+source(entryClass)
+mybiodb$loadDefinitions(chebiexDefFile)
 ```
-In this file, the column name `elecCharge` does not correspond to any *biodb* field, thus the column will not be automatically parsed by the `CompCsvFileEntry` class. We can verify this by printing the content of an entry:
-```{r}
-conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
-conn$getEntry('1932')$getFieldsAsDataframe()
-```
+For our demonstration we will suppose this connector has been created by
+somebody else, and we have no access to the implementation code.
 
-For parsing the new column, we need to declare a mapping between the column name and the *biodb* field name (here `charge`). With the `CompCsvFileConn` class, this is done by calling the `setField()` method:
-```{r}
-conn$setField('charge', 'elecCharge')
-```
-Now the new column will be parsed when getting the entry. But before we must remove the current entry object from memory:
-```{r}
-conn$deleteAllEntriesFromVolatileCache()
-```
-And then reload the same entry again:
-```{r}
-conn$getEntry('1932')$getFieldsAsDataframe()
-```
-
-### ChebiExConn
-
-The `ChebiExConn` class implements a connector to the [ChEBI](https://www.ebi.ac.uk/chebi/) remote database.
-
-Here we will use the new definition of a parsing expression to handle the parsing of the wanted data.
-
-As seen in the *New Connector* vignette, the `ChebiExConn` definitions are kept in the following file:
-```{r}
-defFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
-```
-Here is the content:
-```{r, eval=FALSE, highlight=FALSE, code=readLines(defFile)}
-```
-As in the previous example, we will add parsing for the molecule electrical charge.
-For this we will define another YAML file:
-```{r}
-chargeParsingDefFile <- system.file("extdata", "chebi_ex_charge_parsing.yml", package='biodb')
-```
-This file contains only the needed parsing:
-```{r, eval=FALSE, highlight=FALSE, code=readLines(chargeParsingDefFile)}
-```
-
-Now we just have to load both definitions:
-```{r}
-mybiodb$loadDefinitions(defFile)
-mybiodb$loadDefinitions(chargeParsingDefFile)
-```
-Before creating the connector:
+We create a connector to this database:
 ```{r}
 conn <- mybiodb$getFactory()$createConn('chebi.ex')
 ```
-And get the entry:
+And get one entry:
 ```{r}
-conn$getEntry('17001')$getFieldsAsDataframe()
+entryIds <- c('17001', '40304', '64679')
+entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
 ```
-Note the `charge` field, which now appears in the list of fields of the ChEBI entry.
+That you can see in table \@ref(tab:entriesChebiExTable).
+
+```{r entriesChebiExTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entriesDf), "pipe", caption="Some entries from ChebiEx database. Their charge value is not visible become it was not parsed from database file.")
+```
+
+You will notice that no electrical charge is mentioned for the molecules in the table,
+while it is present inside ChEBI database.
+Let us choose one of the entries:
+```{r}
+id <- entryIds[[1]]
+id
+```
+And get the ChEBI web page of this entry:
+```{r}
+conn$getEntryPageUrl(id)
+```
+Go on this page (
+```{r, echo=FALSE, results='asis'}
+cat("<", conn$getEntryPageUrl(id), ">", sep='')
+```
+) to check that the electrical charge information is indeed given by ChEBI (`Net Charge    0`).
+To integrate this data inside the *biodb* entry, we need to extract it from the file returned by ChEBI.
+When asked for an entry on its web service interface, ChEBI returns an XML file that *biodb* stores in its cache.
+By calling the following method on your connector, you can get the path to the *biodb* cache file:
+```{r}
+conn$getCacheFile(id)
+```
+If you take a look to this file with your favourite editor, you will see the following text:
+```
+<charge>0</charge>
+```
+This the XML tag that stores the value of the electrical charge.
+To extract values from XML, *biodb* uses the **XPath** query language.
+In **XPath** language, the expression `//chebi:charge` means to get the value
+inside the `charge` tag wherever it is (`//`) inside the tree structure of the
+XML.
+See [XPath Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp) for an
+introduction to XPath.
+We need to give this **XPath** expression to the *biodb* instance, and explain
+to which entry field the extracted value must be affected.
+This is done by defining a small **YAML** file:
+```{r}
+chargeParsingDefFile <- system.file("extdata", "chebi_ex_charge_parsing.yml", package='biodb')
+```
+Whose content is as follow:
+```{r, eval=FALSE, highlight=FALSE, code=readLines(chargeParsingDefFile)}
+```
+In this file we define a new parsing expression inside the `parsing.expr` section for the `chebi.ex` database connector.
+The definition of the parsing expression consists of two values: the targeted *biodb* entry field (`charge`) and the *XPath* expression (`//chebi:charge`).
+
+Now we just have to load this new definition:
+```{r}
+mybiodb$loadDefinitions(chargeParsingDefFile)
+```
+Delete the existing connector:
+```{r}
+mybiodb$getFactory()$deleteConn(conn)
+```
+Recreate the connector and reload the same entries:
+```{r}
+conn <- mybiodb$getFactory()$createConn('chebi.ex')
+entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
+```
+You can see in \@ref(tab:entriesChebiExWithChargeTable) that the electrical charge is now indicated for each entry.
+
+```{r entriesChebiExWithChargeTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entriesDf), "pipe", caption="Some entries from ChebiEx database. Their charge value is now visible, since the parsing expression has been added to the connector.")
+```
+
+### Defining a parsing expression for a local database connector (CompCsvFileConn)
+
+The `CompCsvFileConn` class implements a connector to a local CSV file database
+of chemical compounds, as explained inside vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('in_house_compound_db')
+```
+.
+For a database stored inside a CSV file, the data parsing is very simple.
+It consists in associating each *biodb* entry field with a column name.
+By default *biodb* will define associations for each entry field whose name
+is used for a column.
+The columns whose names are not the names of existing *biodb* entry fields are
+not associated and thus you cannot access their values from *biodb*.
+
+If you want to access those values, you have the define manually the
+associations, using the `setField()` method.
+
+For our example we use an extract from ChEBI database as the input CSV database file:
+```{r}
+fileUrl <- system.file("extdata", "chebi_extract_with_unknown_column.tsv", package='biodb')
+```
+See table \@ref(tab:compDbTable) for the content of this file. 
+
+```{r compDbTable, echo=FALSE, results='asis'}
+compDbDf <- read.table(fileUrl, sep="\t", header=TRUE, quote="")
+# Prevent RMarkdown from interpreting @ character as a reference:
+compDbDf$smiles <- vapply(compDbDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(compDbDf), "pipe", caption="First lines of the compound database file.")
+```
+<!-- TODO préciser elecCharge n'est pas reconnu mais les autres oui
+comment avoir la liste des noms de colonnes non reconnues
+comment avoir la liste des noms de colonnes reconnues
+comment avoir la liste des champs biodb définis
+-->
+In this file, the column name `elecCharge` will not be associated to any
+*biodb* entry field.
+Indeed, the *biodb* entry field the electrical charge of a molecule is
+`charge`, not `elecCharge`.
+Let us verify that.
+
+We first create the connector to this CSV file:
+```{r}
+conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=fileUrl)
+```
+And get the content of some of the entries:
+```{r}
+entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(conn$getEntryIds()))
+```
+See table \@ref(tab:entriesTable) for the content of this entry. 
+As you can see, no `charge` field is listed.
+
+```{r entriesTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entriesDf), "pipe", caption="Some entries from the compound database.")
+```
+
+Now we call the method to define the new association:
+```{r}
+conn$setField('charge', 'elecCharge')
+```
+The first parameter is the name of the *biodb* entry field, the second the name
+of the column inside the CSV file
+
+The new column will now be parsed when getting the entry.
+But before we must remove all entries from memory:
+```{r}
+conn$deleteAllEntriesFromVolatileCache()
+```
+And then reload the same entries again:
+```{r}
+entries2Df <- mybiodb$entriesToDataframe(conn$getEntry(conn$getEntryIds()))
+```
+See table \@ref(tab:entries2Table) for the content of this entry. 
+A new data frame column is present, named `charge`.
+
+```{r entries2Table, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entries2Df$smiles <- vapply(entries2Df$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entries2Df), "pipe", caption="Some entries from the compound database. They now show the newly parsed \"charge\" field.")
+```
 
 ## Creating a new field and parsing its value
 
-Sometimes you just do not need to parse some value for setting an existing *biodb* field, but you need to parse a value that does not correspond to any defined *biodb* field. In this case, you need to define the new field alongside defining your parsing.
+Sometimes you just do not need to parse some value for setting an existing
+*biodb* field, but you need to get a value that does not correspond to any
+defined *biodb* field. In this case, you need to define a **new field** alongside
+defining your parsing.
 
-For this demonstration we will use again the ChEBI connector example from the *New connector* vignette.
+For this demonstration we will use again the `ChebiExConn` connector example from the
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
+```
+vignette.
 
-In ChEBI database, each entry (i.e.: molecule) gets a score (a number of stars) reflecting its curation status.
-This field is not present inside the current ChEBI connector example.
-In the XML entry content returned by the ChEBI server, this field is stored inside the `n_stars` element.
-To get this number of stars we define the new field and its parsing expression inside the following YAML file:
+In the ChEBI database, each entry (i.e.: molecule) gets a score (a number of
+stars) reflecting its curation status.
+This field is not present inside the current `ChebiExConn` connector example.
+Let us see that by displaying the content of some entries:
+```{r}
+conn <- mybiodb$getFactory()$getConn('chebi.ex')
+entryIds <- c('17001', '40304', '64679')
+entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
+```
+See table \@ref(tab:entriesChebiEx2Table).
+
+```{r entriesChebiEx2Table, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entriesDf), "pipe", caption="Some entries from ChebiEx database. There is no field that indicates the number of stars of an entry.")
+```
+
+In the XML entry content returned by the ChEBI server, this field is stored
+inside the `entityStar` element as shown here:
+```
+<entityStar>3</entityStar>
+```
+You can check that directly inside the XML content of one of the entries, as
+explained earlier.
+
+To get this number of stars we define the new field and its parsing expression
+inside the following YAML file:
 ```{r}
 nStarsDefFile <- system.file("extdata", "chebi_ex_stars_field.yml", package='biodb')
 ```
 Here is its content:
 ```{r, eval=FALSE, highlight=FALSE, code=readLines(nStarsDefFile)}
 ```
-The parsing expression is defined as we have already seen, inside the database `parsing.expr` property. The value is an XPath expression describing the path to follow inside the XML tree to get to the *stars* element. See [XPath Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp) for an introduction to XPath.
+You already know how to define the parsing expression inside the YAML file
+The value of the XPath expression is a bit longer than for the electrical charge,
+but the principle is the same.
 
-In order to construct a parsing expression, we need to have a look at the raw content of some entries. In *biodb* you can directly access the raw content of an entry by calling the `getEntryContent()` method:
-```{r}
-conn$getEntryContent('17001')
-```
-Another way is to get the path to the cache file associated with an entry, and then open the file inside your preferred editor. This is done by calling the `getCacheFile()` method:
-```{r}
-conn$getCacheFile('17001')
-```
+What is new, is the `fields` section, in which we define the new fields.
+The name of the field (`n_stars`) is used as a key inside the section.
+Then several keys are used to define the field, see table
+\@ref(tab:entryDefKeysTable) for a description of those keys.
 
-Bellow is the definition of the new field (i.e.: `n_stars`). The `description` property is where you must describe the purpose of your field. The `class` property indicates the type of the field: `integer`, `character`, `double` or `logical`. The cardinality can also be specified with the `card` property, which can be set to either `one`, the default, or `many`, meaning the field will be a vector.
+Key                | Description
+------------------ | ------------------------
+alias              | Other possible names of the field.
+description        | A description of the field.
+class              | The R class. One of `integer`, `character`, `double`, `logical`.
+type               | A name of a group for related fields. Existing ones are `name` and `mass`, but you can create your owns.
+card               | The cardinality. Either `one` (single value) or `many` (vector).
+case.insensitive   | If `true` then the value is case insensitive.
+forbids.duplicates | If `true` and the cardinality is `many`, no duplicate values will be accepted.
+lower.case         | If `true`, the value will be put in lower case.
+allowed.values     | If this vector is not empty, then only the values listed in this vector will be allowed for this field.
+: (\#tab:entryDefKeysTable) The different keys used to define a field.
 
-We can now load the new definitions:
+We can now load the new definition:
 ```{r}
 mybiodb$loadDefinitions(nStarsDefFile)
 ```
-Remove entries from memory:
+Delete the existing connector:
 ```{r}
-conn$deleteAllEntriesFromVolatileCache()
+mybiodb$getFactory()$deleteConn(conn)
 ```
-And reload an entry to check if the new field is parsed:
+Recreate the connector and reload the same entries:
 ```{r}
-conn$getEntry('17001')$getFieldsAsDataframe()
+conn <- mybiodb$getFactory()$createConn('chebi.ex')
+entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
+```
+See table \@ref(tab:entriesChebiEx2WithNstarsTable).
+Now a column named `n_stars` indicates the number of stars for each entry in the data frame.
+
+```{r entriesChebiEx2NstarsTable, echo=FALSE, results='asis'}
+# Prevent RMarkdown from interpreting @ character as a reference:
+entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(entriesDf), "pipe", caption="Some entries from ChebiEx database. Now there is a n_stars no field that indicates the number of stars of an entry.")
 ```
 
 # Closing biodb instance
@@ -149,3 +374,5 @@ Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
 mybiodb$terminate()
 ```
+
+# References
