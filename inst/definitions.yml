@@ -22,7 +22,8 @@ config:
 
   cache.directory:
     type: character
-    description: The directory in which cache files are stored.
+    description: The directory in which cache files are stored. The default location depends on your operating system.
+    default: NULL
 
   cache.read.only:
     type: logical

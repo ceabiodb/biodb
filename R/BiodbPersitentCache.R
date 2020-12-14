@@ -66,6 +66,27 @@ getDir=function() {
 
     cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
 
+    # Check old cache folder
+    env <- Sys.getenv()
+    if ('HOME' %in% names(env)) {
+        old_cachedir <- file.path(env[['HOME']], '.biodb.cache')
+        if ( ! is.null(cachedir) && ! is.na(cachedir)
+            && old_cachedir != cachedir && file.exists(old_cachedir)) {
+            if (file.exists(cachedir))
+                .self$caution('An old cache folder ("', old_cachedir,
+                              '") is still present on this machine, ',
+                              'but you are now using the new cache folder "',
+                              cachedir, '". Please, consider removing the old ',
+                              'location since it has no utility anymore.')
+            else {
+                # Move folder to new location
+                file.rename(old_cachedir, cachedir)
+                .self$info('Cache folder location has been moved from "',
+                           old_cachedir, '" to "', cachedir, '".')
+            }
+        }
+    }
+
     # Create cache dir if needed
     if ( ! is.na(cachedir) && ! file.exists(cachedir))
         dir.create(cachedir)
@@ -440,7 +461,8 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE) {
 show=function() {
     ":\n\nDisplays information about this object."
 
-    cat("Biodb cache system instance.\n")
+    cat("Biodb persistent cache system instance.\n")
+    cat("  The path to the cache system is: ", .self$getDir(), "\n", sep='')
     cat("  The cache is ", (if (.self$isReadable()) "" else "not "),
         "readable.\n", sep='')
     cat("  The cache is ", (if (.self$isWritable()) "" else "not "),

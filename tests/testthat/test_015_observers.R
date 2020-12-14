@@ -17,6 +17,7 @@ test.deprecatedMethods <- function(biodb, obs) {
 	entry <- conn$getEntry(id)
 
 	# Use deprecated method getFieldCardinality
+    obs$clearMessages()
 	card <- entry$getFieldCardinality('name')
 
 	expect_equal(obs$getMsgsByType('caution'), c("Method getFieldCardinality() is now deprecated in MassCsvFileEntry class. Please use now method BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany().", "Method getCardinality() is now deprecated in BiodbEntryField class. Please use now method hasCardOne() or hasCardMany()."))
