@@ -402,8 +402,8 @@ checkDb=function() {
     entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
 },
 
-getAllCacheEntries=function() {
-    ":\n\nGet all entries stored in the memory cache.
+getAllVolatileCacheEntries=function() {
+    ":\n\nGet all entries stored in the memory cache (volatile cache).
     \nReturned value: A list of BiodbEntry instances.
     "
 
@@ -415,6 +415,14 @@ getAllCacheEntries=function() {
     names(entries) <- NULL
 
     return(entries)
+},
+
+getAllCacheEntries=function() { # DEPRECATED
+    ":\n\nThis method is deprecated.
+    \nUse getAllVolatileCacheEntries() instead.
+    "
+    .self$.deprecatedMethod("getAllVolatileCacheEntries()")
+    .self$getAllVolatileCacheEntries()
 },
 
 deleteAllEntriesFromVolatileCache=function() {

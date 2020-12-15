@@ -327,17 +327,17 @@ test.db.writing = function(conn) {
     testthat::expect_identical(df.1, df.2)
 
     # Add new entry
-    testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+    testthat::expect_length(conn.2$getAllVolatileCacheEntries(), 0)
     testthat::expect_null(conn.2$getEntry(entry$getId()))
-    testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+    testthat::expect_length(conn.2$getAllVolatileCacheEntries(), 0)
     testthat::expect_error(conn.2$addNewEntry(entry.2))
-    testthat::expect_length(conn.2$getAllCacheEntries(), 0)
+    testthat::expect_length(conn.2$getAllVolatileCacheEntries(), 0)
     conn.2$allowEditing()
     conn.2$addNewEntry(entry.2)
-    testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+    testthat::expect_length(conn.2$getAllVolatileCacheEntries(), 1)
     testthat::expect_true(entry.2$parentIsAConnector())
     testthat::expect_error(conn.2$addNewEntry(entry.2))
-    testthat::expect_length(conn.2$getAllCacheEntries(), 1)
+    testthat::expect_length(conn.2$getAllVolatileCacheEntries(), 1)
 
     # Write database
     testthat::expect_true(entry.2$isNew())

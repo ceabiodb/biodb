@@ -153,7 +153,7 @@ defineParsingExpressions=function() {
                    .self$getPropValSlot('urls', 'base.url'), '".')
 
         # Get new entries
-        cached.entries <- .self$getAllCacheEntries()
+        cached.entries <- .self$getAllVolatileCacheEntries()
         is.new <- vapply(cached.entries, function(x) x$isNew(), FUN.VALUE=TRUE)
         new.entries <- cached.entries[is.new]
 
