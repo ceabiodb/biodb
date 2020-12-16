@@ -33,6 +33,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
+#' @import rappdirs
 #' @include BiodbChildObject.R
 #' @include BiodbObserver.R
 #' @export BiodbConfig
