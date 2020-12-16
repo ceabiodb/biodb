@@ -29,6 +29,11 @@ test_convertTolToRange <- function() {
 	testthat::expect_identical(rng, list(a=NA_real_, b=NA_real_))
 }
 
+test_closeMatchPpm <- function() {
+    testthat::expect_equal(.Call("closeMatchPpm", 0, 0, 1L, 1L, 1L, 0, 0),
+                            list(1))
+}
+
 # Main
 ################################################################################
 
@@ -37,4 +42,4 @@ biodb::testContext("Testing mass functions")
 
 # Run tests
 biodb::testThat("Conversion from tolerance to range works correctly.", test_convertTolToRange)
-
+biodb::testThat("closeMatchPpm() works correctly.", test_closeMatchPpm)

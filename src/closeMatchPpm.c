@@ -14,6 +14,7 @@ typedef struct idxStruct {
 } tIdxStruct;
 
 /* Lower bound {{{1 */
+/* NOT USED IN R CODE */
 int lowerBound(double val, double *mzval, int first, int length) {
 
     int half, mid;
@@ -35,6 +36,7 @@ int lowerBound(double val, double *mzval, int first, int length) {
 }
 
 /* Upper bound {{{1 */
+/* NOT USED IN R CODE */
 int upperBound(double val, double *mzval, int first, int length) {
     
     int half, mid;
@@ -56,6 +58,7 @@ int upperBound(double val, double *mzval, int first, int length) {
 }
 
 /* Fill idx struct {{{1 */
+/* NOT USED IN R CODE */
 void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
                    double ppm, double mzmin) {
 
@@ -100,6 +103,7 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 }
 
 /* Run match {{{1 */
+/* NOT USED IN R CODE */
 SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
               int *pxidx, int *pyidx, int xoLength) {
     
@@ -142,6 +146,19 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 }
  
 /* Close match PPM {{{1 */
+/* USED INSIDE spec-dist.R */
+/*
+ * x = M/Z values of input spectrum (no NA)
+ * y = M/Z values of reference spectrum (no NA)
+ * xidx = indices of M/Z peaks inside original spectrum that whose peaks are
+ *        ordered in decreasing intensity values.
+ * xidx = indices of M/Z peaks inside reference spectrum that whose peaks are
+ *        ordered in decreasing intensity values.
+ * xolength = 
+ * dppm = 
+ * dmz = 
+ * Returns: 
+ */
 SEXP closeMatchPpm(SEXP x, SEXP y, SEXP xidx, SEXP yidx,
                    SEXP xolength, SEXP dppm, SEXP dmz) {
     
