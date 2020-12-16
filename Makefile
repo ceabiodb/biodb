@@ -74,8 +74,9 @@ check: clean.vignettes $(ZIPPED_PKG)
 full.check: clean.vignettes $(ZIPPED_PKG)
 	time R CMD check "$(ZIPPED_PKG)"
 
+bioc.check: PATH:=$(PATH):$(shell R $(RFLAGS) -e 'cat(pkgload::inst("BiocCheck"), "script", sep="/")')
 bioc.check: clean.vignettes $(ZIPPED_PKG)
-	R $(RFLAGS) -e 'library(BiocCheck)' # Make sure library is loaded once in order to install the scripts.
+	#PATH=$$PATH:$$(R $(RFLAGS) -e 'cat(pkgload::inst("BiocCheck"), "script", sep="/")') time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
 	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
 
 check.version:
