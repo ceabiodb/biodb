@@ -148,16 +148,16 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 /* Close match PPM {{{1 */
 /* USED INSIDE spec-dist.R */
 /*
- * x = M/Z values of input spectrum (no NA)
- * y = M/Z values of reference spectrum (no NA)
- * xidx = indices of M/Z peaks inside original spectrum that whose peaks are
- *        ordered in decreasing intensity values.
- * xidx = indices of M/Z peaks inside reference spectrum that whose peaks are
- *        ordered in decreasing intensity values.
- * xolength = 
- * dppm = 
- * dmz = 
- * Returns: 
+ * x        M/Z values of input spectrum (no NA)
+ * y        M/Z values of reference spectrum (no NA)
+ * xidx     Indices of M/Z peaks inside original spectrum that whose peaks are
+ *          ordered in decreasing intensity values.
+ * xidx     Indices of M/Z peaks inside reference spectrum that whose peaks are
+ *          ordered in decreasing intensity values.
+ * xolength ???
+ * dppm     ???
+ * dmz      ???
+ * Returns  ???
  */
 SEXP closeMatchPpm(SEXP x, SEXP y, SEXP xidx, SEXP yidx,
                    SEXP xolength, SEXP dppm, SEXP dmz) {
@@ -181,7 +181,7 @@ SEXP closeMatchPpm(SEXP x, SEXP y, SEXP xidx, SEXP yidx,
     /* Fill index structure */
     fillIdxStruct(pidxS, px, py, nx, ny, ppm, mzmin);
     
-    /* match */
+    /* Run matching algorithm */
     SEXP ans = runMatch(pidxS, px, py, nx, ny, pxidx, pyidx, xoLength);
         
     /* Free index structure */
