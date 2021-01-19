@@ -8,7 +8,7 @@ vignette: |
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: |
-  This vignettte explains the process to create a new *biodb* **entry field**, and how to **parse** its value for a particular database connector.
+  This vignettte explains the process to create a new *biodb* generic **entry field**, and how to **parse** its value for a particular database connector.
 output:
   BiocStyle::html_document:
     toc: yes

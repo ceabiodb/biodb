@@ -1,5 +1,5 @@
 ---
-title: "*biodb*: Creating a new connector."
+title: "Creating a new connector."
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{Creating a new connector class for accessing a database.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  This vignette shows how to create a new connector class and the corresponding new entry class for accessing a remote database.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -19,9 +21,17 @@ bibliography: references.bib
 
 # Introduction
 
-*biodb* is framework designed to help you implement new connectors for databases. To illustrate this, we will show you a practical example with the [ChEBI](https://www.ebi.ac.uk/chebi/) database. In this example, we will present you a small implementation of a *ChEBI* connector, and show you how to declare it to your *biodb* instance.
+*biodb* is a framework designed to help you implement new connectors for
+databases.
+To illustrate this, we will show you a practical example where we create a
+connector for the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
+In this example, we will present you a small implementation of a *ChEBI*
+connector, and show you how to declare it to your *biodb* instance.
 
-A more complete and functional connector for accessing *ChEBI* database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of this connector:
+A more complete and functional connector for accessing *ChEBI* database is
+implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library.
+The capabilities of this official *biodb* connector are:
+<!-- TODO -->
 
 To start we create an instance of the `Biodb` class:
 ```{r}
