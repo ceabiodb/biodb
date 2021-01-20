@@ -19,6 +19,9 @@ output:
 bibliography: references.bib
 ---
 
+```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```
+
 # Introduction
 
 In this vignette we will focus on creating a new *biodb* field to be used
