@@ -1,5 +1,5 @@
 ---
-title: "*biodb*: Creating a new connector."
+title: "Creating a new connector."
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{Creating a new connector class for accessing a database.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  This vignette shows how to create a new connector class and the corresponding new entry class for accessing a remote database.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -17,28 +19,72 @@ output:
 bibliography: references.bib
 ---
 
+```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```
+
 # Introduction
 
-*biodb* is framework designed to help you implement new connectors for databases. To illustrate this, we will show you a practical example with the [ChEBI](https://www.ebi.ac.uk/chebi/) database. In this example, we will present you a small implementation of a *ChEBI* connector, and show you how to declare it to your *biodb* instance.
+*biodb* is a framework designed to help you implement new connectors for
+databases.
+To illustrate this, we will show you a practical example where we create a
+connector for the [ChEBI](https://www.ebi.ac.uk/chebi/) database.
+In this example, we will present you a small implementation of a *ChEBI*
+connector, and show you how to declare it to your *biodb* instance.
 
-A more complete and functional connector for accessing *ChEBI* database is implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library. Capabilities of this connector:
+A more complete and functional connector for accessing *ChEBI* database is
+implemented in [biodbChEBI](https://github.com/pkrog/biodbChebi) library.
+See \@ref(tab:biodbChebiCapabilities) for a list of the capabilities of this
+official *biodb* connector.
+
+Title / method name | Description
+------------------- | -------------------------------------------
+Fields parsing      | Formula, charge, InChI, InChIKey, molecular mass, monoisotopic mass, KEGG id, entity stars, SMILES.
+getEntryPageUrl()   | Returns the URL of the website page of an entry.
+getEntryImageUrl()  | Returns the URL to the molecule image of an entry.
+wsWsdl()            | Returns the WSDL definition (i.e.: list of available web services and their parameters).
+wsGetLiteEntity()   | Runs the getLiteEntity web service that returns database entries with their contents.
+convIdsToChebiIds() | Converts a list of IDs (InChI, InChI Keys, CAS, ...) into a list of ChEBI IDs.
+convInchiToChebi()  | Converts a list of InChI or InChI KEYs into a list of ChEBI IDs.
+convCasToChebi()    | Converts a list of CAS IDs into a list of ChEBI IDs.
+searchCompound()    | Searches for entries by mass and/or by name.
+: (\#tab:biodbChebiCapabilities) Capabilities of the *biodbChebi* extension package.
 
 To start we create an instance of the `Biodb` class:
 ```{r}
 mybiodb <- biodb::Biodb()
 ```
 
-We will now implement the connector classes and define the needed *biodb* information, as a YAML file.
+We will now implement the connector class and its entry class and define the
+needed *biodb* information, as a YAML file.
 
-# Implementing the classes
+# Naming our connector
 
-When defining a new connector, two classes must be implemented: a connector class and an entry class.
-Their names are important, since they must match the *biodb* name that will be used in the YAML definition file. In our example the *biodb* name of our connector is `chebi.ex` (for "*ChEBI* example"). From this name, *biodb* will put in uppercase the first letter and the ones that are after a dot and then remove the dots. It will append `"Entry"` to this prefix to get the entry class name (`ChebiExEntry`), and `"Conn"` to obtain the connector class name (`ChebiExConn`).
+When defining a new connector, two classes must be implemented: a **connector**
+class and an **entry** class.
 
-## The entry class
+Their names are important, since they must match the *biodb* name that will be
+used in the YAML definition file.
+In our example, we have chosen `chebi.ex` (for "*ChEBI* example") as the
+*biodb* name of our connector.
+Using this name, *biodb* will put in uppercase the first letter and the ones
+that are after a dot and then remove the dots, which gives `ChebiEx` in our
+case, to obtain the prefix used to name the classes.
+It will append the word `Entry` to this prefix to get the entry class name
+`ChebiExEntry`, and `Conn` to obtain the connector class name `ChebiExConn`.
 
-The entry class represents an entry from the database. Each instance of an entry contains the values parsed from the database downloaded content.
-A entry class must inherit from the `BiodbEntry` class and define some methods. To simplify this step, several generic entry classes have been defined in *biodb* (see \@ref(tab:entryClasses)), depending on the type of content downloaded from the database.
+# Defining the entry class
+
+The entry class represents an entry from the database.
+Each instance of an entry contains the values parsed from the database
+downloaded content.
+
+An entry class must inherit from the `BiodbEntry` class and define some
+methods.
+To simplify this step, several generic entry classes have been defined in
+*biodb* (see \@ref(tab:entryClasses)), depending on the type of content
+downloaded from the database.
+To use one of these classes for your entry class, you only have to make your
+class inherit from the desired generic class.
 
 Entry class      | Content type handled
 ---------------- | --------------------------------
@@ -49,22 +95,45 @@ Entry class      | Content type handled
 `BiodbSdfEntry`  | SDF file (chemical data file format).
 `BiodbTxtEntry`  | Text file, the parsing will be done using regular expressions.
 `BiodbXmlEntry`  | XML file, the parsing will be done using XPath expressions.
-: (\#tab:entryClasses) Provided entry classes. The list of entry classes already defined inside *biodb* framework. The goal of each entry class is to facilitate the parsing of the corresponding content type.
+: (\#tab:entryClasses) Provided abstract entry classes. These are the entry classes already defined inside *biodb* package that facilitates the parsing of the corresponding content type.
 
 ```{r, echo=FALSE, results='hide'}
 entryClass <- system.file("extdata", "ChebiExEntry.R", package='biodb')
 ```
 
-Our entry class has to inherit from `BiodbXmlEntry` since *ChEBI* returns XML files when retrieving entries:
+We make our entry class inherit from `BiodbXmlEntry`, since *ChEBI* returns XML
+files when retrieving entries:
 ```{r, code=readLines(entryClass)}
 ```
-In the *biodb* definition file, we will write XPath expressions for the different desired fields in order to parse values from inside the downloaded XML.
 
-We remind here the reader, that *biodb* uses the [Reference classes](http://adv-r.had.co.nz/R5.html) as OOP (Object Oriented Programming) model.
+This class is empty, since for our example will only use simple parsing
+expressions that we will define inside the *biodb* definition file (see the
+chapter below about the YAML definition).
+For XML these expressions will be written as XPath expressions.
+A different expression will be used for each desired field in order to parse
+its value from inside the downloaded XML.
 
-## The connector class
+We remind here the reader that *biodb* uses the [Reference
+classes](http://adv-r.had.co.nz/R5.html) as OOP (Object Oriented Programming)
+model.
+Please see vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_entry_field')
+```
+, for more explanations.
 
-The connector class is responsible for the connection to the database. In our case, the database is a remote database, thus our connector class must inherit from `BiodbRemotedbConn` class. But it is also a compound database, so it must also inherit from `BiodbCompounddbConn`. Both those super classes require the implementation of specific functions, see \@ref(tab:remoteMethods) and \@ref(tab:compMethods) for a description of those methods.
+# Defining the connector class
+
+## Inheritance
+
+The connector class is responsible for the connection to the database.
+In our case, the database is a remote database, thus our connector class must
+inherit from `BiodbRemotedbConn` class.
+But it is also a compound database, so it must also inherit from
+`BiodbCompounddbConn`.
+Both those super classes require the implementation of specific functions, see
+\@ref(tab:remoteMethods) and \@ref(tab:compMethods) for a description of those
+methods.
 
 Method                        | Description
 ----------------------------- | --------------------------------
@@ -82,20 +151,81 @@ Method              | Description
 
 : (\#tab:compMethods) `BiodbCompounddbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbCompounddbConn` class.
 
-See the help about `BiodbRemotedbConn` and `BiodbCompounddbConn` for details about the parameters of those functions.
+See the help inside R about `BiodbRemotedbConn` and `BiodbCompounddbConn` for
+details about the parameters of those functions.
+
+## BiodbRemotedbConn methods
 
 The implemented `BiodbRemotedbConn`'s methods are used for three different goals.
-First to build web site URLs: to get the URL to an entry page (`getEntryPageUrl()`) or to get the URL to an entry picture (`getEntryImageUrl()`) like a molecule representation.
+First to build URLs that access the web site, to get the URL of an entry page
+(`getEntryPageUrl()`) or to get the URL of an entry picture
+(`getEntryImageUrl()`) like a molecule representation.
 Second to get a list of database entry identifiers (`.doGetEntryIds()`).
 Third to Get the content of an entry (`.doGetEntryContentRequest()`).
-In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and `.doGetEntryContentRequest()`, you may have notice that the `getPropValSlot()` to get URLs (`"base.url"`, `"ws.url"`). These values are defined inside the connector YAML definition file that we will detail below.
-Also, in those methods, we use the `BiobdUrl` class to build the URLs. `BiodbUrl` handles the building of the URL parameters, as well as the encoding of special characters.
 
-The implemented `BiodbCompounddbConn`'s method (`searchCompound()`) is used to search for compounds inside the database by compound name, mass or both. For our example we have decided to implement only the search by name in order to keep the code as simple and short as possible. To see a full implementation of this method, look at the official *biodb* *ChEBI* connector at [biodbChebi](https://github.com/pkrog/biodbChebi). Inside the method's code you will see that the implementation of the call to the *ChEBI* web service API has been left to the dedicated method `wsGetLiteEntity()`.
+In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and
+`.doGetEntryContentRequest()` (see below), you may notice the use of the
+`getPropValSlot()` method to get some base URLs (`"base.url"`, `"ws.url"`).
+These values are defined inside the connector YAML definition file that we will
+detail below.
+Also, in those methods, we use the `BiobdUrl` class to build the URLs.
+`BiodbUrl` handles the building of the URL parameters, as well as the encoding
+of special characters.
 
-In *biodb* official implementations of remote connectors, the implementations of calls to web services are done in separate dedicated methods having in common some principles. The method's name starts with the prefix `ws`, which stands for *web service*, and is followed by the API name of the web service written in Java style (i.e.: an uppercase letter for the start of each word and lowercase letters for the rest). The first parameters of the method are the web service parameters. The last parameters (`max.results` and `retfmt`) are *biodb* specific.
-`max.results` controls the maximum number of results wanted, and must have a default value (usually `10`).
-`retfmt`, which stands for *return format*, controls the format of the method's returned value. The default value of `retfmt` is set to a vector and then processed inside the method with the `match.arg()` method. Thus the "real" default value is the first value of the vector, which must always be `"plain"`. The set of possible values for `retfmt` is variable from one web service method to another. However some of the values are compulsory. See \@ref(tab:retfmtValues) for a full list of `retfmt` possible values officially accepted by *biodb*.
+## BiodbCompounddbConn methods
+
+The implemented `BiodbCompounddbConn`'s method (`searchCompound()`) is used to
+search for compounds inside the database by compound name, mass or both.
+For our example we have decided to implement only the search by name in order
+to keep the code as simple and short as possible.
+To see a full implementation of this method, look at the official *biodb*
+*ChEBI* connector at [biodbChebi](https://github.com/pkrog/biodbChebi).
+Inside the method's code you will see that the implementation of the call to
+the *ChEBI* web service API has been left to the dedicated method
+`wsGetLiteEntity()`.
+
+## Prototype to respect for web service methods
+
+In *biodb* official implementations of remote connectors, the implementations
+of calls to web services are done in separate dedicated methods having in
+common some principles.
+
+These principles are important, because they assure a uniformity between
+*biodb* extension packages, allowing users to identify immediately a web
+service method and recognize the *biodb* generic parameters inside it.
+
+Example of a web service method, taken from official *biodb* *ChEBI* extension
+package:
+```{r, eval=FALSE}
+wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
+                         max.results=10,
+                         retfmt=c('plain', 'parsed', 'request', 'ids')) {
+}
+```
+
+A web service method name must start with the prefix `ws`, which stands for
+*web service*, and be followed by the database API name of the web service
+written in Java style (i.e.: an uppercase letter for the start of each word and
+lowercase letters for the rest).
+
+The first parameters of the method are the database web service parameters.
+
+The last parameters (`max.results` and `retfmt`) are *biodb* specific.
+
+`max.results` controls the maximum number of results wanted, and must have a
+default value (usually `10`).
+
+`retfmt`, which stands for *return format*, controls the format of the method's
+returned value.
+The default value of `retfmt` is set to a vector and then processed inside the
+method with the `match.arg()` method.
+Thus the "real" default value is the first value of the vector, which must
+always be `"plain"`.
+The set of possible values for `retfmt` is variable from one web service method
+to another.
+However some of the values are compulsory.
+See \@ref(tab:retfmtValues) for a full list of `retfmt` possible values
+officially accepted by *biodb*.
 
 Value        | Compulsory | Description
 ------------ | ---------- | --------------------------------
@@ -109,7 +239,10 @@ Value        | Compulsory | Description
 
 : (\#tab:retfmtValues) `retfmt` accepted values. The list of values of `retfmt` officially accepted by *biodb*.
 
-You may want to look into some of *biodb* implementations of connectors to official remote databases, and see how the calls to web services have been implemented in dedicated web service methods. See \@ref(tab:biodbOfficialRemoteConns).
+You may want to look into some of *biodb* implementations of connectors to
+official remote databases, and see how the calls to web services have been
+implemented in dedicated web service methods.
+See \@ref(tab:biodbOfficialRemoteConns).
 
 Package                                               | Official database site
 ----------------------------------------------------- | --------------------------------
@@ -120,6 +253,8 @@ Package                                               | Official database site
 
 : (\#tab:biodbOfficialRemoteConns) *biodb* connectors to remote databases. Some of the *biodb* packages implementing connectors to official remote databases.
 
+## Implementation
+
 ```{r, echo=FALSE, results='hide'}
 connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
 ```
@@ -128,15 +263,34 @@ Here is our implementation of the connector class:
 ```{r, code=readLines(connClass)}
 ```
 
-# Defining the new connector for biodb
+# Writing the YAML definition of the new connector
 
-Now we have to write a definition of the connector for *biodb*. This step is done using a YAML file:
+Now we have to write a definition of the connector for *biodb*. This step is
+done using the following YAML file:
+```{r}
+defFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
+```
+whose content is as follow:
 ```{r, eval=FALSE, highlight=FALSE, code=readLines(system.file("extdata", "chebi_ex.yml", package='biodb'))}
 ```
 
-This YAML file contains two main parts: `databases` and `fields`. The `databases` part is where you list the new connectors you've created, and the `fields` part is where you define the new entry fields your new connectors need.
-We just have one new field to define: `chebi.ex.id`. This is the accession field for our new connector. All connector accession fields are in the form `<connector_class_id>.id`. This accession field is mainly used inside other databases, when they make references to other databases. The field `accession`, which is used in all entries of *biodb* connectors, contains the same value as the connector accession field (`chebi.ex.id` in our case) and is preferable when accessing an entry.
-The definition of the new field is quite simple, See \@ref(tab:fielddecl) for explanations of the different parameters.
+This YAML file contains two main parts: `databases` and `fields`.
+The `databases` part is where you list the new connectors you've created, and
+the `fields` part is where you define the new entry fields your new connectors
+need.
+
+## Fields definition
+
+We just have one new field to define: `chebi.ex.id`.
+This is the accession field for our new connector.
+All connector accession fields are in the form `<connector_class_id>.id`.
+This accession field is mainly used inside other databases, when they make
+references to other databases.
+The field `accession`, which is used in all entries of *biodb* connectors,
+contains the same value as the connector accession field (`chebi.ex.id` in our
+case) and is preferable when accessing an entry.
+The definition of the new field is quite simple, See \@ref(tab:fielddecl) for
+explanations of the different parameters.
 
 Parameter            | Description
 -------------------- | --------------------------------
@@ -148,7 +302,12 @@ Parameter            | Description
 
 : (\#tab:fielddecl) Field's parameters. Description of the parameters used when declaring a new entry field.
 
-The main part is the declaration of the new connector. This is done in the `databases` section, under the key `chebi.id`, which is the database identifier. See \@ref(tab:conndecl) for explanations of the different parameters.
+## Database definition
+
+The main part is the declaration of the new connector.
+This is done in the `databases` section, under the key `chebi.id`, which is the
+database identifier.
+See \@ref(tab:conndecl) for explanations of the different parameters.
 
 Parameter                | Description
 ------------------------ | --------------------------------
@@ -161,22 +320,24 @@ Parameter                | Description
 `entry.content.encoding` | The text encoding used inside the entry's content by the database.
 `parsing.expr`           | This is the most important part of the declaration. It is lists the different expressions to use in order to parse the values of the entry fields. The format is a key/value list, the key being the *biodb* field name, and the value the expression to run. Since the entry content type is XML, we have to use XPath expressions here. See this [XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp), for instance, to get an introduction to XPath. Note that we can define multiple expressions, like for `formula` field, in case of XPath expressions. If the first expression fails, then next expressions will be tried.
 `searchable.fields`      | A list of *biodb* entry fields that are searchable when calling a search function like `searchCompound()`.
-
 : (\#tab:conndecl) Connector declaration's parameters. Description of the parameters used when declaring a new connector. 
 
 # Declaring the new connector
 
-To declare the new connector, we load the YAML definition file inside our *biodb* instance:
+To declare the new connector, we load the YAML definition file inside our
+*biodb* instance:
 ```{r}
-defFile <- system.file("extdata", "chebi_ex.yml", package='biodb')
 mybiodb$loadDefinitions(defFile)
 ```
 
-Now our *biodb* instance is aware of our new connector, and is ready to create instances of it.
+Now our *biodb* instance is aware of our new connector, and is ready to create
+instances of it.
 
 # Instantiating and using the new connector
 
-Create an effective connection with our new connector class, is made the same way as for any connector class: we call the `createConn()` onto the factory instance, with the identifier of the connector class:
+To create an instance of our new connector class, we proceeds as usual in
+*biodb*, by calling `createConn()` on the factory instance, using our connector
+identifier:
 ```{r}
 conn <- mybiodb$getFactory()$createConn('chebi.ex')
 ```
@@ -189,8 +350,12 @@ entry$getFieldsAsDataframe()
 
 # Connector for a local database
 
-With *biodb* you can also write a connector for a local database. In that case, your class has to inherit directly from `BiodbConn`, not from `BiodbRemotedbConn`.
-All the connectors included in *biodb* package are local connectors only: `mass.csv.file`, `comp.csv.file` and `mass.sqlite`. See \@ref(tab:connMethods) for a list of methods to implement when writing a local connector.
+With *biodb* we can also write a connector for a local database.
+In that case, our class has to inherit directly from `BiodbConn`, not from
+`BiodbRemotedbConn`.
+As a matter of fact, all the connectors included in *biodb* base package are
+local connectors only: `mass.csv.file`, `comp.csv.file` and `mass.sqlite`.
+See \@ref(tab:connMethods) for a list of methods to implement when writing a local connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
@@ -203,8 +368,14 @@ Method                       | Description
 
 # Connector for a mass spectra database
 
-In the example above, we have implemented a compound database. Another type of database is a mass spectra database. *biodb* defines the abstract mass database connector `BiodbMassdbConn` in order to help implement a new connector of this type.
-The following connectors included in *biodb* package are mass spectra database connectors: `mass.csv.file` and `mass.sqlite`. See \@ref(tab:massdbConnMethods) for a list of methods to implement when writing a mass spectra database connector.
+In the example above, we have implemented a compound database.
+Another type of database is a mass spectra database.
+*biodb* defines the abstract mass database connector `BiodbMassdbConn` that
+proposes a generic API for all mass spectra databases.
+The following connectors included in *biodb* package are mass spectra database
+connectors: `mass.csv.file` and `mass.sqlite`.
+See \@ref(tab:massdbConnMethods) for a list of methods to implement when
+writing a mass spectra database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
@@ -217,7 +388,14 @@ Method                       | Description
 
 # Connector for a downloadable database
 
-Some database servers do not propose web services, or other connection to the database, but propose to download the whole database for local processing. *biodb* offers the possibility to handle the connection to such database servers, by implementing the `BiodbDownloadable` interface into your connector class, which already inherits from `BiodbRemotedbConn`. See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
+Some database servers do not propose web services, or other connection to the
+database, but propose to download the whole database for local processing.
+
+*biodb* offers the possibility to handle the connection to such database
+servers, by implementing the `BiodbDownloadable` interface into your connector
+class, which already inherits from `BiodbRemotedbConn`.
+
+See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
@@ -229,11 +407,18 @@ Method                       | Description
 
 # How to implement other types of entry classes
 
-We have seen in the example how to parse XML entries by writing an entry class that inherits from the `BiodbXmlEntry` class. As stated before, *biodb* provides other types of abstract entry classes, that facilitate the parsing of diverse entry content formats.
+We have seen in the example how to parse XML entries by writing an entry class
+that inherits from the `BiodbXmlEntry` class.
+As stated before, *biodb* provides other types of abstract entry classes, that
+facilitate the parsing of diverse entry content formats.
+Here is a review of those formats.
 
 ## HTML content
 
-To parse HTML content, your entry class must inherit from `BiodbHtmlEntry`. The parsing expressions must be written in *XPath* language, as for XML content, but it uses a special parsing algorithm since HTML is less strict than XML and allows some "illegal" constructs.
+To parse HTML content, your entry class should inherit from `BiodbHtmlEntry`.
+The parsing expressions must be written in *XPath* language, as for XML
+content, but it uses a special parsing algorithm since HTML is less strict than
+XML and allows some "illegal" constructs.
 
 Example of a parsing expression:
 ```
@@ -242,7 +427,10 @@ path: //input[@id='DATA']
 
 ## JSON content
 
-To parse JSON content, your entry class must inherit from `BiodbJsonEntry`. The parsing expressions are written in the form of lists of keys to follow as a path inside the JSON tree. Here is an example:
+To parse JSON content, your entry class should inherit from `BiodbJsonEntry`.
+The parsing expressions are written in the form of lists of keys to follow as a
+path inside the JSON tree.
+Here is an example:
 ```
 chrom.col.id:
 - liquidChromatography
@@ -251,9 +439,14 @@ chrom.col.id:
 
 ## List content
 
-If your connector gets entry contents directly as an R list object, like in the case of `MassSqliteConn`, you have interest in making your entry class inherit from `BiodbListEntry` abstract class.
-With this class, the entry content is provided as a flat named R list object, although it is also possible to pass a JSON string containing flat key/value pairs instead.
-The parsing expressions are the names used inside the list object. Here is an example:
+If your connector gets entry contents directly as an R list object, like in the
+case of `MassSqliteConn`, you have interest in making your entry class inherit
+from `BiodbListEntry` abstract class.
+With this class, the entry content is provided as a flat named R list object,
+although it is also possible to pass a JSON string containing flat key/value
+pairs instead.
+The parsing expressions are the names used inside the list object.
+Here is an example:
 ```
 accession: id
 compound.id: comp_id
@@ -262,7 +455,11 @@ formula: chem_form
 
 ## CSV content
 
-The `BiodbCsvEntry` class helps you handle entry content in CSV (or any other separator than the comma) format. When declaring the constructor for your own entry class, do not forget to call the mother class constructor to pass it your separator and/or the string values that have to be converted to `NA`:
+The `BiodbCsvEntry` class helps you handle entry content in CSV (using comma
+separator or any other character) format.
+When declaring the constructor for your own entry class, do not forget to call
+the mother class constructor to pass it your separator and/or the string values
+that have to be converted to `NA`:
 ```{r}
 MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
 	methods=list(
@@ -271,6 +468,7 @@ MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
 		}
 ))
 ```
+
 The parsing expressions are the column names of the CSV file:
 ```
 accession: id
@@ -279,22 +477,107 @@ name: fullname
 
 ## SDF content
 
-If your entry content is in SDF (Structure Data File) chemical file format, make you entry class inherit from `BiodbSdfEntry` abstract class.
-Since the SDF format is an official standard format, the parsing expressions are useless in this case, your class only has to inherit from `BiodbSdfEntry`.
+If your entry content is in SDF (Structure Data File) chemical file format,
+make you entry class inherit from `BiodbSdfEntry` abstract class.
+Since the SDF format is an official standard format, the parsing expressions
+are useless in this case, your class only has to inherit from `BiodbSdfEntry`.
 
 ## Text content
 
-The `BiodbTxtEntry` abstract class allows you to handle any text file content for entries. Parsing expressions are defined as regular expressions. Here is an example:
+The `BiodbTxtEntry` abstract class allows you to handle any text file content
+for entries.
+Parsing expressions are defined as regular expressions, using the
+[stringr](https://stringr.tidyverse.org/) package, hence in [ICU Regular
+Expressions](https://unicode-org.github.io/icu/userguide/strings/regexp.html)
+format.
+
+Here is an example:
 ```
 accession: ^ENTRY\s+(\S+)\s+Compound
 exact.mass: ^EXACT_MASS\s+(\S+)$
 formula: ^FORMULA\s+(\S+)$
 ```
 
-## Specific parsing
+## Implementing your own parsing
 
-If you write your own entry class, inheriting directly from `BiodbEntry`, you have at least two methods to implement. The first is `.doParseContent()`, which parses a string into the acceptable format for the second function, `.parseFieldsStep1()`.
-When inheriting from one of the abstract class listed above (`BiodbTxtEntry`, `BiodbJsonEntry`, `BiodbXmlEntry`, ...), you also have the opportunity to write some custom parsing code by implementing `.parseFieldsStep2()`. This method will be called just after `.parseFieldsStep1()`, which is implemented by the abstract class.
+If none of the predefined formats fits your needs, your class have to inherit directly from `BiodbEntry`.
+
+Two methods have to be implemented in this case.
+The first is `.doParseContent()`, which parses a string into the acceptable
+format for the second function, `.parseFieldsStep1()`.
+
+Look for instance at the code of `BiodbTxtEntry` class for a good example.
+Here is an excerpt:
+```{r, eval=FALSE}
+.doParseContent=function(content) {
+
+    # Get lines of content
+    lines <- strsplit(content, "\r?\n")[[1]]
+
+    return(lines)
+},
+
+.parseFieldsStep1=function(parsed.content) {
+
+    # Get parsing expressions
+    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+
+    .self$.assertNotNull(parsed.content)
+    .self$.assertNotNa(parsed.content)
+    .self$.assertNotNull(parsing.expr)
+    .self$.assertNotNa(parsing.expr)
+    .self$.assertNotNull(names(parsing.expr))
+
+    # Loop on all parsing expressions
+    for (field in names(parsing.expr)) {
+
+        # Match whole content 
+        g <- stringr::str_match(parsed.content, parsing.expr[[field]])
+
+        # Get positive results
+        results <- g[ ! is.na(g[, 1]), , drop=FALSE]
+
+        # Any match ?
+        if (nrow(results) > 0)
+            .self$setFieldValue(field, results[, 2])
+    }
+}
+```
+
+## Extending the parsing of an existing class
+
+When inheriting from one of the abstract class listed above (`BiodbTxtEntry`,
+`BiodbJsonEntry`, `BiodbXmlEntry`, ...), you also have the opportunity to write
+some custom parsing code by implementing `.parseFieldsStep2()`.
+
+This method will be called just after `.parseFieldsStep1()`, which is
+implemented by the abstract class.
+
+See `HmdbMetabolitesEntry` class inside [biodbHmdb](https://github.com/pkrog/biodbHmdb) extension package for an example.
+Here is an extract:
+```{r, eval=FALSE}
+.parseFieldsStep2=function(parsed.content) {
+
+    # Remove fields with empty string
+    for (f in .self$getFieldNames()) {
+        v <- .self$getFieldValue(f)
+        if (is.character(v) && ! is.na(v) && v == '')
+            .self$removeField(f)
+    }
+
+    # Correct InChIKey
+    if (.self$hasField('INCHIKEY')) {
+        v <- sub('^InChIKey=', '', .self$getFieldValue('INCHIKEY'), perl=TRUE)
+        .self$setFieldValue('INCHIKEY', v)
+    }
+
+    # Synonyms
+    synonyms <- XML::xpathSApply(parsed.content, "//synonym", XML::xmlValue)
+    if (length(synonyms) > 0)
+        .self$appendFieldValue('name', synonyms)
+}
+```
+
 
 # Closing biodb instance
 
