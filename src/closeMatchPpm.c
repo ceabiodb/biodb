@@ -15,6 +15,14 @@ typedef struct idxStruct {
 
 /* Lower bound {{{1 */
 /* NOT USED IN R CODE */
+/*
+ * Binary search inside a sorted array of the lower bound of a value.
+ * 
+ * val: M/Z value for which we want to find the lower bound inside the array
+ * mzval: sorted (ASC or DESC?) array of M/Z values
+ * first: index of the first value in the array
+ * length: length of the array
+ */
 int lowerBound(double val, double *mzval, int first, int length) {
 
     int half, mid;
@@ -37,6 +45,14 @@ int lowerBound(double val, double *mzval, int first, int length) {
 
 /* Upper bound {{{1 */
 /* NOT USED IN R CODE */
+/*
+ * Binary search inside a sorted array of the upper bound of a value.
+ * 
+ * val: M/Z value for which we want to find the upper bound inside the array
+ * mzval: sorted (ASC or DESC?) array of M/Z values
+ * first: index of the first value in the array
+ * length: length of the array
+ */
 int upperBound(double val, double *mzval, int first, int length) {
     
     int half, mid;
@@ -59,6 +75,19 @@ int upperBound(double val, double *mzval, int first, int length) {
 
 /* Fill idx struct {{{1 */
 /* NOT USED IN R CODE */
+/*
+ * Search for each M/Z value of px, which M/Z values of py are close, given a
+ * tolerance. For each M/Z value of px, there is a structure inside pidxS that
+ * records the range ([from, to]) of indices inside py.
+ * 
+ * pidxS: an array of tIdxStruct structures with two fields "from" and "to".
+ * px: a sorted array of M/Z values.
+ * py: a sorted array of M/Z values.
+ * nx: length of px and pidxS.
+ * ny: length of py.
+ * ppm: M/Z tolerance in PPM
+ * mzmin: minimum M/Z tolerance
+ */
 void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
                    double ppm, double mzmin) {
 
@@ -70,31 +99,48 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
     tIdxStruct *end = pidxS + nx;
     for (tIdxStruct *p = pidxS ; p < end ; ++p)
         p->from = ny + 1;
+    /* p->to already set to 0 by calloc() */
 
+    /* Loop on all M/Z values of py */
     for (int yi=0 ; yi < ny ; ++yi) {
 
+        /* Compute tolerance in PPM */
         dtol = py[yi] * ppm * 1e-6;
         if(dtol < mzmin)
             dtol = mzmin;
 
+        /* We look for all M/Z values of px that are inside py[yi] +- dtol */
+        
         lb = lowerBound(py[yi] - dtol, px, lastlb, nx-lastlb);
         if (lb < nx-1)
             lastlb=lb;
 
+        /* XXX ERROR ??? "else" of the previous "if" */
         if (lb >= nx-1) {
             lb = nx-1;
             ub = nx-1;
         }
-        else
+        else /* XXX ERROR ??? should be inside "then" of "if (lb < nx-1)" */
             ub = upperBound(py[yi] + dtol, px, lb, nx-lb);
 
         if (ub > nx-1)
             ub = nx -1;
 
+        /* We loop on all M/Z values of px that are inside py[yi] +- dtol */
         for (int xi=lb;xi <= ub;xi++) {
+            
+            /* XXX ERROR? Is this condition not necessarily true? */
             if (fabs(py[yi] - px[xi]) <= dtol) {
+                
+                // We update the "from", i.e.: the first index of the M/Z
+                // values in py for which we have a match with this M/Z value
+                // of px
                 if (yi < pidxS[xi].from)
                     pidxS[xi].from = yi;
+                
+                // We update the "to", i.e.: the last index of the M/Z
+                // values in py for which we have a match with this M/Z value
+                // of px
                 if (yi > pidxS[xi].to)
                     pidxS[xi].to = yi;
             }
@@ -104,6 +150,18 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 
 /* Run match {{{1 */
 /* NOT USED IN R CODE */
+/*
+ * 
+ * 
+ * pidxS:
+ * px:
+ * py:
+ * nx:
+ * ny:
+ * pxidx:
+ * pyidx:
+ * xoLength:
+ */
 SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
               int *pxidx, int *pyidx, int xoLength) {
     
@@ -133,8 +191,11 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
         int yi = from;
         double *rend = py + to;
         for (double *r = py + from ; r <= rend ; ++r, ++yi)
-            if(fabs(*r - *q) < mindist)
+            if(fabs(*r - *q) < mindist) {
                 minindex = yi;
+                /* XXX ERROR Shouldn't we set "mindist = fabs(*r - *q)"? */
+            }
+        /* XXX ERROR What if minindex == -1? */
         INTEGER_POINTER(residx)[0] = pyidx[minindex];
         SET_VECTOR_ELT(ans, txi, residx);
         UNPROTECT(1); // residx
@@ -148,13 +209,14 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 /* Close match PPM {{{1 */
 /* USED INSIDE spec-dist.R */
 /*
- * x        M/Z values of input spectrum (no NA)
- * y        M/Z values of reference spectrum (no NA)
- * xidx     Indices of M/Z peaks inside original spectrum that whose peaks are
+ * x        sorted M/Z values of input spectrum (no NA)
+ * y        sorted M/Z values of reference spectrum (no NA)
+ * xidx     Indices of the M/Z peaks of x, taken from the original spectrum 
  *          ordered in decreasing intensity values.
- * xidx     Indices of M/Z peaks inside reference spectrum that whose peaks are
+ * yidx     Indices of the M/Z peaks of y, taken from the original spectrum 
  *          ordered in decreasing intensity values.
- * xolength ???
+  xolength ???
+  
  * dppm     ???
  * dmz      ???
  * Returns  ???
@@ -172,7 +234,7 @@ SEXP closeMatchPpm(SEXP x, SEXP y, SEXP xidx, SEXP yidx,
     double ppm = REAL(dppm)[0];
     double mzmin = REAL(dmz)[0];
 
-    /* Allocate index structure */
+    /* Allocate index structure. calloc() set memory space to zero values. */
     tIdxStruct *pidxS = (tIdxStruct*) calloc(nx, sizeof(tIdxStruct));
     if (pidxS == NULL)
         error("fastMatch/calloc: memory could not be allocated ! (%d bytes)\n",

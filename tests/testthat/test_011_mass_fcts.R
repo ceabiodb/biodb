@@ -32,6 +32,8 @@ test_convertTolToRange <- function() {
 test_closeMatchPpm <- function() {
     testthat::expect_equal(.Call("closeMatchPpm", 0, 0, 1L, 1L, 1L, 0, 0),
                             list(1))
+    testthat::expect_equal(.Call("closeMatchPpm", c(10, 5), c(10, 5), c(1L, 2L), c(1L, 2L), 2L, 0, 0),
+                            list(1, 2))
 }
 
 # Main
