@@ -336,23 +336,81 @@ isSearchableByField=function(field) {
     return(v)
 },
 
-searchByName=function(name, max.results=NA_integer_) {
+searchForEntries=function(name=NULL, description=NULL,
+                          max.results=NA_integer_) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
-    \nname: The name to look for.
+    \nname: A name to look for.
+    \ndescription: A character vector of words or expressions to search for
+    inside description field. The words will be searched in order. A match will
+    be made only if all words are inside the description field.
     \nmax.results: If set, the number of returned IDs is limited to this
     number.
     \nReturned value: A character vector of entry IDs whose name matches the
     requested name.
     "
 
-    if (.self$isCompounddb())
-        return(.self$searchCompound(name=name, max.results=max.results))
-    else if (.self$isSearchableByField('name'))
-        .self$error('This database is declared to be searchable by name, but',
-                    ' no implementation has been defined.')
+    ids <- NULL
+    
+    # Check if field can be used for searching
+    for (param in c('name', 'description'))
+        if ( ! is.null(get(param)) && ! .self$isSearchableByField(param))
+            .self$error('This database is not searchable by field "', param,
+                        '"')
+        
+    # Call concrete method
+    ids <- .self$.doSearchForEntries(name=name, description=description,
+                                     max.results=max.results)
 
+    if (is.null(ids)) {
+
+        # Compound connector
+        if (.self$isCompounddb()) {
+            if ( ! is.null(name) && ! is.null(description))
+                ids <- .self$searchForCompounds(name=name,
+                                                description=description,
+                                                max.results=max.results)
+            else if ( ! is.null(name))
+                ids <- .self$searchForCompounds(name=name,
+                                                max.results=max.results)
+            else if ( ! is.null(description))
+                ids <- .self$searchForCompounds(description=description,
+                                                max.results=max.results)
+            else
+                ids <- .self$searchForCompounds(max.results=max.results)
+
+        # No implementation
+        } else {
+
+            # No implementation for search, but field declared as usable in
+            # search
+            for (param in c('name', 'description'))
+                if ( ! is.null(get(param)) && .self$isSearchableByField(param))
+                    .self$error('This database has been declared to be ',
+                                'searchable by field "', param,
+                                '", but no implementation has been defined.')
+            
+            # No implementation at all
+            .self$error('No implementation of this method has been provided,',
+                        ' and no field has been declared as searchable.')
+        }
+    }
+
+    return(ids)
+},
+
+.doSearchForEntries=function(name=NULL, description=NULL,
+                             max.results=NA_integer_) {
+    # To be implemented by derived class.
     return(NULL)
+},
+
+searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
+    ":\n\nThis method is deprecated.
+    \nUse searchForEntries() instead.
+    "
+    .self$.deprecatedMethod("searchForEntries()")
+    return(.self$searchForEntries(name=name, max.results=max.results))
 },
 
 isDownloadable=function() {
