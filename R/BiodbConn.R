@@ -339,10 +339,11 @@ isSearchableByField=function(field) {
 searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
-    \nfields: A list of fields to use for matching. The keys of the list are
-    the entry field names. For character type fields, values are vectors of
-    either a single string or multiple strings, depending of the
-    implementation.
+    \nfields: A list of fields on which to matching. To get a match, all fields
+    must be matched (i.e.: logical AND). The keys of the list are the entry
+    field names. For character type fields, values are vectors of either a
+    single string or multiple strings (logical AND, all strings must be found
+    inside the field's value), depending of the implementation.
     \nmax.results: If set, the number of returned IDs is limited to this
     number.
     \nReturned value: A character vector of entry IDs whose name matches the
