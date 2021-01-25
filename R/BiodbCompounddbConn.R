@@ -35,12 +35,12 @@ initialize=function(...) {
     .self$.abstractClass('BiodbCompounddbConn')
 },
 
-searchForCompounds=function(name=NULL, description=NULL,
-                            mass=NULL, mass.field=NULL,
-                            mass.tol=0.01, mass.tol.unit='plain',
-                            max.results=NA_integer_) {
-    ":\n\nSearches for compounds by name and/or by mass. At least one of name or mass
-    must be set.
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
+                        mass.tol=0.01, mass.tol.unit='plain',
+                        max.results=NA_integer_) {
+    ":\n\nThis method is deprecated. Use searchForEntries() instead.
+    \n Searches for compounds by name and/or by mass. At least one of name or
+    mass must be set.
     \nname: The name of a compound to search for.
     \ndescription: A character vector of words or expressions to search for
     inside description field. The words will be searched in order. A match will
@@ -61,19 +61,6 @@ searchForCompounds=function(name=NULL, description=NULL,
                   ' is not searchable by mass, name or description.')
 
     return(ids)
-},
-
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
-                        mass.tol=0.01, mass.tol.unit='plain',
-                        max.results=NA_integer_) {
-    ":\n\nThis method is deprecated.
-    \nUse searchForCompounds() instead.
-    "
-    .self$.deprecatedMethod("searchForCompounds()")
-    return(.self$searchForCompounds(name=name, mass=mass,
-                                    mass.field=mass.field, mass.tol=mass.tol,
-                                    mass.tol.unit=mass.tol.unit,
-                                    max.results=max.results))
 },
 
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),

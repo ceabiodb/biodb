@@ -394,7 +394,7 @@ test.searchByName = function(conn) {
         id <- listTestRefEntries(conn$getId())[[1]]
         testthat::expect_true( ! is.null(id))
         testthat::expect_length(id, 1)
-        entry <- conn$getEntry(id, drop = TRUE)
+        entry <- conn$getEntry(id, drop=TRUE)
         testthat::expect_true( ! is.null(entry))
 
         # Search by name
@@ -403,7 +403,7 @@ test.searchByName = function(conn) {
         testthat::expect_gt(length(name), 0)
         name <- name[[1]]
         testthat::expect_true( ! is.na(name))
-        ids <- conn$searchByName(name = name)
+        ids <- conn$searchByName(name=name)
 
         # Test
         msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
@@ -412,7 +412,7 @@ test.searchByName = function(conn) {
         testthat::expect_true(id %in% ids, msg)
     }
     else {
-        testthat::expect_null(conn$searchByName(name = ''))
+        testthat::expect_null(conn$searchByName(name=''))
     }
 }
 

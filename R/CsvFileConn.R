@@ -138,6 +138,7 @@ isSearchableByField=function(field) {
 
     v <- callSuper(field)
     v <- v && .self$hasField(field)
+    
     return(v)
 },
 
