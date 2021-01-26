@@ -517,28 +517,28 @@ test.searchCompound <- function(db) {
 			}
 			testthat::expect_true(id %in% ids, msg)
 			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
-		}
 
-		# Search by mass and name
-		if (db$isSearchableByField('name')) {
+		    # Search by mass and name
+		    if (db$isSearchableByField('name')) {
 
-			# Search by mass and name
-			ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			testthat::expect_true( ! is.null(ids), msg)
-			testthat::expect_true(length(ids) > 0, msg)
-			testthat::expect_true(id %in% ids, msg)
-			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+			    # Search by mass and name
+			    ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
+			    msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			    testthat::expect_true( ! is.null(ids), msg)
+			    testthat::expect_true(length(ids) > 0, msg)
+			    testthat::expect_true(id %in% ids, msg)
+			    testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
 
-			# Search by name and slightly different mass
-			mass <- mass + mass.tol
-			mass.tol <- 2 * mass.tol
-			ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			testthat::expect_true( ! is.null(ids), msg)
-			testthat::expect_true(length(ids) > 0, msg)
-			testthat::expect_true(id %in% ids, msg)
-			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+			    # Search by name and slightly different mass
+			    mass <- mass + mass.tol
+			    mass.tol <- 2 * mass.tol
+			    ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
+			    msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			    testthat::expect_true( ! is.null(ids), msg)
+			    testthat::expect_true(length(ids) > 0, msg)
+			    testthat::expect_true(id %in% ids, msg)
+			    testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+		    }
 		}
 	}
 }

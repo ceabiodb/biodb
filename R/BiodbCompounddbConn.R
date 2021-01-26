@@ -57,8 +57,12 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
 
     ids <- NULL
 
-    .self$caution('Database ', .self$getDbClass(),
-                  ' is not searchable by mass, name or description.')
+    # Try searchForEntries
+    if ( ! is.null(name) && is.null(mass))
+        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+    else 
+        .self$caution('Database ', .self$getDbClass(),
+                      ' is not searchable by mass or name.')
 
     return(ids)
 },

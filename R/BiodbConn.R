@@ -377,11 +377,10 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     # No implementation
     if (is.null(ids)) {
         # No search implementation for this field
-        for (f in fields)
-            if (.self$isSearchableByField(f))
-                .self$error('This database has been declared to be ',
-                            'searchable by field "', f,
-                            '", but no implementation has been defined.')
+        if (length(fields) > 0)
+            .self$error('This database has been declared to be ',
+                        'searchable by field "', names(fields)[[1]],
+                        '", but no implementation has been defined.')
     }
 
     return(ids)
@@ -399,7 +398,9 @@ searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
     
     .self$.deprecatedMethod("searchForEntries()")
     
-    ids <- .self$searchForEntries(fields=list(name=name), max.results=max.results)
+    fields <- list()
+    fields[['name']] <- name
+    ids <- .self$searchForEntries(fields=fields, max.results=max.results)
 
     return(ids)
 },
