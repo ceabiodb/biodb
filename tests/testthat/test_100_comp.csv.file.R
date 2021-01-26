@@ -11,8 +11,6 @@ test.comp.csv.file.dynamic.field.set <- function(biodb) {
     testthat::expect_true('charge' %in% colnames(x))
 }
 
-# MAIN
-
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='compcsvfile_test.log')
 
