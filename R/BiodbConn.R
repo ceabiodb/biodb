@@ -149,7 +149,7 @@ getEntryContent=function(id) {
             .self$download()
 
         # Initialize content
-        if (cch$isReadable() && ! is.null(.self$getCacheId())) {
+        if (cch$isReadable(.self) && ! is.null(.self$getCacheId())) {
             # Load content from cache
             content <- cch$loadFileContent(.self$getCacheId(),
                                           name=id,
@@ -168,7 +168,7 @@ getEntryContent=function(id) {
         # Debug
         if (any(is.na(id)))
             .self$debug(sum(is.na(id)), " ", nm, " entry ids are NA.")
-        if (cch$isReadable()) {
+        if (cch$isReadable(.self)) {
             nld <- sum( ! is.na(id)) - length(missing.ids)
             .self$debug(nld, " ", nm, " entry content(s) loaded from cache.")
             if (n.duplicates > 0)
@@ -201,7 +201,7 @@ getEntryContent=function(id) {
 
                 # Save to cache
                 if ( ! is.null(ec)
-                    && ! is.null(.self$getCacheId()) && cch$isWritable())
+                    && ! is.null(.self$getCacheId()) && cch$isWritable(.self))
                     cch$saveContentToFile(ec,
                                           cache.id=.self$getCacheId(),
                                           name=ch.missing.ids,
@@ -211,7 +211,7 @@ getEntryContent=function(id) {
                 missing.contents <- c(missing.contents, ec)
 
                 # Debug
-                if (cch$isReadable()) {
+                if (cch$isReadable(.self)) {
                     n <- length(missing.ids) - length(missing.contents)
                     .self$debug("Now ", n," id(s) left to be retrieved...")
                 }
@@ -352,7 +352,7 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
 
     ids <- NULL
     
-    if (is.null(fields))
+    if (is.null(fields) || length(fields) == 0)
         return(ids)
 
     # Check if field can be used for searching

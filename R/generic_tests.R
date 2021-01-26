@@ -387,9 +387,54 @@ test.db.copy = function(conn) {
     biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
+test.searchForEntries = function(conn) {
+    
+    ef <- conn$getBiodb()$getEntryFields()
+    fields <- conn$getPropertyValue('searchable.fields')
+    testthat::expect_is(fields, 'character')
+
+    for (f in fields) {
+        
+        # Test character field
+        if (ef$get(f)$getClass() == 'character') {
+            
+            # Get an entry
+            id <- listTestRefEntries(conn$getId())[[1]]
+            testthat::expect_true( ! is.null(id))
+            testthat::expect_length(id, 1)
+            entry <- conn$getEntry(id, drop=TRUE)
+            testthat::expect_true( ! is.null(entry))
+
+            # Search by field's value
+            v <- entry$getFieldValue(f)
+            if ( ! is.null(v)) {
+                testthat::expect_is(v, 'character')
+                testthat::expect_gt(length(v), 0)
+                v <- v[[1]]
+                testthat::expect_true( ! is.na(v))
+            }
+            x <- list()
+            x[[f]] <- v
+            ids <- conn$searchForEntries(fields=x)
+            
+            # Test result
+            if (is.null(v) || v == '')
+                testthat::expect_null(ids)
+            else {
+                msg <- paste0('While searching for entry ', id, ' by value ("', v,
+                              '") of field "', f, '".')
+                testthat::expect_true( ! is.null(ids), msg)
+                testthat::expect_true(length(ids) > 0, msg)
+                testthat::expect_true(id %in% ids, msg)
+            }
+        }
+    }
+}
+
 test.searchByName = function(conn) {
 
     if (conn$isSearchableByField('name')) {
+
         # Get an entry
         id <- listTestRefEntries(conn$getId())[[1]]
         testthat::expect_true( ! is.null(id))
@@ -1163,6 +1208,7 @@ runGenericTests <- function(conn) {
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids, conn=conn)
     biodb::testThat("We can search for an entry by name.", test.searchByName, conn=conn)
+    biodb::testThat("We can search for an entry by searchable field", test.searchForEntries, conn=conn)
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.", test.entry.page.url, conn=conn)
         biodb::testThat("We can get a URL pointing to the entry image.", test.entry.image.url, conn=conn)

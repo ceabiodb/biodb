@@ -101,7 +101,7 @@ download=function() {
 
     # Download
     cfg <- .self$getBiodb()$getConfig()
-    if (cch$isWritable() && ! .self$isDownloaded()
+    if (cch$isWritable(.self) && ! .self$isDownloaded()
         && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
 

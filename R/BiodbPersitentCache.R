@@ -94,25 +94,40 @@ getDir=function() {
     return(cachedir)
 },
 
-isReadable=function() {
+isReadable=function(conn=NULL) {
     ":\n\nChecks if the cache system is readable.
+    \nconn: If not \\code{NULL}, checks if the cache system is readable for
+    this particular connector.
     \nReturned value: \\code{TRUE} if the cache system is readable,
     \\code{FALSE} otherwise.
     "
 
     cfg <- .self$getBiodb()$getConfig()
-    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir()))
+    
+    enabled <- cfg$isEnabled('cache.system')
+    enabled <- enabled && ! is.na(.self$getDir())
+    if ( ! is.null(conn) && ! conn$isRemotedb())
+        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+    
+    return(enabled)
 },
 
-isWritable=function() {
+isWritable=function(conn=NULL) {
     ":\n\nChecks if the cache system is writable.
+    \nconn: If not \\code{NULL}, checks if the cache system is writable for
+    this particular connector.
     \nReturned value: \\code{TRUE} if the cache system is writable,
     \\code{FALSE} otherwise.
     "
 
     cfg <- .self$getBiodb()$getConfig()
-    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir())
-           && ! cfg$get('cache.read.only'))
+    enabled <- cfg$isEnabled('cache.system')
+    enabled <- enabled && ! is.na(.self$getDir())
+    enabled <- enabled && ! cfg$get('cache.read.only')
+    if ( ! is.null(conn) && ! conn$isRemotedb())
+        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+    
+    return(enabled)
 },
 
 fileExist=function(cache.id, name, ext) {

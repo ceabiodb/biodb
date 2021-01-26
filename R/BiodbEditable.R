@@ -126,7 +126,7 @@ addNewEntry=function(entry) {
 
     # Remove entry from non-volatile cache
     cch <- .self$getBiodb()$getPersistentCache()
-    if (cch$isWritable())
+    if (cch$isWritable(.self))
         cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
 
     # Flag entry as new

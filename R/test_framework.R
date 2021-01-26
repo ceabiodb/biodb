@@ -336,11 +336,11 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
 
         # Call test function
         if ( ! is.null(biodb) && ! is.null(obs))
-            testthat::test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
+            testthat::test_that(msg, do.call(fct, list(biodb=biodb, obs=obs)))
         else if ( ! is.null(biodb))
             testthat::test_that(msg, do.call(fct, list(biodb)))
         else if ( ! is.null(conn) && ! is.null(obs))
-            testthat::test_that(msg, do.call(fct, list(conn = conn, obs = obs)))
+            testthat::test_that(msg, do.call(fct, list(conn=conn, obs=obs)))
         else if ( ! is.null(conn))
             testthat::test_that(msg, do.call(fct, list(conn)))
         else
