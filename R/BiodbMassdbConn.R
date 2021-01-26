@@ -168,7 +168,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
     return(entry.ids)
 },
 
-searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
+searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
                          mz.tol=NA_real_, mz.tol.unit='plain', 
                          rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
                          rt.tol.exp=NA_real_, chrom.col.ids=NULL,
@@ -277,6 +277,29 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
     return(ids)
 },
 
+searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
+                         mz.tol=NA_real_, mz.tol.unit='plain', 
+                         rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
+                         rt.tol.exp=NA_real_, chrom.col.ids=NULL,
+                         precursor=FALSE,
+                         min.rel.int=NA_real_, ms.mode=NA_character_,
+                         max.results=NA_integer_, ms.level=0) { # DEPRECATED
+    ":\n\nThis method is deprecated.
+    \nUse searchForMassSpectra() instead.
+    "
+    .self$.deprecatedMethod("searchForMassSpectra()")
+    return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
+                                      mz.shift=mz.shift, mz.tol=mz.tol,
+                                      mz.tol.unit=mz.tol.unit, rt=rt,
+                                      rt.unit=rt.unit,  rt.tol= rt.tol,
+                                      rt.tol.exp=rt.tol.exp,
+                                      chrom.col.ids=chrom.col.ids,
+                                      precursor=precursor,
+                                      min.rel.int=min.rel.int, ms.mode=ms.mode,
+                                      ms.level=ms.level,
+                                      max.results=max.results))
+},
+
 searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     mz.tol.unit='plain', min.rel.int=NA_real_, ms.mode=NA_character_,
     ms.level=0, max.results=NA_integer_, chrom.col.ids=NULL, rt=NULL,
@@ -351,7 +374,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     # Step 1 matching of entries with matched precursor
     precursor.match.ids <- NULL
     if (precursor) {
-        precursor.match.ids <- .self$searchMsEntries(mz.min=NULL, mz.max=NULL,
+        precursor.match.ids <- .self$searchForMassSpectra(mz.min=NULL, mz.max=NULL,
             mz=input.df[[input.df.colnames[['mz']]]], mz.shift=mz.shift,
             mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
             rt=input.df[[input.df.colnames[['rt']]]], rt.unit=rt.unit,
@@ -379,7 +402,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
         # Search for spectra
         .self$debug('Searching for spectra that contains M/Z value in range [',
                     mz.range$min, ', ', mz.range$max, '].')
-        ids <- .self$searchMsEntries(mz.min=mz.range$min, mz.max=mz.range$max,
+        ids <- .self$searchForMassSpectra(mz.min=mz.range$min, mz.max=mz.range$max,
             min.rel.int=min.rel.int, ms.mode=ms.mode,
             max.results=if (check.param$use.rt.match) NA_integer_
             else max.results, ms.level=ms.level)
@@ -518,9 +541,9 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
         if ( ! is.na(max.results))
             .self$caution('Applying max.results =', max.results,'on call to',
-                ' searchMsEntries(). This may results in no matches, while there',
+                ' searchForMassSpectra(). This may results in no matches, while there',
                 ' exist matching spectra inside the database.')
-        ids <- .self$searchMsEntries(mz=precursor.mz, mz.tol=mz.tol,
+        ids <- .self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
             mz.tol.unit=mz.tol.unit, ms.mode=ms.mode, precursor=TRUE,
             ms.level=2, max.results=max.results)
     }
@@ -576,9 +599,9 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
                        precursor=FALSE, ms.level=0) {
     "Find spectra in the given M/Z range. Returns a list of spectra IDs."
 
-    .self$.deprecatedMethod('BiodbMassdbConn::searchMsEntries()')
+    .self$.deprecatedMethod('BiodbMassdbConn::searchForMassSpectra()')
 
-    return(.self$searchMsEntries(mz.min=mz.min, mz.max=mz.max,
+    return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
@@ -589,9 +612,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     "Find spectra containg a peak around the given M/Z value. Returns a
     character vector of spectra IDs."
 
-    .self$.deprecatedMethod('BiodbMassdbConn::searchMsEntries()')
+    .self$.deprecatedMethod('BiodbMassdbConn::searchForMassSpectra()')
     
-    return(.self$searchMsEntries(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+    return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
@@ -617,7 +640,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     range <- .self$.convertMzTolToRange(mz=mz, mz.shift=0.0, mz.tol=mz.tol,
                                         mz.tol.unit=mz.tol.unit)
 
-    return(.self$searchMsEntries(mz.min=range$min, mz.max=range$max,
+    return(.self$searchForMassSpectra(mz.min=range$min, mz.max=range$max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },

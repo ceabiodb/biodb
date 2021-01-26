@@ -1,7 +1,7 @@
-test.entry.fields <- function(db) {
+test.entry.fields <- function(conn) {
 
-    biodb <- db$getBiodb()
-    db.name <- db$getId()
+    biodb <- conn$getBiodb()
+    db.name <- conn$getId()
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
     # Get IDs of reference entries
@@ -84,20 +84,20 @@ test.entry.fields <- function(db) {
         biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
 }
 
-test.wrong.entry <- function(db) {
+test.wrong.entry <- function(conn) {
 
-    biodb <- db$getBiodb()
-    db.name <- db$getId()
+    biodb <- conn$getBiodb()
+    db.name <- conn$getId()
 
     # Test a wrong accession number
     wrong.entry <- biodb$getFactory()$getEntry(db.name, id = 'WRONGA')
     testthat::expect_null(wrong.entry)
 }
 
-test.wrong.entry.among.good.ones <- function(db) {
+test.wrong.entry.among.good.ones <- function(conn) {
 
-   biodb <- db$getBiodb()
-   db.name <- db$getId()
+   biodb <- conn$getBiodb()
+   db.name <- conn$getId()
 
    # Load reference entries
    entries.desc <- loadTestRefEntries(db.name)
@@ -110,10 +110,10 @@ test.wrong.entry.among.good.ones <- function(db) {
    testthat::expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
 }
 
-test.peak.table <- function(db) {
+test.peak.table <- function(conn) {
 
-    biodb <- db$getBiodb()
-    db.name <- db$getId()
+    biodb <- conn$getBiodb()
+    db.name <- conn$getId()
 
     # Load reference entries
     entries.desc <- loadTestRefEntries(db.name)
@@ -139,29 +139,29 @@ test.peak.table <- function(db) {
     }
 }
 
-test.nb.entries <- function(db) {
+test.nb.entries <- function(conn) {
 
     # Test getNbEntries()
-    n <- db$getNbEntries()
+    n <- conn$getNbEntries()
     testthat::expect_true(is.na(n) || n >= 0)
 }
 
-test.entry.ids <- function(db) {
+test.entry.ids <- function(conn) {
 
     # Test getEntryIds()
     max <- 100
-    ids <- db$getEntryIds(max.results = max)
+    ids <- conn$getEntryIds(max.results = max)
     testthat::expect_is(ids, 'character')
     testthat::expect_true(length(ids) <= max)
 }
 
-test.rt.unit <- function(db) {
+test.rt.unit <- function(conn) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db$getId())
+    ref.ids <- listTestRefEntries(conn$getId())
 
     # Get entries
-    entries <- db$getBiodb()$getFactory()$getEntry(db$getId(), id = ref.ids, drop = FALSE)
+    entries <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), id = ref.ids, drop = FALSE)
 
     # Loop on all entries
     for (e in entries)
@@ -387,14 +387,67 @@ test.db.copy = function(conn) {
     biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.searchByName = function(conn) {
+test.searchForEntries = function(conn, opt=NULL) {
+    
+    if ( ! is.null(opt))
+        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
+            } else NA_integer_
+
+    ef <- conn$getBiodb()$getEntryFields()
+    fields <- conn$getPropertyValue('searchable.fields')
+    testthat::expect_is(fields, 'character')
+
+    for (f in fields) {
+        
+        # Test character field
+        if (ef$get(f)$getClass() == 'character') {
+            
+            # Get an entry
+            id <- listTestRefEntries(conn$getId())[[1]]
+            testthat::expect_true( ! is.null(id))
+            testthat::expect_length(id, 1)
+            entry <- conn$getEntry(id, drop=TRUE)
+            testthat::expect_true( ! is.null(entry))
+
+            # Search by field's value
+            v <- entry$getFieldValue(f)
+            if ( ! is.null(v)) {
+                testthat::expect_is(v, 'character')
+                testthat::expect_gt(length(v), 0)
+                v <- v[[1]]
+                testthat::expect_true( ! is.na(v))
+            }
+            x <- list()
+            x[[f]] <- v
+            ids <- conn$searchForEntries(fields=x, max.results=max.results)
+            
+            # Test result
+            if (is.null(v) || v == '')
+                testthat::expect_null(ids)
+            else {
+                msg <- paste0('While searching for entry ', id, ' by value ("', v,
+                              '") of field "', f, '".')
+                testthat::expect_true( ! is.null(ids), msg)
+                testthat::expect_true(length(ids) > 0, msg)
+                testthat::expect_true(id %in% ids, msg)
+            }
+        }
+    }
+}
+
+test.searchByName = function(conn, opt=NULL) {
+    
+    if ( ! is.null(opt))
+        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
+            } else NA_integer_
 
     if (conn$isSearchableByField('name')) {
+
         # Get an entry
         id <- listTestRefEntries(conn$getId())[[1]]
         testthat::expect_true( ! is.null(id))
         testthat::expect_length(id, 1)
-        entry <- conn$getEntry(id, drop = TRUE)
+        entry <- conn$getEntry(id, drop=TRUE)
         testthat::expect_true( ! is.null(entry))
 
         # Search by name
@@ -403,7 +456,7 @@ test.searchByName = function(conn) {
         testthat::expect_gt(length(name), 0)
         name <- name[[1]]
         testthat::expect_true( ! is.na(name))
-        ids <- conn$searchByName(name = name)
+        ids <- conn$searchByName(name=name, max.results=max.results)
 
         # Test
         msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
@@ -412,11 +465,15 @@ test.searchByName = function(conn) {
         testthat::expect_true(id %in% ids, msg)
     }
     else {
-        testthat::expect_null(conn$searchByName(name = ''))
+        testthat::expect_null(conn$searchByName(name=''))
     }
 }
 
-test.searchCompound <- function(db) {
+test.searchCompound <- function(db, opt=NULL) {
+    
+    if ( ! is.null(opt))
+        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
+            } else NA_integer_
 
 	# Get an entry
 	id <- biodb::listTestRefEntries(db$getId())[[1]]
@@ -431,7 +488,7 @@ test.searchCompound <- function(db) {
 	testthat::expect_gt(length(name), 0)
 	name <- name[[1]]
 	testthat::expect_true( ! is.na(name))
-	ids <- db$searchCompound(name=name)
+	ids <- db$searchCompound(name=name, max.results=max.results)
 	if (db$isSearchableByField('name')) {
 		msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
 		testthat::expect_true( ! is.null(ids), msg)
@@ -472,28 +529,28 @@ test.searchCompound <- function(db) {
 			}
 			testthat::expect_true(id %in% ids, msg)
 			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
-		}
 
-		# Search by mass and name
-		if (db$isSearchableByField('name')) {
+		    # Search by mass and name
+		    if (db$isSearchableByField('name')) {
 
-			# Search by mass and name
-			ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			testthat::expect_true( ! is.null(ids), msg)
-			testthat::expect_true(length(ids) > 0, msg)
-			testthat::expect_true(id %in% ids, msg)
-			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+			    # Search by mass and name
+			    ids <- db$searchCompound(name=name, mass=mass, mass.tol=mass.tol, mass.field=field, max.results=max.results)
+			    msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			    testthat::expect_true( ! is.null(ids), msg)
+			    testthat::expect_true(length(ids) > 0, msg)
+			    testthat::expect_true(id %in% ids, msg)
+			    testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
 
-			# Search by name and slightly different mass
-			mass <- mass + mass.tol
-			mass.tol <- 2 * mass.tol
-			ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
-			msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
-			testthat::expect_true( ! is.null(ids), msg)
-			testthat::expect_true(length(ids) > 0, msg)
-			testthat::expect_true(id %in% ids, msg)
-			testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+			    # Search by name and slightly different mass
+			    mass <- mass + mass.tol
+			    mass.tol <- 2 * mass.tol
+			    ids <- db$searchCompound(name=name, mass=mass, mass.field=field, mass.tol=mass.tol, max.results=max.results)
+			    msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, ' and by name ', name, '.')
+			    testthat::expect_true( ! is.null(ids), msg)
+			    testthat::expect_true(length(ids) > 0, msg)
+			    testthat::expect_true(id %in% ids, msg)
+			    testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+		    }
 		}
 	}
 }
@@ -1146,7 +1203,7 @@ test.convertMzTolToRange <- function(db) {
 #' biodb$terminate()
 #'
 #' @export
-runGenericTests <- function(conn) {
+runGenericTests <- function(conn, opt=NULL) {
 
     # Check connector class
     testthat::expect_is(conn, 'BiodbConn')
@@ -1162,7 +1219,8 @@ runGenericTests <- function(conn) {
     biodb::testThat("RT unit is defined when there is an RT value.", test.rt.unit, conn=conn)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids, conn=conn)
-    biodb::testThat("We can search for an entry by name.", test.searchByName, conn=conn)
+    biodb::testThat("We can search for an entry by name.", test.searchByName, conn=conn, opt=opt)
+    biodb::testThat("We can search for an entry by searchable field", test.searchForEntries, conn=conn, opt=opt)
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.", test.entry.page.url, conn=conn)
         biodb::testThat("We can get a URL pointing to the entry image.", test.entry.image.url, conn=conn)
@@ -1181,7 +1239,7 @@ runGenericTests <- function(conn) {
 
     if (conn$isCompounddb()) {
         biodb::testThat('searchCompound() fails if no mass field is set.', test.searchCompound.no.mass.field, conn=conn)
-        biodb::testThat('We can search for a compound', test.searchCompound, conn=conn)
+        biodb::testThat('We can search for a compound', test.searchCompound, conn=conn, opt=opt)
         biodb::testThat('annotateMzValues() works correctly.', test.annotateMzValues, conn=conn)
         biodb::testThat('annotateMzValues() works correctly with real values.', test.annotateMzValues_real_values, conn=conn)
         biodb::testThat('We can use a single vector as input for annotateMzValues()', test_annotateMzValues_input_vector, conn=conn)

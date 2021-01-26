@@ -41,7 +41,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
 },
 
 progress=function(type='info', msg, index, first, total=NA_character_,
-                    lvl=1L, laptime=10L) {
+                    lvl=1L, laptime=10L, found=NULL) {
     # Overrides super class' method.
 
     .self$checkMessageType(type)
@@ -301,7 +301,7 @@ testContext <- function(text, biodb=NULL) {
 #' # Terminate the instance
 #' biodb$terminate()
 #' @export
-testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
+testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
 
     # Get biodb instance
     if ( ! is.null(biodb) && ! methods::is(biodb, 'Biodb'))
@@ -335,16 +335,24 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL) {
         }
 
         # Call test function
-        if ( ! is.null(biodb) && ! is.null(obs))
-            testthat::test_that(msg, do.call(fct, list(biodb = biodb, obs = obs)))
-        else if ( ! is.null(biodb))
-            testthat::test_that(msg, do.call(fct, list(biodb)))
-        else if ( ! is.null(conn) && ! is.null(obs))
-            testthat::test_that(msg, do.call(fct, list(conn = conn, obs = obs)))
-        else if ( ! is.null(conn))
-            testthat::test_that(msg, do.call(fct, list(conn)))
-        else
-            testthat::test_that(msg, do.call(fct, list()))
+        params <- list()
+        fctArgs <- formalArgs(fct)
+        if ( ! is.null(fctArgs))
+            for (p in fctArgs)
+                params[[p]] <- if (p == 'db') conn else get(p)
+        testthat::test_that(msg, do.call(fct, params))
+#        if ( ! is.null(biodb) && ! is.null(obs))
+#            testthat::test_that(msg, do.call(fct, list(biodb=biodb, obs=obs)))
+#        else if ( ! is.null(biodb))
+#            testthat::test_that(msg, do.call(fct, list(biodb)))
+#        else if ( ! is.null(conn) && ! is.null(obs))
+#            testthat::test_that(msg, do.call(fct, list(conn=conn, obs=obs)))
+#        else if ( ! is.null(conn) && ! is.null(opt))
+#            testthat::test_that(msg, do.call(fct, list(conn)))
+#        else if ( ! is.null(conn))
+#            testthat::test_that(msg, do.call(fct, list(conn)))
+#        else
+#            testthat::test_that(msg, do.call(fct, list()))
     }
 
     invisible(NULL)

@@ -35,12 +35,16 @@ initialize=function(...) {
     .self$.abstractClass('BiodbCompounddbConn')
 },
 
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
                         mass.tol=0.01, mass.tol.unit='plain',
                         max.results=NA_integer_) {
-    ":\n\nSearches for compounds by name and/or by mass. At least one of name or mass
-    must be set.
+    ":\n\nThis method is deprecated. Use searchForEntries() instead.
+    \n Searches for compounds by name and/or by mass. At least one of name or
+    mass must be set.
     \nname: The name of a compound to search for.
+    \ndescription: A character vector of words or expressions to search for
+    inside description field. The words will be searched in order. A match will
+    be made only if all words are inside the description field.
     \nmass: The searched mass.
     \nmass.field: For searching by mass, you must indicate a mass field to use
     ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
@@ -53,8 +57,12 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL,
 
     ids <- NULL
 
-    .self$caution('Database ', .self$getDbClass(),
-                  ' is not searchable by mass or name.')
+    # Try searchForEntries
+    if ( ! is.null(name) && is.null(mass))
+        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+    else 
+        .self$caution('Database ', .self$getDbClass(),
+                      ' is not searchable by mass or name.')
 
     return(ids)
 },

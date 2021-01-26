@@ -1,6 +1,7 @@
 {
 	"accession": "1018",
 	"name": "2-Aminoethylarsonate",
+	"description": "",
 	"formula": "C2H8AsNO3",
 	"smiles": "NCC[As](O)(O)=O",
 	"monoisotopic.mass": 168.97201,

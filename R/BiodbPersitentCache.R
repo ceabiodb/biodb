@@ -94,25 +94,40 @@ getDir=function() {
     return(cachedir)
 },
 
-isReadable=function() {
+isReadable=function(conn=NULL) {
     ":\n\nChecks if the cache system is readable.
+    \nconn: If not \\code{NULL}, checks if the cache system is readable for
+    this particular connector.
     \nReturned value: \\code{TRUE} if the cache system is readable,
     \\code{FALSE} otherwise.
     "
 
     cfg <- .self$getBiodb()$getConfig()
-    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir()))
+    
+    enabled <- cfg$isEnabled('cache.system')
+    enabled <- enabled && ! is.na(.self$getDir())
+    if ( ! is.null(conn) && ! conn$isRemotedb())
+        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+    
+    return(enabled)
 },
 
-isWritable=function() {
+isWritable=function(conn=NULL) {
     ":\n\nChecks if the cache system is writable.
+    \nconn: If not \\code{NULL}, checks if the cache system is writable for
+    this particular connector.
     \nReturned value: \\code{TRUE} if the cache system is writable,
     \\code{FALSE} otherwise.
     "
 
     cfg <- .self$getBiodb()$getConfig()
-    return(cfg$isEnabled('cache.system') && ! is.na(.self$getDir())
-           && ! cfg$get('cache.read.only'))
+    enabled <- cfg$isEnabled('cache.system')
+    enabled <- enabled && ! is.na(.self$getDir())
+    enabled <- enabled && ! cfg$get('cache.read.only')
+    if ( ! is.null(conn) && ! conn$isRemotedb())
+        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+    
+    return(enabled)
 },
 
 fileExist=function(cache.id, name, ext) {
@@ -424,26 +439,28 @@ deleteFiles=function(cache.id, ext) {
     invisible(NULL)
 },
 
-listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE) {
+listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
+                   full.path=FALSE) {
     ":\n\nLists files present in the cache system.
     \ncache.id: The cache ID to use.
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
     \nextract.name: If set to \\code{TRUE}, instead of returning the file paths,
     returns the list of names used to construct the file name:
     [cache_folder]/[cache.id]/[name].[ext].
+    \nfull.path: If set to \\code{TRUE}, returns full path for files.
     \nReturned value: The files of found files, or the names of the files if
     \\code{extract.name} is set to \\code{TRUE}.
     "
 
     # Pattern
-    pattern <- paste('^', cache.id, '-.*', sep='')
+    pattern <- paste('^.*', sep='')
     if ( ! is.na(ext))
         pattern <- paste(pattern, ext, sep='\\.')
     pattern <- paste(pattern, '$', sep='')
 
     # List files
-    path <- file.path(.self$getDir(), cache.id)
-    .self$debug("List files in", path, "using pattern ", pattern)
+    path <- .self$getFolderPath(cache.id=cache.id)
+    .self$debug("List files in ", path, " using pattern ", pattern)
     files <- list.files(path=path, pattern=pattern)
 
     # Extract only the name part
@@ -452,7 +469,14 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE) {
         if ( ! is.na(ext))
             pattern <- paste(pattern, ext, sep='\\.')
         pattern <- paste(pattern, '$', sep='')
+        .self$debug("Extracting accession number from file names in ", path, "
+                    using pattern ", pattern)
+        .self$debug("files = ", paste(head(files), collapse=", "))
         files <- sub(pattern, '\\1', files, perl=TRUE)
+        
+    # Set full path
+    } else if (full.path) {
+        files <- file.path(path, files)
     }
 
     return(files)

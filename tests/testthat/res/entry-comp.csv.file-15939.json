@@ -1,0 +1,11 @@
+{
+	"accession": "15939",
+	"name": "glycyrrhizinic acid",
+	"description": "A  triterpenoid saponin that is the  glucosiduronide derivative of 3beta-hydroxy-11-oxoolean-12-en-30-oic acid.",
+	"formula": "C42H62O16",
+	"smiles": "[H][C@@]12C[C@](C)(CC[C@]1(C)CC[C@]1(C)C2=CC(=O)[C@]2([H])[C@@]3(C)CC[C@H](O[C@H]4O[C@@H]([C@@H](O)[C@H](O)[C@H]4O[C@@H]4O[C@@H]([C@@H](O)[C@H](O)[C@H]4O)C(O)=O)C(O)=O)C(C)(C)[C@]3([H])CC[C@@]12C)C(O)=O",
+	"monoisotopic.mass": 822.4038,
+	"molecular.mass": 822.9321,
+	"kegg.compound.id": "C02284"
+}
+

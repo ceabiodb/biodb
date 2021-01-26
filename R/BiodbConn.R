@@ -149,7 +149,7 @@ getEntryContent=function(id) {
             .self$download()
 
         # Initialize content
-        if (cch$isReadable() && ! is.null(.self$getCacheId())) {
+        if (cch$isReadable(.self) && ! is.null(.self$getCacheId())) {
             # Load content from cache
             content <- cch$loadFileContent(.self$getCacheId(),
                                           name=id,
@@ -168,7 +168,7 @@ getEntryContent=function(id) {
         # Debug
         if (any(is.na(id)))
             .self$debug(sum(is.na(id)), " ", nm, " entry ids are NA.")
-        if (cch$isReadable()) {
+        if (cch$isReadable(.self)) {
             nld <- sum( ! is.na(id)) - length(missing.ids)
             .self$debug(nld, " ", nm, " entry content(s) loaded from cache.")
             if (n.duplicates > 0)
@@ -201,7 +201,7 @@ getEntryContent=function(id) {
 
                 # Save to cache
                 if ( ! is.null(ec)
-                    && ! is.null(.self$getCacheId()) && cch$isWritable())
+                    && ! is.null(.self$getCacheId()) && cch$isWritable(.self))
                     cch$saveContentToFile(ec,
                                           cache.id=.self$getCacheId(),
                                           name=ch.missing.ids,
@@ -211,7 +211,7 @@ getEntryContent=function(id) {
                 missing.contents <- c(missing.contents, ec)
 
                 # Debug
-                if (cch$isReadable()) {
+                if (cch$isReadable(.self)) {
                     n <- length(missing.ids) - length(missing.contents)
                     .self$debug("Now ", n," id(s) left to be retrieved...")
                 }
@@ -336,23 +336,73 @@ isSearchableByField=function(field) {
     return(v)
 },
 
-searchByName=function(name, max.results=NA_integer_) {
+searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
-    \nname: The name to look for.
+    \nfields: A list of fields on which to matching. To get a match, all fields
+    must be matched (i.e.: logical AND). The keys of the list are the entry
+    field names. For character type fields, values are vectors of either a
+    single string or multiple strings (logical AND, all strings must be found
+    inside the field's value), depending of the implementation.
     \nmax.results: If set, the number of returned IDs is limited to this
     number.
     \nReturned value: A character vector of entry IDs whose name matches the
     requested name.
     "
 
-    if (.self$isCompounddb())
-        return(.self$searchCompound(name=name, max.results=max.results))
-    else if (.self$isSearchableByField('name'))
-        .self$error('This database is declared to be searchable by name, but',
-                    ' no implementation has been defined.')
+    ids <- NULL
+    
+    if (is.null(fields) || length(fields) == 0)
+        return(ids)
 
+    # Check if field can be used for searching
+    for (f in names(fields)) {
+        
+        # Remove field if NULL or empty string
+        if (is.null(fields[[f]]) || fields[[f]] == '')
+            fields[[f]] <- NULL
+    
+        # Error if field is not searchable
+        else if ( ! .self$isSearchableByField(f))
+            .self$error('This database is not searchable by field "', f, '"')
+    }
+        
+    # Call concrete method
+    ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
+    
+    # Try deprecated method searchCompound()
+    if (is.null(ids) && .self$isCompounddb() && 'name' %in% names(fields))
+        ids <- .self$searchCompound(name=fields$name, max.results=max.results)
+
+    # No implementation
+    if (is.null(ids)) {
+        # No search implementation for this field
+        if (length(fields) > 0)
+            .self$error('This database has been declared to be ',
+                        'searchable by field "', names(fields)[[1]],
+                        '", but no implementation has been defined.')
+    }
+
+    return(ids)
+},
+
+.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+    # To be implemented by derived class.
     return(NULL)
+},
+
+searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
+    ":\n\nThis method is deprecated.
+    \nUse searchForEntries() instead.
+    "
+    
+    .self$.deprecatedMethod("searchForEntries()")
+    
+    fields <- list()
+    fields[['name']] <- name
+    ids <- .self$searchForEntries(fields=fields, max.results=max.results)
+
+    return(ids)
 },
 
 isDownloadable=function() {

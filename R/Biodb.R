@@ -712,10 +712,10 @@ disableDebug=function() {
         .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
 },
 
-.sendProgress=function(msg, index, total, first) {
+.sendProgress=function(msg, index, total, first, found=NULL) {
     lapply(.self$getObservers(),
            function(x) x$progress(type='info', msg=msg, index=index,
-                                  total=total, first=first))
+                                  total=total, first=first, found=found))
 },
 
 .checkLocale=function() {

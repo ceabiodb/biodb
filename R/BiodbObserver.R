@@ -136,7 +136,7 @@ msg=function(type='info', msg, class=NA_character_,
 },
 
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
-                  laptime=10L) {
+                  laptime=10L, found=NULL) {
     ":\n\nSends a progress message to this observer.
     \ntype: The message type. It must be one of: 'info', 'debug',
     'caution', 'warning', 'error'.
@@ -146,6 +146,7 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
     number. Optional.
     \nlvl: The level of the message.
     \nlaptime: The time between two progress messages, in seconds.
+    \nfound: The number of good items found.
     \nReturned value: None.
     "
 
@@ -164,6 +165,8 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
             eta <- t + (total - index) * (t - i) / index
             msg <- paste0(msg, ' (', ((100 * index) %/% total), '%, ETA: ',
                           eta, ')')
+            if ( ! is.null(found))
+                msg <- paste0(msg, ', found ', found, ' item(s)')
         }
         msg <- paste0(msg, '.')
         .self$msg(type, msg, lvl=lvl)

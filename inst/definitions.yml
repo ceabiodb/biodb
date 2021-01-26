@@ -40,6 +40,12 @@ config:
     description: Cache system is ON.
     default: TRUE
 
+  use.cache.for.local.db:
+    type: logical
+    description: |-
+      "If set to TRUE, then the cache system will also be used for connectors to local databases (i.e.: non-remote databases)."
+    default: FALSE
+
   dwnld.chunk.size:
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
