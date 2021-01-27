@@ -422,26 +422,37 @@ deleteFile=function(cache.id, name, ext) {
     invisible(NULL)
 },
 
-deleteAllFiles=function(cache.id, fail=FALSE) {
+deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
     ":\n\nDeletes, in the cache system, all files associated with this cache ID.
     \ncache.id: The cache ID to use.
+    \nprefix: If set to TRUE, use cache.id as a prefix, deleting all files
+    whose cache.id starts with this prefix.
     \nfail: If set to TRUE, a warning will be emitted if no cache files exist
     for this cache ID.
     \nReturned value: None.
     "
 
-    path <- file.path(.self$getDir(), cache.id)
+    paths <- character()
+
+    # Set paths
+    if (prefix) {
+        paths <- Sys.glob(file.path(.self$getDir(), paste0(cache.id, '*')))
+    }
+    else {
+        path <- file.path(.self$getDir(), cache.id)
+        if ( ! file.exists(path)) {
+            msg <- paste0('No cache files exist for ', cache.id, '.')
+            type <- if (fail) 'warning' else 'info'
+            .self$message(type=type, msg=msg)
+        }
+        else
+            paths <- path
+    }
 
     # Erase cache files
-    if (file.exists(path)) {
+    for (path in paths) {
         .self$info('Erasing all files in "', path, '".')
         unlink(path, recursive=TRUE)
-        
-    # No cache files
-    } else {
-        msg <- paste0('No cache files exist for ', cache.id, '.')
-        type <- if (fail) 'warning' else 'info'
-        .self$message(type=type, msg=msg)
     }
 
     invisible(NULL)

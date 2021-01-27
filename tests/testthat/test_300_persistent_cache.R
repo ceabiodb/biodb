@@ -68,6 +68,25 @@ test_usedCacheIds <- function(conn) {
     testthat::expect_false(conn$getCacheId() %in% cache$getUsedCacheIds())
 }
 
+test_deleteAllFiles <- function(conn) {
+    
+    conn$deleteAllEntriesFromVolatileCache()
+    cache <- biodb$getPersistentCache()
+    ids <- conn$getEntryIds(3)
+    entries <- conn$getEntry(ids)
+    testthat::expect_true(cache$filesExist(conn$getCacheId()))
+    cache$deleteAllFiles(conn$getCacheId())
+    testthat::expect_false(cache$filesExist(conn$getCacheId()))
+    
+    conn$deleteAllEntriesFromVolatileCache()
+    entries <- conn$getEntry(ids)
+    testthat::expect_true(cache$filesExist(conn$getCacheId()))
+    cache$deleteAllFiles(conn$getId(), prefix=FALSE)
+    testthat::expect_true(cache$filesExist(conn$getCacheId()))
+    cache$deleteAllFiles(conn$getId(), prefix=TRUE)
+    testthat::expect_false(cache$filesExist(conn$getCacheId()))
+}
+
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='persistent_cache_test.log')
 obs <- biodb::addMsgRecObs(biodb)
@@ -92,6 +111,8 @@ biodb::testThat('No cache files exist for unknown cache ID.', test_noFilesExist,
                 biodb=biodb)
 biodb::testThat('We can a list of used cache IDs', test_usedCacheIds,
                 conn=conn)
+biodb::testThat('We can delete all cache files for a connector',
+                test_deleteAllFiles, conn=conn)
 
 # Terminate Biodb
 biodb$terminate()
