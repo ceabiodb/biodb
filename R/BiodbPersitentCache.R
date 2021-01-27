@@ -226,6 +226,20 @@ getFilePath=function(cache.id, name, ext) {
     return(filepaths)
 },
 
+getUsedCacheIds=function() {
+    ":\n\nReturns a list of cache IDs actually used to store cache files.
+    \nReturned value: A character vector containing all the cache IDs actually
+    used inside the cache system.
+    "
+    
+    ids <- character()
+
+    folders <- Sys.glob(file.path(.self$getDir(), '*'))
+    ids <- basename(folders)
+    
+    return(ids)
+},
+
 loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     ":\n\nLoads content of files from the cache.
     \ncache.id: The cache ID to use.

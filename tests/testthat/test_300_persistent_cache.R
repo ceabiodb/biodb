@@ -44,17 +44,28 @@ test_deleteFilesForWrongCacheId <- function(biodb, obs) {
                              perl=TRUE)
 }
 
-test_filesExistForConn=function(conn) {
+test_filesExistForConn <- function(conn) {
     cache <- conn$getBiodb()$getPersistentCache()
     testthat::expect_true(cache$filesExist(conn$getCacheId()))
     cache$deleteAllFiles(conn$getCacheId())
     testthat::expect_false(cache$filesExist(conn$getCacheId()))
 }
 
-test_noFilesExist=function(biodb) {
+test_noFilesExist <- function(biodb) {
     cache <- biodb$getPersistentCache()
     cacheId <- 'foo'
     testthat::expect_false(cache$filesExist(cacheId))
+}
+
+test_usedCacheIds <- function(conn) {
+    
+    conn$deleteAllEntriesFromVolatileCache()
+    cache <- biodb$getPersistentCache()
+    ids <- conn$getEntryIds(3)
+    entries <- conn$getEntry(ids)
+    testthat::expect_true(conn$getCacheId() %in% cache$getUsedCacheIds())
+    cache$deleteAllFiles(conn$getCacheId())
+    testthat::expect_false(conn$getCacheId() %in% cache$getUsedCacheIds())
 }
 
 # Instantiate Biodb
@@ -79,6 +90,8 @@ biodb::testThat('We detect if cache files exist for a connector',
                 test_filesExistForConn, conn=conn)
 biodb::testThat('No cache files exist for unknown cache ID.', test_noFilesExist,
                 biodb=biodb)
+biodb::testThat('We can a list of used cache IDs', test_usedCacheIds,
+                conn=conn)
 
 # Terminate Biodb
 biodb$terminate()
