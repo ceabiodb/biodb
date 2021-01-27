@@ -13,7 +13,7 @@ test_createSQLiteDbFromCsvFile <- function(biodb) {
     testthat::expect_identical(character(), sqlConn$getEntryIds())
 
     # Make sure we have no residual cache entries from previous tests
-    biodb$getPersistentCache()$deleteAllFiles(sqlConn$getCacheId())
+    biodb$getPersistentCache()$deleteAllFiles(sqlConn$getCacheId(), fail=FALSE)
 
     # Check CSV conn
     ids <- csvConn$getEntryIds()

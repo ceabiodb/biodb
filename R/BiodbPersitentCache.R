@@ -130,8 +130,17 @@ isWritable=function(conn=NULL) {
     return(enabled)
 },
 
+filesExist=function(cache.id) {
+    ":\n\nTests if at least one cache file exist for the specified cache ID.
+    \ncache.id: The cache ID to use.
+    \nReturned value: A single boolean value.
+    "
+    
+    return(length(Sys.glob(file.path(.self$getFolderPath(cache.id), '*'))) > 0)
+},
+
 fileExist=function(cache.id, name, ext) {
-    ":\n\nTests if files exist in the cache.
+    ":\n\nTests if a particular file exist in the cache.
     \ncache.id: The cache ID to use.
     \nname: A character vector containing file names.
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
@@ -140,9 +149,7 @@ fileExist=function(cache.id, name, ext) {
     otherwise.
     "
 
-    exists <- file.exists(.self$getFilePath(cache.id, name, ext))
-
-    return(exists)
+    return(file.exists(.self$getFilePath(cache.id, name, ext)))
 },
 
 markerExist=function(cache.id, name) {
@@ -156,9 +163,7 @@ markerExist=function(cache.id, name) {
     otherwise.
     "
 
-    b <- .self$fileExist(cache.id=cache.id, name=name, ext='marker')
-
-    return(b)
+    return(.self$fileExist(cache.id=cache.id, name=name, ext='marker'))
 },
 
 setMarker=function(cache.id, name) {
@@ -219,6 +224,20 @@ getFilePath=function(cache.id, name, ext) {
     filepaths[is.na(name)] <- NA_character_
 
     return(filepaths)
+},
+
+getUsedCacheIds=function() {
+    ":\n\nReturns a list of cache IDs actually used to store cache files.
+    \nReturned value: A character vector containing all the cache IDs actually
+    used inside the cache system.
+    "
+    
+    ids <- character()
+
+    folders <- Sys.glob(file.path(.self$getDir(), '*'))
+    ids <- basename(folders)
+    
+    return(ids)
 },
 
 loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
@@ -403,15 +422,38 @@ deleteFile=function(cache.id, name, ext) {
     invisible(NULL)
 },
 
-deleteAllFiles=function(cache.id) {
+deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
     ":\n\nDeletes, in the cache system, all files associated with this cache ID.
     \ncache.id: The cache ID to use.
+    \nprefix: If set to TRUE, use cache.id as a prefix, deleting all files
+    whose cache.id starts with this prefix.
+    \nfail: If set to TRUE, a warning will be emitted if no cache files exist
+    for this cache ID.
     \nReturned value: None.
     "
 
-    path <- file.path(.self$getDir(), cache.id)
-    .self$info('Erasing all files in "', path, '".')
-    unlink(path, recursive=TRUE)
+    paths <- character()
+
+    # Set paths
+    if (prefix) {
+        paths <- Sys.glob(file.path(.self$getDir(), paste0(cache.id, '*')))
+    }
+    else {
+        path <- file.path(.self$getDir(), cache.id)
+        if ( ! file.exists(path)) {
+            msg <- paste0('No cache files exist for ', cache.id, '.')
+            type <- if (fail) 'warning' else 'info'
+            .self$message(type=type, msg=msg)
+        }
+        else
+            paths <- path
+    }
+
+    # Erase cache files
+    for (path in paths) {
+        .self$info('Erasing all files in "', path, '".')
+        unlink(path, recursive=TRUE)
+    }
 
     invisible(NULL)
 },
