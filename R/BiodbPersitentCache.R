@@ -130,8 +130,17 @@ isWritable=function(conn=NULL) {
     return(enabled)
 },
 
+filesExist=function(cache.id) {
+    ":\n\nTests if at least one cache file exist for the specified cache ID.
+    \ncache.id: The cache ID to use.
+    \nReturned value: A single boolean value.
+    "
+    
+    return(length(Sys.glob(file.path(.self$getFolderPath(cache.id), '*'))) > 0)
+},
+
 fileExist=function(cache.id, name, ext) {
-    ":\n\nTests if files exist in the cache.
+    ":\n\nTests if a particular file exist in the cache.
     \ncache.id: The cache ID to use.
     \nname: A character vector containing file names.
     \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
@@ -140,9 +149,7 @@ fileExist=function(cache.id, name, ext) {
     otherwise.
     "
 
-    exists <- file.exists(.self$getFilePath(cache.id, name, ext))
-
-    return(exists)
+    return(file.exists(.self$getFilePath(cache.id, name, ext)))
 },
 
 markerExist=function(cache.id, name) {
@@ -156,9 +163,7 @@ markerExist=function(cache.id, name) {
     otherwise.
     "
 
-    b <- .self$fileExist(cache.id=cache.id, name=name, ext='marker')
-
-    return(b)
+    return(.self$fileExist(cache.id=cache.id, name=name, ext='marker'))
 },
 
 setMarker=function(cache.id, name) {
