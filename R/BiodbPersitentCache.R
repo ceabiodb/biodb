@@ -403,15 +403,27 @@ deleteFile=function(cache.id, name, ext) {
     invisible(NULL)
 },
 
-deleteAllFiles=function(cache.id) {
+deleteAllFiles=function(cache.id, fail=FALSE) {
     ":\n\nDeletes, in the cache system, all files associated with this cache ID.
     \ncache.id: The cache ID to use.
+    \nfail: If set to TRUE, a warning will be emitted if no cache files exist
+    for this cache ID.
     \nReturned value: None.
     "
 
     path <- file.path(.self$getDir(), cache.id)
-    .self$info('Erasing all files in "', path, '".')
-    unlink(path, recursive=TRUE)
+
+    # Erase cache files
+    if (file.exists(path)) {
+        .self$info('Erasing all files in "', path, '".')
+        unlink(path, recursive=TRUE)
+        
+    # No cache files
+    } else {
+        msg <- paste0('No cache files exist for ', cache.id, '.')
+        type <- if (fail) 'warning' else 'info'
+        .self$message(type=type, msg=msg)
+    }
 
     invisible(NULL)
 },

@@ -11,7 +11,7 @@ test_cacheFiles <- function(conn) {
     cache <- conn$getBiodb()$getPersistentCache()
     
     # Erase all files inside cache folder
-    cache$deleteAllFiles(conn$getCacheId())
+    cache$deleteAllFiles(conn$getCacheId(), fail=FALSE)
     
     # Get extension
     ctype <- conn$getPropertyValue('entry.content.type')
@@ -33,8 +33,20 @@ test_cacheFiles <- function(conn) {
     testthat::expect_equal(ids, idsFromCache)
 }
 
+test_deleteFilesForWrongCacheId <- function(biodb, obs) {
+    
+    cache <- biodb$getPersistentCache()
+    
+    cacheId <- 'foo'
+    msg <- paste0("^.*BiodbPersistentCache::deleteAllFiles.*No cache files exist for ",
+                  cacheId, ".$")
+    testthat::expect_warning(cache$deleteAllFiles(cacheId, fail=TRUE), msg,
+                             perl=TRUE)
+}
+
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='persistent_cache_test.log')
+obs <- biodb::addMsgRecObs(biodb)
 
 # Set context
 biodb::setTestContext(biodb, "Test persistent cache.")
@@ -47,6 +59,9 @@ conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 
 # Run tests
 biodb::testThat('We can list cache files.', test_cacheFiles, conn=conn)
+biodb::testThat(paste('We got a warning if we try to delete files for a',
+                      'cache.id that has no associated folder.'),
+                test_deleteFilesForWrongCacheId, biodb=biodb, obs=obs)
 
 # Terminate Biodb
 biodb$terminate()
