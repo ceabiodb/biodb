@@ -27,6 +27,7 @@ The package is currently in submission to Bioconductor.
 
 In the meantime you can install the latest stable version with:
 ```r
+install.packages('devtools')
 devtools::install_github('pkrog/biodb', dependencies=TRUE)
 ```
 
@@ -39,7 +40,7 @@ Alongside *biodb* you can install the following R extension packages that use  *
 
 Installation of one of those extension packages can be done with the following command (replace 'biodbKegg' with the name of the wanted package):
 ```r
-devtools::install_github('pkrog/biodbKegg', dependencies=TRUE, build_vignettes=FALSE)
+devtools::install_github('pkrog/biodbKegg', dependencies=TRUE)
 ```
 
 ### Installation with Bioconda
