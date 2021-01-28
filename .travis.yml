@@ -9,6 +9,7 @@ notifications:
     email:
         recipients:
             - pierrick.roger@cea.fr
+
 branches:
   only:
     - master
