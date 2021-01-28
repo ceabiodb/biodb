@@ -80,6 +80,7 @@ getDir=function() {
                               'location since it has no utility anymore.')
             else {
                 # Move folder to new location
+                dir.create(dirname(cachedir), recursive=TRUE)
                 file.rename(old_cachedir, cachedir)
                 .self$info('Cache folder location has been moved from "',
                            old_cachedir, '" to "', cachedir, '".')
@@ -89,7 +90,7 @@ getDir=function() {
 
     # Create cache dir if needed
     if ( ! is.na(cachedir) && ! file.exists(cachedir))
-        dir.create(cachedir)
+        dir.create(cachedir, recursive=TRUE)
 
     return(cachedir)
 },
