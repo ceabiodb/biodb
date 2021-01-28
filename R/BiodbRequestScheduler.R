@@ -163,6 +163,8 @@ downloadFile=function(url, dest.file) {
     # Download
     .self$info2('Downloading file "', url, '".')
     infoLvl <- .self$getBiodb()$getConfig()$get('msg.info.lvl')
+    options(HTTPUserAgent=.self$getBiodb()$getConfig()$get('useragent'),
+            timeout=600)
     utils::download.file(url=url, destfile=dest.file, mode='wb',
                          method='libcurl', cacheOK=FALSE, quiet=infoLvl==0)
 },

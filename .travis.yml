@@ -10,6 +10,10 @@ notifications:
         recipients:
             - pierrick.roger@cea.fr
 
+branches:
+  only:
+    - master
+    
 before_install:
     - sudo apt install libgit2-dev
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
