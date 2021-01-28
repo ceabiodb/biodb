@@ -50,6 +50,11 @@ config:
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 
+  dwnld.timeout:
+    type: integer
+    description: The timeout used when downloading big files, in seconds.
+    default: 3600
+      
   compute.fields:
     type: logical
     description: If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.
