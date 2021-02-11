@@ -13,17 +13,21 @@ typedef struct idxStruct {
    int to;
 } tIdxStruct;
 
-/* Lower bound {{{1 */
+/* Upper bound {{{1 */
 /* NOT USED IN R CODE */
 /*
- * Binary search inside a sorted array of the lower bound of a value.
+ * Find the upper bound of a value inside an array sorted in ascending order.
  * 
- * val: M/Z value for which we want to find the lower bound inside the array
- * mzval: sorted (ASC or DESC?) array of M/Z values
- * first: index of the first value in the array
- * length: length of the array
+ * val:     M/Z value for which we want to find the lower bound inside the array.
+ * mzval:   Sorted array of M/Z values.
+ * first:   Index of the first value in the array.
+ * length:  Number of values in which to search.
+ * Returns: The index of the upper bound, or the value of length if no bound
+ *          was found.
  */
-int lowerBound(double val, double *mzval, int first, int length) {
+// TODO XXX Replace by STL lower_bound once in Rcpp
+// See https://www.studytonight.com/cpp/stl/stl-searching-lower-upper-bound
+int ub_asc(double val, double *mzval, int first, int length) {
 
     int half, mid;
 
@@ -43,34 +47,53 @@ int lowerBound(double val, double *mzval, int first, int length) {
     return(first);
 }
 
-/* Upper bound {{{1 */
+/* Lower bound {{{1 */
 /* NOT USED IN R CODE */
 /*
- * Binary search inside a sorted array of the upper bound of a value.
+ * Find the lower bound of a value inside an array sorted in ascending order.
  * 
- * val: M/Z value for which we want to find the upper bound inside the array
- * mzval: sorted (ASC or DESC?) array of M/Z values
- * first: index of the first value in the array
- * length: length of the array
+ * val:     M/Z value for which we want to find the lower bound inside the array.
+ * mzval:   Sorted array of M/Z values.
+ * first:   Index of the first value in the array.
+ * length:  Number of values in which to search.
+ * Returns: The index of the lower bound, or .
  */
-int upperBound(double val, double *mzval, int first, int length) {
-    
+int lb_asc(double val, double *mzval, int first, int length) {
+
     int half, mid;
     
-    while (length > 0) {
-        half = length >> 1;
-        mid = first;
-        mid += half;
-        if (val < mzval[mid])
-            length = half;
-        else {
-            first = mid;
-            first ++;
-            length -= half + 1;
-        }
-    }
+    if (val < mzval[first])
+	    first += length;
+	else
+    	while (length > 0) {
+	    	if (length == 1) {
+		    	if (val >= mzval[first])
+			    	break;
+		    	first += length;
+		    	break;
+			}
+	    	if (length == 2) {
+		    	if (val >= mzval[first + 1]) {
+			    	++first;
+			    	break;
+				}
+		    	if (val >= mzval[first])
+			    	break;
+		    	first += length;
+		    	break;
+			}
+		    	
+        	half = length >> 1;
+        	mid = first + half;
+        	if (val < mzval[mid])
+            	length = half;
+        	else {
+            	first = mid;
+            	length -= half;
+        	}
+    	}
 
-    return(first);
+    return first;
 }
 
 /* Fill idx struct {{{1 */
@@ -111,7 +134,7 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 
         /* We look for all M/Z values of px that are inside py[yi] +- dtol */
         
-        lb = lowerBound(py[yi] - dtol, px, lastlb, nx-lastlb);
+        lb = ub_asc(py[yi] - dtol, px, lastlb, nx-lastlb);
         if (lb < nx-1)
             lastlb=lb;
 
@@ -121,7 +144,7 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
             ub = nx-1;
         }
         else /* XXX ERROR ??? should be inside "then" of "if (lb < nx-1)" */
-            ub = upperBound(py[yi] + dtol, px, lb, nx-lb);
+            ub = lb_asc(py[yi] + dtol, px, lb, nx-lb);
 
         if (ub > nx-1)
             ub = nx -1;
@@ -173,7 +196,25 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
     tIdxStruct *end = pidxS + nx;
     double *q = px;
     int *i = pxidx;
+    
+    /* debug */
+    printf("NX=%d NY=%d\n", nx, ny);
+    printf("xoLength=%d\n", xoLength);
+    printf("PX = ");
+    for (int j = 0 ; j < nx ; ++j)
+        printf("%f ", px[j]);
+    printf("\n");
+    printf("PY = ");
+    for (int j = 0 ; j < ny ; ++j)
+        printf("%f ", py[j]);
+    printf("\n");
+        
     for (tIdxStruct *p = pidxS ; p < end ; ++p, ++q, ++i) {
+        
+        /* debug */
+        printf("i = %d\n", *i);
+        printf("pidxS->from = %d\n", p->from);
+        printf("pidxS->to = %d\n", p->to);
 
         // no match
         if (p->from == ny +1 && p->to == 0)
@@ -201,6 +242,7 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
         UNPROTECT(1); // residx
     }
 
+    // If there was no match at all, `ans` is NULL.
     UNPROTECT(1); // ans
  
     return(ans);
@@ -209,14 +251,13 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
 /* Close match PPM {{{1 */
 /* USED INSIDE spec-dist.R */
 /*
- * x        sorted M/Z values of input spectrum (no NA)
- * y        sorted M/Z values of reference spectrum (no NA)
- * xidx     Indices of the M/Z peaks of x, taken from the original spectrum 
+ * x        sorted M/Z values (ascending order) of input spectrum (no NA).
+ * y        sorted M/Z values (ascending order) of reference spectrum (no NA).
+ * xidx     indices of the M/Z peaks of x, taken from the original spectrum 
  *          ordered in decreasing intensity values.
- * yidx     Indices of the M/Z peaks of y, taken from the original spectrum 
+ * yidx     indices of the M/Z peaks of y, taken from the original spectrum 
  *          ordered in decreasing intensity values.
-  xolength ???
-  
+ * xolength ???
  * dppm     ???
  * dmz      ???
  * Returns  ???
