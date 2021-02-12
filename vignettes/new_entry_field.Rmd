@@ -317,7 +317,7 @@ inside the `entityStar` element as shown here:
 <entityStar>3</entityStar>
 ```
 You can check that directly inside the XML content of one of the entries, as
-explained earlier.
+explained earlier. <!-- TODO make reference to chapter 1.1 - Rewrite commands ? -->
 
 To get this number of stars we define the new field and its parsing expression
 inside the following YAML file:
@@ -344,7 +344,7 @@ class              | The R class. One of `integer`, `character`, `double`, `logi
 type               | A name of a group for related fields. Existing ones are `name` and `mass`, but you can create your owns.
 card               | The cardinality. Either `one` (single value) or `many` (vector).
 case.insensitive   | If `true` then the value is case insensitive.
-forbids.duplicates | If `true` and the cardinality is `many`, no duplicate values will be accepted.
+forbids.duplicates | If `true` and the cardinality is `many`, no duplicate values will be accepted. <!-- TODO Explain that duplicates are ignored silently ==> on error messages. -->
 lower.case         | If `true`, the value will be put in lower case.
 allowed.values     | If this vector is not empty, then only the values listed in this vector will be allowed for this field.
 : (\#tab:entryDefKeysTable) The different keys used to define a field.
@@ -362,7 +362,7 @@ Recreate the connector and reload the same entries:
 conn <- mybiodb$getFactory()$createConn('chebi.ex')
 entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
 ```
-See table \@ref(tab:entriesChebiEx2WithNstarsTable).
+See table \@ref(tab:entriesChebiEx2WithNstarsTable). <!-- TODO ref not working -->
 Now a column named `n_stars` indicates the number of stars for each entry in the data frame.
 
 ```{r entriesChebiEx2NstarsTable, echo=FALSE, results='asis'}

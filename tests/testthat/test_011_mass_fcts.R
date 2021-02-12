@@ -29,6 +29,25 @@ test_convertTolToRange <- function() {
 	testthat::expect_identical(rng, list(a=NA_real_, b=NA_real_))
 }
 
+test_closeMatchPpm <- function() {
+    testthat::expect_equal(.Call("closeMatchPpm", 0, 0, 1L, 1L, 1L, 0, 0),
+                            list(1))
+    testthat::expect_equal(.Call("closeMatchPpm", 1, 1, 1L, 1L, 1L, 0, 0),
+                            list(1))
+    testthat::expect_equal(.Call("closeMatchPpm", 0, 1, 1L, 1L, 1L, 0, 0),
+                            list(NULL))
+    testthat::expect_equal(.Call("closeMatchPpm", 10, 10, 1L, 1L, 1L, 0, 0),
+                            list(1))
+    testthat::expect_equal(.Call("closeMatchPpm", 5, 5, 1L, 1L, 1L, 0, 0),
+                            list(1))
+    testthat::expect_equal(.Call("closeMatchPpm", c(5, 10), c(5, 10), c(1L, 2L), c(1L, 2L), 2L, 0, 0),
+                            list(1, 2))
+    testthat::expect_equal(.Call("closeMatchPpm", c(5, 10), c(1, 9), c(1L, 2L), c(1L, 2L), 2L, 0, 0),
+                            list(NULL, NULL))
+    testthat::expect_equal(.Call("closeMatchPpm", c(286.1456, 287.1488, 288.1514), c(201.0918, 211.0760, 229.0869, 268.1343, 286.1457, 287.1489, 288.1513), c(1L, 2L, 3L), c(5L, 7L, 3L, 6L, 1L, 2L, 4L), 3L, 3.0, 0.005),
+                            list(1, 2, 4))
+}
+
 # Main
 ################################################################################
 
@@ -37,4 +56,4 @@ biodb::testContext("Testing mass functions")
 
 # Run tests
 biodb::testThat("Conversion from tolerance to range works correctly.", test_convertTolToRange)
-
+biodb::testThat("closeMatchPpm() works correctly.", test_closeMatchPpm)

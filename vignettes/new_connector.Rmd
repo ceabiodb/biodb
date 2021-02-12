@@ -109,7 +109,7 @@ files when retrieving entries:
 This class is empty, since for our example will only use simple parsing
 expressions that we will define inside the *biodb* definition file (see the
 chapter below about the YAML definition).
-For XML these expressions will be written as XPath expressions.
+For XML these expressions will be written as XPath expressions (see [XPath Tutorial](https://www.w3schools.com/xml/xpath_intro.asp) for an introduction).
 A different expression will be used for each desired field in order to parse
 its value from inside the downloaded XML.
 
@@ -147,7 +147,6 @@ Method                        | Description
 Method              | Description
 ------------------- | --------------------------------
 `searchCompound()`  | This method implements the search of compounds by name and/or by mass. For our example, we have kept it simple by implementing only the search by name, because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
-`wsGetLiteEntity()` | This is the implementation of the call to the `getLiteEntity` *ChEBI* web service. It used by our `searchCompound()` implementation for running the search of compounds by name. Note the use of pure *ChEBI* web service parameters (`search`, `search.category` and `stars`) and *biodb* standard parameters (`max.results` and `retfmt`).
 
 : (\#tab:compMethods) `BiodbCompounddbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbCompounddbConn` class.
 

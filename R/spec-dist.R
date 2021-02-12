@@ -43,6 +43,9 @@ matchPpm <- function(x, y, ppm=3, mzmin=0) {
     if (!is.integer(yidx))
         yidx <- as.integer(yidx)
     
+    print("================================ matchPpm() 10")
+    print(list(x=xs,y=ys,xidx=xidx,yidx=yidx,xolength=as.integer(length(x)),dppm=as.double(ppm),dmz=as.double(mzmin)));
+    print("================================ matchPpm() 11")
     fm <-
         .Call(
             "closeMatchPpm",
@@ -54,6 +57,8 @@ matchPpm <- function(x, y, ppm=3, mzmin=0) {
             as.double(ppm),
             as.double(mzmin)
         )
+    print(fm)
+    print("================================ matchPpm() 12")
     fm
 }
 
