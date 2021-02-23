@@ -18,7 +18,8 @@ Suggests:
     testthat (>= 2.0.0),
     knitr,
     rmarkdown,
-    covr
+    covr,
+    xml2
 Imports:
 	methods,
 	XML,
@@ -27,12 +28,14 @@ Imports:
 	yaml,
 	jsonlite,
 	RCurl,
+	Rcpp,
 	rappdirs,
 	stats,
 	openssl,
 	RSQLite
 LinkingTo:
-	Rcpp
+	Rcpp,
+    testthat
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
@@ -87,6 +90,8 @@ Collate:
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
+    'RcppExports.R'
+    'catch-routine-registration.R'
     'generic_tests.R'
     'http_consts.R'
     'mass_fcts.R'

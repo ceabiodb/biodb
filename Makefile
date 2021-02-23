@@ -30,16 +30,14 @@ endif
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 GIT_VERSION=$(shell git describe --tags | sed 's/^v\([0-9.]*\)[a-z]*.*$$/\1/')
 ZIPPED_PKG=biodb_$(PKG_VERSION).tar.gz
-
 REF_BIB:=$(wildcard ../public-notes/references.bib)
-$(info "REF_BIB=$(REF_BIB)")
-
-# Display values of main variables
-$(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
-$(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
-$(info "PKG_VERSION=$(PKG_VERSION)")
 
 RFLAGS=--slave --no-restore
+
+# For R CMD SHLIB
+export PKG_CXXFLAGS=$(shell R $(RFLAGS) -e "Rcpp:::CxxFlags()")
+PKG_CXXFLAGS+=-O
+PKG_CXXFLAGS+=-I$(realpath $(shell R $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
 
 # Set test file filter
 ifndef TEST_FILE
@@ -47,6 +45,15 @@ TEST_FILE=NULL
 else
 TEST_FILE:='$(TEST_FILE)'
 endif
+
+# Display values of main variables
+$(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
+$(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
+$(info "PKG_VERSION=$(PKG_VERSION)")
+$(info "REF_BIB=$(REF_BIB)")
+$(info "RFLAGS=$(RFLAGS)")
+$(info "PKG_CXXFLAGS=$(PKG_CXXFLAGS)")
+$(info "TEST_FILE=$(TEST_FILE)")
 
 # Default target {{{1
 ################################################################
@@ -56,13 +63,16 @@ all: compile
 # Compile {{{1
 ################################################################
 
-compile:
-	R CMD SHLIB src/*.c
+compile: R/RcppExports.R
+	R $(RFLAGS) CMD SHLIB -o src/biodb.so src/*.cpp
+
+R/RcppExports.R: src/*.cpp
+	R $(RFLAGS) -e "Rcpp::compileAttributes('$(CURDIR)')"
 
 # Check and test {{{1
 ################################################################
 
-check: clean.vignettes $(ZIPPED_PKG)
+check: clean.vignettes $(ZIPPED_PKG) R/RcppExports.R
 	time R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
@@ -83,7 +93,7 @@ check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 # Does not work anymore
 
-test: check.version
+test: check.version compile
 	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 
 win:
@@ -101,7 +111,7 @@ $(ZIPPED_PKG) build: doc
 # Documentation {{{1
 ################################################################
 
-doc: install.deps
+doc: install.deps R/RcppExports.R
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 
 vignettes: clean.vignettes
