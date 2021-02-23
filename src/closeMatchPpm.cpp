@@ -10,6 +10,9 @@
 typedef struct idxStruct {
    int from;
    int to;
+   idxStruct() {
+       this->from = this->to = 0;
+   }
 } tIdxStruct;
 
 /* Upper bound {{{1 */
@@ -248,10 +251,10 @@ Rcpp::List closeMatchPpm(Rcpp::NumericVector x, Rcpp::NumericVector y,
                          int xolength, double dppm, double dmz) {
     
     /* Allocate index structure. calloc() set memory space to zero values. */
-    tIdxStruct *pidxS = (tIdxStruct*) calloc(x.length(), sizeof(tIdxStruct));
+    tIdxStruct *pidxS = new tIdxStruct[x.length()];
     if ( ! pidxS)
         Rcpp::stop("Could not be allocate %d bytes of memory.\n",
-              x.length() * sizeof(struct idxStruct));
+              x.length() * sizeof(tIdxStruct));
     
     /* Fill index structure */
     fillIdxStruct(pidxS, &x[0], &y[0], x.length(), y.length(), dppm, dmz);
