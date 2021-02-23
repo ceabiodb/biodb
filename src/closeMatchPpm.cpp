@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "R.h"
-#include "Rdefines.h"
+#include <Rcpp.h>
 
 /* Structure {{{1 */
 typedef struct idxStruct {
@@ -111,8 +110,8 @@ int lb_asc(double val, double *mzval, int first, int length) {
  * ppm: M/Z tolerance in PPM
  * mzmin: minimum M/Z tolerance
  */
-void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
-                   double ppm, double mzmin) {
+void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py,
+                   int nx, int ny, double ppm, double mzmin) {
 
     double dtol;
     int lb, ub;
@@ -185,37 +184,18 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
  * pyidx:
  * xoLength:
  */
-SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
+Rcpp::List runMatch(tIdxStruct *pidxS, double * px, double *py, int nx, int ny,
               int *pxidx, int *pyidx, int xoLength) {
     
     int txi, from, to;
-    SEXP ans, residx;
-
-    PROTECT(ans = allocVector(VECSXP, xoLength));
+    Rcpp::List ans(xoLength);
 
     tIdxStruct *end = pidxS + nx;
     double *q = px;
     int *i = pxidx;
     
-    /* debug */
-    printf("NX=%d NY=%d\n", nx, ny);
-    printf("xoLength=%d\n", xoLength);
-    printf("PX = ");
-    for (int j = 0 ; j < nx ; ++j)
-        printf("%f ", px[j]);
-    printf("\n");
-    printf("PY = ");
-    for (int j = 0 ; j < ny ; ++j)
-        printf("%f ", py[j]);
-    printf("\n");
-        
     for (tIdxStruct *p = pidxS ; p < end ; ++p, ++q, ++i) {
         
-        /* debug */
-        printf("i = %d\n", *i);
-        printf("pidxS->from = %d\n", p->from);
-        printf("pidxS->to = %d\n", p->to);
-
         // no match
         if (p->from == ny +1 && p->to == 0)
             continue;
@@ -223,8 +203,6 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
         txi = *i - 1;
         from = p->from == (ny + 1) ? p->to : p->from;
         to = p->to == 0 ? p->from : p->to;
-
-        PROTECT(residx = NEW_INTEGER(1));
 
         //Checking which point is the closest.
         double mindist = 10;
@@ -237,55 +215,50 @@ SEXP runMatch(tIdxStruct *pidxS, double *px, double *py, int nx, int ny,
                 /* XXX ERROR Shouldn't we set "mindist = fabs(*r - *q)"? */
             }
         /* XXX ERROR What if minindex == -1? */
-        INTEGER_POINTER(residx)[0] = pyidx[minindex];
-        SET_VECTOR_ELT(ans, txi, residx);
-        UNPROTECT(1); // residx
+        ans[txi] = pyidx[minindex];
     }
 
     // If there was no match at all, `ans` is NULL.
-    UNPROTECT(1); // ans
+//    UNPROTECT(1); // ans
  
     return(ans);
 }
  
-/* Close match PPM {{{1 */
-/* USED INSIDE spec-dist.R */
-/*
- * x        sorted M/Z values (ascending order) of input spectrum (no NA).
- * y        sorted M/Z values (ascending order) of reference spectrum (no NA).
- * xidx     indices of the M/Z peaks of x, taken from the original spectrum 
- *          ordered in decreasing intensity values.
- * yidx     indices of the M/Z peaks of y, taken from the original spectrum 
- *          ordered in decreasing intensity values.
- * xolength ???
- * dppm     ???
- * dmz      ???
- * Returns  ???
- */
-SEXP closeMatchPpm(SEXP x, SEXP y, SEXP xidx, SEXP yidx,
-                   SEXP xolength, SEXP dppm, SEXP dmz) {
-    
-    double *px = REAL(x);
-    double *py = REAL(y);
-    int nx = length(x);
-    int ny = length(y);
-    int *pxidx = INTEGER(xidx);
-    int *pyidx = INTEGER(yidx);
-    int xoLength = INTEGER(xolength)[0];
-    double ppm = REAL(dppm)[0];
-    double mzmin = REAL(dmz)[0];
+// Close match ppm {{{1
+//////////////////////////////////////////////////////////////// 
 
+//' Close match PPM
+//'
+//' Matches peaks between two spectra.
+//'
+//' @param x        sorted M/Z values (ascending order) of input spectrum (no NA).
+//' @param y        sorted M/Z values (ascending order) of reference spectrum (no NA).
+//' @param xidx     indices of the M/Z peaks of x, taken from the original spectrum 
+//'          ordered in decreasing intensity values.
+//' @param yidx     indices of the M/Z peaks of y, taken from the original spectrum 
+//'          ordered in decreasing intensity values.
+//' @param xolength ???
+//' @param dppm     ???
+//' @param dmz      ???
+//' @return  ???
+//'
+// [[Rcpp::export]]
+Rcpp::List closeMatchPpm(Rcpp::NumericVector x, Rcpp::NumericVector y,
+                         Rcpp::IntegerVector xidx, Rcpp::IntegerVector yidx,
+                         int xolength, double dppm, double dmz) {
+    
     /* Allocate index structure. calloc() set memory space to zero values. */
-    tIdxStruct *pidxS = (tIdxStruct*) calloc(nx, sizeof(tIdxStruct));
-    if (pidxS == NULL)
-        error("fastMatch/calloc: memory could not be allocated ! (%d bytes)\n",
-              nx * sizeof(struct idxStruct));
+    tIdxStruct *pidxS = (tIdxStruct*) calloc(x.length(), sizeof(tIdxStruct));
+    if ( ! pidxS)
+        Rcpp::stop("Could not be allocate %d bytes of memory.\n",
+              x.length() * sizeof(struct idxStruct));
     
     /* Fill index structure */
-    fillIdxStruct(pidxS, px, py, nx, ny, ppm, mzmin);
+    fillIdxStruct(pidxS, &x[0], &y[0], x.length(), y.length(), dppm, dmz);
     
     /* Run matching algorithm */
-    SEXP ans = runMatch(pidxS, px, py, nx, ny, pxidx, pyidx, xoLength);
+    Rcpp::List ans = runMatch(pidxS, &x[0], &y[0], x.length(), y.length(),
+                              &xidx[0], &yidx[0], xolength);
         
     /* Free index structure */
     free(pidxS);
