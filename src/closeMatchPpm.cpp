@@ -5,6 +5,7 @@
 #include <string.h>
 #include <math.h>
 #include <Rcpp.h>
+#include <algorithm>
 
 /* Structure {{{1 */
 typedef struct idxStruct {
@@ -124,10 +125,9 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py,
     tIdxStruct *end = pidxS + nx;
     for (tIdxStruct *p = pidxS ; p < end ; ++p)
         p->from = ny + 1;
-    /* p->to already set to 0 by calloc() */
 
     /* Loop on all M/Z values of py */
-    for (int yi=0 ; yi < ny ; ++yi) {
+    for (int yi = 0 ; yi < ny ; ++yi) {
 
         /* Compute tolerance in PPM */
         dtol = py[yi] * ppm * 1e-6;
@@ -135,41 +135,27 @@ void fillIdxStruct(tIdxStruct *pidxS, double *px, double *py,
             dtol = mzmin;
 
         /* We look for all M/Z values of px that are inside py[yi] +- dtol */
-        
         lb = ub_asc(py[yi] - dtol, px, lastlb, nx-lastlb);
-        if (lb < nx-1)
+        if (lb < nx) {
             lastlb=lb;
-
-        /* XXX ERROR ??? "else" of the previous "if" */
-        if (lb >= nx-1) {
-            lb = nx-1;
-            ub = nx-1;
-        }
-        else /* XXX ERROR ??? should be inside "then" of "if (lb < nx-1)" */
             ub = lb_asc(py[yi] + dtol, px, lb, nx-lb);
+            if (ub < nx)
+                /* We loop on all M/Z values of px that are inside py[yi] +- dtol */
+                for (int xi = lb ; xi <= ub ; ++xi) {
 
-        if (ub > nx-1)
-            ub = nx -1;
+                    // We update the "from", i.e.: the first index of the M/Z
+                    // values in py for which we have a match with this M/Z value
+                    // of px
+                    if (yi < pidxS[xi].from)
+                        pidxS[xi].from = yi;
 
-        /* We loop on all M/Z values of px that are inside py[yi] +- dtol */
-        for (int xi=lb;xi <= ub;xi++) {
-            
-            /* XXX ERROR? Is this condition not necessarily true? */
-            if (fabs(py[yi] - px[xi]) <= dtol) {
-                
-                // We update the "from", i.e.: the first index of the M/Z
-                // values in py for which we have a match with this M/Z value
-                // of px
-                if (yi < pidxS[xi].from)
-                    pidxS[xi].from = yi;
-                
-                // We update the "to", i.e.: the last index of the M/Z
-                // values in py for which we have a match with this M/Z value
-                // of px
-                if (yi > pidxS[xi].to)
-                    pidxS[xi].to = yi;
-            }
-       }
+                    // We update the "to", i.e.: the last index of the M/Z
+                    // values in py for which we have a match with this M/Z value
+                    // of px
+                    if (yi > pidxS[xi].to)
+                        pidxS[xi].to = yi;
+                }
+        }
     }
 }
 
@@ -215,15 +201,13 @@ Rcpp::List runMatch(tIdxStruct *pidxS, double * px, double *py, int nx, int ny,
         for (double *r = py + from ; r <= rend ; ++r, ++yi)
             if(fabs(*r - *q) < mindist) {
                 minindex = yi;
-                /* XXX ERROR Shouldn't we set "mindist = fabs(*r - *q)"? */
+                mindist = fabs(*r - *q);
             }
-        /* XXX ERROR What if minindex == -1? */
-        ans[txi] = pyidx[minindex];
+        
+        if (txi >=0 && minindex >=0)
+            ans[txi] = pyidx[minindex];
     }
 
-    // If there was no match at all, `ans` is NULL.
-//    UNPROTECT(1); // ans
- 
     return(ans);
 }
  
