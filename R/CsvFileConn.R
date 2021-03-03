@@ -29,7 +29,8 @@ CsvFileConn <- methods::setRefClass("CsvFileConn",
         .file.quote="character",
         .db="ANY",
         .db.orig.colnames="character",
-        .fields="character"
+        .fields="character",
+        .autoSetFieldsHasBeenRun="logical"
                 ),
 methods=list(
 
@@ -43,6 +44,7 @@ initialize=function(...) {
     .self$.file.sep <- "\t"
     .self$.file.quote <- "\""
     .self$.fields <- character()
+    .self$.autoSetFieldsHasBeenRun <- FALSE
 },
 
 getCsvQuote=function() {
@@ -204,8 +206,7 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     defined for this database instance.
     \ncolname: A character vector contain one or more column names from the CSV
     file.
-    \nignore.if.missing: If set to TRUE, does not raise an error if one of the
-    columns does not exists in the CSV file.
+    \nignore.if.missing: Deprecated parameter.
     \nReturned value: None.
     "
 
@@ -217,22 +218,17 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     .self$.assertNotNa(colname)
 
     # Load database file
-    .self$.initDb()
+    .self$.initDb(setFields=FALSE)
 
     # Check that this is a correct field name
-    if ( ! ef$isDefined(field)) {
-        if ( ! ignore.if.missing)
-            .self$error("Database field \"", field, "\" is not valid.")
-        return()
-    }
+    if ( ! ef$isDefined(field))
+        .self$error("Database field \"", field, "\" is not valid.")
 
     # Fail if column names are not found in file
     if ( ! all(colname %in% names(.self$.db))) {
         undefined.cols <- colname[ ! colname %in% names(.self$.db)]
-        .self$message((if (ignore.if.missing) 'caution' else 'error'),
-                      paste0("Column(s) ", paste(undefined.cols, collapse=", "),
-                             " is/are not defined in database file."))
-        return()
+        .self$error("Column(s) ", paste(undefined.cols, collapse=", "), "
+                    is/are not defined in database file.")
     }
 
     .self$debug('Set field ', field, ' to column(s) ',
@@ -371,16 +367,17 @@ defineParsingExpressions=function() {
                 row.names=FALSE, sep="\t", quote=FALSE)
 },
 
-.initDb=function() {
+.initDb=function(setFields=TRUE) {
 
     if (is.null(.self$.db)) {
 
         # Check file
         file <- .self$getPropValSlot('urls', 'base.url')
-        if ( ! is.null(file) && ! is.na(file) && ! file.exists(file))
-            .self$info("Cannot locate the file database \"", file, "\".")
+        if ( ! is.null(file) && ! is.na(file) && ! file.exists(file)
+            && ! .self$writingIsAllowed())
+            .self$error("Cannot locate the file database \"", file, "\".")
 
-        # No file to load
+        # No file to load, create empty database
         if (is.null(file) || is.na(file) || ! file.exists(file)) {
             .self$message('info', "Creating empty database.")
             db <- data.frame(accession=character(), stringsAsFactors=FALSE)
@@ -399,6 +396,10 @@ defineParsingExpressions=function() {
         # Set database
         .self$.doSetDb(db)
     }
+    
+    # Auto set fields
+    if (setFields && ! .self$.autoSetFieldsHasBeenRun)
+        .self$.autoSetFields()
 },
 
 .checkFields=function(fields, fail=TRUE) {
@@ -570,12 +571,37 @@ defineParsingExpressions=function() {
     # Set data frame as database
     .self$.db <- db
 
-    # Set fields
-    for (field in names(.self$.db))
-        .self$setField(field, field, ignore.if.missing=TRUE)
-
     # Save column names
     .self$.db.orig.colnames <- colnames(.self$.db)
+},
+
+.autoSetFields=function() {
+
+    # Get fields definitions
+    ef <- .self$getBiodb()$getEntryFields()
+    
+    # Get columns already defined
+    cols <- unname(.self$.fields)
+
+    # Loop on all columns of database
+    for (colname in names(.self$.db)) {
+        
+        # Is this column already set?
+        if (colname %in% cols)
+            next
+        
+        # Does this column name match a biodb field?
+        else if (ef$isDefined(colname))
+            .self$setField(field=colname, colname=colname)
+        
+        # Column is not matchable
+        else
+            .self$warning("Column \"", colname,
+                          "\" does not match any biodb field.")
+    }
+    
+    # Mark as run
+    .self$.autoSetFieldsHasBeenRun <- TRUE
 },
 
 .doGetEntryIds=function(max.results=NA_integer_) {

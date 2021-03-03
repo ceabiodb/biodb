@@ -256,7 +256,9 @@ test.db.editing = function(conn) {
 test.db.writing.with.col.add = function(conn) {
 
     # Set database file
-    db.file <- file.path(getTestOutputDir(), paste('test.db.writing.with.col.add', conn$getDbClass(), 'db', sep = '.'))
+    db.file <- file.path(getTestOutputDir(),
+                         paste('test.db.writing.with.col.add',
+                               conn$getDbClass(), 'db', sep='.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -266,17 +268,19 @@ test.db.writing.with.col.add = function(conn) {
     testthat::expect_is(entry, 'BiodbEntry')
 
     # Create other connector
-    conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = db.file)
+    conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(),
+                                                     url=db.file)
     conn.2$allowEditing()
-    conn.2$addNewEntry(entry$clone())
     conn.2$allowWriting()
+    conn.2$addNewEntry(entry$clone())
 
     # Get data frame of all entries
     id = conn.2$getEntryIds()
     testthat::expect_length(id, 1)
     testthat::expect_equal(id, entry$getFieldValue('accession'))
-    entries = conn.2$getEntry(id, drop = FALSE)
-    entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute = FALSE, only.card.one = TRUE)
+    entries = conn.2$getEntry(id, drop=FALSE)
+    entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute=FALSE,
+                                                      only.card.one=TRUE)
 
     # Get a list of all fields currently used in connector
     current.fields = colnames(entries.df)
@@ -285,11 +289,14 @@ test.db.writing.with.col.add = function(conn) {
     fields.def = conn.2$getBiodb()$getEntryFields()
     for (field.name in fields.def$getFieldNames()) {
         field = fields.def$get(field.name)
-        if (field$hasCardOne() && field$isVector() && ! field.name %in% current.fields)
+        if (field$hasCardOne() && field$isVector()
+            && ! field.name %in% current.fields)
             break
     }
 
-    # Create a new entry having one new field that does not exist in any other entry (so in the case of SQL the table will have to be altered to add new columns)
+    # Create a new entry having one new field that does not exist in any other
+    # entry (so in the case of SQL the table will have to be altered to add new
+    # columns)
     new.entry = entries[[1]]$clone()
     new.entry$setFieldValue('accession', 'anewentry')
     new.entry$setFieldValue(field$getName(), 0)

@@ -54,6 +54,7 @@ $(info "REF_BIB=$(REF_BIB)")
 $(info "RFLAGS=$(RFLAGS)")
 $(info "PKG_CXXFLAGS=$(PKG_CXXFLAGS)")
 $(info "TEST_FILE=$(TEST_FILE)")
+$(info "BIODB_TEST_FUNCTIONS=$(BIODB_TEST_FUNCTIONS)")
 
 # Default target {{{1
 ################################################################
