@@ -298,6 +298,7 @@ fields:
     alias:
     - mass
     - molecular.weight
+    - compoundmass
     class: double
     description: Molecular mass (also called molecular weight), in u (unified atomic mass units) or Da (Dalton). It is computed from the atomic masses of each nuclide present in the molecule, taking into account the various possible isotops of each atom. See https://en.wikipedia.org/wiki/Molecular_mass.
     type: mass
@@ -317,16 +318,18 @@ fields:
 ################################################################################
 
   peak.attr:
-    description: Peak attribution.
+    description: "The chemical attributions of the peaks, in terms of losses and/or aggregations (e.g.: [(M+H)-(H2O)-(NH3)]+)."
     type: peak
     dataFrameGroup: peaks
     card: many
+    alias: peakattr
 
   peak.comp:
-    description: Peak comp.
+    description: The molecular compositions of the peaks.
     type: peak
     dataFrameGroup: peaks
     card: many
+    alias: peakcomp
 
   peak.error.ppm:
     class: double
@@ -336,14 +339,14 @@ fields:
     card: many
 
   peak.formula:
-    description: Peak formula.
+    description: The chemical formulae of the peaks.
     type: peak
     dataFrameGroup: peaks
     card: many
 
   peak.intensity:
     class: double
-    description: Peak intensity.
+    description: The absolute intensities of the peaks.
     type: peak
     dataFrameGroup: peaks
     card: many
@@ -356,6 +359,7 @@ fields:
     card: many
 
   peak.mztheo:
+    alias: mztheo
     class: double
     description: Peak theoretical M/Z.
     type: peak
@@ -394,34 +398,9 @@ fields:
     virtual: true
     virtual.group.by.type: peak
 
-# Proteins and genes {{{2
+# Chromatography fields {{{2
 ################################################################################
 
-  aa.seq.location:
-    alias:
-    - seq.location
-    - location
-    description: Location of the amino acids sequence.
-  nt.seq:
-    description: Nucleotids sequence.
-  nt.seq.length:
-    class: integer
-    description: Length of the nucleotids sequence.
-  organism:
-    description: The biological organism to which this entry belongs.
-  pathway.class:
-    card: many
-    description: Pathway class.
-
-# Other fields {{{2
-################################################################################
-
-  catalytic.activity:
-    card: many
-    description: Catalytic activity.
-  charge:
-    class: integer
-    description: Charge.
   chrom.col.constructor:
     description: Chromatographic column constructor.
   chrom.col.diameter:
@@ -467,6 +446,35 @@ fields:
   chrom.solvent:
     card: many
     description: Chromatographic column solvent.
+
+# Proteins and genes {{{2
+################################################################################
+
+  aa.seq.location:
+    alias:
+    - seq.location
+    - location
+    description: Location of the amino acids sequence.
+  nt.seq:
+    description: Nucleotids sequence.
+  nt.seq.length:
+    class: integer
+    description: Length of the nucleotids sequence.
+  organism:
+    description: The biological organism to which this entry belongs.
+  pathway.class:
+    card: many
+    description: Pathway class.
+
+# Other fields {{{2
+################################################################################
+
+  catalytic.activity:
+    card: many
+    description: Catalytic activity.
+  charge:
+    class: integer
+    description: Charge.
   cofactor:
     card: many
     description: Cofactor.
@@ -493,7 +501,11 @@ fields:
   equation:
     description: Chemical equation
   formula:
-    description: Empirical molecular formula.
+    description: Empirical chemical formula of a compound.
+  composition:
+    description: The molecular composition of a compound.
+    alias:
+      - compoundcomp
   inchi:
     description: International Chemical Identifier (InChI).
   inchikey:

@@ -9,7 +9,9 @@ test.comp.csv.file.dynamic.field.set <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file',
                                           url=CHEBI_FILE_UNKNOWN_COL)
     
-    x <- conn$getEntry('1932')$getFieldsAsDataframe()
+    msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
+    testthat::expect_warning(x <- conn$getEntry('1932')$getFieldsAsDataframe(),
+                             msg, perl=TRUE)
     testthat::expect_false('charge' %in% colnames(x))
     conn$setField('charge', 'elecCharge')
     

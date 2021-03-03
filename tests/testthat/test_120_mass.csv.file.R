@@ -84,7 +84,11 @@ test.mass.csv.file.data.frame <- function(biodb) {
 test.mass.csv.file.old.col.names <- function(biodb) {
 
 	# Define data frame
-	df <- data.frame(compoundid = 'A10', msmode = 'POS', mztheo = 112.07569, peakcomp = 'P9Z6W410', peakattr = '[(M+H)-(H2O)-(NH3)]+', chromcol = 'colAA', chromcolrt = 94.8, compoundcomp = 'J114L6M62O2', compoundmass = 146.10553, fullnames = 'Blablaine')
+	df <- data.frame(compoundid='A10', msmode='POS', mztheo=112.07569,
+                     peakcomp='P9Z6W410', peakattr='[(M+H)-(H2O)-(NH3)]+',
+                     chromcol='colAA', chromcolrt=94.8,
+                     compoundcomp='J114L6M62O2', compoundmass=146.10553,
+                     fullnames='Blablaine')
 
 	# New connector instance
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -102,7 +106,8 @@ test.fields <- function(biodb) {
 	# Create new connector to same file db
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url=MASSFILEDB.URL,
                                           fail.if.exists=FALSE)
-	conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
+	conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
+                                 'chrom.rt'))
 
 	# Get fields
 	col.name <- conn$getFieldColName('ms.mode')
@@ -110,32 +115,43 @@ test.fields <- function(biodb) {
 	expect_true(nchar(col.name) > 0)
 
 	# Test if has field
-	expect_true(conn$hasField('accession'))
-	expect_false(conn$hasField('blabla'))
+	testthat::expect_true(conn$hasField('accession'))
+	testthat::expect_false(conn$hasField('blabla'))
 
 	# Add new field
 	conn$addField('blabla', 1)
 
 	# Set wrong fields
-	expect_error(conn$setField('invalid.tag.name', colname = 'something'), regexp = '^.* Database field "invalid.tag.name" is not valid.$')
-	expect_error(conn$setField('ms.mode', colname = 'wrong.col.name'), regexp = '^.* Column.* is/are not defined in database file.$')
-
-	# Ignore if column name is not found in file
-	conn$setField('ms.mode', colname = 'wrong.col.name', ignore.if.missing = TRUE)
+	testthat::expect_error(conn$setField('invalid.tag.name', colname='something'),
+                 regexp='^.* Database field "invalid.tag.name" is not valid.$')
+	testthat::expect_error(conn$setField('ms.mode', colname='wrong.col.name'),
+                 regexp='^.* Column.* is/are not defined in database file.$')
 
 	# Try to set accession field
 	conn$setField('accession', 'compound.id')
 }
 
 test.undefined.fields <- function(biodb) {
-	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.HEADER.URL)
-	expect_error(conn$getChromCol(), regexp = '^.* Field.* is/are undefined in file database\\.$')
-	biodb$getFactory()$deleteConn(conn$getId())
+    conn <- biodb$getFactory()$createConn('mass.csv.file',
+                                          url=MASSFILEDB.WRONG.HEADER.URL)
+    
+    testthat::expect_warning(conn$hasField('accession'),
+        regexp='^.* Column ".*" does not match any biodb field\\.$')
+
+    testthat::expect_error(conn$getEntryIds(),
+        regexp='^.* Field.* accession is/are undefined in file database\\.$')
+
+    testthat::expect_error(conn$getChromCol(),
+        regexp='^.* Field.* is/are undefined in file database\\.$')
+
+    biodb$getFactory()$deleteConn(conn$getId())
 }
 
 test.wrong.nb.cols <- function(biodb) {
-	conn <- biodb$getFactory()$createConn('mass.csv.file', url = MASSFILEDB.WRONG.NB.COLS.URL)
-	expect_error(ids <- conn$getEntryIds(), regexp = '^line 1 did not have 12 elements$')
+	conn <- biodb$getFactory()$createConn('mass.csv.file',
+                                          url=MASSFILEDB.WRONG.NB.COLS.URL)
+	expect_error(ids <- conn$getEntryIds(),
+                 regexp='^line 1 did not have 12 elements$')
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
@@ -442,6 +458,7 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 	if (file.exists(db.B.file))
 		unlink(db.B.file)
 	conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.B.file)
+    conn$allowWriting()
 
 	# Get entry with the same ID K
 	entry <- conn$getEntry(entry.id)
