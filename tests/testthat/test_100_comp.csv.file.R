@@ -35,12 +35,20 @@ test_unmapped_col <- function(biodb, obs) {
     msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
     testthat::expect_warning(conn$getEntryIds(), msg, perl=TRUE)
     testthat::expect_true(obs$hasMsgs())
-    
+
+    # Re-create connector
+    biodb$getFactory()$deleteConn(conn)
+    conn <- biodb$getFactory()$createConn('comp.csv.file',
+                                          url=CHEBI_FILE_UNKNOWN_COL)
+
     # Re-create connector
     biodb$getFactory()$deleteConn(conn)
     conn <- biodb$getFactory()$createConn('comp.csv.file',
                                           url=CHEBI_FILE_UNKNOWN_COL)
     
+    conn$ignoreUnassignedColumns()
+    conn$getEntryIds()
+
     # Define missing column
     conn$setField('charge', 'elecCharge')
 

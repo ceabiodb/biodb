@@ -30,7 +30,8 @@ CsvFileConn <- methods::setRefClass("CsvFileConn",
         .db="ANY",
         .db.orig.colnames="character",
         .fields="character",
-        .autoSetFieldsHasBeenRun="logical"
+        .autoSetFieldsHasBeenRun="logical",
+        .ignoreUnassignedColumns="logical"
                 ),
 methods=list(
 
@@ -45,6 +46,7 @@ initialize=function(...) {
     .self$.file.quote <- "\""
     .self$.fields <- character()
     .self$.autoSetFieldsHasBeenRun <- FALSE
+    .self$.ignoreUnassignedColumns <- FALSE
 },
 
 getCsvQuote=function() {
@@ -575,6 +577,10 @@ defineParsingExpressions=function() {
     .self$.db.orig.colnames <- colnames(.self$.db)
 },
 
+ignoreUnassignedColumns=function(ignore=TRUE) {
+    .self$.ignoreUnassignedColumns <- ignore
+},
+
 .autoSetFields=function() {
 
     # Get fields definitions
@@ -595,7 +601,7 @@ defineParsingExpressions=function() {
             .self$setField(field=colname, colname=colname)
         
         # Column is not matchable
-        else
+        else if ( ! .self$.ignoreUnassignedColumns)
             .self$warning("Column \"", colname,
                           "\" does not match any biodb field.")
     }
