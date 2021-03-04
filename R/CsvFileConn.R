@@ -30,6 +30,7 @@ CsvFileConn <- methods::setRefClass("CsvFileConn",
         .db="ANY",
         .db.orig.colnames="character",
         .fields="character",
+        .field2cols="list",
         .autoSetFieldsHasBeenRun="logical",
         .ignoreUnassignedColumns="logical"
                 ),
@@ -45,6 +46,7 @@ initialize=function(...) {
     .self$.file.sep <- "\t"
     .self$.file.quote <- "\""
     .self$.fields <- character()
+    .self$.field2cols <- list()
     .self$.autoSetFieldsHasBeenRun <- FALSE
     .self$.ignoreUnassignedColumns <- FALSE
 },
@@ -264,6 +266,39 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
         .self$.db[[field]] <- vapply(seq(nrow(.self$.db)), fct, FUN.VALUE='')
         .self$.fields[[field]] <- field
     }
+    
+    # Store column(s)/field association
+    .self$.field2cols[[field]] <- colname
+},
+
+getFieldsAndColumnsAssociation=function() {
+    .self$.initDb()
+    return(.self$.field2cols)
+},
+
+getUnassociatedColumns=function() {
+    .self$.initDb()
+    cols <- colnames(.self$.db)
+    used_cols <- unlist(.self$.field2cols)
+    unused_cols <- cols[ ! cols %in% used_cols]
+    return(unused_cols)
+},
+
+show=function() {
+    # Overrides super class' method.
+    
+    callSuper()
+    
+    # Display defined fields
+    fields <- names(.self$.fields)
+    if (length(fields) > 0)
+        cat("The following fields have been defined: ",
+            paste(fields, collapse=", "), ".\n", sep='')
+
+    # Display unassociated columns
+    cols <- .self$getUnassociatedColumns()
+    if (length(cols) > 0)
+        cat("Unassociated columns: ", paste(cols, collapse=", "), ".\n", sep='')
 },
 
 getNbEntries=function(count=FALSE) {

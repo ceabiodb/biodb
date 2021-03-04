@@ -67,14 +67,14 @@ test.BiodbConn.show <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 
     # Test printing
-    expect_output(conn$show(), regexp = "^Compound CSV File instance\\.\n  ID: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*$")
+    expect_output(conn$show(), regexp="^Compound CSV File instance\\.\n  ID: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*$")
 }
 
 # Test BiodbDbsInfo show {{{1
 ################################################################
 
 test.BiodbDbsInfo.show <- function(biodb) {
-	expect_output(biodb$getDbsInfo()$show(), regexp = '^Biodb databases information instance\\.\nThe following databases are defined:.*$')
+	expect_output(biodb$getDbsInfo()$show(), regexp='^Biodb databases information instance\\.\nThe following databases are defined:.*$')
 }
 
 # Test BiodbEntryFields show {{{1
