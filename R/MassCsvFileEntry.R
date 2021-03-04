@@ -9,7 +9,8 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get path to LCMS database example file
-#' lcmsdb <- system.file("extdata", "massbank_extract.tsv", package="biodb")
+#' lcmsdb <- system.file("extdata",
+#'                       "massbank_extract_lcms_2.tsv", package="biodb")
 #'
 #' # Create a connector
 #' conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
