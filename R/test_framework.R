@@ -134,7 +134,7 @@ hasMsgs=function(type=NULL) {
     f <- FALSE
 
     if (is.null(type))
-        f = (length(.self$.msg) > 0)
+        f = (length(.self$.msgs) > 0)
     else if (any(type %in% names(.self$.msgs.by.type))) {
         for (t in type)
             if (t %in% names(.self$.msgs.by.type)

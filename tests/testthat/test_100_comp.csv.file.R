@@ -1,14 +1,70 @@
 CHEBI_FILE <- system.file("extdata", "chebi_extract.tsv", package="biodb")
-CHEBI_FILE_WITH_UNKNOWN_COL <- system.file("extdata", "chebi_extract_with_unknown_column.tsv", package="biodb")
+CHEBI_FILE_UNKNOWN_COL <- system.file("extdata",
+                                      "chebi_extract_with_unknown_column.tsv",
+                                      package="biodb")
 
 test.comp.csv.file.dynamic.field.set <- function(biodb) {
-    conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE_WITH_UNKNOWN_COL)
-    x <- conn$getEntry('1932')$getFieldsAsDataframe()
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('comp.csv.file',
+                                          url=CHEBI_FILE_UNKNOWN_COL)
+    
+    msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
+    testthat::expect_warning(x <- conn$getEntry('1932')$getFieldsAsDataframe(),
+                             msg, perl=TRUE)
     testthat::expect_false('charge' %in% colnames(x))
     conn$setField('charge', 'elecCharge')
-    conn$deleteAllEntriesFromPersistentCache() # We must first remove the entry from all caches
+    
+    # We must first remove the entry from all caches
+    conn$deleteAllEntriesFromPersistentCache()
+
     x <- conn$getEntry('1932')$getFieldsAsDataframe()
     testthat::expect_true('charge' %in% colnames(x))
+    
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn)
+}
+
+test_unmapped_col <- function(biodb, obs) {
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('comp.csv.file',
+                                          url=CHEBI_FILE_UNKNOWN_COL)
+    
+    obs$clearMessages();
+    msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
+    testthat::expect_warning(conn$getEntryIds(), msg, perl=TRUE)
+    testthat::expect_true(obs$hasMsgs())
+    testthat::expect_length(conn$getUnassociatedColumns(), 1)
+    testthat::expect_true(length(conn$getFieldsAndColumnsAssociation()) > 0)
+    msg <- paste0("^.*The following fields have been defined:.*",
+                  "Unassociated columns: elecCharge\\..*$")
+    testthat::expect_output(conn$show(), msg)
+
+    # Re-create connector
+    biodb$getFactory()$deleteConn(conn)
+    conn <- biodb$getFactory()$createConn('comp.csv.file',
+                                          url=CHEBI_FILE_UNKNOWN_COL)
+    
+    conn$ignoreUnassignedColumns()
+    conn$getEntryIds()
+
+    # Re-create connector
+    biodb$getFactory()$deleteConn(conn)
+    conn <- biodb$getFactory()$createConn('comp.csv.file',
+                                          url=CHEBI_FILE_UNKNOWN_COL)
+
+    # Define missing column
+    conn$setField('charge', 'elecCharge')
+    testthat::expect_length(conn$getUnassociatedColumns(), 0)
+
+    # No warning should be issued
+    obs$clearMessages()
+    conn$getEntryIds()
+    testthat::expect_false(obs$hasMsgs('warning'))
+    
+    # Delete connector
+    biodb$getFactory()$deleteConn(conn)
 }
 
 # Instantiate Biodb
@@ -16,6 +72,7 @@ biodb <- biodb::createBiodbTestInstance(log='compcsvfile_test.log')
 
 # Set context
 biodb::setTestContext(biodb, "Test Compound CSV File connector.")
+obs <- biodb::addMsgRecObs(biodb)
 
 # TODO How to test this connector with both chebi and uniprot extracts?
 # All entry-*.json are named after the connector name.
@@ -27,7 +84,10 @@ conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 
 # Run tests
 biodb::runGenericTests(conn)
-biodb::testThat('We can define a new field even after loading an entry.', test.comp.csv.file.dynamic.field.set, biodb=biodb)
+biodb::testThat('We receive a warning for unmapped columns.',
+                test_unmapped_col, biodb=biodb, obs=obs)
+biodb::testThat('We can define a new field even after loading an entry.',
+                test.comp.csv.file.dynamic.field.set, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

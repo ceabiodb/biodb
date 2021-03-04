@@ -33,7 +33,8 @@ test.default.messages <- function(biodb, obs) {
 
     msg <- "Hello"
 
-    testthat::expect_message(biodb$info(msg), "^Info message: Hello$", perl=TRUE)
+    testthat::expect_message(biodb$info(msg), "^Info message: Hello$",
+                             perl=TRUE)
     testthat::expect_message(biodb$progressMsg(msg, index=0, total=10,
                                                first=TRUE, laptime=0),
                              "^Info message: Hello.*ETA.*$", perl=TRUE)
@@ -52,8 +53,10 @@ obs <- biodb::addMsgRecObs(biodb)
 biodb::setTestContext(biodb, "Test observers.")
 
 # Run tests
-biodb::testThat("Deprecated methods send correct message.", test.deprecatedMethods, biodb=biodb, obs=obs)
-biodb::testThat("Test what messages are printed by default.", test.default.messages, biodb=biodb, obs=obs)
+biodb::testThat("Deprecated methods send correct message.",
+                test.deprecatedMethods, biodb=biodb, obs=obs)
+biodb::testThat("Test what messages are printed by default.",
+                test.default.messages, biodb=biodb, obs=obs)
 
 # Terminate Biodb
 biodb$terminate()

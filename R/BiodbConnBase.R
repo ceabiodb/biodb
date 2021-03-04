@@ -91,7 +91,7 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 },
 
 show=function() {
-    ":\n\nPrints a description this connector.
+    ":\n\nPrints a description of this connector.
     \nReturned value: None.
     "
 
