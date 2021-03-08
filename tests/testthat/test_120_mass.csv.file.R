@@ -63,7 +63,7 @@ test.mass.csv.file.data.frame <- function(biodb) {
 	# Define database data frame
 	ids <- 'ZAP'
 	mz <- 12
-	df <- data.frame(accession = ids, mz = mz, mode = '+')
+	df <- data.frame(accession=ids, mz=mz, mode='+')
 
 	# New biodb instance
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -117,9 +117,10 @@ test.fields <- function(biodb) {
 	# Test if has field
 	testthat::expect_true(conn$hasField('accession'))
 	testthat::expect_false(conn$hasField('blabla'))
+	testthat::expect_false(conn$hasField('nt.seq'))
 
 	# Add new field
-	conn$addField('blabla', 1)
+	conn$addField('nt.seq', 'N')
 
 	# Set wrong fields
 	testthat::expect_error(conn$setField('invalid.tag.name', colname='something'),
@@ -508,6 +509,36 @@ test_msmsSearch_R4.0_non_regression <- function(biodb) {
     testthat::expect_s3_class(result, 'data.frame')
 }
 
+test_matchingField <- function(biodb) {
+    
+	# Database with no M/Z field
+	df <- data.frame(accession='1')
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+    testthat::expect_error(conn$getMatchingMzField())
+    
+    # Database with peak.mztheo only
+	df <- data.frame(accession='1', peak.mztheo=132.12)
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+    testthat::expect_equal(conn$getMatchingMzField(), 'peak.mztheo')
+    
+    # Database with peak.mzexp only
+	df <- data.frame(accession='1', peak.mzexp=132.12)
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+    testthat::expect_equal(conn$getMatchingMzField(), 'peak.mzexp')
+    
+    # Database with both peak.mztheo and peak.mzexp
+	df <- data.frame(accession='1', peak.mztheo=132.1210, peak.mzexp=132.1243)
+	conn <- biodb$getFactory()$createConn('mass.csv.file')
+	conn$setDb(df)
+    testthat::expect_warning(field <- conn$getMatchingMzField())
+    testthat::expect_equal(field, 'peak.mztheo')
+    conn$setMatchingMzField('peak.mzexp')
+    testthat::expect_equal(conn$getMatchingMzField(), 'peak.mzexp')
+}
+
 # MAIN
 
 # Instantiate Biodb
@@ -543,8 +574,13 @@ biodb::testThat('We can set additional values for MS mode.', test.mass.csv.file.
 biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, biodb=biodb)
 biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb=biodb)
 biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb=biodb)
-biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id, biodb=biodb)
-biodb::testThat('R 4.0 error "NA\'s are not allowed in y !" with msmsSearch() call does not come back.', test_msmsSearch_R4.0_non_regression, biodb=biodb)
+biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id,
+                biodb=biodb)
+biodb::testThat('R 4.0 error "NA\'s are not allowed in y !" with msmsSearch()
+                call does not come back.', test_msmsSearch_R4.0_non_regression,
+                biodb=biodb)
+biodb::testThat("We can defined the M/Z matching field.", test_matchingField,
+                biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

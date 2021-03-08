@@ -95,7 +95,7 @@ check.version:
 # Does not work anymore
 
 test: check.version compile
-	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/]\+\.R\)!\1tests/testthat/\2!'
 
 win:
 	R $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"

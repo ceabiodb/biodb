@@ -1,6 +1,6 @@
 # vi: fdm=marker
 
-# CONFIG {{{1
+# CONFIGURATION FIELDS {{{1
 ################################################################################
 
 config:
@@ -156,14 +156,14 @@ databases:
 # Mass CSV File {{{2
 ################################################################################
   mass.csv.file:
-    entry.content.type: tsv
     name: Mass CSV File
+    entry.content.type: tsv
 
 # Mass SQLite {{{2
 ################################################################################
   mass.sqlite:
-    entry.content.type: list
     name: Mass SQLite
+    entry.content.type: list
 
 # FIELDS {{{1
 ################################################################################
