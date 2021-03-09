@@ -47,7 +47,17 @@ conn$addField('chrom.rt.unit', 's')
 
 # Searching for entries
 
-<!-- TODO Define values for both peak.mzexp and peak.mztheo inside database and use getMatchingMzField() setMatchingMzfield() -->
+Both `peak.mzexp` and `peak.mztheo` are defined inside the database.
+The following call to get the field that will be used for matching will emit a warning because of this:
+```{r}
+conn$getMatchingMzField()
+```
+
+Setting the M/Z field to use:
+```{r}
+conn$setMatchingMzField('peak.mztheo')
+```
+
 Searching by M/Z:
 ```{r}
 conn$searchMsEntries(mz.min=145.96, mz.max=147.13)
