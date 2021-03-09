@@ -510,33 +510,52 @@ test_msmsSearch_R4.0_non_regression <- function(biodb) {
 }
 
 test_matchingField <- function(biodb) {
-    
-	# Database with no M/Z field
-	df <- data.frame(accession='1')
-	conn <- biodb$getFactory()$createConn('mass.csv.file')
-	conn$setDb(df)
+
+    # Database with no M/Z field
+    df <- data.frame(accession='1')
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(df)
     testthat::expect_error(conn$getMatchingMzField())
     
     # Database with peak.mztheo only
-	df <- data.frame(accession='1', peak.mztheo=132.12)
-	conn <- biodb$getFactory()$createConn('mass.csv.file')
-	conn$setDb(df)
+    mz1 <- 132.12
+    df <- data.frame(accession='1', peak.mztheo=mz1)
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(df)
     testthat::expect_equal(conn$getMatchingMzField(), 'peak.mztheo')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz1, mz.tol=0), '1')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz1+1, mz.tol=0),
+                           character())
     
     # Database with peak.mzexp only
-	df <- data.frame(accession='1', peak.mzexp=132.12)
-	conn <- biodb$getFactory()$createConn('mass.csv.file')
-	conn$setDb(df)
+    df <- data.frame(accession='1', peak.mzexp=mz1)
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(df)
     testthat::expect_equal(conn$getMatchingMzField(), 'peak.mzexp')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz1, mz.tol=0), '1')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz1+1, mz.tol=0),
+                           character())
     
     # Database with both peak.mztheo and peak.mzexp
-	df <- data.frame(accession='1', peak.mztheo=132.1210, peak.mzexp=132.1243)
-	conn <- biodb$getFactory()$createConn('mass.csv.file')
-	conn$setDb(df)
+    mz2 <- 132.1210
+    mz3 <- 132.1243
+    df <- data.frame(accession='1', peak.mztheo=mz2, peak.mzexp=mz3)
+    conn <- biodb$getFactory()$createConn('mass.csv.file')
+    conn$setDb(df)
     testthat::expect_warning(field <- conn$getMatchingMzField())
     testthat::expect_equal(field, 'peak.mztheo')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz2, mz.tol=0), '1')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz2+1, mz.tol=0),
+                           character())
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz3, mz.tol=0),
+                           character())
     conn$setMatchingMzField('peak.mzexp')
     testthat::expect_equal(conn$getMatchingMzField(), 'peak.mzexp')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz2, mz.tol=0),
+                           character())
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz3, mz.tol=0), '1')
+    testthat::expect_equal(conn$searchForMassSpectra(mz=mz3+1, mz.tol=0),
+                           character())
 }
 
 # MAIN

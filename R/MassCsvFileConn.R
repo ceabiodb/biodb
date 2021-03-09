@@ -118,7 +118,8 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 
     # Get peaks
-    peaks <- .self$.select(cols='peak.mztheo', mode=mode, ids=ids, drop=TRUE)
+    mzcol <- .self$getMatchingMzField()
+    peaks <- .self$.select(cols=mzcol, mode=mode, ids=ids, drop=TRUE)
 
     return(length(peaks))
 },
@@ -149,7 +150,8 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 
 .selectByMzValues=function(db, mz.min, mz.max) {
 
-    return(.self$.selectByRange(db=db, field='peak.mztheo', minValue=mz.min,
+    mzcol <- .self$getMatchingMzField()
+    return(.self$.selectByRange(db=db, field=mzcol, minValue=mz.min,
                                 maxValue=mz.max))
 },
 
@@ -221,7 +223,8 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 
     # Get mz values
-    mz <- .self$.select(cols='peak.mztheo', mode=ms.mode, drop=TRUE, uniq=TRUE,
+    mzcol <- .self$getMatchingMzField()
+    mz <- .self$.select(cols=mzcol, mode=ms.mode, drop=TRUE, uniq=TRUE,
                         sort=TRUE, max.rows=max.results, precursor=precursor,
                         level=ms.level)
 

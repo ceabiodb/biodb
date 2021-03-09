@@ -81,19 +81,25 @@ getMatchingMzField=function() {
 
         # Otherwise get an entry from the database and check what fields it
         # contains
-        if (is.null(field)) {
+        if (is.null(field) || multiple.match) {
+            field.2 <- NULL
+            multiple.match.2 <- FALSE
             id <- .self$getEntryIds(max.results=1)
             if (length(id) == 1) {
                 entry <- .self$getEntry(id)
                 for (f in fields)
                     if (entry$hasField(f)) {
-                        if (is.null(field))
-                            field <- f
+                        if (is.null(field.2))
+                            field.2 <- f
                         else {
-                            multiple.match <- TRUE
+                            multiple.match.2 <- TRUE
                             break
                         }
                     }
+            }
+            if ( ! is.null(field.2)) {
+                field <- field.2
+                multiple.match <- multiple.match.2
             }
         }
         
