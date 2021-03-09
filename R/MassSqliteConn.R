@@ -225,20 +225,6 @@ defineParsingExpressions=function() {
     }
 },
 
-.findMzField=function() {
-
-    mzfield <- NULL
-
-    tables <- DBI::dbListTables(.self$.db)
-    for (field in c('peak_mztheo', 'peak_mz', 'peak_mzexp'))
-        if (field %in% tables) {
-            mzfield <- field
-            break
-        }
-
-    return(mzfield)
-},
-
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     # Inherited from BiodbMassdbConn.
 
@@ -249,7 +235,7 @@ defineParsingExpressions=function() {
     if ( ! is.null(.self$.db)) {
 
         # Get M/Z field name
-        mzfield <- .self$.findMzField()
+        mzfield <- .self$getMatchingMzField()
 
         if ( ! is.null(mzfield)) {
             mzfield <- .self$.fieldToSqlId(mzfield)
@@ -321,9 +307,10 @@ defineParsingExpressions=function() {
     if ( ! is.null(.self$.db)) {
 
         # Get M/Z field name
-        mzfield <- .self$.findMzField()
+        mzfield <- .self$getMatchingMzField()
 
         if ( ! is.null(mzfield)) {
+            mzfield <- .self$.fieldToSqlId(mzfield)
             mzfield <- DBI::dbQuoteIdentifier(.self$.db, mzfield)
 
             # Build query

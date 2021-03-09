@@ -41,6 +41,100 @@ getChromCol=function(ids=NULL) {
     .self$.abstractMethod()
 },
 
+getMatchingMzField=function() {
+    ":\n\nGets the field to use for M/Z matching.
+    \nReturned value: The name of the field (one of peak.mztheo or peak.mzexp).
+    "
+    
+    field <- NULL
+
+    # Get value(s) defined in matching.fields property
+    fields <- .self$getPropValSlot('matching.fields', 'mz')
+    
+    # If it contains one value, return it
+    if (length(fields) == 1)
+        field <- fields
+    
+    # If it contains no value, throw an error
+    else if (length(fields) == 0)
+        .self$error("No macthing field defined for M/Z values.",
+                    "Use setMatchingMzField() to set one.")
+    
+    # If it contains more than one value, try to determine which one to use
+    else {
+
+        multiple.match <- FALSE
+
+        # Get the parsing expressions and check which field is associated with
+        # a parssing expression
+        for (f in fields) {
+            pars.expr <- .self$getPropValSlot('parsing.expr', f)
+            if ( ! is.null(pars.expr) && ! is.na(pars.expr)) {
+                if (is.null(field))
+                    field <- f
+                else {
+                    multiple.match <- TRUE
+                    break
+                }
+            }
+        }
+
+        # Otherwise get an entry from the database and check what fields it
+        # contains
+        if (is.null(field) || multiple.match) {
+            field.2 <- NULL
+            multiple.match.2 <- FALSE
+            id <- .self$getEntryIds(max.results=1)
+            if (length(id) == 1) {
+                entry <- .self$getEntry(id)
+                for (f in fields)
+                    if (entry$hasField(f)) {
+                        if (is.null(field.2))
+                            field.2 <- f
+                        else {
+                            multiple.match.2 <- TRUE
+                            break
+                        }
+                    }
+            }
+            if ( ! is.null(field.2)) {
+                field <- field.2
+                multiple.match <- multiple.match.2
+            }
+        }
+        
+        # No choice made
+        if (is.null(field))
+            .self$error("Impossible to determine which field to use for",
+                        " M/Z matching. Please set the wanted field using",
+                        " setMatchingMzField() method, and make sure it is",
+                        " defined inside your database.")
+        
+        # Throw a warning telling which field was chosen for matching and tell
+        # to use setMatchingMzField() to set another field if needed
+        .self$setMatchingMzField(field)
+        if (multiple.match)
+            .self$warning('Field "', field, '" has been automatically chosen',
+                          ' among several possibilities (',
+                          paste(fields, collapse=', '), ') for matching',
+                          ' M/Z values. Use setMatchingMzField() method',
+                          ' explicitly to avoid this warning in the future.')
+    }
+    
+    return(field)
+},
+
+setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
+    ":\n\nSets the field to use for M/Z matching.
+    \nfield: The field to use for matching.
+    \nReturned value: None.
+    "
+    
+    field <- match.arg(field)
+    
+    .self$setPropValSlot('matching.fields', 'mz', field)
+},
+
 getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
                      precursor=FALSE, ms.level=0) {
     ":\n\nGets a list of M/Z values contained inside the database.
@@ -811,6 +905,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 .computeChromColRtRange=function(entry) {
 
     rt.col.unit <- entry$getFieldValue('chrom.rt.unit')
+
     if (entry$hasField('chrom.rt')) {
         rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt'),
                                        rt.col.unit, 's')

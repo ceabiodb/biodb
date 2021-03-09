@@ -177,7 +177,7 @@ addField=function(field, value) {
     .self$debug('Adding new field ', field, ' with value ',
                 paste(value, collapse=', '), '.')
     .self$.db[[field]] <- value
-    .self$.fields[[field]] <- field
+    .self$setField(field, field)
 },
 
 getFieldColName=function(field) {
@@ -370,17 +370,9 @@ defineParsingExpressions=function() {
 
     entry.fields <- .self$getBiodb()$getEntryFields()
 
-    # Loop on all fields defined in database
+    # Define a parsing expression for each column inside the database
     for (field in .self$getFieldNames())
         .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
-
-    # Loop on all entry fields
-    for (field in entry.fields$getFieldNames())
-        if ( ! field %in% .self$getFieldNames()) {
-            f <- entry.fields$get(field)
-            if ( ! f$isVirtual())
-                .self$setPropValSlot('parsing.expr', field, field)
-        }
 },
 
 .doWrite=function() {

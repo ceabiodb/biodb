@@ -47,19 +47,30 @@ conn$addField('chrom.rt.unit', 's')
 
 # Searching for entries
 
+Both `peak.mzexp` and `peak.mztheo` are defined inside the database.
+The following call to get the field that will be used for matching will emit a warning because of this:
+```{r}
+conn$getMatchingMzField()
+```
+
+Setting the M/Z field to use:
+```{r}
+conn$setMatchingMzField('peak.mztheo')
+```
+
 Searching by M/Z:
 ```{r}
-conn$searchMsEntries(mz.min = 145.96, mz.max = 147.13)
+conn$searchMsEntries(mz.min=145.96, mz.max=147.13)
 ```
 
 Searching with multiple M/Z:
 ```{r}
-conn$searchMsEntries(mz = c(86.000002, 146.999997), mz.tol = 10, mz.tol.unit = 'ppm')
+conn$searchMsEntries(mz=c(86.000002, 146.999997), mz.tol=10, mz.tol.unit='ppm')
 ```
 
 Searching by M/Z and RT:
 ```{r}
-conn$searchMsEntries(mz.min = 72.78, mz.max = 73.12, rt = 45.5, rt.tol = 1, rt.unit = 's')
+conn$searchMsEntries(mz.min=72.78, mz.max=73.12, rt=45.5, rt.tol=1, rt.unit='s')
 ```
 
 Other parameters can be used in `searchMsEntries()`:
