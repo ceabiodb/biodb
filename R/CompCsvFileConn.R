@@ -3,8 +3,7 @@
 #' This is the connector class for a Compound CSV file database.
 #'
 #' @seealso Super class \code{\link{CsvFileConn}} and interfaces
-#' \code{\link{BiodbCompounddbConn}}, \code{\link{BiodbWritable}} and
-#' \code{\link{BiodbEditable}}.
+#' \code{\link{BiodbCompounddbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -22,15 +21,11 @@
 #'
 #' @include CsvFileConn.R
 #' @include BiodbCompounddbConn.R
-#' @include BiodbEditable.R
-#' @include BiodbWritable.R
 #' @export CompCsvFileConn
 #' @exportClass CompCsvFileConn
 CompCsvFileConn <- methods::setRefClass("CompCsvFileConn",
-    contains=c("CsvFileConn", "BiodbCompounddbConn", 'BiodbWritable',
-               'BiodbEditable'),
-    fields=list(
-        ),
+    contains=c("CsvFileConn", "BiodbCompounddbConn"),
+    fields=list(),
 
 methods=list(
 

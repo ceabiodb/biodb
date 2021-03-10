@@ -25,13 +25,10 @@
 #'
 #' @include CsvFileConn.R
 #' @include BiodbMassdbConn.R
-#' @include BiodbEditable.R
-#' @include BiodbWritable.R
 #' @export MassCsvFileConn
 #' @exportClass MassCsvFileConn
 MassCsvFileConn <- methods::setRefClass("MassCsvFileConn",
-    contains=c("CsvFileConn", "BiodbMassdbConn", 'BiodbWritable',
-               'BiodbEditable'),
+    contains=c("CsvFileConn", "BiodbMassdbConn"),
     fields=list(
         .precursors="character"
         ),

@@ -2,8 +2,9 @@
 #'
 #' This is the abstract connector class for all CSV file databases.
 #'
-#' @seealso Super class \code{\link{BiodbConn}}, and sub-classes
-#' \code{\link{CompCsvFileConn}} and \code{\link{MassCsvFileConn}}.
+#' @seealso Super classes \code{\link{BiodbConn}}, \code{\link{BiodbWritable}},
+#' \code{\link{BiodbEditable}}, and sub-classes \code{\link{CompCsvFileConn}},
+#' \code{\link{MassCsvFileConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -14,16 +15,18 @@
 #' conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi_file)
 #'
 #' # Get an entry
-#' e <- conn$getEntry('')
+#' e <- conn$getEntry('1018')
 #'
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
+#' @include BiodbEditable.R
+#' @include BiodbWritable.R
 #' @export CsvFileConn
 #' @exportClass CsvFileConn
 CsvFileConn <- methods::setRefClass("CsvFileConn",
-    contains="BiodbConn",
+    contains=c("BiodbConn", 'BiodbWritable', 'BiodbEditable'),
     fields=list(
         .file.sep="character",
         .file.quote="character",
@@ -34,6 +37,7 @@ CsvFileConn <- methods::setRefClass("CsvFileConn",
         .autoSetFieldsHasBeenRun="logical",
         .ignoreUnassignedColumns="logical"
                 ),
+
 methods=list(
 
 initialize=function(...) {
