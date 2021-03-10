@@ -396,9 +396,9 @@ test.db.copy = function(conn) {
 
 test.searchForEntries = function(conn, opt=NULL) {
     
-    if ( ! is.null(opt))
-        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
-            } else NA_integer_
+    max.results <- NA_integer_
+    if ( ! is.null(opt) && 'max.results' %in% names(opt))
+        max.results <- opt[['max.results']]
 
     ef <- conn$getBiodb()$getEntryFields()
     fields <- conn$getPropertyValue('searchable.fields')
@@ -444,9 +444,9 @@ test.searchForEntries = function(conn, opt=NULL) {
 
 test.searchByName = function(conn, opt=NULL) {
     
-    if ( ! is.null(opt))
-        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
-            } else NA_integer_
+    max.results <- NA_integer_
+    if ( ! is.null(opt) && 'max.results' %in% names(opt))
+        max.results <- opt[['max.results']]
 
     if (conn$isSearchableByField('name')) {
 
@@ -478,9 +478,9 @@ test.searchByName = function(conn, opt=NULL) {
 
 test.searchCompound <- function(db, opt=NULL) {
     
-    if ( ! is.null(opt))
-        max.results <- if ('max.results' %in% names(opt)) { opt[['max.results']]
-            } else NA_integer_
+    max.results <- NA_integer_
+    if ( ! is.null(opt) && 'max.results' %in% names(opt))
+        max.results <- opt[['max.results']]
 
 	# Get an entry
 	id <- biodb::listTestRefEntries(db$getId())[[1]]
