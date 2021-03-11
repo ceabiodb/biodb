@@ -344,7 +344,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     # This happens sometime with NCBI CCDS server.
     if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
         && length(grep('The proxy server could not handle the request',
-                       content)) > 0) {
+                       unname(content))) > 0) {
         .self$message('debug', 'Found proxy error message in content.')
         err_msg <- "Error between the proxy and the main server."
         content <- NA_character_
