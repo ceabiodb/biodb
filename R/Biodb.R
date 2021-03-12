@@ -438,7 +438,8 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
     "
 
     # Get connector
-    conn <- .self$getFactory()$getConn(db)
+    conn <- if (is.character(db)) .self$getFactory()$getConn(db) else
+        .self$.assertIs(db, 'BiodbConn')
 
     # Get entries
     if (is.character(ids))

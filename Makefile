@@ -39,6 +39,15 @@ export PKG_CXXFLAGS=$(shell R $(RFLAGS) -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS+=-O
 PKG_CXXFLAGS+=-I$(realpath $(shell R $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
 
+# Set testthat reporter
+ifndef TESTTHAT_REPORTER
+ifdef VIM
+TESTTHAT_REPORTER=summary
+else
+TESTTHAT_REPORTER=progress
+endif
+endif
+
 # Set test file filter
 ifndef TEST_FILE
 TEST_FILE=NULL
@@ -74,7 +83,7 @@ R/RcppExports.R: src/*.cpp
 ################################################################
 
 check: clean.vignettes $(ZIPPED_PKG) R/RcppExports.R
-	time R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
+	R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
 # Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
 #   Warning in config_val_to_logical(check_incoming) :
 #     cannot coerce ‘FALSE false’ to logical
@@ -83,19 +92,21 @@ check: clean.vignettes $(ZIPPED_PKG) R/RcppExports.R
 #   Execution halted
 
 full.check: clean.vignettes $(ZIPPED_PKG)
-	time R CMD check "$(ZIPPED_PKG)"
+	R CMD check "$(ZIPPED_PKG)"
 
-bioc.check: PATH:=$(PATH):$(shell R $(RFLAGS) -e 'cat(pkgload::inst("BiocCheck"), "script", sep="/")')
 bioc.check: clean.vignettes $(ZIPPED_PKG)
-	#PATH=$$PATH:$$(R $(RFLAGS) -e 'cat(pkgload::inst("BiocCheck"), "script", sep="/")') time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
-	time R CMD BiocCheck --new-package --quit-with-status --no-check-formatting "$(ZIPPED_PKG)"
+	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 # Does not work anymore
 
 test: check.version compile
-	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/]\+\.R\)!\1tests/testthat/\2!'
+ifdef VIM
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
+else
+	R $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
+endif
 
 win:
 	R $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
