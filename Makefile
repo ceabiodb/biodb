@@ -118,7 +118,7 @@ doc: install.deps R/RcppExports.R
 
 vignettes: clean.vignettes
 	@echo Building vignettes for already installed package, not from local sources.
-	time R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
+	R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 ifneq ($(REF_BIB),)
 vignettes: vignettes/references.bib

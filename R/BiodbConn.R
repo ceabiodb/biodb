@@ -354,33 +354,36 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     "
 
     ids <- NULL
-    
-    if (is.null(fields) || length(fields) == 0)
-        return(ids)
+    wrong_fields <- FALSE
+    if (is.null(fields))
+        fields <- list()
 
     # Check if field can be used for searching
     for (f in names(fields)) {
         
         # Remove field if NULL or empty string
-        if (is.null(fields[[f]]) || fields[[f]] == '')
+        if (is.null(fields[[f]]) || fields[[f]] == '') {
             fields[[f]] <- NULL
+            wrong_fields <- TRUE
+        }
     
         # Error if field is not searchable
-        else if ( ! .self$isSearchableByField(f))
-            .self$error('This database is not searchable by field "', f, '"')
+        else if ( ! .self$isSearchableByField(f)) {
+            .self$warning('This database is not searchable by field "', f, '"')
+            fields[[f]] <- NULL
+            wrong_fields <- TRUE
+        }
     }
         
     # Call concrete method
-    ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
+    if (length(fields) > 0 || ! wrong_fields)
+        ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
 
     # No implementation
-    if (is.null(ids)) {
-        # No search implementation for this field
-        if (length(fields) > 0)
-            .self$error('This database has been declared to be ',
-                        'searchable by field "', names(fields)[[1]],
-                        '", but no implementation has been defined.')
-    }
+    if (is.null(ids) && length(fields) > 0)
+        .self$error('This database has been declared to be ',
+                    'searchable by field "', names(fields)[[1]],
+                    '", but no implementation has been defined.')
 
     return(ids)
 },
