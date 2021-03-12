@@ -18,9 +18,7 @@ before_install:
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
 
 script:
-    - make build
-    - make full.check || (cat /home/travis/build/pkrog/biodb/biodb.Rcheck/tests/testthat.Rout.fail && false)
-    - make bioc.check
+    - make check
 
 after_success:
     - Rscript -e 'covr::codecov()'

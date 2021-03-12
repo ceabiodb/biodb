@@ -82,19 +82,7 @@ R/RcppExports.R: src/*.cpp
 # Check and test {{{1
 ################################################################
 
-check: clean.vignettes $(ZIPPED_PKG) R/RcppExports.R
-	R CMD check --no-build-vignettes "$(ZIPPED_PKG)"
-# Use `R CMD check` instead of `devtools::test()` because the later failed once on Travis-CI:
-#   Warning in config_val_to_logical(check_incoming) :
-#     cannot coerce ‘FALSE false’ to logical
-#   Error in if (check_incoming) check_CRAN_incoming(!check_incoming_remote) : 
-#     missing value where TRUE/FALSE needed
-#   Execution halted
-
-full.check: clean.vignettes $(ZIPPED_PKG)
-	R CMD check "$(ZIPPED_PKG)"
-
-bioc.check: clean.vignettes $(ZIPPED_PKG)
+check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
 check.version:
@@ -117,7 +105,9 @@ conda_install_%: clean
 # Build {{{1
 ################################################################
 
-$(ZIPPED_PKG) build: doc
+build: $(ZIPPED_PKG)
+
+$(ZIPPED_PKG): doc
 	R CMD build .
 
 # Documentation {{{1

@@ -362,10 +362,10 @@ Recreate the connector and reload the same entries:
 conn <- mybiodb$getFactory()$createConn('chebi.ex')
 entriesDf <- mybiodb$entriesToDataframe(conn$getEntry(entryIds))
 ```
-See table \@ref(tab:entriesChebiEx2WithNstarsTable). <!-- TODO ref not working -->
+See table \@ref(tab:entriesChebiEx2WithNstarsTable).
 Now a column named `n_stars` indicates the number of stars for each entry in the data frame.
 
-```{r entriesChebiEx2NstarsTable, echo=FALSE, results='asis'}
+```{r entriesChebiEx2WithNstarsTable, echo=FALSE, results='asis'}
 # Prevent RMarkdown from interpreting @ character as a reference:
 entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(head(entriesDf), "pipe", caption="Some entries from ChebiEx database. Now there is a n_stars no field that indicates the number of stars of an entry.")
