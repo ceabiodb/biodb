@@ -15,10 +15,7 @@ branches:
     - master
     
 before_install:
-    - sudo apt install libgit2-dev
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
-    - R --slave --no-restore RHOME
-    - PATH="$PATH:$HOME/R/Library/BiocCheck/script" # Add BiocCheck script dir to PATH because of failure while installing scripts to /opt/R/4.0.2/lib/R/bin (owned by root) as travis user.
 
 script:
     - make build

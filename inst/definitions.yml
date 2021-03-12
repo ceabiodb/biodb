@@ -144,7 +144,20 @@ databases:
 ################################################################################
   comp.csv.file:
     name: Compound CSV File
-    description: A connector to handle a compound database stored inside a CSV file. It is possible to choose the separator for the CSV file.
+    description: A connector to handle a compound database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields.
+    entry.content.type: tsv
+    searchable.fields:
+      - name
+      - monoisotopic.mass
+      - molecular.mass
+      - average.mass
+      - nominal.mass
+
+# Compound SQLite {{{2
+################################################################################
+  comp.sqlite:
+    name: Compound SQLite
+    description: A connector to handle a compound database stored inside an SQLite file.
     entry.content.type: tsv
     searchable.fields:
       - name
@@ -157,6 +170,7 @@ databases:
 ################################################################################
   mass.csv.file:
     name: Mass CSV File
+    description: A connector to handle a mass spectra database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields..
     entry.content.type: tsv
 
 # Mass SQLite {{{2
@@ -217,6 +231,13 @@ fields:
 
   comp.csv.file.id:
     description: Compound CSV File ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many
+
+  comp.sqlite.id:
+    description: Compound SQLite ID
     case.insensitive: true
     forbids.duplicates: true
     type: id

@@ -86,6 +86,8 @@ Collate:
     'CsvFileConn.R'
     'CompCsvFileConn.R'
     'CompCsvFileEntry.R'
+    'SqliteConn.R'
+    'CompSqliteConn.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'

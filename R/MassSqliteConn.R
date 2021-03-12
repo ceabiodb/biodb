@@ -63,7 +63,7 @@ getChromCol=function(ids=NULL) {
                 }
 
                 # Run query
-                chrom.cols <- DBI::dbGetQuery(.self$.db, query$toString())
+                chrom.cols <- .self$getQuery(query)
                 names(chrom.cols) <- c('id', 'title')
             }
         }
@@ -98,7 +98,7 @@ getChromCol=function(ids=NULL) {
                                           '".'))
 
             # Run query
-            df <- DBI::dbGetQuery(.self$.db, query$toString())
+            df <- .self$getQuery(query)
             mz <- df[[1]]
         }
     }
@@ -202,7 +202,7 @@ getChromCol=function(ids=NULL) {
             .self$debug('Run query "', query$toString(), '".')
 
             # Run query
-            df <- DBI::dbGetQuery(.self$.db, query$toString())
+            df <- .self$getQuery(query)
             ids <- df[[1]]
         }
     }

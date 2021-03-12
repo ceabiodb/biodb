@@ -178,6 +178,39 @@ defineParsingExpressions=function() {
         .self$.db <-  DBI::dbConnect(RSQLite::SQLite(), dbname=u)
 },
 
+isSearchableByField=function(field) {
+    # Overrides super class' method.
+
+    v <- callSuper(field)
+    v <- v && .self$hasField(field)
+    
+    return(v)
+},
+
+hasField=function(field) {
+    
+    b <- FALSE
+    .self$.initDb()
+    
+    ef <- .self$getBiodb()$getEntryFields()
+    
+    # Check that a column is defined inside main table
+    if (ef$get(field)$hasCardOne())
+        b <- field %in% DBI::dbListFields(.self$.db, 'entries')
+
+    # Check that a table is defined for this field
+    else
+        b <- DBI::dbExistsTable(.self$.db, .self$.fieldToSqlId(field))
+    
+    return(b)
+},
+
+getQuery=function(query) {
+    query_str <- query$toString()
+    .self$debug('Running query "', query_str, '".')
+    return(DBI::dbGetQuery(.self$.db, query_str))
+},
+
 .doTerminate=function() {
 
     if ( ! is.null(.self$.db)) {
