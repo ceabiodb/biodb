@@ -339,11 +339,14 @@ isSearchableByField=function(field) {
 searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
-    \nfields: A list of fields on which to matching. To get a match, all fields
-    must be matched (i.e.: logical AND). The keys of the list are the entry
-    field names. For character type fields, values are vectors of either a
-    single string or multiple strings (logical AND, all strings must be found
-    inside the field's value), depending of the implementation.
+    \nfields: A list of fields on which to filter entries. To get a match, all
+    fields must be matched (i.e.: logical AND). The keys of the list are the
+    entry field names on which to filter, and the values are the filtering
+    parameters. For character fields, the filter parameter is a character
+    vector in which all strings must be found inside the field's value. For
+    numeric fields, the filter parameter is either a list specifying a min-max
+    range (`list(min=1.0, max=2.5)`) or a value with a tolerance in delta
+    (`list(value=2.0, delta=0.1)`) or ppm (`list(value=2.0, ppm=1.0)`).
     \nmax.results: If set, the number of returned IDs is limited to this
     number.
     \nReturned value: A character vector of entry IDs whose name matches the
@@ -369,10 +372,6 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
         
     # Call concrete method
     ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
-    
-    # Try deprecated method searchCompound()
-    if (is.null(ids) && .self$isCompounddb() && 'name' %in% names(fields))
-        ids <- .self$searchCompound(name=fields$name, max.results=max.results)
 
     # No implementation
     if (is.null(ids)) {
@@ -397,10 +396,13 @@ searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
     "
     
     .self$.deprecatedMethod("searchForEntries()")
-    
-    fields <- list()
-    fields[['name']] <- name
-    ids <- .self$searchForEntries(fields=fields, max.results=max.results)
+    ids <- NULL
+
+    # Try deprecated method searchCompound()
+    if (.self$isCompounddb())
+        ids <- .self$searchCompound(name=name, max.results=max.results)
+    else
+        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
 
     return(ids)
 },

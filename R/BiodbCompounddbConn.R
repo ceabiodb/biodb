@@ -60,9 +60,15 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
     # Try searchForEntries
     if ( ! is.null(name) && is.null(mass))
         ids <- .self$searchForEntries(list(name=name), max.results=max.results)
-    else 
-        .self$caution('Database ', .self$getDbClass(),
-                      ' is not searchable by mass or name.')
+    else if ( ! is.null(mass)) {
+        fields <- if (is.null(name)) list() else list(name=name)
+        fields[[mass.field]] <- list(value=mass)
+        if (mass.tol.unit == 'ppm')
+            fields[[mass.field]]$ppm = mass.tol
+        else
+            fields[[mass.field]]$delta = mass.tol
+        ids <- .self$searchForEntries(fields, max.results=max.results)
+    }
 
     return(ids)
 },

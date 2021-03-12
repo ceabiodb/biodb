@@ -1,6 +1,6 @@
-#' Mass spectra SQLite entry class.
+#' Compound SQLite entry class.
 #'
-#' This is the entry class for a Mass spectra SQLite database.
+#' This is the entry class for a Compound SQLite database.
 #'
 #' @seealso Super class \code{\link{BiodbListEntry}}.
 #'
@@ -9,10 +9,10 @@
 #' mybiodb <- biodb::Biodb()
 #'
 #' # Get path to LCMS database example file
-#' lcmsdb <- system.file("extdata", "massbank_extract.sqlite", package="biodb")
+#' lcmsdb <- system.file("extdata", "chebi_extract.sqlite", package="biodb")
 #'
 #' # Create a connector
-#' conn <- mybiodb$getFactory()$createConn('mass.sqlite', url=lcmsdb)
+#' conn <- mybiodb$getFactory()$createConn('comp.sqlite', url=lcmsdb)
 #'
 #' # Get an entry
 #' e <- conn$getEntry('34.pos.col12.0.78')
@@ -21,7 +21,7 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbListEntry.R
-#' @export MassSqliteEntry
-#' @exportClass MassSqliteEntry
-MassSqliteEntry <- methods::setRefClass("MassSqliteEntry",
+#' @export CompSqliteEntry
+#' @exportClass CompSqliteEntry
+CompSqliteEntry <- methods::setRefClass("CompSqliteEntry",
                                         contains="BiodbListEntry")

@@ -90,7 +90,7 @@ compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
     return(res)
 }
 
-convertTolToRange <- function(x, tol, type=c('plain', 'ppm')) {
+convertTolToRange <- function(x, tol, type=c('delta', 'plain', 'ppm')) {
     
     type <- match.arg(type)
     if (type == 'ppm') {
