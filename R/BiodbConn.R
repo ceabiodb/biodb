@@ -361,8 +361,8 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     # Check if field can be used for searching
     for (f in names(fields)) {
         
-        # Remove field if NULL or empty string
-        if (is.null(fields[[f]]) || fields[[f]] == '') {
+        # Remove field if NULL
+        if (is.null(fields[[f]])) {
             fields[[f]] <- NULL
             wrong_fields <- TRUE
         }

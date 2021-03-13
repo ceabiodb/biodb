@@ -472,7 +472,9 @@ test.searchByName = function(conn, opt=NULL) {
         testthat::expect_true(id %in% ids, msg)
     }
     else {
-        testthat::expect_null(conn$searchByName(name=''))
+        testthat::expect_warning(conn$searchByName(name='foo'))
+        testthat::expect_warning(conn$searchByName(name=''))
+        testthat::expect_null(conn$searchByName(name=NULL))
     }
 }
 
