@@ -1,8 +1,3 @@
-# vi: fdm=marker ts=4 et cc=80 tw=80
-
-# Test new field {{{1
-################################################################################
-
 test_new_field <- function(biodb) {
 
     field_def <- list(n_stars=list(description='The ChEBI stars indicator.',
@@ -11,9 +6,6 @@ test_new_field <- function(biodb) {
     ef$define(field_def)
     testthat::expect_true(ef$isDefined('n_stars'))
 }
-
-# Test new parsing expression {{{1
-################################################################################
 
 test_new_parsing_expr <- function(biodb) {
 
@@ -64,7 +56,64 @@ test_chebiExShow <- function(biodb) {
     testthat::expect_output(print(conn), '^.*Request maximum rate:.*$')
 }
 
-# Main {{{1
+test_newExtPkgSkeleton <- function() {
+    
+    dbName <- 'foo.db'
+    pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
+    testFile <- paste0('test_', dbName, '.R')
+
+    # Folder of the new package
+    pkgDir <- file.path(tempfile(), pkgName)
+    dir.create(dirname(pkgDir))
+
+    # Create a new extension package skeleton
+    biodb::ExtPackage(pkgDir, makefile=TRUE)$generate()
+    
+    # Check that some files exist
+    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+    testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
+#                                                'definitions.yml')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+#                                                testFile)))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+    
+    # Try running tests, generating doc and vignette, etc.
+}
+
+test_upgradeExtPkg <- function() {
+    
+    dbName <- 'foo.db'
+    pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
+    testFile <- paste0('test_', dbName, '.R')
+
+    # Folder of the new package
+    pkgDir <- file.path(tempfile(), pkgName)
+    dir.create(dirname(pkgDir))
+
+    # Create a new extension package skeleton
+    biodb::ExtPackage(pkgDir)$generate()
+    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+#    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+    testthat::expect_true( ! file.exists(file.path(pkgDir, 'Makefile')))
+    
+    # Upgrade
+    biodb::ExtPackage(pkgDir, makefile=TRUE)$upgrade()
+    testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+}
+
+# Main
 ################################################################################
 
 # Instantiate Biodb
@@ -76,8 +125,14 @@ biodb::setTestContext(biodb, "Test definition of extensions.")
 
 # Run tests
 biodb::testThat("We can define a new field.", test_new_field, biodb=biodb)
-biodb::testThat("We can define a new parsing expression.", test_new_parsing_expr, biodb=biodb)
-biodb::testThat("show() method works correctly", test_chebiExShow, biodb=biodb)
+biodb::testThat("We can define a new parsing expression.",
+                test_new_parsing_expr, biodb=biodb)
+biodb::testThat("show() method works correctly.", test_chebiExShow,
+                biodb=biodb)
+biodb::testThat("We can generate a skeleton for a new extension package.",
+                test_newExtPkgSkeleton)
+biodb::testThat("We can upgrade the files of an extension package.",
+                test_upgradeExtPkg)
 
 # Terminate Biodb
 biodb$terminate()

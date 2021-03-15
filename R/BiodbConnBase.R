@@ -610,18 +610,7 @@ setPropValSlot=function(name, slot, value) {
 },
 
 .getClassNamePrefix=function() {
-
-    s <- .self$.db.class
-    indices <- as.integer(gregexpr('\\.[a-z]', .self$.db.class,
-                                   perl=TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-    for (i in indices)
-        s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)),
-                   substring(s, i + 1), sep='')
-    s <- gsub('.', '', s, fixed=TRUE) # Remove dots
-
-    return(s)
+    return(biodb:::connNameToClassPrefix(.self$.db.class))
 },
 
 getBaseUrl=function() {
