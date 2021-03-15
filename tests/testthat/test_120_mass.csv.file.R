@@ -564,7 +564,7 @@ test_matchingField <- function(biodb) {
 biodb <- biodb::createBiodbTestInstance(log='masscsvfile_test.log')
 
 # Set context
-biodb::setTestContext(biodb, "Test Mass CSV File connector.")
+biodb::setTestContext(biodb, "Test Mass spectra CSV File connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')

@@ -22,6 +22,8 @@ Suggests:
     xml2
 Imports:
 	methods,
+	chk,
+    desc,
 	XML,
 	stringr,
 	plyr,
@@ -89,11 +91,15 @@ Collate:
     'SqliteConn.R'
     'CompSqliteConn.R'
     'CompSqliteEntry.R'
+    'ExtDescriptionFile.R'
+    'ExtMakefile.R'
+    'ExtPackage.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
     'RcppExports.R'
+    'biodb_fcts.R'
     'catch-routine-registration.R'
     'generic_tests.R'
     'http_consts.R'
