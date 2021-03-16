@@ -19,7 +19,8 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    xml2
+    xml2,
+    git2r
 Imports:
 	R6,
 	methods,

@@ -11,7 +11,7 @@ This package is an extension of [biodb](https://github.com/pkrog/biodb/) that im
 Install the latest version of this package by running the following commands:
 ```r
 devtools::install_github('pkrog/biodb', dependencies=TRUE)
-devtools::install_github('{{GitHubRepos}}', dependencies=TRUE)
+devtools::install_github('{{githubRepos}}', dependencies=TRUE)
 ```
 
 ## Examples
