@@ -88,8 +88,8 @@ generate=function() {
     .self$checkName()
     
     dir.create(.self$getPath())
-    ExtDescriptionFile(.self$getPath(), dbName=.self$dbName,
-                       newPkg=.self$newPkg, rcpp=.self$rcpp)$generate()
+    ExtDescriptionFile$new(.self$getPath(), dbName=.self$dbName,
+                           newPkg=.self$newPkg, rcpp=.self$rcpp)$generate()
     if (.self$makefile)
         ExtMakefile$new(.self$getPath(), newPkg=.self$newPkg)$generate()
 },

@@ -16,9 +16,9 @@ public=list(
 
 #' @description
 #' Constructor.
-#' @field path      The path to the package folder.
-#' @field newPkg    Set to TRUE if the package is not yet on Bioconductor.
-#' @field overwrite Force overwriting of existing makefile, without testing
+#' @param path      The path to the package folder.
+#' @param newPkg    Set to TRUE if the package is not yet on Bioconductor.
+#' @param overwrite Force overwriting of existing makefile, without testing
 #' versions.
 #' @return A new instance.
 initialize=function(path, newPkg=FALSE, overwrite=FALSE) {

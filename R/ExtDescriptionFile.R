@@ -1,55 +1,82 @@
+#' Extension DESCRIPTION file
+#'
+#' @description
 #' A class for generating a DESCRIPTION file for an extension package.
 #'
+#' @details
 #' This class generates a DESCRIPTION for a biodb extension package.
 #'
+#' @import R6
+#' @import chk
+#' @import desc
+#' @export
+ExtDescriptionFile <- R6::R6Class('ExtDescriptionFile',
+
+public=list(
+
+#' @description
+#' Constructor.
 #' @param path     The path to the package folder.
 #' @param dbName   The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classe.
 #' @param newPkg   Set to TRUE if the package is not yet on Bioconductor.
 #' @param rcpp     Set to TRUE to enable Rcpp C/C++ code inside the package.
-#'
-#' @examples
-#'
-#'
-#' @import methods
-#' @import chk
-#' @import desc
-#' @export ExtDescriptionFile
-#' @exportClass ExtDescriptionFile
-ExtDescriptionFile <- methods::setRefClass('ExtDescriptionFile',
-    fields=list(
-        path='character',
-        dbName='ANY',
-        newPkg='logical',
-        rcpp='logical'
-    ),
-
-methods=list(
-
+#' @return A new instance.
 initialize=function(path, dbName=NULL, newPkg=FALSE, rcpp=FALSE) {
     chk::chk_dir(path)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(rcpp)
 
-    .self$path <- normalizePath(path)
-    .self$dbName <- dbName
-    .self$newPkg <- newPkg
-    .self$rcpp <- rcpp
+    private$path <- normalizePath(path)
+    private$dbName <- dbName
+    private$newPkg <- newPkg
+    private$rcpp <- rcpp
 },
 
+generate=function() {
+    ":\n\nGenerates the DESCRIPTION file inside the package folder.
+    \nReturned value: None.
+    "
+    
+    # Create new file
+    descFile <- desc::description$new("!new")
+    
+    # Remove some fields
+    descFile$del(c('Authors@R', 'Maintainer', 'URL', 'BugReports'))
+    
+    # Set fields
+    private$setNameTitleDesc(descFile)
+    if (private$newPkg)
+        descFile$set(Version='0.99.0')
+    descFile$set(License='AGPL-3')
+    private$setAuthors(descFile)
+    private$setDependencies(descFile)
+    private$setCollateFiles(descFile)
+
+    # Write file
+    descFile$write(file=file.path(private$path, 'DESCRIPTION'))
+}
+),
+
+private=list(
+    path=NULL,
+    dbName=NULL,
+    newPkg=NULL,
+    rcpp=NULL,
+
 getPkgName=function() {
-    return(basename(.self$path))
+    return(basename(private$path))
 },
 
 setNameTitleDesc=function(descFile) {
-    descFile$set("Package", .self$getPkgName())
-    descFile$set(Package=.self$getPkgName())
-    descFile$set(Title=paste(.self$getPkgName(),
+    descFile$set("Package", private$getPkgName())
+    descFile$set(Package=private$getPkgName())
+    descFile$set(Title=paste(private$getPkgName(),
                              'a library for connecting to a/the ... database'))
     descFile$set(Description=paste('The',
-                    .self$getPkgName(), 'library is an extension of',
+                    private$getPkgName(), 'library is an extension of',
                     'the biodb framework package, that provides access',
                     'to a/the ... database. It allows to retrieve',
                     'entries by their accession number, and ...'))
@@ -74,7 +101,7 @@ setDependencies=function(descFile) {
     descFile$set_dep('knitr', type='Suggests')
     descFile$set_dep('rmarkdown', type='Suggests')
     descFile$set_dep('covr', type='Suggests')
-    if (.self$rcpp) {
+    if (private$rcpp) {
         descFile$set_dep('Rcpp', type='Imports')
         descFile$set_dep('Rcpp', type='LinkingTo')
         descFile$set_dep('testthat', type='LinkingTo')
@@ -84,37 +111,12 @@ setDependencies=function(descFile) {
 
 setCollateFiles=function(descFile) {
 
-    if ( ! is.null(.self$dbName)) {
-        connFile <- paste0(getConnClassName(.self$dbName), '.R')
-        entryFile <- paste0(getEntryClassName(.self$dbName), '.R')
+    if ( ! is.null(private$dbName)) {
+        connFile <- paste0(getConnClassName(private$dbName), '.R')
+        entryFile <- paste0(getEntryClassName(private$dbName), '.R')
         descFile$add_to_collate(c(connFile, entryFile, 'package.R'))
-        if (.self$rcpp)
+        if (private$rcpp)
             descFile$add_to_collate('RcppExports.R')
     }
-},
-
-generate=function() {
-    ":\n\nGenerates the DESCRIPTION file inside the package folder.
-    \nReturned value: None.
-    "
-    
-    # Create new file
-    descFile <- desc::description$new("!new")
-    
-    # Remove some fields
-    descFile$del(c('Authors@R', 'Maintainer', 'URL', 'BugReports'))
-    
-    # Set fields
-    .self$setNameTitleDesc(descFile)
-    if (.self$newPkg)
-        descFile$set(Version='0.99.0')
-    descFile$set(License='AGPL-3')
-    .self$setAuthors(descFile)
-    .self$setDependencies(descFile)
-    .self$setCollateFiles(descFile)
-
-    # Write file
-    descFile$write(file=file.path(.self$path, 'DESCRIPTION'))
 }
-
 ))
