@@ -21,6 +21,7 @@ Suggests:
     covr,
     xml2
 Imports:
+	R6,
 	methods,
 	chk,
     desc,

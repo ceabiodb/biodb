@@ -91,7 +91,7 @@ generate=function() {
     ExtDescriptionFile(.self$getPath(), dbName=.self$dbName,
                        newPkg=.self$newPkg, rcpp=.self$rcpp)$generate()
     if (.self$makefile)
-        ExtMakefile(.self$getPath(), newPkg=.self$newPkg)$generate()
+        ExtMakefile$new(.self$getPath(), newPkg=.self$newPkg)$generate()
 },
 
 upgrade=function() {
@@ -104,6 +104,6 @@ upgrade=function() {
     .self$checkName()
     .self$checkFilesExist()
     if (.self$makefile)
-        ExtMakefile(.self$getPath(), newPkg=.self$newPkg)$upgrade()
+        ExtMakefile$new(.self$getPath(), newPkg=.self$newPkg)$upgrade()
 }
 ))
