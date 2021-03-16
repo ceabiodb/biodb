@@ -44,10 +44,10 @@ getPath=function() {
 #' @examples
 #' # Create (or replace) a Makefile for a new Bioconductor boidb extension
 #' # package. The call is made while inside the package root folder:
-#' biodb::ExtMakefile('.', newPkg=TRUE)$generate()
+#' biodb::ExtMakefile$new('.', newPkg=TRUE)$generate()
 #'
 #' # Create a Makefile for an existing Bioconductor package:
-#' biodb::ExtMakefile('.')$generate()
+#' biodb::ExtMakefile$new('.')$generate()
 #'
 generate=function() {
 
