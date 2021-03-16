@@ -272,11 +272,7 @@ getConnClassName=function() {
     \nReturned value: Returns the connector OOP class name.
     "
 
-    # Get connection class name
-    s <- .self$.getClassNamePrefix()
-    conn.class.name <- paste(s, 'Conn', sep='')
-
-    return(conn.class.name)
+    return(biodb:::getConnClassName(.self$.db.class))
 },
 
 getConnClass=function() {
@@ -296,11 +292,7 @@ getEntryClassName=function() {
     \nReturned value: Returns the name of the associated entry class.
     "
 
-    # Get entry class name
-    s <- .self$.getClassNamePrefix()
-    entry.class.name <- paste(s, 'Entry', sep='')
-
-    return(entry.class.name)
+    return(biodb:::getEntryClassName(.self$.db.class))
 },
 
 getEntryClass=function() {
@@ -607,10 +599,6 @@ setPropValSlot=function(name, slot, value) {
 
 .checkSettingOfUrl=function(key, value) {
     # Accept setting by default
-},
-
-.getClassNamePrefix=function() {
-    return(biodb:::connNameToClassPrefix(.self$.db.class))
 },
 
 getBaseUrl=function() {

@@ -58,17 +58,21 @@ test_chebiExShow <- function(biodb) {
 
 test_newExtPkgSkeleton <- function() {
     
-    dbName <- 'foo.db'
+    dbName <- 'test.new.ext.foo.db'
     pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
     testFile <- paste0('test_', dbName, '.R')
 
     # Folder of the new package
-    pkgDir <- file.path(tempfile(), pkgName)
-    dir.create(dirname(pkgDir))
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(dirname(pkgDir)))
+        dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
-    biodb::ExtPackage(pkgDir, makefile=TRUE)$generate()
-    
+    biodb::ExtPackage(pkgDir, dbName='foo.db', makefile=TRUE,
+                      rcpp=TRUE)$generate()
+
     # Check that some files exist
     testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
@@ -93,13 +97,16 @@ test_newExtPkgSkeleton <- function() {
 
 test_upgradeExtPkg <- function() {
     
-    dbName <- 'foo.db'
+    dbName <- 'test.upgrade.ext.foo.db'
     pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
     testFile <- paste0('test_', dbName, '.R')
 
     # Folder of the new package
-    pkgDir <- file.path(tempfile(), pkgName)
-    dir.create(dirname(pkgDir))
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(dirname(pkgDir)))
+        dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
     biodb::ExtPackage(pkgDir)$generate()

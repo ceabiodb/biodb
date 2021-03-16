@@ -1,3 +1,11 @@
+getConnClassName <- function(connName) {
+    return(paste0(connNameToClassPrefix(connName), 'Conn'))
+}
+
+getEntryClassName <- function(connName) {
+    return(paste0(connNameToClassPrefix(connName), 'Entry'))
+}
+
 connNameToClassPrefix <- function(connName) {
     chk::chk_string(connName)
 

@@ -11,8 +11,12 @@
 #' Makefile, .travis.yml, LICENSE, etc.
 #'
 #' @param path     The path to the package folder.
+#' @param dbName   The name of the database (in biodb format "my.db.name"),
+#' that will be used in "definitions.yml" file and for connector and entry
+#' classe.
 #' @param makefile Set to TRUE if you want a Makefile to be generated.
 #' add some special directives inside the Makefile.
+#' @param rcpp     Set to TRUE to enable Rcpp C/C++ code inside the package.
 #'
 #' @examples
 #' # Create a new package:
@@ -25,20 +29,26 @@
 ExtPackage <- methods::setRefClass('ExtPackage',
     fields=list(
         path='character',
+        dbName='ANY',
         newPkg='logical',
+        rcpp='logical',
         makefile='logical'
     ),
 
 methods=list(
          
-initialize=function(path, newPkg=FALSE, makefile=FALSE) {
+initialize=function(path, dbName=NULL, newPkg=FALSE, makefile=FALSE, rcpp=FALSE) {
     chk::chk_string(path)
+    chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(makefile)
+    chk::chk_flag(rcpp)
     
     .self$path <- path
+    .self$dbName <- dbName
     .self$newPkg <- newPkg
     .self$makefile <- makefile
+    .self$rcpp <- rcpp
 },
 
 checkPathExists=function() {
@@ -78,7 +88,8 @@ generate=function() {
     .self$checkName()
     
     dir.create(.self$getPath())
-    ExtDescriptionFile(.self$getPath())$generate()
+    ExtDescriptionFile(.self$getPath(), dbName=.self$dbName,
+                       newPkg=.self$newPkg, rcpp=.self$rcpp)$generate()
     if (.self$makefile)
         ExtMakefile(.self$getPath(), newPkg=.self$newPkg)$generate()
 },
