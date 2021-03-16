@@ -78,7 +78,7 @@ test_newExtPkgSkeleton <- function() {
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
 #    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
     testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
+    testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))

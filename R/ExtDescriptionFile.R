@@ -35,10 +35,9 @@ initialize=function(path, dbName=NULL, newPkg=FALSE, rcpp=FALSE) {
     private$rcpp <- rcpp
 },
 
+#' @description
+#' Generates the DESCRIPTION file inside the package folder.
 generate=function() {
-    ":\n\nGenerates the DESCRIPTION file inside the package folder.
-    \nReturned value: None.
-    "
     
     # Create new file
     descFile <- desc::description$new("!new")
