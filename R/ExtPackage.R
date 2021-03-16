@@ -64,6 +64,7 @@ generate=function() {
     if (private$makefile)
         ExtMakefile$new(private$path, newPkg=private$newPkg)$generate()
     ExtLicense$new(private$path)$generate()
+    ExtReadme$new(private$path)$generate()
 },
 
 #' @description
