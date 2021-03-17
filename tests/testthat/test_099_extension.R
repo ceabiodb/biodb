@@ -59,7 +59,8 @@ test_chebiExShow <- function(biodb) {
 test_newExtPkgSkeleton <- function() {
     
     dbName <- 'test.new.ext.foo.db'
-    pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
+    clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+    pkgName <- paste0('biodb', clsPrefix)
     testFile <- paste0('test_', dbName, '.R')
 
     # Folder of the new package
@@ -70,18 +71,24 @@ test_newExtPkgSkeleton <- function() {
         dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
-    biodb::ExtPackage$new(pkgDir, dbName='foo.db', dbTitle='FOO database',
+    biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
+                          connType='compound', entryType='csv',
                           makefile=TRUE, rcpp=TRUE)$generate()
 
-    # Check that some files exist
+    # Check files & dirs
     testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+    testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                paste0(clsPrefix, 'Conn.R'))))
+    testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                paste0(clsPrefix, 'Entry.R'))))
     testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
     testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
     testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+#    testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
 #    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
 #                                                'definitions.yml')))
@@ -92,7 +99,9 @@ test_newExtPkgSkeleton <- function() {
 #                                                testFile)))
 #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
     
-    # Try running tests, generating doc and vignette, etc.
+    # Check targets
+    system('make')
+    system('make doc')
 }
 
 test_upgradeExtPkg <- function() {

@@ -229,9 +229,9 @@ getEntryContent=function(id) {
 },
 
 getEntryContentFromDb=function(entry.id) {
-    ":\n\nGet the contents of entries directly from the database. A direct request or 
-    an access to the database will be made in order to retrieve the contents. No
-    access to the biodb cache system will be made.
+    ":\n\nGet the contents of entries directly from the database. A direct
+    request or an access to the database will be made in order to retrieve the
+    contents. No access to the biodb cache system will be made.
     \nentry.id: A character vector with the IDs of entries to retrieve.
     \nReturned value: A character vector, the same size of entry.id, with
     contents of the requested entries. An NA value will be set for the content

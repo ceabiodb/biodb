@@ -33,12 +33,79 @@ replace=function(tag, value) {
 },
 
 #' @description
+#' Choose one case among a set of cases.
+#' @param set  The name of the case set.
+#' @param case The name of case.
+choose=function(set, case) {
+    chk::chk_string(set)
+    chk::chk_string(case)
+    
+    set <- gsub('[^A-Za-z0-9]', '_', toupper(set))
+    case <- gsub('[^A-Za-z0-9]', '_', toupper(case))
+    caseRE <- paste('^.*\\$\\$\\$CASE', set, '.*\\$\\$\\$.*$')
+    caseChosenRE <- paste0('^.*\\$\\$\\$CASE ', set, ' ', case, '\\$\\$\\$.*$')
+    caseEndRE <- '^.*\\$\\$\\$END_CASE\\$\\$\\$.*$'
+
+    while (length(starts <- grep(caseRE, private$txt)) > 0) {
+        i <- starts[[1]]
+        insideChosenCase <- FALSE
+        while ( ! grepl(caseEndRE, private$txt[[i]])) {
+            if (grepl(caseChosenRE, private$txt[[i]])) {
+                private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
+                insideChosenCase <- TRUE
+            } else if (grepl(caseRE, private$txt[[i]])) {
+                private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
+                insideChosenCase <- FALSE
+            } else if (insideChosenCase)
+                i <- i + 1
+            else {
+                private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
+            }
+        }
+
+        # Remove END_CASE line
+        private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
+    }
+},
+
+#' @description
+#' Select or remove sections that match a name.
+#' @param set    The name of the section.
+#' @param enable Set to TRUE to select the section (and keep it), and FALSE to
+#' remove it.
+select=function(section, enable) {
+    chk::chk_string(section)
+    chk::chk_flag(enable)
+    
+    section <- gsub('[^A-Za-z0-9]', '_', toupper(section))
+    sectionRE <- paste0('^.*\\$\\$\\$SECTION *', section, ' *\\$\\$\\$.*$')
+    sectionEndRE <- '^.*\\$\\$\\$END_SECTION\\$\\$\\$.*$'
+
+    # Get all start and section sections
+    starts <- grep(sectionRE, private$txt)
+    ends <- grep(sectionEndRE, private$txt)
+    
+    # Match each start with its corresponding end (i.e.: the closest one)
+    matchingEnds <- vapply(starts, function(i) head(ends[ends > i], n=1),
+                           FUN.VALUE=1)
+
+    # Remove only start and end if we keep the sections
+    linesToRemove <- if (enable) c(starts, ends) else
+    # Remove all lines from start to end if we remove the sections
+        unlist(lapply(seq_along(starts), function(i) seq(starts[[i]],
+                                                         matchingEnds[[i]])))
+
+    # Remove lines
+    private$txt <- private$txt[setdiff(seq_along(private$txt), linesToRemove)]
+},
+
+#' @description
 #' Write template with replaced values to disk.
 #' @param path Path to output file.
 write=function(path) {
     chk::chk_false(chk::vld_file(path))
     
-    write(private$txt, file=path)
+    writeLines(private$txt, path)
 }
 ),
 
@@ -47,6 +114,6 @@ private=list(
     txt=NULL,
     
 loadTemplate=function() {
-    private$txt <- readChar(private$path, file.info(private$path)$size)
+    private$txt <- readLines(private$path)
 }
 ))
