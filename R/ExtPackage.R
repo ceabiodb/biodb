@@ -27,20 +27,24 @@ public=list(
 #' @param dbName   The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classe.
+#' @param dbTitle  The official name of the database (e.g.: HMDB, UniProtKB,
+#' KEGG).
 #' @param makefile Set to TRUE if you want a Makefile to be generated.
 #' add some special directives inside the Makefile.
 #' @param rcpp     Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
-initialize=function(path, dbName=NULL, newPkg=FALSE, makefile=FALSE,
+initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE, makefile=FALSE,
                     rcpp=FALSE) {
     chk::chk_string(path)
     chk::chk_null_or(dbName, chk::chk_string)
+    chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(makefile)
     chk::chk_flag(rcpp)
     
     private$path <- normalizePath(path, mustWork=FALSE)
     private$dbName <- dbName
+    private$dbTitle <- dbTitle
     private$newPkg <- newPkg
     private$makefile <- makefile
     private$rcpp <- rcpp
@@ -64,7 +68,8 @@ generate=function() {
     if (private$makefile)
         ExtMakefile$new(private$path, newPkg=private$newPkg)$generate()
     ExtLicense$new(private$path)$generate()
-    ExtReadme$new(private$path)$generate()
+    ExtReadme$new(private$path, dbName=private$dbName,
+                  dbTitle=private$dbTitle)$generate()
 },
 
 #' @description
@@ -87,6 +92,7 @@ upgrade=function() {
 private=list(
     path=NULL,
     dbName=NULL,
+    dbTitle=NULL,
     newPkg=NULL,
     rcpp=NULL,
     makefile=NULL,

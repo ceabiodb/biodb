@@ -70,8 +70,8 @@ test_newExtPkgSkeleton <- function() {
         dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
-    biodb::ExtPackage$new(pkgDir, dbName='foo.db', makefile=TRUE,
-                      rcpp=TRUE)$generate()
+    biodb::ExtPackage$new(pkgDir, dbName='foo.db', dbTitle='FOO database',
+                          makefile=TRUE, rcpp=TRUE)$generate()
 
     # Check that some files exist
     testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))

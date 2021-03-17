@@ -1,10 +1,10 @@
 # {{pkgName}}
 
-An R package for accessing {{databaseName}} database, based on R package/framework [biodb](https://github.com/pkrog/biodb/).
+An R package for accessing {{dbTitle}}, based on R package/framework [biodb](https://github.com/pkrog/biodb/).
 
 ## Introduction
 
-This package is an extension of [biodb](https://github.com/pkrog/biodb/) that implements a connector to the {{databaseName}} database.
+This package is an extension of [biodb](https://github.com/pkrog/biodb/) that implements a connector to {{dbTitle}}.
 
 ## Installation
 
@@ -16,11 +16,19 @@ devtools::install_github('{{githubRepos}}', dependencies=TRUE)
 
 ## Examples
 
-<!-- TODO -->
+To instantiate a connector to {{dbTitle}}, run:
+```r
+mybiodb <- biodb::Biodb()
+conn <- mybiodb$getFactory()$createConn('{{dbName}}')
+mybiodb$terminate()
+```
 
 ## Documentation
 
-<!-- TODO -->
+To get documentation on the implemented connector, run the following command in R:
+```r
+?{{pkgName}}::{{connClassName}}
+```
 
 ## Citations
 
