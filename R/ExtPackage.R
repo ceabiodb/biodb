@@ -26,7 +26,7 @@ public=list(
 #' @param path      The path to the package folder.
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
-#' classe.
+#' classes.
 #' @param dbTitle   The official name of the database (e.g.: HMDB, UniProtKB,
 #' KEGG).
 #' @param connType  The type of connector class to implement.
@@ -45,8 +45,6 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
     chk::chk_flag(newPkg)
     chk::chk_flag(makefile)
     chk::chk_flag(rcpp)
-    chk::chk_string(connType)
-    chk::chk_string(entryType)
 	connType <- match.arg(connType)
 	entryType <- match.arg(entryType)
     
@@ -80,10 +78,14 @@ generate=function() {
     ExtLicense$new(private$path)$generate()
     ExtReadme$new(private$path, dbName=private$dbName,
                   dbTitle=private$dbTitle)$generate()
-    if ( ! is.null(private$dbName))
+    if ( ! is.null(private$dbName)) {
         ExtConnClass$new(private$path, dbName=private$dbName,
                          dbTitle=private$dbTitle,
                          connType=private$connType)$generate()
+        ExtEntryClass$new(private$path, dbName=private$dbName,
+                          dbTitle=private$dbTitle,
+                          entryType=private$entryType)$generate()
+    }
 },
 
 #' @description

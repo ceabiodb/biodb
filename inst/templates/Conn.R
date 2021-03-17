@@ -48,17 +48,17 @@
 {{connClass}} <- methods::setRefClass("{{connClass}}",
     contains=c(
 # $$$CASE MOTHER_CLASS PLAIN$$$
-               "BiodbConn",
+        "BiodbConn",
 # $$$CASE MOTHER_CLASS COMPOUND$$$
-               "BiodbCompounddbConn",
+        "BiodbCompounddbConn"
 # $$$CASE MOTHER_CLASS MASS$$$
-               "BiodbMassdbConn",
+        "BiodbMassdbConn"
 # $$$END_CASE$$$
 # $$$SECTION EDITABLE$$$
-               'BiodbEditable'
+        ,'BiodbEditable'
 # $$$END_SECTION$$$
 # $$$SECTION WRITABLE$$$
-               'BiodbWritable',
+        ,'BiodbWritable'
 # $$$END_SECTION$$$
     ),
     fields=list(

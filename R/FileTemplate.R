@@ -45,14 +45,21 @@ choose=function(set, case) {
     caseRE <- paste('^.*\\$\\$\\$CASE', set, '.*\\$\\$\\$.*$')
     caseChosenRE <- paste0('^.*\\$\\$\\$CASE ', set, ' ', case, '\\$\\$\\$.*$')
     caseEndRE <- '^.*\\$\\$\\$END_CASE\\$\\$\\$.*$'
+    caseDefaultRE <- '^.*\\$\\$\\$CASE *DEFAULT\\$\\$\\$.*$'
 
     while (length(starts <- grep(caseRE, private$txt)) > 0) {
         i <- starts[[1]]
         insideChosenCase <- FALSE
+        foundCase <- FALSE
         while ( ! grepl(caseEndRE, private$txt[[i]])) {
             if (grepl(caseChosenRE, private$txt[[i]])) {
                 private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
                 insideChosenCase <- TRUE
+                foundCase <- TRUE
+            } else if (grepl(caseDefaultRE, private$txt[[i]])) {
+                private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
+                insideChosenCase <- ! foundCase
+                foundCase <- TRUE
             } else if (grepl(caseRE, private$txt[[i]])) {
                 private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
                 insideChosenCase <- FALSE

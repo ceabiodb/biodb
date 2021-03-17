@@ -1,4 +1,4 @@
-#' Extension connector class
+#' Extension connector clas
 #'
 #' @description
 #' A class for generating a new connector class.
@@ -21,7 +21,7 @@ public=list(
 #' @param path      The path to the package folder.
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
-#' classe.
+#' classes.
 #' @param connType  The type of connector class to implement.
 #' @return A new instance.
 initialize=function(path, dbName, dbTitle=NULL,
@@ -31,7 +31,6 @@ initialize=function(path, dbName, dbTitle=NULL,
     chk::chk_dir(path)
     chk::chk_string(dbName)
     chk::chk_null_or(dbTitle, chk::chk_string)
-    chk::chk_string(connType)
     chk::chk_flag(editable)
     chk::chk_flag(writable)
 	connType <- match.arg(connType)

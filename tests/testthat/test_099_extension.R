@@ -58,10 +58,14 @@ test_chebiExShow <- function(biodb) {
 
 test_newExtPkgSkeleton <- function() {
     
-    dbName <- 'test.new.ext.foo.db'
-    clsPrefix <- biodb:::connNameToClassPrefix(dbName)
-    pkgName <- paste0('biodb', clsPrefix)
-    testFile <- paste0('test_', dbName, '.R')
+    for (connType in c('plain', 'compound', 'mass'))
+        for (entryType in c('plain', 'csv', 'html', 'json', 'list', 'sdf',
+                            'txt', 'xml')) {
+            
+            dbName <- paste('foo', connType, entryType, 'db', sep='.')
+            clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+            pkgName <- paste0('biodb', clsPrefix)
+            testFile <- paste0('test_', dbName, '.R')
 
     # Folder of the new package
     pkgDir <- file.path(getwd(), 'output', pkgName)
@@ -72,7 +76,7 @@ test_newExtPkgSkeleton <- function() {
 
     # Create a new extension package skeleton
     biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
-                          connType='compound', entryType='csv',
+                          connType=connType, entryType=entryType,
                           makefile=TRUE, rcpp=TRUE)$generate()
 
     # Check files & dirs
