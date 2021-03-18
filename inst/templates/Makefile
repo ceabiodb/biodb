@@ -160,7 +160,7 @@ clean: clean.vignettes
 ifdef COMPILE
 	$(RM) src/*.o src/*.so src/*.dll
 endif
-	$(RM) -r tests/test.log tests/output tests/test\ *.log
+	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
 	$(RM) -r $(PKG_NAME).Rcheck
 	$(RM) -r Meta
 	$(RM) $(PKG_NAME)_*.tar.gz

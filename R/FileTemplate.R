@@ -42,10 +42,12 @@ choose=function(set, case) {
     
     set <- gsub('[^A-Za-z0-9]', '_', toupper(set))
     case <- gsub('[^A-Za-z0-9]', '_', toupper(case))
-    caseRE <- paste('^.*\\$\\$\\$CASE', set, '.*\\$\\$\\$.*$')
-    caseChosenRE <- paste0('^.*\\$\\$\\$CASE ', set, ' ', case, '\\$\\$\\$.*$')
-    caseEndRE <- '^.*\\$\\$\\$END_CASE\\$\\$\\$.*$'
-    caseDefaultRE <- '^.*\\$\\$\\$CASE *DEFAULT\\$\\$\\$.*$'
+    caseRE <- paste0('^.*\\$\\$\\$ *CASE *', set, ' *.*\\$\\$\\$.*$')
+    caseChosenRE <- paste0('^.*\\$\\$\\$ *CASE *', set, ' *',
+                           case, ' *\\$\\$\\$.*$')
+    caseDefaultRE <- paste0('^.*\\$\\$\\$ *CASE *', set,
+                            ' *DEFAULT *\\$\\$\\$.*$')
+    caseEndRE <- paste0('^.*\\$\\$\\$ *END_CASE *', set, ' *\\$\\$\\$.*$')
 
     while (length(starts <- grep(caseRE, private$txt)) > 0) {
         i <- starts[[1]]
@@ -85,8 +87,9 @@ select=function(section, enable) {
     chk::chk_flag(enable)
     
     section <- gsub('[^A-Za-z0-9]', '_', toupper(section))
-    sectionRE <- paste0('^.*\\$\\$\\$SECTION *', section, ' *\\$\\$\\$.*$')
-    sectionEndRE <- '^.*\\$\\$\\$END_SECTION\\$\\$\\$.*$'
+    sectionRE <- paste0('^.*\\$\\$\\$ *SECTION *', section, ' *\\$\\$\\$.*$')
+    sectionEndRE <- paste0('^.*\\$\\$\\$ *END_SECTION *', section,
+                           ' *\\$\\$\\$.*$')
 
     # Get all start and section sections
     starts <- grep(sectionRE, private$txt)

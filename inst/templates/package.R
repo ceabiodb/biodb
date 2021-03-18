@@ -7,10 +7,10 @@
 #'
 #' @seealso \link{{{connClassName}}}}.
 #'
-#' $$$SECTION COMPILE$$$
+#' $$$ SECTION COMPILE $$$
 #' @import Rcpp
 #' @importFrom Rcpp evalCpp
 #' @useDynLib {{pkgName}}, .registration=TRUE
-#' $$$END_SECTION$$$
+#' $$$ END_SECTION COMPILE $$$
 "_PACKAGE"
 NULL

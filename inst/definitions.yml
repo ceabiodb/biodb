@@ -158,7 +158,7 @@ databases:
   comp.sqlite:
     name: Compound SQLite
     description: A connector to handle a compound database stored inside an SQLite file.
-    entry.content.type: tsv
+    entry.content.type: list
     searchable.fields:
       - name
       - monoisotopic.mass

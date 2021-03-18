@@ -3,19 +3,25 @@
 #' This is the connector class for {{dbTitle}}.
 #'
 #' @seealso 
-#' $$$CASE MOTHER_CLASS PLAIN$$$
+#' $$$ CASE MOTHER_CLASS PLAIN $$$
 #' \code{\link{BiodbConn}}
-#' $$$CASE MOTHER_CLASS COMPOUND$$$
+#' $$$ CASE MOTHER_CLASS COMPOUND $$$
 #' \code{\link{BiodbCompounddbConn}}
-#' $$$CASE MOTHER_CLASS MASS$$$
+#' $$$ CASE MOTHER_CLASS MASS $$$
 #' \code{\link{BiodbMassdbConn}}
-#' $$$END_CASE$$$
-#' $$$SECTION WRITABLE$$$
-#' ,\code{\link{BiodbWritable}}
-#' $$$END_SECTION$$$
-#' $$$SECTION EDITABLE$$$
+#' $$$ END_CASE MOTHER_CLASS $$$
+#' $$$ SECTION REMOTE $$$
+#' \code{\link{BiodbRemotedbConn}}
+#' $$$ END_SECTION REMOTE $$$
+#' $$$ SECTION DOWNLOADABLE $$$
+#' ,\code{\link{BiodbDownloadable}}
+#' $$$ END_SECTION DOWNLOADABLE $$$
+#' $$$ SECTION EDITABLE $$$
 #' ,\code{\link{BiodbEditable}}
-#' $$$END_SECTION$$$
+#' $$$ END_SECTION EDITABLE $$$
+#' $$$ SECTION WRITABLE $$$
+#' ,\code{\link{BiodbWritable}}
+#' $$$ END_SECTION WRITABLE $$$
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -34,19 +40,25 @@
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
     contains=c(
-# $$$CASE MOTHER_CLASS PLAIN$$$
+# $$$ CASE MOTHER_CLASS PLAIN $$$
         "BiodbConn"
-# $$$CASE MOTHER_CLASS COMPOUND$$$
+# $$$ CASE MOTHER_CLASS COMPOUND $$$
         "BiodbCompounddbConn"
-# $$$CASE MOTHER_CLASS MASS$$$
+# $$$ CASE MOTHER_CLASS MASS $$$
         "BiodbMassdbConn"
-# $$$END_CASE$$$
-# $$$SECTION EDITABLE$$$
+# $$$ END_CASE MOTHER_CLASS $$$
+# $$$ SECTION REMOTE $$$
+        ,"BiodbRemotedbConn"
+# $$$ END_SECTION REMOTE $$$
+# $$$ SECTION DOWNLOADABLE $$$
+        ,'BiodbDownloadable'
+# $$$ END_SECTION DOWNLOADABLE $$$
+# $$$ SECTION EDITABLE $$$
         ,'BiodbEditable'
-# $$$END_SECTION$$$
-# $$$SECTION WRITABLE$$$
+# $$$ END_SECTION EDITABLE $$$
+# $$$ SECTION WRITABLE $$$
         ,'BiodbWritable'
-# $$$END_SECTION$$$
+# $$$ END_SECTION WRITABLE $$$
     ),
     fields=list(
     ),
@@ -91,7 +103,117 @@ initialize=function(...) {
     return(ids)
 }
 
-# $$$SECTION WRITABLE$$$
+,.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+    # Overrides super class' method.
+
+    ids <- character()
+
+    # TODO Implement search of entries by filtering on values of fields.
+    
+    return(ids)
+}
+
+# $$$ SECTION REMOTE $$$
+,getEntryPageUrl=function(id) {
+    # Overrides super class' method.
+
+    # TODO Modify this code to build the individual URLs to the entry web pages
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries', x)
+        BiodbUrl(url=u)$toString()
+    }
+
+    return(vapply(id, fct, FUN.VALUE=''))
+}
+# $$$ END_SECTION REMOTE $$$
+
+# $$$ SECTION REMOTE $$$
+,getEntryImageUrl=function(id) {
+    # Overrides super class' method.
+
+    # TODO Modify this code to build the individual URLs to the entry images 
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'images', x,
+               'image.png')
+        BiodbUrl(url=u)$toString()
+    }
+
+    return(vapply(id, fct, FUN.VALUE=''))
+}
+# $$$ END_SECTION REMOTE $$$
+
+# $$$ SECTION REMOTE $$$
+,.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+
+    # TODO Modify the code below to build the URLs to get the contents of the
+    # entries.
+    # Depending on the database, you may have to build one URL for each
+    # individual entry or may be able to write just one or a few URL for all
+    # entries to retrieve.
+    u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries',
+           paste(id, 'xml', sep='.'))
+    url <- BiodbUrl(url=u)$toString()
+
+    return(url)
+},
+# $$$ END_SECTION REMOTE $$$
+
+# $$$ SECTION DOWNLOADABLE $$$
+,.doDownload=function() {
+
+    .self$message('info', "Downloading {{dbTitle}}...")
+
+    # TODO Build the URL to the file to download
+    fileUrl <- c(.self$getPropValSlot('urls', 'base.url'), 'some', 'path',
+           'to', 'the' 'file.zip')
+    
+    # Transform it intoa biodb URL object
+    fileUrl <- BiodbUrl(url=fileUrl)
+
+    # Download the file using the biodb scheduler
+    .self$info("Downloading \"", fileUrl$toString(), "\"...")
+    sched <- .self$getBiodb()$getRequestScheduler()
+    sched$downloadFile(url=fileUrl, dest.file=.self$getDownloadPath())
+}
+# $$$ END_SECTION DOWNLOADABLE $$$
+
+# $$$ SECTION DOWNLOADABLE $$$
+,doExtractDownload=function() {
+
+   .self$info("Extracting content of downloaded {{dbTitle}}...")
+   cch <- .self$getBiodb()$getPersistentCache()
+
+   # TODO Expand the downloaded files into a temporary folder
+   extract.dir <- cch$getTmpFolderPath()
+   filePath <- .self$getDownloadPath()
+   # Here we unzip the file. TODO Replace with the appropriate processing
+   .self$debug(paste("Unzipping ", filePath, "...", sep=''))
+   utils::unzip(filePath, exdir=extract.dir)
+   .self$debug(paste("Unzipped ", filePath, ".", sep=''))
+
+    # Extract entries
+    # TODO Do here the eventual needed processing to extract and/or transform
+    # the individual entry files. There must be only one file for each entry.
+    # The list of the files must be inside variable entryFiles
+    entryFiles <- list()
+
+    # Delete existing cache files
+    .self$debug('Delete existing entry files in cache system.')
+    cch$deleteFiles(.self$getCacheId(),
+                    ext=.self$getPropertyValue('entry.content.type'))
+
+    # Move the extracted entry files into the biodb cache folder
+    ctype <- .self$getPropertyValue('entry.content.type')
+    cch$moveFilesIntoCache(unname(entryFiles), cache.id=.self$getCacheId(),
+                           name=names(entryFiles), ext=ctype)
+
+    # Clean
+    # TODO Do here any necessary cleaning among the remaining files written
+    # inside the temporary folder.
+}
+# $$$ END_SECTION DOWNLOADABLE $$$
+
+# $$$ SECTION WRITABLE $$$
 ,.doWrite=function() {
     # Overrides super class' method.
 
@@ -121,5 +243,5 @@ initialize=function(...) {
     # Write all entries
     # TODO
 }
-# $$$END_SECTION$$$
+# $$$ END_SECTION WRITABLE $$$
 ))

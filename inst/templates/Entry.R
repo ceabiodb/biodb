@@ -3,23 +3,23 @@
 #' This is the entry class for {{dbTitle}}. 
 #'
 #' @seealso
-#' $$$CASE MOTHER_CLASS PLAIN$$$
+#' $$$ CASE MOTHER_CLASS PLAIN $$$
 #' \code{\link{BiodbEntry}}.
-#' $$$CASE MOTHER_CLASS CSV$$$
+#' $$$ CASE MOTHER_CLASS CSV $$$
 #' \code{\link{BiodbCsvEntry}}.
-#' $$$CASE MOTHER_CLASS HTML$$$
+#' $$$ CASE MOTHER_CLASS HTML $$$
 #' \code{\link{BiodbHtmlEntry}}.
-#' $$$CASE MOTHER_CLASS JSON$$$
+#' $$$ CASE MOTHER_CLASS JSON $$$
 #' \code{\link{BiodbJsonEntry}}.
-#' $$$CASE MOTHER_CLASS LIST$$$
+#' $$$ CASE MOTHER_CLASS LIST $$$
 #' \code{\link{BiodbListEntry}}.
-#' $$$CASE MOTHER_CLASS SDF$$$
+#' $$$ CASE MOTHER_CLASS SDF $$$
 #' \code{\link{BiodbSdfEntry}}.
-#' $$$CASE MOTHER_CLASS TXT$$$
+#' $$$ CASE MOTHER_CLASS TXT $$$
 #' \code{\link{BiodbTxtEntry}}.
-#' $$$CASE MOTHER_CLASS XML$$$
+#' $$$ CASE MOTHER_CLASS XML $$$
 #' \code{\link{BiodbXmlEntry}}.
-#' $$$END_CASE$$$
+#' $$$ END_CASE MOTHER_CLASS $$$
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -38,33 +38,33 @@
 #' @exportClass {{entryClass}}
 {{entryClass}} <- methods::setRefClass("{{entryClass}}",
     contains=c(
-# $$$CASE MOTHER_CLASS PLAIN$$$
+# $$$ CASE MOTHER_CLASS PLAIN $$$
         'BiodbEntry'
-# $$$CASE MOTHER_CLASS CSV$$$
+# $$$ CASE MOTHER_CLASS CSV $$$
         'BiodbCsvEntry'
-# $$$CASE MOTHER_CLASS HTML$$$
+# $$$ CASE MOTHER_CLASS HTML $$$
         'BiodbHtmlEntry'
-# $$$CASE MOTHER_CLASS JSON$$$
+# $$$ CASE MOTHER_CLASS JSON $$$
         'BiodbJsonEntry'
-# $$$CASE MOTHER_CLASS LIST$$$
+# $$$ CASE MOTHER_CLASS LIST $$$
         'BiodbListEntry'
-# $$$CASE MOTHER_CLASS SDF$$$
+# $$$ CASE MOTHER_CLASS SDF $$$
         'BiodbSdfEntry'
-# $$$CASE MOTHER_CLASS TXT$$$
+# $$$ CASE MOTHER_CLASS TXT $$$
         'BiodbTxtEntry'
-# $$$CASE MOTHER_CLASS XML$$$
+# $$$ CASE MOTHER_CLASS XML $$$
         'BiodbXmlEntry'
-# $$$END_CASE$$$
+# $$$ END_CASE MOTHER_CLASS $$$
     ),
 
 methods=list(
 
 initialize=function(...) {
-# $$$CASE MOTHER_CLASS CSV$$$
+# $$$ CASE MOTHER_CLASS CSV $$$
     callSuper(sep="\t", ...)
-# $$$CASE DEFAULT$$$
+# $$$ CASE MOTHER_CLASS DEFAULT $$$
     callSuper(...)
-# $$$END_CASE$$$
+# $$$ END_CASE MOTHER_CLASS $$$
 }
 
 ,.isContentCorrect=function(content) {

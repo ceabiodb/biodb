@@ -58,59 +58,76 @@ test_chebiExShow <- function(biodb) {
 
 test_newExtPkgSkeleton <- function() {
     
-    for (connType in c('plain', 'compound', 'mass'))
-        for (entryType in c('plain', 'csv', 'html', 'json', 'list', 'sdf',
-                            'txt', 'xml')) {
+    for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain')
+                     ,list(connType='compound', remote=FALSE, entryType='csv')
+                     ,list(connType='compound', remote=FALSE, entryType='list')
+                     ,list(connType='mass', remote=FALSE, entryType='csv')
+                     ,list(connType='mass', remote=TRUE, entryType='json')
+                     ,list(connType='compound', remote=TRUE, entryType='html')
+                     ,list(connType='compound', remote=TRUE, entryType='xml')
+                     ,list(connType='compound', remote=TRUE, entryType='xml',
+                           downloadable=TRUE)
+                     ,list(connType='compound', remote=TRUE, entryType='sdf')
+                     ,list(connType='compound', remote=TRUE, entryType='txt')
+                     )) {
             
-            dbName <- paste('foo', connType, entryType, 'db', sep='.')
-            clsPrefix <- biodb:::connNameToClassPrefix(dbName)
-            pkgName <- paste0('biodb', clsPrefix)
-            testFile <- paste0('test_', dbName, '.R')
+        downloadable <- cfg$remote && (if ('downloadable' %in% names(cfg))
+                                       cfg$downloadable else FALSE)
+        name <- c('foo', (if (cfg$remote) 'remote' else 'local'))
+        if (downloadable)
+            name <- c(name, 'dwnld')
+        name <- c(name, cfg$connType, cfg$entryType, 'db')
+        dbName <- paste(name, collapse='.')
+        clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+        pkgName <- paste0('biodb', clsPrefix)
+        testFile <- paste0('test_', dbName, '.R')
 
-            # Folder of the new package
-            pkgDir <- file.path(getwd(), 'output', pkgName)
-            if (dir.exists(pkgDir))
-                unlink(pkgDir, recursive=TRUE)
-            if ( ! dir.exists(dirname(pkgDir)))
-                dir.create(dirname(pkgDir))
+        # Folder of the new package
+        pkgDir <- file.path(getwd(), 'output', pkgName)
+        if (dir.exists(pkgDir))
+            unlink(pkgDir, recursive=TRUE)
+        if ( ! dir.exists(dirname(pkgDir)))
+            dir.create(dirname(pkgDir))
 
-            # Create a new extension package skeleton
-            biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
-                                  connType=connType, entryType=entryType,
-                                  makefile=TRUE, rcpp=TRUE)$generate()
+        # Create a new extension package skeleton
+        biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
+                              connType=cfg$connType, entryType=cfg$entryType,
+                              remote=cfg$remote, downloadable=downloadable,
+                              editable=!cfg$remote, writable=!cfg$remote,
+                              makefile=TRUE, rcpp=TRUE)$generate()
 
-            # Check files & dirs
-            testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
-            testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
-                                                        paste0(clsPrefix,
-                                                               'Conn.R'))))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
-                                                        paste0(clsPrefix,
-                                                               'Entry.R'))))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
-                                                        'package.R')))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
-            #testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
-        #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
-            testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
-        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
-        #    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
-        #                                                'definitions.yml')))
-        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
-        #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
-        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
-        #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
-        #                                                testFile)))
-        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
-            
-            # Check targets
-            system(paste0('make -C "', pkgDir, '" doc'))
-            testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-            system(paste0('make -C "', pkgDir, '"'))
-        }
+        # Check files & dirs
+        testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    paste0(clsPrefix,
+                                                           'Conn.R'))))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    paste0(clsPrefix,
+                                                           'Entry.R'))))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    'package.R')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
+        #testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
+    #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
+                                                    'definitions.yml')))
+    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
+    #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
+    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
+    #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+    #                                                testFile)))
+    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+        
+        # Check targets
+        system(paste0('make -C "', pkgDir, '" doc'))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+        system(paste0('make -C "', pkgDir, '"'))
+    }
 }
 
 test_upgradeExtPkg <- function() {

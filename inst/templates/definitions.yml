@@ -1,0 +1,135 @@
+databases:
+
+  {{dbName}}:
+    name: {{dbTitle}}
+    description: Write here the description of this database.
+# $$$ CASE ENTRY_TYPE CSV $$$
+    entry.content.type: csv
+# $$$ CASE ENTRY_TYPE HTML $$$
+    entry.content.type: html
+# $$$ CASE ENTRY_TYPE JSON $$$
+    entry.content.type: json
+# $$$ CASE ENTRY_TYPE LIST $$$
+    entry.content.type: list
+# $$$ CASE ENTRY_TYPE SDF $$$
+    entry.content.type: sdf
+# $$$ CASE ENTRY_TYPE TXT $$$
+    entry.content.type: txt
+# $$$ CASE ENTRY_TYPE XML $$$
+    entry.content.type: xml
+# $$$ END_CASE ENTRY_TYPE $$$
+    parsing.expr:
+# $$$ CASE ENTRY_TYPE CSV $$$
+      accession: DB_ID
+# $$$ CASE ENTRY_TYPE HTML $$$
+      accession:
+        attr: value
+        path: //input[@id='DATA']
+# $$$ CASE ENTRY_TYPE JSON $$$
+      accession: id
+# $$$ CASE ENTRY_TYPE SDF $$$
+      accession: NSC
+      name: DTP names
+# $$$ CASE ENTRY_TYPE TXT $$$
+      accession: ^ENTRY\s+(\S+)$
+# $$$ CASE ENTRY_TYPE XML $$$
+      accession: substring-after(//dbns:return/dbns:accessionId,'ACCESSION:')
+      name:
+      - //dbns:name
+      - //dbns:synonyms/dbns:data
+# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ CASE CONN_TYPE MASS $$$
+      # NOTE For mass spectra, the peak table cannot be parsed with expressions.
+      # Specific code must be written inside the entry class for this, in the `.parseFieldsStep2()` method.
+# $$$ CASE ENTRY_TYPE JSON $$$
+      chrom.col.id:
+      - liquidChromatography
+      - columnCode
+      chrom.col.name:
+      - liquidChromatography
+      - columnName
+      chrom.col.rt.max: RTmax
+      chrom.col.rt.min: RTmin
+      msmode: polarity
+      msprecmz: parentIonMZ
+# $$$ CASE ENTRY_TYPE TXT $$$
+      chebi.id: '^CH\$LINK: CHEBI\s+(.+)$'
+      chemspider.id: '^CH\$LINK: CHEMSPIDER\s+(.+)$'
+      msdev: '^AC\$INSTRUMENT: (.+)$'
+      msmode: '^AC\$MASS_SPECTROMETRY: ION_MODE (.+)$'
+      nb.peaks: '^PK\$NUM_PEAK: ([0-9]+)$'
+# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ CASE CONN_TYPE COMPOUND $$$
+# $$$ CASE ENTRY_TYPE CSV $$$
+      name: COMMON_NAME
+      chebi.id: CHEBI_ID
+      hmdb.metabolites.id: HMDBID
+      exact.mass: MASS
+      formula: FORMULA
+# $$$ CASE ENTRY_TYPE HTML $$$
+      sequence: //b[starts-with(.,'Nucleotide Sequence')]/../tt
+# $$$ CASE ENTRY_TYPE JSON $$$
+      average.mass: averageMass
+      chebi.id: ChEBI
+      formula: formula
+      hmdb.metabolites.id: HMDB
+      inchi: inChI
+      inchikey: inChIKey
+# $$$ CASE ENTRY_TYPE SDF $$$
+      inchi: Standard InChI
+      inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
+      formula: Formula
+      molecular.mass: Molecular Weight
+      cas.id: CAS
+# $$$ CASE ENTRY_TYPE TXT $$$
+      exact.mass: ^EXACT_MASS\s+(\S+)$
+      formula: ^FORMULA\s+(\S+)$
+      molecular.weight: ^MOL_WEIGHT\s+(\S+)$
+# $$$ CASE ENTRY_TYPE XML $$$
+      mass: //dbns:mass
+      monoisotopic.mass: //dbns:monoisotopicMass
+      smiles: //dbns:return/dbns:smiles
+      inchi: //dbns:return/dbns:inchi
+      inchikey: //dbns:return/dbns:inchiKey
+      formula:
+      - //dbns:Formulae/dbns:source[text()='MyDatabase']/../dbns:data
+      - (//dbns:Formulae/dbns:data)[1]
+# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE CONN_TYPE $$$
+# $$$ CASE ENTRY_TYPE XML $$$
+    xml.ns:
+      dbns: https://my.database.org/webservices/v1
+      xsd: http://www.w3.org/2001/XMLSchema
+# $$$ END_CASE ENTRY_TYPE $$$
+    searchable.fields:
+      - name
+# $$$ CASE CONN_TYPE COMPOUND $$$
+      - monoisotopic.mass
+      - molecular.mass
+      - average.mass
+      - nominal.mass
+# $$$ END_CASE CONN_TYPE $$$
+# $$$ SECTION REMOTE $$$
+    # Length in seconds of the connection sliding window
+    scheduler.t: 1
+    # Number of connections allowed inside the connection sliding window
+    scheduler.n: 3
+    urls:
+      # Base URL of the database server, where to find entry pages
+      base.url: https://my.database.org/mydb/
+      # Webservice URL to use to contact web services
+      ws.url: https://my.database.org/webservices/mydb/3.2/
+      # Add any other URL you need for the development of your connector
+      # Inside your code, you can get each of these URLs with a call like the following one:
+      #     .self$getPropValSlot('urls', 'ws.url')
+# $$$ END_SECTION REMOTE $$$
+# $$$ SECTION DOWNLOADABLE $$$
+    dwnld.ext: zip
+# $$$ END_SECTION DOWNLOADABLE $$$
+
+  {{dbName}}.id:
+    description: {{dbTitle}} ID
+    case.insensitive: true
+    forbids.duplicates: true
+    type: id
+    card: many

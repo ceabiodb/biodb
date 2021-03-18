@@ -34,16 +34,30 @@ public=list(
 #' @param entryType The type of entry class to implement.
 #' @param makefile  Set to TRUE if you want a Makefile to be generated.
 #' add some special directives inside the Makefile.
+#' @param remote    Set to TRUE if the database to connect to is not local.
+#' @param downloadable  Set to TRUE if the database needs to be downloaded or
+#' offers this possiblity.
+#' @param editable  Set to TRUE to allow the generated connector to create new
+#' entries in memory.
+#' @param writable  Set to TRUE to enable the generated connector to write into
+#' the database.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
 initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
                     connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
-                                'txt', 'xml'), rcpp=FALSE, makefile=FALSE) {
+                                'txt', 'xml'),
+                    editable=FALSE, writable=FALSE,
+                    remote=FALSE, downloadable=FALSE,
+                    rcpp=FALSE, makefile=FALSE) {
     chk::chk_string(path)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_flag(newPkg)
+    chk::chk_flag(downloadable)
+    chk::chk_flag(editable)
+    chk::chk_flag(writable)
+    chk::chk_flag(remote)
     chk::chk_flag(makefile)
     chk::chk_flag(rcpp)
     connType <- match.arg(connType)
@@ -58,6 +72,10 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
     private$connType <- connType
     private$entryType <- entryType
     private$vignetteName <- 'intro'
+    private$downloadable <- downloadable
+    private$editable <- editable
+    private$writable <- writable
+    private$remote <- remote
 }
 
 #' @description
@@ -82,8 +100,10 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
                   dbTitle=private$dbTitle)$generate()
     if ( ! is.null(private$dbName)) {
         ExtConnClass$new(private$path, dbName=private$dbName,
-                         dbTitle=private$dbTitle,
-                         connType=private$connType)$generate()
+                         dbTitle=private$dbTitle, connType=private$connType,
+                         editable=private$editable, writable=private$writable,
+                         remote=private$remote,
+                         downloadable=private$downloadable)$generate()
         ExtEntryClass$new(private$path, dbName=private$dbName,
                           dbTitle=private$dbTitle,
                           entryType=private$entryType)$generate()
@@ -121,6 +141,10 @@ private=list(
     ,connType=NULL
     ,entryType=NULL
     ,vignetteName=NULL
+    ,editable=NULL
+    ,writable=NULL
+    ,remote=NULL
+    ,downloadable=NULL
 
 ,checkPathExists=function() {
     chk::chk_dir(private$path)
