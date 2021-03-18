@@ -104,26 +104,23 @@ loadDefinitions=function(file, package='biodb') {
     \npackage: The package to which belong the new definitions.
     \nReturned value: None.
     "
+    chk::chk_file(file)
+    .self$debug('Load definitions from file "', file, '".')
 
-    if ( ! is.null(file) && ! is.na(file) && file != '' && file.exists(file)) {
+    # Load file
+    def <- yaml::read_yaml(file)
 
-        .self$debug('Load definitions from file "', file, '".')
+    # Define config properties
+    if ('config' %in% names(def))
+        .self$getConfig()$define(def$config)
 
-        # Load file
-        def <- yaml::read_yaml(file)
+    # Define databases
+    if ('databases' %in% names(def))
+        .self$getDbsInfo()$define(def$databases, package=package)
 
-        # Define config properties
-        if ('config' %in% names(def))
-            .self$getConfig()$define(def$config)
-
-        # Define databases
-        if ('databases' %in% names(def))
-            .self$getDbsInfo()$define(def$databases, package=package)
-
-        # Define fields
-        if ('fields' %in% names(def))
-            .self$getEntryFields()$define(def$fields)
-    }
+    # Define fields
+    if ('fields' %in% names(def))
+        .self$getEntryFields()$define(def$fields)
 },
 
 .listBiodbPkgsToLoad=function(autoloadExtraPkgs=NULL) {

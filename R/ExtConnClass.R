@@ -55,28 +55,16 @@ generate=function() {
     templ$choose('mother.class', private$connType)
     templ$select('editable', private$editable)
     templ$select('writable', private$writable)
-    templ$write(private$getConnClassFile())
+    templ$write(getConnClassFile(private$path, private$dbName))
 }
 
 ),
                             
 private=list(
-    path=NULL,
-    dbName=NULL,
-    dbTitle=NULL,
-    connType=NULL,
-    editable=NULL,
-    writable=NULL,
- 
-getRFolder=function() {
-    rFolder <- file.path(private$path, 'R')
-    if ( ! dir.exists(rFolder))
-        dir.create(rFolder)
-    return(rFolder)
-},
-
-getConnClassFile=function() {
-    filename <- paste0(getConnClassName(private$dbName), '.R')
-    return(file.path(private$getRFolder(), filename))
-}
+    path=NULL
+    ,dbName=NULL
+    ,dbTitle=NULL
+    ,connType=NULL
+    ,editable=NULL
+    ,writable=NULL
 ))

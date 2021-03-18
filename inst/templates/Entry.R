@@ -34,23 +34,6 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' $$$CASE MOTHER_CLASS PLAIN$$$
-#' @include BiodbEntry.R
-#' $$$CASE MOTHER_CLASS CSV$$$
-#' @include BiodbCsvEntry.R
-#' $$$CASE MOTHER_CLASS HTML$$$
-#' @include BiodbHtmlEntry.R
-#' $$$CASE MOTHER_CLASS JSON$$$
-#' @include BiodbJsonEntry.R
-#' $$$CASE MOTHER_CLASS LIST$$$
-#' @include BiodbListEntry.R
-#' $$$CASE MOTHER_CLASS SDF$$$
-#' @include BiodbSdfEntry.R
-#' $$$CASE MOTHER_CLASS TXT$$$
-#' @include BiodbTxtEntry.R
-#' $$$CASE MOTHER_CLASS XML$$$
-#' @include BiodbXmlEntry.R
-#' $$$END_CASE$$$
 #' @export {{entryClass}}
 #' @exportClass {{entryClass}}
 {{entryClass}} <- methods::setRefClass("{{entryClass}}",

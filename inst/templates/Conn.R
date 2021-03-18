@@ -30,25 +30,12 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' $$$CASE MOTHER_CLASS PLAIN$$$
-#' @include BiodbConn.R
-#' $$$CASE MOTHER_CLASS COMPOUND$$$
-#' @include BiodbCompounddbConn.R
-#' $$$CASE MOTHER_CLASS MASS$$$
-#' @include BiodbMassdbConn.R
-#' $$$END_CASE$$$
-# $$$SECTION EDITABLE$$$
-#' @include BiodbEditable.R
-# $$$END_SECTION$$$
-# $$$SECTION WRITABLE$$$
-#' @include BiodbWritable.R
-# $$$END_SECTION$$$
 #' @export {{connClass}}
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
     contains=c(
 # $$$CASE MOTHER_CLASS PLAIN$$$
-        "BiodbConn",
+        "BiodbConn"
 # $$$CASE MOTHER_CLASS COMPOUND$$$
         "BiodbCompounddbConn"
 # $$$CASE MOTHER_CLASS MASS$$$

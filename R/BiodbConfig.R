@@ -282,8 +282,8 @@ getAssocEnvVar=function(key) {
 },
 
 define=function(def) {
-    "\n\nDefines config properties from a structured object, normally loaded from a
-    YAML file.
+    "\n\nDefines config properties from a structured object, normally loaded
+    from a YAML file.
     \ndef: The list of key definitions.
     \nReturned value: None.
     "

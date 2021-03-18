@@ -65,17 +65,14 @@ private=list(
     newPkg=NULL,
     rcpp=NULL,
 
-getPkgName=function() {
-    return(basename(private$path))
-},
-
 setNameTitleDesc=function(descFile) {
-    descFile$set("Package", private$getPkgName())
-    descFile$set(Package=private$getPkgName())
-    descFile$set(Title=paste(private$getPkgName(),
+    descFile$set("Package", getPkgName(private$path))
+    descFile$set(Package=getPkgName(private$path))
+    descFile$set(Title=paste(getPkgName(private$path),
                              'a library for connecting to a/the ... database'))
     descFile$set(Description=paste('The',
-                    private$getPkgName(), 'library is an extension of',
+                    getPkgName(private$path),
+                    'library is an extension of',
                     'the biodb framework package, that provides access',
                     'to a/the ... database. It allows to retrieve',
                     'entries by their accession number, and ...'))

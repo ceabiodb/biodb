@@ -49,7 +49,7 @@ initialize=function(path, dbName, dbTitle=NULL,
     if ( ! is.null(private$dbTitle))
         templ$replace('dbTitle', private$dbTitle)
     templ$choose('mother.class', private$entryType)
-    templ$write(private$getEntryClassFile())
+    templ$write(getEntryClassFile(private$path, private$dbName))
 }
 ),
                             
@@ -59,15 +59,4 @@ private=list(
     ,dbTitle=NULL
     ,entryType=NULL
  
-,getRFolder=function() {
-    rFolder <- file.path(private$path, 'R')
-    if ( ! dir.exists(rFolder))
-        dir.create(rFolder)
-    return(rFolder)
-}
-
-,getEntryClassFile=function() {
-    filename <- paste0(getEntryClassName(private$dbName), '.R')
-    return(file.path(private$getRFolder(), filename))
-}
 ))

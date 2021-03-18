@@ -54,10 +54,6 @@ private=list(
     dbName=NULL,
     dbTitle=NULL,
 
-getPkgName=function() {
-    return(basename(private$path))
-},
-
 getReadmePath=function() {
     return(file.path(private$path, 'README.md'))
 },
@@ -65,7 +61,7 @@ getReadmePath=function() {
 replaceTags=function(template) {
 
     # Package name
-    template$replace('pkgName', private$getPkgName())
+    template$replace('pkgName', getPkgName(private$path))
     
     # Database name
     if ( ! is.null(private$dbName)) {

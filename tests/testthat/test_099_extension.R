@@ -67,45 +67,52 @@ test_newExtPkgSkeleton <- function() {
             pkgName <- paste0('biodb', clsPrefix)
             testFile <- paste0('test_', dbName, '.R')
 
-    # Folder of the new package
-    pkgDir <- file.path(getwd(), 'output', pkgName)
-    if (dir.exists(pkgDir))
-        unlink(pkgDir, recursive=TRUE)
-    if ( ! dir.exists(dirname(pkgDir)))
-        dir.create(dirname(pkgDir))
+            # Folder of the new package
+            pkgDir <- file.path(getwd(), 'output', pkgName)
+            if (dir.exists(pkgDir))
+                unlink(pkgDir, recursive=TRUE)
+            if ( ! dir.exists(dirname(pkgDir)))
+                dir.create(dirname(pkgDir))
 
-    # Create a new extension package skeleton
-    biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
-                          connType=connType, entryType=entryType,
-                          makefile=TRUE, rcpp=TRUE)$generate()
+            # Create a new extension package skeleton
+            biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
+                                  connType=connType, entryType=entryType,
+                                  makefile=TRUE, rcpp=TRUE)$generate()
 
-    # Check files & dirs
-    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'R',
-                                                paste0(clsPrefix, 'Conn.R'))))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'R',
-                                                paste0(clsPrefix, 'Entry.R'))))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
-#                                                'definitions.yml')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
-#                                                testFile)))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
-    
-    # Check targets
-    system('make')
-    system('make doc')
+            # Check files & dirs
+            testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+        #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+            testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                        paste0(clsPrefix,
+                                                               'Conn.R'))))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                        paste0(clsPrefix,
+                                                               'Entry.R'))))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                        'package.R')))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
+            #testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
+        #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+            testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
+        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
+        #    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
+        #                                                'definitions.yml')))
+        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
+        #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
+        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
+        #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+        #                                                testFile)))
+        #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+            
+            # Check targets
+            system(paste0('make -C "', pkgDir, '"'))
+            # doc target needs to have src folder created with C++ file in it,
+            # and package.R
+            #system(paste0('make -C "', pkgDir, '" doc'))
+        }
 }
 
 test_upgradeExtPkg <- function() {
