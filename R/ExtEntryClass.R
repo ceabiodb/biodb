@@ -21,6 +21,8 @@ public=list(
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classes.
+#' @param dbTitle   The official name of the database (e.g.: HMDB, UniProtKB,
+#' KEGG).
 #' @param entryType  The type of entry class to implement.
 #' @return A new instance.
 initialize=function(path, dbName, dbTitle=NULL,

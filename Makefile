@@ -39,15 +39,6 @@ export PKG_CXXFLAGS=$(shell R $(RFLAGS) -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS+=-O
 PKG_CXXFLAGS+=-I$(realpath $(shell R $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
 
-# Set testthat reporter
-ifndef TESTTHAT_REPORTER
-ifdef VIM
-TESTTHAT_REPORTER=summary
-else
-TESTTHAT_REPORTER=progress
-endif
-endif
-
 # Set test file filter
 ifndef TEST_FILE
 TEST_FILE=NULL

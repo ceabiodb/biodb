@@ -1,8 +1,13 @@
 getRFolder <- function(pkgRoot) {
     rFolder <- file.path(pkgRoot, 'R')
-    if ( ! dir.exists(rFolder))
-        dir.create(rFolder)
+    dir.create(rFolder, showWarnings=FALSE, recursive=TRUE)
     return(rFolder)
+}
+
+getSrcFolder <- function(pkgRoot) {
+    srcFolder <- file.path(pkgRoot, 'src')
+    dir.create(srcFolder, showWarnings=FALSE, recursive=TRUE)
+    return(srcFolder)
 }
 
 getEntryClassFile <- function(pkgRoot, dbName) {

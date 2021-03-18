@@ -17,8 +17,13 @@ public=list(
 #' @description
 #' Constructor
 #' @param path      The path to the package folder.
+#' @param dbName    The name of the database (in biodb format "my.db.name"),
+#' that will be used in "definitions.yml" file and for connector and entry
+#' classes.
+#' @param vignetteName Set to the name of the default/main vignette.
+#' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
-initialize=function(path, dbName, vignetteName, rcpp) {
+initialize=function(path, dbName=NULL, vignetteName=NULL, rcpp=FALSE) {
     chk::chk_dir(path)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(vignetteName, chk::chk_string)

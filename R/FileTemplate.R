@@ -77,8 +77,8 @@ choose=function(set, case) {
 
 #' @description
 #' Select or remove sections that match a name.
-#' @param set    The name of the section.
-#' @param enable Set to TRUE to select the section (and keep it), and FALSE to
+#' @param section The name of the section.
+#' @param enable  Set to TRUE to select the section (and keep it), and FALSE to
 #' remove it.
 select=function(section, enable) {
     chk::chk_string(section)

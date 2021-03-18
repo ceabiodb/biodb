@@ -29,6 +29,7 @@ public=list(
 #' classes.
 #' @param dbTitle   The official name of the database (e.g.: HMDB, UniProtKB,
 #' KEGG).
+#' @param newPkg    Set to TRUE if this package is not part of Bioconductor yet.
 #' @param connType  The type of connector class to implement.
 #' @param entryType The type of entry class to implement.
 #' @param makefile  Set to TRUE if you want a Makefile to be generated.
@@ -57,7 +58,7 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
     private$connType <- connType
     private$entryType <- entryType
     private$vignetteName <- 'intro'
-},
+}
 
 #' @description
 #' Generates the skeleton for the new extension package.
@@ -66,7 +67,7 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
 #' # Create a new package:
 #' biodb::ExtPackage$new('/path/to/my/biodbMyNewDb')$generate()
 #'
-generate=function() {
+,generate=function() {
     
     private$checkPathDoesNotExist()
     private$checkName()
@@ -89,7 +90,9 @@ generate=function() {
     }
     ExtPackageFile$new(private$path, dbName=private$dbName, rcpp=private$rcpp,
                        vignetteName=private$vignetteName)$generate()
-},
+    if (private$rcpp)
+        ExtCpp$new(private$path)$generate()
+}
 
 #' @description
 #' Upgrade files of (definitions.yml, Makefile, etc) an existing extension
@@ -99,7 +102,7 @@ generate=function() {
 #' # Create a new package:
 #' biodb::ExtPackage$new('/path/to/my/biodbFooDb')$upgrade()
 #'
-upgrade=function() {
+,upgrade=function() {
     private$checkPathExists()
     private$checkName()
     private$checkFilesExist()

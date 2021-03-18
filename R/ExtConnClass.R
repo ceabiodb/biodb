@@ -22,7 +22,13 @@ public=list(
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classes.
+#' @param dbTitle   The official name of the database (e.g.: HMDB, UniProtKB,
+#' KEGG).
 #' @param connType  The type of connector class to implement.
+#' @param editable  Set to TRUE to this connector to create new entries in
+#' memory.
+#' @param writable  Set to TRUE to enable this connector to write into the
+#' database.
 #' @return A new instance.
 initialize=function(path, dbName, dbTitle=NULL,
                     connType=c('plain', 'compound', 'mass'),

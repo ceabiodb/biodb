@@ -81,7 +81,6 @@ test_newExtPkgSkeleton <- function() {
 
             # Check files & dirs
             testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
-        #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
             testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
             testthat::expect_true(file.exists(file.path(pkgDir, 'R',
                                                         paste0(clsPrefix,
@@ -108,10 +107,9 @@ test_newExtPkgSkeleton <- function() {
         #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
             
             # Check targets
+            system(paste0('make -C "', pkgDir, '" doc'))
+            testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
             system(paste0('make -C "', pkgDir, '"'))
-            # doc target needs to have src folder created with C++ file in it,
-            # and package.R
-            #system(paste0('make -C "', pkgDir, '" doc'))
         }
 }
 
