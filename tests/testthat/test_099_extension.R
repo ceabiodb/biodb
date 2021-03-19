@@ -58,13 +58,15 @@ test_chebiExShow <- function(biodb) {
 
 test_newExtPkgSkeleton <- function() {
     
-    for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain')
+    for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain',
+                          rcpp=FALSE)
                      ,list(connType='compound', remote=FALSE, entryType='csv')
                      ,list(connType='compound', remote=FALSE, entryType='list')
                      ,list(connType='mass', remote=FALSE, entryType='csv')
                      ,list(connType='mass', remote=TRUE, entryType='json')
                      ,list(connType='compound', remote=TRUE, entryType='html')
-                     ,list(connType='compound', remote=TRUE, entryType='xml')
+                     ,list(connType='compound', remote=TRUE, entryType='xml',
+                           rcpp=TRUE)
                      ,list(connType='compound', remote=TRUE, entryType='xml',
                            downloadable=TRUE)
                      ,list(connType='compound', remote=TRUE, entryType='sdf')
@@ -73,9 +75,13 @@ test_newExtPkgSkeleton <- function() {
             
         downloadable <- cfg$remote && (if ('downloadable' %in% names(cfg))
                                        cfg$downloadable else FALSE)
+        rcpp <- cfg$remote && (if ('rcpp' %in% names(cfg))
+                                       cfg$rcpp else FALSE)
         name <- c('foo', (if (cfg$remote) 'remote' else 'local'))
         if (downloadable)
             name <- c(name, 'dwnld')
+        if (rcpp)
+            name <- c(name, 'rcpp')
         name <- c(name, cfg$connType, cfg$entryType, 'db')
         dbName <- paste(name, collapse='.')
         clsPrefix <- biodb:::connNameToClassPrefix(dbName)
@@ -94,7 +100,7 @@ test_newExtPkgSkeleton <- function() {
                               connType=cfg$connType, entryType=cfg$entryType,
                               remote=cfg$remote, downloadable=downloadable,
                               editable=!cfg$remote, writable=!cfg$remote,
-                              makefile=TRUE, rcpp=TRUE)$generate()
+                              makefile=TRUE, rcpp=rcpp)$generate()
 
         # Check files & dirs
         testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
@@ -112,7 +118,7 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
         #testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
     #    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
-        testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
+        testthat::expect_equal(rcpp, dir.exists(file.path(pkgDir, 'src')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
         testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
                                                     'definitions.yml')))

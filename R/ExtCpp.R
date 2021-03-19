@@ -31,7 +31,7 @@ initialize=function(path) {
 #' Generates examples of C++ code.
 #'
 ,generate=function() {
-    src <- getSrcFolder(private$path)
+    src <- getFolder(private$path, 'src')
     templates <- system.file('templates', package='biodb')
     for (f in Sys.glob(paste0(templates, '/*.cpp')))
         file.copy(f, src)

@@ -107,6 +107,10 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
         ExtEntryClass$new(private$path, dbName=private$dbName,
                           dbTitle=private$dbTitle,
                           entryType=private$entryType)$generate()
+        ExtDefinitions$new(private$path, dbName=private$dbName,
+                           dbTitle=private$dbTitle, connType=private$connType,
+                           entryType=private$entryType, remote=private$remote,
+                           downloadable=private$downloadable)$generate()
     }
     ExtPackageFile$new(private$path, dbName=private$dbName, rcpp=private$rcpp,
                        vignetteName=private$vignetteName)$generate()

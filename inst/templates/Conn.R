@@ -155,7 +155,7 @@ initialize=function(...) {
     url <- BiodbUrl(url=u)$toString()
 
     return(url)
-},
+}
 # $$$ END_SECTION REMOTE $$$
 
 # $$$ SECTION DOWNLOADABLE $$$
@@ -165,7 +165,7 @@ initialize=function(...) {
 
     # TODO Build the URL to the file to download
     fileUrl <- c(.self$getPropValSlot('urls', 'base.url'), 'some', 'path',
-           'to', 'the' 'file.zip')
+           'to', 'the', 'file.zip')
     
     # Transform it intoa biodb URL object
     fileUrl <- BiodbUrl(url=fileUrl)

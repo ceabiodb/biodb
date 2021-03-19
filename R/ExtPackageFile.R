@@ -46,7 +46,7 @@ initialize=function(path, dbName=NULL, vignetteName=NULL, rcpp=FALSE) {
     if ( ! is.null(private$vignetteName))
         temp$replace('vignette', private$vignetteName)
     temp$select('compile', private$rcpp)
-    temp$write(file.path(getRFolder(private$path), 'package.R'))
+    temp$write(file.path(getFolder(private$path, 'R'), 'package.R'))
 }
 ),
 

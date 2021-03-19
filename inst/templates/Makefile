@@ -177,4 +177,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all win test build check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage
+.PHONY: all win test build check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen
