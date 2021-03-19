@@ -6,7 +6,6 @@
 ^scripts$
 ^Makefile$
 ^tests/dockerfiles$
-^tests/output$
 ^dockers$
 ^.*\.dockerfile$
 ^travis-tests$
@@ -16,3 +15,5 @@
 ^biodb\.check\.cache$
 ^cache$
 ^codecov\.yml$
+^tests/testthat/_snaps$
+^tests/testthat/output$
