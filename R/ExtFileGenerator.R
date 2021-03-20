@@ -51,10 +51,16 @@ private=list(
     return(templFile)
 }
 
-,getDstFile=function() {
+,getDstFile=function(exist=FALSE) {
+
     dst <- file.path(getFolderFromVect(c(private$path, private$folder)),
                      private$filename)
-    chk::chk_false(chk::vld_file(dst))
+
+    if (exist)
+        chk::chk_file(dst)
+    else
+        chk::chk_false(chk::vld_file(dst))
+
     return(dst)
 }
 ))

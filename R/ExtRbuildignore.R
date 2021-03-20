@@ -22,12 +22,33 @@ public=list(
 #' @param path      The path to the package folder.
 #' @return A new instance.
 initialize=function(path) {
-    super$initialize(path, filename=".Rbuildignore")
+    super$initialize(path, filename=".Rbuildignore", template='Rbuildignore')
 }
 
 #' @description
 #' Generates the Rbuildignore file for the specified package.
 ,generate=function() {
+    file.copy(private$getTemplateFile(), private$getDstFile()) 
+}
+
+,upgrade=function() {
+
+    dst <- private$getDstFile(exist=TRUE)
+    
+    # Read lines from templates and destinationl file
+    templLines <- readLines(private$getTemplateFile())
+    dstLines <- readLines(dst)
+    
+    # Add missing lines in destination file
+    for (tLine in templLines)
+        if ( ! tLine %in% dstLines)
+            dstLines <- c(dstLines, tLine)
+    
+    # Sort
+    dstLines <- sort(dstLines)
+    
+    # Write destination file
+    writeLines(dstLines, dst)
 }
 ),
 

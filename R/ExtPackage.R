@@ -133,6 +133,7 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
     private$checkFilesExist()
     if (private$makefile)
         ExtMakefile$new(private$path, newPkg=private$newPkg)$upgrade()
+    ExtRbuildignore$new(private$path)$upgrade()
 }
 ),
 
