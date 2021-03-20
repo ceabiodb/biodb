@@ -20,9 +20,9 @@ public=list(
 #' @param folder    The destination subfolder inside the package directory, as
 #' a character vector of subfolders hierarchy.
 #' @param filename  The name of the generated file.
-initialize=function(path, template, folder, filename) {
+initialize=function(path, filename, folder=character(), template=NULL) {
     chk::chk_dir(path)
-    chk::chk_string(template)
+    chk::chk_null_or(template, chk::chk_string)
     chk::chk_character(folder)
     chk::chk_not_any_na(folder)
 
@@ -41,8 +41,14 @@ private=list(
     ,filename=NULL
 
 ,getTemplateFile=function() {
-    return(system.file('templates', private$template, package='biodb',
-                       mustWork=TRUE))
+    
+    templFile <- NULL
+
+    if ( ! is.null(private$template))
+        templFile <- system.file('templates', private$template,
+                                 package='biodb', mustWork=TRUE)
+    
+    return(templFile)
 }
 
 ,getDstFile=function() {

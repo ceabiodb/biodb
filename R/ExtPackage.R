@@ -116,6 +116,7 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
                        vignetteName=private$vignetteName)$generate()
     if (private$rcpp)
         ExtCpp$new(private$path)$generate()
+    ExtRbuildignore$new(private$path)$generate()
 }
 
 #' @description
