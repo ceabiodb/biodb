@@ -26,7 +26,9 @@ public=list(
 #' @param folder    The destination subfolder inside the package directory, as
 #' a character vector of subfolders hierarchy.
 #' @param template  The filename of the template to use.
+#' @param ... See the constructor of ExtGenerator for the parameters.
 #' @return A new instance.
+#' @export
 initialize=function(filename, overwrite=FALSE, folder=character(),
                     template=NULL, ...) {
     super$initialize(...)

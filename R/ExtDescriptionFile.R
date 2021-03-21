@@ -7,37 +7,21 @@
 #' This class generates a DESCRIPTION for a biodb extension package.
 #'
 #' @import R6
-#' @import chk
+#' @include ExtFileGenerator.R
 #' @import desc
 #' @export
 ExtDescriptionFile <- R6::R6Class('ExtDescriptionFile',
+
+inherit=ExtFileGenerator,
 
 public=list(
 
 #' @description
 #' Constructor.
-#' @param path     The path to the package folder.
-#' @param pkgName   The package name. If set to NULL, the folder name pointer by
-#' the "path" paramater will be used as the package name.
-#' @param dbName   The name of the database (in biodb format "my.db.name"),
-#' that will be used in "definitions.yml" file and for connector and entry
-#' classe.
-#' @param newPkg   Set to TRUE if the package is not yet on Bioconductor.
-#' @param rcpp     Set to TRUE to enable Rcpp C/C++ code inside the package.
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
-initialize=function(path, pkgName=NULL, dbName=NULL, newPkg=FALSE, rcpp=FALSE) {
-    chk::chk_dir(path)
-    chk::chk_null_or(pkgName, chk::chk_string)
-    chk::chk_null_or(dbName, chk::chk_string)
-    chk::chk_flag(newPkg)
-    chk::chk_flag(rcpp)
-
-    private$path <- normalizePath(path)
-    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
-        pkgName
-    private$dbName <- dbName
-    private$newPkg <- newPkg
-    private$rcpp <- rcpp
+initialize=function(...) {
+    super$initialize(filename='DESCRIPTION', ...)
 },
 
 #' @description
@@ -60,18 +44,13 @@ generate=function() {
     private$setCollateFiles(descFile)
 
     # Write file
-    descFile$write(file=file.path(private$path, 'DESCRIPTION'))
+    descFile$write(file=private$getDstFile())
 }
 ),
 
 private=list(
-    path=NULL
-    ,pkgName=NULL
-    ,dbName=NULL
-    ,newPkg=NULL
-    ,rcpp=NULL
 
-,setNameTitleDesc=function(descFile) {
+setNameTitleDesc=function(descFile) {
     descFile$set("Package", private$pkgName)
     descFile$set(Package=private$pkgName)
     descFile$set(Title=paste(private$pkgName,

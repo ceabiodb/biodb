@@ -37,6 +37,7 @@ public=list(
 #' the database.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
+#' @export
 initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
                     newPkg=FALSE, connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
