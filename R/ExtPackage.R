@@ -24,6 +24,9 @@ public=list(
 #' @description
 #' Constructor
 #' @param path      The path to the package folder.
+#' @param pkgName   The package name. If set to NULL, the folder name pointer by
+#' the "path" paramater will be used as the package name.
+#' @param email     The email of the author.
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classes.
@@ -43,14 +46,15 @@ public=list(
 #' the database.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
-initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
-                    connType=c('plain', 'compound', 'mass'),
+initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
+                    newPkg=FALSE, connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
-                                'txt', 'xml'),
-                    editable=FALSE, writable=FALSE,
-                    remote=FALSE, downloadable=FALSE,
-                    rcpp=FALSE, makefile=FALSE) {
+                                'txt', 'xml'), editable=FALSE, writable=FALSE,
+                    remote=FALSE, downloadable=FALSE, rcpp=FALSE,
+                    makefile=FALSE) {
     chk::chk_string(path)
+    chk::chk_null_or(pkgName, chk::chk_string)
+    chk::chk_null_or(email, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_flag(newPkg)
@@ -64,6 +68,9 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
     entryType <- match.arg(entryType)
     
     private$path <- normalizePath(path, mustWork=FALSE)
+    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
+        pkgName
+    private$email <- email
     private$dbName <- dbName
     private$dbTitle <- dbTitle
     private$newPkg <- newPkg
@@ -88,35 +95,37 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
 ,generate=function() {
     
     private$checkPathDoesNotExist()
-    private$checkName()
-    
     dir.create(private$path)
-    ExtDescriptionFile$new(private$path, dbName=private$dbName,
+
+    ExtDescriptionFile$new(path=private$path, dbName=private$dbName,
                            newPkg=private$newPkg, rcpp=private$rcpp)$generate()
     if (private$makefile)
-        ExtMakefile$new(private$path, newPkg=private$newPkg)$generate()
-    ExtLicense$new(private$path)$generate()
-    ExtReadme$new(private$path, dbName=private$dbName,
+        ExtMakefile$new(path=private$path, newPkg=private$newPkg)$generate()
+    ExtLicense$new(path=private$path)$generate()
+    ExtReadme$new(path=private$path, dbName=private$dbName,
                   dbTitle=private$dbTitle)$generate()
     if ( ! is.null(private$dbName)) {
-        ExtConnClass$new(private$path, dbName=private$dbName,
+        ExtConnClass$new(path=private$path, dbName=private$dbName,
                          dbTitle=private$dbTitle, connType=private$connType,
                          editable=private$editable, writable=private$writable,
                          remote=private$remote,
                          downloadable=private$downloadable)$generate()
-        ExtEntryClass$new(private$path, dbName=private$dbName,
+        ExtEntryClass$new(path=private$path, dbName=private$dbName,
                           dbTitle=private$dbTitle,
                           entryType=private$entryType)$generate()
-        ExtDefinitions$new(private$path, dbName=private$dbName,
+        ExtDefinitions$new(path=private$path, dbName=private$dbName,
                            dbTitle=private$dbTitle, connType=private$connType,
                            entryType=private$entryType, remote=private$remote,
                            downloadable=private$downloadable)$generate()
     }
-    ExtPackageFile$new(private$path, dbName=private$dbName, rcpp=private$rcpp,
+    ExtPackageFile$new(path=private$path, dbName=private$dbName,
+                       rcpp=private$rcpp,
                        vignetteName=private$vignetteName)$generate()
     if (private$rcpp)
-        ExtCpp$new(private$path)$generate()
-    ExtRbuildignore$new(private$path)$generate()
+        ExtCpp$new(path=private$path)$generate()
+    ExtRbuildignore$new(path=private$path)$generate()
+    ExtTravisFile$new(path=private$path, pkgName=private$pkgName,
+                      email=private$email)$generate()
 }
 
 #' @description
@@ -128,9 +137,10 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
 #' biodb::ExtPackage$new('/path/to/my/biodbFooDb')$upgrade()
 #'
 ,upgrade=function() {
-    private$checkPathExists()
-    private$checkName()
+
+    chk::chk_dir(private$path)
     private$checkFilesExist()
+
     if (private$makefile)
         ExtMakefile$new(private$path, newPkg=private$newPkg)$upgrade()
     ExtRbuildignore$new(private$path)$upgrade()
@@ -139,6 +149,8 @@ initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
 
 private=list(
     path=NULL
+    ,pkgName=NULL
+    ,email=NULL
     ,dbName=NULL
     ,dbTitle=NULL
     ,newPkg=NULL
@@ -152,10 +164,6 @@ private=list(
     ,remote=NULL
     ,downloadable=NULL
 
-,checkPathExists=function() {
-    chk::chk_dir(private$path)
-}
-
 ,checkFilesExist=function() {
     chk::chk_file(file.path(private$path, 'DESCRIPTION'))
     # NAMESPACE file will be generated by roxygen2.
@@ -166,9 +174,5 @@ private=list(
         stop('A folder already exists at "', private$path, '".')
     if (file.exists(private$path))
         stop('A file already exists at "', private$path, '".')
-}
-
-,checkName=function() {
-    chk::chk_match(getPkgName(private$path), regexp="^biodb[A-Z]")
 }
 ))

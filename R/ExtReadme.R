@@ -15,18 +15,23 @@ public=list(
 #' @description
 #' Constructor
 #' @param path     The path to the package folder.
+#' @param pkgName   The package name. If set to NULL, the folder name pointer by
+#' the "path" paramater will be used as the package name.
 #' @param dbName   The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classe.
 #' @param dbTitle  The official name of the database (e.g.: HMDB, UniProtKB,
 #' KEGG).
 #' @return A new instance.
-initialize=function(path, dbName=NULL, dbTitle=NULL) {
+initialize=function(path, pkgName=NULL, dbName=NULL, dbTitle=NULL) {
     chk::chk_dir(path)
+    chk::chk_null_or(pkgName, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(dbTitle, chk::chk_string)
 
     private$path <- normalizePath(path)
+    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
+        pkgName
     private$dbName <- dbName
     private$dbTitle <- dbTitle
 },
@@ -50,18 +55,19 @@ update=function() {
 ),
 
 private=list(
-    path=NULL,
-    dbName=NULL,
-    dbTitle=NULL,
+    path=NULL
+    ,pkgName=NULL
+    ,dbName=NULL
+    ,dbTitle=NULL
 
-getReadmePath=function() {
+,getReadmePath=function() {
     return(file.path(private$path, 'README.md'))
-},
+}
 
-replaceTags=function(template) {
+,replaceTags=function(template) {
 
     # Package name
-    template$replace('pkgName', getPkgName(private$path))
+    template$replace('pkgName', private$pkgName)
     
     # Database name
     if ( ! is.null(private$dbName)) {

@@ -9,5 +9,7 @@ getConnClassFile <- function(pkgRoot, dbName) {
 }
 
 getPkgName <- function(pkgRoot) {
-    return(basename(pkgRoot))
+    name <- basename(pkgRoot)
+    chk::chk_match(name, regexp="^biodb[A-Z]")
+    return(name)
 }

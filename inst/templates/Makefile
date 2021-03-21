@@ -1,6 +1,8 @@
 # Makefile for biodb extensions packages, version 1.0.0
 
+# $$$SECTION NEW_PKG$$$
 NEW_PKG=true
+# $$$END_SECTION NEW_PKG$$$
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
 # Messages that were output:

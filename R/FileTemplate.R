@@ -27,9 +27,10 @@ initialize=function(path) {
 #' @param value The value to replace the tag with.
 replace=function(tag, value) {
     chk::chk_string(tag)
-    chk::chk_string(value)
+    chk::chk_null_or(value, chk_string)
     
-    private$txt <- gsub(paste0('{{', tag, '}}'), value, private$txt, fixed=TRUE)
+    if ( ! is.null(value))
+        private$txt <- gsub(paste0('{{', tag, '}}'), value, private$txt, fixed=TRUE)
 },
 
 #' @description
@@ -112,9 +113,11 @@ select=function(section, enable) {
 #' @description
 #' Write template with replaced values to disk.
 #' @param path Path to output file.
-write=function(path) {
-    chk::chk_false(chk::vld_file(path))
-    
+write=function(path, overwrite=FALSE) {
+
+    if ( ! overwrite && file.exists(path))
+        stop('Destination file "', path, '" already exists.')
+
     writeLines(private$txt, path)
 }
 ),

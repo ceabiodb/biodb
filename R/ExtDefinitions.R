@@ -30,14 +30,14 @@ public=list(
 #' @param remote    Set to TRUE if the database to connect to is not local.
 #' @param downloadable  Set to TRUE if the database needs to be downloaded or
 #' offers this possiblity.
-initialize=function(path, dbName=NULL, dbTitle=NULL, newPkg=FALSE,
+initialize=function(dbName=NULL, dbTitle=NULL,
                     connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
                                 'txt', 'xml'),
-                    remote=FALSE, downloadable=FALSE
+                    remote=FALSE, downloadable=FALSE, ...
                     ) {
-    super$initialize(path, template='definitions.yml', folder='inst',
-                     filename='definitions.yml')
+    super$initialize(template='definitions.yml', folder='inst',
+                     filename='definitions.yml', ...)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_flag(remote)

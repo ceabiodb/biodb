@@ -17,19 +17,24 @@ public=list(
 #' @description
 #' Constructor.
 #' @param path     The path to the package folder.
+#' @param pkgName   The package name. If set to NULL, the folder name pointer by
+#' the "path" paramater will be used as the package name.
 #' @param dbName   The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classe.
 #' @param newPkg   Set to TRUE if the package is not yet on Bioconductor.
 #' @param rcpp     Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
-initialize=function(path, dbName=NULL, newPkg=FALSE, rcpp=FALSE) {
+initialize=function(path, pkgName=NULL, dbName=NULL, newPkg=FALSE, rcpp=FALSE) {
     chk::chk_dir(path)
+    chk::chk_null_or(pkgName, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(rcpp)
 
     private$path <- normalizePath(path)
+    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
+        pkgName
     private$dbName <- dbName
     private$newPkg <- newPkg
     private$rcpp <- rcpp
@@ -60,32 +65,33 @@ generate=function() {
 ),
 
 private=list(
-    path=NULL,
-    dbName=NULL,
-    newPkg=NULL,
-    rcpp=NULL,
+    path=NULL
+    ,pkgName=NULL
+    ,dbName=NULL
+    ,newPkg=NULL
+    ,rcpp=NULL
 
-setNameTitleDesc=function(descFile) {
-    descFile$set("Package", getPkgName(private$path))
-    descFile$set(Package=getPkgName(private$path))
-    descFile$set(Title=paste(getPkgName(private$path),
+,setNameTitleDesc=function(descFile) {
+    descFile$set("Package", private$pkgName)
+    descFile$set(Package=private$pkgName)
+    descFile$set(Title=paste(private$pkgName,
                              'a library for connecting to a/the ... database'))
     descFile$set(Description=paste('The',
-                    getPkgName(private$path),
+                    private$pkgName,
                     'library is an extension of',
                     'the biodb framework package, that provides access',
                     'to a/the ... database. It allows to retrieve',
                     'entries by their accession number, and ...'))
-},
+}
 
-setAuthors=function(descFile) {
+,setAuthors=function(descFile) {
     descFile$add_author("Firstname1", "Lastname1", email="your@e.mail",
                         role=c("aut", "cre"))
     descFile$add_author("Firstname2", "Lastname2", email="another@e.mail",
                         role=c("ctb"))
-},
+}
     
-setDependencies=function(descFile) {
+,setDependencies=function(descFile) {
 
     descFile$set_dep('R', type='Depends', version='>= 4.0')
     descFile$set_dep('methods', type='Imports')
@@ -103,9 +109,9 @@ setDependencies=function(descFile) {
         descFile$set_dep('testthat', type='LinkingTo')
         descFile$set(NeedsCompilation='yes')
     }
-},
+}
 
-setCollateFiles=function(descFile) {
+,setCollateFiles=function(descFile) {
 
     if ( ! is.null(private$dbName)) {
         connFile <- paste0(getConnClassName(private$dbName), '.R')

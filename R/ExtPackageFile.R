@@ -17,19 +17,25 @@ public=list(
 #' @description
 #' Constructor
 #' @param path      The path to the package folder.
+#' @param pkgName   The package name. If set to NULL, the folder name pointer by
+#' the "path" paramater will be used as the package name.
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classes.
 #' @param vignetteName Set to the name of the default/main vignette.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @return A new instance.
-initialize=function(path, dbName=NULL, vignetteName=NULL, rcpp=FALSE) {
+initialize=function(path, pkgName=NULL, dbName=NULL, vignetteName=NULL,
+                    rcpp=FALSE) {
     chk::chk_dir(path)
+    chk::chk_null_or(pkgName, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_string)
     chk::chk_null_or(vignetteName, chk::chk_string)
     chk::chk_flag(rcpp)
     
     private$path <- normalizePath(path)
+    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
+        pkgName
     private$dbName <- dbName
     private$vignetteName <- vignetteName
     private$rcpp <- rcpp
@@ -40,7 +46,7 @@ initialize=function(path, dbName=NULL, vignetteName=NULL, rcpp=FALSE) {
 ,generate=function() {
     temp <- FileTemplate$new(system.file('templates', 'package.R',
                                          package='biodb'))
-    temp$replace('pkgName', getPkgName(private$path))
+    temp$replace('pkgName', private$pkgName)
     if ( ! is.null(private$dbName))
         temp$replace('connClassName', getConnClassName(private$dbName))
     if ( ! is.null(private$vignetteName))
@@ -52,6 +58,7 @@ initialize=function(path, dbName=NULL, vignetteName=NULL, rcpp=FALSE) {
 
 private=list(
     path=NULL
+    ,pkgName=NULL
     ,dbName=NULL
     ,vignetteName=NULL
     ,rcpp=NULL
