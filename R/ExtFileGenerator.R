@@ -29,12 +29,12 @@ public=list(
 #' @param ... See the constructor of ExtGenerator for the parameters.
 #' @return A new instance.
 #' @export
-initialize=function(filename, overwrite=FALSE, folder=character(),
+initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
                     template=NULL, ...) {
     super$initialize(...)
     chk::chk_dir(private$path)
-    chk::chk_string(filename) # File may not exist yet.
     chk::chk_flag(overwrite)
+    chk::chk_null_or(filename, chk::chk_string) # File may not exist yet.
     chk::chk_null_or(template, chk::chk_string)
     chk::chk_character(folder)
     chk::chk_not_any_na(folder)
@@ -133,6 +133,7 @@ private=list(
 }
 
 ,getDstFileRelPath=function() {
+    chk::chk_string(private$filename)
     return(do.call(file.path, as.list(c(private$folder, private$filename))))
 }
 
@@ -141,12 +142,14 @@ private=list(
 }
 
 ,buildDstPath=function() {
+    chk::chk_string(private$filename)
     return(file.path(getFolderFromVect(c(private$path, private$folder)),
                      private$filename))
 }
 
 ,generateFromTemplate=function(overwrite=FALSE) {
     templ <- FileTemplate$new(private$getTemplateFile())
+    private$fillTemplate(templ)
     templ$write(private$getDstFile(), overwrite=TRUE)
 }
 
@@ -156,7 +159,12 @@ private=list(
     templ$select('new.pkg', private$newPkg)
     templ$replace('dbName', private$dbName)
     if ( ! is.null(private$dbName))
-        templ$replace('connClassName', getConnClassName(private$dbName))
+        templ$replace('connClass', getConnClassName(private$dbName))
     templ$replace('dbTitle', private$dbTitle)
+    templ$choose('conn.type', private$connType)
+    templ$select('remote', private$remote)
+    templ$select('downloadable', private$downloadable)
+    templ$select('editable', private$editable)
+    templ$select('writable', private$writable)
 }
 ))

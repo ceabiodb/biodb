@@ -27,7 +27,7 @@ mybiodb$terminate()
 
 To get documentation on the implemented connector, run the following command in R:
 ```r
-?{{pkgName}}::{{connClassName}}
+?{{pkgName}}::{{connClass}}
 ```
 
 ## Citations

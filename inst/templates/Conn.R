@@ -3,13 +3,13 @@
 #' This is the connector class for {{dbTitle}}.
 #'
 #' @seealso 
-#' $$$ CASE MOTHER_CLASS PLAIN $$$
+#' $$$ CASE CONN_TYPE PLAIN $$$
 #' \code{\link{BiodbConn}}
-#' $$$ CASE MOTHER_CLASS COMPOUND $$$
+#' $$$ CASE CONN_TYPE COMPOUND $$$
 #' \code{\link{BiodbCompounddbConn}}
-#' $$$ CASE MOTHER_CLASS MASS $$$
+#' $$$ CASE CONN_TYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
-#' $$$ END_CASE MOTHER_CLASS $$$
+#' $$$ END_CASE CONN_TYPE $$$
 #' $$$ SECTION REMOTE $$$
 #' \code{\link{BiodbRemotedbConn}}
 #' $$$ END_SECTION REMOTE $$$
@@ -40,13 +40,13 @@
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
     contains=c(
-# $$$ CASE MOTHER_CLASS PLAIN $$$
+# $$$ CASE CONN_TYPE PLAIN $$$
         "BiodbConn"
-# $$$ CASE MOTHER_CLASS COMPOUND $$$
+# $$$ CASE CONN_TYPE COMPOUND $$$
         "BiodbCompounddbConn"
-# $$$ CASE MOTHER_CLASS MASS $$$
+# $$$ CASE CONN_TYPE MASS $$$
         "BiodbMassdbConn"
-# $$$ END_CASE MOTHER_CLASS $$$
+# $$$ END_CASE CONN_TYPE $$$
 # $$$ SECTION REMOTE $$$
         ,"BiodbRemotedbConn"
 # $$$ END_SECTION REMOTE $$$

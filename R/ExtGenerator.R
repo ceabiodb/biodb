@@ -45,9 +45,9 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
                     remote=FALSE, downloadable=FALSE, rcpp=FALSE
                     ) {
     chk::chk_string(path) # Path may not exist yet
-    chk::chk_null_or(pkgName, chk::chk_string)
+    chk::chk_null_or(pkgName, chk::chk_match, regexp="^biodb[A-Z][A-Za-z0-9]+$")
     chk::chk_null_or(email, chk::chk_string)
-    chk::chk_null_or(dbName, chk::chk_string)
+    chk::chk_null_or(dbName, chk::chk_match, regexp="^[a-z0-9.]+$")
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(downloadable)
