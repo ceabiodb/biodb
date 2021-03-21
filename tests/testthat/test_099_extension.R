@@ -96,7 +96,7 @@ test_newExtPkgSkeleton <- function() {
             dir.create(dirname(pkgDir))
 
         # Create a new extension package skeleton
-        biodb::ExtPackage$new(pkgDir, dbName=dbName, dbTitle='FOO database',
+        biodb::ExtPackage$new(path=pkgDir, dbName=dbName, dbTitle='FOO database',
                               connType=cfg$connType, entryType=cfg$entryType,
                               remote=cfg$remote, downloadable=downloadable,
                               editable=!cfg$remote, writable=!cfg$remote,
@@ -150,7 +150,7 @@ test_upgradeExtPkg <- function() {
         dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
-    biodb::ExtPackage$new(pkgDir)$generate()
+    biodb::ExtPackage$new(path=pkgDir)$generate()
     testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
 #    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))

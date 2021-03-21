@@ -19,10 +19,9 @@ public=list(
          
 #' @description
 #' Constructor
-#' @param path      The path to the package folder.
 #' @return A new instance.
-initialize=function(path) {
-    super$initialize(path, filename=".Rbuildignore", template='Rbuildignore')
+initialize=function(...) {
+    super$initialize(filename=".Rbuildignore", template='Rbuildignore', ...)
 }
 
 #' @description
@@ -50,7 +49,4 @@ initialize=function(path) {
     # Write destination file
     writeLines(dstLines, dst)
 }
-),
-
-private=list(
 ))

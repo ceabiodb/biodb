@@ -5,7 +5,7 @@
 #' vignette('{{vignette}}', package='{{pkgName}}')
 #' ```
 #'
-#' @seealso \link{{{connClassName}}}}.
+#' @seealso \link{{{connClassName}}}.
 #'
 #' $$$ SECTION COMPILE $$$
 #' @import Rcpp

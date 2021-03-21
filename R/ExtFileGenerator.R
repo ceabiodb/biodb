@@ -4,48 +4,39 @@
 #' The mother class of all file generators for biodb extension packages.
 #'
 #' @details
-#' All file generators for biodb extensions must inherit from this class.
+#' All file generator classes for biodb extensions must inherit from this class.
 #'
 #' @import R6
 #' @import chk
+#' @include ExtGenerator.R
 #' @export
 ExtFileGenerator <- R6::R6Class('ExtFileGenerator',
+
+inherit=ExtGenerator,
 
 public=list(
          
 #' @description
 #' Constructor
-#' @param path      The path to the package folder.
-#' @param pkgName   The package name. If set to NULL, the folder name pointer by
-#' the "path" paramater will be used as the package name.
-#' @param newPkg    Set to TRUE if the package is not yet on Bioconductor.
+#' @param filename  The name of the generated file.
 #' @param overwrite If set to TRUE, then overwrite existing destination file,
 #' even whatever the version of the template file. If set to FALSE,
 #' only overwrite if the version of the template file is strictly
 #' greater than the existing destination file.
-#' @param template  The filename of the template to use.
 #' @param folder    The destination subfolder inside the package directory, as
 #' a character vector of subfolders hierarchy.
-#' @param filename  The name of the generated file.
-#' @param email     The email of the author.
+#' @param template  The filename of the template to use.
 #' @return A new instance.
-initialize=function(path, filename, pkgName=NULL, newPkg=FALSE,
-                    overwrite=FALSE, folder=character(), template=NULL,
-                    email=NULL) {
-    chk::chk_dir(path)
-    chk::chk_null_or(pkgName, chk::chk_string)
-    chk::chk_flag(newPkg)
+initialize=function(filename, overwrite=FALSE, folder=character(),
+                    template=NULL, ...) {
+    super$initialize(...)
+    chk::chk_dir(private$path)
+    chk::chk_string(filename) # File may not exist yet.
     chk::chk_flag(overwrite)
-    chk::chk_null_or(email, chk::chk_string)
     chk::chk_null_or(template, chk::chk_string)
     chk::chk_character(folder)
     chk::chk_not_any_na(folder)
 
-    private$path <- normalizePath(path)
-    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
-        pkgName
-    private$email <- email
-    private$newPkg <- newPkg
     private$overwrite <- overwrite
     private$template <- template
     private$folder <- folder
@@ -103,14 +94,10 @@ initialize=function(path, filename, pkgName=NULL, newPkg=FALSE,
 ),
 
 private=list(
-    path=NULL
-    ,pkgName=NULL
-    ,newPkg=NULL
+    filename=NULL
     ,overwrite=NULL
-    ,email=NULL
     ,template=NULL
     ,folder=NULL
-    ,filename=NULL
 
 ,getTemplateFile=function() {
     
