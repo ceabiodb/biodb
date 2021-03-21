@@ -52,6 +52,14 @@ initialize=function(filename, overwrite=FALSE, folder=character(),
 }
 
 #' @description
+#' Try to replace remaining tags inside existing destination file.
+,update=function() {
+    templ <- FileTemplate$new(private$getDstFile(exist=TRUE))
+    private$fillTemplate(templ)
+    templ$write(private$getDstFile(exist=TRUE))
+}
+
+#' @description
 #' Upgrades an existing destination file.
 ,upgrade=function() {
     
@@ -139,9 +147,16 @@ private=list(
 
 ,generateFromTemplate=function(overwrite=FALSE) {
     templ <- FileTemplate$new(private$getTemplateFile())
+    templ$write(private$getDstFile(), overwrite=TRUE)
+}
+
+,fillTemplate=function(templ) {
     templ$replace('pkgName', private$pkgName)
     templ$replace('email', private$email)
     templ$select('new.pkg', private$newPkg)
-    templ$write(private$getDstFile(), overwrite=TRUE)
+    templ$replace('dbName', private$dbName)
+    if ( ! is.null(private$dbName))
+        templ$replace('connClassName', getConnClassName(private$dbName))
+    templ$replace('dbTitle', private$dbTitle)
 }
 ))
