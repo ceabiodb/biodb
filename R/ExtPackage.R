@@ -33,6 +33,8 @@ initialize=function(makefile=FALSE, ...) {
     super$initialize(...)
     chk::chk_flag(makefile)
     private$makefile <- makefile
+    if (is.null(private$vignetteName))
+        private$vignetteName <- 'intro'
 }
 
 #' @description

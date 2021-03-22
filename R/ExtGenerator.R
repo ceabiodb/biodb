@@ -36,19 +36,22 @@ public=list(
 #' @param writable  Set to TRUE to enable the generated connector to write into
 #' the database.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
+#' @param vignetteName Set to the name of the default/main vignette.
 #' @return A new instance.
 #' @export
 initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
                     newPkg=FALSE, connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
                                 'txt', 'xml'), editable=FALSE, writable=FALSE,
-                    remote=FALSE, downloadable=FALSE, rcpp=FALSE
+                    remote=FALSE, downloadable=FALSE, rcpp=FALSE,
+                    vignetteName=NULL
                     ) {
     chk::chk_string(path) # Path may not exist yet
     chk::chk_null_or(pkgName, chk::chk_match, regexp="^biodb[A-Z][A-Za-z0-9]+$")
     chk::chk_null_or(email, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_match, regexp="^[a-z0-9.]+$")
     chk::chk_null_or(dbTitle, chk::chk_string)
+    chk::chk_null_or(vignetteName, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(downloadable)
     chk::chk_flag(editable)
@@ -68,7 +71,7 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     private$rcpp <- rcpp
     private$connType <- connType
     private$entryType <- entryType
-    private$vignetteName <- 'intro'
+    private$vignetteName <- vignetteName
     private$downloadable <- downloadable
     private$editable <- editable
     private$writable <- writable

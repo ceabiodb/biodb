@@ -162,6 +162,8 @@ private=list(
         templ$replace('connClass', getConnClassName(private$dbName))
         templ$replace('entryClass', getEntryClassName(private$dbName))
     }
+    templ$replace('vignetteName', private$vignetteName)
+    templ$select('rcpp', private$rcpp)
     templ$replace('dbTitle', private$dbTitle)
     templ$choose('conn.type', private$connType)
     templ$choose('entry.type', private$entryType)

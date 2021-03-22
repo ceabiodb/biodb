@@ -8,58 +8,20 @@
 #' generated skeleton vignette, and possibly including directives for C++ code.
 #'
 #' @import R6
-#' @import chk
+#' @include ExtFileGenerator.R
 #' @export
 ExtPackageFile <- R6::R6Class('ExtPackageFile',
+
+inherit=ExtFileGenerator,
 
 public=list(
          
 #' @description
 #' Constructor
-#' @param path      The path to the package folder.
-#' @param pkgName   The package name. If set to NULL, the folder name pointer by
-#' the "path" paramater will be used as the package name.
-#' @param dbName    The name of the database (in biodb format "my.db.name"),
-#' that will be used in "definitions.yml" file and for connector and entry
-#' classes.
-#' @param vignetteName Set to the name of the default/main vignette.
-#' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
-initialize=function(path, pkgName=NULL, dbName=NULL, vignetteName=NULL,
-                    rcpp=FALSE) {
-    chk::chk_dir(path)
-    chk::chk_null_or(pkgName, chk::chk_string)
-    chk::chk_null_or(dbName, chk::chk_string)
-    chk::chk_null_or(vignetteName, chk::chk_string)
-    chk::chk_flag(rcpp)
-    
-    private$path <- normalizePath(path)
-    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
-        pkgName
-    private$dbName <- dbName
-    private$vignetteName <- vignetteName
-    private$rcpp <- rcpp
+initialize=function(...) {
+    super$initialize(template='package.R', folder='R', filename='package.R',
+                     ...)
 }
-
-#' @description
-#' Generates R/package.R file.
-,generate=function() {
-    temp <- FileTemplate$new(system.file('templates', 'package.R',
-                                         package='biodb'))
-    temp$replace('pkgName', private$pkgName)
-    if ( ! is.null(private$dbName))
-        temp$replace('connClassName', getConnClassName(private$dbName))
-    if ( ! is.null(private$vignetteName))
-        temp$replace('vignette', private$vignetteName)
-    temp$select('compile', private$rcpp)
-    temp$write(file.path(getFolder(private$path, 'R'), 'package.R'))
-}
-),
-
-private=list(
-    path=NULL
-    ,pkgName=NULL
-    ,dbName=NULL
-    ,vignetteName=NULL
-    ,rcpp=NULL
 ))

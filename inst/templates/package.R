@@ -1,16 +1,16 @@
 #' @details
 #'
-#' See vignette {{vignette}}:
+#' See vignette {{vignetteName}}:
 #' ```
-#' vignette('{{vignette}}', package='{{pkgName}}')
+#' vignette('{{vignetteName}}', package='{{pkgName}}')
 #' ```
 #'
 #' @seealso \link{{{connClass}}}.
 #'
-#' $$$ SECTION COMPILE $$$
+#' $$$ SECTION RCPP $$$
 #' @import Rcpp
 #' @importFrom Rcpp evalCpp
 #' @useDynLib {{pkgName}}, .registration=TRUE
-#' $$$ END_SECTION COMPILE $$$
+#' $$$ END_SECTION RCPP $$$
 "_PACKAGE"
 NULL
