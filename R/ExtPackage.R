@@ -49,8 +49,7 @@ initialize=function(makefile=FALSE, ...) {
     private$checkPathDoesNotExist()
     dir.create(private$path)
 
-    ExtDescriptionFile$new(path=private$path, dbName=private$dbName,
-                           newPkg=private$newPkg, rcpp=private$rcpp)$generate()
+    private$createGenerator(ExtDescriptionFile)$generate()
     if (private$makefile)
         ExtMakefile$new(path=private$path, newPkg=private$newPkg)$generate()
     ExtLicense$new(path=private$path)$generate()

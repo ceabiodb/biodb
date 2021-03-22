@@ -94,4 +94,20 @@ private=list(
     ,writable=NULL
     ,remote=NULL
     ,downloadable=NULL
+
+,createGenerator=function(cls, ...) {
+    
+    # Get field values of current object
+    fieldNames <- names(ExtGenerator$private_fields)
+    fields <- lapply(fieldNames, function(f) private[[f]])
+    names(fields) <- fieldNames
+    
+    # Add ellipsis
+    fields <- c(fields, ...)
+
+    # Call constructor
+    obj <- do.call(cls$new, fields)
+    
+    return(obj)
+}
 ))

@@ -8,7 +8,6 @@
 #' for definining the new connector.
 #'
 #' @import R6
-#' @import chk
 #' @include ExtFileGenerator.R
 #' @export
 ExtDefinitions <- R6::R6Class('ExtDefinitions',

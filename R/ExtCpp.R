@@ -11,33 +11,30 @@
 #' testthat R code. 
 #'
 #' @import R6
-#' @import chk
+#' @include ExtGenerator.R
 #' @export
 ExtCpp <- R6::R6Class('ExtCpp',
+
+inherit=ExtGenerator,
 
 public=list(
          
 #' @description
 #' Constructor
-#' @param path      The path to the package folder.
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
-initialize=function(path) {
-    chk::chk_string(path)
-
-    private$path <- normalizePath(path, mustWork=FALSE)
+initialize=function(...) {
+    super$initialize(...)
+    chk::chk_dir(private$path)
 }
 
 #' @description
 #' Generates examples of C++ code.
 #'
 ,generate=function() {
-    src <- getFolder(private$path, 'src')
     templates <- system.file('templates', package='biodb')
     for (f in Sys.glob(paste0(templates, '/*.cpp')))
-        file.copy(f, src)
+        private$createGenerator(ExtFileGenerator, template=basename(f),
+                                folder='src', filename=basename(f))$generate()
 }
-),
-
-private=list(
-    path=NULL
 ))
