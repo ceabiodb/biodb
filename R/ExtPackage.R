@@ -51,32 +51,19 @@ initialize=function(makefile=FALSE, ...) {
 
     private$createGenerator(ExtDescriptionFile)$generate()
     if (private$makefile)
-        ExtMakefile$new(path=private$path, newPkg=private$newPkg)$generate()
-    ExtLicense$new(path=private$path)$generate()
-    ExtReadme$new(path=private$path, dbName=private$dbName,
-                  dbTitle=private$dbTitle)$generate()
+        private$createGenerator(ExtMakefile)$generate()
+    private$createGenerator(ExtLicense)$generate()
+    private$createGenerator(ExtReadme)$generate()
     if ( ! is.null(private$dbName)) {
-        ExtConnClass$new(path=private$path, dbName=private$dbName,
-                         dbTitle=private$dbTitle, connType=private$connType,
-                         editable=private$editable, writable=private$writable,
-                         remote=private$remote,
-                         downloadable=private$downloadable)$generate()
-        ExtEntryClass$new(path=private$path, dbName=private$dbName,
-                          dbTitle=private$dbTitle,
-                          entryType=private$entryType)$generate()
-        ExtDefinitions$new(path=private$path, dbName=private$dbName,
-                           dbTitle=private$dbTitle, connType=private$connType,
-                           entryType=private$entryType, remote=private$remote,
-                           downloadable=private$downloadable)$generate()
+        private$createGenerator(ExtConnClass)$generate()
+        private$createGenerator(ExtEntryClass)$generate()
+        private$createGenerator(ExtDefinitions)$generate()
     }
-    ExtPackageFile$new(path=private$path, dbName=private$dbName,
-                       rcpp=private$rcpp,
-                       vignetteName=private$vignetteName)$generate()
+    private$createGenerator(ExtPackageFile)$generate()
     if (private$rcpp)
-        ExtCpp$new(path=private$path)$generate()
-    ExtRbuildignore$new(path=private$path)$generate()
-    ExtTravisFile$new(path=private$path, pkgName=private$pkgName,
-                      email=private$email)$generate()
+        private$createGenerator(ExtCpp)$generate()
+    private$createGenerator(ExtRbuildignore)$generate()
+    private$createGenerator(ExtTravisFile)$generate()
 }
 
 #' @description
