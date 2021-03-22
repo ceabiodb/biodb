@@ -9,56 +9,21 @@
 #' from one of its sub-classes: \code{BiodbCsvEntry}, \code{BiodbHtmlEntry}, ...
 #'
 #' @import R6
-#' @import chk
+#' @include ExtFileGenerator.R
 #' @export
 ExtEntryClass <- R6::R6Class('ExtEntryClass',
+
+inherit=ExtFileGenerator,
 
 public=list(
          
 #' @description
 #' Constructor
-#' @param path      The path to the package folder.
-#' @param dbName    The name of the database (in biodb format "my.db.name"),
-#' that will be used in "definitions.yml" file and for connector and entry
-#' classes.
-#' @param dbTitle   The official name of the database (e.g.: HMDB, UniProtKB,
-#' KEGG).
-#' @param entryType  The type of entry class to implement.
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
-initialize=function(path, dbName, dbTitle=NULL,
-                    entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
-                                'txt', 'xml')
-                    ) {
-    chk::chk_dir(path)
-    chk::chk_string(dbName)
-    chk::chk_null_or(dbTitle, chk::chk_string)
-	entryType <- match.arg(entryType)
-    
-    private$path <- normalizePath(path)
-    private$dbName <- dbName
-    private$dbTitle <- dbTitle
-    private$entryType <- entryType
+initialize=function(...) {
+    super$initialize(template='Conn.R', folder='R', ...)
+    chk::chk_string(private$dbName)
+    private$filename <- paste0(getEntryClassName(private$dbName), '.R')
 }
-
-#' @description
-#' Generates the connector class.
-,generate=function() {
-    templ <- FileTemplate$new(system.file('templates', 'Entry.R',
-                                          package='biodb'))
-    templ$replace('dbName', private$dbName)
-    templ$replace('connClass', getConnClassName(private$dbName))
-    templ$replace('entryClass', getEntryClassName(private$dbName))
-    if ( ! is.null(private$dbTitle))
-        templ$replace('dbTitle', private$dbTitle)
-    templ$choose('mother.class', private$entryType)
-    templ$write(getEntryClassFile(private$path, private$dbName))
-}
-),
-                            
-private=list(
-    path=NULL
-    ,dbName=NULL
-    ,dbTitle=NULL
-    ,entryType=NULL
- 
 ))

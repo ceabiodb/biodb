@@ -158,10 +158,13 @@ private=list(
     templ$replace('email', private$email)
     templ$select('new.pkg', private$newPkg)
     templ$replace('dbName', private$dbName)
-    if ( ! is.null(private$dbName))
+    if ( ! is.null(private$dbName)) {
         templ$replace('connClass', getConnClassName(private$dbName))
+        templ$replace('entryClass', getEntryClassName(private$dbName))
+    }
     templ$replace('dbTitle', private$dbTitle)
     templ$choose('conn.type', private$connType)
+    templ$choose('entry.type', private$entryType)
     templ$select('remote', private$remote)
     templ$select('downloadable', private$downloadable)
     templ$select('editable', private$editable)
