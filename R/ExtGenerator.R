@@ -103,7 +103,7 @@ private=list(
     names(fields) <- fieldNames
     
     # Add ellipsis
-    fields <- c(fields, ...)
+    fields <- c(fields, list(...))
 
     # Call constructor
     obj <- do.call(cls$new, fields)

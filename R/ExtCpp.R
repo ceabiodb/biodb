@@ -21,7 +21,7 @@ public=list(
          
 #' @description
 #' Constructor
-#' @param ... See the constructor of ExtFileGenerator for the parameters.
+#' @param ... See the constructor of ExtGenerator for the parameters.
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(...)
@@ -30,7 +30,6 @@ initialize=function(...) {
 
 #' @description
 #' Generates examples of C++ code.
-#'
 ,generate=function() {
     templates <- system.file('templates', package='biodb')
     for (f in Sys.glob(paste0(templates, '/*.cpp')))

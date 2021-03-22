@@ -96,7 +96,8 @@ test_newExtPkgSkeleton <- function() {
             dir.create(dirname(pkgDir))
 
         # Create a new extension package skeleton
-        biodb::ExtPackage$new(path=pkgDir, dbName=dbName, dbTitle='FOO database',
+        biodb::ExtPackage$new(path=pkgDir, dbName=dbName,
+                              dbTitle='FOO database',
                               connType=cfg$connType, entryType=cfg$entryType,
                               remote=cfg$remote, downloadable=downloadable,
                               editable=!cfg$remote, writable=!cfg$remote,
@@ -122,17 +123,20 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
         testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
                                                     'definitions.yml')))
-    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
-    #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
-    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
-    #    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
-    #                                                testFile)))
-    #    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+                                                    'test_100_generic.R')))
+#        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+#                                                    'test_200_example.R')))
+        #testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
         
         # Check targets
         system(paste0('make -C "', pkgDir, '" doc'))
         testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
         system(paste0('make -C "', pkgDir, '"'))
+        system(paste0('make -C "', pkgDir, '" test'))
     }
 }
 

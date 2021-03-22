@@ -1,5 +1,4 @@
 databases:
-
   {{dbName}}:
     name: {{dbTitle}}
     description: Write here the description of this database.
@@ -17,6 +16,8 @@ databases:
     entry.content.type: txt
 # $$$ CASE ENTRY_TYPE XML $$$
     entry.content.type: xml
+# $$$ CASE ENTRY_TYPE DEFAULT $$$
+    entry.content.type: txt
 # $$$ END_CASE ENTRY_TYPE $$$
     parsing.expr:
 # $$$ CASE ENTRY_TYPE CSV $$$
@@ -127,6 +128,7 @@ databases:
     dwnld.ext: zip
 # $$$ END_SECTION DOWNLOADABLE $$$
 
+fields:
   {{dbName}}.id:
     description: {{dbTitle}} ID
     case.insensitive: true
