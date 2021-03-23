@@ -112,8 +112,8 @@ initialize=function(...) {
     
     return(ids)
 }
-
 # $$$ SECTION REMOTE $$$
+
 ,getEntryPageUrl=function(id) {
     # Overrides super class' method.
 
@@ -126,8 +126,8 @@ initialize=function(...) {
     return(vapply(id, fct, FUN.VALUE=''))
 }
 # $$$ END_SECTION REMOTE $$$
-
 # $$$ SECTION REMOTE $$$
+
 ,getEntryImageUrl=function(id) {
     # Overrides super class' method.
 
@@ -141,8 +141,51 @@ initialize=function(...) {
     return(vapply(id, fct, FUN.VALUE=''))
 }
 # $$$ END_SECTION REMOTE $$$
-
 # $$$ SECTION REMOTE $$$
+
+,wsFind=function(name="", retfmt=c('plain', 'parsed', 'ids', 'request')) {
+    # This is the implementation of a fictive web service called "find" that
+    # search for entries by name.
+    # Use it as an example for implementing your own web services.
+
+    retfmt <- match.arg(retfmt)
+
+    # Build request
+    params <- list(name=name)
+    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find'),
+                    params=params)
+    request <- .self$makeRequest(method='get', url=url)
+
+    # Return request
+    if (retfmt == 'request')
+        return(request)
+
+    # Send request
+    # This the line that should be run for sending the request and getting the
+    # results:
+    #results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    # Instead, for this example, we just generate the results of this fictive
+    # web service:
+    results <- paste('{"0001": {"name": "name1"},',
+                     ' "0198": {"name": "name2"},',
+                     ' "9834": {"name": "name3"}}')
+
+    # Parse
+    if (retfmt != 'plain') {
+        
+        # Parse JSON
+        results <- jsonlite::fromJSON(results, simplifyDataFrame=FALSE)
+
+        # Get IDs
+        if (retfmt == 'ids')
+            results <- names(results)
+    }
+
+    return(results)
+}
+# $$$ END_SECTION REMOTE $$$
+# $$$ SECTION REMOTE $$$
+
 ,.doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     # TODO Modify the code below to build the URLs to get the contents of the
@@ -157,8 +200,8 @@ initialize=function(...) {
     return(url)
 }
 # $$$ END_SECTION REMOTE $$$
-
 # $$$ SECTION DOWNLOADABLE $$$
+
 ,.doDownload=function() {
 
     .self$message('info', "Downloading {{dbTitle}}...")
@@ -176,8 +219,8 @@ initialize=function(...) {
     sched$downloadFile(url=fileUrl, dest.file=.self$getDownloadPath())
 }
 # $$$ END_SECTION DOWNLOADABLE $$$
-
 # $$$ SECTION DOWNLOADABLE $$$
+
 ,doExtractDownload=function() {
 
    .self$info("Extracting content of downloaded {{dbTitle}}...")
@@ -212,8 +255,8 @@ initialize=function(...) {
     # inside the temporary folder.
 }
 # $$$ END_SECTION DOWNLOADABLE $$$
-
 # $$$ SECTION WRITABLE $$$
+
 ,.doWrite=function() {
     # Overrides super class' method.
 
