@@ -18,9 +18,12 @@ public=list(
 #' @param path      The path to the package folder.
 #' @param pkgName   The package name. If set to NULL, the folder name pointer by
 #' the "path" paramater will be used as the package name.
+#' @param pkgLicense The license of the package.
 #' @param newPkg    Set to TRUE if the package is not yet published on
 #' Bioconductor.
 #' @param email     The email of the author.
+#' @param firstname     The firstname of the author.
+#' @param lastname     The lastname of the author.
 #' @param dbName    The name of the database (in biodb format "my.db.name"),
 #' that will be used in "definitions.yml" file and for connector and entry
 #' classes.
@@ -40,6 +43,7 @@ public=list(
 #' @return A new instance.
 #' @export
 initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
+                    pkgLicense=c('AGPL-3'), firstname=NULL, lastname=NULL,
                     newPkg=FALSE, connType=c('plain', 'compound', 'mass'),
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
                                 'txt', 'xml'), editable=FALSE, writable=FALSE,
@@ -49,6 +53,8 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     chk::chk_string(path) # Path may not exist yet
     chk::chk_null_or(pkgName, chk::chk_match, regexp="^biodb[A-Z][A-Za-z0-9]+$")
     chk::chk_null_or(email, chk::chk_string)
+    chk::chk_null_or(firstname, chk::chk_string)
+    chk::chk_null_or(lastname, chk::chk_string)
     chk::chk_null_or(dbName, chk::chk_match, regexp="^[a-z0-9.]+$")
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_null_or(vignetteName, chk::chk_string)
@@ -60,11 +66,14 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     chk::chk_flag(rcpp)
     connType <- match.arg(connType)
     entryType <- match.arg(entryType)
+    pkgLicense <- match.arg(pkgLicense)
 
     private$path <- normalizePath(path, mustWork=FALSE) # Path may not exist yet
     private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
         pkgName
     private$email <- email
+    private$firstname <- firstname
+    private$lastname <- lastname
     private$dbName <- dbName
     private$dbTitle <- dbTitle
     private$newPkg <- newPkg
@@ -76,6 +85,7 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     private$editable <- editable
     private$writable <- writable
     private$remote <- remote
+    private$pkgLicense <- pkgLicense
 }
 ),
 
@@ -83,6 +93,8 @@ private=list(
     path=NULL
     ,pkgName=NULL
     ,email=NULL
+    ,firstname=NULL
+    ,lastname=NULL
     ,dbName=NULL
     ,dbTitle=NULL
     ,newPkg=NULL
@@ -94,6 +106,7 @@ private=list(
     ,writable=NULL
     ,remote=NULL
     ,downloadable=NULL
+    ,pkgLicense=NULL
 
 ,createGenerator=function(cls, ...) {
     

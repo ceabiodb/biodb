@@ -88,23 +88,33 @@ select=function(section, enable) {
     chk::chk_flag(enable)
     
     section <- gsub('[^A-Za-z0-9]', '_', toupper(section))
-    sectionRE <- paste0('^.*\\$\\$\\$ *SECTION *', section, ' *\\$\\$\\$.*$')
-    sectionEndRE <- paste0('^.*\\$\\$\\$ *END_SECTION *', section,
+    ifRE <- paste0('^.*\\$\\$\\$ *(SECTION|IF) *', section, ' *\\$\\$\\$.*$')
+    elseRE <- paste0('^.*\\$\\$\\$ *ELSE *', section, ' *\\$\\$\\$.*$')
+    endRE <- paste0('^.*\\$\\$\\$ *END_(SECTION|IF) *', section,
                            ' *\\$\\$\\$.*$')
 
     # Get all start and section sections
-    starts <- grep(sectionRE, private$txt)
-    ends <- grep(sectionEndRE, private$txt)
+    ifs <- grep(ifRE, private$txt)
+    elses <- grep(elseRE, private$txt)
+    ends <- grep(endRE, private$txt)
     
     # Match each start with its corresponding end (i.e.: the closest one)
-    matchingEnds <- vapply(starts, function(i) head(ends[ends > i], n=1),
+    elseEnds <- sort(c(elses, ends))
+    ifMatchingEnds <- vapply(ifs, function(i) head(elseEnds[elseEnds > i], n=1),
+                           FUN.VALUE=1)
+    elseMatchingEnds <- vapply(elses, function(i) head(ends[ends > i], n=1),
                            FUN.VALUE=1)
 
-    # Remove only start and end if we keep the sections
-    linesToRemove <- if (enable) c(starts, ends) else
-    # Remove all lines from start to end if we remove the sections
-        unlist(lapply(seq_along(starts), function(i) seq(starts[[i]],
-                                                         matchingEnds[[i]])))
+    # Select lines to remove
+    if (enable) {
+        linesToRemove <- c(ifs, ifMatchingEnds,
+                           unlist(lapply(seq_along(elses), function(i)
+                                      seq(elses[[i]], elseMatchingEnds[[i]]))))
+    } else {
+        linesToRemove <- c(elses, elseMatchingEnds,
+                           unlist(lapply(seq_along(ifs), function(i)
+                                      seq(ifs[[i]], ifMatchingEnds[[i]]))))
+    }
 
     # Remove lines
     private$txt <- private$txt[setdiff(seq_along(private$txt), linesToRemove)]

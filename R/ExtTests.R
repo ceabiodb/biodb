@@ -30,6 +30,9 @@ initialize=function(...) {
 ,generate=function() {
     private$createGenerator(ExtFileGenerator, template='testthat.R',
                             folder='tests', filename='testthat.R')$generate()
+    private$createGenerator(ExtFileGenerator, template='test_050_fcts.R',
+                            folder=c('tests', 'testthat'),
+                            filename='test_050_fcts.R')$generate()
     private$createGenerator(ExtFileGenerator, template='test_100_generic.R',
                             folder=c('tests', 'testthat'),
                             filename='test_100_generic.R')$generate()
@@ -37,5 +40,8 @@ initialize=function(...) {
                             folder=c('tests', 'testthat', 'res'),
                             filename=paste('entry', private$dbName,
                                            '0001.json', sep='-'))$generate()
+    private$createGenerator(ExtFileGenerator, template='test_200_example.R',
+                            folder=c('tests', 'testthat'),
+                            filename='test_200_example.R')$generate()
 }
 ))

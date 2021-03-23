@@ -65,6 +65,7 @@ initialize=function(makefile=FALSE, ...) {
     private$createGenerator(ExtRbuildignore)$generate()
     private$createGenerator(ExtTravisFile)$generate()
     private$createGenerator(ExtTests)$generate()
+    private$createGenerator(ExtVignette)$generate()
 }
 
 #' @description

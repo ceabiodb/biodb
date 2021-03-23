@@ -22,23 +22,22 @@ Suggests:
     xml2,
     git2r
 Imports:
-	R6,
-	methods,
-	chk,
-    desc,
-	XML,
-	stringr,
-	plyr,
-	yaml,
-	jsonlite,
-	RCurl,
-	Rcpp,
-	rappdirs,
-	stats,
-	openssl,
-	RSQLite
+    R6,
+    methods,
+    chk,
+    XML,
+    stringr,
+    plyr,
+    yaml,
+    jsonlite,
+    RCurl,
+    Rcpp,
+    rappdirs,
+    stats,
+    openssl,
+    RSQLite
 LinkingTo:
-	Rcpp,
+    Rcpp,
     testthat
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)

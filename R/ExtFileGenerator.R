@@ -156,6 +156,8 @@ private=list(
 ,fillTemplate=function(templ) {
     templ$replace('pkgName', private$pkgName)
     templ$replace('email', private$email)
+    templ$replace('firstname', private$firstname)
+    templ$replace('lastname', private$lastname)
     templ$select('new.pkg', private$newPkg)
     templ$replace('dbName', private$dbName)
     if ( ! is.null(private$dbName)) {

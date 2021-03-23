@@ -21,6 +21,7 @@ public=list(
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
 initialize=function(...) {
-    super$initialize(template='AGPL-3.txt', filename='LICENSE', ...)
+    super$initialize(filename='LICENSE', ...)
+    private$template <- paste0(private$pkgLicense, '.txt')
 }
 ))
