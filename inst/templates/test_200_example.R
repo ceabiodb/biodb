@@ -2,8 +2,7 @@
 test_wsFind <- function(conn) {
     
     # Get request
-    testthat::expect_match(conn$wsFind('aaa', retfmt='request'),
-                           regexp="^https?://.*$")
+    testthat::expect_is(conn$wsFind('aaa', retfmt='request'), 'BiodbRequest')
     
     # Get plain format
     testthat::expect_match(conn$wsFind('aaa', retfmt='plain'),
