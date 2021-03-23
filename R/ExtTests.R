@@ -33,5 +33,9 @@ initialize=function(...) {
     private$createGenerator(ExtFileGenerator, template='test_100_generic.R',
                             folder=c('tests', 'testthat'),
                             filename='test_100_generic.R')$generate()
+    private$createGenerator(ExtFileGenerator, template='entry-0001.json',
+                            folder=c('tests', 'testthat', 'res'),
+                            filename=paste('entry', private$dbName,
+                                           '0001.json', sep='-'))$generate()
 }
 ))

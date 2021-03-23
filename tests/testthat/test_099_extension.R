@@ -124,10 +124,16 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
                                                     'definitions.yml')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
-        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
-        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests',
+                                                    'testthat.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests',
+                                                   'testthat')))
         testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
                                                     'test_100_generic.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests',
+                                                   'testthat', 'res')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests',
+            'testthat', 'res', paste0('entry-', dbName, '-0001.json'))))
 #        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
 #                                                    'test_200_example.R')))
         #testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
@@ -135,8 +141,10 @@ test_newExtPkgSkeleton <- function() {
         # Check targets
         system(paste0('make -C "', pkgDir, '" doc'))
         testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-        system(paste0('make -C "', pkgDir, '"'))
-        system(paste0('make -C "', pkgDir, '" test'))
+        system(paste0('make -C "', pkgDir, '" compile'))
+        # Tests won't pass, since there is no database from which to retrieve
+        # entries
+        #system(paste0('make -C "', pkgDir, '" test'))
     }
 }
 
