@@ -7,6 +7,12 @@
 #' This class can be used to generate a new .Rbuildignore file or to keep one
 #' up to date.
 #'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtRbuildignore$new(path=pkgFolder)$generate()
+#'
 #' @import R6
 #' @import chk
 #' @include ExtFileGenerator.R
@@ -19,6 +25,7 @@ public=list(
          
 #' @description
 #' Constructor
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(filename=".Rbuildignore", template='Rbuildignore', ...)
@@ -26,10 +33,16 @@ initialize=function(...) {
 
 #' @description
 #' Generates the Rbuildignore file for the specified package.
+#' @return None.
 ,generate=function() {
     file.copy(private$getTemplateFile(), private$getDstFile()) 
+    
+    return(invisible(NULL))
 }
 
+#' @description
+#' Upgrades an existing Rbuildignore file for the specified package.
+#' @return None.
 ,upgrade=function() {
 
     dst <- private$getDstFile(exist=TRUE)
@@ -48,5 +61,7 @@ initialize=function(...) {
     
     # Write destination file
     writeLines(dstLines, dst)
+
+    return(invisible(NULL))
 }
 ))

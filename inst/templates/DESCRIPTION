@@ -1,3 +1,4 @@
+# DESCRIPTION file for extensions packages, version 1.0.0
 Package: {{pkgName}}
 Title: {{pkgName}}, a library for connecting to {{dbTitle}}
 Version: 0.99.0

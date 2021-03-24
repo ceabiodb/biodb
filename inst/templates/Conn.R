@@ -113,6 +113,26 @@ initialize=function(...) {
     
     return(ids)
 }
+# $$$ CASE CONN_TYPE COMPOUND $$$
+# $$$ CASE CONN_TYPE MASS $$$
+
+,getChromCol=function(ids=NULL) {
+    # TODO Implement
+}
+
+,getNbPeaks=function(mode=NULL, ids=NULL) {
+    # TODO Implement
+}
+
+,.doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
+                          precursor, ms.level) {
+    # TODO Implement
+}
+
+,.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    # TODO Implement
+}
+# $$$ END_CASE CONN_TYPE $$$
 # $$$ SECTION REMOTE $$$
 
 ,getEntryPageUrl=function(id) {

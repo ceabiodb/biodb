@@ -9,6 +9,14 @@
 #' \code{BiodbCompounddbConn} or \code{BiodbMassdbConn}.
 #' It can also be editable and/or writable.
 #'
+#' @examples
+#' # Generate a new connector class inside R folder:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',
+#'                         dbTitle='Foo database',
+#'                         connType='mass', remote=TRUE)$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export

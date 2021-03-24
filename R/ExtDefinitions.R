@@ -7,6 +7,13 @@
 #' This class generates the definitions.yml of a new extension package, needed
 #' for definining the new connector.
 #'
+#' @examples
+#' # Generate the biodb definitions.yml file inside "inst" folder:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtDefinitions$new(path=pkgFolder, dbName='foo.db',
+#'                           dbTitle='Foo database')$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export

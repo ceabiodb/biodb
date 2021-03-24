@@ -7,6 +7,13 @@
 #' This class generates a test file for running biodb generic tests, and a test
 #' file containing an example of a custom test for this extension.
 #'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtTests$new(path=pkgFolder, dbName='foo.db', rcpp=TRUE,
+#'                     remote=TRUE)$generate()
+#'
 #' @import R6
 #' @include ExtGenerator.R
 #' @export

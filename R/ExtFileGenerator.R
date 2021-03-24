@@ -6,6 +6,13 @@
 #' @details
 #' All file generator classes for biodb extensions must inherit from this class.
 #'
+#' @examples
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',
+#'                         dbTitle='Foo database',
+#'                         connType='mass', remote=TRUE)$generate()
+#'
 #' @import R6
 #' @import chk
 #' @include ExtGenerator.R
@@ -155,6 +162,7 @@ private=list(
 
 ,fillTemplate=function(templ) {
     templ$replace('pkgName', private$pkgName)
+    templ$replace('pkgLicense', private$pkgLicense)
     templ$replace('email', private$email)
     templ$replace('firstname', private$firstname)
     templ$replace('lastname', private$lastname)
@@ -173,5 +181,6 @@ private=list(
     templ$select('downloadable', private$downloadable)
     templ$select('editable', private$editable)
     templ$select('writable', private$writable)
+    templ$replace('githubRepos', private$githubRepos)
 }
 ))

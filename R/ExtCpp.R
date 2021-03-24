@@ -10,6 +10,12 @@
 #' As for the R function written with Rcpp, it is tested inside standard
 #' testthat R code. 
 #'
+#' @examples
+#' # Generate C++ files
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtCpp$new(path=pkgFolder)$generate()
+#'
 #' @import R6
 #' @include ExtGenerator.R
 #' @export

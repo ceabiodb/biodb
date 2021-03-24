@@ -6,6 +6,15 @@
 #' @details
 #' This class generates a DESCRIPTION for a biodb extension package.
 #'
+#' @examples
+#' # Generate the DESCRIPTION file:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtDescriptionFile$new(path=pkgFolder, dbName='foo.db',
+#'                               dbTitle='Foo database', email='j.smith@e.mail',
+#'                               firstname='John', lastname='Smith', rcpp=TRUE,
+#'                               entryType='xml')$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export
@@ -21,11 +30,5 @@ public=list(
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(template='DESCRIPTION', filename='DESCRIPTION', ...)
-    if (is.null(private$firstname))
-        private$firstname <- 'Firstname of author'
-    if (is.null(private$lastname))
-        private$lastname <- 'Lastname of author'
-    if (is.null(private$email))
-        private$email <- 'author@e.mail'
 }
 ))

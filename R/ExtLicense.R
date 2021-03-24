@@ -7,6 +7,12 @@
 #' This class generates the license for a new extension package, or update the
 #' license of an existing one.
 #'
+#' @examples
+#' # Generate a new connector class inside R folder:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtLicense$new(path=pkgFolder)$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export

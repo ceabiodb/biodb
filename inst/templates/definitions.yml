@@ -1,3 +1,5 @@
+# biodb example definitions file for extensions packages, version 1.0.0
+
 databases:
   {{dbName}}:
     name: {{dbTitle}}

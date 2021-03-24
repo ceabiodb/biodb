@@ -7,6 +7,12 @@
 #' This class generates the package.R file, writing a reference to the
 #' generated skeleton vignette, and possibly including directives for C++ code.
 #'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtPackageFile$new(path=pkgFolder, dbName='foo.db')$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export

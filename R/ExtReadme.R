@@ -6,8 +6,16 @@
 #' @details
 #' Write a README file inside package directory, using a template file.
 #'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtReadme$new(path=pkgFolder, dbName='foo.db',
+#'                      dbTitle='Foo database')$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
+#' @export
 ExtReadme <- R6::R6Class('ExtReadme',
 
 inherit=ExtFileGenerator,

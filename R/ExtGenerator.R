@@ -6,6 +6,14 @@
 #' @details
 #' All generator classes for biodb extensions must inherit from this class.
 #'
+#' @examples
+#' # Generate a new connector class inside R folder:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',
+#'                         dbTitle='Foo database',
+#'                         connType='mass', remote=TRUE)$generate()
+#'
 #' @import R6
 #' @import chk
 #' @export
@@ -40,6 +48,8 @@ public=list(
 #' the database.
 #' @param rcpp      Set to TRUE to enable Rcpp C/C++ code inside the package.
 #' @param vignetteName Set to the name of the default/main vignette.
+#' @param githubRepos Set to the name of the associated GitHub repository.
+#' Example: myaccount/myrepos.
 #' @return A new instance.
 #' @export
 initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
@@ -48,7 +58,7 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
                     entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
                                 'txt', 'xml'), editable=FALSE, writable=FALSE,
                     remote=FALSE, downloadable=FALSE, rcpp=FALSE,
-                    vignetteName=NULL
+                    vignetteName=NULL, githubRepos=NULL
                     ) {
     chk::chk_string(path) # Path may not exist yet
     chk::chk_null_or(pkgName, chk::chk_match, regexp="^biodb[A-Z][A-Za-z0-9]+$")
@@ -58,6 +68,7 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     chk::chk_null_or(dbName, chk::chk_match, regexp="^[a-z0-9.]+$")
     chk::chk_null_or(dbTitle, chk::chk_string)
     chk::chk_null_or(vignetteName, chk::chk_string)
+    chk::chk_null_or(githubRepos, chk::chk_string)
     chk::chk_flag(newPkg)
     chk::chk_flag(downloadable)
     chk::chk_flag(editable)
@@ -71,21 +82,26 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     private$path <- normalizePath(path, mustWork=FALSE) # Path may not exist yet
     private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
         pkgName
-    private$email <- email
-    private$firstname <- firstname
-    private$lastname <- lastname
+    private$email <- if (is.null(email)) 'author@e.mail' else email
+    private$firstname <- if (is.null(firstname)) 'Firstname of author' else
+        firstname
+    private$lastname <- if (is.null(lastname)) 'Lastname of author' else
+        lastname
     private$dbName <- dbName
     private$dbTitle <- dbTitle
     private$newPkg <- newPkg
     private$rcpp <- rcpp
     private$connType <- connType
     private$entryType <- entryType
-    private$vignetteName <- vignetteName
+    private$vignetteName <- if (is.null(private$vignetteName)) 'intro' else
+        vignetteName
     private$downloadable <- downloadable
     private$editable <- editable
     private$writable <- writable
     private$remote <- remote
     private$pkgLicense <- pkgLicense
+    private$githubRepos <- if (is.null(githubRepos)) 'myaccount/myrepos' else
+        githubRepos
 }
 ),
 
@@ -107,6 +123,7 @@ private=list(
     ,remote=NULL
     ,downloadable=NULL
     ,pkgLicense=NULL
+    ,githubRepos=NULL
 
 ,createGenerator=function(cls, ...) {
     

@@ -14,6 +14,15 @@
 #' It can also upgrade files of an existing package like: definitions.yml,
 #' Makefile, .travis.yml, LICENSE, etc.
 #'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtPackage$new(path=pkgFolder, dbName='foo.db',
+#'                         dbTitle='Foo database', rcpp=TRUE,
+#'                         connType='mass', entryType='txt', downloadable=TRUE,
+#'                         remote=TRUE)$generate()
+#'
 #' @import R6
 #' @import chk 
 #' @include ExtGenerator.R
@@ -28,26 +37,20 @@ public=list(
 #' Constructor
 #' @param makefile  Set to TRUE if you want a Makefile to be generated.
 #' add some special directives inside the Makefile.
+#' @param ... See the constructor of ExtGenerator for the parameters.
 #' @return A new instance.
 initialize=function(makefile=FALSE, ...) {
     super$initialize(...)
     chk::chk_flag(makefile)
     private$makefile <- makefile
-    if (is.null(private$vignetteName))
-        private$vignetteName <- 'intro'
 }
 
 #' @description
 #' Generates the skeleton for the new extension package.
-#'
-#' @examples
-#' # Create a new package:
-#' biodb::ExtPackage$new('/path/to/my/biodbMyNewDb')$generate()
-#'
 ,generate=function() {
     
     private$checkPathDoesNotExist()
-    dir.create(private$path)
+    dir.create(private$path, recursive=TRUE)
 
     private$createGenerator(ExtDescriptionFile)$generate()
     if (private$makefile)
@@ -73,8 +76,8 @@ initialize=function(makefile=FALSE, ...) {
 #' package.
 #'
 #' @examples
-#' # Create a new package:
-#' biodb::ExtPackage$new('/path/to/my/biodbFooDb')$upgrade()
+#' # Upgrade an existing package:
+#' biodb::ExtPackage$new(path='/path/to/my/biodbFooDb')$upgrade()
 #'
 ,upgrade=function() {
 

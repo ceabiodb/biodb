@@ -9,6 +9,12 @@
 #' CRAN check, Bioconductor check, testthat tests, compiling, generating
 #' documentation, cleaning, etc.
 #'
+#' @examples
+#' # Generate a new connector class inside R folder:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtMakefile$new(path=pkgFolder)$generate()
+#'
 #' @import R6
 #' @include ExtFileGenerator.R
 #' @export

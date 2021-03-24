@@ -25,18 +25,22 @@ initialize=function(path) {
 #' Replace a tag by its value inside the template file.
 #' @param tag   The tag to replace.
 #' @param value The value to replace the tag with.
+#' @return invisible(self) for chaining method calls.
 replace=function(tag, value) {
     chk::chk_string(tag)
     chk::chk_null_or(value, chk_string)
     
     if ( ! is.null(value))
         private$txt <- gsub(paste0('{{', tag, '}}'), value, private$txt, fixed=TRUE)
+    
+    return(invisible(self))
 },
 
 #' @description
 #' Choose one case among a set of cases.
 #' @param set  The name of the case set.
 #' @param case The name of case.
+#' @return invisible(self) for chaining method calls.
 choose=function(set, case) {
     chk::chk_string(set)
     chk::chk_string(case)
@@ -76,6 +80,8 @@ choose=function(set, case) {
         # Remove END_CASE line
         private$txt <- private$txt[setdiff(seq_along(private$txt), i)]
     }
+    
+    return(invisible(self))
 },
 
 #' @description
@@ -83,6 +89,7 @@ choose=function(set, case) {
 #' @param section The name of the section.
 #' @param enable  Set to TRUE to select the section (and keep it), and FALSE to
 #' remove it.
+#' @return invisible(self) for chaining method calls.
 select=function(section, enable) {
     chk::chk_string(section)
     chk::chk_flag(enable)
@@ -118,25 +125,60 @@ select=function(section, enable) {
 
     # Remove lines
     private$txt <- private$txt[setdiff(seq_along(private$txt), linesToRemove)]
+    
+    return(invisible(self))
 },
 
 #' @description
 #' Write template with replaced values to disk.
 #' @param path Path to output file.
-write=function(path, overwrite=FALSE) {
+#' @param overwrite If set to FALSE and the destination file already exists, a
+#' message is thrown. Otherwise writes into the destination.
+#' @param checkRemainingTags If set to TRUE, checks first, before writing, if
+#' there any remaining tags that have not been processed. A warning is thrown
+#' for each found tag.
+#' @return None
+write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
+
+    if (checkRemainingTags)
+        private$checkRemainingTags()
 
     if ( ! overwrite && file.exists(path))
         stop('Destination file "', path, '" already exists.')
 
     writeLines(private$txt, path)
+    
+    return(invisible(NULL))
 }
 ),
 
 private=list(
-    path=NULL,
-    txt=NULL,
+    path=NULL
+    ,txt=NULL
     
-loadTemplate=function() {
+,loadTemplate=function() {
     private$txt <- readLines(private$path)
+}
+
+,checkRemainingTags=function() {
+    
+    # Search for {{...}} tags
+    tags <- unlist(lapply(stringr::str_match_all(private$txt,
+                                                 '\\{\\{([^}]+)\\}\\}'),
+                          function(x) x[,2]))
+    
+    # Search for $$$ ... $$$ tags
+    tagLines <- stringr::str_match(private$txt,
+                                   '^.*\\$\\$\\$ *[^ ]+ +([^ ]+).*\\$\\$\\$.*$')
+    tags <- c(tags, tagLines[,2])
+    
+    # Sort and remove duplicates
+    tags <- tags[ ! is.na(tags)]
+    tags <- unique(sort(tags))
+    
+    # Print warning
+    if (length(tags) > 0)
+        warning('The following tags were not replaced inside "', private$path,
+                '": ', paste(tags, collapse=', '), '.')
 }
 ))
