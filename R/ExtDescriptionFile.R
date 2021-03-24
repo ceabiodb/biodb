@@ -1,39 +1,34 @@
+#' Extension DESCRIPTION file
+#'
+#' @description
 #' A class for generating a DESCRIPTION file for an extension package.
 #'
+#' @details
 #' This class generates a DESCRIPTION for a biodb extension package.
 #'
-#' @param path      The path to the package folder.
-#'
 #' @examples
+#' # Generate the DESCRIPTION file:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::ExtDescriptionFile$new(path=pkgFolder, dbName='foo.db',
+#'                               dbTitle='Foo database', email='j.smith@e.mail',
+#'                               firstname='John', lastname='Smith', rcpp=TRUE,
+#'                               entryType='xml')$generate()
 #'
-#'
-#' @import methods
-#' @import chk
-#' @import desc
-#' @export ExtDescriptionFile
-#' @exportClass ExtDescriptionFile
-ExtDescriptionFile <- methods::setRefClass('ExtDescriptionFile',
-    fields=list(
-        path='character'
-    ),
+#' @import R6
+#' @include ExtFileGenerator.R
+#' @export
+ExtDescriptionFile <- R6::R6Class('ExtDescriptionFile',
 
-methods=list(
+inherit=ExtFileGenerator,
 
-initialize=function(path) {
-    chk::chk_dir(path)
+public=list(
 
-    .self$path <- normalizePath(path)
-},
-
-generate=function() {
-    ":\n\nGenerates the DESCRIPTION file inside the package folder.
-    \nReturned value: None.
-    "
-    
-    pkgName <- basename(.self$path)
-    descFile <- desc::description$new("!new")
-    descFile$set("Package", pkgName)
-    descFile$write(file=file.path(.self$path, 'DESCRIPTION'))
+#' @description
+#' Constructor.
+#' @param ... See the constructor of ExtFileGenerator for the parameters.
+#' @return A new instance.
+initialize=function(...) {
+    super$initialize(template='DESCRIPTION', filename='DESCRIPTION', ...)
 }
-
 ))

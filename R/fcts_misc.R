@@ -1,16 +1,13 @@
-connNameToClassPrefix <- function(connName) {
-    chk::chk_string(connName)
+getFolder <- function(...) {
+    folder <- file.path(...)
+    dir.create(folder, showWarnings=FALSE, recursive=TRUE)
+    return(folder)
+}
 
-    s <- connName
-    indices <- as.integer(gregexpr('\\.[a-z]', s, perl=TRUE)[[1]])
-    indices <- indices + 1  # We are interested in the letter after the dot.
-    indices <- c(1, indices) # Add first letter.
-    for (i in indices)
-        s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)),
-                   substring(s, i + 1), sep='')
-    s <- gsub('.', '', s, fixed=TRUE) # Remove dots
-
-    return(s)
+getFolderFromVect <- function(path) {
+    chk::chk_character(path)
+    chk::chk_not_any_na(path)
+    return(do.call('getFolder', as.list(path)))
 }
 
 extractVersion <- function(filepath) {

@@ -228,7 +228,7 @@ setTestContext <- function(biodb, text) {
     testContext(text, biodb=biodb)
 }
 
-#' Set a test context. DEPRECATED
+#' Set a test context.
 #'
 #' Define a context for tests using testthat framework.
 #' In addition to calling `testthat::context()`, the function will call
@@ -288,7 +288,7 @@ testContext <- function(text, biodb=NULL) {
 #' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
 #'
 #' # Define a context before running tests:
-#' setTestContext(biodb, "Test my database connector.")
+#' biodb::setTestContext(biodb, "Test my database connector.")
 #'
 #' # Define a test function
 #' my_test_function <- function(biodb) {

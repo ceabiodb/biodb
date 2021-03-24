@@ -1,0 +1,58 @@
+# DESCRIPTION file for extensions packages, version 1.0.0
+Package: {{pkgName}}
+Title: {{pkgName}}, a library for connecting to {{dbTitle}}
+Version: 0.99.0
+Authors@R: 
+    c(person(given = "{{firstname}}",
+             family = "{{lastname}}",
+             role = c("aut", "cre"),
+             email = "{{email}}"),
+      person(given = "Firstname of contributor",
+             family = "Lastname of contributor",
+             role = "ctb",
+             email = "contributor@e.mail"))
+Description: The {{pkgName}} library is an extension of the biodb framework package, that provides access to {{dbTitle}}. It allows to retrieve entries by their accession number, and run specific web services.
+License: {{pkgLicense}}
+biocViews: Software, Infrastructure, DataImport
+VignetteBuilder: knitr
+LazyData: true
+Encoding: UTF-8
+Depends: 
+    R (>= 4.0)
+Imports: 
+    biodb (>= 0.99.0),
+    methods,
+# $$$ IF RCPP $$$
+    Rcpp,
+# $$$ END_IF RCPP $$$
+# $$$ CASE ENTRY_TYPE JSON $$$
+    jsonlite,
+# $$$ CASE ENTRY_TYPE TXT $$$
+    stringr,
+# $$$ CASE ENTRY_TYPE XML $$$
+    XML,
+# $$$ END_CASE ENTRY_TYPE $$$
+    chk
+Suggests: 
+    roxygen2,
+    BiocStyle,
+    testthat (>= 2.0.0),
+    devtools,
+    knitr,
+    rmarkdown,
+    covr
+# $$$ IF RCPP $$$
+LinkingTo:
+    Rcpp,
+    testthat
+NeedsCompilation: yes
+# $$$ END_IF RCPP $$$
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Collate: 
+    '{{connClass}}.R'
+    '{{entryClass}}.R'
+    'package.R'
+# $$$ IF RCPP $$$
+    'RcppExports.R'
+# $$$ END_IF RCPP $$$

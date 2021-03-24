@@ -19,24 +19,25 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    xml2
+    xml2,
+    git2r
 Imports:
-	methods,
-	chk,
-    desc,
-	XML,
-	stringr,
-	plyr,
-	yaml,
-	jsonlite,
-	RCurl,
-	Rcpp,
-	rappdirs,
-	stats,
-	openssl,
-	RSQLite
+    R6,
+    methods,
+    chk,
+    XML,
+    stringr,
+    plyr,
+    yaml,
+    jsonlite,
+    RCurl,
+    Rcpp,
+    rappdirs,
+    stats,
+    openssl,
+    RSQLite
 LinkingTo:
-	Rcpp,
+    Rcpp,
     testthat
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
@@ -91,19 +92,35 @@ Collate:
     'SqliteConn.R'
     'CompSqliteConn.R'
     'CompSqliteEntry.R'
+    'ExtGenerator.R'
+    'ExtFileGenerator.R'
+    'ExtConnClass.R'
+    'ExtCpp.R'
+    'ExtDefinitions.R'
     'ExtDescriptionFile.R'
+    'ExtEntryClass.R'
+    'ExtLicense.R'
     'ExtMakefile.R'
     'ExtPackage.R'
+    'ExtPackageFile.R'
+    'ExtRbuildignore.R'
+    'ExtReadme.R'
+    'ExtTests.R'
+    'ExtTravisFile.R'
+    'ExtVignette.R'
+    'FileTemplate.R'
     'MassCsvFileConn.R'
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
     'RcppExports.R'
-    'biodb_fcts.R'
     'catch-routine-registration.R'
+    'fcts_biodb.R'
+    'fcts_ext.R'
+    'fcts_mass.R'
+    'fcts_misc.R'
     'generic_tests.R'
     'http_consts.R'
-    'mass_fcts.R'
     'package.R'
     'spec-dist.R'
     'test_framework.R'

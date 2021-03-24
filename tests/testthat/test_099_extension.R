@@ -58,58 +58,119 @@ test_chebiExShow <- function(biodb) {
 
 test_newExtPkgSkeleton <- function() {
     
-    dbName <- 'foo.db'
-    pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
-    testFile <- paste0('test_', dbName, '.R')
+    for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain',
+                          rcpp=FALSE)
+                     ,list(connType='compound', remote=FALSE, entryType='csv')
+                     ,list(connType='compound', remote=FALSE, entryType='list')
+                     ,list(connType='mass', remote=FALSE, entryType='csv')
+                     ,list(connType='mass', remote=TRUE, entryType='json')
+                     ,list(connType='compound', remote=TRUE, entryType='html')
+                     ,list(connType='compound', remote=TRUE, entryType='xml',
+                           rcpp=TRUE)
+                     ,list(connType='compound', remote=TRUE, entryType='xml',
+                           downloadable=TRUE)
+                     ,list(connType='compound', remote=TRUE, entryType='sdf')
+                     ,list(connType='compound', remote=TRUE, entryType='txt')
+                     )) {
+            
+        downloadable <- cfg$remote && (if ('downloadable' %in% names(cfg))
+                                       cfg$downloadable else FALSE)
+        rcpp <- cfg$remote && (if ('rcpp' %in% names(cfg))
+                                       cfg$rcpp else FALSE)
+        name <- c('foo', (if (cfg$remote) 'remote' else 'local'))
+        if (downloadable)
+            name <- c(name, 'dwnld')
+        if (rcpp)
+            name <- c(name, 'rcpp')
+        name <- c(name, cfg$connType, cfg$entryType, 'db')
+        dbName <- paste(name, collapse='.')
+        clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+        pkgName <- paste0('biodb', clsPrefix)
+        testFile <- paste0('test_', dbName, '.R')
 
-    # Folder of the new package
-    pkgDir <- file.path(tempfile(), pkgName)
-    dir.create(dirname(pkgDir))
+        # Folder of the new package
+        pkgDir <- file.path(getwd(), 'output', pkgName)
+        if (dir.exists(pkgDir))
+            unlink(pkgDir, recursive=TRUE)
+        if ( ! dir.exists(dirname(pkgDir)))
+            dir.create(dirname(pkgDir))
 
-    # Create a new extension package skeleton
-    biodb::ExtPackage(pkgDir, makefile=TRUE)$generate()
-    
-    # Check that some files exist
-    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
-    testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
-#                                                'definitions.yml')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat.R')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'tests', 'testthat')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
-#                                                testFile)))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
-    
-    # Try running tests, generating doc and vignette, etc.
+        # Create a new extension package skeleton
+        biodb::ExtPackage$new(path=pkgDir, dbName=dbName,
+                              dbTitle='FOO database',
+                              connType=cfg$connType, entryType=cfg$entryType,
+                              remote=cfg$remote, downloadable=downloadable,
+                              editable=!cfg$remote, writable=!cfg$remote,
+                              makefile=TRUE, rcpp=rcpp)$generate()
+
+        # Check files & dirs
+        testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    paste0(clsPrefix,
+                                                           'Conn.R'))))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    paste0(clsPrefix,
+                                                           'Entry.R'))))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'R',
+                                                    'package.R')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'LICENSE')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
+        testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
+        testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+        testthat::expect_equal(rcpp, dir.exists(file.path(pkgDir, 'src')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
+                                                    'definitions.yml')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests',
+                                                    'testthat.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests',
+                                                   'testthat')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+                                                    'test_100_generic.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests',
+                                                   'testthat', 'res')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests',
+            'testthat', 'res', paste0('entry-', dbName, '-0001.json'))))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
+                                                    'test_200_example.R')))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+        
+        # Check targets
+        system(paste0('make -C "', pkgDir, '" doc'))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+        system(paste0('make -C "', pkgDir, '"')) # run compilation if any
+        system(paste0('make -C "', pkgDir, '" test'))
+
+        # Vignette cannot be built
+#        system(paste0('make -C "', pkgDir, '" check'))
+    }
 }
 
 test_upgradeExtPkg <- function() {
     
-    dbName <- 'foo.db'
+    dbName <- 'test.upgrade.ext.foo.db'
     pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
     testFile <- paste0('test_', dbName, '.R')
 
     # Folder of the new package
-    pkgDir <- file.path(tempfile(), pkgName)
-    dir.create(dirname(pkgDir))
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(dirname(pkgDir)))
+        dir.create(dirname(pkgDir))
 
     # Create a new extension package skeleton
-    biodb::ExtPackage(pkgDir)$generate()
+    biodb::ExtPackage$new(path=pkgDir)$generate()
     testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
 #    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
 #    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
     testthat::expect_true( ! file.exists(file.path(pkgDir, 'Makefile')))
     
     # Upgrade
-    biodb::ExtPackage(pkgDir, makefile=TRUE)$upgrade()
+    biodb::ExtPackage$new(pkgDir, makefile=TRUE)$upgrade()
     testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
 }
 

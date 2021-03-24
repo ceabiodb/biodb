@@ -10,9 +10,9 @@
 ^.*\.dockerfile$
 ^travis-tests$
 ^LICENSE$
-^biodb_.*\.tar\.gz$
-^biodb\.Rcheck$
-^biodb\.check\.cache$
+^biodb.*_.*\.tar\.gz$
+^biodb.*\.Rcheck$
+^biodb.*\.check\.cache$
 ^cache$
 ^codecov\.yml$
 ^tests/testthat/_snaps$
