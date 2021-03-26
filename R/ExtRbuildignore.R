@@ -34,8 +34,15 @@ initialize=function(...) {
 #' @description
 #' Generates the Rbuildignore file for the specified package.
 #' @return None.
-,generate=function() {
-    file.copy(private$getTemplateFile(), private$getDstFile()) 
+,generate=function(overwrite=FALSE, fail=TRUE) {
+    
+    if ( ! overwrite && file.exists(private$getDstFile())) {
+        if (fail)
+            stop('Unable to generate "', private$getDstFile(), '", file already exists.')
+
+    } else
+        file.copy(private$getTemplateFile(), private$getDstFile(),
+                  overwrite=overwrite) 
     
     return(invisible(NULL))
 }

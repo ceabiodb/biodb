@@ -47,28 +47,37 @@ initialize=function(makefile=FALSE, ...) {
 
 #' @description
 #' Generates the skeleton for the new extension package.
-,generate=function() {
+,generate=function(overwrite=FALSE, fail=TRUE) {
     
     private$checkPathDoesNotExist()
     dir.create(private$path, recursive=TRUE)
 
-    private$createGenerator(ExtDescriptionFile)$generate()
+    private$createGenerator(ExtDescriptionFile)$generate(overwrite=overwrite,
+                                                         fail=fail)
     if (private$makefile)
-        private$createGenerator(ExtMakefile)$generate()
-    private$createGenerator(ExtLicense)$generate()
-    private$createGenerator(ExtReadme)$generate()
+        private$createGenerator(ExtMakefile)$generate(overwrite=overwrite,
+                                                      fail=fail)
+    private$createGenerator(ExtLicense)$generate(overwrite=overwrite, fail=fail)
+    private$createGenerator(ExtReadme)$generate(overwrite=overwrite, fail=fail)
     if ( ! is.null(private$dbName)) {
-        private$createGenerator(ExtConnClass)$generate()
-        private$createGenerator(ExtEntryClass)$generate()
-        private$createGenerator(ExtDefinitions)$generate()
+        private$createGenerator(ExtConnClass)$generate(overwrite=overwrite,
+                                                       fail=fail)
+        private$createGenerator(ExtEntryClass)$generate(overwrite=overwrite,
+                                                        fail=fail)
+        private$createGenerator(ExtDefinitions)$generate(overwrite=overwrite,
+                                                         fail=fail)
     }
-    private$createGenerator(ExtPackageFile)$generate()
+    private$createGenerator(ExtPackageFile)$generate(overwrite=overwrite,
+                                                     fail=fail)
     if (private$rcpp)
-        private$createGenerator(ExtCpp)$generate()
-    private$createGenerator(ExtRbuildignore)$generate()
-    private$createGenerator(ExtTravisFile)$generate()
-    private$createGenerator(ExtTests)$generate()
-    private$createGenerator(ExtVignette)$generate()
+        private$createGenerator(ExtCpp)$generate(overwrite=overwrite, fail=fail)
+    private$createGenerator(ExtRbuildignore)$generate(overwrite=overwrite,
+                                                      fail=fail)
+    private$createGenerator(ExtTravisFile)$generate(overwrite=overwrite,
+                                                    fail=fail)
+    private$createGenerator(ExtTests)$generate(overwrite=overwrite, fail=fail)
+    private$createGenerator(ExtVignette)$generate(overwrite=overwrite,
+                                                  fail=fail)
 }
 
 #' @description

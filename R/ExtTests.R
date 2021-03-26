@@ -34,21 +34,26 @@ initialize=function(...) {
 
 #' @description
 #' Generates examples of C++ code.
-,generate=function() {
+,generate=function(overwrite=FALSE, fail=TRUE) {
     private$createGenerator(ExtFileGenerator, template='testthat.R',
-                            folder='tests', filename='testthat.R')$generate()
+                            folder='tests', filename='testthat.R'
+                            )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='test_050_fcts.R',
                             folder=c('tests', 'testthat'),
-                            filename='test_050_fcts.R')$generate()
+                            filename='test_050_fcts.R'
+                            )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='test_100_generic.R',
                             folder=c('tests', 'testthat'),
-                            filename='test_100_generic.R')$generate()
+                            filename='test_100_generic.R'
+                            )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='entry-0001.json',
                             folder=c('tests', 'testthat', 'res'),
                             filename=paste('entry', private$dbName,
-                                           '0001.json', sep='-'))$generate()
+                                           '0001.json', sep='-')
+                            )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='test_200_example.R',
                             folder=c('tests', 'testthat'),
-                            filename='test_200_example.R')$generate()
+                            filename='test_200_example.R'
+                            )$generate(overwrite=overwrite, fail=fail)
 }
 ))
