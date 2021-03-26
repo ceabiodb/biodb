@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.0.0
+# Makefile for biodb extensions packages, version 1.0.1
 
 # $$$SECTION NEW_PKG$$$
 NEW_PKG=true

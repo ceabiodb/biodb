@@ -54,8 +54,12 @@ initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
 
 #' @description
 #' Generates the destination file using the template file.
-,generate=function() {
-    private$generateFromTemplate()
+#' @param overwrite If set to TRUE and destination file exists, overwrite the
+#' destination file.
+#' @param fail If set to FALSE, do not fail if destination file exists, just do
+#' nothing and return.
+,generate=function(overwrite=FALSE, fail=TRUE) {
+    private$generateFromTemplate(overwrite=overwrite, fail=fail)
 }
 
 #' @description
@@ -154,10 +158,17 @@ private=list(
                      private$filename))
 }
 
-,generateFromTemplate=function(overwrite=FALSE) {
-    templ <- FileTemplate$new(private$getTemplateFile())
-    private$fillTemplate(templ)
-    templ$write(private$getDstFile(), overwrite=TRUE)
+,generateFromTemplate=function(overwrite=FALSE, fail=TRUE) {
+
+    if ( ! overwrite && private$existsDstFile()) {
+        if (fail)
+            stop('Cannot generate file "', private$getDstFile(),
+                 '". A file of the same name already exists.')
+    } else {
+        templ <- FileTemplate$new(private$getTemplateFile())
+        private$fillTemplate(templ)
+        templ$write(private$getDstFile(), overwrite=overwrite)
+    }
 }
 
 ,fillTemplate=function(templ) {

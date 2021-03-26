@@ -85,8 +85,21 @@ initialize=function(makefile=FALSE, ...) {
     private$checkFilesExist()
 
     if (private$makefile)
-        ExtMakefile$new(path=private$path, newPkg=private$newPkg)$upgrade()
-    ExtRbuildignore$new(path=private$path)$upgrade()
+        private$createGenerator(ExtMakefile)$upgrade()
+    private$createGenerator(ExtRbuildignore)$upgrade()
+    private$createGenerator(ExtLicense)$generate(fail=FALSE)
+    private$createGenerator(ExtReadme)$generate(fail=FALSE)
+    if ( ! is.null(private$dbName)) {
+        private$createGenerator(ExtConnClass)$generate(fail=FALSE)
+        private$createGenerator(ExtEntryClass)$generate(fail=FALSE)
+        private$createGenerator(ExtDefinitions)$generate(fail=FALSE)
+    }
+    private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
+    if (private$rcpp)
+        private$createGenerator(ExtCpp)$generate(fail=FALSE)
+    private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
+    private$createGenerator(ExtTests)$generate(fail=FALSE)
+    private$createGenerator(ExtVignette)$generate(fail=FALSE)
 }
 ),
 
