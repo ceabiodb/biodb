@@ -50,6 +50,7 @@ public=list(
 #' @param vignetteName Set to the name of the default/main vignette.
 #' @param githubRepos Set to the name of the associated GitHub repository.
 #' Example: myaccount/myrepos.
+#' @param loadCfg  
 #' @return A new instance.
 #' @export
 initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
@@ -100,8 +101,20 @@ initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
     private$writable <- writable
     private$remote <- remote
     private$pkgLicense <- pkgLicense
-    private$githubRepos <- if (is.null(githubRepos)) 'myaccount/myrepos' else
-        githubRepos
+    if (is.null(githubRepos)) {
+        if (require(git2r) && git2r::in_repository(private$path)) {
+            remotes <- git2r::remotes(private$path)
+            if ('origin' %in% remotes) {
+                reposUrl <- git2r::remote_url(private$path, remote='origin')
+                if (grepl('github.com', reposUrl, fixed=TRUE)) {
+                    repos <- sub('^.*github.com[:/](.*)$', '\\1', reposUrl)
+                    private$githubRepos <- repos
+                }
+            }
+        } else
+            private$githubRepos <- 'myaccount/myrepos' else
+    } else
+        private$githubRepos <- githubRepos
 }
 ),
 
@@ -124,6 +137,7 @@ private=list(
     ,downloadable=NULL
     ,pkgLicense=NULL
     ,githubRepos=NULL
+    ,tags=NULL
 
 ,createGenerator=function(cls, ...) {
     
@@ -133,7 +147,7 @@ private=list(
     names(fields) <- fieldNames
     
     # Add ellipsis
-    fields <- c(fields, list(...))
+    fields <- c(fields, list(...), loadCfg=FALSE)
 
     # Call constructor
     obj <- do.call(cls$new, fields)
