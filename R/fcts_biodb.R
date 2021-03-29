@@ -6,6 +6,26 @@ getEntryClassName <- function(connName) {
     return(paste0(connNameToClassPrefix(connName), 'Entry'))
 }
 
+#' Get connector types.
+#'
+#' Get the list of available connector types.
+#'
+#' @return A character vector containing the connector types.
+#' @export
+getConnTypes <- function() {
+    return(c('plain', 'compound', 'mass'))
+}
+
+#' Get entry types.
+#'
+#' Get the list of available entry types.
+#'
+#' @return A character vector containing the entry types.
+#' @export
+getEntryTypes <- function() {
+    return(c('plain', 'csv', 'html', 'json', 'list', 'sdf', 'txt', 'xml'))
+}
+
 connNameToClassPrefix <- function(connName) {
     chk::chk_string(connName)
 

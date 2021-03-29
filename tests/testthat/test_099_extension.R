@@ -86,7 +86,6 @@ test_newExtPkgSkeleton <- function() {
         dbName <- paste(name, collapse='.')
         clsPrefix <- biodb:::connNameToClassPrefix(dbName)
         pkgName <- paste0('biodb', clsPrefix)
-        testFile <- paste0('test_', dbName, '.R')
 
         # Folder of the new package
         pkgDir <- file.path(getwd(), 'output', pkgName)
@@ -139,10 +138,13 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
         
         # Check targets
-        system(paste0('make -C "', pkgDir, '" doc'))
+        makeLog <- paste(pkgDir, 'make', 'doc', sep='_')
+        system2('make', c('-C', pkgDir, 'doc'), stdout=makeLog, stderr=makeLog)
         testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-        system(paste0('make -C "', pkgDir, '"')) # run compilation if any
-        system(paste0('make -C "', pkgDir, '" test'))
+        makeLog <- paste(pkgDir, 'make', sep='_')
+        system2('make', c('-C', pkgDir), stdout=makeLog, stderr=makeLog)
+        makeLog <- paste(pkgDir, 'make', 'test', sep='_')
+        system2('make', c('-C', pkgDir, 'test'), stdout=makeLog, stderr=makeLog)
 
         # Vignette cannot be built
 #        system(paste0('make -C "', pkgDir, '" check'))
@@ -151,27 +153,62 @@ test_newExtPkgSkeleton <- function() {
 
 test_upgradeExtPkg <- function() {
     
-    dbName <- 'test.upgrade.ext.foo.db'
-    pkgName <- paste0('biodb', biodb:::connNameToClassPrefix(dbName))
-    testFile <- paste0('test_', dbName, '.R')
+    for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain',
+                          rcpp=FALSE)
+                     ,list(connType='compound', remote=TRUE, entryType='xml',
+                           rcpp=TRUE)
+                     ,list(connType='compound', remote=TRUE, entryType='txt')
+                     )) {
+        downloadable <- cfg$remote && (if ('downloadable' %in% names(cfg))
+                                       cfg$downloadable else FALSE)
+        rcpp <- cfg$remote && (if ('rcpp' %in% names(cfg))
+                                       cfg$rcpp else FALSE)
+        name <- c('foo', (if (cfg$remote) 'remote' else 'local'))
+        if (downloadable)
+            name <- c(name, 'dwnld')
+        if (rcpp)
+            name <- c(name, 'rcpp')
+        name <- c(name, cfg$connType, cfg$entryType, 'db')
+        dbName <- paste(name, collapse='.')
+        clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+        pkgName <- paste0('biodb', clsPrefix)
 
-    # Folder of the new package
-    pkgDir <- file.path(getwd(), 'output', pkgName)
-    if (dir.exists(pkgDir))
-        unlink(pkgDir, recursive=TRUE)
-    if ( ! dir.exists(dirname(pkgDir)))
-        dir.create(dirname(pkgDir))
+        # Folder of the new package
+        pkgDir <- file.path(getwd(), 'output', pkgName)
+        if (dir.exists(pkgDir))
+            unlink(pkgDir, recursive=TRUE)
+        if ( ! dir.exists(dirname(pkgDir)))
+            dir.create(dirname(pkgDir))
 
-    # Create a new extension package skeleton
-    biodb::ExtPackage$new(path=pkgDir)$generate()
-    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
-#    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-#    testthat::expect_true(dir.exists(file.path(pkgDir, 'R')))
-    testthat::expect_true( ! file.exists(file.path(pkgDir, 'Makefile')))
-    
-    # Upgrade
-    biodb::ExtPackage$new(pkgDir, makefile=TRUE)$upgrade()
-    testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+        # Create a new extension package
+        biodb::ExtPackage$new(path=pkgDir, dbName=dbName,
+                              dbTitle='FOO database', connType=cfg$connType,
+                              entryType=cfg$entryType, remote=cfg$remote,
+                              downloadable=downloadable,
+                              editable=!cfg$remote, writable=!cfg$remote,
+                              makefile=FALSE, rcpp=FALSE)$generate()
+        
+        # Test files
+        testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+        testthat::expect_false(file.exists(file.path(pkgDir, 'Makefile')))
+        testthat::expect_false(dir.exists(file.path(pkgDir, 'src')))
+
+        # Upgrade
+        biodb::ExtPackage$new(path=pkgDir, dbName=dbName,
+                              dbTitle='FOO database', connType=cfg$connType,
+                              entryType=cfg$entryType, remote=cfg$remote,
+                              downloadable=downloadable,
+                              editable=!cfg$remote, writable=!cfg$remote,
+                              makefile=TRUE, rcpp=rcpp)$upgrade()
+        
+        # Test files
+        testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'Makefile')))
+        if (rcpp)
+            testthat::expect_true(dir.exists(file.path(pkgDir, 'src')))
+        else
+            testthat::expect_false(dir.exists(file.path(pkgDir, 'src')))
+    }
 }
 
 # Main

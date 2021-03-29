@@ -32,7 +32,6 @@ public=list(
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(template='Conn.R', folder='R', ...)
-    chk::chk_string(private$dbName)
-    private$filename <- paste0(getConnClassName(private$dbName), '.R')
+    private$filename <- paste0(getConnClassName(private$tags$dbName), '.R')
 }
 ))

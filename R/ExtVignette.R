@@ -31,6 +31,6 @@ public=list(
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(template='vignette.Rmd', folder='vignettes', ...)
-    private$filename <- paste0(private$vignetteName, '.Rmd')
+    private$filename <- paste0(private$tags$vignetteName, '.Rmd')
 }
 ))

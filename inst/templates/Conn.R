@@ -3,13 +3,13 @@
 #' This is the connector class for {{dbTitle}}.
 #'
 #' @seealso 
-#' $$$ CASE CONN_TYPE PLAIN $$$
+#' $$$ CASE CONNTYPE PLAIN $$$
 #' \code{\link{BiodbConn}}
-#' $$$ CASE CONN_TYPE COMPOUND $$$
+#' $$$ CASE CONNTYPE COMPOUND $$$
 #' \code{\link{BiodbCompounddbConn}}
-#' $$$ CASE CONN_TYPE MASS $$$
+#' $$$ CASE CONNTYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
-#' $$$ END_CASE CONN_TYPE $$$
+#' $$$ END_CASE CONNTYPE $$$
 #' $$$ SECTION REMOTE $$$
 #' \code{\link{BiodbRemotedbConn}}
 #' $$$ END_SECTION REMOTE $$$
@@ -41,13 +41,13 @@
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
     contains=c(
-# $$$ CASE CONN_TYPE PLAIN $$$
+# $$$ CASE CONNTYPE PLAIN $$$
         "BiodbConn"
-# $$$ CASE CONN_TYPE COMPOUND $$$
+# $$$ CASE CONNTYPE COMPOUND $$$
         "BiodbCompounddbConn"
-# $$$ CASE CONN_TYPE MASS $$$
+# $$$ CASE CONNTYPE MASS $$$
         "BiodbMassdbConn"
-# $$$ END_CASE CONN_TYPE $$$
+# $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
         ,"BiodbRemotedbConn"
 # $$$ END_SECTION REMOTE $$$
@@ -113,8 +113,8 @@ initialize=function(...) {
     
     return(ids)
 }
-# $$$ CASE CONN_TYPE COMPOUND $$$
-# $$$ CASE CONN_TYPE MASS $$$
+# $$$ CASE CONNTYPE COMPOUND $$$
+# $$$ CASE CONNTYPE MASS $$$
 
 ,getChromCol=function(ids=NULL) {
     # TODO Implement
@@ -132,7 +132,7 @@ initialize=function(...) {
 ,.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     # TODO Implement
 }
-# $$$ END_CASE CONN_TYPE $$$
+# $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
 
 ,getEntryPageUrl=function(id) {

@@ -28,6 +28,6 @@ public=list(
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(filename='LICENSE', ...)
-    private$template <- paste0(private$pkgLicense, '.txt')
+    private$template <- paste0(private$tags$pkgLicense, '.txt')
 }
 ))
