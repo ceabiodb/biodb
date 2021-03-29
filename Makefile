@@ -36,8 +36,8 @@ RFLAGS=--slave --no-restore
 
 # Set and check name
 PKG_NAME := $(notdir $(realpath $(CURDIR)))
-ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb[A-Z]'))
-$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb[A-Z][A-Za-z0-9]*")
+ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
+$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
 endif
 PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
 
