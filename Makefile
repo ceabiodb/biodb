@@ -34,6 +34,13 @@ REF_BIB:=$(wildcard ../public-notes/references.bib)
 
 RFLAGS=--slave --no-restore
 
+# Set and check name
+PKG_NAME := $(notdir $(realpath $(CURDIR)))
+ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
+$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
+endif
+PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
+
 # For R CMD SHLIB
 export PKG_CXXFLAGS=$(shell R $(RFLAGS) -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS+=-O
@@ -72,6 +79,10 @@ R/RcppExports.R: src/*.cpp
 
 # Check and test {{{1
 ################################################################
+
+# Code coverage
+coverage:
+	R $(RFLAGS) -e "covr::codecov(token='$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN)', quiet=FALSE)"
 
 check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
