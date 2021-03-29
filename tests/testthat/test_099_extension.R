@@ -138,10 +138,13 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
         
         # Check targets
-        system(paste0('make -C "', pkgDir, '" doc'))
+        makeLog <- paste(pkgDir, 'make', 'doc', sep='_')
+        system2('make', c('-C', pkgDir, 'doc'), stdout=makeLog, stderr=makeLog)
         testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-        system(paste0('make -C "', pkgDir, '"')) # run compilation if any
-        system(paste0('make -C "', pkgDir, '" test'))
+        makeLog <- paste(pkgDir, 'make', sep='_')
+        system2('make', c('-C', pkgDir), stdout=makeLog, stderr=makeLog)
+        makeLog <- paste(pkgDir, 'make', 'test', sep='_')
+        system2('make', c('-C', pkgDir, 'test'), stdout=makeLog, stderr=makeLog)
 
         # Vignette cannot be built
 #        system(paste0('make -C "', pkgDir, '" check'))
