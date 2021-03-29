@@ -4,47 +4,47 @@ databases:
   {{dbName}}:
     name: {{dbTitle}}
     description: Write here the description of this database.
-# $$$ CASE ENTRY_TYPE CSV $$$
+# $$$ CASE ENTRYTYPE CSV $$$
     entry.content.type: csv
-# $$$ CASE ENTRY_TYPE HTML $$$
+# $$$ CASE ENTRYTYPE HTML $$$
     entry.content.type: html
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
     entry.content.type: json
-# $$$ CASE ENTRY_TYPE LIST $$$
+# $$$ CASE ENTRYTYPE LIST $$$
     entry.content.type: list
-# $$$ CASE ENTRY_TYPE SDF $$$
+# $$$ CASE ENTRYTYPE SDF $$$
     entry.content.type: sdf
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
     entry.content.type: txt
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ CASE ENTRYTYPE XML $$$
     entry.content.type: xml
-# $$$ CASE ENTRY_TYPE DEFAULT $$$
+# $$$ CASE ENTRYTYPE DEFAULT $$$
     entry.content.type: txt
-# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE ENTRYTYPE $$$
     parsing.expr:
-# $$$ CASE ENTRY_TYPE CSV $$$
+# $$$ CASE ENTRYTYPE CSV $$$
       accession: DB_ID
-# $$$ CASE ENTRY_TYPE HTML $$$
+# $$$ CASE ENTRYTYPE HTML $$$
       accession:
         attr: value
         path: //input[@id='DATA']
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
       accession: id
-# $$$ CASE ENTRY_TYPE SDF $$$
+# $$$ CASE ENTRYTYPE SDF $$$
       accession: NSC
       name: DTP names
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
       accession: ^ENTRY\s+(\S+)$
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ CASE ENTRYTYPE XML $$$
       accession: substring-after(//dbns:return/dbns:accessionId,'ACCESSION:')
       name:
       - //dbns:name
       - //dbns:synonyms/dbns:data
-# $$$ END_CASE ENTRY_TYPE $$$
-# $$$ CASE CONN_TYPE MASS $$$
+# $$$ END_CASE ENTRYTYPE $$$
+# $$$ CASE CONNTYPE MASS $$$
       # NOTE For mass spectra, the peak table cannot be parsed with expressions.
       # Specific code must be written inside the entry class for this, in the `.parseFieldsStep2()` method.
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
       chrom.col.id:
       - liquidChromatography
       - columnCode
@@ -55,40 +55,40 @@ databases:
       chrom.col.rt.min: RTmin
       msmode: polarity
       msprecmz: parentIonMZ
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
       chebi.id: '^CH\$LINK: CHEBI\s+(.+)$'
       chemspider.id: '^CH\$LINK: CHEMSPIDER\s+(.+)$'
       msdev: '^AC\$INSTRUMENT: (.+)$'
       msmode: '^AC\$MASS_SPECTROMETRY: ION_MODE (.+)$'
       nb.peaks: '^PK\$NUM_PEAK: ([0-9]+)$'
-# $$$ END_CASE ENTRY_TYPE $$$
-# $$$ CASE CONN_TYPE COMPOUND $$$
-# $$$ CASE ENTRY_TYPE CSV $$$
+# $$$ END_CASE ENTRYTYPE $$$
+# $$$ CASE CONNTYPE COMPOUND $$$
+# $$$ CASE ENTRYTYPE CSV $$$
       name: COMMON_NAME
       chebi.id: CHEBI_ID
       hmdb.metabolites.id: HMDBID
       exact.mass: MASS
       formula: FORMULA
-# $$$ CASE ENTRY_TYPE HTML $$$
+# $$$ CASE ENTRYTYPE HTML $$$
       sequence: //b[starts-with(.,'Nucleotide Sequence')]/../tt
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
       average.mass: averageMass
       chebi.id: ChEBI
       formula: formula
       hmdb.metabolites.id: HMDB
       inchi: inChI
       inchikey: inChIKey
-# $$$ CASE ENTRY_TYPE SDF $$$
+# $$$ CASE ENTRYTYPE SDF $$$
       inchi: Standard InChI
       inchikey: ["Standard InChIKey", "^InChIKey=(.*)$"]
       formula: Formula
       molecular.mass: Molecular Weight
       cas.id: CAS
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
       exact.mass: ^EXACT_MASS\s+(\S+)$
       formula: ^FORMULA\s+(\S+)$
       molecular.weight: ^MOL_WEIGHT\s+(\S+)$
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ CASE ENTRYTYPE XML $$$
       mass: //dbns:mass
       monoisotopic.mass: //dbns:monoisotopicMass
       smiles: //dbns:return/dbns:smiles
@@ -97,21 +97,21 @@ databases:
       formula:
       - //dbns:Formulae/dbns:source[text()='MyDatabase']/../dbns:data
       - (//dbns:Formulae/dbns:data)[1]
-# $$$ END_CASE ENTRY_TYPE $$$
-# $$$ END_CASE CONN_TYPE $$$
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ END_CASE ENTRYTYPE $$$
+# $$$ END_CASE CONNTYPE $$$
+# $$$ CASE ENTRYTYPE XML $$$
     xml.ns:
       dbns: https://my.database.org/webservices/v1
       xsd: http://www.w3.org/2001/XMLSchema
-# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE ENTRYTYPE $$$
     searchable.fields:
       - name
-# $$$ CASE CONN_TYPE COMPOUND $$$
+# $$$ CASE CONNTYPE COMPOUND $$$
       - monoisotopic.mass
       - molecular.mass
       - average.mass
       - nominal.mass
-# $$$ END_CASE CONN_TYPE $$$
+# $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
     # Length in seconds of the connection sliding window
     scheduler.t: 1

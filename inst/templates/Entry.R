@@ -3,23 +3,23 @@
 #' This is the entry class for {{dbTitle}}. 
 #'
 #' @seealso
-#' $$$ CASE ENTRY_TYPE PLAIN $$$
+#' $$$ CASE ENTRYTYPE PLAIN $$$
 #' \code{\link{BiodbEntry}}.
-#' $$$ CASE ENTRY_TYPE CSV $$$
+#' $$$ CASE ENTRYTYPE CSV $$$
 #' \code{\link{BiodbCsvEntry}}.
-#' $$$ CASE ENTRY_TYPE HTML $$$
+#' $$$ CASE ENTRYTYPE HTML $$$
 #' \code{\link{BiodbHtmlEntry}}.
-#' $$$ CASE ENTRY_TYPE JSON $$$
+#' $$$ CASE ENTRYTYPE JSON $$$
 #' \code{\link{BiodbJsonEntry}}.
-#' $$$ CASE ENTRY_TYPE LIST $$$
+#' $$$ CASE ENTRYTYPE LIST $$$
 #' \code{\link{BiodbListEntry}}.
-#' $$$ CASE ENTRY_TYPE SDF $$$
+#' $$$ CASE ENTRYTYPE SDF $$$
 #' \code{\link{BiodbSdfEntry}}.
-#' $$$ CASE ENTRY_TYPE TXT $$$
+#' $$$ CASE ENTRYTYPE TXT $$$
 #' \code{\link{BiodbTxtEntry}}.
-#' $$$ CASE ENTRY_TYPE XML $$$
+#' $$$ CASE ENTRYTYPE XML $$$
 #' \code{\link{BiodbXmlEntry}}.
-#' $$$ END_CASE ENTRY_TYPE $$$
+#' $$$ END_CASE ENTRYTYPE $$$
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -39,33 +39,33 @@
 #' @exportClass {{entryClass}}
 {{entryClass}} <- methods::setRefClass("{{entryClass}}",
     contains=c(
-# $$$ CASE ENTRY_TYPE PLAIN $$$
+# $$$ CASE ENTRYTYPE PLAIN $$$
         'BiodbEntry'
-# $$$ CASE ENTRY_TYPE CSV $$$
+# $$$ CASE ENTRYTYPE CSV $$$
         'BiodbCsvEntry'
-# $$$ CASE ENTRY_TYPE HTML $$$
+# $$$ CASE ENTRYTYPE HTML $$$
         'BiodbHtmlEntry'
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
         'BiodbJsonEntry'
-# $$$ CASE ENTRY_TYPE LIST $$$
+# $$$ CASE ENTRYTYPE LIST $$$
         'BiodbListEntry'
-# $$$ CASE ENTRY_TYPE SDF $$$
+# $$$ CASE ENTRYTYPE SDF $$$
         'BiodbSdfEntry'
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
         'BiodbTxtEntry'
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ CASE ENTRYTYPE XML $$$
         'BiodbXmlEntry'
-# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE ENTRYTYPE $$$
     ),
 
 methods=list(
 
 initialize=function(...) {
-# $$$ CASE ENTRY_TYPE CSV $$$
+# $$$ CASE ENTRYTYPE CSV $$$
     callSuper(sep="\t", ...)
-# $$$ CASE ENTRY_TYPE DEFAULT $$$
+# $$$ CASE ENTRYTYPE DEFAULT $$$
     callSuper(...)
-# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE ENTRYTYPE $$$
 }
 
 ,.isContentCorrect=function(content) {

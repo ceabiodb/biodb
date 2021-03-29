@@ -172,26 +172,21 @@ private=list(
 }
 
 ,fillTemplate=function(templ) {
-    templ$replace('pkgName', private$pkgName)
-    templ$replace('pkgLicense', private$pkgLicense)
-    templ$replace('email', private$email)
-    templ$replace('firstname', private$firstname)
-    templ$replace('lastname', private$lastname)
-    templ$select('new.pkg', private$newPkg)
-    templ$replace('dbName', private$dbName)
-    if ( ! is.null(private$dbName)) {
-        templ$replace('connClass', getConnClassName(private$dbName))
-        templ$replace('entryClass', getEntryClassName(private$dbName))
+
+    # Loop on all tags
+    for (tag in names(private$tags)) {
+        if (is.logical(private$tags[[tag]]))
+            templ$select(tag, private$tags[[tag]])
+        else if (tag %in% c('connType', 'entryType'))
+            templ$choose(tag, private$tags[[tag]])
+        else
+            templ$replace(tag, private$tags[[tag]])
     }
-    templ$replace('vignetteName', private$vignetteName)
-    templ$select('rcpp', private$rcpp)
-    templ$replace('dbTitle', private$dbTitle)
-    templ$choose('conn.type', private$connType)
-    templ$choose('entry.type', private$entryType)
-    templ$select('remote', private$remote)
-    templ$select('downloadable', private$downloadable)
-    templ$select('editable', private$editable)
-    templ$select('writable', private$writable)
-    templ$replace('githubRepos', private$githubRepos)
+    
+    # Deduced tags
+    if ( ! is.null(private$tags$dbName)) {
+        templ$replace('connClass', getConnClassName(private$tags$dbName))
+        templ$replace('entryClass', getEntryClassName(private$tags$dbName))
+    }
 }
 ))

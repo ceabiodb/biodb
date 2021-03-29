@@ -48,7 +48,7 @@ initialize=function(...) {
                             )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='entry-0001.json',
                             folder=c('tests', 'testthat', 'res'),
-                            filename=paste('entry', private$dbName,
+                            filename=paste('entry', private$tags$dbName,
                                            '0001.json', sep='-')
                             )$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtFileGenerator, template='test_200_example.R',

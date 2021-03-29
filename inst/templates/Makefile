@@ -1,8 +1,8 @@
 # Makefile for biodb extensions packages, version 1.0.1
 
-# $$$SECTION NEW_PKG$$$
-NEW_PKG=true
-# $$$END_SECTION NEW_PKG$$$
+# $$$SECTION NEWPKG$$$
+NEWPKG=true
+# $$$END_SECTION NEWPKG$$$
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
 # Messages that were output:
@@ -19,7 +19,7 @@ COMMA := ,
 
 # Bioconductor check flags
 BIOC_CHECK_FLAGS=quit-with-status no-check-formatting
-ifeq (true,$(NEW_PKG))
+ifeq (true,$(NEWPKG))
 BIOC_CHECK_FLAGS+=new-package
 endif
 

@@ -24,6 +24,10 @@ public=list(
 #' @description
 #' Constructor
 #' @param path      The path to the package folder.
+#' @param loadCfg   Set to FALSE to disable loading of tag values from config
+#' file "biodb_ext.yml".
+#' @param saveCfg   Set to FALSE to disable saving of tag values into config
+#' file "biodb_ext.yml".
 #' @param pkgName   The package name. If set to NULL, the folder name pointer by
 #' the "path" paramater will be used as the package name.
 #' @param pkgLicense The license of the package.
@@ -39,6 +43,7 @@ public=list(
 #' KEGG).
 #' @param connType  The type of connector class to implement.
 #' @param entryType The type of entry class to implement.
+#' @param makefile  Set to TRUE if you want a Makefile to be generated.
 #' @param remote    Set to TRUE if the database to connect to is not local.
 #' @param downloadable  Set to TRUE if the database needs to be downloaded or
 #' offers this possiblity.
@@ -50,108 +55,111 @@ public=list(
 #' @param vignetteName Set to the name of the default/main vignette.
 #' @param githubRepos Set to the name of the associated GitHub repository.
 #' Example: myaccount/myrepos.
-#' @param loadCfg  
 #' @return A new instance.
 #' @export
-initialize=function(path, pkgName=NULL, email=NULL, dbName=NULL, dbTitle=NULL,
-                    pkgLicense=c('AGPL-3'), firstname=NULL, lastname=NULL,
-                    newPkg=FALSE, connType=c('plain', 'compound', 'mass'),
-                    entryType=c('plain', 'csv', 'html', 'json', 'list', 'sdf',
-                                'txt', 'xml'), editable=FALSE, writable=FALSE,
-                    remote=FALSE, downloadable=FALSE, rcpp=FALSE,
-                    vignetteName=NULL, githubRepos=NULL
+initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
+                    email='author@e.mail', dbName='foo.db',
+                    dbTitle='Foo database',
+                    pkgLicense=getLicenses(), firstname='Firstname of author',
+                    lastname='Lastname of author', newPkg=FALSE,
+                    connType=getConnTypes(), entryType=getEntryTypes() ,
+                    editable=FALSE, writable=FALSE, remote=FALSE,
+                    downloadable=FALSE, makefile=FALSE,
+                    rcpp=FALSE, vignetteName='intro',
+                    githubRepos=getReposName(path, default='myaccount/myrepos')
                     ) {
+    allParams <- as.list(environment())
+    explicitParams <- as.list(match.call())
     chk::chk_string(path) # Path may not exist yet
-    chk::chk_null_or(pkgName, chk::chk_match, regexp="^biodb[A-Z][A-Za-z0-9]+$")
-    chk::chk_null_or(email, chk::chk_string)
-    chk::chk_null_or(firstname, chk::chk_string)
-    chk::chk_null_or(lastname, chk::chk_string)
-    chk::chk_null_or(dbName, chk::chk_match, regexp="^[a-z0-9.]+$")
-    chk::chk_null_or(dbTitle, chk::chk_string)
-    chk::chk_null_or(vignetteName, chk::chk_string)
-    chk::chk_null_or(githubRepos, chk::chk_string)
-    chk::chk_flag(newPkg)
-    chk::chk_flag(downloadable)
-    chk::chk_flag(editable)
-    chk::chk_flag(writable)
-    chk::chk_flag(remote)
-    chk::chk_flag(rcpp)
-    connType <- match.arg(connType)
-    entryType <- match.arg(entryType)
-    pkgLicense <- match.arg(pkgLicense)
-
     private$path <- normalizePath(path, mustWork=FALSE) # Path may not exist yet
-    private$pkgName <- if (is.null(pkgName)) getPkgName(private$path) else
-        pkgName
-    private$email <- if (is.null(email)) 'author@e.mail' else email
-    private$firstname <- if (is.null(firstname)) 'Firstname of author' else
-        firstname
-    private$lastname <- if (is.null(lastname)) 'Lastname of author' else
-        lastname
-    private$dbName <- dbName
-    private$dbTitle <- dbTitle
-    private$newPkg <- newPkg
-    private$rcpp <- rcpp
-    private$connType <- connType
-    private$entryType <- entryType
-    private$vignetteName <- if (is.null(private$vignetteName)) 'intro' else
-        vignetteName
-    private$downloadable <- downloadable
-    private$editable <- editable
-    private$writable <- writable
-    private$remote <- remote
-    private$pkgLicense <- pkgLicense
-    if (is.null(githubRepos)) {
-        if (require(git2r) && git2r::in_repository(private$path)) {
-            remotes <- git2r::remotes(private$path)
-            if ('origin' %in% remotes) {
-                reposUrl <- git2r::remote_url(private$path, remote='origin')
-                if (grepl('github.com', reposUrl, fixed=TRUE)) {
-                    repos <- sub('^.*github.com[:/](.*)$', '\\1', reposUrl)
-                    private$githubRepos <- repos
-                }
-            }
-        } else
-            private$githubRepos <- 'myaccount/myrepos' else
-    } else
-        private$githubRepos <- githubRepos
+    chk::chk_flag(loadCfg)
+    chk::chk_flag(saveCfg)
+    nonTags <- c('path', 'loadCfg', 'saveCfg')
+    
+    # Load config
+    tags <- if (loadCfg) private$loadConfig() else list()
+
+    # Explicit parameters overwrite config
+    explicitParams[[1]] <- NULL # Remove function name
+    explicitParams[nonTags] <- NULL # Remove non-tag parameters
+    tags[names(explicitParams)] <- allParams[names(explicitParams)]
+    
+    # Set fct default values
+    allParams[nonTags] <- NULL # Remove non-tag parameters
+    nonNullTags <- Filter(function(t) { return(! is.null(t)) }, tags)
+    allParams[names(allParams) %in% names(nonNullTags)] <- NULL
+    tags[names(allParams)] <- allParams
+
+    # Set tags
+    private$tags <- tags
+
+    # Check tags
+    private$checkTags()
+    
+    # Save tags into config file
+    if (saveCfg)
+        private$saveConfig()
 }
 ),
 
 private=list(
     path=NULL
-    ,pkgName=NULL
-    ,email=NULL
-    ,firstname=NULL
-    ,lastname=NULL
-    ,dbName=NULL
-    ,dbTitle=NULL
-    ,newPkg=NULL
-    ,rcpp=NULL
-    ,connType=NULL
-    ,entryType=NULL
-    ,vignetteName=NULL
-    ,editable=NULL
-    ,writable=NULL
-    ,remote=NULL
-    ,downloadable=NULL
-    ,pkgLicense=NULL
-    ,githubRepos=NULL
+    ,loadCfg=NULL
     ,tags=NULL
 
+,getCfgFile=function() {
+    return(file.path(private$path, "biodb_ext.yml"))
+}
+
+,loadConfig=function() {
+
+    tags <- list()
+
+    cfgFile <- private$getCfgFile()
+    if (file.exists(cfgFile))
+        tags <- yaml::read_yaml(cfgFile)
+
+    return(tags)
+}
+
+,saveConfig=function() {
+    if ( ! dir.exists(private$path))
+        dir.create(private$path, recursive=TRUE)
+    yaml::write_yaml(private$tags, private$getCfgFile())
+}
+
+,checkTags=function() {
+    chk::chk_match(private$tags$pkgName, regexp="^biodb[A-Z][A-Za-z0-9]+$")
+    chk::chk_match(private$tags$email,
+                   regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$")
+    chk::chk_string(private$tags$firstname)
+    chk::chk_string(private$tags$lastname)
+    chk::chk_match(private$tags$dbName, regexp="^[a-z0-9.]+$")
+    chk::chk_string(private$tags$dbTitle)
+    chk::chk_string(private$tags$vignetteName)
+    chk::chk_match(private$tags$githubRepos,
+                   regexp="^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$")
+    chk::chk_flag(private$tags$newPkg)
+    chk::chk_flag(private$tags$makefile)
+    chk::chk_flag(private$tags$downloadable)
+    chk::chk_flag(private$tags$editable)
+    chk::chk_flag(private$tags$writable)
+    chk::chk_flag(private$tags$remote)
+    chk::chk_flag(private$tags$rcpp)
+    private$tags$connType <- match.arg(private$tags$connType, getConnTypes())
+    private$tags$entryType <- match.arg(private$tags$entryType, getEntryTypes())
+    private$tags$pkgLicense <- match.arg(private$tags$pkgLicense, getLicenses())
+}
+
 ,createGenerator=function(cls, ...) {
-    
-    # Get field values of current object
-    fieldNames <- names(ExtGenerator$private_fields)
-    fields <- lapply(fieldNames, function(f) private[[f]])
-    names(fields) <- fieldNames
-    
+
     # Add ellipsis
-    fields <- c(fields, list(...), loadCfg=FALSE)
+    fields <- c(path=private$path, private$tags, list(...), loadCfg=FALSE,
+                saveCfg=FALSE)
 
     # Call constructor
     obj <- do.call(cls$new, fields)
-    
+
     return(obj)
 }
 ))

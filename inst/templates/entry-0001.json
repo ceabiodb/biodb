@@ -2,13 +2,13 @@
 	"accession": "0001"
 	,"name": "The name of this entry"
 	,"description": "A description."
-	,"$$$ CASE CONN_TYPE COMPOUND $$$": ""
+	,"$$$ CASE CONNTYPE COMPOUND $$$": ""
 	,"formula": "H2O"
 	,"smiles": "NCC[As](O)(O)=O"
 	,"monoisotopic.mass": 168.97201
 	,"molecular.mass": 169.012
 	,"kegg.compound.id": "C07279"
-	,"$$$ CASE CONN_TYPE MASS $$$": ""
+	,"$$$ CASE CONNTYPE MASS $$$": ""
 	,"msmode": "pos"
 	,"ms.level": 1
 	,"chrom.col.name": "colzz"
@@ -20,5 +20,5 @@
 	,"peak.mz": [112.07569, 145.097154, 84.080775]
 	,"peak.mztheo": [112.07569, 145.097154, 84.080775]
 	,"peak.relative.intensity": [80.0, 100.0, 50.0]
-	,"$$$ END_CASE CONN_TYPE $$$": ""
+	,"$$$ END_CASE CONNTYPE $$$": ""
 }

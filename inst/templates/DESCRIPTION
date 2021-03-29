@@ -24,13 +24,13 @@ Imports:
 # $$$ IF RCPP $$$
     Rcpp,
 # $$$ END_IF RCPP $$$
-# $$$ CASE ENTRY_TYPE JSON $$$
+# $$$ CASE ENTRYTYPE JSON $$$
     jsonlite,
-# $$$ CASE ENTRY_TYPE TXT $$$
+# $$$ CASE ENTRYTYPE TXT $$$
     stringr,
-# $$$ CASE ENTRY_TYPE XML $$$
+# $$$ CASE ENTRYTYPE XML $$$
     XML,
-# $$$ END_CASE ENTRY_TYPE $$$
+# $$$ END_CASE ENTRYTYPE $$$
     chk
 Suggests: 
     roxygen2,
