@@ -19,6 +19,3 @@ before_install:
 
 script:
     - make check
-
-after_success:
-    - Rscript -e 'covr::codecov()'
