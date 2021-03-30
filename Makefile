@@ -39,7 +39,11 @@ PKG_NAME := $(notdir $(realpath $(CURDIR)))
 ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
 $(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
 endif
+ifeq (biodb,$(PKG_NAME))
+PKG_NAME_CAPS := BIODB
+else
 PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
+endif
 
 # For R CMD SHLIB
 export PKG_CXXFLAGS=$(shell R $(RFLAGS) -e "Rcpp:::CxxFlags()")
@@ -62,6 +66,8 @@ $(info "RFLAGS=$(RFLAGS)")
 $(info "PKG_CXXFLAGS=$(PKG_CXXFLAGS)")
 $(info "TEST_FILE=$(TEST_FILE)")
 $(info "BIODB_TEST_FUNCTIONS=$(BIODB_TEST_FUNCTIONS)")
+$(info "PKG_NAME=$(PKG_NAME)")
+$(info "PKG_NAME_CAPS=$(PKG_NAME_CAPS)")
 
 # Default target {{{1
 ################################################################
