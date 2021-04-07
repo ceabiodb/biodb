@@ -113,6 +113,14 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
 ,generate=function(overwrite=FALSE, fail=TRUE) {
     private$doGenerate(overwrite=overwrite, fail=fail)
 }
+
+#' @description
+#' Upgrade the destination file(s).
+#' @param generate If set to FALSE, and destination file(s) do not exist, then
+#' do not generate them.
+,upgrade=function(generate=TRUE) {
+    private$doUpgrade(generate=generate)
+}
 ),
 
 private=list(
@@ -122,6 +130,10 @@ private=list(
 
 ,doGenerate=function(overwrite=FALSE, fail=TRUE) {
     stop("Abstract method doGenerate() not implemented inside concrete class.")
+}
+
+,doUpgrade=function(generate=TRUE) {
+    stop("Abstract method doUpgrade() not implemented inside concrete class.")
 }
 
 ,getCfgFile=function() {

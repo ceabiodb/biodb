@@ -40,37 +40,6 @@ public=list(
 initialize=function(...) {
     super$initialize(...)
 }
-
-#' @description
-#' Upgrade files of (definitions.yml, Makefile, etc) an existing extension
-#' package.
-#'
-#' @examples
-#' # Upgrade an existing package:
-#' biodb::ExtPackage$new(path='/path/to/my/biodbFooDb')$upgrade()
-#'
-,upgrade=function() {
-
-    chk::chk_dir(private$path)
-    chk::chk_file(file.path(private$path, 'DESCRIPTION'))
-
-    if (private$tags$makefile)
-        private$createGenerator(ExtMakefile)$upgrade()
-    private$createGenerator(ExtRbuildignore)$upgrade()
-    private$createGenerator(ExtLicense)$generate(fail=FALSE)
-    private$createGenerator(ExtReadme)$generate(fail=FALSE)
-    if ( ! is.null(private$tags$dbName)) {
-        private$createGenerator(ExtConnClass)$generate(fail=FALSE)
-        private$createGenerator(ExtEntryClass)$generate(fail=FALSE)
-        private$createGenerator(ExtDefinitions)$generate(fail=FALSE)
-    }
-    private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
-    if (private$tags$rcpp)
-        private$createGenerator(ExtCpp)$generate(fail=FALSE)
-    private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
-    private$createGenerator(ExtTests)$generate(fail=FALSE)
-    private$createGenerator(ExtVignette)$generate(fail=FALSE)
-}
 ),
 
 private=list(
@@ -105,5 +74,28 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
     private$createGenerator(ExtTests)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtVignette)$generate(overwrite=overwrite,
                                                   fail=fail)
+}
+
+,doUpgrade=function(generate=TRUE) {
+
+    chk::chk_dir(private$path)
+
+    private$createGenerator(ExtDescriptionFile)$generate(fail=FALSE)
+    if (private$tags$makefile)
+        private$createGenerator(ExtMakefile)$upgrade()
+    private$createGenerator(ExtRbuildignore)$upgrade()
+    private$createGenerator(ExtLicense)$generate(fail=FALSE)
+    private$createGenerator(ExtReadme)$generate(fail=FALSE)
+    if ( ! is.null(private$tags$dbName)) {
+        private$createGenerator(ExtConnClass)$generate(fail=FALSE)
+        private$createGenerator(ExtEntryClass)$generate(fail=FALSE)
+        private$createGenerator(ExtDefinitions)$generate(fail=FALSE)
+    }
+    private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
+    if (private$tags$rcpp)
+        private$createGenerator(ExtCpp)$generate(fail=FALSE)
+    private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
+    private$createGenerator(ExtTests)$generate(fail=FALSE)
+    private$createGenerator(ExtVignette)$generate(fail=FALSE)
 }
 ))

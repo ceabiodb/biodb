@@ -13,15 +13,22 @@ getFolderFromVect <- function(path) {
 extractVersion <- function(filepath) {
     chk::chk_file(filepath)
     
-    # Read first line of file
-    firstline <- readLines(filepath, n=1)
-    
+    version <- NULL
+
+    # Read first lines of file
+    firstLines <- readLines(filepath, n=5)
+    versionLine <- grep('version[ :]', firstLines, value=TRUE)
+    if (length(versionLine) > 1)
+        versionLine <- versionLine[[1]]
+
     # Extract version number
-    version <- sub('^.* version:? ([0-9]+\\.[0-9]+(\\.[0-9]+)?)$', '\\1',
-                   firstline, perl=TRUE)
-    if ( ! chk::vld_match(version, regexp="^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"))
-        stop('Impossible to extract version number from first line ("',
-             firstline, '") of file "', filepath, '".')
+    if (length(versionLine) == 1) {
+        version <- sub('^.* version:? ([0-9]+\\.[0-9]+(\\.[0-9]+)?)$', '\\1',
+                       versionLine, perl=TRUE)
+        if ( ! chk::vld_match(version, regexp="^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"))
+            stop('Impossible to extract version number from line ("',
+                 versionLine, '") of file "', filepath, '".')
+    }
 
     return(version)
 }

@@ -51,49 +51,6 @@ initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
     private$folder <- folder
     private$filename <- filename
 }
-
-#' @description
-#' Upgrades an existing destination file.
-,upgrade=function() {
-    
-    generate <- TRUE
-
-    # Get version of template file
-    templVer <- extractVersion(private$getTemplateFile())
-
-    # Is there already a destination file?
-    if ( ! private$overwrite && private$existsDstFile()) {
-
-        # Get version of destination file
-        curVer <- extractVersion(private$getDstFile())
-
-        # Compare versions
-        cmp <- compareVersions(curVer, templVer)
-        if (cmp == 0) {
-            generate <- FALSE
-            warning('Aborting. A local destination file "',
-                    private$getDstFileRelPath(),
-                    '" already exists with the same',
-                    " version number (", curVer, ') than the template file "',
-                    private$getTemplateFile(), '".')
-        }
-        else if (cmp > 0) {
-            generate <- FALSE
-            warning('Aborting. A local destination file "',
-                    private$getDstFileRelPath(), '" already exists with a more',
-                    ' recent version number (', curVer, ' > ', tempVer,
-                    ') than the template file "', private$getTemplateFile(),
-                    '".')
-        }
-    }
-
-    # Generate or upgrade
-    if (generate) {
-        message("Upgrade to latest version (", templVer, ") of ",
-                private$getDstFileRelPath(), '.')
-        private$generateFromTemplate(overwrite=TRUE)
-    }
-}
 ),
 
 private=list(
@@ -104,6 +61,51 @@ private=list(
 
 ,doGenerate=function(overwrite=FALSE, fail=TRUE) {
     private$generateFromTemplate(overwrite=overwrite, fail=fail)
+}
+
+,doUpgrade=function(generate=TRUE) {
+
+    # Get version of template file
+    templVer <- extractVersion(private$getTemplateFile())
+
+    # Is there already a destination file?
+    upgradeDst <- TRUE
+    if ( ! is.null(templVer) && private$overwrite
+        && private$existsDstFile()) {
+
+        # Get version of destination file
+        curVer <- extractVersion(private$getDstFile())
+        if ( ! is.null(curVer)) {
+
+            # Compare versions
+            cmp <- compareVersions(curVer, templVer)
+            if (cmp == 0) {
+                upgradeDst <- FALSE
+                warning('Aborting. A local destination file "',
+                        private$getDstFileRelPath(),
+                        '" already exists with the same',
+                        " version number (", curVer,
+                        ') than the template file "',
+                        private$getTemplateFile(), '".')
+            }
+            else if (cmp > 0) {
+                upgradeDst <- FALSE
+                warning('Aborting. A local destination file "',
+                        private$getDstFileRelPath(),
+                        '" already exists with a more',
+                        ' recent version number (', curVer, ' > ', tempVer,
+                        ') than the template file "', private$getTemplateFile(),
+                        '".')
+            }
+        }
+    }
+
+    # Generate or upgrade
+    if ( ( ! private$existsDstFile() && generate) || upgradeDst) {
+        message("Upgrade to latest version (", templVer, ") of ",
+                private$getDstFileRelPath(), '.')
+        private$generateFromTemplate(overwrite=TRUE)
+    }
 }
 
 ,update=function() {
@@ -127,10 +129,12 @@ private=list(
 
     dst <- private$buildDstPath()
 
-    if (exist)
-        chk::chk_file(dst)
-    else
-        chk::chk_false(chk::vld_file(dst))
+    if ( ! is.null(exist)) {
+        if (exist)
+            chk::chk_file(dst)
+        else
+            chk::chk_false(chk::vld_file(dst))
+    }
 
     return(dst)
 }

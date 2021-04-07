@@ -30,31 +30,6 @@ public=list(
 initialize=function(...) {
     super$initialize(filename=".Rbuildignore", template='Rbuildignore', ...)
 }
-
-#' @description
-#' Upgrades an existing Rbuildignore file for the specified package.
-#' @return None.
-,upgrade=function() {
-
-    dst <- private$getDstFile(exist=TRUE)
-    
-    # Read lines from templates and destinationl file
-    templLines <- readLines(private$getTemplateFile())
-    dstLines <- readLines(dst)
-    
-    # Add missing lines in destination file
-    for (tLine in templLines)
-        if ( ! tLine %in% dstLines)
-            dstLines <- c(dstLines, tLine)
-    
-    # Sort
-    dstLines <- sort(dstLines)
-    
-    # Write destination file
-    writeLines(dstLines, dst)
-
-    return(invisible(NULL))
-}
 ),
 
 private=list(
@@ -68,6 +43,37 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         file.copy(private$getTemplateFile(), private$getDstFile(),
                   overwrite=overwrite) 
     
+    return(invisible(NULL))
+}
+
+,doUpgrade=function(generate=TRUE) {
+
+    dst <- private$getDstFile(exist=NULL)
+    
+    # Upgrade
+    if (file.exists(dst)) {
+    
+        # Read lines from templates and destination file
+        templLines <- readLines(private$getTemplateFile())
+        dstLines <- readLines(dst)
+        
+        # Add missing lines in destination file
+        for (tLine in templLines)
+            if ( ! tLine %in% dstLines)
+                dstLines <- c(dstLines, tLine)
+        
+        # Sort
+        dstLines <- sort(dstLines)
+        
+        # Write destination file
+        writeLines(dstLines, dst)
+    }
+    
+    # Generate
+    else if (generate) {
+        self$generate()
+    }
+
     return(invisible(NULL))
 }
 ))
