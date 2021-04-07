@@ -69,6 +69,8 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         private$createGenerator(ExtCpp)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtRbuildignore)$generate(overwrite=overwrite,
                                                       fail=fail)
+    private$createGenerator(ExtGitignore)$generate(overwrite=overwrite,
+                                                      fail=fail)
     private$createGenerator(ExtTravisFile)$generate(overwrite=overwrite,
                                                     fail=fail)
     private$createGenerator(ExtTests)$generate(overwrite=overwrite, fail=fail)
@@ -84,6 +86,7 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
     if (private$tags$makefile)
         private$createGenerator(ExtMakefile)$upgrade()
     private$createGenerator(ExtRbuildignore)$upgrade()
+    private$createGenerator(ExtGitignore)$upgrade()
     private$createGenerator(ExtLicense)$generate(fail=FALSE)
     private$createGenerator(ExtReadme)$generate(fail=FALSE)
     if ( ! is.null(private$tags$dbName)) {
