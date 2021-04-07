@@ -131,11 +131,12 @@ private=list(
 
 ,lineAdder=function(generate=TRUE) {
 
-    dst <- private$getDstFile(exist=NULL)
     
     # Upgrade
-    if (file.exists(dst)) {
+    if (private$existsDstFile()) {
     
+        dst <- private$getDstFile()
+
         # Read lines from templates and destination file
         templ <- FileTemplate$new(private$getTemplateFile())
         private$fillTemplate(templ)
@@ -181,9 +182,11 @@ private=list(
     return(templFile)
 }
 
-,getDstFile=function(exist=FALSE) {
+,getDstFile=function(exist=NULL) {
 
-    dst <- private$buildDstPath()
+    chk::chk_string(private$filename)
+    dst <- file.path(getFolderFromVect(c(private$path, private$folder)),
+                     private$filename)
 
     if ( ! is.null(exist)) {
         if (exist)
@@ -201,13 +204,7 @@ private=list(
 }
 
 ,existsDstFile=function() {
-    return(file.exists(private$buildDstPath()))
-}
-
-,buildDstPath=function() {
-    chk::chk_string(private$filename)
-    return(file.path(getFolderFromVect(c(private$path, private$folder)),
-                     private$filename))
+    return(file.exists(private$getDstFile()))
 }
 
 ,generateFromTemplate=function(overwrite=FALSE, fail=TRUE) {
@@ -219,7 +216,7 @@ private=list(
     } else {
         templ <- FileTemplate$new(private$getTemplateFile())
         private$fillTemplate(templ)
-        templ$write(private$buildDstPath(), overwrite=overwrite)
+        templ$write(private$getDstFile(), overwrite=overwrite)
     }
 
     return(invisible(NULL))
