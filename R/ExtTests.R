@@ -31,10 +31,10 @@ initialize=function(...) {
     super$initialize(...)
     chk::chk_dir(private$path)
 }
+),
 
-#' @description
-#' Generates examples of C++ code.
-,generate=function(overwrite=FALSE, fail=TRUE) {
+private=list(
+doGenerate=function(overwrite=FALSE, fail=TRUE) {
     private$createGenerator(ExtFileGenerator, template='testthat.R',
                             folder='tests', filename='testthat.R'
                             )$generate(overwrite=overwrite, fail=fail)

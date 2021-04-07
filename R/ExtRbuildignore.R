@@ -32,22 +32,6 @@ initialize=function(...) {
 }
 
 #' @description
-#' Generates the Rbuildignore file for the specified package.
-#' @return None.
-,generate=function(overwrite=FALSE, fail=TRUE) {
-    
-    if ( ! overwrite && file.exists(private$getDstFile())) {
-        if (fail)
-            stop('Unable to generate "', private$getDstFile(), '", file already exists.')
-
-    } else
-        file.copy(private$getTemplateFile(), private$getDstFile(),
-                  overwrite=overwrite) 
-    
-    return(invisible(NULL))
-}
-
-#' @description
 #' Upgrades an existing Rbuildignore file for the specified package.
 #' @return None.
 ,upgrade=function() {
@@ -69,6 +53,21 @@ initialize=function(...) {
     # Write destination file
     writeLines(dstLines, dst)
 
+    return(invisible(NULL))
+}
+),
+
+private=list(
+doGenerate=function(overwrite=FALSE, fail=TRUE) {
+    
+    if ( ! overwrite && file.exists(private$getDstFile())) {
+        if (fail)
+            stop('Unable to generate "', private$getDstFile(), '", file already exists.')
+
+    } else
+        file.copy(private$getTemplateFile(), private$getDstFile(),
+                  overwrite=overwrite) 
+    
     return(invisible(NULL))
 }
 ))

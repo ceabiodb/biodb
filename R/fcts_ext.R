@@ -36,7 +36,8 @@ getLicenses <- function() {
 #' Given the root path of a package, returns the GitHub repository name.
 #'
 #' @param pkgRoot The path to the root folder of the package.
-#' @param default A default value to return in case git2r package is not available or the folder is not a Git repository.
+#' @param default A default value to return in case git4r package is not
+#' available or the folder is not a Git repository.
 #' @return The repository name.
 #' @export
 getReposName <- function(pkgRoot, default=NULL) {
@@ -49,7 +50,8 @@ getReposName <- function(pkgRoot, default=NULL) {
         if ('origin' %in% remotes) {
             reposUrl <- git2r::remote_url(pkgRoot, remote='origin')
             if (grepl('github.com', reposUrl, fixed=TRUE))
-                repos <- sub('^.*github.com[:/](.*)$', '\\1', reposUrl)
+                repos <- sub('^.*github.com[:/](.+?)(\\.git)?$', '\\1',
+                             reposUrl, perl=TRUE)
         }
     }
     

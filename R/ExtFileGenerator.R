@@ -53,24 +53,6 @@ initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
 }
 
 #' @description
-#' Generates the destination file using the template file.
-#' @param overwrite If set to TRUE and destination file exists, overwrite the
-#' destination file.
-#' @param fail If set to FALSE, do not fail if destination file exists, just do
-#' nothing and return.
-,generate=function(overwrite=FALSE, fail=TRUE) {
-    private$generateFromTemplate(overwrite=overwrite, fail=fail)
-}
-
-#' @description
-#' Try to replace remaining tags inside existing destination file.
-,update=function() {
-    templ <- FileTemplate$new(private$getDstFile(exist=TRUE))
-    private$fillTemplate(templ)
-    templ$write(private$getDstFile(exist=TRUE))
-}
-
-#' @description
 #' Upgrades an existing destination file.
 ,upgrade=function() {
     
@@ -119,6 +101,18 @@ private=list(
     ,overwrite=NULL
     ,template=NULL
     ,folder=NULL
+
+,doGenerate=function(overwrite=FALSE, fail=TRUE) {
+    private$generateFromTemplate(overwrite=overwrite, fail=fail)
+}
+
+#' @description
+#' Try to replace remaining tags inside existing destination file.
+,update=function() {
+    templ <- FileTemplate$new(private$getDstFile(exist=TRUE))
+    private$fillTemplate(templ)
+    templ$write(private$getDstFile(exist=TRUE))
+}
 
 ,getTemplateFile=function() {
     

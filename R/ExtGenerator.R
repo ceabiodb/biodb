@@ -100,12 +100,29 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
     if (saveCfg)
         private$saveConfig()
 }
+
+#' @description
+#' Generates the destination file(s).
+#' @param overwrite If set to TRUE and destination files exist, overwrite the
+#' destination files.
+#' @param fail If set to FALSE, do not fail if destination files exist, just do
+#' nothing and return.
+#' @example
+#' # Generate a new extension package:
+#' biodb::ExtPackage$new('/my/path/to/my/biodbExtension')$generate()
+,generate=function(overwrite=FALSE, fail=TRUE) {
+    private$doGenerate(overwrite=overwrite, fail=fail)
+}
 ),
 
 private=list(
     path=NULL
     ,loadCfg=NULL
     ,tags=NULL
+
+,doGenerate=function(overwrite=FALSE, fail=TRUE) {
+    stop("Abstract method doGenerate() not implemented inside concrete class.")
+}
 
 ,getCfgFile=function() {
     return(file.path(private$path, "biodb_ext.yml"))
