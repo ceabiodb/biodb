@@ -106,8 +106,6 @@ private=list(
     private$generateFromTemplate(overwrite=overwrite, fail=fail)
 }
 
-#' @description
-#' Try to replace remaining tags inside existing destination file.
 ,update=function() {
     templ <- FileTemplate$new(private$getDstFile(exist=TRUE))
     private$fillTemplate(templ)

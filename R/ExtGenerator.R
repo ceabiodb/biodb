@@ -107,7 +107,7 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
 #' destination files.
 #' @param fail If set to FALSE, do not fail if destination files exist, just do
 #' nothing and return.
-#' @example
+#' @examples
 #' # Generate a new extension package:
 #' biodb::ExtPackage$new('/my/path/to/my/biodbExtension')$generate()
 ,generate=function(overwrite=FALSE, fail=TRUE) {
