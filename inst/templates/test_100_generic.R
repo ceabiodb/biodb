@@ -5,8 +5,8 @@ biodb::testContext("Generic tests")
 biodb <- biodb::createBiodbTestInstance(log='test_100_generic.log', ack=TRUE)
 
 # Load package definitions
-file <- system.file("definitions.yml", package='{{pkgName}}')
-biodb$loadDefinitions(file)
+defFile <- system.file("definitions.yml", package='{{pkgName}}')
+biodb$loadDefinitions(defFile)
 
 # Create connector
 conn <- biodb$getFactory()$createConn('{{dbName}}')

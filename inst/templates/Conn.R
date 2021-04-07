@@ -1,6 +1,6 @@
 #' {{dbTitle}} connector class.
 #'
-#' This is the connector class for {{dbTitle}}.
+#' Connector class for {{dbTitle}}.
 #'
 #' @seealso 
 #' $$$ CASE CONNTYPE PLAIN $$$
