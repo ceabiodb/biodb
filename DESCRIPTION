@@ -99,6 +99,7 @@ Collate:
     'ExtDefinitions.R'
     'ExtDescriptionFile.R'
     'ExtEntryClass.R'
+    'ExtGitignore.R'
     'ExtLicense.R'
     'ExtMakefile.R'
     'ExtPackage.R'

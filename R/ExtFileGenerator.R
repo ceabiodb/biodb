@@ -87,9 +87,8 @@ private=list(
     templVer <- extractVersion(private$getTemplateFile())
 
     # Is there already a destination file?
-    upgradeDst <- TRUE
-    if ( ! is.null(templVer) && private$overwrite
-        && private$existsDstFile()) {
+    upgradeDst <- FALSE
+    if ( ! is.null(templVer) && private$existsDstFile()) {
 
         # Get version of destination file
         curVer <- extractVersion(private$getDstFile())
@@ -97,16 +96,16 @@ private=list(
 
             # Compare versions
             cmp <- compareVersions(curVer, templVer)
-            if (cmp == 0) {
-                upgradeDst <- FALSE
-                warning('Aborting. A local destination file "',
-                        private$getDstFileRelPath(),
-                        '" already exists with the same',
-                        " version number (", curVer,
-                        ') than the template file "',
-                        private$getTemplateFile(), '".')
-            }
-            else if (cmp > 0) {
+            #if (cmp == 0) {
+            #    upgradeDst <- FALSE
+            #    warning('Aborting. A local destination file "',
+            #            private$getDstFileRelPath(),
+            #            '" already exists with the same',
+            #            " version number (", curVer,
+            #            ') than the template file "',
+            #            private$getTemplateFile(), '".')
+            #}
+            if (cmp > 0) {
                 upgradeDst <- FALSE
                 warning('Aborting. A local destination file "',
                         private$getDstFileRelPath(),
@@ -115,6 +114,8 @@ private=list(
                         ') than the template file "', private$getTemplateFile(),
                         '".')
             }
+            else
+                upgradeDst <- TRUE
         }
     }
 
@@ -218,7 +219,7 @@ private=list(
     } else {
         templ <- FileTemplate$new(private$getTemplateFile())
         private$fillTemplate(templ)
-        templ$write(private$getDstFile(), overwrite=overwrite)
+        templ$write(private$buildDstPath(), overwrite=overwrite)
     }
 
     return(invisible(NULL))

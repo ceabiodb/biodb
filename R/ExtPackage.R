@@ -82,23 +82,28 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
 
     chk::chk_dir(private$path)
 
-    private$createGenerator(ExtDescriptionFile)$generate(fail=FALSE)
+    # Upgradable files
     if (private$tags$makefile)
-        private$createGenerator(ExtMakefile)$upgrade()
-    private$createGenerator(ExtRbuildignore)$upgrade()
-    private$createGenerator(ExtGitignore)$upgrade()
-    private$createGenerator(ExtLicense)$generate(fail=FALSE)
-    private$createGenerator(ExtReadme)$generate(fail=FALSE)
-    if ( ! is.null(private$tags$dbName)) {
-        private$createGenerator(ExtConnClass)$generate(fail=FALSE)
-        private$createGenerator(ExtEntryClass)$generate(fail=FALSE)
-        private$createGenerator(ExtDefinitions)$generate(fail=FALSE)
+        private$createGenerator(ExtMakefile)$upgrade(generate=generate)
+    private$createGenerator(ExtRbuildignore)$upgrade(generate=generate)
+    private$createGenerator(ExtGitignore)$upgrade(generate=generate)
+
+    # Non-upgradable files
+    if (generate) {
+        private$createGenerator(ExtDescriptionFile)$generate(fail=FALSE)
+        private$createGenerator(ExtLicense)$generate(fail=FALSE)
+        private$createGenerator(ExtReadme)$generate(fail=FALSE)
+        if ( ! is.null(private$tags$dbName)) {
+            private$createGenerator(ExtConnClass)$generate(fail=FALSE)
+            private$createGenerator(ExtEntryClass)$generate(fail=FALSE)
+            private$createGenerator(ExtDefinitions)$generate(fail=FALSE)
+        }
+        private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
+        if (private$tags$rcpp)
+            private$createGenerator(ExtCpp)$generate(fail=FALSE)
+        private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
+        private$createGenerator(ExtTests)$generate(fail=FALSE)
+        private$createGenerator(ExtVignette)$generate(fail=FALSE)
     }
-    private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
-    if (private$tags$rcpp)
-        private$createGenerator(ExtCpp)$generate(fail=FALSE)
-    private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
-    private$createGenerator(ExtTests)$generate(fail=FALSE)
-    private$createGenerator(ExtVignette)$generate(fail=FALSE)
 }
 ))
