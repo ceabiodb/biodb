@@ -9,9 +9,17 @@
 #' @return The package name of the biodb extension.
 #' @export
 getPkgName <- function(pkgRoot, check=TRUE) {
+    
+    # Make sure pkgRoot is the real path
+    pkgRoot <- normalizePath(pkgRoot, mustWork=FALSE) # Path may not exist yet
+    
+    # Extract name
     name <- basename(pkgRoot)
+    
+    # Check name format
     if (check)
         chk::chk_match(name, regexp="^biodb[A-Z][A-Za-z0-9]+$")
+
     return(name)
 }
 

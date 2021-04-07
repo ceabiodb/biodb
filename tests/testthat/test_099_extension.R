@@ -211,6 +211,32 @@ test_upgradeExtPkg <- function() {
     }
 }
 
+test_useDotForCurrentDir <- function() {
+    
+    pkgName <- 'biodbFoo'
+
+    # Folder of the new package
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(pkgDir)) # Create empty package folder
+        dir.create(pkgDir)
+
+    # Change current path
+    curdir <- getwd()
+    setwd(pkgDir)
+
+    # Create a new extension package
+    biodb::ExtPackage$new(path='.', dbName='foo', dbTitle='FOO database'
+                          )$generate()
+
+    # Go back to working dir
+    setwd(curdir)
+
+    # Test files
+    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+}
+
 # Main
 ################################################################################
 
@@ -231,6 +257,8 @@ biodb::testThat("We can generate a skeleton for a new extension package.",
                 test_newExtPkgSkeleton)
 biodb::testThat("We can upgrade the files of an extension package.",
                 test_upgradeExtPkg)
+biodb::testThat("We can use '.' (current directory) for the package path.",
+                test_useDotForCurrentDir)
 
 # Terminate Biodb
 biodb$terminate()
