@@ -10,6 +10,20 @@ getFolderFromVect <- function(path) {
     return(do.call('getFolder', as.list(path)))
 }
 
+convertTolToRange <- function(x, tol, type=c('delta', 'plain', 'ppm')) {
+    
+    type <- match.arg(type)
+    if (type == 'ppm') {
+        a <- x - x * tol * 1e-6
+        b <- x + x * tol * 1e-6
+    } else { 
+        a <- x - tol
+        b <- x + tol
+    }
+
+    return(list(a=a, b=b))
+}
+
 extractVersion <- function(filepath) {
     chk::chk_file(filepath)
     

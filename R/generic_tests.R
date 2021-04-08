@@ -956,13 +956,14 @@ test.searchMzTol <- function(db) {
 
     # Get M/Z values from database
     mode <-'pos' 
-    mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
+    mzs <- db$getMzValues(ms.mode=mode, max.results=2)
     testthat::expect_true(is.double(mzs))
     testthat::expect_true(length(mzs) >= 1)
 
     # Search
     for (mz in mzs) {
-        ids <- db$searchMzTol(mz = mz, mz.tol = 5, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
+        ids <- db$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
+                              min.rel.int=0, ms.mode=mode)
         testthat::expect_true(is.character(ids))
         testthat::expect_true(length(ids) > 0)
     }
@@ -1006,14 +1007,15 @@ test.searchMzTol.multiple.mz <- function(db) {
 
     # Get M/Z values from database
     mode <- 'pos'
-    mzs <- db$getMzValues(ms.mode = mode, max.results = 2)
+    mzs <- db$getMzValues(ms.mode=mode, max.results=2)
     testthat::expect_is(mzs, 'numeric')
     testthat::expect_true(length(mzs) >= 1)
 
     # Search one M/Z at a time
     all.ids <- character(0)
     for (mz in mzs) {
-        ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
+        ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit='plain',
+                              min.rel.int=0, ms.mode=mode)
         testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
         all.ids <- c(all.ids, ids)
@@ -1021,7 +1023,8 @@ test.searchMzTol.multiple.mz <- function(db) {
     all.ids <- all.ids[ ! duplicated(all.ids)]
 
     # Search all M/Z values at once
-    all.ids.2 <- db$searchMzTol(mz = mzs, mz.tol = mz.tol, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = mode)
+    all.ids.2 <- db$searchMzTol(mz=mzs, mz.tol=mz.tol, mz.tol.unit='plain',
+                                min.rel.int=0, ms.mode=mode)
 
     # List of IDs must be the same
     testthat::expect_true(all(all.ids.2 %in% all.ids))
@@ -1221,24 +1224,6 @@ test.msmsSearch.no.ids <- function(db) {
     testthat::expect_true(all(c('id', 'score') %in% names(results)))
 }
 
-test.convertMzTolToRange <- function(db) {
-
-    # Test plain unit
-    range <- db$.convertMzTolToRange(1.0, 0.0, 0.0, 'plain')
-    testthat::expect_is(range, 'list')
-    testthat::expect_identical(range, list(min = 1.0, max = 1.0))
-
-    # Test ppm unit
-    range <- db$.convertMzTolToRange(1.0, 0.0, 0.0, 'ppm')
-    testthat::expect_is(range, 'list')
-    testthat::expect_identical(range, list(min = 1.0, max = 1.0))
-
-    # Test NA value
-    range <- db$.convertMzTolToRange(NA_real_, 0.0, 0.0, 'ppm')
-    testthat::expect_is(range, 'list')
-    testthat::expect_identical(range, list(min = NA_real_, max = NA_real_))
-}
-
 #' Run generic tests.
 #'
 #' This function must be used in tests on all connector classes, before any
@@ -1275,18 +1260,27 @@ runGenericTests <- function(conn, opt=NULL) {
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
               test.wrong.entry.among.good.ones, conn=conn)
-    biodb::testThat("Entry fields have a correct value", test.entry.fields, conn=conn)
+    biodb::testThat("Entry fields have a correct value", test.entry.fields,
+                    conn=conn)
     biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
-    biodb::testThat("RT unit is defined when there is an RT value.", test.rt.unit, conn=conn)
+    biodb::testThat("RT unit is defined when there is an RT value.",
+                    test.rt.unit, conn=conn)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
-    biodb::testThat("We can get a list of entry ids.", test.entry.ids, conn=conn)
-    biodb::testThat("We can search for an entry by name.", test.searchByName, conn=conn, opt=opt)
-    biodb::testThat("We can search for an entry by searchable field", test.searchForEntries, conn=conn, opt=opt)
+    biodb::testThat("We can get a list of entry ids.", test.entry.ids,
+                    conn=conn)
+    biodb::testThat("We can search for an entry by name.", test.searchByName,
+                    conn=conn, opt=opt)
+    biodb::testThat("We can search for an entry by searchable field",
+                    test.searchForEntries, conn=conn, opt=opt)
     if (conn$isRemotedb()) {
-        biodb::testThat("We can get a URL pointing to the entry page.", test.entry.page.url, conn=conn)
-        biodb::testThat("We can get a URL pointing to the entry image.", test.entry.image.url, conn=conn)
-        biodb::testThat("The entry page URL can be downloaded.", test.entry.page.url.download, conn=conn)
-        biodb::testThat("The entry image URL can be downloaded.", test.entry.image.url.download, conn=conn)
+        biodb::testThat("We can get a URL pointing to the entry page.",
+                        test.entry.page.url, conn=conn)
+        biodb::testThat("We can get a URL pointing to the entry image.",
+                        test.entry.image.url, conn=conn)
+        biodb::testThat("The entry page URL can be downloaded.",
+                        test.entry.page.url.download, conn=conn)
+        biodb::testThat("The entry image URL can be downloaded.",
+                        test.entry.image.url.download, conn=conn)
     }
     if (conn$isEditable()) {
         biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
@@ -1299,21 +1293,25 @@ runGenericTests <- function(conn, opt=NULL) {
     }
 
     if (conn$isCompounddb()) {
-        biodb::testThat('searchCompound() fails if no mass field is set.', test.searchCompound.no.mass.field, conn=conn)
-        biodb::testThat('We can search for a compound', test.searchCompound, conn=conn, opt=opt)
-        biodb::testThat('annotateMzValues() works correctly.', test.annotateMzValues, conn=conn)
-        biodb::testThat('annotateMzValues() works correctly with real values.', test.annotateMzValues_real_values, conn=conn)
-        biodb::testThat('We can use a single vector as input for annotateMzValues()', test_annotateMzValues_input_vector, conn=conn)
+        biodb::testThat('searchCompound() fails if no mass field is set.',
+                        test.searchCompound.no.mass.field, conn=conn)
+        biodb::testThat('We can search for a compound', test.searchCompound,
+                        conn=conn, opt=opt)
+        biodb::testThat('annotateMzValues() works correctly.',
+                        test.annotateMzValues, conn=conn)
+        biodb::testThat('annotateMzValues() works correctly with real values.',
+                        test.annotateMzValues_real_values, conn=conn)
+        biodb::testThat('annotateMzValues() accepts a single vector.',
+                        test_annotateMzValues_input_vector, conn=conn)
         biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn=conn)
-        biodb::testThat('Matching with tolerance in ppm works in annotateMzValues()', test_annotateMzValues_ppm_tol, conn=conn)
-        biodb::testThat('Input data frame is output untouched for annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
+        biodb::testThat('ppm tolerance works in annotateMzValues()',
+                        test_annotateMzValues_ppm_tol, conn=conn)
+        biodb::testThat('Input data frame is not modified by annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
     }
 
     if (conn$isMassdb()) {
-
-        biodb::testThat("M/Z tolerance values are converted correctly to M/Z range.", test.convertMzTolToRange, conn=conn)
-
-        biodb::testThat("We can retrieve a list of M/Z values.", test.getMzValues, conn=conn)
+        biodb::testThat("We can retrieve a list of M/Z values.",
+                        test.getMzValues, conn=conn)
         biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
         biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
         biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)

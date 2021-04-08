@@ -262,7 +262,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
     return(entry.ids)
 },
 
-searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
+searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                          mz.tol=NA_real_, mz.tol.unit='plain', 
                          rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
                          rt.tol.exp=NA_real_, chrom.col.ids=NULL,
@@ -275,7 +275,6 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
     argument, or two lists of minimum and maximum M/Z values through mz.min and
     mz.max arguments.
     \nmz: A vector of M/Z values.
-    \nmz.shift: A shift applied on all M/Z values.
     \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
     \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
     'plain'.
@@ -308,7 +307,7 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
 
     # Check arguments
     check.param <- .self$.checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
-        mz=mz, mz.shift=mz.shift, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
+        mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
         rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
         chrom.col.ids=chrom.col.ids, min.rel.int=min.rel.int, ms.mode=ms.mode,
         max.results=max.results, ms.level=ms.level, match.rt=FALSE)
@@ -371,7 +370,7 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
     return(ids)
 },
 
-searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
+searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                          mz.tol=NA_real_, mz.tol.unit='plain', 
                          rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
                          rt.tol.exp=NA_real_, chrom.col.ids=NULL,
@@ -383,7 +382,7 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
     "
     .self$.deprecatedMethod("searchForMassSpectra()")
     return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
-                                      mz.shift=mz.shift, mz.tol=mz.tol,
+                                      mz.tol=mz.tol,
                                       mz.tol.unit=mz.tol.unit, rt=rt,
                                       rt.unit=rt.unit,  rt.tol= rt.tol,
                                       rt.tol.exp=rt.tol.exp,
@@ -394,7 +393,7 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.shift=0.0,
                                       max.results=max.results))
 },
 
-searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
+searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
     mz.tol.unit='plain', min.rel.int=NA_real_, ms.mode=NA_character_,
     ms.level=0, max.results=NA_integer_, chrom.col.ids=NULL, rt=NULL,
     rt.unit=NA_character_, rt.tol=NA_real_, rt.tol.exp=NA_real_,
@@ -406,7 +405,6 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     \ninput.df: A data frame taken as input for searchMsPeaks(). It must
     contain a columns 'mz', and optionaly an 'rt' column.
     \nmz: A vector of M/Z values to match. Used if input.df is not set.
-    \nmz.shift: A shift applied on all M/Z values.
     \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
     \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
     'plain'.
@@ -452,7 +450,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
 
     # Check arguments
     check.param <- .self$.checkSearchMsParam(input.df=input.df, mz.min=NULL,
-        mz.max=NULL, mz=mz, mz.shift=mz.shift, mz.tol=mz.tol,
+        mz.max=NULL, mz=mz, mz.tol=mz.tol,
         mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
@@ -469,7 +467,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
     precursor.match.ids <- NULL
     if (precursor) {
         precursor.match.ids <- .self$searchForMassSpectra(mz.min=NULL, mz.max=NULL,
-            mz=input.df[[input.df.colnames[['mz']]]], mz.shift=mz.shift,
+            mz=input.df[[input.df.colnames[['mz']]]],
             mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
             rt=input.df[[input.df.colnames[['rt']]]], rt.unit=rt.unit,
             rt.tol=precursor.rt.tol, chrom.col.ids=chrom.col.ids,
@@ -490,16 +488,18 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
 
         # Compute M/Z range
         mz <- input.df[i, input.df.colnames[['mz']]]
-        mz.range <- .self$.convertMzTolToRange(mz=mz, mz.shift=mz.shift,
-            mz.tol=mz.tol, mz.tol.unit=mz.tol.unit)
+        rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
         # Search for spectra
-        .self$debug('Searching for spectra that contains M/Z value in range [',
-                    mz.range$min, ', ', mz.range$max, '].')
-        ids <- .self$searchForMassSpectra(mz.min=mz.range$min, mz.max=mz.range$max,
-            min.rel.int=min.rel.int, ms.mode=ms.mode,
-            max.results=if (check.param$use.rt.match) NA_integer_
-            else max.results, ms.level=ms.level)
+        .self$debug('Searching for spectra that contains M/Z value in ranges ',
+                    paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+        ids <- .self$searchForMassSpectra(mz.min=rng$a,
+                                          mz.max=rng$b,
+                                          min.rel.int=min.rel.int,
+                                          ms.mode=ms.mode, max.results=if
+                                          (check.param$use.rt.match)
+                                          NA_integer_ else max.results,
+                                          ms.level=ms.level)
         .self$debug2List('Found spectra', ids)
 
         # Filter out IDs that were not found in step 1.
@@ -552,12 +552,10 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.shift=0.0, mz.tol,
 
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
-        mz.range <- .self$.convertMzTolToRange(mz=mz, mz.shift=mz.shift,
-                                               mz.tol=mz.tol,
-                                               mz.tol.unit=mz.tol.unit)
-        .self$debug("Filtering entries data frame on M/Z range [", mz.range$min,
-                    ', ', mz.range$max, '].')
-        df <- df[(df$peak.mz >= mz.range$min) & (df$peak.mz <= mz.range$max), ]
+        rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
+        .self$debug("Filtering entries data frame on M/Z ranges ",
+                    paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+        df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
         .self$debug2Dataframe('After filtering on M/Z range', df)
 
         # Select fields
@@ -708,33 +706,19 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 
     .self$.deprecatedMethod('BiodbMassdbConn::searchForMassSpectra()')
     
-    return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
-        min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
-        precursor=precursor, ms.level=ms.level))
-},
-
-.convertMzTolToRange=function(mz, mz.shift, mz.tol, mz.tol.unit) {
-
-    if (mz.tol.unit == 'ppm') {
-        mz.min <- mz + mz * ( mz.shift - mz.tol) * 1e-6
-        mz.max <- mz + mz * ( mz.shift + mz.tol) * 1e-6
-    }
-    else {
-        mz.min <- mz + mz.shift - mz.tol
-        mz.max <- mz + mz.shift + mz.tol
-    }
-
-
-    return(list(min=mz.min, max=mz.max))
+    return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
+                                      mz.tol.unit=mz.tol.unit,
+                                      min.rel.int=min.rel.int, ms.mode=ms.mode,
+                                      max.results=max.results,
+                                      precursor=precursor, ms.level=ms.level))
 },
 
 .doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
                         max.results, precursor, ms.level) {
 
-    range <- .self$.convertMzTolToRange(mz=mz, mz.shift=0.0, mz.tol=mz.tol,
-                                        mz.tol.unit=mz.tol.unit)
+    rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
-    return(.self$searchForMassSpectra(mz.min=range$min, mz.max=range$max,
+    return(.self$searchForMassSpectra(mz.min=rng$a, mz.max=rng$b,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
@@ -788,7 +772,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(use.min.max)
 },
 
-.checkMzTolParam=function(mz, mz.shift, mz.tol, mz.tol.unit) {
+.checkMzTolParam=function(mz, mz.tol, mz.tol.unit) {
 
     use.tol <- ! is.null(mz)
 
@@ -803,9 +787,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(use.tol)
 },
 
-.checkMzParam=function(mz.min, mz.max, mz, mz.shift, mz.tol, mz.tol.unit) {
+.checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
 
-    use.tol <- .self$.checkMzTolParam(mz=mz, mz.shift=mz.shift, mz.tol=mz.tol,
+    use.tol <- .self$.checkMzTolParam(mz=mz, mz.tol=mz.tol,
                                       mz.tol.unit=mz.tol.unit)
     use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
@@ -835,7 +819,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
 },
 
 .checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz',
-    rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz, mz.shift,
+    rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz,
     mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
     min.rel.int, ms.mode, max.results, ms.level, match.rt) {
 
@@ -860,7 +844,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     }
 
     mz.match <- .self$.checkMzParam(mz.min=mz.min, mz.max=mz.max, mz=mz,
-        mz.shift=mz.shift, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit)
+        mz.tol=mz.tol, mz.tol.unit=mz.tol.unit)
     .self$.checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids, match.rt=match.rt)
     if ( ! mz.match$use.tol && ! mz.match$use.min.max)

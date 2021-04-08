@@ -19,9 +19,6 @@ test_biodburl_encoding <- function() {
     testthat::expect_equal(BiodbUrl('my site')$toString(FALSE), 'my site')
 }
 
-# Main
-################################################################################
-
 # Set context
 biodb::testContext("Testing BiodbUrl.")
 
