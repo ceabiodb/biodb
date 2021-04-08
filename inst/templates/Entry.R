@@ -1,6 +1,6 @@
 #' {{dbTitle}} entry class.
 #'
-#' This is the entry class for {{dbTitle}}. 
+#' Entry class for {{dbTitle}}. 
 #'
 #' @seealso
 #' $$$ CASE ENTRYTYPE PLAIN $$$
@@ -35,6 +35,7 @@
 #' mybiodb$terminate()
 #'
 #' @import biodb
+#' @import methods
 #' @export {{entryClass}}
 #' @exportClass {{entryClass}}
 {{entryClass}} <- methods::setRefClass("{{entryClass}}",

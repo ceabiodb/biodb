@@ -127,7 +127,7 @@ select=function(section, enable) {
     private$txt <- private$txt[setdiff(seq_along(private$txt), linesToRemove)]
     
     return(invisible(self))
-},
+}
 
 #' @description
 #' Write template with replaced values to disk.
@@ -138,7 +138,7 @@ select=function(section, enable) {
 #' there any remaining tags that have not been processed. A warning is thrown
 #' for each found tag.
 #' @return None
-write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
+,write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
 
     if (checkRemainingTags)
         private$checkRemainingTags()
@@ -149,6 +149,13 @@ write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
     writeLines(private$txt, path)
     
     return(invisible(NULL))
+}
+
+#' @description
+#' Get the lines of the templates.
+#' @return A vector containing the lines of the templates.
+,getLines=function() {
+    return(private$txt)
 }
 ),
 

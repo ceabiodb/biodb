@@ -5,7 +5,10 @@ test_connNameToClassPrefix <- function() {
 }
 
 test_extractVersion <- function() {
-    testfile <- file.path(getwd(), 'output', 'extractVersion_testfile.txt')
+    outputDir <- file.path(getwd(), 'output')
+    if ( ! dir.exists(outputDir))
+        dir.create(outputDir)
+    testfile <- file.path(outputDir, 'extractVersion_testfile.txt')
     writeLines('# blablabla version: 1.2', testfile)
     v <- extractVersion(testfile)
     testthat::expect_equal("1.2", v)

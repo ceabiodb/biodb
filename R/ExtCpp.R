@@ -33,10 +33,10 @@ initialize=function(...) {
     super$initialize(...)
     chk::chk_dir(private$path)
 }
+),
 
-#' @description
-#' Generates examples of C++ code.
-,generate=function(overwrite=FALSE, fail=TRUE) {
+private=list(
+doGenerate=function(overwrite=FALSE, fail=TRUE) {
     templates <- system.file('templates', package='biodb')
     for (f in Sys.glob(paste0(templates, '/*.cpp')))
         private$createGenerator(ExtFileGenerator, template=basename(f),

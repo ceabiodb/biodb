@@ -251,42 +251,46 @@ test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
 test.mass.csv.file.mz.matching.limits <- function(biodb) {
 
 	# Define db data frame
-	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+	db.df <- rbind(data.frame(), list(accession='C1', ms.mode='POS',
+                                      peak.mztheo=112.07569,
+                                      peak.comp='P9Z6W410 O',
+                                      peak.attr='[(M+H)-(H2O)-(NH3)]+',
+                                      formula="J114L6M62O2",
+                                      molecular.mass=146.10553,
+                                      name='Blablaine'),
+                   stringsAsFactors=FALSE)
 
 	# Create connector
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
-	# Try different values of M/Z shift
-	for (mz.shift in c(0, -2)) {
-		mz.tol <- 5
-		# Compute mz.min and mz.max
-		mz.tol.unit <- 'ppm'
-		mz <- db.df[['peak.mztheo']]
-		mz.sup <- mz / ( 1 + ( mz.shift - mz.tol) * 1e-6)
-		mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
-		mz.inf <- mz / ( 1 +  ( mz.shift + mz.tol) * 1e-6)
+	mz.tol <- 5
+	# Compute mz.min and mz.max
+	mz.tol.unit <- 'ppm'
+	mz <- db.df[['peak.mztheo']]
+	mz.sup <- mz / ( 1 + ( - mz.tol) * 1e-6)
+	mz.sup <- mz.sup - 1e-8 # Adjustment needed, due to computing differences.
+	mz.inf <- mz / ( 1 +  ( + mz.tol) * 1e-6)
 
-		# Search
-		results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results1, 'data.frame')
-		results2 <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results2, 'data.frame')
-		results3 <- conn$searchMsPeaks(mz.inf, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results3, 'data.frame')
-		results4 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.input.values = FALSE)
-        expect_identical(results4, data.frame())
-		results4.1 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.input.values = TRUE)
-		expect_is(results4.1, 'data.frame')
-		expect_identical(colnames(results4.1), 'mz')
-		results5 <- conn$searchMsPeaks(mz.sup, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
-		expect_is(results5, 'data.frame')
-		results6 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.input.values = FALSE)
-        expect_identical(results6, data.frame())
-		results6.1 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', insert.input.values = TRUE)
-		expect_is(results6.1, 'data.frame')
-		expect_identical(colnames(results6.1), 'mz')
-	}
+	# Search
+	results1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos')
+	expect_is(results1, 'data.frame')
+	results2 <- conn$searchMsPeaks((mz.inf + mz.sup)/2, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos')
+	expect_is(results2, 'data.frame')
+	results3 <- conn$searchMsPeaks(mz.inf, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos')
+	expect_is(results3, 'data.frame')
+	results4 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', insert.input.values=FALSE)
+    expect_identical(results4, data.frame())
+	results4.1 <- conn$searchMsPeaks(mz.inf - 1e-6, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', insert.input.values=TRUE)
+	expect_is(results4.1, 'data.frame')
+	expect_identical(colnames(results4.1), 'mz')
+	results5 <- conn$searchMsPeaks(mz.sup, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos')
+	expect_is(results5, 'data.frame')
+	results6 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', insert.input.values=FALSE)
+    expect_identical(results6, data.frame())
+	results6.1 <- conn$searchMsPeaks(mz.sup + 1e-6, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', insert.input.values=TRUE)
+	expect_is(results6.1, 'data.frame')
+	expect_identical(colnames(results6.1), 'mz')
 }
 
 test.mass.csv.file.rt.matching.limits <- function(biodb) {
@@ -299,7 +303,6 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
 	conn$setDb(db.df)
 
 	# M/Z matching values
-	mz.shift <- 0
 	mz.tol <- 5
 	mz.tol.unit <- 'ppm'
 	mz <- db.df[['peak.mztheo']]
@@ -315,22 +318,22 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
 	rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
 
 	# Search
-	results1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sec, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sec, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
 	expect_is(results1, 'data.frame')
-	results2 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = (rt.inf + rt.sup) / 2, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results2 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=(rt.inf + rt.sup) / 2, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
 	expect_is(results2, 'data.frame')
-	results3 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results3 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
 	expect_is(results3, 'data.frame')
-	results4 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.input.values = FALSE)
+	results4 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf - 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=FALSE)
 	expect_identical(results4, data.frame())
-	results4.1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.inf - 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.input.values = TRUE)
+	results4.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf - 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=TRUE)
 	expect_is(results4.1, 'data.frame')
 	expect_identical(colnames(results4.1), c('mz', 'rt'))
-	results5 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y)
+	results5 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
 	expect_is(results5, 'data.frame')
-	results6 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.input.values = FALSE)
+	results6 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup + 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=FALSE)
 	expect_identical(results6, data.frame())
-	results6.1 <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos', chrom.col.ids = col.id, rt = rt.sup + 1e-6, rt.unit = rt.unit, rt.tol = x, rt.tol.exp = y, insert.input.values = TRUE)
+	results6.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup + 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=TRUE)
 	expect_is(results6.1, 'data.frame')
 	expect_identical(colnames(results6.1), c('mz', 'rt'))
 }
@@ -338,7 +341,7 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
 test.mass.csv.file.ms.mode.values <- function(biodb) {
 
 	# Define db data frame
-	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'ZZZ', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+	db.df <- rbind(data.frame(), list(accession='C1', ms.mode='ZZZ', peak.mztheo=112.07569, peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine'), stringsAsFactors=FALSE)
 
 	# Add new MS mode value
 	biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'POS')
@@ -350,13 +353,14 @@ test.mass.csv.file.ms.mode.values <- function(biodb) {
 	conn$setDb(db.df)
 	
 	# Try M/Z matching
-	mz.shift <- 0
 	mz.tol <- 5
 	mz.tol.unit <- 'ppm'
 	mz <- db.df[['peak.mztheo']]
-	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'pos')
+	results <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                  ms.mode='pos')
 	expect_is(results, 'data.frame')
-	results <- conn$searchMsPeaks(mz, mz.shift = mz.shift, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.mode = 'zzz')
+	results <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                  ms.mode='zzz')
 	expect_is(results, 'data.frame')
 }
 
@@ -371,13 +375,13 @@ test.mass.csv.file.precursor.match <- function(biodb) {
 
 	# Define db data frame
 	db.df <- rbind(
-				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'C1', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 112, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 69,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'A2', ms.mode = 'pos', peak.mztheo = 54,  peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.112.rt, chrom.rt.unit = 'min'),
-				   data.frame(accession = 'B3', ms.mode = 'pos', peak.mztheo = 108, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', chrom.col.id = "col1", chrom.rt = prec.108.rt, chrom.rt.unit = 'min'),
-				   stringsAsFactors = FALSE)
+				   data.frame(accession='C1', ms.mode='pos', peak.mztheo=112, peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.112.rt, chrom.rt.unit='min'),
+				   data.frame(accession='C1', ms.mode='pos', peak.mztheo=54,  peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.112.rt, chrom.rt.unit='min'),
+				   data.frame(accession='A2', ms.mode='pos', peak.mztheo=112, peak.comp='P9Z6W410 O', peak.attr='[(M+H)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.112.rt, chrom.rt.unit='min'),
+				   data.frame(accession='A2', ms.mode='pos', peak.mztheo=69,  peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.112.rt, chrom.rt.unit='min'),
+				   data.frame(accession='A2', ms.mode='pos', peak.mztheo=54,  peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.112.rt, chrom.rt.unit='min'),
+				   data.frame(accession='B3', ms.mode='pos', peak.mztheo=108, peak.comp='P9Z6W410 O', peak.attr='[(M+H)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', chrom.col.id="col1", chrom.rt=prec.108.rt, chrom.rt.unit='min'),
+				   stringsAsFactors=FALSE)
 
 	# Create connector
 	conn <- biodb$getFactory()$createConn('mass.csv.file')

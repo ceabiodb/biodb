@@ -317,12 +317,17 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
         fname <- fct
 
     # Get list of test functions to run
+    functions <- NULL
     if ( ! is.null(bdb) && bdb$getConfig()$isDefined('test.functions')) {
-        functions <- strsplit(bdb$getConfig()$get('test.functions'), ',')[[1]]
-        runFct <- fname %in% functions
+        functions <- bdb$getConfig()$get('test.functions')
+    } else if ('BIODB_TEST_FUNCTIONS' %in% names(Sys.getenv())) {
+        functions <- Sys.getenv()[['BIODB_TEST_FUNCTIONS']]
     }
-    else
-        runFct <- TRUE
+    if ( ! is.null(functions)) # Convert to vector
+        functions <- strsplit(functions, ',')[[1]]
+
+    # Filter
+    runFct <- if (is.null(functions)) TRUE else fname %in% functions
 
     if (runFct) {
 

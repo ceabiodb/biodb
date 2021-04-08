@@ -118,6 +118,7 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(file.exists(file.path(pkgDir, 'README.md')))
         testthat::expect_true(file.exists(file.path(pkgDir, '.travis.yml')))
         testthat::expect_true(file.exists(file.path(pkgDir, '.Rbuildignore')))
+        testthat::expect_true(file.exists(file.path(pkgDir, '.gitignore')))
         testthat::expect_equal(rcpp, dir.exists(file.path(pkgDir, 'src')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'inst')))
         testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
@@ -211,6 +212,56 @@ test_upgradeExtPkg <- function() {
     }
 }
 
+test_useDotForCurrentDir <- function() {
+    
+    pkgName <- 'biodbFoo'
+
+    # Folder of the new package
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(pkgDir)) # Create empty package folder
+        dir.create(pkgDir)
+
+    # Init git repos with fake remote
+    git2r::init(pkgDir)
+    git2r::remote_add(pkgDir, 'origin',
+                      paste0('https://github.com/pkrog/', pkgName, '.git'))
+
+    # Change current path
+    curdir <- getwd()
+    setwd(pkgDir)
+
+    # Create a new extension package
+    biodb::ExtPackage$new(path='.', dbName='foo', dbTitle='FOO database'
+                          )$generate()
+
+    # Go back to working dir
+    setwd(curdir)
+
+    # Test files
+    testthat::expect_true(file.exists(file.path(pkgDir, 'DESCRIPTION')))
+}
+
+test_getReposName <- function() {
+
+    # Create local repos folder
+    repos <- 'myReposName01'
+    localRepos <- file.path(getwd(), 'output', repos)
+    if (dir.exists(localRepos))
+        unlink(localRepos, recursive=TRUE)
+    if ( ! dir.exists(localRepos))
+        dir.create(localRepos)
+
+    # Init local repos and set remote URL
+    git2r::init(localRepos)
+    git2r::remote_add(localRepos, 'origin',
+                      paste0('https://github.com/pkrog/', repos, '.git'))
+    
+    name <- getReposName(localRepos)
+    testthat::expect_equal(paste0('pkrog/', repos), name)
+}
+
 # Main
 ################################################################################
 
@@ -222,6 +273,7 @@ obs <- biodb::addMsgRecObs(biodb)
 biodb::setTestContext(biodb, "Test definition of extensions.")
 
 # Run tests
+biodb::testThat("We can get the remote repository name.", test_getReposName)
 biodb::testThat("We can define a new field.", test_new_field, biodb=biodb)
 biodb::testThat("We can define a new parsing expression.",
                 test_new_parsing_expr, biodb=biodb)
@@ -231,6 +283,8 @@ biodb::testThat("We can generate a skeleton for a new extension package.",
                 test_newExtPkgSkeleton)
 biodb::testThat("We can upgrade the files of an extension package.",
                 test_upgradeExtPkg)
+biodb::testThat("We can use '.' (current directory) for the package path.",
+                test_useDotForCurrentDir)
 
 # Terminate Biodb
 biodb$terminate()
