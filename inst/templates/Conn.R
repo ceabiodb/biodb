@@ -37,6 +37,7 @@
 #' mybiodb$terminate()
 #'
 #' @import biodb
+#' @import methods
 #' @export {{connClass}}
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
