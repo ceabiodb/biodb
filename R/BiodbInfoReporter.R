@@ -18,7 +18,7 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
     .self$checkMessageType(type)
     setlvl <- .self$getLevel(type)
 
-    if (setlvl >= lvl && type %in% c('info', 'debug', 'caution'))
+    if (setlvl >= lvl && type %in% c('info', 'debug'))
         base::message(toupper(substr(type, 1, 1)), substr(type, 2, nchar(type)),
                       ' message: ', msg)
 

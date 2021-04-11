@@ -48,6 +48,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
+#' @import lifecycle
 #' @include BiodbChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
@@ -164,7 +165,7 @@ setFieldValue=function(field, value) {
             .self$error('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
-            .self$caution("Unable to convert value(s) \"",
+            .self$warning("Unable to convert value(s) \"",
                           paste(value, collapse=', '), "\" into ",
                           field.def$getClass(), " type for field \"", field,
                           "\".")
@@ -675,12 +676,16 @@ getFieldClass=function(field) {
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 },
 
+getFieldDef=function(field) {
+    ":\n\nGets the definition of an entry field.
+    \nfield: The name of the field.
+    \nreturn: A object BiodbEntryField which defines the field.
+    "
+    return(.self$getBiodb()$getEntryFields()$get(field))
+},
+
 getFieldCardinality=function(field) {
-
-    msg <- 'BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()'
-    .self$.deprecatedMethod(msg)
-
-    return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
+    return(.self$getFieldDef(field)$getCardinality())
 },
 
 fieldHasBasicClass=function(field) {

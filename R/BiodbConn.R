@@ -75,6 +75,15 @@ getId=function() {
     return(.self$.id)
 },
 
+show=function() {
+    ":\n\nPrints a description of this connector.
+    \nReturned value: None.
+    "
+    
+   callSuper() 
+   cat("  ID: ", .self$.id, ".\n", sep='')
+},
+
 correctIds=function(ids) {
     ":\n\nCorrect a vector of IDs by formatting them to the database official format, if required and possible.
     \nids: A character vector of IDs.

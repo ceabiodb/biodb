@@ -78,7 +78,7 @@ cfgKVUpdate=function(k, v) {
     \nReturned value: None.
     "
 
-    for (type in c('debug', 'info', 'caution')) {
+    for (type in c('debug', 'info', 'warning')) {
         lvl.k <- paste('msg', type, 'lvl', sep='.')
         if (lvl.k == k)
             .self$cfg.lvl[[type]] <- v
@@ -89,7 +89,7 @@ getLevel=function(type) {
     ":\n\nGets the level associated with a message type. This is the maximum
     level a message must have in order to be processed.
     \ntype: The type of message. It must be one of: 'info', 'debug',
-    'caution', 'warning', 'error'.
+    'warning', 'error'.
     \nReturned value: The level, as an integer.
     "
 
@@ -108,7 +108,7 @@ setLevel=function(type, lvl) {
     ":\n\nSets the level for a type. This is the maximum level a message must
     have in order to be processed.
     \ntype: The type of message. It must be one of: 'info', 'debug',
-    'caution', 'warning', 'error'.
+    'warning', 'error'.
     \nlvl: The level, as an integer.
     \nReturned value: None.
     "
@@ -124,7 +124,7 @@ msg=function(type='info', msg, class=NA_character_,
     message type. You can check current level for a type by calling getLevel()
     and set the level with setLevel().
     \ntype: The message type. It must be one of: 'info', 'debug',
-    'caution', 'warning', 'error'.
+    'warning', 'error'.
     \nmsg: The text message to send.
     \nclass: The class of the object that called this message method.
     \nmethod: The method that called this message method.
@@ -139,7 +139,7 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
                   laptime=10L, found=NULL) {
     ":\n\nSends a progress message to this observer.
     \ntype: The message type. It must be one of: 'info', 'debug',
-    'caution', 'warning', 'error'.
+    'warning', 'error'.
     \nmsg: The text message to send.
     \nindex: The index in the progression, as an integer or numeric number.
     \ntotal: The total to achieve in the progression, as an integer or numeric
@@ -178,13 +178,13 @@ progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
 
 checkMessageType=function(type) {
     ":\n\nChecks a message type. An error will be raised if the type is unknown.
-    \ntype: A message type. It must be one of: 'info', 'debug', 'caution',
+    \ntype: A message type. It must be one of: 'info', 'debug',
     'warning', 'error'.
     \nReturned value: None.
     "
 
     # Define allowed types
-    allowed.types <- c('info', 'debug', 'caution', 'warning', 'error')
+    allowed.types <- c('info', 'debug', 'warning', 'error')
 
     # Is type unknown?
     if ( ! tolower(type) %in% allowed.types)

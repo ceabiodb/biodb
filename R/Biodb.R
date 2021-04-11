@@ -696,7 +696,7 @@ enableDebug=function() {
     \nReturned value: None.
     "
 
-    for (type in c('info', 'caution', 'debug'))
+    for (type in c('info', 'debug'))
         .self$getConfig()$set(paste('msg', type, 'lvl', sep='.'), 10)
 },
 
@@ -706,7 +706,7 @@ disableDebug=function() {
     \nReturned value: None.
     "
 
-    for (type in c('caution', 'debug', 'info'))
+    for (type in c('debug', 'info'))
         .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
 },
 

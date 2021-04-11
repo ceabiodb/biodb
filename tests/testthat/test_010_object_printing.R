@@ -1,36 +1,19 @@
-# vi: fdm=marker
-
-# Test BiodbCache show {{{1
-################################################################
-
 test.BiodbCache.show <- function(biodb) {
 	expect_output(biodb$getPersistentCache()$show(),
                   regexp='^Biodb persistent cache .* instance\\..*$')
 }
 
-# Test BiodbConfig show {{{1
-################################################################
-
 test.BiodbConfig.show <- function(biodb) {
 	expect_output(biodb$getConfig()$show(), regexp = '^Biodb config.* instance\\..*Values:.*$')
 }
-
-# Test Biodb show {{{1
-################################################################
 
 test.Biodb.show <- function(biodb) {
 	expect_output(biodb$show(), regexp = '^Biodb instance, version [0-9]*\\.[0-9]*\\.[0-9]*\\..*$')
 }
 
-# Test BiodbFactory show {{{1
-################################################################
-
 test.BiodbFactory.show <- function(biodb) {
 	expect_output(biodb$getFactory()$show(), regexp = '^Biodb factory instance\\.$')
 }
-
-# Test BiodbEntry show {{{1
-################################################################
 
 test.BiodbEntry.show <- function(biodb) {
 
@@ -57,9 +40,6 @@ test.BiodbEntry.show <- function(biodb) {
 	biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test BiodbConn show {{{1
-################################################################
-
 test.BiodbConn.show <- function(biodb) {
 
     # Get connection
@@ -67,25 +47,16 @@ test.BiodbConn.show <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 
     # Test printing
-    expect_output(conn$show(), regexp="^Compound CSV File instance\\.\n  ID: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*$")
+    expect_output(conn$show(), regexp="^Compound CSV File instance\\.\n  Class: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*\n  ID:.*$")
 }
-
-# Test BiodbDbsInfo show {{{1
-################################################################
 
 test.BiodbDbsInfo.show <- function(biodb) {
 	expect_output(biodb$getDbsInfo()$show(), regexp='^Biodb databases information instance\\.\nThe following databases are defined:.*$')
 }
 
-# Test BiodbEntryFields show {{{1
-################################################################
-
 test.BiodbEntryFields.show <- function(biodb) {
 	expect_output(biodb$getEntryFields()$show(), regexp = '^Biodb entry fields information instance\\.$')
 }
-
-# Main {{{1
-################################################################
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance(log='object_printing_test.log')

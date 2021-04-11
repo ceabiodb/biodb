@@ -143,12 +143,6 @@ warning=function(...) {
     invisible()
 },
 
-caution=function(...) {
-    .self$message(type='caution', msg=paste0(...))
-
-    invisible()
-},
-
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
 
@@ -195,7 +189,7 @@ info2=function(...) {
                  class, " class.", sep='')
     if ( ! is.na(new.method))
         msg <- paste(msg, " Please use now method ", new.method, ".", sep='')
-    .self$message('caution', msg)
+    .self$message('warning', msg)
 },
 
 .assertNotNa=function(param, msg.type='error', sys.call.level=0,

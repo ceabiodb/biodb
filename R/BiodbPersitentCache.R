@@ -73,7 +73,7 @@ getDir=function() {
         if ( ! is.null(cachedir) && ! is.na(cachedir)
             && old_cachedir != cachedir && file.exists(old_cachedir)) {
             if (file.exists(cachedir))
-                .self$caution('An old cache folder ("', old_cachedir,
+                .self$warning('An old cache folder ("', old_cachedir,
                               '") is still present on this machine, ',
                               'but you are now using the new cache folder "',
                               cachedir, '". Please, consider removing the old ',
@@ -285,7 +285,7 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     for (i in seq(content)) {
         n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
         if (is.null(n)) {
-            .self$caution('Error when reading content of file "',
+            .self$warning('Error when reading content of file "',
                           file.paths[[i]], '". The function `nchar` returned',
                           ' an error on the content. The file may be written', 
                           ' in a unexpected encoding. Trying latin-1...')

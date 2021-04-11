@@ -100,7 +100,7 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
 
     # Search by mass not implemented for this example
     if ( ! is.null(mass) && ! is.null(mass.field))
-        .self$caution('Database ', .self$getDbClass(),
+        .self$warning('Database ', .self$getDbClass(),
                       ' is not searchable by mass.')
 
     # Return empty vector instead of NULL

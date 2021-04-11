@@ -409,7 +409,7 @@ newObserver=function(obs) {
 
     # Fail if deprecated
     if (.self$.isDeprecated(key))
-        .self$message('caution', paste("Key", key, "is deprecated.",
+        .self$message('warning', paste("Key", key, "is deprecated.",
                                      .self$.keys[[key]][['deprecated']]))
 
     # Test type

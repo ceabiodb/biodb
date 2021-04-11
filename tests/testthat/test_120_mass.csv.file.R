@@ -573,29 +573,43 @@ biodb::setTestContext(biodb, "Test Mass spectra CSV File connector.")
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')
 conn$setUrl('base.url', MASSFILEDB.URL)
-conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name', 'chrom.rt'))
-biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE) # Make sure we have no residual cache entries from previous tests
+conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
+                             'chrom.rt'))
+# Make sure we have no residual cache entries from previous tests
+biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 
 # Run tests
 biodb::runGenericTests(conn)
 biodb::testThat("Mass CSV file entry construction works.",
                 test_massCsvFile_entry_instantiation, biodb=biodb)
-biodb::testThat("MassCsvFileConn methods are correct", test.basic.mass.csv.file, conn=conn)
-biodb::testThat("M/Z match output contains all columns of database.", test.mass.csv.file.output.columns, conn=conn)
+biodb::testThat("MassCsvFileConn methods are correct",
+                test.basic.mass.csv.file, conn=conn)
+biodb::testThat("M/Z match output contains all columns of database.",
+                test.mass.csv.file.output.columns, conn=conn)
 
-biodb::testThat('Test fields manipulation works correctly.', test.fields, biodb=biodb)
-biodb::testThat('Test that we detect undefined fields', test.undefined.fields, biodb=biodb)
-biodb::testThat('Setting database with a data frame works.', test.mass.csv.file.data.frame, biodb=biodb)
+biodb::testThat('Test fields manipulation works correctly.', test.fields,
+                biodb=biodb)
+biodb::testThat('Test that we detect undefined fields', test.undefined.fields,
+                biodb=biodb)
+biodb::testThat('Setting database with a data frame works.',
+                test.mass.csv.file.data.frame, biodb=biodb)
 biodb::testThat('Failure occurs when loading database file with a line containing wrong number of values.', test.wrong.nb.cols, biodb=biodb)
 biodb::testThat('Failure occurs when a field with a cardinality of one has several values for the same accession number.', test.field.card.one, biodb=biodb)
 biodb::testThat('We can search for precursor M/Z values without peak.attr column defined.', test.getMzValues.without.peak.attr, biodb=biodb)
-biodb::testThat('Old column names are still recognized.', test.mass.csv.file.old.col.names, biodb=biodb)
-biodb::testThat('Peaks table of entry has official field names.', test.mass.csv.file.entry.peaks.table.col.names, biodb=biodb)
-biodb::testThat('M/Z matching limits (mz.min and mz.max) are respected.', test.mass.csv.file.mz.matching.limits, biodb=biodb)
-biodb::testThat('RT matching limits (rt.min and rt.max) are respected.', test.mass.csv.file.rt.matching.limits, biodb=biodb)
-biodb::testThat('We can set additional values for MS mode.', test.mass.csv.file.ms.mode.values, biodb=biodb)
-biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match, biodb=biodb)
-biodb::testThat('Two different databases do not use the same cache files.', test.mass.csv.file.cache.confusion, biodb=biodb)
+biodb::testThat('Old column names are still recognized.',
+                test.mass.csv.file.old.col.names, biodb=biodb)
+biodb::testThat('Peaks table of entry has official field names.',
+                test.mass.csv.file.entry.peaks.table.col.names, biodb=biodb)
+biodb::testThat('M/Z matching limits (mz.min and mz.max) are respected.',
+                test.mass.csv.file.mz.matching.limits, biodb=biodb)
+biodb::testThat('RT matching limits (rt.min and rt.max) are respected.',
+                test.mass.csv.file.rt.matching.limits, biodb=biodb)
+biodb::testThat('We can set additional values for MS mode.',
+                test.mass.csv.file.ms.mode.values, biodb=biodb)
+biodb::testThat('Precursor match works.', test.mass.csv.file.precursor.match,
+                biodb=biodb)
+biodb::testThat('Two different databases do not use the same cache files.',
+                test.mass.csv.file.cache.confusion, biodb=biodb)
 biodb::testThat('Sorting of columns of result frame works well in searchMsPeaks().', test.mass.csv.file.searchMsPeaks.column.sorting, biodb=biodb)
 biodb::testThat('Cache ID is set correctly.', test.mass.csv.file.cache.id,
                 biodb=biodb)

@@ -183,7 +183,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has never been registered.')
 
     # Update frequency
@@ -204,7 +204,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector already registered?
     if (conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has already been registered.')
 
     # Add connector
@@ -215,13 +215,15 @@ connSchedulerFrequencyUpdated=function(conn) {
         # Add connector
         .self$.addConnectorRules(conn)
     }
+    
+    return(invisible(NULL))
 },
 
 .unregisterConnector=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has never been registered.')
 
     # Unregister connector
@@ -232,6 +234,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # Remove connector
         .self$.removeConnectorRules(conn)
     }
+    
+    return(invisible(NULL))
 },
 
 .findRule=function(url, create=TRUE) {
