@@ -25,6 +25,7 @@ test.deprecatedMethods <- function(biodb) {
     lifecycle::expect_deprecated(conn$setUrl('base.url', 'https://foo/'))
     
     # Not deprecated anymore
+    lifecycle::expect_deprecated(entry$getFieldDef('name')$isVector())
     entry$getFieldCardinality('name')
 
     # Destroy connector

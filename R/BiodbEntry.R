@@ -160,7 +160,7 @@ setFieldValue=function(field, value) {
                   '" in BiodEntry.')
 
     # Check value class
-    if (field.def$isVector()) {
+    if (field.def$isAtomic()) {
         if (length(value) == 0)
             .self$error('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
@@ -179,7 +179,7 @@ setFieldValue=function(field, value) {
     value <- field.def$correctValue(value)
 
     # Remove duplicates
-    if (field.def$forbidsDuplicates() || (field.def$isVector()
+    if (field.def$forbidsDuplicates() || (field.def$isAtomic()
                                           && field.def$hasCardOne()))
         value <- value[ ! duplicated(if (field.def$isCaseInsensitive())
                                      tolower(value) else value)]
