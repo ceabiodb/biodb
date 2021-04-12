@@ -123,7 +123,8 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         conn$.terminate()
         msg <- paste0('A connector (', existingConn$getId(),
                       ') already exists for database ', db.class,
-                      ' with the same URL (', url, ')',
+                      (if (is.null(url)) '' else
+                          paste0(' with the same URL (', url, ')')),
                       (if (is.na(token)) '' else 'and the same token'), '.')
         .self$message(if (fail.if.exists) 'error' else 'warning', msg)
         conn <- if (get.existing.conn) existingConn else NULL

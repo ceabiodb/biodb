@@ -82,7 +82,7 @@ test.connectorDeletion <- function(biodb) {
     testthat::expect_is(chebi.1, 'BiodbConn')
     testthat::expect_warning(chebi.2 <-
         biodb$getFactory()$createConn('chebi.ex', fail.if.exists=FALSE),
-        regex='.*A connector.*chebi.ex.*already exists.*with the same URL.*')
+        regex='.*A connector.*chebi.ex.*already exists.*')
     testthat::expect_is(chebi.2, 'BiodbConn')
     chebi.3 <- biodb$getFactory()$createConn('chebi.ex',
                                              url='http://some.fake.chebi.site/')
