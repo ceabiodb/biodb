@@ -541,7 +541,7 @@ enabled=function() {
     \\code{BiodbConfig::isEnabled('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::isEnabled('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'enabled()', "BiodbConfig::isEnabled()")
 
     return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
 },
@@ -551,7 +551,7 @@ enable=function() {
     \\code{BiodbConfig::enable('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::enable('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'enable()', "BiodbConfig::enable()")
 
     .self$getBiodb()$getConfig()$enable('cache.system')
 },
@@ -561,7 +561,7 @@ disable=function() {
     \\code{BiodbConfig::disable('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::disable('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'disable()', "BiodbConfig::disable()")
 
     .self$getBiodb()$getConfig()$disable('cache.system')
 }

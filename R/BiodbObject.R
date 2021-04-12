@@ -175,23 +175,6 @@ info2=function(...) {
     .self$error("Method ", method, " is not implemented in ", class, " class.")
 },
 
-# This method is used to declare a method as deprecated.
-.deprecatedMethod=function(new.method=NA_character_) {
-
-    class <- class(.self)
-    call <- sys.call(-1)
-    call <- as.character(call)
-    call <- call[[1]]
-    calls <- strsplit(call, '$', fixed=TRUE)[[1]]
-    method <- calls[[length(calls)]]
-
-    msg <- paste("Method ", method, "() is now deprecated in ",
-                 class, " class.", sep='')
-    if ( ! is.na(new.method))
-        msg <- paste(msg, " Please use now method ", new.method, ".", sep='')
-    .self$message('warning', msg)
-},
-
 .assertNotNa=function(param, msg.type='error', sys.call.level=0,
                       param.name=NULL) {
 

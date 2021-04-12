@@ -470,7 +470,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 getUrlString=function(url, params=list()) {
     "Build a URL string, using a base URL and parameters to be passed."
 
-    .self$.deprecatedMethod("BiodbUrl::toString()")
+    lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
     url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
 
@@ -481,7 +481,8 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
                 body=character(), encoding=integer()) {
     "Send a URL request, either with GET or POST method, and return result."
 
-    .self$.deprecatedMethod("BiodbRequestScheduler::sendRequest()")
+    lifecycle::deprecate_warn('1.0.0', 'getUrl()',
+                              "BiodbRequestScheduler::sendRequest()")
 
     method <- match.arg(method)
 

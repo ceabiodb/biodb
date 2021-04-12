@@ -334,7 +334,8 @@ deleteAllCacheEntries=function(conn.id) { # DEPRECATED
     \nconn.id: A connector ID.
     \nReturned values: None.
     "
-    .self$.deprecatedMethod("deleteAllEntriesFromVolatileCache()")
+    lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
+                              "deleteAllEntriesFromVolatileCache()")
     .self$deleteAllCacheEntries(conn.id)
 },
 

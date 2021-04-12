@@ -813,7 +813,8 @@ fieldIsAtomic=function(field) {
     ":\n\nDEPRECATED method to test if a field is an atomic field. The new
     method is \\code{BiodbEntryField::isVector()}."
 
-    .self$.deprecatedMethod('BiodbEntryField::isVector()')
+    lifecycle::deprecate_warn('1.0.0', 'fieldIsAtomic()',
+                              'BiodbEntryField::isVector()')
 
     return(.self$getEntryFields()$get(field)$isVector())
 },
@@ -822,7 +823,8 @@ getFieldClass=function(field) {
     ":\n\nDEPRECATED method to get the class of a field. The new method is
     \\code{Biodb::getEntryFields()$get(field)$getClass()}."
 
-    .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
+    lifecycle::deprecate_warn('1.0.0', 'getFieldClass()',
+                              'BiodbEntryField::getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 }

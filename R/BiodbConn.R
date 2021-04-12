@@ -407,7 +407,7 @@ searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
     \nUse searchForEntries() instead.
     "
     
-    .self$.deprecatedMethod("searchForEntries()")
+    lifecycle::deprecate_warn('1.0.0', 'searchByName()', "searchForEntries()")
     ids <- NULL
 
     # Try deprecated method searchCompound()
@@ -485,7 +485,8 @@ getAllCacheEntries=function() { # DEPRECATED
     ":\n\nThis method is deprecated.
     \nUse getAllVolatileCacheEntries() instead.
     "
-    .self$.deprecatedMethod("getAllVolatileCacheEntries()")
+    lifecycle::deprecate_soft('1.0.0', 'getAllCacheEntries()',
+                              "getAllVolatileCacheEntries()")
     .self$getAllVolatileCacheEntries()
 },
 
@@ -507,7 +508,8 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
     if (deleteVolatile)
         .self$deleteAllEntriesFromVolatileCache()
     fileExt <- .self$getPropertyValue('entry.content.type')
-    .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(), ext=fileExt)
+    .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(),
+                                                      ext=fileExt)
 },
 
 deleteWholePersistentCache=function(deleteVolatile=TRUE) {
@@ -527,7 +529,8 @@ deleteAllCacheEntries=function() { # DEPRECATED
     please use deleteAllEntriesFromVolatileCache() instead.
     \nReturned value: None.
     "
-    .self$.deprecatedMethod("deleteAllEntriesFromVolatileCache()")
+    lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
+                              "deleteAllEntriesFromVolatileCache()")
     .self$deleteAllEntriesFromVolatileCache()
 },
 

@@ -660,18 +660,16 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 getField=function(field) {
-    .self$.deprecatedMethod("getFieldValue()")
+    lifecycle::deprecate_soft('1.0.0', 'getField()', "getFieldValue()")
     return(.self$getFieldValue(field))
 },
 
 setField=function(field, value) {
-    .self$.deprecatedMethod("setFieldValue()")
+    lifecycle::deprecate_warn('1.0.0', 'setField()', "setFieldValue()")
     .self$setFieldValue(field, value)
 },
 
 getFieldClass=function(field) {
-
-    .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 },
@@ -690,7 +688,8 @@ getFieldCardinality=function(field) {
 
 fieldHasBasicClass=function(field) {
 
-    .self$.deprecatedMethod('BiodbEntryField::isVector()')
+    lifecycle::deprecate_warn('1.0.0', 'fieldHasBasicClass()',
+                              'BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 },
