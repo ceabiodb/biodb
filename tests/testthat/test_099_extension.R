@@ -56,7 +56,7 @@ test_chebiExShow <- function(biodb) {
     testthat::expect_output(print(conn), '^.*Request maximum rate:.*$')
 }
 
-test_newExtPkgSkeleton <- function() {
+test_newExtPkgSkeletonGeneration <- function() {
     
     for (cfg in list(list(connType='plain', remote=TRUE, entryType='plain',
                           rcpp=FALSE)
@@ -75,8 +75,8 @@ test_newExtPkgSkeleton <- function() {
             
         downloadable <- cfg$remote && (if ('downloadable' %in% names(cfg))
                                        cfg$downloadable else FALSE)
-        rcpp <- cfg$remote && (if ('rcpp' %in% names(cfg))
-                                       cfg$rcpp else FALSE)
+        rcpp <- if ('rcpp' %in% names(cfg))
+                                       cfg$rcpp else FALSE
         name <- c('foo', (if (cfg$remote) 'remote' else 'local'))
         if (downloadable)
             name <- c(name, 'dwnld')
@@ -137,19 +137,43 @@ test_newExtPkgSkeleton <- function() {
         testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
                                                     'test_200_example.R')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
-        
-        # Check targets
-        makeLog <- paste(pkgDir, 'make', 'doc', sep='_')
-        system2('make', c('-C', pkgDir, 'doc'), stdout=makeLog, stderr=makeLog)
-        testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
-        makeLog <- paste(pkgDir, 'make', sep='_')
-        system2('make', c('-C', pkgDir), stdout=makeLog, stderr=makeLog)
-        makeLog <- paste(pkgDir, 'make', 'test', sep='_')
-        system2('make', c('-C', pkgDir, 'test'), stdout=makeLog, stderr=makeLog)
-
-        # Vignette cannot be built
-#        system(paste0('make -C "', pkgDir, '" check'))
     }
+}
+
+test_runningMakeOnNewExtPkg <- function() {
+    
+    # We run make on just one pkg, since it is quite long
+
+    connType <- 'compound'
+    entryType <- 'xml'
+    name <- c('foo2', 'local', 'rcpp')
+    dbName <- paste(name, collapse='.')
+    clsPrefix <- biodb:::connNameToClassPrefix(dbName)
+    pkgName <- paste0('biodb', clsPrefix)
+
+    # Folder of the new package
+    pkgDir <- file.path(getwd(), 'output', pkgName)
+    if (dir.exists(pkgDir))
+        unlink(pkgDir, recursive=TRUE)
+    if ( ! dir.exists(dirname(pkgDir)))
+        dir.create(dirname(pkgDir))
+
+    # Create a new extension package skeleton
+    biodb::ExtPackage$new(path=pkgDir, dbName=dbName,
+                          dbTitle='FOO database',
+                          connType=connType, entryType=entryType,
+                          remote=FALSE,
+                          editable=TRUE, writable=TRUE,
+                          makefile=TRUE, rcpp=TRUE)$generate()
+    
+    # Check targets
+    makeLog <- paste(pkgDir, 'make', 'doc', sep='_')
+    system2('make', c('-C', pkgDir, 'doc'), stdout=makeLog, stderr=makeLog)
+    testthat::expect_true(file.exists(file.path(pkgDir, 'NAMESPACE')))
+    makeLog <- paste(pkgDir, 'make', sep='_')
+    system2('make', c('-C', pkgDir), stdout=makeLog, stderr=makeLog)
+    makeLog <- paste(pkgDir, 'make', 'test', sep='_')
+    system2('make', c('-C', pkgDir, 'test'), stdout=makeLog, stderr=makeLog)
 }
 
 test_upgradeExtPkg <- function() {
@@ -280,7 +304,9 @@ biodb::testThat("We can define a new parsing expression.",
 biodb::testThat("show() method works correctly.", test_chebiExShow,
                 biodb=biodb)
 biodb::testThat("We can generate a skeleton for a new extension package.",
-                test_newExtPkgSkeleton)
+                test_newExtPkgSkeletonGeneration)
+biodb::testThat("We can run make on a newly generated extension package.",
+                test_runningMakeOnNewExtPkg)
 biodb::testThat("We can upgrade the files of an extension package.",
                 test_upgradeExtPkg)
 biodb::testThat("We can use '.' (current directory) for the package path.",

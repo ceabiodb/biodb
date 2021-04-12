@@ -23,6 +23,7 @@ test.deprecatedMethods <- function(biodb) {
     lifecycle::expect_deprecated(conn$setWsUrl('https://foo/'))
     lifecycle::expect_deprecated(conn$getUrl('base.url'))
     lifecycle::expect_deprecated(conn$setUrl('base.url', 'https://foo/'))
+    lifecycle::expect_deprecated(conn$searchByName('foo'))
     
     # Not deprecated anymore
     lifecycle::expect_deprecated(entry$getFieldDef('name')$isVector())
