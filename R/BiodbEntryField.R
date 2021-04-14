@@ -563,13 +563,24 @@ isDataFrame=function() {
     return(.self$.class == 'data.frame')
 },
 
+isAtomic=function() {
+    ":\n\nTests if this field's type is an atomic  type.
+    \nReturned value: TRUE if the field's type is vector (i.e.: character,
+    integer, double or logical), FALSE otherwise.
+    "
+
+    return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
+},
+
 isVector=function() {
     ":\n\nTests if this field's type is a basic vector type.
     \nReturned value: TRUE if the field's type is vector (i.e.: character,
     integer, double or logical), FALSE otherwise.
     "
 
-    return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
+    lifecycle::deprecate_soft('1.0.0', 'isVector()', 'isAtomic()')
+
+    return(.self$isAtomic())
 },
 
 equals=function(other, fail=FALSE) {
@@ -661,7 +672,6 @@ show=function() {
 },
 
 getCardinality=function() {
-    .self$.deprecatedMethod('hasCardOne() or hasCardMany()')
     return(.self$.cardinality)
 },
 
@@ -669,12 +679,12 @@ getCardinality=function() {
     
     # Check name
     if (is.null(.self$.name) || is.na(.self$.name) || .self$.name == '')
-        .self$caution("Missing name for entry field.")
+        .self$warning("Missing name for entry field.")
     
     # Check description
     if (is.null(.self$.description) || is.na(.self$.description)
         || .self$.description == '')
-        .self$caution("Missing description for entry field \"", .self$.name, "\".")
+        .self$warning("Missing description for entry field \"", .self$.name, "\".")
 }
 
 ))

@@ -58,7 +58,7 @@ initialize=function(...) {
 
         # Select peak with highest intensity for precursor
         else if (sum(precursors) > 1) {
-            .self$caution("Found more than one precursor inside entry ",
+            .self$warning("Found more than one precursor inside entry ",
                           .self$getFieldValue('accession', compute=FALSE),
                           ': ', paste(pkattr[precursors], collapse=", "),
                           ". Trying to take the one with highest intensity.")
@@ -70,7 +70,7 @@ initialize=function(...) {
                     strongest.precursor.mz <- pkmz[precursors][[s]]
                 }
             if (is.null(strongest.precursor.mz))
-                .self$caution('No intensity information found for choosing',
+                .self$warning('No intensity information found for choosing',
                               ' the strongest precursor.')
             else {
                 .self$info('Found strongest precursor:',

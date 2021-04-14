@@ -77,11 +77,11 @@
         ref.entry.fields <- c(ref.entry.fields, names(ref.entry))
     }
 
-    # Search for untested fields and send a Biodb CAUTION message
+    # Search for untested fields and send a Biodb WARNING message
     not.tested.fields <- entry.fields[ ! entry.fields %in% c(ref.entry.fields, db.id.field)]
     not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
     for (f in not.tested.fields)
-        biodb$message('caution', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
+        biodb$message('warning', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
 }
 
 test.wrong.entry <- function(conn) {
@@ -363,31 +363,35 @@ test.db.writing = function(conn) {
     biodb$getFactory()$deleteConn(conn.3$getId())
 }
 
-test.db.copy = function(conn) {
+test.db.copy <- function(conn) {
 
-    biodb = conn$getBiodb()
+    biodb <- conn$getBiodb()
 
-    # Set database file
-    db.file <- file.path(getTestOutputDir(), paste('test.db.copy', conn$getDbClass(), 'db', sep = '.'))
+    # Set destination database file
+    db.file <- file.path(getTestOutputDir(),
+                         paste('test.db.copy', conn$getDbClass(), 'db',
+                               sep='.'))
     if (file.exists(db.file))
         unlink(db.file)
 
     # Create new connector
-    conn.2 = biodb$getFactory()$createConn(conn$getDbClass(), url = db.file)
+    conn.2 <- biodb$getFactory()$createConn(conn$getDbClass(), url=db.file)
 
     # Copy database
     conn.2$allowEditing()
     conn.2$allowWriting()
-    biodb$copyDb(conn.from = conn, conn.t = conn.2)
+    biodb$copyDb(conn.from=conn, conn.t=conn.2)
 
     # Compare
-    ids.1 = conn$getEntryIds()
-    ids.2 = conn.2$getEntryIds()
+    ids.1 <- conn$getEntryIds()
+    ids.2 <- conn.2$getEntryIds()
     testthat::expect_identical(ids.1, ids.2)
-    entries.1 = conn$getEntry(ids.1)
-    entries.2 = conn.2$getEntry(ids.2)
-    df.1 = biodb$entriesToDataframe(entries.1, only.atomic = FALSE, compute = FALSE)
-    df.2 = biodb$entriesToDataframe(entries.2, only.atomic = FALSE, compute = FALSE)
+    entries.1 <- conn$getEntry(ids.1)
+    entries.2 <- conn.2$getEntry(ids.2)
+    df.1 <- biodb$entriesToDataframe(entries.1, only.atomic=FALSE,
+                                     compute=FALSE)
+    df.2 <- biodb$entriesToDataframe(entries.2, only.atomic=FALSE,
+                                     compute=FALSE)
     testthat::expect_identical(df.1, df.2)
 
     # Delete connector
@@ -444,6 +448,9 @@ test.searchForEntries = function(conn, opt=NULL) {
 
 test.searchByName = function(conn, opt=NULL) {
     
+    # Allow running of deprecated methods while testing
+    withr::local_options(lifecycle_verbosity="quiet")
+
     max.results <- NA_integer_
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]

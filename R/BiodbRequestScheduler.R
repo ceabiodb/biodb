@@ -183,7 +183,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has never been registered.')
 
     # Update frequency
@@ -204,7 +204,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector already registered?
     if (conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has already been registered.')
 
     # Add connector
@@ -215,13 +215,15 @@ connSchedulerFrequencyUpdated=function(conn) {
         # Add connector
         .self$.addConnectorRules(conn)
     }
+    
+    return(invisible(NULL))
 },
 
 .unregisterConnector=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$caution('Connector "', conn$getId(),
+        .self$warning('Connector "', conn$getId(),
                       '" has never been registered.')
 
     # Unregister connector
@@ -232,6 +234,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # Remove connector
         .self$.removeConnectorRules(conn)
     }
+    
+    return(invisible(NULL))
 },
 
 .findRule=function(url, create=TRUE) {
@@ -466,7 +470,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 getUrlString=function(url, params=list()) {
     "Build a URL string, using a base URL and parameters to be passed."
 
-    .self$.deprecatedMethod("BiodbUrl::toString()")
+    lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
     url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
 
@@ -477,7 +481,8 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
                 body=character(), encoding=integer()) {
     "Send a URL request, either with GET or POST method, and return result."
 
-    .self$.deprecatedMethod("BiodbRequestScheduler::sendRequest()")
+    lifecycle::deprecate_warn('1.0.0', 'getUrl()',
+                              "BiodbRequestScheduler::sendRequest()")
 
     method <- match.arg(method)
 

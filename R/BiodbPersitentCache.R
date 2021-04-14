@@ -73,7 +73,7 @@ getDir=function() {
         if ( ! is.null(cachedir) && ! is.na(cachedir)
             && old_cachedir != cachedir && file.exists(old_cachedir)) {
             if (file.exists(cachedir))
-                .self$caution('An old cache folder ("', old_cachedir,
+                .self$warning('An old cache folder ("', old_cachedir,
                               '") is still present on this machine, ',
                               'but you are now using the new cache folder "',
                               cachedir, '". Please, consider removing the old ',
@@ -285,7 +285,7 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     for (i in seq(content)) {
         n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
         if (is.null(n)) {
-            .self$caution('Error when reading content of file "',
+            .self$warning('Error when reading content of file "',
                           file.paths[[i]], '". The function `nchar` returned',
                           ' an error on the content. The file may be written', 
                           ' in a unexpected encoding. Trying latin-1...')
@@ -541,7 +541,7 @@ enabled=function() {
     \\code{BiodbConfig::isEnabled('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::isEnabled('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'enabled()', "BiodbConfig::isEnabled()")
 
     return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
 },
@@ -551,7 +551,7 @@ enable=function() {
     \\code{BiodbConfig::enable('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::enable('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'enable()', "BiodbConfig::enable()")
 
     .self$getBiodb()$getConfig()$enable('cache.system')
 },
@@ -561,7 +561,7 @@ disable=function() {
     \\code{BiodbConfig::disable('cache.system')}.
     "
 
-    .self$.deprecatedMethod("BiodbConfig::disable('cache.system')")
+    lifecycle::deprecate_soft('1.0.0', 'disable()', "BiodbConfig::disable()")
 
     .self$getBiodb()$getConfig()$disable('cache.system')
 }

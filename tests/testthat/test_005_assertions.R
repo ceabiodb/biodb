@@ -51,15 +51,15 @@ test.assertLengthOne <- function(biodb, obs) {
 	expect_equal(obs$getLastMsg(), "Length of myvar (2) must be one.")
 }
 
-test.searchMsEntries.assert <- function(biodb, obs) {
+test.searchForMassSpectra.assert <- function(biodb, obs) {
 
 	# Create database and connector
-	db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
+	db.df <- rbind(data.frame(), list(accession='C1', ms.mode='POS', peak.mztheo=112.07569, peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine'), stringsAsFactors=FALSE)
 	conn <- biodb$getFactory()$createConn('mass.csv.file')
 	conn$setDb(db.df)
 
-	# Call searchMsEntries() with wrong ms.level
-	expect_error(ids <- conn$searchMsEntries(mz = 10, mz.tol = 0.01, mz.tol.unit = 'plain', max.results = 1, ms.level = -1))
+	# Call searchForMassSpectra() with wrong ms.level
+	expect_error(ids <- conn$searchForMassSpectra(mz=10, mz.tol=0.01, mz.tol.unit='plain', max.results=1, ms.level=-1))
 	expect_equal(obs$getLastMsg(), "ms.level (-1) cannot be negative.")
 
 	# Destroy connector
@@ -77,13 +77,13 @@ obs <- biodb::addMsgRecObs(biodb)
 biodb::setTestContext(biodb, "Test assertions.")
 
 # Run tests
-biodb::testThat("Assertion of positive number works correctly", test.assertPositive, biodb = biodb, obs = obs)
-biodb::testThat("Assertion of enumerate works correctly", test.assertIn, biodb = biodb, obs = obs)
-biodb::testThat("Assertion of non NA value works correctly", test.assertNotNa, biodb = biodb, obs = obs)
-biodb::testThat("Assertion of non NULL value works correctly", test.assertNotNull, biodb = biodb, obs = obs)
-biodb::testThat("Assertion of inferior relationship works correctly", test.assertInferior, biodb = biodb, obs = obs)
-biodb::testThat("Assertion of a single element works correctly", test.assertLengthOne, biodb = biodb, obs = obs)
-biodb::testThat('Assertion called from searchMsEntries display the right variable name', test.searchMsEntries.assert, biodb = biodb, obs = obs)
+biodb::testThat("Assertion of positive number works correctly", test.assertPositive, biodb=biodb, obs=obs)
+biodb::testThat("Assertion of enumerate works correctly", test.assertIn, biodb=biodb, obs=obs)
+biodb::testThat("Assertion of non NA value works correctly", test.assertNotNa, biodb=biodb, obs=obs)
+biodb::testThat("Assertion of non NULL value works correctly", test.assertNotNull, biodb=biodb, obs=obs)
+biodb::testThat("Assertion of inferior relationship works correctly", test.assertInferior, biodb=biodb, obs=obs)
+biodb::testThat("Assertion of a single element works correctly", test.assertLengthOne, biodb=biodb, obs=obs)
+biodb::testThat('Assertion called from searchForMassSpectra display the right variable name', test.searchForMassSpectra.assert, biodb=biodb, obs=obs)
 
 # Terminate Biodb
 biodb$terminate()

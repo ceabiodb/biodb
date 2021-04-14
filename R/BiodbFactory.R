@@ -79,7 +79,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Disabled?
     if (db.info$getPropertyValue('disabled')) {
         reason <- db.info$getPropertyValue('disabling.reason')
-        .self$caution('The "', db.class, '" connector is disabled. ', reason,
+        .self$warning('The "', db.class, '" connector is disabled. ', reason,
                       ' You use it at your own risks.')
     }
 
@@ -108,10 +108,9 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     if ( ! is.null(url) && ! is.na(url))
         conn$setPropValSlot('urls', 'base.url', url)
 
+    existingConn <- .self$.getExistingConn(conn)
     # Check if an identical connector already exists
-    if (.self$.checkConnExists(conn, error=fail.if.exists))
-        conn <- if (get.existing.conn) .self$getConn(db.class) else NULL
-    else {
+    if (is.null(existingConn)) {
         # Debug message
         surl <- if (is.null(url) || is.na(url)) ''
             else paste0(', with base URL "', url, '"')
@@ -120,6 +119,15 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         
         # Register new instance
         .self$.conn[[conn.id]] <- conn
+    } else {
+        conn$.terminate()
+        msg <- paste0('A connector (', existingConn$getId(),
+                      ') already exists for database ', db.class,
+                      (if (is.null(url)) '' else
+                          paste0(' with the same URL (', url, ')')),
+                      (if (is.na(token)) '' else 'and the same token'), '.')
+        .self$message(if (fail.if.exists) 'error' else 'warning', msg)
+        conn <- if (get.existing.conn) existingConn else NULL
     }
 
     return (conn)
@@ -140,10 +148,9 @@ deleteConn=function(conn) {
     \nReturned value: None.
     "
 
-    if (methods::is(conn, 'BiodbConn'))
+    if (methods::is(conn, 'BiodbConn')) {
         .self$deleteConn(conn$getId())
-
-    else {
+    } else {
         .self$.assertIs(conn, 'character')
 
         if ( ! conn %in% names(.self$.conn))
@@ -155,7 +162,7 @@ deleteConn=function(conn) {
         .self$info('Connector "', conn, '" deleted.')
     }
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
 deleteConnByClass=function(db.class) {
@@ -202,13 +209,17 @@ deleteAllConnectors=function() {
         .self$deleteConn(conn$getId())
 },
 
-getConn=function(conn.id) {
-    ":\n\nGets a connector instance, creating it if necessary and possible.
-    \nconn.id: An existing connector ID or a database class (Biodb database ID).
-    In case a database ID is submitted, and no connector for this database ID
-    already exists, a new connector for this database ID is created.
+getConn=function(conn.id, class=TRUE, create=TRUE) {
+    ":\n\nGets an instantiated connector instance, or create a new one.
+    \nconn.id: An existing connector ID.
+    \nclass: If set to TRUE, and \"conn.id\" does not correspond to any
+    instantiated connector, then interpret \"conn.id\" as a database class and
+    looks for the first instantiated connector of that class.
+    \ncreate: If set to TRUE, and \"class\" is also set to TRUE, and no suitable
+    instantiated connector was found, then creates a new connector instance of
+    the class specified by \"conn.id\".
     \nReturned value: The connector instance corresponding to the connector ID
-    or to the database ID submitted.
+    or to the database ID submitted (if class \"parameter\" is set to TRUE).
     "
 
     .self$.assertNotNull(conn.id)
@@ -221,7 +232,7 @@ getConn=function(conn.id) {
         conn <- .self$.conn[[conn.id]]
 
     # Does conn.id look like a database class?
-    if (is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+    if (class && is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
 
         # Try to find connectors that are of this class
         for (c in .self$.conn)
@@ -229,7 +240,7 @@ getConn=function(conn.id) {
                 conn <- c(conn, c)
 
         # Create connector
-        if  (is.null(conn))
+        if  (is.null(conn) && create)
             conn <- .self$createConn(db.class=conn.id)
     }
 
@@ -254,7 +265,7 @@ getEntry=function(conn.id, id, drop=TRUE) {
     id <- as.character(id)
 
     # Get connector
-    conn <- .self$getConn(conn.id)
+    conn <- .self$getConn(conn.id, class=FALSE, create=FALSE)
 
     # Correct IDs
     id <- conn$correctIds(id)
@@ -327,7 +338,8 @@ deleteAllCacheEntries=function(conn.id) { # DEPRECATED
     \nconn.id: A connector ID.
     \nReturned values: None.
     "
-    .self$.deprecatedMethod("deleteAllEntriesFromVolatileCache()")
+    lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
+                              "deleteAllEntriesFromVolatileCache()")
     .self$deleteAllCacheEntries(conn.id)
 },
 
@@ -365,9 +377,9 @@ show=function() {
     return(new.entries)
 },
 
-.checkConnExists=function(new.conn, error) {
+.getExistingConn=function(new.conn) {
 
-    connExists <- FALSE
+    existingConn <- NULL
 
     # Loop on all connectors
     for (conn in .self$.conn)
@@ -386,19 +398,11 @@ show=function() {
             same.token <- (is.na(tk) && is.na(ntk)) || tk == ntk
 
             # Check
-            if (same.url && same.token) {
-                msg <- paste0('A connector (', conn$getId(),
-                              ') already exists for database ',
-                              new.conn$getDbClass(), ' with the same URL (',
-                              bu, ')',
-                              (if ( ! is.na(conn$getPropertyValue('token')))
-                                  paste0(' and the same token')), '.')
-                .self$message(if (error) 'error' else 'caution', msg)
-                connExists <- TRUE
-            }
+            if (same.url && same.token)
+                existingConn <- conn
         }
     
-    return(connExists)
+    return(existingConn)
 },
 
 .terminate=function() {

@@ -101,7 +101,7 @@ show=function() {
     cat(.self$getPropertyValue('name'), ' ', type, ".\n", sep='')
     
     # Name / ID
-    cat("  ID: ", .self$.db.class, ".\n", sep='')
+    cat("  Class: ", .self$.db.class, ".\n", sep='')
 
     # Package
     cat('  Package: ', .self$getPropertyValue('package'), ".\n", sep='')
@@ -408,7 +408,7 @@ setPropValSlot=function(name, slot, value) {
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
                    FUN.VALUE=TRUE)))
-        .self$message('caution', "Observer is already registered.")
+        .self$message('warning', "Observer is already registered.")
 
     # Register this new observer
     else
@@ -425,7 +425,7 @@ setPropValSlot=function(name, slot, value) {
 
     # Not found
     if ( ! any(found.obs))
-        .self$message('caution', 'Unknown observer to unregister.')
+        .self$message('warning', 'Unknown observer to unregister.')
 
     # Unregister observer
     else
@@ -604,39 +604,39 @@ setPropValSlot=function(name, slot, value) {
 getBaseUrl=function() {
     "Returns the base URL."
 
-    .self$.deprecatedMethod("getUrl()")
+    lifecycle::deprecate_warn('1.0.0', "getBaseUrl()", "getPropValSlot()")
 
-    return(.self$getUrl('base.url'))
+    return(.self$getPropValSlot('urls', 'base.url'))
 },
 
 setBaseUrl=function(url) {
     "Sets the base URL."
 
-    .self$.deprecatedMethod("setUrl()")
+    lifecycle::deprecate_warn('1.0.0', "setBaseUrl()", "setPropValSlot()")
 
-    .self$setUrl('base.url', url)
+    .self$setPropValSlot('urls', 'base.url', url)
 },
 
 getWsUrl=function() {
     "Returns the web sevices URL."
 
-    .self$.deprecatedMethod("getUrl()")
+    lifecycle::deprecate_warn('1.0.0', "getWsUrl()", "getPropValSlot()")
 
-    return(.self$getUrl('ws.url'))
+    return(.self$getPropValSlot('urls', 'ws.url'))
 },
 
 setWsUrl=function(ws.url) {
     "Sets the web sevices URL."
 
-    .self$.deprecatedMethod("setUrl()")
+    lifecycle::deprecate_warn('1.0.0', "setWsUrl()", "setPropValSlot()")
 
-    .self$setUrl('ws.url', ws.url)
+    .self$setPropValSlot('urls', 'ws.url', ws.url)
 },
 
 getToken=function() {
     "Returns the access token."
 
-    .self$.deprecatedMethod("getPropertyValue('token')")
+    lifecycle::deprecate_soft('1.0.0', "getToken()", "getPropertyValue()")
 
     return(.self$getPropertyValue('token'))
 },
@@ -644,7 +644,7 @@ getToken=function() {
 setToken=function(token) {
     "Sets the access token."
 
-    .self$.deprecatedMethod("setPropertyValue('token', 'my_token_value')")
+    lifecycle::deprecate_soft('1.0.0', "setToken()", "setPropertyValue()")
 
     .self$setPropertyValue('token', token)
 },
@@ -652,7 +652,7 @@ setToken=function(token) {
 getName=function() {
     "Returns the full database name."
 
-    .self$.deprecatedMethod("getPropertyValue('name')")
+    lifecycle::deprecate_soft('1.0.0', "getName()", "getPropertyValue()")
 
     return(.self$getPropertyValue('name'))
 },
@@ -660,7 +660,8 @@ getName=function() {
 getEntryContentType=function() {
     "Returns the entry content type."
 
-    .self$.deprecatedMethod("getPropertyValue('entry.content.type')")
+    lifecycle::deprecate_soft('1.0.0', "getEntryContentType()",
+                              "setPropertyValue()")
 
     return(.self$getPropertyValue('entry.content.type'))
 },
@@ -668,7 +669,8 @@ getEntryContentType=function() {
 getSchedulerNParam=function() {
     "Returns the N parameter for the scheduler."
 
-    .self$.deprecatedMethod("getPropertyValue('scheduler.n')")
+    lifecycle::deprecate_soft('1.0.0', "getSchedulerNParam()",
+                              "getPropertyValue()")
 
     return(.self$getPropertyValue('scheduler.n'))
 },
@@ -676,7 +678,8 @@ getSchedulerNParam=function() {
 setSchedulerNParam=function(n) {
     "Sets the N parameter for the scheduler."
 
-    .self$.deprecatedMethod("setPropertyValue('scheduler.n', n)")
+    lifecycle::deprecate_soft('1.0.0', "setSchedulerNParam()",
+                              "setPropertyValue()")
 
     .self$setPropertyValue('scheduler.n', n)
 },
@@ -684,7 +687,9 @@ setSchedulerNParam=function(n) {
 getSchedulerTParam=function() {
     "Returns the T parameter for the scheduler."
 
-    .self$.deprecatedMethod("getPropertyValue('scheduler.t')")
+
+    lifecycle::deprecate_soft('1.0.0', "getSchedulerTParam()",
+                              "getPropertyValue()")
 
     return(.self$getPropertyValue('scheduler.t'))
 },
@@ -692,7 +697,8 @@ getSchedulerTParam=function() {
 setSchedulerTParam=function(t) {
     "Sets the T parameter for the scheduler."
 
-    .self$.deprecatedMethod("setPropertyValue('scheduler.t', t)")
+    lifecycle::deprecate_soft('1.0.0', "setSchedulerTParam()",
+                              "setPropertyValue()")
 
     .self$setPropertyValue('scheduler.t', t)
 },
@@ -700,7 +706,7 @@ setSchedulerTParam=function(t) {
 getUrls=function() {
     "Returns the URLs."
 
-    .self$.deprecatedMethod("getPropertyValue('urls')")
+    lifecycle::deprecate_soft('1.0.0', "getUrls()", "getPropertyValue()")
 
     return(.self$getPropertyValue('urls'))
 },
@@ -708,7 +714,7 @@ getUrls=function() {
 getUrl=function(name) {
     "Returns a URL."
 
-    .self$.deprecatedMethod("getPropValSlot('urls', 'base.url')")
+    lifecycle::deprecate_soft('1.0.0', "getUrl()", "getPropValSlot()")
 
     return(.self$getPropValSlot(name='urls', slot=name))
 },
@@ -716,18 +722,15 @@ getUrl=function(name) {
 setUrl=function(name, url) {
     "Returns a URL."
 
-    .self$.deprecatedMethod(paste0("setPropValSlot('urls', 'base.url',",
-                                    " 'http://my/url')"))
+    lifecycle::deprecate_soft('1.0.0', "setUrl()", "setPropValSlot()")
 
     .self$setPropValSlot(name='urls', slot=name, value=url)
-
-#   .self$.checkSettingOfUrl(name, url)
 },
 
 getXmlNs=function() {
     "Returns the XML namespace."
 
-    .self$.deprecatedMethod("getPropertyValue('xml.ns')")
+    lifecycle::deprecate_soft('1.0.0', "getXmlNs()", "getPropertyValue()")
 
     return(.self$getPropertyValue('xml.ns'))
 }

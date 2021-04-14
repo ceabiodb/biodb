@@ -73,7 +73,7 @@ progress=function(type='info', msg, index, first, total=NA_character_,
 #' A class for recording messages during tests.
 #'
 #' The main purpose of this class is to give access to last sent messages of the
-#' different types: "error", "warning", "caution", "info" and "debug".
+#' different types: "error", "warning", "info" and "debug".
 #'
 #' @examples
 #' # To use the message recorder, the easiest way is to call addMsgRecObs()
@@ -397,7 +397,6 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
     if ( ! is.null(log) && is.character(log) && length(log) == 1
         && nchar(log) > 0) {
         logger <- BiodbLogger(file=log)
-        logger$setLevel('caution', 2L)
         logger$setLevel('debug', 2L)
         logger$setLevel('info', 2L)
         logger$setLevel('error', 2L)

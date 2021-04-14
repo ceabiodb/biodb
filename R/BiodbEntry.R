@@ -48,6 +48,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
+#' @import lifecycle
 #' @include BiodbChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
@@ -159,12 +160,12 @@ setFieldValue=function(field, value) {
                   '" in BiodEntry.')
 
     # Check value class
-    if (field.def$isVector()) {
+    if (field.def$isAtomic()) {
         if (length(value) == 0)
             .self$error('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
-            .self$caution("Unable to convert value(s) \"",
+            .self$warning("Unable to convert value(s) \"",
                           paste(value, collapse=', '), "\" into ",
                           field.def$getClass(), " type for field \"", field,
                           "\".")
@@ -178,7 +179,7 @@ setFieldValue=function(field, value) {
     value <- field.def$correctValue(value)
 
     # Remove duplicates
-    if (field.def$forbidsDuplicates() || (field.def$isVector()
+    if (field.def$forbidsDuplicates() || (field.def$isAtomic()
                                           && field.def$hasCardOne()))
         value <- value[ ! duplicated(if (field.def$isCaseInsensitive())
                                      tolower(value) else value)]
@@ -659,33 +660,36 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 getField=function(field) {
-    .self$.deprecatedMethod("getFieldValue()")
+    lifecycle::deprecate_soft('1.0.0', 'getField()', "getFieldValue()")
     return(.self$getFieldValue(field))
 },
 
 setField=function(field, value) {
-    .self$.deprecatedMethod("setFieldValue()")
+    lifecycle::deprecate_warn('1.0.0', 'setField()', "setFieldValue()")
     .self$setFieldValue(field, value)
 },
 
 getFieldClass=function(field) {
 
-    .self$.deprecatedMethod('Biodb::getEntryFields()$get(field)$getClass()')
-
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 },
 
+getFieldDef=function(field) {
+    ":\n\nGets the definition of an entry field.
+    \nfield: The name of the field.
+    \nreturn: A object BiodbEntryField which defines the field.
+    "
+    return(.self$getBiodb()$getEntryFields()$get(field))
+},
+
 getFieldCardinality=function(field) {
-
-    msg <- 'BiodbEntryField::hasCardOne() or BiodbEntryField::hasCardMany()'
-    .self$.deprecatedMethod(msg)
-
-    return(.self$getBiodb()$getEntryFields()$get(field)$getCardinality())
+    return(.self$getFieldDef(field)$getCardinality())
 },
 
 fieldHasBasicClass=function(field) {
 
-    .self$.deprecatedMethod('BiodbEntryField::isVector()')
+    lifecycle::deprecate_warn('1.0.0', 'fieldHasBasicClass()',
+                              'BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 },

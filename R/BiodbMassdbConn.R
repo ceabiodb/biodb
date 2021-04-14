@@ -223,7 +223,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         fct <- function(e) e$hasField('chrom.rt.unit')
         no.chrom.rt.unit <- ! vapply(entries, fct, FUN.VALUE=TRUE)
         if (any(no.chrom.rt.unit))
-            .self$caution('No RT unit specified in entries ',
+            .self$warning('No RT unit specified in entries ',
                           paste(vapply(entries[no.chrom.rt.unit],
                                        function(e) e$getFieldValue('accession'),
                                        FUN.VALUE=''),
@@ -380,7 +380,8 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
     ":\n\nThis method is deprecated.
     \nUse searchForMassSpectra() instead.
     "
-    .self$.deprecatedMethod("searchForMassSpectra()")
+    lifecycle::deprecate_soft('1.0.0', 'searchMsEntries()',
+                              "searchForMassSpectra()")
     return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
                                       mz.tol=mz.tol,
                                       mz.tol.unit=mz.tol.unit, rt=rt,
@@ -632,7 +633,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     ids <- character()
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
         if ( ! is.na(max.results))
-            .self$caution('Applying max.results =', max.results,'on call to',
+            .self$warning('Applying max.results =', max.results,'on call to',
                 ' searchForMassSpectra(). This may results in no matches, while there',
                 ' exist matching spectra inside the database.')
         ids <- .self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
@@ -691,7 +692,8 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
                        precursor=FALSE, ms.level=0) {
     "Find spectra in the given M/Z range. Returns a list of spectra IDs."
 
-    .self$.deprecatedMethod('BiodbMassdbConn::searchForMassSpectra()')
+    lifecycle::deprecate_soft('1.0.0', 'searchMzRange()',
+                              'BiodbMassdbConn::searchForMassSpectra()')
 
     return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
@@ -704,7 +706,8 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     "Find spectra containg a peak around the given M/Z value. Returns a
     character vector of spectra IDs."
 
-    .self$.deprecatedMethod('BiodbMassdbConn::searchForMassSpectra()')
+    lifecycle::deprecate_soft('1.0.0', 'searchMzTol()',
+                              'BiodbMassdbConn::searchForMassSpectra()')
     
     return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
                                       mz.tol.unit=mz.tol.unit,
