@@ -239,6 +239,11 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
                     is/are not defined in database file.")
     }
 
+    # Fail if already defined
+    if (field %in% names(.self$.fields))
+        .self$error('Field "', field, '" is already set to "',
+                    .self$.fields[[field]], '".')
+
     .self$debug('Set field ', field, ' to column(s) ',
                 paste(colname, collapse=', '), '.')
 

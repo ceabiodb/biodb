@@ -209,13 +209,17 @@ deleteAllConnectors=function() {
         .self$deleteConn(conn$getId())
 },
 
-getConn=function(conn.id) {
-    ":\n\nGets a connector instance, creating it if necessary and possible.
-    \nconn.id: An existing connector ID or a database class (Biodb database ID).
-    In case a database ID is submitted, and no connector for this database ID
-    already exists, a new connector for this database ID is created.
+getConn=function(conn.id, class=TRUE, create=TRUE) {
+    ":\n\nGets an instantiated connector instance, or create a new one.
+    \nconn.id: An existing connector ID.
+    \nclass: If set to TRUE, and \"conn.id\" does not correspond to any
+    instantiated connector, then interpret \"conn.id\" as a database class and
+    looks for the first instantiated connector of that class.
+    \ncreate: If set to TRUE, and \"class\" is also set to TRUE, and no suitable
+    instantiated connector was found, then creates a new connector instance of
+    the class specified by \"conn.id\".
     \nReturned value: The connector instance corresponding to the connector ID
-    or to the database ID submitted.
+    or to the database ID submitted (if class \"parameter\" is set to TRUE).
     "
 
     .self$.assertNotNull(conn.id)
@@ -228,7 +232,7 @@ getConn=function(conn.id) {
         conn <- .self$.conn[[conn.id]]
 
     # Does conn.id look like a database class?
-    if (is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+    if (class && is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
 
         # Try to find connectors that are of this class
         for (c in .self$.conn)
@@ -236,7 +240,7 @@ getConn=function(conn.id) {
                 conn <- c(conn, c)
 
         # Create connector
-        if  (is.null(conn))
+        if  (is.null(conn) && create)
             conn <- .self$createConn(db.class=conn.id)
     }
 
@@ -261,7 +265,7 @@ getEntry=function(conn.id, id, drop=TRUE) {
     id <- as.character(id)
 
     # Get connector
-    conn <- .self$getConn(conn.id)
+    conn <- .self$getConn(conn.id, class=FALSE, create=FALSE)
 
     # Correct IDs
     id <- conn$correctIds(id)

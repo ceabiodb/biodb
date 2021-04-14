@@ -44,9 +44,6 @@ test.mass.csv.file.output.columns <- function(db) {
 
     biodb <- db$getBiodb()
 
-    print("-------------------------------- test.mass.csv.file.output.columns 1")
-    print(db$getPropValSlot('urls', 'base.url'))
-
     # Open database file
     db.df <- read.table(db$getPropValSlot('urls', 'base.url'), sep="\t",
                         header=TRUE, quote='"', stringsAsFactors=FALSE,
@@ -58,11 +55,6 @@ test.mass.csv.file.output.columns <- function(db) {
 
     # Run a match
     spectra.ids <- db$searchMzTol(mz, ms.level=1, mz.tol=5, mz.tol.unit='ppm')
-    print("-------------------------------- test.mass.csv.file.output.columns 4")
-    print(spectra.ids)
-    print("-------------------------------- test.mass.csv.file.output.columns 5")
-    print(db$getEntry(spectra.ids))
-    print("-------------------------------- test.mass.csv.file.output.columns 6")
 
     # Get data frame of results
     entries <- biodb$getFactory()$getEntry(db$getId(), spectra.ids)
@@ -77,21 +69,10 @@ test.mass.csv.file.output.columns <- function(db) {
     msg <- paste("Columns ",
         paste(colnames(db.df)[! colnames(db.df) %in% colnames(entries.df)],
               collapse=', '), " are not included in output.", sep='')
-    print("-------------------------------- test.mass.csv.file.output.columns 8")
-    print(length(entries))
-    print("-------------------------------- test.mass.csv.file.output.columns 9")
-    print(entries)
-    print("-------------------------------- test.mass.csv.file.output.columns 10")
-    print(colnames(entries.df))
-    print("-------------------------------- test.mass.csv.file.output.columns 11")
-    print(colnames(db.df))
-    print("-------------------------------- test.mass.csv.file.output.columns 12")
     testthat::expect_true(all(colnames(db.df) %in% colnames(entries.df)), msg)
 }
 
 test.mass.csv.file.data.frame <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     # Define database data frame
     ids <- 'ZAP'
@@ -116,8 +97,6 @@ test.mass.csv.file.data.frame <- function(biodb) {
 
 test.mass.csv.file.old.col.names <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Define data frame
     df <- data.frame(compoundid='A10', msmode='POS', mztheo=112.07569,
                      peakcomp='P9Z6W410', peakattr='[(M+H)-(H2O)-(NH3)]+',
@@ -138,13 +117,6 @@ test.mass.csv.file.old.col.names <- function(biodb) {
 
 test.fields <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
-    # Create new connector
-    conn <- biodb$getFactory()$createConn('mass.csv.file', url=MASSFILEDB.URL)
-    conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
-                                 'chrom.rt'))
-
     # Get fields
     col.name <- conn$getFieldColName('ms.mode')
     expect_is(col.name, 'character')
@@ -164,13 +136,11 @@ test.fields <- function(biodb) {
     testthat::expect_error(conn$setField('ms.mode', colname='wrong.col.name'),
                  regexp='^.* Column.* is/are not defined in database file.$')
 
-    # Try to set accession field
-    conn$setField('accession', 'compound.id')
+    # Reseting accession field should fail
+    testthat::expect_error(conn$setField('accession', 'compound.id'))
 }
 
 test.undefined.fields <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     conn <- biodb$getFactory()$createConn('mass.csv.file',
                                           url=MASSFILEDB.WRONG.HEADER.URL)
@@ -197,13 +167,11 @@ test.wrong.nb.cols <- function(biodb) {
 
 test.field.card.one <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Define database data frame
     ids <- c('ZAP', 'ZAP')
     mzs <- c(12, 14)
     modes <- c('+', '-')
-    df <- data.frame(ids = ids, mz = mzs, mode = modes)
+    df <- data.frame(ids=ids, mz=mzs, mode=modes)
 
     # Create connector
     conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -213,35 +181,31 @@ test.field.card.one <- function(biodb) {
     conn$setField('accession', 'ids')
     conn$setField('ms.mode', 'mode')
     conn$setField('peak.mztheo', 'mz')
-    expect_error(conn$checkDb(), regexp = '^.* Cannot set more that one value .* into single value field .*\\.$')
+    expect_error(conn$checkDb(), regexp='^.* Cannot set more that one value .* into single value field .*\\.$')
 }
 
 test.getMzValues.without.peak.attr <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     df <- rbind(data.frame(),
-                list(accession = 'BML80005', ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
-                stringsAsFactors = FALSE)
+                list(accession='BML80005', ms.mode='pos', ms.level=1, peak.mztheo=219.1127765, peak.intensity=373076,  peak.relative.intensity=999),
+                stringsAsFactors=FALSE)
 
     # Create connector
     conn <- biodb$getFactory()$createConn('mass.csv.file')
     conn$setDb(df)
 
     # Get M/Z values
-    mzs <- conn$getMzValues(max.results = 10)
+    mzs <- conn$getMzValues(max.results=10)
     expect_is(mzs, 'numeric')
     expect_length(mzs, 1)
 
     # Get M/Z values filtering on precursor
-    mzs <- conn$getMzValues(max.results = 10, precursor = TRUE, ms.mode = 'pos')
+    mzs <- conn$getMzValues(max.results=10, precursor=TRUE, ms.mode='pos')
     expect_is(mzs, 'numeric')
     expect_length(mzs, 0)
 }
 
 test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     # Define db data frame
     id <- 'BML80005'
@@ -277,12 +241,10 @@ test.mass.csv.file.entry.peaks.table.col.names <- function(biodb) {
 
 test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Define db data frame
-    db.df <- rbind(data.frame(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine', inchi = 'InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey = 'NA'),
-                   data.frame(accession = 'C2', ms.mode = 'POS', peak.mztheo = 208.8274, peak.comp = 'Y2Z6W410 O', peak.attr = '[(M+H)-(H2O)]+', formula = "T114L6M62O2", molecular.mass = 146.10553, name = 'Sloopaine', inchi = 'InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey = 'FRYVQXCDSBCDAU-AKDOOQIZSA-N'),
-                   stringsAsFactors = FALSE)
+    db.df <- rbind(data.frame(accession='C1', ms.mode='POS', peak.mztheo=112.07569, peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine', inchi='InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey='NA'),
+                   data.frame(accession='C2', ms.mode='POS', peak.mztheo=208.8274, peak.comp='Y2Z6W410 O', peak.attr='[(M+H)-(H2O)]+', formula="T114L6M62O2", molecular.mass=146.10553, name='Sloopaine', inchi='InChI=1S/C7H8N4O3/c1-10-4-3(8-6(10)13)5(12)11(2)7(14)9-4/h1-2H3,(H,8,13)(H,9,14)', inchikey='FRYVQXCDSBCDAU-AKDOOQIZSA-N'),
+                   stringsAsFactors=FALSE)
 
     # Create connector
     conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -296,8 +258,6 @@ test.mass.csv.file.searchMsPeaks.column.sorting <- function(biodb) {
 }
 
 test.mass.csv.file.mz.matching.limits <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     # Define db data frame
     db.df <- rbind(data.frame(), list(accession='C1', ms.mode='POS',
@@ -344,8 +304,6 @@ test.mass.csv.file.mz.matching.limits <- function(biodb) {
 
 test.mass.csv.file.rt.matching.limits <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Define db data frame
     db.df <- rbind(data.frame(), list(accession = 'C1', ms.mode = 'POS', peak.mztheo = 112.07569, peak.comp = 'P9Z6W410 O', peak.attr = '[(M+H)-(H2O)-(NH3)]+', chrom.col.id = "col1", chrom.rt = 5.69, chrom.rt.unit = 'min', formula = "J114L6M62O2", molecular.mass = 146.10553, name = 'Blablaine'), stringsAsFactors = FALSE)
 
@@ -369,36 +327,68 @@ test.mass.csv.file.rt.matching.limits <- function(biodb) {
     rt.inf <- uniroot(function(rt) rt + x + (rt) ^ y - rt.sec, c(0,1000))$root
 
     # Search
-    results1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sec, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
+    results1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=rt.sec, rt.unit=rt.unit, rt.tol=x,
+                                   rt.tol.exp=y)
     expect_is(results1, 'data.frame')
-    results2 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=(rt.inf + rt.sup) / 2, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
+    results2 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=(rt.inf + rt.sup) / 2, rt.unit=rt.unit,
+                                   rt.tol=x, rt.tol.exp=y)
     expect_is(results2, 'data.frame')
-    results3 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
+    results3 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=rt.inf, rt.unit=rt.unit, rt.tol=x,
+                                   rt.tol.exp=y)
     expect_is(results3, 'data.frame')
-    results4 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf - 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=FALSE)
+    results4 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=rt.inf - 1e-6, rt.unit=rt.unit, rt.tol=x,
+                                   rt.tol.exp=y, insert.input.values=FALSE)
     expect_identical(results4, data.frame())
-    results4.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.inf - 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=TRUE)
+    results4.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol,
+                                     mz.tol.unit=mz.tol.unit, ms.mode='pos',
+                                     chrom.col.ids=col.id, rt=rt.inf - 1e-6,
+                                     rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y,
+                                     insert.input.values=TRUE)
     expect_is(results4.1, 'data.frame')
     expect_identical(colnames(results4.1), c('mz', 'rt'))
-    results5 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y)
+    results5 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=rt.sup, rt.unit=rt.unit, rt.tol=x,
+                                   rt.tol.exp=y)
     expect_is(results5, 'data.frame')
-    results6 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup + 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=FALSE)
+    results6 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                                   ms.mode='pos', chrom.col.ids=col.id,
+                                   rt=rt.sup + 1e-6, rt.unit=rt.unit, rt.tol=x,
+                                   rt.tol.exp=y, insert.input.values=FALSE)
     expect_identical(results6, data.frame())
-    results6.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, ms.mode='pos', chrom.col.ids=col.id, rt=rt.sup + 1e-6, rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y, insert.input.values=TRUE)
+    results6.1 <- conn$searchMsPeaks(mz, mz.tol=mz.tol,
+                                     mz.tol.unit=mz.tol.unit, ms.mode='pos',
+                                     chrom.col.ids=col.id, rt=rt.sup + 1e-6,
+                                     rt.unit=rt.unit, rt.tol=x, rt.tol.exp=y,
+                                     insert.input.values=TRUE)
     expect_is(results6.1, 'data.frame')
     expect_identical(colnames(results6.1), c('mz', 'rt'))
 }
 
 test.mass.csv.file.ms.mode.values <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Define db data frame
-    db.df <- rbind(data.frame(), list(accession='C1', ms.mode='ZZZ', peak.mztheo=112.07569, peak.comp='P9Z6W410 O', peak.attr='[(M+H)-(H2O)-(NH3)]+', formula="J114L6M62O2", molecular.mass=146.10553, name='Blablaine'), stringsAsFactors=FALSE)
+    db.df <- rbind(data.frame(), list(accession='C1', ms.mode='ZZZ',
+                                      peak.mztheo=112.07569,
+                                      peak.comp='P9Z6W410 O',
+                                      peak.attr='[(M+H)-(H2O)-(NH3)]+',
+                                      formula="J114L6M62O2",
+                                      molecular.mass=146.10553,
+                                      name='Blablaine'),
+                   stringsAsFactors=FALSE)
 
     # Add new MS mode value
     biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'POS')
-    expect_error(biodb$getEntryFields()$get('ms.mode')$addAllowedValue('neg', 'POS'))
+    expect_error(biodb$getEntryFields()$get('ms.mode')$addAllowedValue('neg',
+                                                                       'POS'))
     biodb$getEntryFields()$get('ms.mode')$addAllowedValue('pos', 'ZZZ')
 
     # Create connector
@@ -418,8 +408,6 @@ test.mass.csv.file.ms.mode.values <- function(biodb) {
 }
 
 test.mass.csv.file.precursor.match <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     # Set retention time values
     prec.112.rt <- 5.69
@@ -447,13 +435,16 @@ test.mass.csv.file.precursor.match <- function(biodb) {
     rt <- c(prec.112.rt, prec.112.rt, prec.108.rt + precursor.rt.tol + 1e-6)
 
     # M/Z Search
-    results <- conn$searchMsPeaks(mz = mz, mz.tol = 0.1, precursor = TRUE)
+    results <- conn$searchMsPeaks(mz=mz, mz.tol=0.1, precursor=TRUE)
     expect_is(results, 'data.frame')
     expect_equal(nrow(results), 3)
     expect_true(all(results[['accession']] %in% c('A2', 'B3')))
 
     # With precursor RT tolerance
-    results2 <- conn$searchMsPeaks(mz = mz, rt = rt, mz.tol = 0.1, precursor = TRUE, precursor.rt.tol = precursor.rt.tol, chrom.col.ids = 'col1', rt.tol = rt.tol , rt.tol.exp = rt.tol.exp, rt.unit = 'min')
+    results2 <- conn$searchMsPeaks(mz=mz, rt=rt, mz.tol=0.1, precursor=TRUE,
+                                   precursor.rt.tol=precursor.rt.tol,
+                                   chrom.col.ids='col1', rt.tol=rt.tol ,
+                                   rt.tol.exp=rt.tol.exp, rt.unit='min')
     expect_is(results2, 'data.frame')
     expect_equal(nrow(results2), 3)
     expect_identical(results2[['accession']], c('A2', 'A2', NA_character_))
@@ -480,7 +471,7 @@ test.mass.csv.file.cache.id <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 
     # Open a connector to the same URL
-    conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.file)
+    conn <- biodb$getFactory()$createConn('mass.csv.file', url=db.file)
 
     # Test that we get the same cache ID
     testthat::expect_equal(conn$getCacheId(), cache.id)
@@ -491,18 +482,19 @@ test.mass.csv.file.cache.id <- function(biodb) {
 
 test.mass.csv.file.cache.confusion <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Create data frame for new file db A
     entry.id <- 'K'
-    df <- rbind(data.frame(accession = entry.id, ms.mode = 'pos', ms.level = 1, peak.mztheo = 219.1127765, peak.intensity = 373076,  peak.relative.intensity = 999),
-                stringsAsFactors = FALSE)
+    df <- rbind(data.frame(accession=entry.id, ms.mode='pos', ms.level=1,
+                           peak.mztheo=219.1127765, peak.intensity=373076,
+                           peak.relative.intensity=999),
+                stringsAsFactors=FALSE)
 
     # Open a connector to data frame and set URL to file db A
-    db.A.file <- file.path(biodb::getTestOutputDir(), 'test.mass.csv.file.cache.confusion_db_A.tsv')
+    db.A.file <- file.path(biodb::getTestOutputDir(),
+                           'test.mass.csv.file.cache.confusion_db_A.tsv')
     if (file.exists(db.A.file))
         unlink(db.A.file)
-    conn <- biodb$getFactory()$createConn('mass.csv.file', url = db.A.file)
+    conn <- biodb$getFactory()$createConn('mass.csv.file', url=db.A.file)
     conn$setDb(df)
 
     # Save database
@@ -534,8 +526,6 @@ test.mass.csv.file.cache.confusion <- function(biodb) {
 
 test_massCsvFile_entry_instantiation <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
     # Create database
     db <- data.frame(
         accession=c("A1", "A1", "A1", "A1", "A1"),
@@ -562,9 +552,6 @@ test_massCsvFile_entry_instantiation <- function(biodb) {
 
 test_msmsSearch_R4.0_non_regression <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-
-    biodb$getFactory()$deleteAllConnectors()
     db.tsv <- system.file("extdata", "massbank_extract_msms.tsv",
                           package='biodb')
     conn <- biodb$getFactory()$createConn('mass.csv.file', url=db.tsv)
@@ -577,8 +564,6 @@ test_msmsSearch_R4.0_non_regression <- function(biodb) {
 }
 
 test_matchingField <- function(biodb) {
-
-    biodb$getFactory()$deleteAllConnectors()
 
     # Database with no M/Z field
     df <- data.frame(accession='1')
@@ -645,15 +630,14 @@ biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 
 # Run tests
 biodb::runGenericTests(conn)
+biodb::testThat('Test fields manipulation works correctly.', test.fields,
+                conn=conn)
 biodb::testThat("Mass CSV file entry construction works.",
                 test_massCsvFile_entry_instantiation, biodb=biodb)
 biodb::testThat("MassCsvFileConn methods are correct",
                 test.basic.mass.csv.file, conn=conn)
 biodb::testThat("M/Z match output contains all columns of database.",
                 test.mass.csv.file.output.columns, conn=conn)
-
-biodb::testThat('Test fields manipulation works correctly.', test.fields,
-                biodb=biodb)
 biodb::testThat('Test that we detect undefined fields', test.undefined.fields,
                 biodb=biodb)
 biodb::testThat('Setting database with a data frame works.',
