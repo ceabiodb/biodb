@@ -1209,18 +1209,28 @@ test.searchMsPeaks.rt <- function(db) {
     # Search for MZ/RT
     mz.tol <- 0
     rt.tol <- 0
-    peaks <- db$searchMsPeaks(mz = mz, chrom.col.ids = chrom.col.ids, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+    peaks <- db$searchMsPeaks(mz=mz, chrom.col.ids=chrom.col.ids, rt=rt,
+                              rt.tol=rt.tol, mz.tol=mz.tol, max.results=1,
+                              ms.mode=entry$getFieldValue('ms.mode'),
+                              rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
-    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
+                              (peaks$peak.mz <= mz + mz.tol)))
+    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
+                              (peaks$chrom.rt <= rt + rt.tol)))
 
     # Search for MZ/RT without chrom.col.ids
-    peaks <- db$searchMsPeaks(mz = mz, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+    peaks <- db$searchMsPeaks(mz=mz, rt=rt, rt.tol=rt.tol, mz.tol=mz.tol,
+                              max.results=1,
+                              ms.mode=entry$getFieldValue('ms.mode'),
+                              rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
-    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
+                              (peaks$peak.mz <= mz + mz.tol)))
+    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
+                              (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 test.msmsSearch.no.ids <- function(db) {

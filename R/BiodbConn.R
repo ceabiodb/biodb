@@ -231,17 +231,8 @@ getEntryContent=function(id) {
 
             # Merge content and missing.contents
             missing.contents <- as.list(missing.contents)
-            print("================================ BiodbConn::getEntryContent 98")
-            print(id)
-            print("================================ BiodbConn::getEntryContent 99")
-            print(missing.ids)
-            print("================================ BiodbConn::getEntryContent 100")
-            print(missing.contents)
-            print("================================ BiodbConn::getEntryContent 101")
             ii <- vapply(id[id %in% missing.ids],
                          function(x) which(missing.ids == x), FUN.VALUE=1L)
-            print(ii)
-            print("================================ BiodbConn::getEntryContent 102")
             content[id %in% missing.ids] <- missing.contents[ii]
         }
     }
@@ -274,9 +265,6 @@ getEntryIds=function(max.results=0, ...) {
     does not support requesting for entry accessions.
     "
 
-    print('================================ BiodbConn::getEntryIds 1')
-    print(max.results)
-    print('================================ BiodbConn::getEntryIds 2')
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
 

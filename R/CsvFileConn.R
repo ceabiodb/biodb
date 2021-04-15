@@ -476,8 +476,8 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
-                 max.rows=0, ...) {
+.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE,
+                 sort=FALSE, max.rows=0, ...) {
     
     chk::chk_number(max.rows)
     chk::chk_gte(max.rows, 0)

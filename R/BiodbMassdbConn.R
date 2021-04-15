@@ -135,7 +135,7 @@ setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
     .self$setPropValSlot('matching.fields', 'mz', field)
 },
 
-getMzValues=function(ms.mode=NULL, max.results=NA_integer_,
+getMzValues=function(ms.mode=NULL, max.results=0,
                      precursor=FALSE, ms.level=0) {
     ":\n\nGets a list of M/Z values contained inside the database.
     \nms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
@@ -263,9 +263,9 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
 },
 
 searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-                         mz.tol=NA_real_, mz.tol.unit='plain', 
-                         rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
-                         rt.tol.exp=NA_real_, chrom.col.ids=NULL,
+                         mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), 
+                         rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
+                         rt.tol.exp=NULL, chrom.col.ids=NULL,
                          precursor=FALSE,
                          min.rel.int=0, ms.mode=NULL,
                          max.results=0, ms.level=0) {
@@ -306,6 +306,8 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
     "
 
     # Check arguments
+    rt.unit <- match.arg(rt.unit)
+    mz.tol.unit <- match.arg(mz.tol.unit)
     check.param <- .self$.checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
         mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
         rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
@@ -371,9 +373,9 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
 },
 
 searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-                         mz.tol=NA_real_, mz.tol.unit='plain', 
-                         rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
-                         rt.tol.exp=NA_real_, chrom.col.ids=NULL,
+                         mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), 
+                         rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
+                         rt.tol.exp=NULL, chrom.col.ids=NULL,
                          precursor=FALSE,
                          min.rel.int=0, ms.mode=NULL,
                          max.results=0, ms.level=0) { # DEPRECATED
@@ -394,11 +396,11 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                                       max.results=max.results))
 },
 
-searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
-    mz.tol.unit='plain', min.rel.int=0, ms.mode=NULL,
+searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
+    mz.tol.unit=c('plain', 'ppm'), min.rel.int=0, ms.mode=NULL,
     ms.level=0, max.results=0, chrom.col.ids=NULL, rt=NULL,
-    rt.unit=NA_character_, rt.tol=NA_real_, rt.tol.exp=NA_real_,
-    precursor=FALSE, precursor.rt.tol=NA_real_, insert.input.values=TRUE,
+    rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL,
+    precursor=FALSE, precursor.rt.tol=NULL, insert.input.values=TRUE,
     prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0,
     input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
     ":\n\nFor each M/Z value, searches for matching MS spectra and returns the
@@ -450,6 +452,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
     "
 
     # Check arguments
+    rt.unit <- match.arg(rt.unit)
+    mz.tol.unit <- match.arg(mz.tol.unit)
     check.param <- .self$.checkSearchMsParam(input.df=input.df, mz.min=NULL,
         mz.max=NULL, mz=mz, mz.tol=mz.tol,
         mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
@@ -499,7 +503,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
                                           min.rel.int=min.rel.int,
                                           ms.mode=ms.mode, max.results=if
                                           (check.param$use.rt.match)
-                                          NA_integer_ else max.results,
+                                          0 else max.results,
                                           ms.level=ms.level)
         .self$debug2List('Found spectra', ids)
 
@@ -599,8 +603,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
     return(results)
 },
 
-msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
-    ms.mode, npmin=2,
+msmsSearch=function(spectrum, precursor.mz, mz.tol,
+                    mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2,
     dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
     msms.mz.tol.min=0.005, max.results=0) {
     ":\n\nSearches MSMS spectra matching a template spectrum. The mz.tol
@@ -628,6 +632,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
 
     peak.tables <- list()
     dist.fun <- match.arg(dist.fun)
+    mz.tol.unit <- match.arg(mz.tol.unit)
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
 
@@ -813,10 +818,10 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         chk::chk_gte(rt, 0)
         chk::chk_number(rt.tol)
         chk::chk_gte(rt.tol, 0)
-        chk::chk_number(rt.tol.exp)
+        chk::chk_null_or(rt.tol.exp, chk::chk_number)
         chk::chk_gte(rt.tol.exp, 0)
-        chk:chk_null_or(chrom.col.ids, chk::chk_character)
-        chk:chk_null_or(chrom.col.ids, chk::chk_not_any_na)
+        chk::chk_null_or(chrom.col.ids, chk::chk_character)
+        chk::chk_null_or(chrom.col.ids, chk::chk_not_any_na)
         rt.unit <- match.arg(rt.unit)
     }
 },
@@ -928,7 +933,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         rt.max <- rt.max + rt.tol
     }
     .self$debug('At step 2, RT range is [', rt.min, ', ', rt.max, '] (s).')
-    if ( ! is.na(rt.tol.exp)) {
+    if ( ! is.null(rt.tol.exp)) {
         .self$message('debug', paste0('RT tol exp is ', rt.tol.exp, '.'))
         rt.min <- rt.min - rt.sec ** rt.tol.exp
         rt.max <- rt.max + rt.sec ** rt.tol.exp

@@ -187,7 +187,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 .doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL,
-                   mz.max=NULL, min.rel.int=NA_real_, precursor=FALSE, level=0)
+                   mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
 {
 
     # Filtering
@@ -197,7 +197,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
         db <- .self$.selectByCompoundIds(db, compound.ids)
     if ( ! is.null(mz.min) || ! is.null(mz.max))
         db <- .self$.selectByMzValues(db, mz.min, mz.max)
-    if ( ! is.na(min.rel.int))
+    if (min.rel.int > 0)
         db <- .self$.selectByRelInt(db, min.rel.int)
     if (precursor)
         db <- .self$.selectByPrecursors(db)
