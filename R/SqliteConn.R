@@ -246,7 +246,7 @@ getQuery=function(query) {
         DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values)
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=0) {
 
     ids <- integer()
 
@@ -261,8 +261,7 @@ getQuery=function(query) {
 
             # Build query
             query <- "select accession from entries"
-            if ( ! is.null(max.results) && ! is.na(max.results)
-                && (is.numeric(max.results) || is.integer(max.results)))
+            if (max.results > 0)
                 query <- paste0(query, ' limit ', as.integer(max.results))
 
             # Run query

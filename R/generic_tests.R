@@ -400,7 +400,7 @@ test.db.copy <- function(conn) {
 
 test.searchForEntries = function(conn, opt=NULL) {
     
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
@@ -451,7 +451,7 @@ test.searchByName = function(conn, opt=NULL) {
     # Allow running of deprecated methods while testing
     withr::local_options(lifecycle_verbosity="quiet")
 
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
@@ -487,7 +487,7 @@ test.searchByName = function(conn, opt=NULL) {
 
 test.searchCompound <- function(db, opt=NULL) {
     
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 

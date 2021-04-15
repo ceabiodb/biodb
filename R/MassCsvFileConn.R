@@ -68,7 +68,7 @@ setPrecursorFormulae=function(formulae) {
     \nReturned value: None.
     "
 
-    .self$.assertIs(formulae, 'character')
+    chk::chk_character(formulae)
     .self$.precursors <- formulae[ ! duplicated(formulae)]
 },
 

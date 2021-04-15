@@ -73,7 +73,7 @@ setCsvQuote=function(quote) {
 
     .self$.assertNotNull(quote)
     .self$.assertNotNa(quote)
-    .self$.assertIs(quote, 'character')
+    chk::chk_character(quote)
     .self$.assertLengthOne(quote)
     
     if ( ! is.null(.self$.db))
@@ -100,7 +100,7 @@ setCsvSep=function(sep) {
 
     .self$.assertNotNull(sep)
     .self$.assertNotNa(sep)
-    .self$.assertIs(sep, 'character')
+    chk::chk_character(sep)
     .self$.assertLengthOne(sep)
     
     if ( ! is.null(.self$.db))
@@ -477,8 +477,11 @@ defineParsingExpressions=function() {
 },
 
 .select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
-                 max.rows=NA_integer_, ...) {
+                 max.rows=0, ...) {
     
+    chk::chk_number(max.rows)
+    chk::chk_gte(max.rows, 0)
+
     # Get database
     if (is.null(db)) {
         .self$.initDb()
@@ -505,7 +508,7 @@ defineParsingExpressions=function() {
         db <- db[order(db[[1]]), , drop=FALSE]
 
     # Cut
-    if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
+    if (max.rows > 0 && nrow(db) > max.rows)
         db <- db[seq_len(max.rows), , drop=FALSE]
 
     # Drop
@@ -646,7 +649,7 @@ ignoreUnassignedColumns=function(ignore=TRUE) {
     .self$.autoSetFieldsHasBeenRun <- TRUE
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=0) {
     # Overrides super class' method.
 
     ids <- NA_character_

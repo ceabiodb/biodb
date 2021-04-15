@@ -61,7 +61,7 @@ initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
     callSuper(...)
     .self$.abstractClass('BiodbConn')
 
-    .self$.assertIs(id, "character")
+    chk::chk_character(id)
     .self$.id <- id
     .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
     .self$.entries <- list()
@@ -250,7 +250,7 @@ getEntryContentFromDb=function(entry.id) {
     .self$.abstractMethod()
 },
 
-getEntryIds=function(max.results=NA_integer_, ...) {
+getEntryIds=function(max.results=0, ...) {
     ":\n\nGet entry identifiers from the database. More arguments can be given,
     depending on implementation in specific databases. For mass databases, the
     ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
@@ -262,6 +262,12 @@ getEntryIds=function(max.results=NA_integer_, ...) {
     does not support requesting for entry accessions.
     "
 
+    print('================================ BiodbConn::getEntryIds 1')
+    print(max.results)
+    print('================================ BiodbConn::getEntryIds 2')
+    chk::chk_number(max.results)
+    chk::chk_gte(max.results, 0)
+
     ids <- character()
 
     # Get IDs from volatile cache
@@ -269,10 +275,8 @@ getEntryIds=function(max.results=NA_integer_, ...) {
     ids <- names(.self$.entries[not.null])
 
     # Get IDs from database
-    if (is.null(max.results) || is.na(max.results)
-        || length(ids) < max.results) {
-        mx <- if (is.null(max.results)) NA_integer_ else max.results
-        db.ids <- .self$.doGetEntryIds(mx, ...)
+    if (max.results == 0 || length(ids) < max.results) {
+        db.ids <- .self$.doGetEntryIds(max.results=max.results, ...)
         if ( ! is.null(db.ids)) {
             db.ids <- as.character(db.ids)
             ids <- c(ids, db.ids[ ! db.ids %in% ids])
@@ -280,8 +284,7 @@ getEntryIds=function(max.results=NA_integer_, ...) {
     }
 
     # Cut
-    if ( ! is.null(max.results) && ! is.na(max.results) && max.results > 0
-        && length(ids) > max.results)
+    if (max.results > 0 && length(ids) > max.results)
         ids <- ids[seq_len(max.results)]
 
     return(ids)
@@ -345,7 +348,7 @@ isSearchableByField=function(field) {
     return(v)
 },
 
-searchForEntries=function(fields=NULL, max.results=NA_integer_) {
+searchForEntries=function(fields=NULL, max.results=0) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
     \nfields: A list of fields on which to filter entries. To get a match, all
@@ -397,12 +400,12 @@ searchForEntries=function(fields=NULL, max.results=NA_integer_) {
     return(ids)
 },
 
-.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+.doSearchForEntries=function(fields=NULL, max.results=0) {
     # To be implemented by derived class.
     return(NULL)
 },
 
-searchByName=function(name, max.results=NA_integer_) { # DEPRECATED
+searchByName=function(name, max.results=0) { # DEPRECATED
     ":\n\nThis method is deprecated.
     \nUse searchForEntries() instead.
     "
@@ -607,7 +610,7 @@ makeRequest=function(...) {
     return(req)
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=0) {
     .self$.abstractMethod()
 },
 

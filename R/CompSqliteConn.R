@@ -28,18 +28,21 @@ CompSqliteConn <- methods::setRefClass('CompSqliteConn',
 
 methods=list(
 
-.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+.doSearchForEntries=function(fields=NULL, max.results=0) {
     # Overrides super class' method.
 
     ids <- character()
     .self$.initDb()
 
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 10')
     if ( ! is.null(.self$.db)) {
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 11')
 
         query <- BiodbSqlQuery()
         query$setTable('entries')
         query$setDistinct(TRUE)
         query$setWhere(BiodbSqlLogicalOp(op='and'))
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 15')
 
         # Search by name
         if ('name' %in% names(fields)) {
@@ -50,10 +53,12 @@ methods=list(
                                      rexpr=BiodbSqlValue(fields$name))
             query$getWhere()$addExpr(expr)
         }
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 20')
         
         # Search by mass
         ef <- .self$getBiodb()$getEntryFields()
         for (field in names(fields)) {
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 30')
             
             # This is a mass field
             if (ef$get(field)$getType() == 'mass') {
@@ -61,10 +66,12 @@ methods=list(
                 
                 # Compute range
                 if ('min' %in% names(param)) {
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 40')
                     .self$.checkMassField(mass=param$min, mass.field=field)
                     rng <- list(a=param$min, b=param$max)
                 }
                 else {
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 50')
                     .self$.checkMassField(mass=param$value, mass.field=field)
                     if ('delta' %in% names(param))
                         rng <- convertTolToRange(param$value, param$delta,
@@ -73,6 +80,7 @@ methods=list(
                         rng <- convertTolToRange(param$value, param$ppm, 'ppm')
                 }
                 
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 60')
                 # Complete query
                 expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table="entries",
                                                               field=field),
@@ -82,18 +90,23 @@ methods=list(
                                                              field=field),
                                          op='<=', rexpr=BiodbSqlValue(rng$b))
                 query$getWhere()$addExpr(expr)
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 70')
             }
         }
         
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 80')
         # Cut
-        if ( ! is.null(max.results) && ! is.na(max.results))
+        if (max.results > 0)
             query$setLimit(max.results)
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 90')
         
         # Run query
         query$addField(table="entries", field='accession')
         x <- .self$getQuery(query)
         ids <- x[[1]]
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 100')
     }
+    print('-------------------------------- CompSqliteConn::.doSearchForEntries 110')
     
     return(ids)
 }

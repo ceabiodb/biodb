@@ -151,7 +151,7 @@ deleteConn=function(conn) {
     if (methods::is(conn, 'BiodbConn')) {
         .self$deleteConn(conn$getId())
     } else {
-        .self$.assertIs(conn, 'character')
+        chk::chk_character(conn)
 
         if ( ! conn %in% names(.self$.conn))
             .self$error('Connector "', conn, '" is unknown.')
@@ -172,7 +172,7 @@ deleteConnByClass=function(db.class) {
     \nReturned value: None.
     "
 
-    .self$.assertIs(db.class, 'character')
+    chk::chk_character(db.class)
 
     n <- 0
     for (c in .self$.conn)
@@ -222,8 +222,9 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
     or to the database ID submitted (if class \"parameter\" is set to TRUE).
     "
 
-    .self$.assertNotNull(conn.id)
-    .self$.assertIs(conn.id, 'character')
+    chk::chk_string(conn.id)
+    chk::chk_flag(class)
+    chk::chk_flag(create)
 
     conn <- NULL
 
@@ -310,7 +311,7 @@ getAllCacheEntries=function(conn.id) {
     \nReturned values: A list of BiodbEntry objects.
     "
 
-    .self$.assertNotNull(conn.id)
+    chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
         .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
@@ -325,7 +326,7 @@ deleteAllEntriesFromVolatileCache=function(conn.id) {
     \nReturned values: None.
     "
 
-    .self$.assertNotNull(conn.id)
+    chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
         .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))

@@ -64,16 +64,14 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     # Take parameter values from other object instance
     if ( ! is.null(other)) {
-        .self$.assertInheritsFrom(other, "BiodbConnBase")
+        chk::chk_is(other, "BiodbConnBase")
         for (param in c('db.class'))
             if (is.null(get(param)) || is.na(get(param)))
                 assign(param, other[[paste0('.', param)]])
     }
 
     # Set database class
-    .self$.assertNotNull(db.class)
-    .self$.assertNotNa(db.class)
-    .self$.assertIs(db.class, 'character')
+    chk::chk_string(db.class)
     .self$.db.class <- db.class
 
     # Set observers
@@ -403,7 +401,7 @@ setPropValSlot=function(name, slot, value) {
 
 .registerObserver=function(obs) {
 
-    .self$.assertInheritsFrom(obs, 'BiodbConnObserver')
+    chk::chk_is(obs, 'BiodbConnObserver')
 
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
@@ -417,7 +415,7 @@ setPropValSlot=function(name, slot, value) {
 
 .unregisterObserver=function(obs) {
 
-    .self$.assertInheritsFrom(obs, 'BiodbConnObserver')
+    chk::chk_is(obs, 'BiodbConnObserver')
 
     # Search for observer
     found.obs <- vapply(.self$.observers, function(x) identical(x, obs),

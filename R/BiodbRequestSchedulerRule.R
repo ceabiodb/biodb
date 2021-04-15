@@ -33,7 +33,7 @@ initialize=function(host, conn=NULL, ...) {
 
     callSuper(...)
 
-    .self$.assertIs(host, 'character')
+    chk::chk_character(host)
     .self$.host <- host
     .self$.last.time <- list()
     .self$.n.index <- 0L

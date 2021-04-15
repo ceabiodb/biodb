@@ -478,7 +478,7 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     .self$.assertIs(x, 'data.frame')
     
     if (ncol(x) > 0) {
-        .self$.assertIs(id.col, 'character')
+        chk::chk_character(id.col)
         if ( ! id.col %in% colnames(x))
             .self$error('Column "', id.col,
                         '" was not found inside data frame.')
@@ -534,7 +534,7 @@ collapseRows=function(x, sep='|', cols=1L) {
     if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
         .self$error('The data frame does not contain columns "',
                     paste(cols, collapse=', '), '".')
-    .self$.assertIs(sep, 'character')
+    chk::chk_character(sep)
 
     y <- NULL
 
@@ -633,7 +633,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
     }
 },
 
-copyDb=function(conn.from, conn.to, limit=NULL) {
+copyDb=function(conn.from, conn.to, limit=0) {
     ":\n\nCopies all entries of a database into another database. The connector
     of the destination database must be editable.
     \nconn.from: The connector of the source datababase to copy.

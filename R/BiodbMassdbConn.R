@@ -135,7 +135,7 @@ setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
     .self$setPropValSlot('matching.fields', 'mz', field)
 },
 
-getMzValues=function(ms.mode=NA_character_, max.results=NA_integer_,
+getMzValues=function(ms.mode=NULL, max.results=NA_integer_,
                      precursor=FALSE, ms.level=0) {
     ":\n\nGets a list of M/Z values contained inside the database.
     \nms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
@@ -267,8 +267,8 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                          rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
                          rt.tol.exp=NA_real_, chrom.col.ids=NULL,
                          precursor=FALSE,
-                         min.rel.int=NA_real_, ms.mode=NA_character_,
-                         max.results=NA_integer_, ms.level=0) {
+                         min.rel.int=0, ms.mode=NULL,
+                         max.results=0, ms.level=0) {
     ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the given
     M/Z value. Entries can also be filtered on RT values. You can input either a
     list of M/Z values through mz argument and set a tolerance with mz.tol
@@ -327,12 +327,12 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                 if (check.param$use.mz.min.max)
                     mz.ids <- .self$.doSearchMzRange(mz.min=mz.min[[i]],
                         mz.max=mz.max[[i]], min.rel.int=min.rel.int,
-                        ms.mode=ms.mode, max.results=NA_integer_,
+                        ms.mode=ms.mode, max.results=0,
                         precursor=precursor, ms.level=ms.level)
                 else
                     mz.ids <- .self$.doSearchMzTol(mz=mz[[i]], mz.tol=mz.tol,
                         mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int,
-                        ms.mode=ms.mode, max.results=NA_integer_,
+                        ms.mode=ms.mode, max.results=0,
                         precursor=precursor, ms.level=ms.level)
 
                 # Filter on RT value
@@ -375,8 +375,8 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                          rt=NULL, rt.unit=NA_character_, rt.tol=NA_real_,
                          rt.tol.exp=NA_real_, chrom.col.ids=NULL,
                          precursor=FALSE,
-                         min.rel.int=NA_real_, ms.mode=NA_character_,
-                         max.results=NA_integer_, ms.level=0) { # DEPRECATED
+                         min.rel.int=0, ms.mode=NULL,
+                         max.results=0, ms.level=0) { # DEPRECATED
     ":\n\nThis method is deprecated.
     \nUse searchForMassSpectra() instead.
     "
@@ -395,8 +395,8 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
 },
 
 searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
-    mz.tol.unit='plain', min.rel.int=NA_real_, ms.mode=NA_character_,
-    ms.level=0, max.results=NA_integer_, chrom.col.ids=NULL, rt=NULL,
+    mz.tol.unit='plain', min.rel.int=0, ms.mode=NULL,
+    ms.level=0, max.results=0, chrom.col.ids=NULL, rt=NULL,
     rt.unit=NA_character_, rt.tol=NA_real_, rt.tol.exp=NA_real_,
     precursor=FALSE, precursor.rt.tol=NA_real_, insert.input.values=TRUE,
     prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0,
@@ -602,7 +602,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
 msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
     ms.mode, npmin=2,
     dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
-    msms.mz.tol.min=0.005, max.results=NA_integer_) {
+    msms.mz.tol.min=0.005, max.results=0) {
     ":\n\nSearches MSMS spectra matching a template spectrum. The mz.tol
     parameter is applied on the precursor search.
     \nspectrum: A template spectrum to match inside the database.
@@ -687,8 +687,8 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
     return(x)
 },
 
-searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
-                       ms.mode=NA_character_, max.results=NA_integer_,
+searchMzRange=function(mz.min, mz.max, min.rel.int=0,
+                       ms.mode=NULL, max.results=0,
                        precursor=FALSE, ms.level=0) {
     "Find spectra in the given M/Z range. Returns a list of spectra IDs."
 
@@ -700,8 +700,8 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=NA_real_,
         precursor=precursor, ms.level=ms.level))
 },
 
-searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
-                     ms.mode=NA_character_, max.results=NA_integer_,
+searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
+                     ms.mode=NULL, max.results=0,
                      precursor=FALSE, ms.level=0) {
     "Find spectra containg a peak around the given M/Z value. Returns a
     character vector of spectra IDs."
@@ -764,27 +764,29 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     use.min.max <- ! is.null(mz.min) && ! is.null(mz.max)
 
     if (use.min.max) {
-        .self$.assertIs(mz.min, c('numeric', 'integer'))
-        .self$.assertIs(mz.max, c('numeric', 'integer'))
-        .self$.assertPositive(mz.min)
-        .self$.assertPositive(mz.max)
-        .self$.assertEqualLength(mz.min, mz.max)
-        .self$.assertInferior(mz.min, mz.max)
+        chk::chk_numeric(mz.min)
+        chk::chk_not_any_na(mz.min)
+        chk::chk_number(mz.max)
+        chk::chk_not_any_na(mz.max)
+        chk::chk_gte(mz.min, 0)
+        chk::chk_gte(mz.max, 0)
+        chk::chk_true(length(mz.min) == length(mz.max))
+        chk::chk_lte(mz.min, mz.max)
     }
 
     return(use.min.max)
 },
 
-.checkMzTolParam=function(mz, mz.tol, mz.tol.unit) {
+.checkMzTolParam=function(mz, mz.tol, mz.tol.unit=c('ppm', 'plain')) {
 
     use.tol <- ! is.null(mz)
 
     if (use.tol) {
-        .self$.assertIs(mz, c('numeric', 'integer'))
-        .self$.assertPositive(mz)
-        .self$.assertPositive(mz.tol)
-        .self$.assertLengthOne(mz.tol)
-        .self$.assertIn(mz.tol.unit, c('ppm', 'plain'))
+        chk::chk_numeric(mz)
+        chk::chk_gte(mz, 0)
+        chk::chk_number(mz.tol)
+        chk::chk_gte(mz.tol, 0)
+        mz.tol.unit <- match.arg(mz.tol.unit)
     }
 
     return(use.tol)
@@ -803,21 +805,19 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
     return(list(use.tol=use.tol, use.min.max=use.min.max))
 },
 
-.checkRtParam=function(rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
-                       match.rt) {
+.checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp,
+                       chrom.col.ids, match.rt) {
 
     if (match.rt) {
-        .self$.assertIs(rt, c('numeric', 'integer'))
-        .self$.assertPositive(rt)
-        .self$.assertPositive(rt.tol)
-        .self$.assertPositive(rt.tol.exp)
-        if ( ! is.null(chrom.col.ids)) {
-            .self$.assertNotNa(chrom.col.ids)
-            .self$.assertIs(chrom.col.ids, 'character')
-        }
-        .self$.assertNotNa(rt.unit)
-        .self$.assertIn(rt.unit, c('s', 'min'))
-        .self$.assertLengthOne(rt.unit)
+        chk::chk_numeric(rt)
+        chk::chk_gte(rt, 0)
+        chk::chk_number(rt.tol)
+        chk::chk_gte(rt.tol, 0)
+        chk::chk_number(rt.tol.exp)
+        chk::chk_gte(rt.tol.exp, 0)
+        chk:chk_null_or(chrom.col.ids, chk::chk_character)
+        chk:chk_null_or(chrom.col.ids, chk::chk_not_any_na)
+        rt.unit <- match.arg(rt.unit)
     }
 },
 
@@ -836,7 +836,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
                 input.df.colnames[['mz']] <- 'mz'
             colnames(input.df) <- input.df.colnames[['mz']]
         }
-        .self$.assertIs(input.df, 'data.frame')
+        chk::chk_is(input.df, 'data.frame')
         for (v in c('mz', 'mz.min', 'mz.max', 'rt')) {
             if (is.null(get(v)) && v %in% names(input.df.colnames)
                 && ! is.null(input.df.colnames[[v]])
@@ -877,12 +877,18 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=NA_real_,
         }
     }
 
-    .self$.assertPositive(min.rel.int)
+    chk::chk_null_or(min.rel.int, chk::chk_number)
+    if ( ! is.null(min.rel.int))
+        chk::chk_gte(min.rel.int, 0)
     ef <- .self$getBiodb()$getEntryFields()
-    .self$.assertIn(ms.mode, ef$get('ms.mode')$getAllowedValues())
-    ms.mode <- ef$get('ms.mode')$correctValue(ms.mode)
-    .self$.assertPositive(max.results)
-    .self$.assertPositive(ms.level)
+    if ( ! is.null(ms.mode)) {
+        chk::chk_in(ms.mode, ef$get('ms.mode')$getAllowedValues())
+        ms.mode <- ef$get('ms.mode')$correctValue(ms.mode)
+    }
+    chk::chk_number(max.results)
+    chk::chk_gte(max.results, 0)
+    chk::chk_number(ms.level)
+    chk::chk_gte(ms.level, 0)
 
     return(list(use.mz.tol=mz.match$use.tol,
                 use.mz.min.max=mz.match$use.min.max, use.rt.match=match.rt,
