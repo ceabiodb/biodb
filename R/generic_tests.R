@@ -959,19 +959,19 @@ test.getMzValues <- function(db) {
     }
 }
 
-test.searchMzTol <- function(db) {
+test.searchMzTol <- function(conn) {
 
     # Get M/Z values from database
     mode <-'pos' 
-    mzs <- db$getMzValues(ms.mode=mode, max.results=2)
-    testthat::expect_true(is.double(mzs))
+    mzs <- conn$getMzValues(ms.mode=mode, max.results=2)
+    testthat::expect_vector(mzs, double())
     testthat::expect_true(length(mzs) >= 1)
 
     # Search
     for (mz in mzs) {
-        ids <- db$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
-                              min.rel.int=0, ms.mode=mode)
-        testthat::expect_true(is.character(ids))
+        ids <- conn$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
+                                min.rel.int=0, ms.mode=mode)
+        testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
     }
 }

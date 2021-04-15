@@ -364,7 +364,7 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
     ids <- ids[ ! duplicated(ids)]
 
     # Cut
-    if ( ! is.na(max.results) && length(ids) > max.results)
+    if (max.results >0)
         ids <- ids[seq_len(max.results)]
 
     return(ids)
@@ -526,7 +526,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol,
                                                           drop=FALSE)
 
         # Cut
-        if ( ! is.na(max.results) && length(entries) > max.results) {
+        if (max.results > 0) {
             .self$debug('Cutting data frame', max.results, 'rows.')
             entries <- entries[seq_len(max.results)]
         }
@@ -628,11 +628,13 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit='plain',
 
     peak.tables <- list()
     dist.fun <- match.arg(dist.fun)
+    chk::chk_number(max.results)
+    chk::chk_gte(max.results, 0)
 
     # Get spectra IDs
     ids <- character()
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
-        if ( ! is.na(max.results))
+        if (max.results > 0)
             .self$warning('Applying max.results =', max.results,'on call to',
                 ' searchForMassSpectra(). This may results in no matches, while there',
                 ' exist matching spectra inside the database.')
