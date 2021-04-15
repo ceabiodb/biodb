@@ -71,10 +71,7 @@ setCsvQuote=function(quote) {
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(quote)
-    .self$.assertNotNa(quote)
-    chk::chk_character(quote)
-    .self$.assertLengthOne(quote)
+    chk::chk_string(quote)
     
     if ( ! is.null(.self$.db))
         .self$error("The CSV file has already been loaded. Modification of",
@@ -98,10 +95,7 @@ setCsvSep=function(sep) {
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(sep)
-    .self$.assertNotNa(sep)
-    chk::chk_character(sep)
-    .self$.assertLengthOne(sep)
+    chk::chk_string(sep)
     
     if ( ! is.null(.self$.db))
         .self$error("The CSV file has already been loaded. Modification of",
@@ -212,18 +206,18 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     or more columns of the loaded data frame.
     \nfield: A valid Biodb entry field name. This field must not be already
     defined for this database instance.
-    \ncolname: A character vector contain one or more column names from the CSV
-    file.
+    \ncolname: A character vector containing one or more column names from the
+    CSV file.
     \nignore.if.missing: Deprecated parameter.
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(field)
-    .self$.assertNotNa(field)
+    chk::chk_string(field)
+    chk::chk_character(colname)
+    chk::chk_not_any_na(colname)
+    chk::chk_not_empty(colname)
     ef <- .self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
-    .self$.assertNotNull(colname)
-    .self$.assertNotNa(colname)
 
     # Load database file
     .self$.initDb(setFields=FALSE)

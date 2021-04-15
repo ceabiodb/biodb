@@ -38,7 +38,7 @@ initialize=function(host, conn=NULL, ...) {
     .self$.last.time <- list()
     .self$.n.index <- 0L
     if ( ! is.null(conn)) {
-        .self$.assertInheritsFrom(conn, 'BiodbConn')
+        chk::chk_is(conn, 'BiodbConn')
         .self$.conn <- list(conn)
         .self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
                            t=conn$getPropertyValue('scheduler.t'))
@@ -84,10 +84,10 @@ setFrequency=function(n, t) {
     \nReturned value: None.
     "
 
-    .self$.assertIs(n, 'integer')
-    .self$.assertIs(t, c('integer', 'numeric'))
-    .self$.assertPositive(n)
-    .self$.assertPositive(t)
+    chk::chk_whole_number(n)
+    chk::chk_number(t)
+    chk::chk_gte(n, 1)
+    chk::chk_gt(t, 0)
 
     # Update last time and index
     if (length(.self$.last.time) >= 1) {
@@ -117,7 +117,7 @@ addConnector=function(conn) {
     \nReturned value: None.
     "
 
-    .self$.assertInheritsFrom(conn, 'BiodbConn')
+    chk::chk_is(conn, 'BiodbConn')
 
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn),
@@ -141,7 +141,7 @@ removeConnector=function(conn) {
     \nReturned value: None.
     "
 
-    .self$.assertInheritsFrom(conn, 'BiodbConn')
+    chk::chk_is(conn, 'BiodbConn')
 
     # Connector already listed?
     found.conn <- vapply(.self$.conn, function(x) identical(x, conn),

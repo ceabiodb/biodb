@@ -40,16 +40,13 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
                          max.results=10,
                          retfmt=c('plain', 'parsed', 'request', 'ids')) {
 
-    retfmt <- match.arg(retfmt)
-
     # Check parameters
-    .self$.assertNotNull(search)
-    .self$.assertNotNa(search)
-    .self$.assertIn(search.category, .self$getSearchCategories())
-    if (is.na(max.results))
-        max.results <- 0
-    .self$.assertPositive(max.results)
-    .self$.assertIn(stars, .self$getStarsCategories())
+    chk::chk_string(search)
+    chk::chk_in(search.category, .self$getSearchCategories())
+    chk::chk_number(max.results)
+    chk::chk_gte(max.results, 0)
+    chk::chk_in(stars, .self$getStarsCategories())
+    retfmt <- match.arg(retfmt)
 
     # Build request
     params <- c(search=search,

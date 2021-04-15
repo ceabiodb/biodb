@@ -436,7 +436,7 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
 
     # Get connector
     conn <- if (is.character(db)) .self$getFactory()$getConn(db) else
-        .self$.assertIs(db, 'BiodbConn')
+        chk::chk_is(db, 'BiodbConn')
 
     # Get entries
     if (is.character(ids))
@@ -475,7 +475,7 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     the fields requested.
     "
     
-    .self$.assertIs(x, 'data.frame')
+    chk::chk_is(x, 'data.frame')
     
     if (ncol(x) > 0) {
         chk::chk_character(id.col)
@@ -526,7 +526,7 @@ collapseRows=function(x, sep='|', cols=1L) {
 
     if (is.null(x))
         return(x)
-    .self$.assertIs(x, 'data.frame')
+    chk::chk_is(x, 'data.frame')
     if (nrow(x) == 0)
         return(x)
     if (is.numeric(cols))
@@ -619,12 +619,15 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
     ":\n\nSaves a list of entries in JSON format. Each entry will be saved in a
     separate file.
     \nentries: A list of \\code{BiodbEntry} instances.
-    \nfiles: A list of file paths, the same length as entries list.
+    \nfiles: A character vector of file paths, the same length as entries list.
     \ncompute: If set to \\code{TRUE}, computable fields will be saved too.
     \nReturned value: None.
     "
 
-    .self$.assertEqualLength(entries, files)
+    chk::chk_list(entries)
+    chk::chk_character(files)
+    chk::chk_flag(compute)
+    chk::chk_length(entries, length(files))
 
     # Save
     for (i in seq_along(entries)) {

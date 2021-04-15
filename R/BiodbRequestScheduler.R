@@ -240,11 +240,10 @@ connSchedulerFrequencyUpdated=function(conn) {
 
 .findRule=function(url, create=TRUE) {
 
-    .self$.assertNotNull(url)
+    chk::chk_not_null(url)
     if ( ! is(url, 'BiodbUrl')) {
-        .self$.assertLengthOne(url)
-        .self$.assertNotNa(url)
-        url <- BiodbUrl(url =url)
+        chk::chk_string(url)
+        url <- BiodbUrl(url=url)
     }
     domain <- url$getDomain()
 
@@ -296,7 +295,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 },
 
 .getConnectorRules=function(conn) {
-    .self$.assertNotNull(conn)
+    chk::chk_is(conn, 'BiodbConn')
     return(.self$.connid2rules[[conn$getId()]])
 },
 
