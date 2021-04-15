@@ -767,9 +767,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 
     if (use.min.max) {
         chk::chk_numeric(mz.min)
-        chk::chk_not_any_na(mz.min)
-        chk::chk_number(mz.max)
-        chk::chk_not_any_na(mz.max)
+        chk::chk_numeric(mz.max)
         chk::chk_gte(mz.min, 0)
         chk::chk_gte(mz.max, 0)
         chk::chk_true(length(mz.min) == length(mz.max))

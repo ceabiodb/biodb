@@ -173,6 +173,9 @@ getEntryContent=function(id) {
         # Remove duplicates
         n.duplicates <- sum(duplicated(missing.ids))
         missing.ids <- missing.ids[ ! duplicated(missing.ids)]
+        
+        # Remove NAs
+        missing.ids <- missing.ids[ ! is.na(missing.ids)]
 
         # Debug
         if (any(is.na(id)))
@@ -228,8 +231,17 @@ getEntryContent=function(id) {
 
             # Merge content and missing.contents
             missing.contents <- as.list(missing.contents)
+            print("================================ BiodbConn::getEntryContent 98")
+            print(id)
+            print("================================ BiodbConn::getEntryContent 99")
+            print(missing.ids)
+            print("================================ BiodbConn::getEntryContent 100")
+            print(missing.contents)
+            print("================================ BiodbConn::getEntryContent 101")
             ii <- vapply(id[id %in% missing.ids],
                          function(x) which(missing.ids == x), FUN.VALUE=1L)
+            print(ii)
+            print("================================ BiodbConn::getEntryContent 102")
             content[id %in% missing.ids] <- missing.contents[ii]
         }
     }
