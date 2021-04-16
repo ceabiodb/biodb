@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.0.1
+# Makefile for biodb extensions packages, version 1.0.2
 
 # $$$SECTION NEWPKG$$$
 NEWPKG=true
@@ -145,6 +145,9 @@ endif
 vignettes: clean.vignettes
 	@echo Build vignettes for already installed package, not from local soures.
 	R $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
+
+upgrade:
+	R $(RFLAGS) -e 'biodb::ExtPackage$$new(".")$$upgrade()'
 
 # Install dependencies
 install.deps:

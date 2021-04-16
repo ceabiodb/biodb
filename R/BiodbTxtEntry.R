@@ -39,7 +39,7 @@ initialize=function(...) {
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
     chk::chk_character(parsed.content)
-    chk::chk_character(parsing.expr)
+    chk::chk_list(parsing.expr)
     chk::chk_named(parsing.expr)
 
     # Loop on all parsing expressions

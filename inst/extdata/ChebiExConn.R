@@ -81,31 +81,21 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
     return(results)
 },
 
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
-                        mass.tol.unit='plain', max.results=NA_integer_) {
-    # Overrides super class' method.
+.doSearchForEntries=function(fields=NULL, max.results=0) {
 
-    .self$.checkMassField(mass=mass, mass.field=mass.field)
+    ids <- character()
 
-    ids <- NULL
+    if ( ! is.null(fields)) {
 
-    # Search by name
-    if ( ! is.null(name))
-        ids <- .self$wsGetLiteEntity(search=name, search.category="ALL NAMES",
-                                     max.results=0, retfmt='ids')
-
-
-    # Search by mass not implemented for this example
-    if ( ! is.null(mass) && ! is.null(mass.field))
-        .self$warning('Database ', .self$getDbClass(),
-                      ' is not searchable by mass.')
-
-    # Return empty vector instead of NULL
-    if (is.null(ids))
-        ids <- character()
+        # Search by name
+        if ('name' %in% names(fields))
+            ids <- .self$wsGetLiteEntity(search=fields$name,
+                                         search.category="ALL NAMES",
+                                         max.results=0, retfmt='ids')
+    }
 
     # Cut
-    if ( ! is.na(max.results) && max.results > 0 && max.results < length(ids))
+    if (max.results > 0 && max.results < length(ids))
         ids <- ids[seq_len(max.results)]
 
     return(ids)
