@@ -365,7 +365,7 @@ searchForEntries=function(fields=NULL, max.results=0) {
     requested name.
     "
 
-    chk::chk_null_or(fields, chk_list)
+    chk::chk_null_or(fields, chk::chk_list)
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
 
