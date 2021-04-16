@@ -28,7 +28,7 @@ CompSqliteConn <- methods::setRefClass('CompSqliteConn',
 
 methods=list(
 
-.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+.doSearchForEntries=function(fields=NULL, max.results=0) {
     # Overrides super class' method.
 
     ids <- character()
@@ -86,7 +86,7 @@ methods=list(
         }
         
         # Cut
-        if ( ! is.null(max.results) && ! is.na(max.results))
+        if (max.results > 0)
             query$setLimit(max.results)
         
         # Run query

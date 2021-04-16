@@ -38,11 +38,9 @@ initialize=function(...) {
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
-    .self$.assertNotNull(parsed.content)
-    .self$.assertNotNa(parsed.content)
-    .self$.assertNotNull(parsing.expr)
-    .self$.assertNotNa(parsing.expr)
-    .self$.assertNotNull(names(parsing.expr))
+    chk::chk_character(parsed.content)
+    chk::chk_character(parsing.expr)
+    chk::chk_named(parsing.expr)
 
     # Loop on all parsing expressions
     for (field in names(parsing.expr)) {

@@ -38,7 +38,7 @@ initialize=function(...) {
     return(db)
 },
 
-.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+.doSearchForEntries=function(fields=NULL, max.results=0) {
     # To be implemented by derived class.
     
     db <- NULL

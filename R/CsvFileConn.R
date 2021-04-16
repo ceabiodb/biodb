@@ -71,10 +71,7 @@ setCsvQuote=function(quote) {
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(quote)
-    .self$.assertNotNa(quote)
-    .self$.assertIs(quote, 'character')
-    .self$.assertLengthOne(quote)
+    chk::chk_string(quote)
     
     if ( ! is.null(.self$.db))
         .self$error("The CSV file has already been loaded. Modification of",
@@ -98,10 +95,7 @@ setCsvSep=function(sep) {
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(sep)
-    .self$.assertNotNa(sep)
-    .self$.assertIs(sep, 'character')
-    .self$.assertLengthOne(sep)
+    chk::chk_string(sep)
     
     if ( ! is.null(.self$.db))
         .self$error("The CSV file has already been loaded. Modification of",
@@ -212,18 +206,18 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     or more columns of the loaded data frame.
     \nfield: A valid Biodb entry field name. This field must not be already
     defined for this database instance.
-    \ncolname: A character vector contain one or more column names from the CSV
-    file.
+    \ncolname: A character vector containing one or more column names from the
+    CSV file.
     \nignore.if.missing: Deprecated parameter.
     \nReturned value: None.
     "
 
-    .self$.assertNotNull(field)
-    .self$.assertNotNa(field)
+    chk::chk_string(field)
+    chk::chk_character(colname)
+    chk::chk_not_any_na(colname)
+    chk::chk_not_empty(colname)
     ef <- .self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
-    .self$.assertNotNull(colname)
-    .self$.assertNotNa(colname)
 
     # Load database file
     .self$.initDb(setFields=FALSE)
@@ -476,9 +470,12 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE,
-                 max.rows=NA_integer_, ...) {
+.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE,
+                 sort=FALSE, max.rows=0, ...) {
     
+    chk::chk_number(max.rows)
+    chk::chk_gte(max.rows, 0)
+
     # Get database
     if (is.null(db)) {
         .self$.initDb()
@@ -505,7 +502,7 @@ defineParsingExpressions=function() {
         db <- db[order(db[[1]]), , drop=FALSE]
 
     # Cut
-    if ( ! is.na(max.rows) && max.rows > 0 && nrow(db) > max.rows)
+    if (max.rows > 0 && nrow(db) > max.rows)
         db <- db[seq_len(max.rows), , drop=FALSE]
 
     # Drop
@@ -646,7 +643,7 @@ ignoreUnassignedColumns=function(ignore=TRUE) {
     .self$.autoSetFieldsHasBeenRun <- TRUE
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+.doGetEntryIds=function(max.results=0) {
     # Overrides super class' method.
 
     ids <- NA_character_

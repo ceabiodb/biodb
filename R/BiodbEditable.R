@@ -84,7 +84,7 @@ setEditingAllowed=function(allow) {
     \nReturned value: None.
     "
     
-    .self$.assertIs(allow, 'logical')
+    chk::chk_logical(allow)
     .self$.editing.allowed <- allow
 },
 

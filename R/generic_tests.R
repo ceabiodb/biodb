@@ -400,7 +400,7 @@ test.db.copy <- function(conn) {
 
 test.searchForEntries = function(conn, opt=NULL) {
     
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
@@ -451,7 +451,7 @@ test.searchByName = function(conn, opt=NULL) {
     # Allow running of deprecated methods while testing
     withr::local_options(lifecycle_verbosity="quiet")
 
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
@@ -487,7 +487,7 @@ test.searchByName = function(conn, opt=NULL) {
 
 test.searchCompound <- function(db, opt=NULL) {
     
-    max.results <- NA_integer_
+    max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
@@ -959,19 +959,19 @@ test.getMzValues <- function(db) {
     }
 }
 
-test.searchMzTol <- function(db) {
+test.searchMzTol <- function(conn) {
 
     # Get M/Z values from database
     mode <-'pos' 
-    mzs <- db$getMzValues(ms.mode=mode, max.results=2)
-    testthat::expect_true(is.double(mzs))
+    mzs <- conn$getMzValues(ms.mode=mode, max.results=2)
+    testthat::expect_vector(mzs, double())
     testthat::expect_true(length(mzs) >= 1)
 
     # Search
     for (mz in mzs) {
-        ids <- db$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
-                              min.rel.int=0, ms.mode=mode)
-        testthat::expect_true(is.character(ids))
+        ids <- conn$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
+                                min.rel.int=0, ms.mode=mode)
+        testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
     }
 }
@@ -1209,18 +1209,28 @@ test.searchMsPeaks.rt <- function(db) {
     # Search for MZ/RT
     mz.tol <- 0
     rt.tol <- 0
-    peaks <- db$searchMsPeaks(mz = mz, chrom.col.ids = chrom.col.ids, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+    peaks <- db$searchMsPeaks(mz=mz, chrom.col.ids=chrom.col.ids, rt=rt,
+                              rt.tol=rt.tol, mz.tol=mz.tol, max.results=1,
+                              ms.mode=entry$getFieldValue('ms.mode'),
+                              rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
-    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
+                              (peaks$peak.mz <= mz + mz.tol)))
+    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
+                              (peaks$chrom.rt <= rt + rt.tol)))
 
     # Search for MZ/RT without chrom.col.ids
-    peaks <- db$searchMsPeaks(mz = mz, rt = rt, rt.tol = rt.tol, mz.tol = mz.tol, max.results = 1, ms.mode = entry$getFieldValue('ms.mode'), rt.unit = rt.unit)
+    peaks <- db$searchMsPeaks(mz=mz, rt=rt, rt.tol=rt.tol, mz.tol=mz.tol,
+                              max.results=1,
+                              ms.mode=entry$getFieldValue('ms.mode'),
+                              rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
-    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) & (peaks$peak.mz <= mz + mz.tol)))
-    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) & (peaks$chrom.rt <= rt + rt.tol)))
+    testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
+                              (peaks$peak.mz <= mz + mz.tol)))
+    testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
+                              (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 test.msmsSearch.no.ids <- function(db) {

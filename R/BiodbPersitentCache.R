@@ -468,8 +468,8 @@ deleteFiles=function(cache.id, ext) {
     \nReturned value: None.
     "
 
-    .self$.assertNotNa(ext)
-    .self$.assertNotNull(ext)
+    chk::chk_string(cache.id)
+    chk::chk_string(ext)
     
     if ( ! .self$isWritable())
         .self$error('Attempt to write into non-writable cache. "',

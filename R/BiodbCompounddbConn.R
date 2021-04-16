@@ -37,7 +37,7 @@ initialize=function(...) {
 
 searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
                         mass.tol=0.01, mass.tol.unit='plain',
-                        max.results=NA_integer_) {
+                        max.results=0) {
     ":\n\nThis method is deprecated. Use searchForEntries() instead.
     \n Searches for compounds by name and/or by mass. At least one of name or
     mass must be set.
@@ -117,14 +117,11 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
     ef <- .self$getBiodb()$getEntryFields()
+    mass.field <- match.arg(mass.field, ef$getFieldNames('mass'))
 
     # Convert x to data frame
     if ( ! is.data.frame(x))
         x <- data.frame(mz = x)
-
-    # Check mass field
-    mass.fields <- ef$getFieldNames('mass')
-    .self$.assertIn(mass.field, mass.fields)
 
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
@@ -207,12 +204,11 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 .checkMassField=function(mass, mass.field) {
 
     if ( ! is.null(mass)) {
-        .self$.assertIs(mass, c('integer', 'numeric'))
-        .self$.assertNotNull(mass.field)
-        .self$.assertIs(mass.field, 'character')
+        chk::chk_number(mass)
+        chk::chk_string(mass.field)
         ef <- .self$getBiodb()$getEntryFields()
         mass.fields <- ef$getFieldNames(type='mass')
-        .self$.assertIn(mass.field, mass.fields)
+        chk::chk_in(mass.field, mass.fields)
     }
 }
 

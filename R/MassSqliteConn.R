@@ -92,7 +92,7 @@ getChromCol=function(ids=NULL) {
                                           ms.level=ms.level,
                                           precursor=precursor)
             query$addField(field=mzfield)
-            if ( ! is.null(max.results) && ! is.na(max.results))
+            if (max.results > 0)
                 query$setLimit(max.results)
             .self$message('debug', paste0('Run query "', query$toString(),
                                           '".'))
@@ -197,7 +197,7 @@ getChromCol=function(ids=NULL) {
                 expr <- BiodbSqlBinaryOp(lexpr=lval, op='>=', rexpr=rval)
                 query$getWhere()$addExpr(expr)
             }
-            if ( ! is.null(max.results) && ! is.na(max.results))
+            if (max.results > 0)
                 query$setLimit(max.results)
             .self$debug('Run query "', query$toString(), '".')
 
