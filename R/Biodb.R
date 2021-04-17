@@ -76,8 +76,8 @@ initialize=function(autoloadExtraPkgs=NULL) {
     # Check locale
     .self$.checkLocale()
 
-    .self$debug('Created successfully new Biodb instance.')
-    .self$debug('This is biodb version ', packageVersion('biodb'), '.')
+    getLogger()$debug('Created successfully new Biodb instance.')
+    getLogger()$debug('This is biodb version %s.', packageVersion('biodb'))
 },
 
 terminate=function() {
@@ -86,7 +86,7 @@ terminate=function() {
     \nReturned value: None.
     "
 
-    .self$info('Closing Biodb instance...')
+    getLogger()$info('Closing Biodb instance...')
 
     # Terminate factory
     if ( ! is.null(.self$.factory))
@@ -105,7 +105,7 @@ loadDefinitions=function(file, package='biodb') {
     \nReturned value: None.
     "
     chk::chk_file(file)
-    .self$debug('Load definitions from file "', file, '".')
+    getLogger()$debug('Load definitions from file "%s".', file)
 
     # Load file
     def <- yaml::read_yaml(file)
@@ -141,7 +141,8 @@ loadDefinitions=function(file, package='biodb') {
 
 .loadBiodbPkgsDefinitions=function(pkgs) {
     for (pkg in sort(names(pkgs))) {
-        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
+        getLogger()$info('Loading definitions from package %s version %s.',
+                         pkg, pkgs[[pkg]])
         file <- system.file("definitions.yml", package=pkg)
         .self$loadDefinitions(file, package=pkg)
     }
@@ -372,7 +373,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
     if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
-        .self$debug(length(entries), "entrie(s) to convert in data frame.")
+        getLogger()$debug("%d entrie(s) to convert in data frame.",
+                          length(entries))
 
         # Convert list of entries to a list of data frames.
         df.list <- .self$.entriesToListOfDataframes(entries=entries,
@@ -387,9 +389,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            .self$debug("Merging data frames with a single",
-                        "entry each into a single data frame",
-                        "with all entries.")
+            getLogger()$debug(paste("Merging data frames with a single",
+                "entry each into a single data frame with all entries."))
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()
@@ -808,7 +809,7 @@ disableDebug=function() {
         df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
-    .self$debug("Converted", length(df.list), "entry/ies to data frame(s).")
+    getLogger()$debug("Converted %d entry/ies to data frame(s).", length(df.list))
     return(df.list)
 },
 
