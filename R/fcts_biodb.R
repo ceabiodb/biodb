@@ -75,3 +75,67 @@ connNameToClassPrefix <- function(connName) {
 getLogger <- function() {
     return(lgr::get_logger("biodb"))
 }
+
+#' Convert a data.frame into a string.
+#'
+#' Prints a data frame (partially if too big) into a string.
+#'
+#' @param x The data frame object.
+#' @param rowCut The maximum of rows to print.
+#' @param colCut The maximum of columns to print.
+#' @return A string containing the data frame representation (or part of it).
+df2str <- function(x, rowCut=5, colCut=5) {
+
+    size <- ''
+
+    if (is.null(x))
+        s <- 'NULL'
+    else if ( ! is.data.frame(x))
+        s <- 'not a dataframe'
+    else {
+        size <- paste0('[', nrow(x), ', ', ncol(x), ']')
+        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
+        s <- paste0('[', paste(colNames, collapse=', '), ']')
+        for (nRow in seq_len(min(rowCut, nrow(x)))) {
+            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
+            s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
+        }
+        if (nrow(x) > rowCut)
+            s <- paste(s, '...')
+    }
+    
+    if (size != '')
+        s <- paste0(size, ': ', s)
+    
+    return(s)
+}
+
+#' Convert a list into a string.
+#'
+#' Prints a string (partially if too big) into a string.
+#'
+#' @param nCut The maximum of elements to print.
+#' @return A string containing the list representation (or part of it).
+lst2str <- function(x, nCut=10) {
+
+    if (length(x) == 0)
+        s <- 'none'
+    else {
+        s <- paste(if (length(x) > nCut) c(x[seq_len(nCut)], '...') else x,
+                   collapse=", ")
+        s <- paste0('"', s, '"')
+        s <- paste0('[', length(x), ']: ', s)
+    }
+    
+    return(s)
+}
+
+warn <- function(...) {
+    getLogger()$warn(..., caller=lgr::get_caller(-9L))
+    warning(sprintf(...))
+}
+
+fatal <- function(...) {
+    getLogger()$fatal(..., caller=lgr::get_caller(-9L))
+    stop(sprintf(...))
+}

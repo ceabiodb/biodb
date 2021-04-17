@@ -174,7 +174,7 @@ set=function(key, value) {
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
-    .self$info2("Set key ", key, ' to ', displayed.value, '.')
+    getLogger()$debug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))

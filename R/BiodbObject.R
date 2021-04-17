@@ -94,41 +94,16 @@ debug2=function(..., callerLvl=0) {
 
 debug2Dataframe=function(msg, x, rowCut=5, colCut=5) {
 
-    size <- ''
+    .self$debug2(msg, df2str(x, rowCut=rowCut, colCut=colCut), '.')
 
-    if (is.null(x))
-        s <- 'NULL'
-    else if ( ! is.data.frame(x))
-        s <- 'not a dataframe'
-    else {
-        size <- paste0('[', nrow(x), ', ', ncol(x), ']')
-        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
-        s <- paste0('[', paste(colNames, collapse=', '), ']')
-        for (nRow in seq_len(min(rowCut, nrow(x)))) {
-            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
-            s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
-        }
-        if (nrow(x) > rowCut)
-            s <- paste(s, '...')
-    }
-
-    .self$debug2(msg, size, ': ', s, '.')
-
-    invisible()
+    return(invisible(NULL))
 },
 
 debug2List=function(msg, lst, nCut=10, callerLvl=0) {
 
-    if (length(lst) == 0)
-        s <- 'none'
-    else {
-        s <- paste(if (length(lst) > nCut) c(lst[seq_len(nCut)], '...') else lst,
-                   collapse=", ")
-        s <- paste0('"', s, '"')
-    }
-    .self$debug2(msg, '[', length(lst), ']: ', s, '.', callerLvl=callerLvl+1)
+    .self$debug2(msg, lst2str(lst, nCut=nCut), '.', callerLvl=callerLvl+1)
 
-    invisible()
+    return(invisible(NULL))
 },
 
 error=function(...) {

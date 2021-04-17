@@ -367,7 +367,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        .self$error("Parameter 'entries' must be a list.")
+        fatal("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
@@ -450,8 +450,8 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
         }
     }
     else
-        .self$error("Input parameter `ids` must be either a character vector",
-                    " or a list of character vectors.")
+        fatal(paste("Input parameter `ids` must be either a",
+            "character vector or a list of character vectors."))
 
     # Convert to data frame
     x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
@@ -481,8 +481,8 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     if (ncol(x) > 0) {
         chk::chk_character(id.col)
         if ( ! id.col %in% colnames(x))
-            .self$error('Column "', id.col,
-                        '" was not found inside data frame.')
+            fatal('Column "%s" was not found inside data frame.',
+                            id.col)
 
         # Get ids
         ids <- as.character(x[[id.col]])
@@ -533,8 +533,8 @@ collapseRows=function(x, sep='|', cols=1L) {
     if (is.numeric(cols))
         cols <- as.integer(cols)
     if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
-        .self$error('The data frame does not contain columns "',
-                    paste(cols, collapse=', '), '".')
+        fatal('The data frame does not contain columns "%s".',
+              paste(cols, collapse=', '))
     chk::chk_character(sep)
 
     y <- NULL
@@ -793,7 +793,7 @@ disableDebug=function() {
                                            own.id=own.id)
         }
 
-        .self$debug2Dataframe("Entry converted to data frame", e.df)
+        getLogger()$debug("Entry converted to data frame: %s.", df2str(e.df))
         df.list <- c(df.list, list(e.df))
     }
 

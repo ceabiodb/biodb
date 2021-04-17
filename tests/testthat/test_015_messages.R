@@ -43,7 +43,9 @@ test.default.messages <- function(biodb) {
                                                first=TRUE, laptime=0),
                              "^Info message: Hello.*ETA.*$", perl=TRUE)
     testthat::expect_warning(biodb$warning(msg), "^.* Hello$", perl=TRUE)
+    testthat::expect_warning(biodb::warn(msg), "^.*Hello$", perl=TRUE)
     testthat::expect_error(biodb$error(msg), "^.* Hello$", perl=TRUE)
+    testthat::expect_error(biodb::fatal(msg), "^.*Hello$", perl=TRUE)
 }
 
 # Instantiate Biodb
