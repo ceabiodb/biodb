@@ -301,7 +301,7 @@ define=function(def) {
 
         v <- def[[key]]
         v$key <- key
-        .self$debug('Define config key ', key, '.')
+        getLogger()$debug('Define config key %s.', key)
         do.call(.self$.newKey, v)
     }
 },
@@ -342,8 +342,9 @@ newObserver=function(obs) {
                     collapse='_')
     if (envvar %in% names(.self$.env)) {
         value <- .self$.env[[envvar]]
-        .self$info2("Found env var ", envvar, ', value "', value,
-                    '", defining default value for config key ', key, '.')
+        logDebug("Found env var ", envvar, ', value "', value,
+                 '", defining default value for config key ', key, '.',
+                 fmt='paste0')
     }
 
     return(value)
@@ -354,14 +355,12 @@ newObserver=function(obs) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
-        .self$message('error', "Key is NULL, NA or not character type.")
+        fatal("Key is NULL, NA or not character type.")
 
     # Check duplicated key
     if (key %in% names(.self$.keys))
         # TODO If key is the same, does not raise error.
-        .self$message('error',
-                      paste("Key", key,
-                             "has already been defined in configuration."))
+        fatal("Key %s has already been defined in configuration.", key)
 
     # Overwrite default value by env var, if defined
     env.var.value <- .self$.getFromEnv(key)

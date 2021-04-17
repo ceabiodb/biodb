@@ -1,6 +1,6 @@
 test.abstractClass.declaration <- function(biodb, obs) {
-	expect_error(biodb::BiodbConnBase(parent=biodb))
-	expect_equal(obs$getLastMsg(), "Class BiodbConnBase is abstract and thus cannot be instantiated.")
+    expect_error(biodb::BiodbConnBase(parent=biodb),
+        regexp="Class BiodbConnBase is abstract.*cannot be instantiated.")
 }
 
 # Instantiate Biodb

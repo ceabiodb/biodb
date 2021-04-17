@@ -130,12 +130,46 @@ lst2str <- function(x, nCut=10) {
     return(s)
 }
 
-warn <- function(...) {
-    getLogger()$warn(..., caller=lgr::get_caller(-9L))
-    warning(sprintf(...))
+logInfo <- function(..., fmt=c('sprintf', 'paste0')) {
+    fmt <- match.arg(fmt)
+    if (fmt == 'sprintf') {
+        getLogger()$info(..., caller=lgr::get_caller(-9L))
+    } else {
+        msg <- paste0(...)
+        getLogger()$info(msg, caller=lgr::get_caller(-9L))
+    }
 }
 
-fatal <- function(...) {
-    getLogger()$fatal(..., caller=lgr::get_caller(-9L))
-    stop(sprintf(...))
+logDebug <- function(..., fmt=c('sprintf', 'paste0')) {
+    fmt <- match.arg(fmt)
+    if (fmt == 'sprintf') {
+        getLogger()$debug(..., caller=lgr::get_caller(-9L))
+    } else {
+        msg <- paste0(...)
+        getLogger()$debug(msg, caller=lgr::get_caller(-9L))
+    }
+}
+
+warn <- function(..., fmt=c('sprintf', 'paste0')) {
+    fmt <- match.arg(fmt)
+    if (fmt == 'sprintf') {
+        getLogger()$warn(..., caller=lgr::get_caller(-9L))
+        warning(sprintf(...))
+    } else {
+        msg <- paste0(...)
+        getLogger()$warn(msg, caller=lgr::get_caller(-9L))
+        warning(msg)
+    }
+}
+
+fatal <- function(..., fmt=c('sprintf', 'paste0')) {
+    fmt <- match.arg(fmt)
+    if (fmt == 'sprintf') {
+        getLogger()$fatal(..., caller=lgr::get_caller(-9L))
+        stop(sprintf(...))
+    } else {
+        msg <- paste0(...)
+        getLogger()$fatal(msg, caller=lgr::get_caller(-9L))
+        stop(msg)
+    }
 }

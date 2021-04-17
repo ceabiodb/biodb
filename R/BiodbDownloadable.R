@@ -55,7 +55,8 @@ getDownloadPath=function() {
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
-    .self$debug('Download path of ', .self$getId(), ' is "', path, '".')
+    logDebug('Download path of ', .self$getId(), ' is "', path, '".',
+             fmt='paste0')
 
     return(path)
 },
@@ -74,8 +75,8 @@ isDownloaded=function() {
                     name='downloaded')
 
     s <- (if (dwnlded) 'already' else 'not yet')
-    .self$debug('Database ', .self$getId(), ' has ', s,
-                ' been downloaded.')
+    logDebug('Database ', .self$getId(), ' has ', s, ' been downloaded.',
+             fmt='paste0')
 
     return(dwnlded)
 },
@@ -105,9 +106,10 @@ download=function() {
         && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
 
-        .self$info("Downloading whole database of ", .self$getId(), ".")
+        logInfo("Downloading whole database of ", .self$getId(), ".",
+                fmt='paste0')
         .self$.doDownload()
-        .self$debug('Downloading of ', .self$getId(), ' completed.')
+        logDebug('Downloading of ', .self$getId(), ' completed.', fmt='paste0')
 
         # Set marker
         cch$setMarker(.self$getCacheId(), name='downloaded')
@@ -116,7 +118,7 @@ download=function() {
     # Extract
     if (.self$isDownloaded() && ! .self$isExtracted()) {
 
-        .self$info("Extract whole database of ", .self$getId(), ".")
+        logInfo("Extract whole database of ", .self$getId(), ".", fmt='paste0')
 
         .self$.doExtractDownload()
 

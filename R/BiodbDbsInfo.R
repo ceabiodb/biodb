@@ -90,8 +90,8 @@ checkIsDefined=function(db.id) {
 
     notDefined <- vapply(db.id, function(x) { ! .self$isDefined(x) }, FUN.VALUE=TRUE)
     if (any(notDefined))
-        .self$error("Database(s) \"", paste(db.id[notDefined], collapse=", "),
-                    "\" is(are) not defined.")
+        fatal("Database(s) \"", paste(db.id[notDefined], collapse=", "),
+              "\" is(are) not defined.", fmt='paste0')
 },
 
 get=function(db.id=NULL, drop=TRUE) {
