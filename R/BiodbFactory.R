@@ -429,12 +429,13 @@ show=function() {
         getLogger()$debug('Parsing %d %s entries.', length(content),
                           conn$getPropertyValue('name'))
         i <- 0
+        prg <- Progress$new(biodb=.self$getBiodb(),
+                            msg='Creating entry instances from contents',
+                            total=length(content))
         for (single.content in content) {
 
-            # Send progress message
-            i <- i + 1
-            .self$progressMsg(msg='Creating entry instances from contents', index=i,
-                              total=length(content), first=(i == 1))
+            # Progress
+            prg$increment()
 
             # Create empty entry instance
             entry <- entry.class$new(parent=conn)

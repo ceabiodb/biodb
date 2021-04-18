@@ -146,11 +146,12 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     pm <- .self$getBiodb()$getConfig()$get('proton.mass')
 
     # Loop on all masses
+    prg <- Progress$new(biodb=.self$getBiodb(), msg='Annotating M/Z values.',
+                        total=nrow(x))
     for (i in seq_len(nrow(x))) {
 
         # Send progress message
-        .self$progressMsg(msg='Annotating M/Z values.', index=i,
-                          total=nrow(x), first=(i == 1))
+        prg$increment()
 
         # Compute mass
         m <- x[i, mz.col] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)

@@ -25,6 +25,7 @@ Imports:
     R6,
     methods,
     chk,
+    progress,
     lifecycle,
     XML,
     stringr,
@@ -115,6 +116,7 @@ Collate:
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
+    'Progress.R'
     'Range.R'
     'RcppExports.R'
     'catch-routine-registration.R'

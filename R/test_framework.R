@@ -40,6 +40,17 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
     invisible(NULL)
 },
 
+notifyProgress=function(what, index, total) {
+    # Override super class' method
+    testthat::expect_is(what, 'character')
+    testthat::expect_true(what != '')
+    testthat::expect_is(index, 'number')
+    testthat::expect_is(total, 'number')
+    testthat::expect_true(index >= 0)
+    testthat::expect_true(index <= total)
+    return(invisible(NULL))
+},
+
 progress=function(type='info', msg, index, first, total=NA_character_,
                     lvl=1L, laptime=10L, found=NULL) {
     # Overrides super class' method.

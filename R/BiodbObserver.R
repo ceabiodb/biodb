@@ -135,6 +135,22 @@ msg=function(type='info', msg, class=NA_character_,
     .self$checkMessageType(type)
 },
 
+notifyProgress=function(what, index, total) {
+    ":\n\nNotify about the progress of an action.
+    \nwhat: A short description of the action.
+    \nindex: A positive integer number indicating the progress.
+    \ntotal: The maximum for \"index\". When reached, the action is completed.
+    \nReturned value: None.
+    "
+    chk::chk_string(what)
+    chk::chk_whole_number(index)
+    chk::chk_whole_number(total)
+    chk::chk_gte(index, 0)
+    chk::chk_lte(index, total)
+    
+    return(invisible(NULL))
+},
+
 progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
                   laptime=10L, found=NULL) {
     ":\n\nSends a progress message to this observer.
