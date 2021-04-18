@@ -121,7 +121,8 @@ defineParsingExpressions=function() {
         if (length(new.entries) > 0) {
 
             # Loop on all new entries and write other fields to separate tables
-            i <- 0
+            prg <- Progress$new(biodb=.self$getBiodb(), msg='Writing entries.',
+                                total=length(new.entries))
             for (entry in new.entries) {
 
                 acc <- entry$getFieldValue('accession')
@@ -163,9 +164,7 @@ defineParsingExpressions=function() {
                 entry$.setAsNew(FALSE)
 
                 # Send progress message
-                i <- i + 1
-                .self$progressMsg('Writing entries.', index=i,
-                                  total=length(new.entries), first=(i == 1))
+                prg$increment()
             }
         }
     }

@@ -428,7 +428,6 @@ show=function() {
         # Loop on all contents
         getLogger()$debug('Parsing %d %s entries.', length(content),
                           conn$getPropertyValue('name'))
-        i <- 0
         prg <- Progress$new(biodb=.self$getBiodb(),
                             msg='Creating entry instances from contents',
                             total=length(content))

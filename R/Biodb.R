@@ -654,7 +654,8 @@ copyDb=function(conn.from, conn.to, limit=0) {
     entries <- conn.from$getEntry(ids)
 
     # Loop on all entries
-    i <- 0
+    prg <- Progress$new(biodb=.self, msg='Copying entries.',
+                        total=length(entries))
     for (entry in entries) {
 
         # Clone entry
@@ -663,10 +664,8 @@ copyDb=function(conn.from, conn.to, limit=0) {
         # Add new entry
         conn.to$addNewEntry(clone)
 
-        # Send progress message
-        i <- i + 1
-        msg <- 'Copying entries.'
-        .self$.sendProgress(msg=msg, index=i, total=length(ids), first=(i == 1))
+        # Progress message
+        prg$increment()
     }
 },
 
@@ -714,12 +713,6 @@ disableDebug=function() {
         .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
 },
 
-.sendProgress=function(msg, index, total, first, found=NULL) {
-    lapply(.self$getObservers(),
-           function(x) x$progress(type='info', msg=msg, index=index,
-                                  total=total, first=first, found=found))
-},
-
 .checkLocale=function() {
 
     # Get locale
@@ -752,19 +745,17 @@ disableDebug=function() {
                                     null.to.na, progress=TRUE) {
 
     df.list <- list()
-    msg <- 'Converting entries to data frame.'
 
     # Loop on all entries
-    i <- 0
+    prg <- Progress$new(biodb=.self, msg='Converting entries to data frame.',
+                        total=length(entries))
     for (e in entries) {
 
         e.df <- NULL
 
         # Send progress message
-        i <- i + 1
         if (progress)
-            .self$.sendProgress(msg=msg, index=i, total=length(entries),
-                                first=(i == 1))
+            prg$increment()
 
         # List of entries
         if (is.list(e)) {

@@ -160,9 +160,11 @@ getEntryPageUrl=function(entry.id) {
 
     # Send requests
     scheduler <- .self$getBiodb()$getRequestScheduler()
+    prg <- Progress$new(biodb=.self$getBiodb(),
+                        msg='Downloading entry contents',
+                        total=length(requests))
     for (i in seq_along(requests)) {
-        .self$progressMsg(msg='Downloading entry contents', index=i,
-                          total=length(requests), first=(i == 1))
+        prg$increment()
         content[[i]] <- scheduler$sendRequest(requests[[i]])
     }
 

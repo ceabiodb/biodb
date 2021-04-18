@@ -34,14 +34,6 @@ notify=function(fct, args) {
     invisible()
 },
 
-progressMsg=function(msg, index, first, total=NA_integer_, type='info',
-                     laptime=10L) {
-    .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
-                                  first=first, laptime=laptime))
-
-    invisible()
-},
-
 message=function(type, msg, lvl=1, callerLvl=0) {
 # Send a message to observers
 

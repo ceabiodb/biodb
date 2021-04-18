@@ -32,9 +32,7 @@
 BiodbObserver <- methods::setRefClass("BiodbObserver",
     fields=list(
         cfg.lvl='integer',
-        cust.lvl='integer',
-        .lastime.progress='list',
-        .progress.initial.time='list'
+        cust.lvl='integer'
     ),
 
 methods=list(
@@ -42,8 +40,6 @@ methods=list(
 initialize=function() {
     .self$cfg.lvl <- integer()
     .self$cust.lvl <- integer()
-    .self$.lastime.progress <- list()
-    .self$.progress.initial.time <- list()
 },
 
 terminate=function() {
@@ -149,47 +145,6 @@ notifyProgress=function(what, index, total) {
     chk::chk_lte(index, total)
     
     return(invisible(NULL))
-},
-
-progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
-                  laptime=10L, found=NULL) {
-    ":\n\nSends a progress message to this observer.
-    \ntype: The message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nmsg: The text message to send.
-    \nindex: The index in the progression, as an integer or numeric number.
-    \ntotal: The total to achieve in the progression, as an integer or numeric
-    number. Optional.
-    \nlvl: The level of the message.
-    \nlaptime: The time between two progress messages, in seconds.
-    \nfound: The number of good items found.
-    \nReturned value: None.
-    "
-
-    t <- Sys.time()
-    msgid <- msg
-
-    if (first || ! msg %in% names(.self$.lastime.progress)) {
-        .self$.lastime.progress[[msgid]] <- t
-        .self$.progress.initial.time[[msgid]] <- t
-    }
-
-    if (t - .self$.lastime.progress[[msgid]] >= laptime) {
-        msg <- paste(msg, index, '/', if (is.na(total)) '?' else total)
-        if ( ! is.na(total)) {
-            i <- .self$.progress.initial.time[[msgid]]
-            eta <- t + (total - index) * (t - i) / index
-            msg <- paste0(msg, ' (', ((100 * index) %/% total), '%, ETA: ',
-                          eta, ')')
-            if ( ! is.null(found))
-                msg <- paste0(msg, ', found ', found, ' item(s)')
-        }
-        msg <- paste0(msg, '.')
-        .self$msg(type, msg, lvl=lvl)
-        .self$.lastime.progress[[msgid]] <- t
-    }
-
-    invisible(NULL)
 },
 
 checkMessageType=function(type) {
