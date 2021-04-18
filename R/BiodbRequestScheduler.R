@@ -196,7 +196,8 @@ connSchedulerFrequencyUpdated=function(conn) {
 .checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-        .self$error("Offline mode is enabled. All connections are forbidden.")
+        fatal("Offline mode is enabled. All connections are forbidden.",
+              fmt='paste0')
 },
 
 

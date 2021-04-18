@@ -57,8 +57,8 @@ getMatchingMzField=function() {
     
     # If it contains no value, throw an error
     else if (length(fields) == 0)
-        .self$error("No macthing field defined for M/Z values.",
-                    "Use setMatchingMzField() to set one.")
+        fatal("No macthing field defined for M/Z values.",
+              "Use setMatchingMzField() to set one.", fmt='paste0')
     
     # If it contains more than one value, try to determine which one to use
     else {
@@ -105,20 +105,21 @@ getMatchingMzField=function() {
         
         # No choice made
         if (is.null(field))
-            .self$error("Impossible to determine which field to use for",
-                        " M/Z matching. Please set the wanted field using",
-                        " setMatchingMzField() method, and make sure it is",
-                        " defined inside your database.")
+            fatal("Impossible to determine which field to use for",
+                  " M/Z matching. Please set the wanted field using",
+                  " setMatchingMzField() method, and make sure it is",
+                  " defined inside your database.", fmt='paste0')
         
         # Throw a warning telling which field was chosen for matching and tell
         # to use setMatchingMzField() to set another field if needed
         .self$setMatchingMzField(field)
         if (multiple.match)
-            .self$warning('Field "', field, '" has been automatically chosen',
-                          ' among several possibilities (',
-                          paste(fields, collapse=', '), ') for matching',
-                          ' M/Z values. Use setMatchingMzField() method',
-                          ' explicitly to avoid this warning in the future.')
+            warn('Field "', field, '" has been automatically chosen',
+                 ' among several possibilities (',
+                 paste(fields, collapse=', '), ') for matching',
+                 ' M/Z values. Use setMatchingMzField() method',
+                 ' explicitly to avoid this warning in the future.',
+                 fmt='paste0')
     }
     
     return(field)
@@ -751,14 +752,14 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     if (any(rt.wrong)) {
         if ('s' %in% units[rt.wrong]) {
             if (wanted.unit != 'min')
-                .self$error('Error when converting retention times values.',
-                            ' Was expecting "min" for target unit.')
+                fatal('Error when converting retention times values.',
+                      ' Was expecting "min" for target unit.', fmt='paste0')
             rt[rt.wrong] <- rt[rt.wrong] / 60
         }
         if ('min' %in% units[rt.wrong]) {
             if (wanted.unit != 's')
-                .self$error('Error when converting retention times values.',
-                            ' Was expecting "s" for target unit.')
+                fatal('Error when converting retention times values.',
+                      ' Was expecting "s" for target unit.', fmt='paste0')
             rt[rt.wrong] <- rt[rt.wrong] * 60
         }
     }
@@ -804,8 +805,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
     if (use.tol && use.min.max)
-        .self$error("You cannot set both mz and (mz.min, mz.max). Please",
-            " choose one of those these two schemes to input M/Z values.")
+        fatal("You cannot set both mz and (mz.min, mz.max). Please",
+            " choose one of those these two schemes to input M/Z values.",
+            fmt='paste0')
 
     return(list(use.tol=use.tol, use.min.max=use.min.max))
 },
@@ -858,9 +860,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     if ( ! mz.match$use.tol && ! mz.match$use.min.max)
         return(NULL)
     if (mz.match$use.tol && match.rt && length(mz) != length(rt))
-        .self$error('mz and rt must have the same length.')
+        fatal('mz and rt must have the same length.', fmt='paste0')
     if (mz.match$use.min.max && match.rt && length(mz.min) != length(rt))
-        .self$error('mz.min, mz.max and rt must have the same length.')
+        fatal('mz.min, mz.max and rt must have the same length.', fmt='paste0')
 
     # Set input data frame
     for (v in c('mz', 'mz.min', 'mz.max', 'rt')) {
@@ -870,9 +872,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
                 colnames(input.df) <- v
             } else {
                 if (nrow(input.df) != length(get(v)))
-                    .self$error('input.df (length ', nrow(input.df), '), and ',
+                    fatal('input.df (length ', nrow(input.df), '), and ',
                         v, ' (length ', length(get(v)),
-                        ') must have the same length.')
+                        ') must have the same length.', fmt='paste0')
                 else {
                     if ( ! v %in% names(input.df.colnames))
                         input.df.colnames[[v]] <- v
@@ -915,8 +917,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),
                                        rt.col.unit, 's')
     } else
-        .self$error('Impossible to match on retention time, no retention time',
-            ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
+        fatal('Impossible to match on retention time, no retention time',
+            ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.',
+            fmt='paste0')
 
     return(list(min=rt.col.min, max=rt.col.max))
 },

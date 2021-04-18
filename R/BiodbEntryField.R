@@ -93,8 +93,8 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Set name
     if ( is.null(name) || is.na(name) || nchar(name) == '')
-        .self$error("You cannot set an empty name for a field. Name was',
-                    ' empty (either NULL or NA or empty string).")
+        fatal("You cannot set an empty name for a field. Name was',
+              ' empty (either NULL or NA or empty string).", fmt='paste0')
     .self$.name <- tolower(name)
 
     # Set type
@@ -107,8 +107,8 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     # Set cardinality
     card <- match.arg(card)
     if (.self$.class == 'data.frame' && card != 'one')
-        .self$error('Cardinality "', card, '" is forbidden for class "',
-                    .self$.class, '" for field "', name, '"')
+        fatal('Cardinality "', card, '" is forbidden for class "',
+                    .self$.class, '" for field "', name, '"', fmt='paste0')
     .self$.cardinality <- card
 
     # Set description
@@ -116,7 +116,8 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Set alias
     if (length(alias) > 1 && any(is.na(alias)))
-        .self$error("One of the aliases of entry field \"", name, "\" is NA.")
+        fatal("One of the aliases of entry field \"", name, "\" is NA.",
+              fmt='paste0')
     .self$.alias <- alias
 
     # Set allowed values
@@ -124,31 +125,32 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
         if ( ! is.vector(allowed.values, mode='numeric')
             && ! is.vector(allowed.values, mode='character')
             && ! is.vector(allowed.values, mode='list'))
-            .self$error('Allowed values must be either a list, a numeric',
-                        ' vector or a character vector.')
+            fatal('Allowed values must be either a list, a numeric',
+                  ' vector or a character vector.', fmt='paste0')
 
         # For a list check that all values are character vectors
         if (is.vector(allowed.values, mode='list')) {
             if (is.null(names(allowed.values)))
-                .self$error('When allowed values are specified as a list,',
-                            ' names must be set.')
+                fatal('When allowed values are specified as a list,',
+                      ' names must be set.', fmt='paste0')
             if ( ! all(vapply(allowed.values,
                               function(x) is.vector(x, 'character'),
                               FUN.VALUE=TRUE)))
-                .self$error('When allowed values are specified as a list,',
-                            ' all values must be characters.')
+                fatal('When allowed values are specified as a list,',
+                      ' all values must be characters.', fmt='paste0')
         }
     }
     .self$.allowed.values <- allowed.values
 
     # Case insensitive
     if (case.insensitive && class != 'character')
-        .self$error('Only character fields can be case insensitive.')
+        fatal('Only character fields can be case insensitive.', fmt='paste0')
     .self$.case.insensitive <- case.insensitive
 
     # Lower case
     if (lower.case && class != 'character')
-        .self$error('Only character fields can be forced to lower case.')
+        fatal('Only character fields can be forced to lower case.',
+              fmt='paste0')
     .self$.lower.case <- lower.case
 
     # Computable from
@@ -158,11 +160,11 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     .self$virtual <- virtual
     .self$virtualGroupByType <- if (is.null(virtual.group.by.type)) character() else virtual.group.by.type
     if ( ! .self$virtual && length(.self$virtualGroupByType) > 0)
-        .self$error('virtual.group.by.type is not usable with non-virtual field "',
-                    name, '".')
+        fatal('virtual.group.by.type is not usable with non-virtual field "',
+              name, '".', fmt='paste0')
     if (length(.self$virtualGroupByType) > 0 && .self$.class != 'data.frame')
-        .self$error('virtual.group.by.type is only usable for virtual field of class
-                    data.frame. Error for field "', name, '".')
+        fatal('virtual.group.by.type is only usable for virtual field of class',
+              ' data.frame. Error for field "', name, '".', fmt='paste0')
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
@@ -175,22 +177,23 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
         # Is a list
         if ( ! is.list(computable.from) || ! is.null(names(computable.from)))
-            .self$error('computable.from must be an unnamed list, for field "',
-                        .self$.name, '".')
+            fatal('computable.from must be an unnamed list, for field "',
+                  .self$.name, '".', fmt='paste0')
 
         # Loop on all directives
         for (directive in computable.from) {
 
             # Has a "database" field
             if ( ! 'database' %in% names(directive))
-                .self$error('You must specified the database for directive',
-                            ', for field "', .self$.name, '".')
+                fatal('You must specified the database for directive',
+                       ', for field "', .self$.name, '".', fmt='paste0')
 
             # Check list of fields
             if ('fields' %in% names(directive)
                 && ! is.character(directive$fields))
-                .self$error('In directive of field "', .self$.name,
-                            '", "fields" must be a list of field names.')
+                fatal('In directive of field "', .self$.name,
+                      '", "fields" must be a list of field names.',
+                      fmt='paste0')
         }
     }
 
@@ -252,7 +255,7 @@ addAlias=function(alias) {
         
         # Check that alias does not already exist
         if (.self$getParent()$isAlias(alias))
-            .self$error("Alias ", alias, " already exists.")
+            fatal("Alias ", alias, " already exists.", fmt='paste0')
 
         # Add alias
         if ( ! alias %in% .self$.alias)
@@ -316,13 +319,14 @@ addComputableFrom=function(directive) {
 
     # Has a "database" field
     if ( ! 'database' %in% names(directive))
-        .self$error('You must specified the database for directive',
-                    ', for field "', .self$.name, '".')
+        fatal('You must specified the database for directive',
+              ', for field "', .self$.name, '".', fmt='paste0')
 
     # Search if the directive exists
     for (d in .self$.computable.from) {
         if (d$database == directive$database)
-            .self$error()
+            fatal(paste0('A "computable from" directive already',
+                         'exists for database "%s".'), d$database)
     }
 
     # Add the new directive
@@ -465,19 +469,19 @@ addAllowedValue=function(key, value) {
 
     # Check that key exists
     if (is.null(names(.self$.allowed.values)))
-        .self$error('Field "', .self$.name,
-                    '" doesn\'t use keys for its allowed values.')
+        fatal('Field "', .self$.name,
+              '" doesn\'t use keys for its allowed values.', fmt='paste0')
     if ( ! key %in% names(.self$.allowed.values))
-        .self$error('Field "', .self$.name, '" doesn\'t use key "', key,
-                    '" for its allowed values.')
+        fatal('Field "', .self$.name, '" doesn\'t use key "', key,
+              '" for its allowed values.', fmt='paste0')
 
     # Check that value is not already used
     if (value %in% .self$getAllowedValues()) {
         current.key <- .self$correctValue(value)
         if (current.key != key)
-            .self$error('Field "', .self$.name, '" already uses value "', value,
-                        '" for its allowed values, but with key "', current.key,
-                        '" instead of key "', key, '".')
+            fatal('Field "', .self$.name, '" already uses value "', value,
+                  '" for its allowed values, but with key "', current.key,
+                  '" instead of key "', key, '".', fmt='paste0')
         else
             .self$info('Field "', .self$.name, '" already uses value "', value,
                        '" for its allowed values, with key "', key, '".')
@@ -500,8 +504,8 @@ checkValue=function(value) {
     if (.self$isEnumerate() && length(bad.values) > 0) {
         bv <- paste(bad.values[ ! duplicated(bad.values)], collapse=', ')
         av <- paste(.self$getAllowedValues(), collapse=', ')
-        .self$error('Value(s) ', bv, ' is/are not allowed for field ',
-                    .self$getName(), '. Allowed values are: ', av, '.')
+        fatal('Value(s) ', bv, ' is/are not allowed for field ',
+              .self$getName(), '. Allowed values are: ', av, '.', fmt='paste0')
     }
 },
 
@@ -591,7 +595,8 @@ equals=function(other, fail=FALSE) {
     "
 
     if ( ! methods::is(other, "BiodbEntryField"))
-        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
+        fatal("Parameter `other` must be an instance of BiodbEntryField.",
+              fmt='paste0')
 
     eq <- TRUE
 
@@ -612,7 +617,8 @@ equals=function(other, fail=FALSE) {
     }
 
     if (fail && ! eq)
-        .self$error("Field \"", other[['name']], "\" has already been defined.")
+        fatal("Field \"", other[['name']], "\" has already been defined.",
+              fmt='paste0')
 
     return(eq)
 },
@@ -627,7 +633,8 @@ updateWithValuesFrom=function(other) {
     "
 
     if ( ! methods::is(other, "BiodbEntryField"))
-        .self$error("Parameter `other` must be an instance of BiodbEntryField.")
+        fatal("Parameter `other` must be an instance of BiodbEntryField.",
+              fmt='paste0')
 
     # Update fields
     for (a in other$.alias)

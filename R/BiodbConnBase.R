@@ -352,8 +352,8 @@ setPropertyValue=function(name, value) {
         && 'modifiable' %in% names(.self$.prop.def[[name]])
         && ! .self$.prop.def[[name]]$modifiable
         && ! identical(.self$.prop[[name]], value))
-        .self$error('Property "', name, '" of database "', .self$getDbClass(),
-                   '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".')
+        fatal('Property "', name, '" of database "', .self$getDbClass(),
+              '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".', fmt='paste0')
 
     # Set value
     .self$.prop[[name]] <- value
@@ -435,8 +435,8 @@ setPropValSlot=function(name, slot, value) {
     # Check that property exists
     if ( ! name %in% names(.self$.prop.def)) {
         if (fail)
-            .self$error('Unknown property "', name, '" for database ',
-                        .self$getDbClass(), '.')
+            fatal('Unknown property "', name, '" for database ',
+                  .self$getDbClass(), '.', fmt='paste0')
         else
             return(FALSE)
     }
@@ -447,8 +447,8 @@ setPropValSlot=function(name, slot, value) {
     # Check that it is a property slot
     if (is.logical(slot) && slot && ! 'named' %in% names(pdef)) {
         if (fail)
-            .self$error('Property "', name, '" of database "',
-                        .self$getDbClass(), '" is not a slot property.')
+            fatal('Property "', name, '" of database "',
+                  .self$getDbClass(), '" is not a slot property.', fmt='paste0')
         else
             return(FALSE)
     }
@@ -456,9 +456,9 @@ setPropValSlot=function(name, slot, value) {
     # Check that it is a property slot
     if ( ! is.null(slot) && ! 'named' %in% names(pdef)) {
         if (fail)
-            .self$error('Unauthorized use of slot "', slot, '" with unnamed", "
-                        property "', name, '" of database "',
-                        .self$getDbClass(), '".')
+            fatal('Unauthorized use of slot "', slot,
+                  '" with unnamed property "', name, '" of database "',
+                  .self$getDbClass(), '".', fmt='paste0')
         else
             return(FALSE)
     }
@@ -474,19 +474,20 @@ setPropValSlot=function(name, slot, value) {
 
     # Check cardinality
     if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
-        .self$error('Multiple values are forbidden for property "', name,
-                    '" of database "', .self$getDbClass(), '".')
+        fatal('Multiple values are forbidden for property "', name,
+              '" of database "', .self$getDbClass(), '".', fmt='paste0')
 
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
-            .self$error('Value vector for property "', name, '"of database "',
-                        .self$getDbClass(), '" must be named. Values are: ',
-                        paste(paste(names(value), value, sep='='),
-                              collapse=', '))
+            fatal('Value vector for property "', name, '"of database "',
+                  .self$getDbClass(), '" must be named. Values are: ',
+                  paste(paste(names(value), value, sep='='), collapse=', '),
+                  fmt='paste0')
         if (any(duplicated(names(value))))
-            .self$error('Value vector for property "', name, '"of database "',
-                        .self$getDbClass(), '" contains duplicated names.')
+            fatal('Value vector for property "', name, '"of database "',
+                  .self$getDbClass(), '" contains duplicated names.',
+                  fmt='paste0')
     }
 
     # Convert value
@@ -497,12 +498,13 @@ setPropValSlot=function(name, slot, value) {
     # Check if value is allowed
     if (length(value) == 1) {
         if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
-            .self$error('NA value is not allowed for property "', name,
-                        '" of database "', .self$getDbClass(), '".')
+            fatal('NA value is not allowed for property "', name,
+                  '" of database "', .self$getDbClass(), '".', fmt='paste0')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
-            .self$error('Value "', value, '" is not allowed for property "',
-                        name, '" of database "', .self$getDbClass(), '".')
+            fatal('Value "', value, '" is not allowed for property "',
+                  name, '" of database "', .self$getDbClass(), '".',
+                  fmt='paste0')
     }
 
     return(value)

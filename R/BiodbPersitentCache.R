@@ -256,8 +256,8 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     "
 
     if ( ! .self$isReadable())
-        .self$error("Attempt to read from non-readable cache \"",
-                    .self$getDir(), "\".")
+        fatal("Attempt to read from non-readable cache \"",
+              .self$getDir(), "\".", fmt='paste0')
 
     content <- NULL
 
@@ -293,9 +293,9 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
             content[[i]] <- iconv(content[[i]], "iso8859-1")
             n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
             if (is.null(n))
-                .self$error('Impossible to handle correctly the content of', 
-                            ' file "', file.paths[[i]], '". The encoding of', 
-                            ' this file is unknown.')
+                fatal('Impossible to handle correctly the content of', 
+                      ' file "', file.paths[[i]], '". The encoding of', 
+                      ' this file is unknown.', fmt='paste0')
         }
     }
 
@@ -328,9 +328,9 @@ saveContentToFile=function(content, cache.id, name, ext) {
 
     # Check that we have the same number of content and file paths
     if (length(file.paths) != length(content))
-        .self$error('The number of content to save (', length(content),
-                    ') is different from the number of paths (',
-                    length(file.paths), ').')
+        fatal('The number of content to save (', length(content),
+              ') is different from the number of paths (',
+              length(file.paths), ').', fmt='paste0')
 
     # Replace NA values with 'NA' string
     content[is.na(content)] <- 'NA'
@@ -353,8 +353,8 @@ saveContentToFile=function(content, cache.id, name, ext) {
 .checkWritable=function(cache.id) {
 
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        fatal('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".', fmt='paste0')
 
     # Make sure the path exists
     path <- file.path(.self$getDir(), cache.id)
@@ -379,9 +379,9 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
     # Check that we have the same number of src and dst file paths
     if (length(src.file.paths) != length(dstFilePaths))
-        .self$error('The number of files to move (', length(src.file.paths),
-                    ') is different from the number of destination paths (',
-                    length(dstFilePaths), ').')
+        fatal('The number of files to move (', length(src.file.paths),
+              ') is different from the number of destination paths (',
+              length(dstFilePaths), ').', fmt='paste0')
 
     # Move files
     .self$debug2List('Moving files to cache ', src.file.paths)
@@ -411,8 +411,8 @@ deleteFile=function(cache.id, name, ext) {
     "
 
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        fatal('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".', fmt='paste0')
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, name, ext)
@@ -472,8 +472,8 @@ deleteFiles=function(cache.id, ext) {
     chk::chk_string(ext)
     
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        fatal('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".', fmt='paste0')
 
     files <- paste('*', ext, sep='.')
 

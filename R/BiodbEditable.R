@@ -105,19 +105,19 @@ addNewEntry=function(entry) {
 
     # No accession number?
     if ( ! entry$hasField('accession'))
-        .self$error('Impossible to add entry as a new entry. The passed entry',
-                    ' has no accession number.')
+        fatal('Impossible to add entry as a new entry. The passed entry',
+              ' has no accession number.', fmt='paste0')
     id <- entry$getFieldValue('accession')
     if (is.na(id))
-        .self$error('Impossible to add entry as a new entry. The passed',
-                    ' entry has an accession number set to NA.')
+        fatal('Impossible to add entry as a new entry. The passed',
+              ' entry has an accession number set to NA.', fmt='paste0')
 
     # Accession number is already used?
     e <- .self$getEntry(id)
     if ( ! is.null(e))
-        .self$error('Impossible to add entry as a new entry. The accession',
-                    ' number of the passed entry is already used in the',
-                    ' connector.')
+        fatal('Impossible to add entry as a new entry. The accession',
+              ' number of the passed entry is already used in the',
+              ' connector.', fmt='paste0')
 
     # Make sure ID field is equal to accession
     id.field <- .self$getEntryIdField()
@@ -149,8 +149,8 @@ addNewEntry=function(entry) {
     .self$.initEditable()
 
     if ( ! .self$.editing.allowed)
-        .self$error('Editing is not enabled for this database. However this',
-                    ' database type is editable. Please call allowEditing()',
-                    ' method to enable editing.')
+        fatal('Editing is not enabled for this database. However this',
+              ' database type is editable. Please call allowEditing()',
+              ' method to enable editing.', fmt='paste0')
 }
 ))

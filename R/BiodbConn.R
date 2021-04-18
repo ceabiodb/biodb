@@ -397,9 +397,9 @@ searchForEntries=function(fields=NULL, max.results=0) {
 
     # No implementation
     if (is.null(ids) && length(fields) > 0)
-        .self$error('This database has been declared to be ',
-                    'searchable by field "', names(fields)[[1]],
-                    '", but no implementation has been defined.')
+        fatal('This database has been declared to be ',
+              'searchable by field "', names(fields)[[1]],
+              '", but no implementation has been defined.', fmt='paste0')
 
     return(ids)
 },

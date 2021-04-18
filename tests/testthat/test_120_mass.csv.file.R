@@ -132,9 +132,9 @@ test.fields <- function(biodb) {
 
     # Set wrong fields
     testthat::expect_error(conn$setField('invalid.tag.name', colname='something'),
-                 regexp='^.* Database field "invalid.tag.name" is not valid.$')
+                 regexp='^.*Database field "invalid.tag.name" is not valid.$')
     testthat::expect_error(conn$setField('ms.mode', colname='wrong.col.name'),
-                 regexp='^.* Column.* is/are not defined in database file.$')
+                 regexp='^.*Column.* is/are not defined in database file.$')
 
     # Reseting accession field should fail
     testthat::expect_error(conn$setField('accession', 'compound.id'))
@@ -181,7 +181,9 @@ test.field.card.one <- function(biodb) {
     conn$setField('accession', 'ids')
     conn$setField('ms.mode', 'mode')
     conn$setField('peak.mztheo', 'mz')
-    expect_error(conn$checkDb(), regexp='^.* Cannot set more that one value .* into single value field .*\\.$')
+    expect_error(conn$checkDb(),
+                 regexp=paste0('^.*Cannot set more that one value .* into',
+                               ' single value field .*\\.$'))
 }
 
 test.getMzValues.without.peak.attr <- function(biodb) {

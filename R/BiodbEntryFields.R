@@ -96,8 +96,8 @@ checkIsDefined=function(name) {
 
     def <- .self$isDefined(name)
     if (any( ! def))
-        .self$error("Field(s) \"", paste(name[ ! def], collapse=", "),
-                    "\" is/are not defined.")
+        fatal("Field(s) \"", paste(name[ ! def], collapse=", "),
+              "\" is/are not defined.", fmt='paste0')
 },
 
 getRealName=function(name, fail=TRUE) {

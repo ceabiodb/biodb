@@ -156,13 +156,14 @@ setFieldValue=function(field, value) {
 
     # Specific case to handle objects.
     if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
-      .self$error('Cannot set a non RC instance to field "', field,
-                  '" in BiodEntry.')
+      fatal('Cannot set a non RC instance to field "', field,
+            '" in BiodEntry.', fmt='paste0')
 
     # Check value class
     if (field.def$isAtomic()) {
         if (length(value) == 0)
-            .self$error('Cannot set an empty value into field "', field, '".')
+            fatal('Cannot set an empty value into field "', field, '".',
+                  fmt='paste0')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
             .self$warning("Unable to convert value(s) \"",
@@ -187,13 +188,13 @@ setFieldValue=function(field, value) {
     # Check cardinality
     if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
         if (length(value) > 1)
-            .self$error('Cannot set more that one value (',
+            fatal('Cannot set more that one value (',
                         paste(value, collapse=', '),
                         ') into single value field "', field, '" for entry ',
-                        .self$getName(), '.')
+                        .self$getName(), '.', fmt='paste0')
         if (length(value) == 0)
-            .self$error('Cannot set an empty vector into single value field "',
-                        field, '" for entry ', .self$getName(), '.')
+            fatal('Cannot set an empty vector into single value field "',
+                  field, '" for entry ', .self$getName(), '.', fmt='paste0')
     }
 
     # Set value
@@ -297,8 +298,9 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
                                               sort=TRUE)
 
         else
-            .self$error('Do not know how to compute virtual field "', field,'"
-                        for entry "', .self$getFieldValue('accession'), '".')
+            fatal('Do not know how to compute virtual field "', field,
+                  '" for entry "', .self$getFieldValue('accession'), '".',
+                  fmt='paste0')
     }
 
     # Unset field
@@ -444,8 +446,8 @@ parseContent=function(content) {
 
     # No connector?
     if ( ! .self$parentIsAConnector())
-        .self$error('Impossible to parse content for this entry, because its',
-                    ' parent is not a connector.')
+        fatal('Impossible to parse content for this entry, because its',
+              ' parent is not a connector.', fmt='paste0')
 
     # Parse
     if (.self$.isContentCorrect(content)) {
@@ -467,10 +469,11 @@ parseContent=function(content) {
     dbid.field <- .self$getParent()$getEntryIdField()
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
-            .self$error('Value of accession field ("',
-                        .self$getFieldValue('accession'),
-                        '") is different from value of ', dbid.field,
-                        ' field ("', .self$getFieldValue(dbid.field), '").')
+            fatal('Value of accession field ("',
+                  .self$getFieldValue('accession'),
+                  '") is different from value of ', dbid.field,
+                  ' field ("', .self$getFieldValue(dbid.field), '").',
+                  fmt='paste0')
     }
     else {
         if (.self$hasField(dbid.field))

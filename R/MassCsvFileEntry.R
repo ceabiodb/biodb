@@ -88,12 +88,13 @@ initialize=function(...) {
     peaks <- .self$getFieldValue('peaks')
     if ( ! is.null(mz)) {
         if (is.null(peaks))
-            .self$error('No peaks table while a peak.mz field exists for entry ',
-                        .self$getFieldValue('accession'), ' .')
+            fatal('No peaks table while a peak.mz field exists for entry ',
+                  .self$getFieldValue('accession'), ' .', fmt='paste0')
         if (nrow(peaks) != length(mz))
-            .self$error('Peaks table (nrow=', nrow(peaks), ') does not have ',
-                        'the same number of elements as peak.mz field (',
-                        length(mz), ') for entry ', .self$getFieldValue('accession'), '.')
+            fatal('Peaks table (nrow=', nrow(peaks), ') does not have ',
+                  'the same number of elements as peak.mz field (',
+                  length(mz), ') for entry ', .self$getFieldValue('accession'),
+                  '.', fmt='paste0')
     }
 
     # Chromatographic column id and name

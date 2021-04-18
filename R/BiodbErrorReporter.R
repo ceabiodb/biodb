@@ -29,13 +29,6 @@ msg=function(type='info', msg, class=NA_character_, method=NA_character_,
     }
 
     invisible(NULL)
-},
-
-progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
-                  laptime=10L, found=NULL) {
-    # Override super class' method
-
-    invisible(NULL)
 }
 
 ))
