@@ -98,12 +98,6 @@ debug2List=function(msg, lst, nCut=10, callerLvl=0) {
     return(invisible(NULL))
 },
 
-error=function(...) {
-    .self$message(type='error', msg=paste0(...))
-
-    invisible()
-},
-
 warning=function(...) {
     .self$message(type='warning', msg=paste0(...))
 

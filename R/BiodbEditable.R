@@ -100,8 +100,8 @@ addNewEntry=function(entry) {
 
     # Is already part of a connector instance?
     if (entry$parentIsAConnector())
-        .self$'error'('Impossible to add entry as a new entry. The passed',
-                      ' entry is already part of a connector.')
+        fatal('Impossible to add entry as a new entry. The passed',
+              ' entry is already part of a connector.', fmt='paste0')
 
     # No accession number?
     if ( ! entry$hasField('accession'))

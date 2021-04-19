@@ -53,8 +53,7 @@ initialize=function(autoloadExtraPkgs=NULL) {
 
     # Set default observers
     .self$.observers <- list(BiodbInfoReporter$new(),
-                             BiodbWarningReporter$new(),
-                             BiodbErrorReporter$new()
+                             BiodbWarningReporter$new()
                              )
 
     # Create instances of children
@@ -237,8 +236,7 @@ addObservers=function(observers) {
     is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
                      FUN.VALUE=TRUE)
     if (any( ! is.obs))
-        .self$message('error',
-                      "Observers must inherit from BiodbObserver class.")
+        fatal("Observers must inherit from BiodbObserver class.")
 
     # Add observers to current list (insert at beginning)
     old_obs <- .self$.observers

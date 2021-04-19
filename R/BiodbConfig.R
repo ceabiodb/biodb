@@ -393,7 +393,7 @@ newObserver=function(obs) {
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
         if (fail)
-            .self$message('error', "Key is NULL, NA or not character type.")
+            fatal("Key is NULL, NA or not character type.")
         else
             return(FALSE)
     }
@@ -401,22 +401,22 @@ newObserver=function(obs) {
     # Fail if invalid key
     if ( ! key %in% names(.self$.keys)) {
         if (fail)
-            .self$message('error', paste0("Unknown key ", key, "."))
+            fatal("Unknown key %s.", key)
         else
             return(FALSE)
     }
 
     # Fail if deprecated
     if (.self$.isDeprecated(key))
-        .self$message('warning', paste("Key", key, "is deprecated.",
-                                     .self$.keys[[key]][['deprecated']]))
+        warn("Key %s is deprecated. %s", key,
+             .self$.keys[[key]][['deprecated']])
 
     # Test type
     if ( ! is.null(type) && ! is.na(type)
         && .self$.keys[[key]][['type']] != type) {
         if (fail)
-            .self$message('error', paste0("Key ", key, " is not of type ", type,
-                                          " but of type ", key.type, "."))
+            fatal("Key ", key, " is not of type ", type,
+                  " but of type ", key.type, ".", fmt='paste0')
         else
             return(FALSE)
     }

@@ -5,8 +5,7 @@
 #' class.
 #'
 #' @seealso Sub-classes \code{\link{BiodbLogger}},
-#' \code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}},
-#' \code{\link{BiodbErrorReporter}}.
+#' \code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}}.
 #'
 #' @examples
 #' # Define a new observer class

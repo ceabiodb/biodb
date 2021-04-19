@@ -25,9 +25,9 @@ getBiodb=function() {
 .setParent=function(parent) {
 
     if (is.null(parent))
-        .self$message('error', "Parent cannot be NULL.")
+        fatal("Parent cannot be NULL.")
     if ( ! is(parent, 'BiodbObject'))
-        .self$message('error', "Parent must inherit from BiodbObject.")
+        fatal("Parent must inherit from BiodbObject.")
     .self$.parent <- parent
 }
 

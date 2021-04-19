@@ -62,7 +62,6 @@ Collate:
     'BiodbEditable.R'
     'BiodbEntryField.R'
     'BiodbEntryFields.R'
-    'BiodbErrorReporter.R'
     'BiodbFactory.R'
     'BiodbXmlEntry.R'
     'BiodbHtmlEntry.R'

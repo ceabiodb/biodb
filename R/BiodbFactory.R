@@ -126,7 +126,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
                       (if (is.null(url)) '' else
                           paste0(' with the same URL (', url, ')')),
                       (if (is.na(token)) '' else 'and the same token'), '.')
-        .self$message(if (fail.if.exists) 'error' else 'warning', msg)
+        if (fail.if.exists) fatal(msg) else warn(msg)
         conn <- if (get.existing.conn) existingConn else NULL
     }
 
@@ -314,7 +314,7 @@ getAllCacheEntries=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+        fatal('Connector "%s" is unknown.', conn.id)
 
     return(.self$.conn[[conn.id]]$getAllCacheEntries())
 },
@@ -329,7 +329,7 @@ deleteAllEntriesFromVolatileCache=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+        fatal('Connector "%s" is unknown.', conn.id)
 
     .self$.conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
 },
