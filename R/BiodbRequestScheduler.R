@@ -161,7 +161,7 @@ downloadFile=function(url, dest.file) {
         dir.create(path, recursive=TRUE)
 
     # Download
-    .self$info2('Downloading file "', url, '".')
+    logDebug('Downloading file "%s".', url)
     cfg <- .self$getBiodb()$getConfig()
     infoLvl <- cfg$get('msg.info.lvl')
     options(HTTPUserAgent=cfg$get('useragent'),

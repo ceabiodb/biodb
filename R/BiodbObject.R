@@ -104,12 +104,6 @@ info=function(...) {
     invisible()
 },
 
-info2=function(...) {
-    .self$message(type='info', msg=paste0(...), lvl=2)
-
-    invisible()
-},
-
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
 
