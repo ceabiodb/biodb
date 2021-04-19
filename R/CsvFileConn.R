@@ -456,10 +456,9 @@ defineParsingExpressions=function() {
     # Check if fields are defined in file database
     undefined.fields <- fields[ ! fields %in% .self$getFieldNames()]
     if (length(undefined.fields) > 0) {
-        .self$message((if (fail) 'error' else 'debug'),
-                      paste0("Field(s) ",
-                             paste(undefined.fields, collapse=", "),
-                             " is/are undefined in file database."))
+        msg <- sprintf("Field(s) %s is/are undefined in file database.",
+                       paste(undefined.fields, collapse=", "))
+        if (fail) fatal(msg) else logDebug(fail)
         return(FALSE)
     }
 
