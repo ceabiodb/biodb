@@ -702,7 +702,7 @@ fieldHasBasicClass=function(field) {
     singles <- character()
     dfGrps <- list()
     ef <- .self$getBiodb()$getEntryFields()
-    .self$debug2List('Fields', fields)
+    logTrace('Fields %s', lst2str(fields))
 
     for (field in fields) {
         fieldDef <- ef$get(field)
@@ -719,24 +719,24 @@ fieldHasBasicClass=function(field) {
 
     # Build groups
     groups <- list(singles=singles, dfGrps=dfGrps)
-    .self$debug2List('Groups', groups)
+    logTrace('Groups %s', lst2str(groups))
 
     return(groups)
 },
 
 .selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one) {
 
-    .self$debug2List('Fields', fields)
-    .self$debug2('Fields type: ', fields.type)
+    logTrace('Fields %s', lst2str(fields))
+    logTrace('Fields type: %s', fields.type)
 
     # Set fields to get
-    .self$debug2('Fields is null: ', is.null(fields))
-    .self$debug2('Fields.type is null: ', is.null(fields.type))
+    logTrace('Fields is null: %s', is.null(fields))
+    logTrace('Fields.type is null: %s', is.null(fields.type))
     if ( ! is.null(fields.type))
         fields <- .self$getFieldsByType(fields.type)
     else if (is.null(fields))
         fields <- names(.self$.fields)
-    .self$debug2List('Fields', fields)
+    logTrace('Fields %s', lst2str(fields))
 
     # Filter out unwanted fields
     ef <- .self$getBiodb()$getEntryFields()
@@ -753,7 +753,7 @@ fieldHasBasicClass=function(field) {
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 
-    .self$debug2List('Fields', fields)
+    logTrace('Fields', lst2str(fields))
     return(fields)
 },
 

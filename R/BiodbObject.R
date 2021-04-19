@@ -78,26 +78,6 @@ debug=function(...) {
     invisible()
 },
 
-debug2=function(..., callerLvl=0) {
-    .self$message(type='debug', msg=paste0(...), lvl=2, callerLvl=callerLvl+1)
-
-    invisible()
-},
-
-debug2Dataframe=function(msg, x, rowCut=5, colCut=5) {
-
-    .self$debug2(msg, df2str(x, rowCut=rowCut, colCut=colCut), '.')
-
-    return(invisible(NULL))
-},
-
-debug2List=function(msg, lst, nCut=10, callerLvl=0) {
-
-    .self$debug2(msg, lst2str(lst, nCut=nCut), '.', callerLvl=callerLvl+1)
-
-    return(invisible(NULL))
-},
-
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
 

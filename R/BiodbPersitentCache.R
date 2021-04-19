@@ -276,10 +276,10 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
 
     # Read contents from files
     file.paths <- .self$getFilePath(cache.id, name, ext)
-    .self$debug2List('Trying to load from cache', file.paths)
+    logTrace('Trying to load from cache %s', lst2str(file.paths))
     content <- lapply(file.paths,  rdCnt)
     files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-    .self$debug2List('Loaded from cache', files.read)
+    logTrace('Loaded from cache', lst2str(files.read))
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
@@ -336,7 +336,7 @@ saveContentToFile=function(content, cache.id, name, ext) {
     content[is.na(content)] <- 'NA'
 
     # Write content to files
-    .self$debug2List('Saving to cache', file.paths)
+    logTrace('Saving to cache', lst2str(file.paths))
     fct <- function(cnt, f) {
         if ( ! is.null(cnt)) {
             if ( ! is.character(cnt))
@@ -384,10 +384,10 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
               length(dstFilePaths), ').', fmt='paste0')
 
     # Move files
-    .self$debug2List('Moving files to cache ', src.file.paths)
-    .self$debug2List('Destination files are ', dstFilePaths)
+    logTrace('Moving files to cache ', lst2str(src.file.paths))
+    logTrace('Destination files are ', lst2str(dstFilePaths))
     file.rename(src.file.paths, dstFilePaths)
-    .self$debug('Done moving files.')
+    logDebug('Done moving files.')
 },
 
 erase=function() {

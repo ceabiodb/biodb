@@ -488,8 +488,9 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
     }
 
     # Loop on the list of M/Z values
-    .self$message('debug', 'Looping on all M/Z values.')
-    .self$debug2List('M/Z values to process', input.df[[input.df.colnames[['mz']]]])
+    logDebug('Looping on all M/Z values.')
+    logTrace('M/Z values to process %s',
+             lst2str(input.df[[input.df.colnames[['mz']]]]))
     for (i in seq_along(input.df[[input.df.colnames[['mz']]]])) {
 
         # Compute M/Z range
@@ -497,8 +498,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
         # Search for spectra
-        .self$debug('Searching for spectra that contains M/Z value in ranges ',
-                    paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+        logDebug('Searching for spectra that contains M/Z value in ranges %s',
+                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
         ids <- .self$searchForMassSpectra(mz.min=rng$a,
                                           mz.max=rng$b,
                                           min.rel.int=min.rel.int,
@@ -506,7 +507,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
                                           (check.param$use.rt.match)
                                           0 else max.results,
                                           ms.level=ms.level)
-        .self$debug2List('Found spectra', ids)
+        logTrace('Found spectra %s', ids)
 
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {
@@ -554,7 +555,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
                                                   compute=compute,
                                                   flatten=FALSE,
                                                   limit=fieldsLimit)
-        .self$debug2Dataframe('Entries obtained', df)
+        logTrace('Entries obtained %s', df2str(df))
 
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
@@ -562,7 +563,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         .self$debug("Filtering entries data frame on M/Z ranges ",
                     paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
         df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
-        .self$debug2Dataframe('After filtering on M/Z range', df)
+        logTrace('After filtering on M/Z range %s', df2str(df))
 
         # Select fields
         if ( ! is.null(fields))

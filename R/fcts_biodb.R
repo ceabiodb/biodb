@@ -140,6 +140,16 @@ logInfo <- function(..., fmt=c('sprintf', 'paste0')) {
     }
 }
 
+logTrace <- function(..., fmt=c('sprintf', 'paste0')) {
+    fmt <- match.arg(fmt)
+    if (fmt == 'sprintf') {
+        getLogger()$trace(..., caller=lgr::get_caller(-9L))
+    } else {
+        msg <- paste0(...)
+        getLogger()$trace(msg, caller=lgr::get_caller(-9L))
+    }
+}
+
 logDebug <- function(..., fmt=c('sprintf', 'paste0')) {
     fmt <- match.arg(fmt)
     if (fmt == 'sprintf') {

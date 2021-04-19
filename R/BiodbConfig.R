@@ -174,7 +174,7 @@ set=function(key, value) {
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
-    getLogger()$debug("Set key %s to %s.", key, displayed.value)
+    logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))
@@ -301,7 +301,7 @@ define=function(def) {
 
         v <- def[[key]]
         v$key <- key
-        getLogger()$debug('Define config key %s.', key)
+        logDebug('Define config key %s.', key)
         do.call(.self$.newKey, v)
     }
 },

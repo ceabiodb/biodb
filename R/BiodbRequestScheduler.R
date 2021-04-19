@@ -364,7 +364,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
-    .self$debug2(paste0('Sent URL is "', request$getUrl()$toString(), '".'))
+    logTrace('Sent URL is "%s".', request$getUrl()$toString())
 
     # Create HTTP header object (to receive HTTP information from server).
     header <- RCurl::basicHeaderGatherer()

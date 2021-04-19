@@ -114,7 +114,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         # Debug message
         surl <- if (is.null(url) || is.na(url)) ''
             else paste0(', with base URL "', url, '"')
-        getLogger()$debug('Creating new connector %s for database class %s %s.',
+        logDebug('Creating new connector %s for database class %s %s.',
             conn.id, db.class, surl)
         
         # Register new instance
@@ -159,7 +159,7 @@ deleteConn=function(conn) {
         .self$deleteAllEntriesFromVolatileCache(conn)
         .self$.conn[[conn]]$.terminate()
         .self$.conn[[conn]] <- NULL
-        getLogger()$info('Connector "%s" deleted.', conn)
+        logInfo('Connector "%s" deleted.', conn)
     }
 
     return(invisible(NULL))
@@ -181,9 +181,9 @@ deleteConnByClass=function(db.class) {
             n <- n + 1
         }
     if (n == 0)
-        getLogger()$info('No connectors of type "%s" to delete.', db.class)
+        logInfo('No connectors of type "%s" to delete.', db.class)
     else
-        getLogger()$info('%d connector(s) of type "%s" deleted.', n, db.class)
+        logInfo('%d connector(s) of type "%s" deleted.', n, db.class)
 
     invisible(NULL)
 },
@@ -362,7 +362,7 @@ show=function() {
         conn <- .self$getConn(conn.id)
 
         # Debug
-        getLogger()$debug("Creating entries from ids %s.", lst2str(ids))
+        logDebug("Creating entries from ids %s.", lst2str(ids))
 
         # Get contents
         content <- conn$getEntryContent(ids)
@@ -419,15 +419,15 @@ show=function() {
         # Get connector
         conn <- .self$getConn(conn.id)
 
-        getLogger()$debug('Creating %s entries from %d content(s).',
-                          conn$getPropertyValue('name'), length(content))
+        logDebug('Creating %s entries from %d content(s).',
+                 conn$getPropertyValue('name'), length(content))
 
         # Get entry class
         entry.class <- conn$getEntryClass()
 
         # Loop on all contents
-        getLogger()$debug('Parsing %d %s entries.', length(content),
-                          conn$getPropertyValue('name'))
+        logDebug('Parsing %d %s entries.', length(content),
+                 conn$getPropertyValue('name'))
         prg <- Progress$new(biodb=.self$getBiodb(),
                             msg='Creating entry instances from contents',
                             total=length(content))
@@ -451,11 +451,11 @@ show=function() {
         fct <- function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0)
         entries.without.accession <- vapply(accessions, fct, FUN.VALUE=TRUE)
         strIds <- paste(accessions, collapse=', ')
-        getLogger()$debug('Accession numbers: %s.', strIds)
+        logDebug('Accession numbers: %s.', strIds)
         if (any(entries.without.accession)) {
             n <- sum(entries.without.accession)
-            getLogger()$debug(paste('Found %d entry/ies without an accession',
-                ' number. Set it/them to NULL.', n))
+            logDebug('Found %d entry/ies without an accession',
+                ' number. Set it/them to NULL.', n, fmt='paste0')
             entries[entries.without.accession] <- list(NULL)
         }
 
