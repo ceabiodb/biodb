@@ -209,7 +209,7 @@ enable=function(key) {
 
     .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Enable ", key, ".", sep=''))
+    logInfo("Enable %s.", key)
     .self$.values[[key]] <- TRUE
 },
 
@@ -221,7 +221,7 @@ disable=function(key) {
 
     .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Disable ", key, ".", sep=''))
+    logInfo("Disable %s.", key)
     .self$.values[[key]] <- FALSE
 },
 
@@ -290,11 +290,6 @@ define=function(def) {
 
     # Get key names
     keys <- names(def)
-
-    # Move some keys at first position
-    for (key in rev(c('msg.debug.lvl', 'msg.info.lvl')))
-        if (key %in% keys)
-            keys <- c(key, keys[keys != key])
 
     # Loop on all keys
     for (key in keys) {

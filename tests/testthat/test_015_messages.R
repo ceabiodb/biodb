@@ -54,10 +54,10 @@ test.default.messages <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='messages_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test messages.")
+biodb::testContext("Test messages.")
 
 # Run tests
 biodb::testThat("Deprecated methods send correct message.",

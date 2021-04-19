@@ -50,10 +50,10 @@ test.getFieldValue <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='entry_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test BiodbEntry.")
+biodb::testContext("Test BiodbEntry.")
 
 # Run tests
 biodb::testThat("getFieldValue() works correctly.", test.getFieldValue,

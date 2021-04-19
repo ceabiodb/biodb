@@ -4,17 +4,11 @@
 #' to the observers. You can define new observer classes by inherting from this
 #' class.
 #'
-#' @seealso Sub-classes \code{\link{BiodbLogger}},
-#' \code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}}.
-#'
 #' @examples
 #' # Define a new observer class
 #' MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver',
-#'   methods=list(message=function(type='info', msg,
-#'                                 class=NA_character_,
-#'                                 method=NA_character_, lvl=1) {
-#'     .self$checkMessageType(type)
-#'     print(paste(type, msg, sep=': '))
+#'   methods=list(notifyProgress=function(what, index, total) {
+#'       sprintf("Progress for %s is %d / %d.", what, index, total)
 #'   }
 #' ))
 #'
@@ -30,15 +24,11 @@
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver",
     fields=list(
-        cfg.lvl='integer',
-        cust.lvl='integer'
     ),
 
 methods=list(
 
 initialize=function() {
-    .self$cfg.lvl <- integer()
-    .self$cust.lvl <- integer()
 },
 
 terminate=function() {
@@ -72,62 +62,6 @@ cfgKVUpdate=function(k, v) {
     \nv: The new value of the configuration key.
     \nReturned value: None.
     "
-
-    for (type in c('debug', 'info', 'warning')) {
-        lvl.k <- paste('msg', type, 'lvl', sep='.')
-        if (lvl.k == k)
-            .self$cfg.lvl[[type]] <- v
-    }
-},
-
-getLevel=function(type) {
-    ":\n\nGets the level associated with a message type. This is the maximum
-    level a message must have in order to be processed.
-    \ntype: The type of message. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nReturned value: The level, as an integer.
-    "
-
-    lvl <- 0L
-    .self$checkMessageType(type)
-
-    if (type %in% names(.self$cust.lvl))
-        lvl <- .self$cust.lvl[[type]]
-    else if (type %in% names(.self$cfg.lvl))
-        lvl <- .self$cfg.lvl[[type]]
-
-    return(lvl)
-},
-
-setLevel=function(type, lvl) {
-    ":\n\nSets the level for a type. This is the maximum level a message must
-    have in order to be processed.
-    \ntype: The type of message. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nlvl: The level, as an integer.
-    \nReturned value: None.
-    "
-
-    .self$checkMessageType(type)
-    .self$cust.lvl[[type]] <- as.integer(lvl)
-},
-
-msg=function(type='info', msg, class=NA_character_,
-             method=NA_character_, lvl=1) {
-    ":\n\nSends a message to this observer. The message will be accepted and
-    handled only if the level is lower or equal to the current level for the
-    message type. You can check current level for a type by calling getLevel()
-    and set the level with setLevel().
-    \ntype: The message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nmsg: The text message to send.
-    \nclass: The class of the object that called this message method.
-    \nmethod: The method that called this message method.
-    \nlvl: The level of the message.
-    \nReturned value: None.
-    "
-
-    .self$checkMessageType(type)
 },
 
 notifyProgress=function(what, index, total) {
@@ -144,22 +78,6 @@ notifyProgress=function(what, index, total) {
     chk::chk_lte(index, total)
     
     return(invisible(NULL))
-},
-
-checkMessageType=function(type) {
-    ":\n\nChecks a message type. An error will be raised if the type is unknown.
-    \ntype: A message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nReturned value: None.
-    "
-
-    # Define allowed types
-    allowed.types <- c('info', 'debug', 'warning', 'error')
-
-    # Is type unknown?
-    if ( ! tolower(type) %in% allowed.types)
-        stop("Unknown message type \"", type, "\". Please use one of: ",
-             paste(allowed.types, collapse=', '), '.')
 }
 
 ))

@@ -247,8 +247,8 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Rule does not exist
     if (create && ! domain %in% names(.self$.host2rule)) {
-        .self$info('No rule exists for domain "', domain,
-                   '". Creating a default one.')
+        logInfo('No rule exists for domain "', domain,
+                '". Creating a default one.', fmt='paste0')
         rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
@@ -454,7 +454,7 @@ connSchedulerFrequencyUpdated=function(conn) {
                             "\". Retrying connection to server...")
                 res$err_msg=paste0(res$err_msg, m)
             }
-            .self$message('info', res$err_msg)
+            logInfo(res$err_msg)
         }
         else
             content <- res$content

@@ -1,18 +1,17 @@
-test.abstractClass.declaration <- function(biodb, obs) {
+test.abstractClass.declaration <- function(biodb) {
     expect_error(biodb::BiodbConnBase(parent=biodb),
         regexp="Class BiodbConnBase is abstract.*cannot be instantiated.")
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='abstract_test.log')
-obs <- biodb::addMsgRecObs(biodb)
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test abstract declaration.")
+biodb::testContext("Test abstract declaration.")
 
 # Run tests
 biodb::testThat("An abstract class cannot be instantiated.",
-                test.abstractClass.declaration, biodb=biodb, obs=obs)
+                test.abstractClass.declaration, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

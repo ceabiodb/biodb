@@ -483,8 +483,9 @@ addAllowedValue=function(key, value) {
                   '" for its allowed values, but with key "', current.key,
                   '" instead of key "', key, '".', fmt='paste0')
         else
-            .self$info('Field "', .self$.name, '" already uses value "', value,
-                       '" for its allowed values, with key "', key, '".')
+            logInfo('Field "', .self$.name, '" already uses value "', value,
+                    '" for its allowed values, with key "', key, '".',
+                    fmt='paste0')
     }
 
     # Add new value

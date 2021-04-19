@@ -110,8 +110,8 @@ defineParsingExpressions=function() {
 
     if ( ! is.null(.self$.db)) {
 
-        .self$info('Write all new entries into "',
-                   .self$getPropValSlot('urls', 'base.url'), '".')
+        logInfo('Write all new entries into "%s".',
+                .self$getPropValSlot('urls', 'base.url'))
 
         # Get new entries
         cached.entries <- .self$getAllVolatileCacheEntries()

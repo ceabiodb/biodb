@@ -3,7 +3,7 @@
 # Test convertEntryIdFieldToDbClass() {{{1
 ################################################################
 
-test.convertEntryIdFieldToDbClass <- function(biodb, obs) {
+test.convertEntryIdFieldToDbClass <- function(biodb) {
 
 	# Check all databases
 	for (db in biodb$getDbsInfo()$getAll())
@@ -17,7 +17,7 @@ test.convertEntryIdFieldToDbClass <- function(biodb, obs) {
 # Test collapseRows() {{{1
 ################################################################
 
-test.collapseRows <- function(biodb, obs) {
+test.collapseRows <- function(biodb) {
 
 	# Basic tests
 	testthat::expect_null(biodb$collapseRows(NULL))
@@ -37,7 +37,7 @@ test.collapseRows <- function(biodb, obs) {
 # Test entriesToDataframe() {{{1
 ################################################################
 
-test.entriesToDataframe <- function(biodb, obs) {
+test.entriesToDataframe <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -81,7 +81,7 @@ test.entriesToDataframe <- function(biodb, obs) {
 # Test list of list input in entriesToDataframe() {{{1
 ################################################################
 
-test.entriesToDataframe.listOfListInput <- function(biodb, obs) {
+test.entriesToDataframe.listOfListInput <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -121,7 +121,7 @@ test.entriesToDataframe.listOfListInput <- function(biodb, obs) {
 # Test entryIdsToDataframe() {{{1
 ################################################################
 
-test.entryIdsToDataframe <- function(biodb, obs) {
+test.entryIdsToDataframe <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -159,7 +159,7 @@ test.entryIdsToDataframe <- function(biodb, obs) {
 # Test list of list input in entryIdsToDataframe() {{{1
 ################################################################
 
-test.entryIdsToDataframe.listOfListInput <- function(biodb, obs) {
+test.entryIdsToDataframe.listOfListInput <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -200,7 +200,7 @@ test.entryIdsToDataframe.listOfListInput <- function(biodb, obs) {
 # Test addColsToDataframe() {{{1
 ################################################################
 
-test.addColsToDataframe <- function(biodb, obs) {
+test.addColsToDataframe <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -238,7 +238,7 @@ test.addColsToDataframe <- function(biodb, obs) {
 # Test entriesToSingleFieldValues() {{{1
 ################################################################################
 
-test.entriesToSingleFieldValues <- function(biodb, obs) {
+test.entriesToSingleFieldValues <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -278,7 +278,7 @@ test.entriesToSingleFieldValues <- function(biodb, obs) {
 # Test entryIdsToSingleFieldValues() {{{1
 ################################################################################
 
-test.entryIdsToSingleFieldValues <- function(biodb, obs) {
+test.entryIdsToSingleFieldValues <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -319,7 +319,7 @@ test.entryIdsToSingleFieldValues <- function(biodb, obs) {
 # Test entriesFieldToVctOrLst() {{{1
 ################################################################################
 
-test.entriesFieldToVctOrLst <- function(biodb, obs) {
+test.entriesFieldToVctOrLst <- function(biodb) {
 
     # Create database
     db <- data.frame(
@@ -349,23 +349,22 @@ test.entriesFieldToVctOrLst <- function(biodb, obs) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='biodb_test.log')
-obs <- biodb::addMsgRecObs(biodb)
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test Biodb instance.")
+biodb::testContext("Test Biodb instance.")
 
 # Run tests
-biodb::testThat("convertEntryIdFieldToDbClass() works correctly.", test.convertEntryIdFieldToDbClass, biodb = biodb, obs = obs)
-biodb::testThat('collapseRows() works correctly.', test.collapseRows, biodb = biodb, obs = obs)
-biodb::testThat("entriesToDataframe() works correctly.", test.entriesToDataframe, biodb = biodb, obs = obs)
-biodb::testThat("entriesToDataframe() handles list of list in input.", test.entriesToDataframe.listOfListInput, biodb = biodb, obs = obs)
-biodb::testThat("entryIdsToDataframe() works correctly.", test.entryIdsToDataframe, biodb = biodb, obs = obs)
-biodb::testThat("entryIdsToDataframe() handles list of list in input.", test.entryIdsToDataframe.listOfListInput, biodb = biodb, obs = obs)
-biodb::testThat("addColsToDataframe() works correctly.", test.addColsToDataframe, biodb = biodb, obs = obs)
-biodb::testThat("entriesToSingleFieldValues() works correctly.", test.entriesToSingleFieldValues, biodb = biodb, obs = obs)
-biodb::testThat("entryIdsToSingleFieldValues() works correctly.", test.entryIdsToSingleFieldValues, biodb = biodb, obs = obs)
-biodb::testThat("entriesFieldToVctOrLst() works correctly.", test.entriesFieldToVctOrLst, biodb = biodb, obs = obs)
+biodb::testThat("convertEntryIdFieldToDbClass() works correctly.", test.convertEntryIdFieldToDbClass, biodb = biodb)
+biodb::testThat('collapseRows() works correctly.', test.collapseRows, biodb = biodb)
+biodb::testThat("entriesToDataframe() works correctly.", test.entriesToDataframe, biodb = biodb)
+biodb::testThat("entriesToDataframe() handles list of list in input.", test.entriesToDataframe.listOfListInput, biodb = biodb)
+biodb::testThat("entryIdsToDataframe() works correctly.", test.entryIdsToDataframe, biodb = biodb)
+biodb::testThat("entryIdsToDataframe() handles list of list in input.", test.entryIdsToDataframe.listOfListInput, biodb = biodb)
+biodb::testThat("addColsToDataframe() works correctly.", test.addColsToDataframe, biodb = biodb)
+biodb::testThat("entriesToSingleFieldValues() works correctly.", test.entriesToSingleFieldValues, biodb = biodb)
+biodb::testThat("entryIdsToSingleFieldValues() works correctly.", test.entryIdsToSingleFieldValues, biodb = biodb)
+biodb::testThat("entriesFieldToVctOrLst() works correctly.", test.entriesFieldToVctOrLst, biodb = biodb)
 
 # Terminate Biodb
 biodb$terminate()

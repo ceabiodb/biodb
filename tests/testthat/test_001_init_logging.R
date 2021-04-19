@@ -1,8 +1,8 @@
-# Set context
-biodb::testContext("Logger setting")
-
 # Silence main logger
 lgr::lgr$remove_appender(1)
+
+# Set context
+biodb::testContext("Logger setting")
 
 # Log everything to file
 logFile <- file.path(getwd(), '..', '..', 'biodb_tests.log')

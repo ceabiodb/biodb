@@ -74,8 +74,8 @@ initialize=function(...) {
                 warn('No intensity information found for choosing',
                      ' the strongest precursor.', fmt='paste0')
             else {
-                .self$info('Found strongest precursor:',
-                           strongest.precursor.mz, '.')
+                loGinfo('Found strongest precursor: %g.',
+                        strongest.precursor.mz)
                 .self$setFieldValue('msprecmz', strongest.precursor.mz)
             }
         }

@@ -82,8 +82,8 @@ getDir=function() {
                 # Move folder to new location
                 dir.create(dirname(cachedir), recursive=TRUE)
                 file.rename(old_cachedir, cachedir)
-                .self$info('Cache folder location has been moved from "',
-                           old_cachedir, '" to "', cachedir, '".')
+                logInfo('Cache folder location has been moved from "',
+                        old_cachedir, '" to "', cachedir, '".', fmt='paste0')
             }
         }
     }
@@ -396,7 +396,7 @@ erase=function() {
     "
 
     # Erase whole cache
-    .self$info('Erasing cache "', .self$getDir(), '".')
+    logInfo('Erasing cache "%s".', .self$getDir())
     unlink(.self$getDir(), recursive=TRUE)
 
     invisible(NULL)
@@ -443,8 +443,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
         path <- file.path(.self$getDir(), cache.id)
         if ( ! file.exists(path)) {
             msg <- paste0('No cache files exist for ', cache.id, '.')
-            type <- if (fail) 'warning' else 'info'
-            .self$message(type=type, msg=msg)
+            if (fail) warn(msg) else logInfo(msg)
         }
         else
             paths <- path
@@ -452,7 +451,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 
     # Erase cache files
     for (path in paths) {
-        .self$info('Erasing all files in "', path, '".')
+        logInfo('Erasing all files in "%s".', path)
         unlink(path, recursive=TRUE)
     }
 

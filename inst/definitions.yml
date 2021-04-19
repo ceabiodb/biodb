@@ -80,16 +80,19 @@ config:
   msg.caution.lvl:
     type: integer
     description: The desired level of caution messages. Set to 0 to turn messages off.
+    deprecated: Caution messages have been replaced by warnings.
     default: 1
 
   msg.debug.lvl:
     type: integer
     description: The desired level of debug messages. Debug messages are turned off by default.
+    deprecated: Debug messages are not handled by the `lgr` package. You can get the biodb `lgr::Logger` instance by calling `biodb::getLogger()`.
     default: 0
 
   msg.info.lvl:
     type: integer
     description: The desired level of information messages. Set to 0 to turn messages off.
+    deprecated: Info messages are not handled by the `lgr` package. You can get the biodb `lgr::Logger` instance by calling `biodb::getLogger()`.
     default: 1
 
   multival.field.sep:

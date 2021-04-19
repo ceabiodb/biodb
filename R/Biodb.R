@@ -15,7 +15,7 @@
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
-#' \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
+#' \code{\link{BiodbEntryFields}},
 #' \code{\link{BiodbDbsInfo}}.
 #'
 #' @examples
@@ -51,10 +51,7 @@ initialize=function(autoloadExtraPkgs=NULL) {
 
     callSuper() # Call BiodbObject constructor.
 
-    # Set default observers
-    .self$.observers <- list(BiodbInfoReporter$new(),
-                             BiodbWarningReporter$new()
-                             )
+    .self$.observers <- list()
 
     # Create instances of children
     .self$.config <- NULL

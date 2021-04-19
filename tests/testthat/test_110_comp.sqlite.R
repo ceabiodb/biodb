@@ -38,10 +38,10 @@ test_createCompSQLiteDbFromCsvFile <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='compsqlite_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test Compound SQLite connector.")
+biodb::testContext("Test Compound SQLite connector.")
 
 # Remove DB file
 if (file.exists(COMP.SQLITE.URL))

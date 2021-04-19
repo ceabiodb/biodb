@@ -383,8 +383,8 @@ defineParsingExpressions=function() {
 
 .doWrite=function() {
 
-    .self$info('Write all entries into "',
-               .self$getPropValSlot('urls', 'base.url'), '".')
+    logInfo('Write all entries into "',
+            .self$getPropValSlot('urls', 'base.url'), '".', fmt='paste0')
 
     # Make sure all entries are loaded into cache.
     entry.ids <- .self$getEntryIds()
@@ -415,13 +415,13 @@ defineParsingExpressions=function() {
 
         # No file to load, create empty database
         if (is.null(file) || is.na(file) || ! file.exists(file)) {
-            .self$message('info', "Creating empty database.")
+            logInfo("Creating empty database.")
             db <- data.frame(accession=character(), stringsAsFactors=FALSE)
         }
 
         # Load database
         else {
-            .self$info("Loading file database \"", file, "\".")
+            logInfo('Loading file database "%s".', file)
             db <- read.table(.self$getPropValSlot('urls', 'base.url'),
                              sep=.self$.file.sep, quote=.self$.file.quote,
                              header=TRUE, stringsAsFactors=FALSE,

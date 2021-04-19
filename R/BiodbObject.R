@@ -34,50 +34,6 @@ notify=function(fct, args) {
     invisible()
 },
 
-message=function(type, msg, lvl=1, callerLvl=0) {
-# Send a message to observers
-
-    type <- tolower(type)
-
-    # Get biodb instance
-    biodb <- NULL
-    if (length(.self$.message.enabled) == 1 # length is 0
-                                            # if called from constructor
-        && .self$.message.enabled) {
-        .self$.message.enabled <- FALSE
-        biodb <- .self$getBiodb() 
-        .self$.message.enabled <- TRUE
-    }
-
-    # Get class and method information
-    class <- class(.self)
-    method <- sys.call(sys.nframe() - (callerLvl + 1))
-    method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
-
-    if ( ! is.null(biodb))
-        .self$notify('msg', list(type=type, msg=msg, class=class, method=method,
-                                 lvl=lvl))
-    else {
-        caller.info <- if (is.na(class)) '' else class
-        if (! is.na(method))
-            caller.info <- paste(caller.info, method, sep='::')
-        if (nchar(caller.info) > 0)
-            caller.info <- paste('[', caller.info, '] ', sep='')
-        switch(type,
-               error=stop(caller.info, msg),
-               warning=warning(caller.info, msg),
-               base::message(caller.info, msg))
-    }
-
-    invisible()
-},
-
-info=function(...) {
-    .self$message(type='info', msg=paste0(...))
-
-    invisible()
-},
-
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
 

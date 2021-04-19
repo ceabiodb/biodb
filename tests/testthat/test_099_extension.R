@@ -290,11 +290,10 @@ test_getReposName <- function() {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='extension_test.log')
-obs <- biodb::addMsgRecObs(biodb)
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test definition of extensions.")
+biodb::testContext("Test definition of extensions.")
 
 # Run tests
 biodb::testThat("We can get the remote repository name.", test_getReposName)
