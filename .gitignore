@@ -26,3 +26,5 @@ man
 vignettes/*.R
 vignettes/*.html
 vignettes/*.csv
+/doc/
+/Meta/

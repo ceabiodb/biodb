@@ -84,6 +84,13 @@ getLogger <- function() {
 #' @param rowCut The maximum of rows to print.
 #' @param colCut The maximum of columns to print.
 #' @return A string containing the data frame representation (or part of it).
+#'
+#' @examples
+#' # Converts the first 5 rows and first 6 columns of a data frame into a
+#' # string:
+#' x <- data.frame(matrix(1:160, nrow=10, byrow=TRUE))
+#' s <- df2str(x, rowCut=5, colCut=6)
+#'
 #' @export
 df2str <- function(x, rowCut=5, colCut=5) {
 
@@ -117,6 +124,11 @@ df2str <- function(x, rowCut=5, colCut=5) {
 #'
 #' @param nCut The maximum of elements to print.
 #' @return A string containing the list representation (or part of it).
+#'
+#' @examples
+#' # Converts the first 5 elements of a list into a string:
+#' s <- lst2str(1:10, nCut=5)
+#'
 #' @export
 lst2str <- function(x, nCut=10) {
 
@@ -138,6 +150,11 @@ lst2str <- function(x, nCut=10) {
 #'
 #' @param ... Values to be passed to sprintf().
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs an info message:
+#' biodb::info('Index is %d.', 10)
+#'
 #' @export
 logInfo <- function(...) {
     getLogger()$info(..., caller=lgr::get_caller(-9L))
@@ -150,6 +167,11 @@ logInfo <- function(...) {
 #'
 #' @param ... Values to be passed to paste0().
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs an info message:
+#' biodb::info0('Index is ', 10, '.')
+#'
 #' @export
 logInfo0 <- function(...) {
     getLogger()$info(paste0(...), caller=lgr::get_caller(-9L))
@@ -162,6 +184,11 @@ logInfo0 <- function(...) {
 #'
 #' @param ... Values to be passed to sprintf().
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs a trace message:
+#' biodb::trace('Index is %d.', 10)
+#'
 #' @export
 logTrace <- function(...) {
     getLogger()$trace(..., caller=lgr::get_caller(-9L))
@@ -174,6 +201,11 @@ logTrace <- function(...) {
 #'
 #' @param ... Values to be passed to paste0() 
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs a trace message:
+#' biodb::trace0('Index is ', 10, '.')
+#'
 #' @export
 logTrace0 <- function(...) {
     getLogger()$trace(paste0(...), caller=lgr::get_caller(-9L))
@@ -186,6 +218,11 @@ logTrace0 <- function(...) {
 #'
 #' @param ... Values to be passed to sprintf().
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs a debug message:
+#' biodb::debug('Index is %d.', 10)
+#'
 #' @export
 logDebug <- function(...) {
     getLogger()$debug(..., caller=lgr::get_caller(-9L))
@@ -198,6 +235,11 @@ logDebug <- function(...) {
 #'
 #' @param ... Values to be passed to paste0() 
 #' @return Nothing.
+#'
+#' @examples
+#' # Logs a debug message:
+#' biodb::debug0('Index is ', 10, '.')
+#'
 #' @export
 logDebug0 <- function(...) {
     getLogger()$debug(paste0(...), caller=lgr::get_caller(-9L))
@@ -210,6 +252,11 @@ logDebug0 <- function(...) {
 #'
 #' @param ... Values to be passed to sprintf().
 #' @return Nothing.
+#'
+#' @examples
+#' # Throws a warning:
+#' biodb::warn('Index is %d.', 10)
+#'
 #' @export
 warn <- function(...) {
     getLogger()$warn(..., caller=lgr::get_caller(-9L))
@@ -222,6 +269,11 @@ warn <- function(...) {
 #'
 #' @param ... Values to be passed to paste0().
 #' @return Nothing.
+#'
+#' @examples
+#' # Throws a warning:
+#' biodb::warn0('Index is ', 10, '.')
+#'
 #' @export
 warn0 <- function(...) {
     msg <- paste0(...)
@@ -235,6 +287,11 @@ warn0 <- function(...) {
 #'
 #' @param ... Values to be passed to sprintf().
 #' @return Nothing.
+#'
+#' @examples
+#' # Throws an error:
+#' biodb::error('Index is %d.', 10)
+#'
 #' @export
 error <- function(...) {
     getLogger()$error(..., caller=lgr::get_caller(-9L))
@@ -247,6 +304,11 @@ error <- function(...) {
 #'
 #' @param ... Values to be passed to paste0().
 #' @return Nothing.
+#'
+#' @examples
+#' # Throws an error:
+#' biodb::error0('Index is ', 10, '.')
+#'
 #' @export
 error0 <- function(...) {
     msg <- paste0(...)

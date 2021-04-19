@@ -25,6 +25,7 @@ Imports:
     R6,
     methods,
     chk,
+    lgr,
     progress,
     lifecycle,
     XML,
