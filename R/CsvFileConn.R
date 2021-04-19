@@ -640,8 +640,7 @@ ignoreUnassignedColumns=function(ignore=TRUE) {
         
         # Column is not matchable
         else if ( ! .self$.ignoreUnassignedColumns)
-            .self$warning("Column \"", colname,
-                          "\" does not match any biodb field.")
+            warn('Column "%s" does not match any biodb field.', colname)
     }
     
     # Mark as run

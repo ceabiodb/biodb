@@ -224,12 +224,12 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         fct <- function(e) e$hasField('chrom.rt.unit')
         no.chrom.rt.unit <- ! vapply(entries, fct, FUN.VALUE=TRUE)
         if (any(no.chrom.rt.unit))
-            .self$warning('No RT unit specified in entries ',
-                          paste(vapply(entries[no.chrom.rt.unit],
-                                       function(e) e$getFieldValue('accession'),
-                                       FUN.VALUE=''),
-                                collapse=', '),
-                          ', impossible to match retention times.')
+            warn('No RT unit specified in entries ',
+                 paste(vapply(entries[no.chrom.rt.unit],
+                              function(e) e$getFieldValue('accession'),
+                              FUN.VALUE=''),
+                       collapse=', '),
+                 ', impossible to match retention times.', fmt='paste0')
 
         # Compute RT range for this input, in seconds
         rt.range <- .self$.computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
@@ -641,9 +641,10 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
     ids <- character()
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
         if (max.results > 0)
-            .self$warning('Applying max.results =', max.results,'on call to',
-                ' searchForMassSpectra(). This may results in no matches, while there',
-                ' exist matching spectra inside the database.')
+            warn('Applying max.results =', max.results,'on call to',
+                ' searchForMassSpectra(). This may results in no matches,',
+                ' while there exist matching spectra inside the database.',
+                fmt='paste0')
         ids <- .self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
             mz.tol.unit=mz.tol.unit, ms.mode=ms.mode, precursor=TRUE,
             ms.level=2, max.results=max.results)

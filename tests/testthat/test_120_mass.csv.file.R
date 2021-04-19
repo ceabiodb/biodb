@@ -146,7 +146,7 @@ test.undefined.fields <- function(biodb) {
                                           url=MASSFILEDB.WRONG.HEADER.URL)
     
     testthat::expect_warning(conn$hasField('accession'),
-        regexp='^.* Column ".*" does not match any biodb field\\.$')
+        regexp='^.*Column ".*" does not match any biodb field\\.$')
 
     testthat::expect_error(conn$getEntryIds(),
         regexp='^.*Field.* accession is/are undefined in file database\\.$')

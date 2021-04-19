@@ -686,12 +686,12 @@ getCardinality=function() {
     
     # Check name
     if (is.null(.self$.name) || is.na(.self$.name) || .self$.name == '')
-        .self$warning("Missing name for entry field.")
+        warn("Missing name for entry field.")
     
     # Check description
     if (is.null(.self$.description) || is.na(.self$.description)
         || .self$.description == '')
-        .self$warning("Missing description for entry field \"", .self$.name, "\".")
+        warn('Missing description for entry field "%s".', .self$.name)
 }
 
 ))

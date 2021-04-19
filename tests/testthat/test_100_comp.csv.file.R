@@ -9,7 +9,7 @@ test.comp.csv.file.dynamic.field.set <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file',
                                           url=CHEBI_FILE_UNKNOWN_COL)
     
-    msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
+    msg <- "^.*Column \"elecCharge\" does not match any biodb field\\.$"
     testthat::expect_warning(x <- conn$getEntry('1932')$getFieldsAsDataframe(),
                              msg, perl=TRUE)
     testthat::expect_false('charge' %in% colnames(x))
@@ -32,7 +32,7 @@ test_unmapped_col <- function(biodb, obs) {
                                           url=CHEBI_FILE_UNKNOWN_COL)
     
     obs$clearMessages();
-    msg <- "^.* Column \"elecCharge\" does not match any biodb field\\.$"
+    msg <- "^.*Column \"elecCharge\" does not match any biodb field\\.$"
     testthat::expect_warning(conn$getEntryIds(), msg, perl=TRUE)
     testthat::expect_true(obs$hasMsgs())
     testthat::expect_length(conn$getUnassociatedColumns(), 1)

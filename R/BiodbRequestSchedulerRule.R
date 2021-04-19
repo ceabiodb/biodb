@@ -147,8 +147,8 @@ removeConnector=function(conn) {
     found.conn <- vapply(.self$.conn, function(x) identical(x, conn),
                          FUN.VALUE=TRUE)
     if ( ! any(found.conn))
-        .self$warning('Connector "', conn$getId(), '" is not listed in rule "',
-                      .self$.host, '".')
+        warn('Connector "%s" is not listed in rule "%s".', conn$getId(),
+             .self$.host)
 
     # Remove connector
     else {

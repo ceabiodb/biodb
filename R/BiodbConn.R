@@ -385,7 +385,7 @@ searchForEntries=function(fields=NULL, max.results=0) {
     
         # Error if field is not searchable
         else if ( ! .self$isSearchableByField(f)) {
-            .self$warning('This database is not searchable by field "', f, '"')
+            warn('This database is not searchable by field "%s".', f)
             fields[[f]] <- NULL
             wrong_fields <- TRUE
         }

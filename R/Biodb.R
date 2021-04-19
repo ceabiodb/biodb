@@ -731,10 +731,9 @@ disableDebug=function() {
         if (.self$.config$isEnabled('force.locale'))
             Sys.setlocale(locale='en_US.UTF-8') # Force locale
         else
-            .self$message('warning',
-                          paste("LC_CTYPE field of locale is set to ", LC_CTYPE,
-                                ". It must be set to a UTF-8 locale like",
-                                "'en_US.UTF-8'."))
+            warn("LC_CTYPE field of locale is set to ", LC_CTYPE,
+                 ". It must be set to a UTF-8 locale like",
+                 "'en_US.UTF-8'.", fmt='paste0')
     }
 },
 

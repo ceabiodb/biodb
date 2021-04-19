@@ -183,8 +183,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has never been registered.')
+        warn('Connector "%s" has never been registered.', conn$getId())
 
     # Update frequency
     else {
@@ -205,8 +204,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector already registered?
     if (conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has already been registered.')
+        warn('Connector "%s" has already been registered.', conn$getId())
 
     # Add connector
     else {
@@ -224,8 +222,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has never been registered.')
+        warn('Connector "%s" has never been registered.', conn$getId())
 
     # Unregister connector
     else {

@@ -166,10 +166,10 @@ setFieldValue=function(field, value) {
                   fmt='paste0')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
-            .self$warning("Unable to convert value(s) \"",
-                          paste(value, collapse=', '), "\" into ",
-                          field.def$getClass(), " type for field \"", field,
-                          "\".")
+            warn("Unable to convert value(s) \"",
+                 paste(value, collapse=', '), "\" into ",
+                 field.def$getClass(), " type for field \"", field,
+                 "\".", fmt='paste0')
         value <- v
     }
 
