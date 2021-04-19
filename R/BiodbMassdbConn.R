@@ -193,7 +193,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
     if (match.rt) {
 
         # Get entries
-        .self$message('debug', 'Getting entries from spectra IDs.')
+        logDebug('Getting entries from spectra IDs.')
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(),
                                                           entry.ids, drop=FALSE)
 
@@ -203,12 +203,13 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                 e$getFieldValue('chrom.col.id') %in% chrom.col.ids
             }
             entries <- entries[vapply(entries, fct, FUN.VALUE=TRUE)]
-            .self$debug(length(entries),
-                        ' spectra remaining after chrom col filtering: ',
-                        paste(vapply((if (length(entries) <= 10) entries
-                                      else entries[seq_len(10)]),
-                                     function(e) e$getFieldValue('accession'),
-                                     FUN.VALUE=''), collapse=', '), '.')
+            logDebug(length(entries),
+                     ' spectra remaining after chrom col filtering: ',
+                     paste(vapply((if (length(entries) <= 10) entries
+                                   else entries[seq_len(10)]),
+                                   function(e) e$getFieldValue('accession'),
+                                   FUN.VALUE=''), collapse=', '), '.',
+                     fmt='paste0')
         }
 
         # Filter out entries with no RT values or no RT unit
@@ -220,7 +221,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         entries <- entries[has.chrom.rt.values]
         n <- sum( ! has.chrom.rt.values) > 0
         if (n > 0)
-            .self$debug('Filtered out ', n, ' entries having no RT values.')
+            logDebug('Filtered out %d entries having no RT values.', n)
         fct <- function(e) e$hasField('chrom.rt.unit')
         no.chrom.rt.unit <- ! vapply(entries, fct, FUN.VALUE=TRUE)
         if (any(no.chrom.rt.unit))
@@ -243,21 +244,22 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
             col.rt.range <- .self$.computeChromColRtRange(e)
 
             # Test and possibly keep entry
-            .self$debug('Testing if RT value ', rt, ' (', rt.unit,
+            logDebug('Testing if RT value ', rt, ' (', rt.unit,
                         ') is in range [', col.rt.range$min, ';',
                         col.rt.range$max, '] (s) of database entry ',
                         e$getFieldValue('accession'), '. Used range (after',
                         ' applying tolerances) for RT value is [', rt.range$min,
-                        ', ', rt.range$max, '] (s).')
+                        ', ', rt.range$max, '] (s).', fmt='paste0')
             if ((rt.range$max >= col.rt.range$min)
                 && (rt.range$min <= col.rt.range$max))
                 entry.ids <- c(entry.ids, e$getFieldValue('accession'))
         }
 
-        .self$debug(length(entry.ids),
-                    ' spectra remaining after retention time filtering:',
-                    paste((if (length(entry.ids) <= 10) entry.ids
-                           else entry.ids[seq_len(10)]), collapse=', '), '.')
+        logDebug(length(entry.ids),
+                 ' spectra remaining after retention time filtering:',
+                 paste((if (length(entry.ids) <= 10) entry.ids
+                        else entry.ids[seq_len(10)]), collapse=', '), '.',
+                 fmt='paste0')
     }
 
     return(entry.ids)
@@ -479,12 +481,12 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
             rt.tol=precursor.rt.tol, chrom.col.ids=chrom.col.ids,
             precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
             ms.level=ms.level)
-        .self$debug('Found ', length(precursor.match.ids),
-                    ' spectra with matched precursor: ',
-                    paste((if (length(precursor.match.ids) <= 10)
-                           precursor.match.ids else
-                               precursor.match.ids[seq_len(10)]),
-                          collapse=', '), '.')
+        logDebug('Found ', length(precursor.match.ids),
+                 ' spectra with matched precursor: ',
+                 paste((if (length(precursor.match.ids) <= 10)
+                        precursor.match.ids else
+                            precursor.match.ids[seq_len(10)]), collapse=', '),
+                 '.', fmt='paste0')
     }
 
     # Loop on the list of M/Z values
@@ -512,10 +514,11 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {
             ids <- ids[ids %in% precursor.match.ids]
-            .self$debug('After filtering on IDs with precursor match, we have ',
-                        length(ids), ' spectra: ',
-                        paste((if (length(ids) <= 10) ids
-                               else ids[seq_len(10)]), collapse=', '), '.')
+            logDebug('After filtering on IDs with precursor match, we have ',
+                     length(ids), ' spectra: ',
+                     paste((if (length(ids) <= 10) ids
+                            else ids[seq_len(10)]), collapse=', '), '.',
+                     fmt='paste0')
         }
 
         # Filter on RT value
@@ -527,29 +530,30 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         }
 
         # Get entries
-        .self$debug('Getting entries from spectra IDs.')
+        logDebug('Getting entries from spectra IDs.')
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
                                                           drop=FALSE)
 
         # Cut
         if (max.results > 0) {
-            .self$debug('Cutting data frame', max.results, 'rows.')
+            logDebug('Cutting data frame %d rows.', max.results)
             entries <- entries[seq_len(max.results)]
         }
 
         # Remove NULL entries
         null.entries <- vapply(entries, is.null, FUN.VALUE=TRUE)
         if (any(null.entries))
-            .self$message('debug', 'One of the entries is NULL.')
+            logDebug('One of the entries is NULL.')
         entries <- entries[ ! null.entries]
 
         # Display first entry
         if (length(entries) > 0)
-                .self$debug('Field names of entry:',
-                            paste(entries[[1]]$getFieldNames(), collapse=', '))
+                logDebug('Field names of entry:',
+                         paste(entries[[1]]$getFieldNames(), collapse=', '),
+                         fmt='paste0')
 
         # Convert to data frame
-        .self$message('debug', 'Converting list of entries to data frame.')
+        logDebug('Converting list of entries to data frame.')
         df <- .self$getBiodb()$entriesToDataframe(entries,
                                                   only.atomic=FALSE,
                                                   compute=compute,
@@ -560,8 +564,9 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
         rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
-        .self$debug("Filtering entries data frame on M/Z ranges ",
-                    paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+        logDebug("Filtering entries data frame on M/Z ranges ",
+                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "),
+                 fmt='paste0')
         df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
         logTrace('After filtering on M/Z range %s', df2str(df))
 
@@ -588,9 +593,9 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         }
 
         # Appending to main results data frame
-        .self$debug('Merging data frame of matchings into results data frame.')
+        logDebug('Merging data frame of matchings into results data frame.')
         results <- plyr::rbind.fill(results, df)
-        .self$debug('Total results data frame contains', nrow(results), 'rows.')
+        logDebug('Total results data frame contains %d rows.', nrow(results))
     }
 
     # Sort result columns. We sort at the end of the processing, because result
@@ -931,19 +936,19 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     rt.sec <- .self$.convertRt(rt, rt.unit, 's')
     rt.min <- rt.sec
     rt.max <- rt.sec
-    .self$debug('At step 1, RT range is [', rt.min, ', ', rt.max, '] (s).')
+    logDebug('At step 1, RT range is [%g, %g] (s).', rt.min, rt.max)
     if ( ! is.na(rt.tol)) {
-        .self$message('debug', paste0('RT tol is ', rt.tol, ' (s).'))
+        logDebug('RT tol is %g (s).', rt.tol)
         rt.min <- rt.min - rt.tol
         rt.max <- rt.max + rt.tol
     }
-    .self$debug('At step 2, RT range is [', rt.min, ', ', rt.max, '] (s).')
+    logDebug('At step 2, RT range is [%g, %g] (s).', rt.min, rt.max)
     if ( ! is.null(rt.tol.exp)) {
-        .self$message('debug', paste0('RT tol exp is ', rt.tol.exp, '.'))
+        logDebug('RT tol exp is %g.', rt.tol.exp)
         rt.min <- rt.min - rt.sec ** rt.tol.exp
         rt.max <- rt.max + rt.sec ** rt.tol.exp
     }
-    .self$debug('At step 3, RT range is [', rt.min, ', ', rt.max, '] (s).')
+    logDebug('At step 3, RT range is [%g, %g] (s).', rt.min, rt.max)
 
     return(list(min=rt.min, max=rt.max))
 }

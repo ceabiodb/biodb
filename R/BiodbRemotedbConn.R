@@ -84,7 +84,7 @@ possible, sending requests with several identifiers at once.
 
         # full.url is too big, we must split it
         else {
-            .self$message('debug', "Split full URL.")
+            logDebug("Split full URL.")
 
             start <- 1
 

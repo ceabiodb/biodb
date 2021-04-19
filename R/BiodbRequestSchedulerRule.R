@@ -122,8 +122,9 @@ addConnector=function(conn) {
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn),
                    FUN.VALUE=TRUE)))
-        .self$debug('Connector "', conn$getId(),
-                    '" is already listed in rule "', .self$.host, '".')
+        logDebug('Connector "', conn$getId(),
+                 '" is already listed in rule "', .self$.host, '".',
+                 fmt='paste0')
 
     # Add connector
     else {
@@ -225,7 +226,7 @@ show=function() {
 
     # Sleep if needed
     if (sleep.time > 0) {
-        .self$debug('Wait ', sleep.time, ' second(s).')
+        logDebug('Wait %d second(s).', sleep.time)
         Sys.sleep(sleep.time)
     }
 

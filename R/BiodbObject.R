@@ -72,12 +72,6 @@ message=function(type, msg, lvl=1, callerLvl=0) {
     invisible()
 },
 
-debug=function(...) {
-    .self$message(type='debug', msg=paste0(...))
-
-    invisible()
-},
-
 info=function(...) {
     .self$message(type='info', msg=paste0(...))
 

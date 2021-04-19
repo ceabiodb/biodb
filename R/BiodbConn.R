@@ -150,8 +150,8 @@ getEntryContent=function(id) {
         id <- as.character(id)
 
         # Debug
-        .self$debug("Get ", nm, " entry content(s) for ", length(id),
-                    " id(s)...")
+        logDebug("Get ", nm, " entry content(s) for ", length(id),
+                 " id(s)...", fmt='paste0')
 
         # Download full database
         if (.self$isDownloadable())
@@ -179,30 +179,31 @@ getEntryContent=function(id) {
 
         # Debug
         if (any(is.na(id)))
-            .self$debug(sum(is.na(id)), " ", nm, " entry ids are NA.")
+            logDebug("%d %s entry ids are NA.", sum(is.na(id)), nm)
         if (cch$isReadable(.self)) {
             nld <- sum( ! is.na(id)) - length(missing.ids)
-            .self$debug(nld, " ", nm, " entry content(s) loaded from cache.")
+            logDebug("%d %s entry content(s) loaded from cache.", nld, nm)
             if (n.duplicates > 0)
-                .self$debug(n.duplicates, " ", nm, " entry ids, whose content",
-                           " needs to be fetched, are duplicates.")
+                logDebug(n.duplicates, " ", nm, " entry ids, whose content",
+                         " needs to be fetched, are duplicates.", fmt='paste0')
         }
 
         # Get contents
         if (length(missing.ids) > 0
             && ( ! .self$isDownloadable() || ! .self$isDownloaded())) {
 
-            .self$debug(length(missing.ids), " entry content(s) need to be ",
-                       "fetched from ", nm, " database \"",
-                       .self$getPropValSlot('urls', 'base.url'), "\".")
+            logDebug(length(missing.ids), " entry content(s) need to be ",
+                     "fetched from ", nm, " database \"",
+                     .self$getPropValSlot('urls', 'base.url'), "\".",
+                     fmt='paste0')
 
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)
             cs <- .self$getBiodb()$getConfig()$get('dwnld.chunk.size')
-            .self$debug('dwnld.chunk.size=', cs)
+            logDebug('dwnld.chunk.size=%d', cs)
             chunks.of.missing.ids <- if (is.na(cs)) list(missing.ids)
                 else split(missing.ids, ceiling(seq_along(missing.ids) / cs))
-            .self$debug(length(chunks.of.missing.ids), ' chunk(s) to download.')
+            logDebug('%d chunk(s) to download.', length(chunks.of.missing.ids))
 
             # Loop on chunks
             missing.contents <- NULL
@@ -225,7 +226,7 @@ getEntryContent=function(id) {
                 # Debug
                 if (cch$isReadable(.self)) {
                     n <- length(missing.ids) - length(missing.contents)
-                    .self$debug("Now ", n," id(s) left to be retrieved...")
+                    logDebug("Now %d id(s) left to be retrieved...", n)
                 }
             }
 

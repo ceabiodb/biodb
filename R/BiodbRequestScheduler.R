@@ -100,8 +100,8 @@ sendRequest=function(request, cache.read=TRUE) {
     rule <- .self$.findRule(request$getUrl())
 
     # Log URL
-    .self$debug("Getting content of ", request$getMethod(), " URL request \"",
-                request$getUrl()$toString(encode=FALSE), "\".")
+    logDebug("Getting content of ", request$getMethod(), " URL request \"",
+             request$getUrl()$toString(encode=FALSE), "\".", fmt='paste0')
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
@@ -110,7 +110,7 @@ sendRequest=function(request, cache.read=TRUE) {
         && cfg$get('cache.all.requests')
         && ! is.null(conn)
         && cch$fileExist(conn$getCacheId(), name=request.key, ext='content')) {
-        .self$debug("Loading content of request from cache.")
+        logDebug("Loading content of request from cache.")
         content <- cch$loadFileContent(conn$getCacheId(),
                                        name=request.key, ext='content',
                                        output.vector=TRUE)
@@ -127,7 +127,7 @@ sendRequest=function(request, cache.read=TRUE) {
         if ( ! is.na(content) && cfg$isEnabled('cache.system')
             && ! is.null(conn)
             && cfg$get('cache.all.requests')) {
-            .self$message('debug', "Saving content of request to cache.")
+            logDebug("Saving content of request to cache.")
             cch$saveContentToFile(content, cache.id=conn$getCacheId(),
                                   name=request.key, ext='content')
             cch$saveContentToFile(request$toString(), cache.id=conn$getCacheId(),
@@ -269,8 +269,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # No rule exists => create new one
         if (is.null(rule)) {
             host <- BiodbUrl(url=url)$getDomain()
-            .self$debug('Create new rule for URL "', host,'" of connector "',
-                        conn$getId(), '".')
+            logDebug('Create new rule for URL "', host,'" of connector "',
+                     conn$getId(), '".', fmt='paste0')
             rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
                                               conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
@@ -346,7 +346,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
         && length(grep('The proxy server could not handle the request',
                        unname(content))) > 0) {
-        .self$message('debug', 'Found proxy error message in content.')
+        logDebug('Found proxy error message in content.')
         err_msg <- "Error between the proxy and the main server."
         content <- NA_character_
         retry <- FALSE
@@ -435,10 +435,9 @@ connSchedulerFrequencyUpdated=function(conn) {
         i <- i + 1
 
         # Print debug information about header and body
-        .self$debug('Request header is: "', request$getHeaderAsSingleString(),
-                    '".')
-        .self$debug('Request body is "', paste(request$getBody(),
-                                               collapse=', '), '".')
+        logDebug('Request header is: "%s".', request$getHeaderAsSingleString())
+        logDebug('Request body is "%s".',
+                 paste(request$getBody(), collapse=', '))
 
         # Wait required time between two requests
         rule$.waitAsNeeded()

@@ -379,10 +379,7 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
     if ( ! is.null(log) && is.character(log) && length(log) == 1
         && nchar(log) > 0) {
         logger <- BiodbLogger(file=log)
-        logger$setLevel('debug', 2L)
         logger$setLevel('info', 2L)
-        logger$setLevel('error', 2L)
-        logger$setLevel('warning', 2L)
         biodb$addObservers(logger)
     }
 

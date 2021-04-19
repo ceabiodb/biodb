@@ -175,8 +175,8 @@ addField=function(field, value) {
               fmt='paste0')
 
     # Add new field
-    .self$debug('Adding new field ', field, ' with value ',
-                paste(value, collapse=', '), '.')
+    logDebug('Adding new field ', field, ' with value ',
+             paste(value, collapse=', '), '.', fmt='paste0')
     .self$.db[[field]] <- value
     .self$setField(field, field)
 },
@@ -241,8 +241,8 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
         fatal('Field "', field, '" is already set to "',
               .self$.fields[[field]], '".', fmt='paste0')
 
-    .self$debug('Set field ', field, ' to column(s) ',
-                paste(colname, collapse=', '), '.')
+    logDebug('Set field ', field, ' to column(s) ',
+             paste(colname, collapse=', '), '.', fmt='paste0')
 
     # One column used, only
     if (length(colname) == 1) {
@@ -326,7 +326,7 @@ getEntryContentFromDb=function(entry.id) {
     content <- rep(NA_character_, length(entry.id))
 
     # Get data frame
-    .self$debug("Entry entry.id: ", paste(entry.id, collapse=", "))
+    logDebug("Entry entry.id: %s", paste(entry.id, collapse=", "))
     df <- .self$.select(ids=entry.id, uniq=TRUE, sort=TRUE)
 
     # For each id, take the sub data frame and convert it into string
@@ -349,7 +349,7 @@ getEntryContentFromDb=function(entry.id) {
     content <- vapply(entry.id, fct, FUN.VALUE='')
 
     if (length(content) > 0)
-        .self$message('debug', paste("Content of first entry:", content[[1]]))
+        logDebug("Content of first entry: %s", content[[1]])
 
     return(content)
 },
@@ -539,7 +539,7 @@ defineParsingExpressions=function() {
     .self$.checkFields(field)
     f <- .self$.fields[[field]]
     values <- db[[f]]
-    .self$debug(length(values), ' values to filter on field ', field, '.')
+    logDebug('%d values to filter on field %s.', length(values), field)
 
     # For all couples in vectors minValue and maxValue, verify which values
     # are in the range. For each couple of minValue/maxValue we get a vector of
@@ -577,7 +577,7 @@ defineParsingExpressions=function() {
     .self$.checkFields(field)
     f <- .self$.fields[[field]]
     values <- db[[f]]
-    .self$debug(length(values), ' values to filter on field ', field, '.')
+    logDebug('%d values to filter on field %s.', length(values), field)
 
     # Filter
     db <- db[grep(value, values), , drop=FALSE]

@@ -521,7 +521,7 @@ parseContent=function(content) {
                 if ( ! is.na(db.id)) {
 
                     # Get value for this field in the database
-                    .self$debug("Compute value for field \"", field, "\".") 
+                    logDebug('Compute value for field "%s".', field) 
                     db.entry <- .self$getBiodb()$getFactory()$getEntry(db,
                                                                        id=db.id)
 

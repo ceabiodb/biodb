@@ -205,7 +205,7 @@ test.entry.page.url.download <- function(db) {
 
     # Try downloading
     if ( ! is.na(url)) {
-        db$debug('Trying to download "', url, '".')
+        biodb::logDebug('Trying to download "%s".', url)
         content <- RCurl::getURL(url)
         testthat::expect_true( ! is.na(content))
         testthat::expect_true(nchar(content) > 0)

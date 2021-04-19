@@ -692,25 +692,6 @@ show=function() {
     }
 },
 
-enableDebug=function() {
-    ":\n\nEnable debug mode: set levels of all message types to maximum.
-    \nReturned value: None.
-    "
-
-    for (type in c('info', 'debug'))
-        .self$getConfig()$set(paste('msg', type, 'lvl', sep='.'), 10)
-},
-
-disableDebug=function() {
-    ":\n\nDisable debug mode: reset levels of all message types to their default
-    value.
-    \nReturned value: None.
-    "
-
-    for (type in c('debug', 'info'))
-        .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
-},
-
 .checkLocale=function() {
 
     # Get locale

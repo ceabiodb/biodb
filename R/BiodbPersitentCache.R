@@ -503,7 +503,7 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
 
     # List files
     path <- .self$getFolderPath(cache.id=cache.id)
-    .self$debug("List files in ", path, " using pattern ", pattern)
+    logDebug("List files in %s using pattern %s.", path, pattern)
     files <- list.files(path=path, pattern=pattern)
 
     # Extract only the name part
@@ -512,9 +512,9 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
         if ( ! is.na(ext))
             pattern <- paste(pattern, ext, sep='\\.')
         pattern <- paste(pattern, '$', sep='')
-        .self$debug("Extracting accession number from file names in ", path, "
-                    using pattern ", pattern)
-        .self$debug("files = ", paste(head(files), collapse=", "))
+        logDebug("Extracting accession number from file names in ", path, "
+                 using pattern ", pattern, fmt='paste0')
+        logDebug("files = %s", paste(head(files), collapse=", "))
         files <- sub(pattern, '\\1', files, perl=TRUE)
         
     # Set full path

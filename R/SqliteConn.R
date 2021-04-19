@@ -206,7 +206,7 @@ hasField=function(field) {
 
 getQuery=function(query) {
     query_str <- query$toString()
-    .self$debug('Running query "', query_str, '".')
+    logDebug('Running query "%s".', query_str)
     return(DBI::dbGetQuery(.self$.db, query_str))
 },
 
