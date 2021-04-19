@@ -150,8 +150,8 @@ getEntryContent=function(id) {
         id <- as.character(id)
 
         # Debug
-        logDebug("Get ", nm, " entry content(s) for ", length(id),
-                 " id(s)...", fmt='paste0')
+        logDebug0("Get ", nm, " entry content(s) for ", length(id),
+                 " id(s)...")
 
         # Download full database
         if (.self$isDownloadable())
@@ -184,8 +184,8 @@ getEntryContent=function(id) {
             nld <- sum( ! is.na(id)) - length(missing.ids)
             logDebug("%d %s entry content(s) loaded from cache.", nld, nm)
             if (n.duplicates > 0)
-                logDebug(n.duplicates, " ", nm, " entry ids, whose content",
-                         " needs to be fetched, are duplicates.", fmt='paste0')
+                logDebug0(n.duplicates, " ", nm, " entry ids, whose content",
+                         " needs to be fetched, are duplicates.")
         }
 
         # Get contents
@@ -398,9 +398,9 @@ searchForEntries=function(fields=NULL, max.results=0) {
 
     # No implementation
     if (is.null(ids) && length(fields) > 0)
-        fatal('This database has been declared to be ',
+        error0('This database has been declared to be ',
               'searchable by field "', names(fields)[[1]],
-              '", but no implementation has been defined.', fmt='paste0')
+              '", but no implementation has been defined.')
 
     return(ids)
 },

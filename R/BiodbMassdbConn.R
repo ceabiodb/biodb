@@ -57,8 +57,8 @@ getMatchingMzField=function() {
     
     # If it contains no value, throw an error
     else if (length(fields) == 0)
-        fatal("No macthing field defined for M/Z values.",
-              "Use setMatchingMzField() to set one.", fmt='paste0')
+        error0("No macthing field defined for M/Z values.",
+              "Use setMatchingMzField() to set one.")
     
     # If it contains more than one value, try to determine which one to use
     else {
@@ -105,10 +105,10 @@ getMatchingMzField=function() {
         
         # No choice made
         if (is.null(field))
-            fatal("Impossible to determine which field to use for",
+            error0("Impossible to determine which field to use for",
                   " M/Z matching. Please set the wanted field using",
                   " setMatchingMzField() method, and make sure it is",
-                  " defined inside your database.", fmt='paste0')
+                  " defined inside your database.")
         
         # Throw a warning telling which field was chosen for matching and tell
         # to use setMatchingMzField() to set another field if needed
@@ -225,12 +225,12 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         fct <- function(e) e$hasField('chrom.rt.unit')
         no.chrom.rt.unit <- ! vapply(entries, fct, FUN.VALUE=TRUE)
         if (any(no.chrom.rt.unit))
-            warn('No RT unit specified in entries ',
+            warn0('No RT unit specified in entries ',
                  paste(vapply(entries[no.chrom.rt.unit],
                               function(e) e$getFieldValue('accession'),
                               FUN.VALUE=''),
                        collapse=', '),
-                 ', impossible to match retention times.', fmt='paste0')
+                 ', impossible to match retention times.')
 
         # Compute RT range for this input, in seconds
         rt.range <- .self$.computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
@@ -244,12 +244,12 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
             col.rt.range <- .self$.computeChromColRtRange(e)
 
             # Test and possibly keep entry
-            logDebug('Testing if RT value ', rt, ' (', rt.unit,
+            logDebug0('Testing if RT value ', rt, ' (', rt.unit,
                         ') is in range [', col.rt.range$min, ';',
                         col.rt.range$max, '] (s) of database entry ',
                         e$getFieldValue('accession'), '. Used range (after',
                         ' applying tolerances) for RT value is [', rt.range$min,
-                        ', ', rt.range$max, '] (s).', fmt='paste0')
+                        ', ', rt.range$max, '] (s).')
             if ((rt.range$max >= col.rt.range$min)
                 && (rt.range$min <= col.rt.range$max))
                 entry.ids <- c(entry.ids, e$getFieldValue('accession'))
@@ -481,12 +481,12 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
             rt.tol=precursor.rt.tol, chrom.col.ids=chrom.col.ids,
             precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
             ms.level=ms.level)
-        logDebug('Found ', length(precursor.match.ids),
+        logDebug0('Found ', length(precursor.match.ids),
                  ' spectra with matched precursor: ',
                  paste((if (length(precursor.match.ids) <= 10)
                         precursor.match.ids else
                             precursor.match.ids[seq_len(10)]), collapse=', '),
-                 '.', fmt='paste0')
+                 '.')
     }
 
     # Loop on the list of M/Z values
@@ -759,14 +759,14 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     if (any(rt.wrong)) {
         if ('s' %in% units[rt.wrong]) {
             if (wanted.unit != 'min')
-                fatal('Error when converting retention times values.',
-                      ' Was expecting "min" for target unit.', fmt='paste0')
+                error0('Error when converting retention times values.',
+                      ' Was expecting "min" for target unit.')
             rt[rt.wrong] <- rt[rt.wrong] / 60
         }
         if ('min' %in% units[rt.wrong]) {
             if (wanted.unit != 's')
-                fatal('Error when converting retention times values.',
-                      ' Was expecting "s" for target unit.', fmt='paste0')
+                error0('Error when converting retention times values.',
+                      ' Was expecting "s" for target unit.')
             rt[rt.wrong] <- rt[rt.wrong] * 60
         }
     }
@@ -812,7 +812,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
     if (use.tol && use.min.max)
-        fatal("You cannot set both mz and (mz.min, mz.max). Please",
+        error("You cannot set both mz and (mz.min, mz.max). Please",
             " choose one of those these two schemes to input M/Z values.",
             fmt='paste0')
 
@@ -867,9 +867,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     if ( ! mz.match$use.tol && ! mz.match$use.min.max)
         return(NULL)
     if (mz.match$use.tol && match.rt && length(mz) != length(rt))
-        fatal('mz and rt must have the same length.', fmt='paste0')
+        error0('mz and rt must have the same length.')
     if (mz.match$use.min.max && match.rt && length(mz.min) != length(rt))
-        fatal('mz.min, mz.max and rt must have the same length.', fmt='paste0')
+        error0('mz.min, mz.max and rt must have the same length.')
 
     # Set input data frame
     for (v in c('mz', 'mz.min', 'mz.max', 'rt')) {
@@ -879,9 +879,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
                 colnames(input.df) <- v
             } else {
                 if (nrow(input.df) != length(get(v)))
-                    fatal('input.df (length ', nrow(input.df), '), and ',
+                    error0('input.df (length ', nrow(input.df), '), and ',
                         v, ' (length ', length(get(v)),
-                        ') must have the same length.', fmt='paste0')
+                        ') must have the same length.')
                 else {
                     if ( ! v %in% names(input.df.colnames))
                         input.df.colnames[[v]] <- v
@@ -924,7 +924,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),
                                        rt.col.unit, 's')
     } else
-        fatal('Impossible to match on retention time, no retention time',
+        error('Impossible to match on retention time, no retention time',
             ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.',
             fmt='paste0')
 

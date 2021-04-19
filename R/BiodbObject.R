@@ -38,8 +38,8 @@ notify=function(fct, args) {
 .abstractClass=function(class) {
 
     if (class == class(.self))
-        fatal('Class ', class, ' is abstract and thus cannot be ',
-                    'instantiated.', fmt='paste0')
+        error0('Class ', class, ' is abstract and thus cannot be ',
+                    'instantiated.')
 },
 
 # This method is used to declare a method as abstract.
@@ -51,7 +51,7 @@ notify=function(fct, args) {
     method <- method[[1]]
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
 
-    fatal("Method ", method, " is not implemented in ", class, " class.",
+    error("Method ", method, " is not implemented in ", class, " class.",
           fmt='paste0')
 }
 ))

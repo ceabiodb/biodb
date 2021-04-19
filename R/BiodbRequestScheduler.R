@@ -100,8 +100,8 @@ sendRequest=function(request, cache.read=TRUE) {
     rule <- .self$.findRule(request$getUrl())
 
     # Log URL
-    logDebug("Getting content of ", request$getMethod(), " URL request \"",
-             request$getUrl()$toString(encode=FALSE), "\".", fmt='paste0')
+    logDebug0("Getting content of ", request$getMethod(), " URL request \"",
+             request$getUrl()$toString(encode=FALSE), "\".")
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
@@ -195,7 +195,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 .checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-        fatal("Offline mode is enabled. All connections are forbidden.",
+        error("Offline mode is enabled. All connections are forbidden.",
               fmt='paste0')
 },
 
@@ -247,8 +247,8 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Rule does not exist
     if (create && ! domain %in% names(.self$.host2rule)) {
-        logInfo('No rule exists for domain "', domain,
-                '". Creating a default one.', fmt='paste0')
+        logInfo0('No rule exists for domain "', domain,
+                '". Creating a default one.')
         rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
@@ -269,8 +269,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # No rule exists => create new one
         if (is.null(rule)) {
             host <- BiodbUrl(url=url)$getDomain()
-            logDebug('Create new rule for URL "', host,'" of connector "',
-                     conn$getId(), '".', fmt='paste0')
+            logDebug0('Create new rule for URL "', host,'" of connector "',
+                     conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
                                               conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule

@@ -84,6 +84,7 @@ getLogger <- function() {
 #' @param rowCut The maximum of rows to print.
 #' @param colCut The maximum of columns to print.
 #' @return A string containing the data frame representation (or part of it).
+#' @export
 df2str <- function(x, rowCut=5, colCut=5) {
 
     size <- ''
@@ -116,6 +117,7 @@ df2str <- function(x, rowCut=5, colCut=5) {
 #'
 #' @param nCut The maximum of elements to print.
 #' @return A string containing the list representation (or part of it).
+#' @export
 lst2str <- function(x, nCut=10) {
 
     if (length(x) == 0)
@@ -130,56 +132,124 @@ lst2str <- function(x, nCut=10) {
     return(s)
 }
 
-logInfo <- function(..., fmt=c('sprintf', 'paste0')) {
-    fmt <- match.arg(fmt)
-    if (fmt == 'sprintf') {
-        getLogger()$info(..., caller=lgr::get_caller(-9L))
-    } else {
-        msg <- paste0(...)
-        getLogger()$info(msg, caller=lgr::get_caller(-9L))
-    }
+#' Log information message.
+#'
+#' Logs an information level message with biodb logger.
+#'
+#' @param ... Values to be passed to sprintf().
+#' @return Nothing.
+#' @export
+logInfo <- function(...) {
+    getLogger()$info(..., caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
 }
 
-logTrace <- function(..., fmt=c('sprintf', 'paste0')) {
-    fmt <- match.arg(fmt)
-    if (fmt == 'sprintf') {
-        getLogger()$trace(..., caller=lgr::get_caller(-9L))
-    } else {
-        msg <- paste0(...)
-        getLogger()$trace(msg, caller=lgr::get_caller(-9L))
-    }
+#' Log information message.
+#'
+#' Logs an information level message with biodb logger, using paste0().
+#'
+#' @param ... Values to be passed to paste0().
+#' @return Nothing.
+#' @export
+logInfo0 <- function(...) {
+    getLogger()$info(paste0(...), caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
 }
 
-logDebug <- function(..., fmt=c('sprintf', 'paste0')) {
-    fmt <- match.arg(fmt)
-    if (fmt == 'sprintf') {
-        getLogger()$debug(..., caller=lgr::get_caller(-9L))
-    } else {
-        msg <- paste0(...)
-        getLogger()$debug(msg, caller=lgr::get_caller(-9L))
-    }
+#' Log trace message.
+#'
+#' Logs a trace level message with biodb logger.
+#'
+#' @param ... Values to be passed to sprintf().
+#' @return Nothing.
+#' @export
+logTrace <- function(...) {
+    getLogger()$trace(..., caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
 }
 
-warn <- function(..., fmt=c('sprintf', 'paste0')) {
-    fmt <- match.arg(fmt)
-    if (fmt == 'sprintf') {
-        getLogger()$warn(..., caller=lgr::get_caller(-9L))
-        warning(sprintf(...))
-    } else {
-        msg <- paste0(...)
-        getLogger()$warn(msg, caller=lgr::get_caller(-9L))
-        warning(msg)
-    }
+#' Log trace message.
+#'
+#' Logs a trace level message with biodb logger, using paste0().
+#'
+#' @param ... Values to be passed to paste0() 
+#' @return Nothing.
+#' @export
+logTrace0 <- function(...) {
+    getLogger()$trace(paste0(...), caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
 }
 
-fatal <- function(..., fmt=c('sprintf', 'paste0')) {
-    fmt <- match.arg(fmt)
-    if (fmt == 'sprintf') {
-        getLogger()$fatal(..., caller=lgr::get_caller(-9L))
-        stop(sprintf(...))
-    } else {
-        msg <- paste0(...)
-        getLogger()$fatal(msg, caller=lgr::get_caller(-9L))
-        stop(msg)
-    }
+#' Log debug message.
+#'
+#' Logs a debug level message with biodb logger.
+#'
+#' @param ... Values to be passed to sprintf().
+#' @return Nothing.
+#' @export
+logDebug <- function(...) {
+    getLogger()$debug(..., caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
+}
+
+#' Log debug message.
+#'
+#' Logs a debug level message with biodb logger, using paste0().
+#'
+#' @param ... Values to be passed to paste0() 
+#' @return Nothing.
+#' @export
+logDebug0 <- function(...) {
+    getLogger()$debug(paste0(...), caller=lgr::get_caller(-9L))
+    return(invisible(NULL))
+}
+
+#' Throw a warning and log it too.
+#'
+#' Throws a warning and logs it too with biodb logger.
+#'
+#' @param ... Values to be passed to sprintf().
+#' @return Nothing.
+#' @export
+warn <- function(...) {
+    getLogger()$warn(..., caller=lgr::get_caller(-9L))
+    warning(sprintf(...))
+}
+
+#' Throw a warning and log it too.
+#'
+#' Throws a warning and logs it too with biodb logger, using paste0().
+#'
+#' @param ... Values to be passed to paste0().
+#' @return Nothing.
+#' @export
+warn0 <- function(...) {
+    msg <- paste0(...)
+    getLogger()$warn(msg, caller=lgr::get_caller(-9L))
+    warning(msg)
+}
+
+#' Throw an error and log it too.
+#'
+#' Throws am error and logs it too with biodb logger.
+#'
+#' @param ... Values to be passed to sprintf().
+#' @return Nothing.
+#' @export
+error <- function(...) {
+    getLogger()$error(..., caller=lgr::get_caller(-9L))
+    stop(sprintf(...))
+}
+
+#' Throw an error and log it too.
+#'
+#' Throws an error and logs it too with biodb logger, using paste0().
+#'
+#' @param ... Values to be passed to paste0().
+#' @return Nothing.
+#' @export
+error0 <- function(...) {
+    msg <- paste0(...)
+    getLogger()$error(msg, caller=lgr::get_caller(-9L))
+    stop(msg)
 }

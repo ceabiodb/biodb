@@ -100,24 +100,24 @@ addNewEntry=function(entry) {
 
     # Is already part of a connector instance?
     if (entry$parentIsAConnector())
-        fatal('Impossible to add entry as a new entry. The passed',
-              ' entry is already part of a connector.', fmt='paste0')
+        error0('Impossible to add entry as a new entry. The passed',
+              ' entry is already part of a connector.')
 
     # No accession number?
     if ( ! entry$hasField('accession'))
-        fatal('Impossible to add entry as a new entry. The passed entry',
-              ' has no accession number.', fmt='paste0')
+        error0('Impossible to add entry as a new entry. The passed entry',
+              ' has no accession number.')
     id <- entry$getFieldValue('accession')
     if (is.na(id))
-        fatal('Impossible to add entry as a new entry. The passed',
-              ' entry has an accession number set to NA.', fmt='paste0')
+        error0('Impossible to add entry as a new entry. The passed',
+              ' entry has an accession number set to NA.')
 
     # Accession number is already used?
     e <- .self$getEntry(id)
     if ( ! is.null(e))
-        fatal('Impossible to add entry as a new entry. The accession',
+        error0('Impossible to add entry as a new entry. The accession',
               ' number of the passed entry is already used in the',
-              ' connector.', fmt='paste0')
+              ' connector.')
 
     # Make sure ID field is equal to accession
     id.field <- .self$getEntryIdField()
@@ -149,8 +149,8 @@ addNewEntry=function(entry) {
     .self$.initEditable()
 
     if ( ! .self$.editing.allowed)
-        fatal('Editing is not enabled for this database. However this',
+        error0('Editing is not enabled for this database. However this',
               ' database type is editable. Please call allowEditing()',
-              ' method to enable editing.', fmt='paste0')
+              ' method to enable editing.')
 }
 ))

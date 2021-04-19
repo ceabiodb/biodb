@@ -352,8 +352,8 @@ setPropertyValue=function(name, value) {
         && 'modifiable' %in% names(.self$.prop.def[[name]])
         && ! .self$.prop.def[[name]]$modifiable
         && ! identical(.self$.prop[[name]], value))
-        fatal('Property "', name, '" of database "', .self$getDbClass(),
-              '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".', fmt='paste0')
+        error0('Property "', name, '" of database "', .self$getDbClass(),
+              '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".')
 
     # Set value
     .self$.prop[[name]] <- value
@@ -435,8 +435,8 @@ setPropValSlot=function(name, slot, value) {
     # Check that property exists
     if ( ! name %in% names(.self$.prop.def)) {
         if (fail)
-            fatal('Unknown property "', name, '" for database ',
-                  .self$getDbClass(), '.', fmt='paste0')
+            error0('Unknown property "', name, '" for database ',
+                  .self$getDbClass(), '.')
         else
             return(FALSE)
     }
@@ -447,8 +447,8 @@ setPropValSlot=function(name, slot, value) {
     # Check that it is a property slot
     if (is.logical(slot) && slot && ! 'named' %in% names(pdef)) {
         if (fail)
-            fatal('Property "', name, '" of database "',
-                  .self$getDbClass(), '" is not a slot property.', fmt='paste0')
+            error0('Property "', name, '" of database "',
+                  .self$getDbClass(), '" is not a slot property.')
         else
             return(FALSE)
     }
@@ -456,9 +456,9 @@ setPropValSlot=function(name, slot, value) {
     # Check that it is a property slot
     if ( ! is.null(slot) && ! 'named' %in% names(pdef)) {
         if (fail)
-            fatal('Unauthorized use of slot "', slot,
+            error0('Unauthorized use of slot "', slot,
                   '" with unnamed property "', name, '" of database "',
-                  .self$getDbClass(), '".', fmt='paste0')
+                  .self$getDbClass(), '".')
         else
             return(FALSE)
     }
@@ -474,18 +474,18 @@ setPropValSlot=function(name, slot, value) {
 
     # Check cardinality
     if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
-        fatal('Multiple values are forbidden for property "', name,
-              '" of database "', .self$getDbClass(), '".', fmt='paste0')
+        error0('Multiple values are forbidden for property "', name,
+              '" of database "', .self$getDbClass(), '".')
 
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
-            fatal('Value vector for property "', name, '"of database "',
+            error('Value vector for property "', name, '"of database "',
                   .self$getDbClass(), '" must be named. Values are: ',
                   paste(paste(names(value), value, sep='='), collapse=', '),
                   fmt='paste0')
         if (any(duplicated(names(value))))
-            fatal('Value vector for property "', name, '"of database "',
+            error('Value vector for property "', name, '"of database "',
                   .self$getDbClass(), '" contains duplicated names.',
                   fmt='paste0')
     }
@@ -498,11 +498,11 @@ setPropValSlot=function(name, slot, value) {
     # Check if value is allowed
     if (length(value) == 1) {
         if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
-            fatal('NA value is not allowed for property "', name,
-                  '" of database "', .self$getDbClass(), '".', fmt='paste0')
+            error0('NA value is not allowed for property "', name,
+                  '" of database "', .self$getDbClass(), '".')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
-            fatal('Value "', value, '" is not allowed for property "',
+            error('Value "', value, '" is not allowed for property "',
                   name, '" of database "', .self$getDbClass(), '".',
                   fmt='paste0')
     }

@@ -109,7 +109,7 @@ download=function() {
         logInfo("Downloading whole database of ", .self$getId(), ".",
                 fmt='paste0')
         .self$.doDownload()
-        logDebug('Downloading of ', .self$getId(), ' completed.', fmt='paste0')
+        logDebug0('Downloading of ', .self$getId(), ' completed.')
 
         # Set marker
         cch$setMarker(.self$getCacheId(), name='downloaded')
@@ -118,7 +118,7 @@ download=function() {
     # Extract
     if (.self$isDownloaded() && ! .self$isExtracted()) {
 
-        logInfo("Extract whole database of ", .self$getId(), ".", fmt='paste0')
+        logInfo0("Extract whole database of ", .self$getId(), ".")
 
         .self$.doExtractDownload()
 

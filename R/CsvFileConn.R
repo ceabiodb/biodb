@@ -74,8 +74,8 @@ setCsvQuote=function(quote) {
     chk::chk_string(quote)
     
     if ( ! is.null(.self$.db))
-        fatal("The CSV file has already been loaded. Modification of",
-              " the quote parameter is not allowed.", fmt='paste0')
+        error0("The CSV file has already been loaded. Modification of",
+              " the quote parameter is not allowed.")
     
     .self$.file.quote <- quote
 },
@@ -98,7 +98,7 @@ setCsvSep=function(sep) {
     chk::chk_string(sep)
     
     if ( ! is.null(.self$.db))
-        fatal("The CSV file has already been loaded. Modification of",
+        error("The CSV file has already been loaded. Modification of",
               " the separator character parameter is not allowed.",
               fmt='paste0')
     
@@ -127,7 +127,7 @@ hasField=function(field) {
     "
 
     if (is.null(field) || is.na(field))
-        fatal("No field specified.", fmt='paste0')
+        error0("No field specified.")
 
     ef <- .self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
@@ -158,7 +158,7 @@ addField=function(field, value) {
     "
 
     if (is.null(field) || is.na(field))
-        fatal("No field specified.", fmt='paste0')
+        error0("No field specified.")
 
     ef <- .self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
@@ -168,15 +168,15 @@ addField=function(field, value) {
 
     # Field already defined?
     if (field %in% .self$getFieldNames())
-        fatal("Database field \"", field, "\" is already defined.",
+        error("Database field \"", field, "\" is already defined.",
               fmt='paste0')
     if (field %in% names(.self$.db))
-        fatal("Database column \"", field, "\" is already defined.",
+        error("Database column \"", field, "\" is already defined.",
               fmt='paste0')
 
     # Add new field
-    logDebug('Adding new field ', field, ' with value ',
-             paste(value, collapse=', '), '.', fmt='paste0')
+    logDebug0('Adding new field ', field, ' with value ',
+             paste(value, collapse=', '), '.')
     .self$.db[[field]] <- value
     .self$setField(field, field)
 },
@@ -189,7 +189,7 @@ getFieldColName=function(field) {
     "
 
     if (is.null(field) || is.na(field))
-        fatal("No field specified.", fmt='paste0')
+        error0("No field specified.")
 
     ef <- .self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field)
@@ -199,7 +199,7 @@ getFieldColName=function(field) {
 
     # Check that this field is defined in the fields list
     if ( ! field %in% .self$getFieldNames())
-        fatal("Database field \"", field, "\" is not defined.", fmt='paste0')
+        error0("Database field \"", field, "\" is not defined.")
 
     return(.self$.fields[[field]])
 },
@@ -227,22 +227,22 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
 
     # Check that this is a correct field name
     if ( ! ef$isDefined(field))
-        fatal("Database field \"", field, "\" is not valid.", fmt='paste0')
+        error0("Database field \"", field, "\" is not valid.")
 
     # Fail if column names are not found in file
     if ( ! all(colname %in% names(.self$.db))) {
         undefined.cols <- colname[ ! colname %in% names(.self$.db)]
-        fatal("Column(s) ", paste(undefined.cols, collapse=", "), "
-              is/are not defined in database file.", fmt='paste0')
+        error0("Column(s) ", paste(undefined.cols, collapse=", "), "
+              is/are not defined in database file.")
     }
 
     # Fail if already defined
     if (field %in% names(.self$.fields))
-        fatal('Field "', field, '" is already set to "',
-              .self$.fields[[field]], '".', fmt='paste0')
+        error0('Field "', field, '" is already set to "',
+              .self$.fields[[field]], '".')
 
-    logDebug('Set field ', field, ' to column(s) ',
-             paste(colname, collapse=', '), '.', fmt='paste0')
+    logDebug0('Set field ', field, ' to column(s) ',
+             paste(colname, collapse=', '), '.')
 
     # One column used, only
     if (length(colname) == 1) {
@@ -364,9 +364,9 @@ setDb=function(db) {
     # URL point to an existing file?
     url <- .self$getPropValSlot('urls', 'base.url')
     if ( ! is.null(url) && ! is.na(url) && file.exists(url))
-        fatal('Cannot set this data frame as database. A URL that',
+        error0('Cannot set this data frame as database. A URL that',
               ' points to an existing file has already been set for the',
-              ' connector.', fmt='paste0')
+              ' connector.')
 
     .self$.doSetDb(db)
 },
@@ -383,8 +383,8 @@ defineParsingExpressions=function() {
 
 .doWrite=function() {
 
-    logInfo('Write all entries into "',
-            .self$getPropValSlot('urls', 'base.url'), '".', fmt='paste0')
+    logInfo0('Write all entries into "',
+            .self$getPropValSlot('urls', 'base.url'), '".')
 
     # Make sure all entries are loaded into cache.
     entry.ids <- .self$getEntryIds()
@@ -410,7 +410,7 @@ defineParsingExpressions=function() {
         file <- .self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(file) && ! is.na(file) && ! file.exists(file)
             && ! .self$writingIsAllowed())
-            fatal("Cannot locate the file database \"", file, "\".",
+            error("Cannot locate the file database \"", file, "\".",
                   fmt='paste0')
 
         # No file to load, create empty database
@@ -447,8 +447,8 @@ defineParsingExpressions=function() {
     fct <- function(f) .self$getBiodb()$getEntryFields()$isDefined(f)
     unknown.fields <- fields[ ! vapply(fields, fct, FUN.VALUE=FALSE)]
     if (length(unknown.fields) > 0)
-        fatal("Field(s) ", paste(fields, collapse=", "),
-              " is/are unknown.", fmt='paste0')
+        error0("Field(s) ", paste(fields, collapse=", "),
+              " is/are unknown.")
 
     # Init db
     .self$.initDb()
@@ -458,7 +458,7 @@ defineParsingExpressions=function() {
     if (length(undefined.fields) > 0) {
         msg <- sprintf("Field(s) %s is/are undefined in file database.",
                        paste(undefined.fields, collapse=", "))
-        if (fail) fatal(msg) else logDebug(fail)
+        if (fail) error(msg) else logDebug(fail)
         return(FALSE)
     }
 
@@ -525,9 +525,9 @@ defineParsingExpressions=function() {
 
     # Check range
     if (is.null(minValue) || is.null(maxValue))
-        fatal('You must set both min and max values.', fmt='paste0')
+        error0('You must set both min and max values.')
     if (length(minValue) != length(maxValue))
-        fatal("'minValue' and 'maxValue' must have equal lengths.",
+        error("'minValue' and 'maxValue' must have equal lengths.",
               " 'minValue' has ", length(minValue), " element(s),",
               " and 'maxValue' has ", length(maxValue), "element(s).",
               fmt='paste0')
@@ -592,9 +592,9 @@ defineParsingExpressions=function() {
         url <- .self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url)
             && file.exists(url))
-            fatal('You cannot overwrite base URL. A URL has already',
+            error0('You cannot overwrite base URL. A URL has already',
                   ' been set ("', url, '") that points to a valid file',
-                  ' that has already been loaded in memory.', fmt='paste0')
+                  ' that has already been loaded in memory.')
     }
 },
 

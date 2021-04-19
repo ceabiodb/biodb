@@ -233,7 +233,7 @@ addObservers=function(observers) {
     is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
                      FUN.VALUE=TRUE)
     if (any( ! is.obs))
-        fatal("Observers must inherit from BiodbObserver class.")
+        error("Observers must inherit from BiodbObserver class.")
 
     # Add observers to current list (insert at beginning)
     old_obs <- .self$.observers
@@ -362,7 +362,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        fatal("Parameter 'entries' must be a list.")
+        error("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
@@ -445,7 +445,7 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
         }
     }
     else
-        fatal(paste("Input parameter `ids` must be either a",
+        error(paste("Input parameter `ids` must be either a",
             "character vector or a list of character vectors."))
 
     # Convert to data frame
@@ -476,7 +476,7 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     if (ncol(x) > 0) {
         chk::chk_character(id.col)
         if ( ! id.col %in% colnames(x))
-            fatal('Column "%s" was not found inside data frame.',
+            error('Column "%s" was not found inside data frame.',
                             id.col)
 
         # Get ids
@@ -528,7 +528,7 @@ collapseRows=function(x, sep='|', cols=1L) {
     if (is.numeric(cols))
         cols <- as.integer(cols)
     if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
-        fatal('The data frame does not contain columns "%s".',
+        error('The data frame does not contain columns "%s".',
               paste(cols, collapse=', '))
     chk::chk_character(sep)
 
@@ -709,9 +709,9 @@ show=function() {
         if (.self$.config$isEnabled('force.locale'))
             Sys.setlocale(locale='en_US.UTF-8') # Force locale
         else
-            warn("LC_CTYPE field of locale is set to ", LC_CTYPE,
+            warn0("LC_CTYPE field of locale is set to ", LC_CTYPE,
                  ". It must be set to a UTF-8 locale like",
-                 "'en_US.UTF-8'.", fmt='paste0')
+                 "'en_US.UTF-8'.")
     }
 },
 

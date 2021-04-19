@@ -89,7 +89,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Set connector ID
     if ( ! is.null(conn.id)) {
         if (conn.id %in% names(.self$.conn))
-            fatal('Connector ID "%s" is already used.', conn.id)
+            error('Connector ID "%s" is already used.', conn.id)
     }
     else {
         # Create a connector ID
@@ -126,7 +126,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
                       (if (is.null(url)) '' else
                           paste0(' with the same URL (', url, ')')),
                       (if (is.na(token)) '' else 'and the same token'), '.')
-        if (fail.if.exists) fatal(msg) else warn(msg)
+        if (fail.if.exists) error(msg) else warn(msg)
         conn <- if (get.existing.conn) existingConn else NULL
     }
 
@@ -154,7 +154,7 @@ deleteConn=function(conn) {
         chk::chk_character(conn)
 
         if ( ! conn %in% names(.self$.conn))
-            fatal('Connector "%s" is unknown.', conn)
+            error('Connector "%s" is unknown.', conn)
 
         .self$deleteAllEntriesFromVolatileCache(conn)
         .self$.conn[[conn]]$.terminate()
@@ -246,7 +246,7 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
     }
 
     if (is.null(conn))
-        fatal('Cannot find connector instance "%s".', conn.id)
+        error('Cannot find connector instance "%s".', conn.id)
 
     return(conn)
 },
@@ -314,7 +314,7 @@ getAllCacheEntries=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        fatal('Connector "%s" is unknown.', conn.id)
+        error('Connector "%s" is unknown.', conn.id)
 
     return(.self$.conn[[conn.id]]$getAllCacheEntries())
 },
@@ -329,7 +329,7 @@ deleteAllEntriesFromVolatileCache=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        fatal('Connector "%s" is unknown.', conn.id)
+        error('Connector "%s" is unknown.', conn.id)
 
     .self$.conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
 },
@@ -362,7 +362,7 @@ show=function() {
         conn <- .self$getConn(conn.id)
 
         # Debug
-        logDebug("Creating entries from ids %s.", lst2str(ids))
+        biodb::logDebug("Creating entries from ids %s.", lst2str(ids))
 
         # Get contents
         content <- conn$getEntryContent(ids)
@@ -454,8 +454,8 @@ show=function() {
         logDebug('Accession numbers: %s.', strIds)
         if (any(entries.without.accession)) {
             n <- sum(entries.without.accession)
-            logDebug('Found %d entry/ies without an accession',
-                ' number. Set it/them to NULL.', n, fmt='paste0')
+            logDebug0('Found %d entry/ies without an accession',
+                ' number. Set it/them to NULL.', n)
             entries[entries.without.accession] <- list(NULL)
         }
 

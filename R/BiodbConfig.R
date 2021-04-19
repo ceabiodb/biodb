@@ -350,12 +350,12 @@ newObserver=function(obs) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
-        fatal("Key is NULL, NA or not character type.")
+        error("Key is NULL, NA or not character type.")
 
     # Check duplicated key
     if (key %in% names(.self$.keys))
         # TODO If key is the same, does not raise error.
-        fatal("Key %s has already been defined in configuration.", key)
+        error("Key %s has already been defined in configuration.", key)
 
     # Overwrite default value by env var, if defined
     env.var.value <- .self$.getFromEnv(key)
@@ -388,7 +388,7 @@ newObserver=function(obs) {
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
         if (fail)
-            fatal("Key is NULL, NA or not character type.")
+            error("Key is NULL, NA or not character type.")
         else
             return(FALSE)
     }
@@ -396,7 +396,7 @@ newObserver=function(obs) {
     # Fail if invalid key
     if ( ! key %in% names(.self$.keys)) {
         if (fail)
-            fatal("Unknown key %s.", key)
+            error("Unknown key %s.", key)
         else
             return(FALSE)
     }
@@ -410,8 +410,8 @@ newObserver=function(obs) {
     if ( ! is.null(type) && ! is.na(type)
         && .self$.keys[[key]][['type']] != type) {
         if (fail)
-            fatal("Key ", key, " is not of type ", type,
-                  " but of type ", key.type, ".", fmt='paste0')
+            error0("Key ", key, " is not of type ", type,
+                  " but of type ", key.type, ".")
         else
             return(FALSE)
     }

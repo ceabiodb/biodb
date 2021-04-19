@@ -125,7 +125,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
-        fatal('No column named "%s" was found inside data frame.', mz.col)
+        error('No column named "%s" was found inside data frame.', mz.col)
 
     # Set M/Z col in output data frame
     if (mz.col %in% names(x))

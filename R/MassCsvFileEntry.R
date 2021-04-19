@@ -71,8 +71,8 @@ initialize=function(...) {
                     strongest.precursor.mz <- pkmz[precursors][[s]]
                 }
             if (is.null(strongest.precursor.mz))
-                warn('No intensity information found for choosing',
-                     ' the strongest precursor.', fmt='paste0')
+                warn0('No intensity information found for choosing',
+                     ' the strongest precursor.')
             else {
                 loGinfo('Found strongest precursor: %g.',
                         strongest.precursor.mz)
@@ -89,13 +89,13 @@ initialize=function(...) {
     peaks <- .self$getFieldValue('peaks')
     if ( ! is.null(mz)) {
         if (is.null(peaks))
-            fatal('No peaks table while a peak.mz field exists for entry ',
-                  .self$getFieldValue('accession'), ' .', fmt='paste0')
+            error0('No peaks table while a peak.mz field exists for entry ',
+                  .self$getFieldValue('accession'), ' .')
         if (nrow(peaks) != length(mz))
-            fatal('Peaks table (nrow=', nrow(peaks), ') does not have ',
+            error0('Peaks table (nrow=', nrow(peaks), ') does not have ',
                   'the same number of elements as peak.mz field (',
                   length(mz), ') for entry ', .self$getFieldValue('accession'),
-                  '.', fmt='paste0')
+                  '.')
     }
 
     # Chromatographic column id and name
