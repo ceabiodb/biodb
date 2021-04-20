@@ -163,11 +163,11 @@ downloadFile=function(url, dest.file) {
     # Download
     logDebug('Downloading file "%s".', url)
     cfg <- .self$getBiodb()$getConfig()
-    infoLvl <- cfg$get('msg.info.lvl')
     options(HTTPUserAgent=cfg$get('useragent'),
             timeout=cfg$get('dwnld.timeout'))
     utils::download.file(url=url, destfile=dest.file, mode='wb',
-                         method='auto', cacheOK=FALSE, quiet=(infoLvl==0))
+                         method='auto', cacheOK=FALSE, quiet=FALSE)
+    # TODO Add a biodb option for "quiet"?
 },
 
 connTerminating=function(conn) {

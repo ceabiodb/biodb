@@ -45,6 +45,11 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
     testthatPath <- getFolderFromVect(c(private$path, testthatFolder))
     if (dir.exists(testthatPath)
         && length(Sys.glob(file.path(testthatPath, '/*generic*.R'))) == 0) {
+        private$createGenerator(ExtFileGenerator,
+                                template='test_001_init_logging.R',
+                                folder=testthatFolder,
+                                filename='test_001_init_logging.R'
+                                )$generate(overwrite=overwrite, fail=fail)
         private$createGenerator(ExtFileGenerator, template='test_050_fcts.R',
                                 folder=testthatFolder,
                                 filename='test_050_fcts.R'

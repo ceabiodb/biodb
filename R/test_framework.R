@@ -33,11 +33,11 @@ initialize=function(...) {
 
 notifyProgress=function(what, index, total) {
     # Override super class' method
-    testthat::expect_is(what, 'character')
-    testthat::expect_true(what != '')
-    testthat::expect_is(index, 'number')
-    testthat::expect_is(total, 'number')
-    testthat::expect_true(index >= 0)
+    testthat::expect_type(what, 'character')
+    testthat::expect_true(what != '') # --> expect_not_empty_str
+    #testthat::expect_is(index, 'number') # --> expect_whole_number
+    #testthat::expect_is(total, 'number')
+    testthat::expect_true(index >= 0) # --> expect_positive
     testthat::expect_true(index <= total)
     return(invisible(NULL))
 }
