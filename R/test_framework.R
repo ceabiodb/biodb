@@ -228,6 +228,7 @@ listTestRefEntries <- function(conn.id) {
 
     return(ids)
 }
+
 loadTestRefEntry <- function(db, id) {
 
 	# Replace forbidden characters
@@ -249,6 +250,7 @@ loadTestRefEntry <- function(db, id) {
 
 	return(json)
 }
+
 loadTestRefEntries <- function(db) {
 
 	entries.desc <- NULL
