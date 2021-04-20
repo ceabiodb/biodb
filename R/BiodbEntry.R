@@ -162,8 +162,7 @@ setFieldValue=function(field, value) {
     # Check value class
     if (field.def$isAtomic()) {
         if (length(value) == 0)
-            error('Cannot set an empty value into field "', field, '".',
-                  fmt='paste0')
+            error0('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
             warn0("Unable to convert value(s) \"",
@@ -298,9 +297,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
                                               sort=TRUE)
 
         else
-            error('Do not know how to compute virtual field "', field,
-                  '" for entry "', .self$getFieldValue('accession'), '".',
-                  fmt='paste0')
+            error0('Do not know how to compute virtual field "', field,
+                  '" for entry "', .self$getFieldValue('accession'), '".')
     }
 
     # Unset field
@@ -470,11 +468,10 @@ parseContent=function(content) {
     dbid.field <- .self$getParent()$getEntryIdField()
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
-            error('Value of accession field ("',
+            error0('Value of accession field ("',
                   .self$getFieldValue('accession'),
                   '") is different from value of ', dbid.field,
-                  ' field ("', .self$getFieldValue(dbid.field), '").',
-                  fmt='paste0')
+                  ' field ("', .self$getFieldValue(dbid.field), '").')
     }
     else {
         if (.self$hasField(dbid.field))

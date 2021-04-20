@@ -192,10 +192,9 @@ getEntryContent=function(id) {
         if (length(missing.ids) > 0
             && ( ! .self$isDownloadable() || ! .self$isDownloaded())) {
 
-            logDebug(length(missing.ids), " entry content(s) need to be ",
+            logDebug0(length(missing.ids), " entry content(s) need to be ",
                      "fetched from ", nm, " database \"",
-                     .self$getPropValSlot('urls', 'base.url'), "\".",
-                     fmt='paste0')
+                     .self$getPropValSlot('urls', 'base.url'), "\".")
 
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)

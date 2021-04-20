@@ -122,9 +122,8 @@ addConnector=function(conn) {
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn),
                    FUN.VALUE=TRUE)))
-        logDebug('Connector "', conn$getId(),
-                 '" is already listed in rule "', .self$.host, '".',
-                 fmt='paste0')
+        logDebug0('Connector "', conn$getId(),
+                 '" is already listed in rule "', .self$.host, '".')
 
     # Add connector
     else {

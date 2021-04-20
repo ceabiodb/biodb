@@ -114,12 +114,11 @@ getMatchingMzField=function() {
         # to use setMatchingMzField() to set another field if needed
         .self$setMatchingMzField(field)
         if (multiple.match)
-            warn('Field "', field, '" has been automatically chosen',
+            warn0('Field "', field, '" has been automatically chosen',
                  ' among several possibilities (',
                  paste(fields, collapse=', '), ') for matching',
                  ' M/Z values. Use setMatchingMzField() method',
-                 ' explicitly to avoid this warning in the future.',
-                 fmt='paste0')
+                 ' explicitly to avoid this warning in the future.')
     }
     
     return(field)
@@ -203,13 +202,12 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                 e$getFieldValue('chrom.col.id') %in% chrom.col.ids
             }
             entries <- entries[vapply(entries, fct, FUN.VALUE=TRUE)]
-            logDebug(length(entries),
+            logDebug0(length(entries),
                      ' spectra remaining after chrom col filtering: ',
                      paste(vapply((if (length(entries) <= 10) entries
                                    else entries[seq_len(10)]),
                                    function(e) e$getFieldValue('accession'),
-                                   FUN.VALUE=''), collapse=', '), '.',
-                     fmt='paste0')
+                                   FUN.VALUE=''), collapse=', '), '.')
         }
 
         # Filter out entries with no RT values or no RT unit
@@ -255,11 +253,10 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                 entry.ids <- c(entry.ids, e$getFieldValue('accession'))
         }
 
-        logDebug(length(entry.ids),
+        logDebug0(length(entry.ids),
                  ' spectra remaining after retention time filtering:',
                  paste((if (length(entry.ids) <= 10) entry.ids
-                        else entry.ids[seq_len(10)]), collapse=', '), '.',
-                 fmt='paste0')
+                        else entry.ids[seq_len(10)]), collapse=', '), '.')
     }
 
     return(entry.ids)
@@ -514,11 +511,10 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {
             ids <- ids[ids %in% precursor.match.ids]
-            logDebug('After filtering on IDs with precursor match, we have ',
+            logDebug0('After filtering on IDs with precursor match, we have ',
                      length(ids), ' spectra: ',
                      paste((if (length(ids) <= 10) ids
-                            else ids[seq_len(10)]), collapse=', '), '.',
-                     fmt='paste0')
+                            else ids[seq_len(10)]), collapse=', '), '.')
         }
 
         # Filter on RT value
@@ -548,9 +544,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Display first entry
         if (length(entries) > 0)
-                logDebug('Field names of entry:',
-                         paste(entries[[1]]$getFieldNames(), collapse=', '),
-                         fmt='paste0')
+                logDebug0('Field names of entry:',
+                         paste(entries[[1]]$getFieldNames(), collapse=', '))
 
         # Convert to data frame
         logDebug('Converting list of entries to data frame.')
@@ -564,9 +559,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
         rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
-        logDebug("Filtering entries data frame on M/Z ranges ",
-                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "),
-                 fmt='paste0')
+        logDebug0("Filtering entries data frame on M/Z ranges ",
+                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
         df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
         logTrace('After filtering on M/Z range %s', df2str(df))
 
@@ -647,10 +641,9 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
     ids <- character()
     if ( ! is.null(spectrum) && nrow(spectrum) > 0 && ! is.null(precursor.mz)) {
         if (max.results > 0)
-            warn('Applying max.results =', max.results,'on call to',
+            warn0('Applying max.results =', max.results,'on call to',
                 ' searchForMassSpectra(). This may results in no matches,',
-                ' while there exist matching spectra inside the database.',
-                fmt='paste0')
+                ' while there exist matching spectra inside the database.')
         ids <- .self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
             mz.tol.unit=mz.tol.unit, ms.mode=ms.mode, precursor=TRUE,
             ms.level=2, max.results=max.results)
@@ -812,9 +805,8 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
     if (use.tol && use.min.max)
-        error("You cannot set both mz and (mz.min, mz.max). Please",
-            " choose one of those these two schemes to input M/Z values.",
-            fmt='paste0')
+        error0("You cannot set both mz and (mz.min, mz.max). Please",
+            " choose one of those these two schemes to input M/Z values.")
 
     return(list(use.tol=use.tol, use.min.max=use.min.max))
 },
@@ -924,9 +916,8 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),
                                        rt.col.unit, 's')
     } else
-        error('Impossible to match on retention time, no retention time',
-            ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.',
-            fmt='paste0')
+        error0('Impossible to match on retention time, no retention time',
+            ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
     return(list(min=rt.col.min, max=rt.col.max))
 },

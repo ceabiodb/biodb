@@ -98,9 +98,8 @@ setCsvSep=function(sep) {
     chk::chk_string(sep)
     
     if ( ! is.null(.self$.db))
-        error("The CSV file has already been loaded. Modification of",
-              " the separator character parameter is not allowed.",
-              fmt='paste0')
+        error0("The CSV file has already been loaded. Modification of",
+              " the separator character parameter is not allowed.")
     
     .self$.file.sep <- sep
 },
@@ -168,11 +167,9 @@ addField=function(field, value) {
 
     # Field already defined?
     if (field %in% .self$getFieldNames())
-        error("Database field \"", field, "\" is already defined.",
-              fmt='paste0')
+        error0("Database field \"", field, "\" is already defined.")
     if (field %in% names(.self$.db))
-        error("Database column \"", field, "\" is already defined.",
-              fmt='paste0')
+        error0("Database column \"", field, "\" is already defined.")
 
     # Add new field
     logDebug0('Adding new field ', field, ' with value ',
@@ -410,8 +407,7 @@ defineParsingExpressions=function() {
         file <- .self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(file) && ! is.na(file) && ! file.exists(file)
             && ! .self$writingIsAllowed())
-            error("Cannot locate the file database \"", file, "\".",
-                  fmt='paste0')
+            error0("Cannot locate the file database \"", file, "\".")
 
         # No file to load, create empty database
         if (is.null(file) || is.na(file) || ! file.exists(file)) {
@@ -527,13 +523,11 @@ defineParsingExpressions=function() {
     if (is.null(minValue) || is.null(maxValue))
         error0('You must set both min and max values.')
     if (length(minValue) != length(maxValue))
-        error("'minValue' and 'maxValue' must have equal lengths.",
+        error0("'minValue' and 'maxValue' must have equal lengths.",
               " 'minValue' has ", length(minValue), " element(s),",
-              " and 'maxValue' has ", length(maxValue), "element(s).",
-              fmt='paste0')
-    logDebug('Filtering on field "', field, '", with range: ',
-             paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.',
-             fmt='paste0')
+              " and 'maxValue' has ", length(maxValue), "element(s).")
+    logDebug0('Filtering on field "', field, '", with range: ',
+             paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.')
     
     # Check field
     .self$.checkFields(field)

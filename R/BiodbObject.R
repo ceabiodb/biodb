@@ -51,7 +51,6 @@ notify=function(fct, args) {
     method <- method[[1]]
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
 
-    error("Method ", method, " is not implemented in ", class, " class.",
-          fmt='paste0')
+    error0("Method ", method, " is not implemented in ", class, " class.")
 }
 ))

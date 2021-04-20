@@ -116,8 +116,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Set alias
     if (length(alias) > 1 && any(is.na(alias)))
-        error("One of the aliases of entry field \"", name, "\" is NA.",
-              fmt='paste0')
+        error0("One of the aliases of entry field \"", name, "\" is NA.")
     .self$.alias <- alias
 
     # Set allowed values
@@ -149,8 +148,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Lower case
     if (lower.case && class != 'character')
-        error('Only character fields can be forced to lower case.',
-              fmt='paste0')
+        error0('Only character fields can be forced to lower case.')
     .self$.lower.case <- lower.case
 
     # Computable from
@@ -191,9 +189,8 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
             # Check list of fields
             if ('fields' %in% names(directive)
                 && ! is.character(directive$fields))
-                error('In directive of field "', .self$.name,
-                      '", "fields" must be a list of field names.',
-                      fmt='paste0')
+                error0('In directive of field "', .self$.name,
+                      '", "fields" must be a list of field names.')
         }
     }
 
@@ -483,9 +480,8 @@ addAllowedValue=function(key, value) {
                   '" for its allowed values, but with key "', current.key,
                   '" instead of key "', key, '".')
         else
-            logInfo('Field "', .self$.name, '" already uses value "', value,
-                    '" for its allowed values, with key "', key, '".',
-                    fmt='paste0')
+            logInfo0('Field "', .self$.name, '" already uses value "', value,
+                    '" for its allowed values, with key "', key, '".')
     }
 
     # Add new value
@@ -596,8 +592,7 @@ equals=function(other, fail=FALSE) {
     "
 
     if ( ! methods::is(other, "BiodbEntryField"))
-        error("Parameter `other` must be an instance of BiodbEntryField.",
-              fmt='paste0')
+        error("Parameter `other` must be an instance of BiodbEntryField.")
 
     eq <- TRUE
 
@@ -618,8 +613,7 @@ equals=function(other, fail=FALSE) {
     }
 
     if (fail && ! eq)
-        error("Field \"", other[['name']], "\" has already been defined.",
-              fmt='paste0')
+        error0("Field \"", other[['name']], "\" has already been defined.")
 
     return(eq)
 },
@@ -634,8 +628,7 @@ updateWithValuesFrom=function(other) {
     "
 
     if ( ! methods::is(other, "BiodbEntryField"))
-        error("Parameter `other` must be an instance of BiodbEntryField.",
-              fmt='paste0')
+        error("Parameter `other` must be an instance of BiodbEntryField.")
 
     # Update fields
     for (a in other$.alias)

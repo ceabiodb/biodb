@@ -383,9 +383,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            logDebug("Merging data frames with a single",
-                "entry each into a single data frame with all entries.",
-                fmt='paste0')
+            logDebug0("Merging data frames with a single",
+                "entry each into a single data frame with all entries.")
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()

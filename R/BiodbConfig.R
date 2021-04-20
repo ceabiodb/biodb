@@ -337,9 +337,8 @@ newObserver=function(obs) {
                     collapse='_')
     if (envvar %in% names(.self$.env)) {
         value <- .self$.env[[envvar]]
-        logDebug("Found env var ", envvar, ', value "', value,
-                 '", defining default value for config key ', key, '.',
-                 fmt='paste0')
+        logDebug0("Found env var ", envvar, ', value "', value,
+                 '", defining default value for config key ', key, '.')
     }
 
     return(value)

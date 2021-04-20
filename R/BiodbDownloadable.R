@@ -55,8 +55,7 @@ getDownloadPath=function() {
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
-    logDebug('Download path of ', .self$getId(), ' is "', path, '".',
-             fmt='paste0')
+    logDebug0('Download path of ', .self$getId(), ' is "', path, '".')
 
     return(path)
 },
@@ -75,8 +74,7 @@ isDownloaded=function() {
                     name='downloaded')
 
     s <- (if (dwnlded) 'already' else 'not yet')
-    logDebug('Database ', .self$getId(), ' has ', s, ' been downloaded.',
-             fmt='paste0')
+    logDebug0('Database ', .self$getId(), ' has ', s, ' been downloaded.')
 
     return(dwnlded)
 },
@@ -106,8 +104,7 @@ download=function() {
         && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
 
-        logInfo("Downloading whole database of ", .self$getId(), ".",
-                fmt='paste0')
+        logInfo0("Downloading whole database of ", .self$getId(), ".")
         .self$.doDownload()
         logDebug0('Downloading of ', .self$getId(), ' completed.')
 

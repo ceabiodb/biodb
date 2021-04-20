@@ -58,11 +58,10 @@ initialize=function(...) {
 
         # Select peak with highest intensity for precursor
         else if (sum(precursors) > 1) {
-            warn("Found more than one precursor inside entry ",
+            warn0("Found more than one precursor inside entry ",
                  .self$getFieldValue('accession', compute=FALSE),
                  ': ', paste(pkattr[precursors], collapse=", "),
-                 ". Trying to take the one with highest intensity.",
-                 fmt='paste0')
+                 ". Trying to take the one with highest intensity.")
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
                 if (.self$hasField(int.col)) {
@@ -74,7 +73,7 @@ initialize=function(...) {
                 warn0('No intensity information found for choosing',
                      ' the strongest precursor.')
             else {
-                loGinfo('Found strongest precursor: %g.',
+                logInfo('Found strongest precursor: %g.',
                         strongest.precursor.mz)
                 .self$setFieldValue('msprecmz', strongest.precursor.mz)
             }

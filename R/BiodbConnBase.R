@@ -480,14 +480,12 @@ setPropValSlot=function(name, slot, value) {
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
-            error('Value vector for property "', name, '"of database "',
+            error0('Value vector for property "', name, '"of database "',
                   .self$getDbClass(), '" must be named. Values are: ',
-                  paste(paste(names(value), value, sep='='), collapse=', '),
-                  fmt='paste0')
+                  paste(paste(names(value), value, sep='='), collapse=', '))
         if (any(duplicated(names(value))))
-            error('Value vector for property "', name, '"of database "',
-                  .self$getDbClass(), '" contains duplicated names.',
-                  fmt='paste0')
+            error0('Value vector for property "', name, '"of database "',
+                  .self$getDbClass(), '" contains duplicated names.')
     }
 
     # Convert value
@@ -502,9 +500,8 @@ setPropValSlot=function(name, slot, value) {
                   '" of database "', .self$getDbClass(), '".')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
-            error('Value "', value, '" is not allowed for property "',
-                  name, '" of database "', .self$getDbClass(), '".',
-                  fmt='paste0')
+            error0('Value "', value, '" is not allowed for property "',
+                  name, '" of database "', .self$getDbClass(), '".')
     }
 
     return(value)
