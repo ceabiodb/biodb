@@ -226,7 +226,7 @@ show=function() {
 
     # Sleep if needed
     if (sleep.time > 0) {
-        logDebug('Wait %d second(s).', sleep.time)
+        logDebug('Wait %g second(s).', sleep.time)
         Sys.sleep(sleep.time)
     }
 
