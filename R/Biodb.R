@@ -628,7 +628,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
     # Save
     for (i in seq_along(entries)) {
         json <- entries[[i]]$getFieldsAsJson(compute=compute)
-        writeChar(json, files[[i]])
+        writeChar(json, files[[i]], eos=NULL)
     }
 },
 
