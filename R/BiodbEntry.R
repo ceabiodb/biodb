@@ -431,7 +431,8 @@ getFieldsAsJson=function(compute=TRUE) {
     if (compute)
         .self$computeFields()
 
-    return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_))
+    return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_,
+                            auto_unbox=TRUE))
 },
 
 parseContent=function(content) {
