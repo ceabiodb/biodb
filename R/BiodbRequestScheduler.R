@@ -22,7 +22,7 @@
 #' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
 #' url <- BiodbUrl$new(url=u)
 #' url$setParam('chebiId', 15440)
-#' request <- BiodbRequest(method='get', url=url)
+#' request <- BiodbRequest$new(method='get', url=url)
 #'
 #' # Send request
 #' sched$sendRequest(request)
@@ -481,7 +481,7 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
 
     method <- match.arg(method)
 
-    request <- BiodbRequest(url=BiodbUrl$new(url=url, params=params), method=method,
+    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params), method=method,
                             header=header, body=body, encoding=encoding)
 
     return(.self$sendRequest(request))

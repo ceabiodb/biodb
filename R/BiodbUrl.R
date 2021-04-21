@@ -76,6 +76,8 @@ setParam=function(key, value) {
 print=function() {
 
     cat(self$toString(), "\n", sep='')
+ 
+    return(invisible(self))
 },
 
 #' @description

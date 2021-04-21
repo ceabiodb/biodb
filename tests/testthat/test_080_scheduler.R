@@ -199,7 +199,7 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
     # ==> no connector is registered with this domain
 
     # Create a request object
-    request <- BiodbRequest(method='get', url=url)
+    request <- BiodbRequest$new(method='get', url=url)
 
     # Send request
     sched$sendRequest(request)
