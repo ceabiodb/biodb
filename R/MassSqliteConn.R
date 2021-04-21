@@ -94,8 +94,7 @@ getChromCol=function(ids=NULL) {
             query$addField(field=mzfield)
             if (max.results > 0)
                 query$setLimit(max.results)
-            .self$message('debug', paste0('Run query "', query$toString(),
-                                          '".'))
+            logDebug('Run query "%s".', query$toString())
 
             # Run query
             df <- .self$getQuery(query)
@@ -199,7 +198,7 @@ getChromCol=function(ids=NULL) {
             }
             if (max.results > 0)
                 query$setLimit(max.results)
-            .self$debug('Run query "', query$toString(), '".')
+            logDebug('Run query "%s".', query$toString())
 
             # Run query
             df <- .self$getQuery(query)

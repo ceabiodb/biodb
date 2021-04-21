@@ -79,8 +79,8 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Disabled?
     if (db.info$getPropertyValue('disabled')) {
         reason <- db.info$getPropertyValue('disabling.reason')
-        .self$warning('The "', db.class, '" connector is disabled. ', reason,
-                      ' You use it at your own risks.')
+        warn('The "%s" connector is disabled. %s %s', db.class,
+             reason, 'You use it at your own risks.')
     }
 
     # Get connector class
@@ -89,7 +89,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Set connector ID
     if ( ! is.null(conn.id)) {
         if (conn.id %in% names(.self$.conn))
-            .self$error('Connector ID "', conn.id, '" is already used.')
+            error('Connector ID "%s" is already used.', conn.id)
     }
     else {
         # Create a connector ID
@@ -114,8 +114,8 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         # Debug message
         surl <- if (is.null(url) || is.na(url)) ''
             else paste0(', with base URL "', url, '"')
-        .self$debug('Creating new connector ', conn.id, ' for database class ',
-                    db.class, surl, '.')
+        logDebug('Creating new connector %s for database class %s %s.',
+            conn.id, db.class, surl)
         
         # Register new instance
         .self$.conn[[conn.id]] <- conn
@@ -126,7 +126,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
                       (if (is.null(url)) '' else
                           paste0(' with the same URL (', url, ')')),
                       (if (is.na(token)) '' else 'and the same token'), '.')
-        .self$message(if (fail.if.exists) 'error' else 'warning', msg)
+        if (fail.if.exists) error(msg) else warn(msg)
         conn <- if (get.existing.conn) existingConn else NULL
     }
 
@@ -154,12 +154,12 @@ deleteConn=function(conn) {
         chk::chk_character(conn)
 
         if ( ! conn %in% names(.self$.conn))
-            .self$error('Connector "', conn, '" is unknown.')
+            error('Connector "%s" is unknown.', conn)
 
         .self$deleteAllEntriesFromVolatileCache(conn)
         .self$.conn[[conn]]$.terminate()
         .self$.conn[[conn]] <- NULL
-        .self$info('Connector "', conn, '" deleted.')
+        logInfo('Connector "%s" deleted.', conn)
     }
 
     return(invisible(NULL))
@@ -181,9 +181,9 @@ deleteConnByClass=function(db.class) {
             n <- n + 1
         }
     if (n == 0)
-        .self$info('No connectors of type "', db.class, '" to delete.')
+        logInfo('No connectors of type "%s" to delete.', db.class)
     else
-        .self$info(n, ' connector(s) of type "', db.class, '" deleted.')
+        logInfo('%d connector(s) of type "%s" deleted.', n, db.class)
 
     invisible(NULL)
 },
@@ -246,7 +246,7 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
     }
 
     if (is.null(conn))
-        .self$error('Cannot find connector instance "', conn.id, '".')
+        error('Cannot find connector instance "%s".', conn.id)
 
     return(conn)
 },
@@ -314,7 +314,7 @@ getAllCacheEntries=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+        error('Connector "%s" is unknown.', conn.id)
 
     return(.self$.conn[[conn.id]]$getAllCacheEntries())
 },
@@ -329,7 +329,7 @@ deleteAllEntriesFromVolatileCache=function(conn.id) {
     chk::chk_string(conn.id)
 
     if ( ! conn.id %in% names(.self$.conn))
-        .self$message('error', paste0('Connector "', conn.id, '" is unknown.'))
+        error('Connector "%s" is unknown.', conn.id)
 
     .self$.conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
 },
@@ -362,7 +362,7 @@ show=function() {
         conn <- .self$getConn(conn.id)
 
         # Debug
-        .self$debug2List("Creating entries from ids", ids)
+        biodb::logDebug("Creating entries from ids %s.", lst2str(ids))
 
         # Get contents
         content <- conn$getEntryContent(ids)
@@ -419,22 +419,22 @@ show=function() {
         # Get connector
         conn <- .self$getConn(conn.id)
 
-        .self$debug('Creating ', conn$getPropertyValue('name'),
-                    ' entries from ', length(content), ' content(s).')
+        logDebug('Creating %s entries from %d content(s).',
+                 conn$getPropertyValue('name'), length(content))
 
         # Get entry class
         entry.class <- conn$getEntryClass()
 
         # Loop on all contents
-        .self$debug('Parsing ', length(content), ' ',
-                    conn$getPropertyValue('name'), ' entries.')
-        i <- 0
+        logDebug('Parsing %d %s entries.', length(content),
+                 conn$getPropertyValue('name'))
+        prg <- Progress$new(biodb=.self$getBiodb(),
+                            msg='Creating entry instances from contents',
+                            total=length(content))
         for (single.content in content) {
 
-            # Send progress message
-            i <- i + 1
-            .self$progressMsg(msg='Creating entry instances from contents', index=i,
-                              total=length(content), first=(i == 1))
+            # Progress
+            prg$increment()
 
             # Create empty entry instance
             entry <- entry.class$new(parent=conn)
@@ -451,11 +451,11 @@ show=function() {
         fct <- function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0)
         entries.without.accession <- vapply(accessions, fct, FUN.VALUE=TRUE)
         strIds <- paste(accessions, collapse=', ')
-        .self$debug('Accession numbers: ', strIds, '.')
+        logDebug('Accession numbers: %s.', strIds)
         if (any(entries.without.accession)) {
             n <- sum(entries.without.accession)
-            .self$debug('Found ', n, ' entry/ies without an accession number.',
-                        ' Set it/them to NULL.')
+            logDebug0('Found %d entry/ies without an accession',
+                ' number. Set it/them to NULL.', n)
             entries[entries.without.accession] <- list(NULL)
         }
 

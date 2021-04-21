@@ -4,18 +4,11 @@
 #' to the observers. You can define new observer classes by inherting from this
 #' class.
 #'
-#' @seealso Sub-classes \code{\link{BiodbLogger}},
-#' \code{\link{BiodbInfoReporter}}, \code{\link{BiodbWarningReporter}},
-#' \code{\link{BiodbErrorReporter}}.
-#'
 #' @examples
 #' # Define a new observer class
 #' MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver',
-#'   methods=list(message=function(type='info', msg,
-#'                                 class=NA_character_,
-#'                                 method=NA_character_, lvl=1) {
-#'     .self$checkMessageType(type)
-#'     print(paste(type, msg, sep=': '))
+#'   methods=list(notifyProgress=function(what, index, total) {
+#'       sprintf("Progress for %s is %d / %d.", what, index, total)
 #'   }
 #' ))
 #'
@@ -31,19 +24,11 @@
 #' @exportClass BiodbObserver
 BiodbObserver <- methods::setRefClass("BiodbObserver",
     fields=list(
-        cfg.lvl='integer',
-        cust.lvl='integer',
-        .lastime.progress='list',
-        .progress.initial.time='list'
     ),
 
 methods=list(
 
 initialize=function() {
-    .self$cfg.lvl <- integer()
-    .self$cust.lvl <- integer()
-    .self$.lastime.progress <- list()
-    .self$.progress.initial.time <- list()
 },
 
 terminate=function() {
@@ -77,119 +62,22 @@ cfgKVUpdate=function(k, v) {
     \nv: The new value of the configuration key.
     \nReturned value: None.
     "
-
-    for (type in c('debug', 'info', 'warning')) {
-        lvl.k <- paste('msg', type, 'lvl', sep='.')
-        if (lvl.k == k)
-            .self$cfg.lvl[[type]] <- v
-    }
 },
 
-getLevel=function(type) {
-    ":\n\nGets the level associated with a message type. This is the maximum
-    level a message must have in order to be processed.
-    \ntype: The type of message. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nReturned value: The level, as an integer.
-    "
-
-    lvl <- 0L
-    .self$checkMessageType(type)
-
-    if (type %in% names(.self$cust.lvl))
-        lvl <- .self$cust.lvl[[type]]
-    else if (type %in% names(.self$cfg.lvl))
-        lvl <- .self$cfg.lvl[[type]]
-
-    return(lvl)
-},
-
-setLevel=function(type, lvl) {
-    ":\n\nSets the level for a type. This is the maximum level a message must
-    have in order to be processed.
-    \ntype: The type of message. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nlvl: The level, as an integer.
+notifyProgress=function(what, index, total) {
+    ":\n\nNotify about the progress of an action.
+    \nwhat: A short description of the action.
+    \nindex: A positive integer number indicating the progress.
+    \ntotal: The maximum for \"index\". When reached, the action is completed.
     \nReturned value: None.
     "
-
-    .self$checkMessageType(type)
-    .self$cust.lvl[[type]] <- as.integer(lvl)
-},
-
-msg=function(type='info', msg, class=NA_character_,
-             method=NA_character_, lvl=1) {
-    ":\n\nSends a message to this observer. The message will be accepted and
-    handled only if the level is lower or equal to the current level for the
-    message type. You can check current level for a type by calling getLevel()
-    and set the level with setLevel().
-    \ntype: The message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nmsg: The text message to send.
-    \nclass: The class of the object that called this message method.
-    \nmethod: The method that called this message method.
-    \nlvl: The level of the message.
-    \nReturned value: None.
-    "
-
-    .self$checkMessageType(type)
-},
-
-progress=function(type='info', msg, index, first, total=NA_integer_, lvl=1L,
-                  laptime=10L, found=NULL) {
-    ":\n\nSends a progress message to this observer.
-    \ntype: The message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nmsg: The text message to send.
-    \nindex: The index in the progression, as an integer or numeric number.
-    \ntotal: The total to achieve in the progression, as an integer or numeric
-    number. Optional.
-    \nlvl: The level of the message.
-    \nlaptime: The time between two progress messages, in seconds.
-    \nfound: The number of good items found.
-    \nReturned value: None.
-    "
-
-    t <- Sys.time()
-    msgid <- msg
-
-    if (first || ! msg %in% names(.self$.lastime.progress)) {
-        .self$.lastime.progress[[msgid]] <- t
-        .self$.progress.initial.time[[msgid]] <- t
-    }
-
-    if (t - .self$.lastime.progress[[msgid]] >= laptime) {
-        msg <- paste(msg, index, '/', if (is.na(total)) '?' else total)
-        if ( ! is.na(total)) {
-            i <- .self$.progress.initial.time[[msgid]]
-            eta <- t + (total - index) * (t - i) / index
-            msg <- paste0(msg, ' (', ((100 * index) %/% total), '%, ETA: ',
-                          eta, ')')
-            if ( ! is.null(found))
-                msg <- paste0(msg, ', found ', found, ' item(s)')
-        }
-        msg <- paste0(msg, '.')
-        .self$msg(type, msg, lvl=lvl)
-        .self$.lastime.progress[[msgid]] <- t
-    }
-
-    invisible(NULL)
-},
-
-checkMessageType=function(type) {
-    ":\n\nChecks a message type. An error will be raised if the type is unknown.
-    \ntype: A message type. It must be one of: 'info', 'debug',
-    'warning', 'error'.
-    \nReturned value: None.
-    "
-
-    # Define allowed types
-    allowed.types <- c('info', 'debug', 'warning', 'error')
-
-    # Is type unknown?
-    if ( ! tolower(type) %in% allowed.types)
-        stop("Unknown message type \"", type, "\". Please use one of: ",
-             paste(allowed.types, collapse=', '), '.')
+    chk::chk_string(what)
+    chk::chk_whole_number(index)
+    chk::chk_whole_number(total)
+    chk::chk_gte(index, 0)
+    chk::chk_lte(index, total)
+    
+    return(invisible(NULL))
 }
 
 ))

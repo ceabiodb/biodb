@@ -16,10 +16,10 @@ test.listKeys <- function(biodb) {
 ################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='config_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test config.")
+biodb::testContext("Test config.")
 
 # Run tests
 biodb::testThat("Keys are listed correctly.", test.listKeys, biodb = biodb)

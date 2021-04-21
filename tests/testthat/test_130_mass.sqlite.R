@@ -39,10 +39,10 @@ test_createSQLiteDbFromCsvFile <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='masssqlite_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test Mass spectra SQLite connector.")
+biodb::testContext("Test Mass spectra SQLite connector.")
 
 # Remove DB file
 if (file.exists(MASS.SQLITE.URL))

@@ -73,17 +73,17 @@ getDir=function() {
         if ( ! is.null(cachedir) && ! is.na(cachedir)
             && old_cachedir != cachedir && file.exists(old_cachedir)) {
             if (file.exists(cachedir))
-                .self$warning('An old cache folder ("', old_cachedir,
-                              '") is still present on this machine, ',
-                              'but you are now using the new cache folder "',
-                              cachedir, '". Please, consider removing the old ',
-                              'location since it has no utility anymore.')
+                warn0('An old cache folder ("', old_cachedir,
+                     '") is still present on this machine, ',
+                     'but you are now using the new cache folder "',
+                     cachedir, '". Please, consider removing the old ',
+                     'location since it has no utility anymore.')
             else {
                 # Move folder to new location
                 dir.create(dirname(cachedir), recursive=TRUE)
                 file.rename(old_cachedir, cachedir)
-                .self$info('Cache folder location has been moved from "',
-                           old_cachedir, '" to "', cachedir, '".')
+                logInfo0('Cache folder location has been moved from "',
+                        old_cachedir, '" to "', cachedir, '".')
             }
         }
     }
@@ -256,8 +256,8 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     "
 
     if ( ! .self$isReadable())
-        .self$error("Attempt to read from non-readable cache \"",
-                    .self$getDir(), "\".")
+        error0("Attempt to read from non-readable cache \"",
+              .self$getDir(), "\".")
 
     content <- NULL
 
@@ -276,26 +276,26 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
 
     # Read contents from files
     file.paths <- .self$getFilePath(cache.id, name, ext)
-    .self$debug2List('Trying to load from cache', file.paths)
+    logTrace('Trying to load from cache %s', lst2str(file.paths))
     content <- lapply(file.paths,  rdCnt)
     files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-    .self$debug2List('Loaded from cache', files.read)
+    logTrace('Loaded from cache', lst2str(files.read))
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
         n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
         if (is.null(n)) {
-            .self$warning('Error when reading content of file "',
-                          file.paths[[i]], '". The function `nchar` returned',
-                          ' an error on the content. The file may be written', 
-                          ' in a unexpected encoding. Trying latin-1...')
+            warn0('Error when reading content of file "',
+                 file.paths[[i]], '". The function `nchar` returned',
+                 ' an error on the content. The file may be written', 
+                 ' in a unexpected encoding. Trying latin-1...')
             # The encoding may be wrong, try another one. Maybe LATIN-1
             content[[i]] <- iconv(content[[i]], "iso8859-1")
             n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
             if (is.null(n))
-                .self$error('Impossible to handle correctly the content of', 
-                            ' file "', file.paths[[i]], '". The encoding of', 
-                            ' this file is unknown.')
+                error0('Impossible to handle correctly the content of', 
+                      ' file "', file.paths[[i]], '". The encoding of', 
+                      ' this file is unknown.')
         }
     }
 
@@ -328,15 +328,15 @@ saveContentToFile=function(content, cache.id, name, ext) {
 
     # Check that we have the same number of content and file paths
     if (length(file.paths) != length(content))
-        .self$error('The number of content to save (', length(content),
-                    ') is different from the number of paths (',
-                    length(file.paths), ').')
+        error0('The number of content to save (', length(content),
+              ') is different from the number of paths (',
+              length(file.paths), ').')
 
     # Replace NA values with 'NA' string
     content[is.na(content)] <- 'NA'
 
     # Write content to files
-    .self$debug2List('Saving to cache', file.paths)
+    logTrace('Saving to cache', lst2str(file.paths))
     fct <- function(cnt, f) {
         if ( ! is.null(cnt)) {
             if ( ! is.character(cnt))
@@ -353,8 +353,8 @@ saveContentToFile=function(content, cache.id, name, ext) {
 .checkWritable=function(cache.id) {
 
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        error0('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".')
 
     # Make sure the path exists
     path <- file.path(.self$getDir(), cache.id)
@@ -379,15 +379,15 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
     # Check that we have the same number of src and dst file paths
     if (length(src.file.paths) != length(dstFilePaths))
-        .self$error('The number of files to move (', length(src.file.paths),
-                    ') is different from the number of destination paths (',
-                    length(dstFilePaths), ').')
+        error0('The number of files to move (', length(src.file.paths),
+              ') is different from the number of destination paths (',
+              length(dstFilePaths), ').')
 
     # Move files
-    .self$debug2List('Moving files to cache ', src.file.paths)
-    .self$debug2List('Destination files are ', dstFilePaths)
+    logTrace('Moving files to cache ', lst2str(src.file.paths))
+    logTrace('Destination files are ', lst2str(dstFilePaths))
     file.rename(src.file.paths, dstFilePaths)
-    .self$debug('Done moving files.')
+    logDebug('Done moving files.')
 },
 
 erase=function() {
@@ -396,7 +396,7 @@ erase=function() {
     "
 
     # Erase whole cache
-    .self$info('Erasing cache "', .self$getDir(), '".')
+    logInfo('Erasing cache "%s".', .self$getDir())
     unlink(.self$getDir(), recursive=TRUE)
 
     invisible(NULL)
@@ -411,8 +411,8 @@ deleteFile=function(cache.id, name, ext) {
     "
 
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        error0('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".')
 
     # Get file paths
     file.paths <- .self$getFilePath(cache.id, name, ext)
@@ -443,8 +443,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
         path <- file.path(.self$getDir(), cache.id)
         if ( ! file.exists(path)) {
             msg <- paste0('No cache files exist for ', cache.id, '.')
-            type <- if (fail) 'warning' else 'info'
-            .self$message(type=type, msg=msg)
+            if (fail) warn(msg) else logInfo(msg)
         }
         else
             paths <- path
@@ -452,7 +451,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 
     # Erase cache files
     for (path in paths) {
-        .self$info('Erasing all files in "', path, '".')
+        logInfo('Erasing all files in "%s".', path)
         unlink(path, recursive=TRUE)
     }
 
@@ -472,8 +471,8 @@ deleteFiles=function(cache.id, ext) {
     chk::chk_string(ext)
     
     if ( ! .self$isWritable())
-        .self$error('Attempt to write into non-writable cache. "',
-                    .self$getDir(), '".')
+        error0('Attempt to write into non-writable cache. "',
+              .self$getDir(), '".')
 
     files <- paste('*', ext, sep='.')
 
@@ -503,7 +502,7 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
 
     # List files
     path <- .self$getFolderPath(cache.id=cache.id)
-    .self$debug("List files in ", path, " using pattern ", pattern)
+    logDebug("List files in %s using pattern %s.", path, pattern)
     files <- list.files(path=path, pattern=pattern)
 
     # Extract only the name part
@@ -512,9 +511,9 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
         if ( ! is.na(ext))
             pattern <- paste(pattern, ext, sep='\\.')
         pattern <- paste(pattern, '$', sep='')
-        .self$debug("Extracting accession number from file names in ", path, "
-                    using pattern ", pattern)
-        .self$debug("files = ", paste(head(files), collapse=", "))
+        logDebug0("Extracting accession number from file names in ", path, "
+                 using pattern ", pattern)
+        logDebug("files = %s", paste(head(files), collapse=", "))
         files <- sub(pattern, '\\1', files, perl=TRUE)
         
     # Set full path

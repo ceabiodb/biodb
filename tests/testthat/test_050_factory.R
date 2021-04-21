@@ -125,10 +125,10 @@ test.connectorDefaultValues <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='factory_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test BiodbFactory.")
+biodb::testContext("Test BiodbFactory.")
 
 # Run tests
 biodb::testThat("We forbid identical connectors (MassCsvFile test).",

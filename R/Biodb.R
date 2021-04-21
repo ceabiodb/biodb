@@ -15,7 +15,7 @@
 #'
 #' @seealso \code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
 #' \code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
-#' \code{\link{BiodbLogger}}, \code{\link{BiodbEntryFields}},
+#' \code{\link{BiodbEntryFields}},
 #' \code{\link{BiodbDbsInfo}}.
 #'
 #' @examples
@@ -51,11 +51,7 @@ initialize=function(autoloadExtraPkgs=NULL) {
 
     callSuper() # Call BiodbObject constructor.
 
-    # Set default observers
-    .self$.observers <- list(BiodbInfoReporter$new(),
-                             BiodbWarningReporter$new(),
-                             BiodbErrorReporter$new()
-                             )
+    .self$.observers <- list()
 
     # Create instances of children
     .self$.config <- NULL
@@ -76,8 +72,8 @@ initialize=function(autoloadExtraPkgs=NULL) {
     # Check locale
     .self$.checkLocale()
 
-    .self$debug('Created successfully new Biodb instance.')
-    .self$debug('This is biodb version ', packageVersion('biodb'), '.')
+    logDebug('Created successfully new Biodb instance.')
+    logDebug('This is biodb version %s.', packageVersion('biodb'))
 },
 
 terminate=function() {
@@ -86,7 +82,7 @@ terminate=function() {
     \nReturned value: None.
     "
 
-    .self$info('Closing Biodb instance...')
+    logInfo('Closing Biodb instance...')
 
     # Terminate factory
     if ( ! is.null(.self$.factory))
@@ -105,7 +101,7 @@ loadDefinitions=function(file, package='biodb') {
     \nReturned value: None.
     "
     chk::chk_file(file)
-    .self$debug('Load definitions from file "', file, '".')
+    logDebug('Load definitions from file "%s".', file)
 
     # Load file
     def <- yaml::read_yaml(file)
@@ -141,7 +137,8 @@ loadDefinitions=function(file, package='biodb') {
 
 .loadBiodbPkgsDefinitions=function(pkgs) {
     for (pkg in sort(names(pkgs))) {
-        .self$info('Loading definitions from package ', pkg, ', version ', pkgs[[pkg]], '.')
+        logInfo('Loading definitions from package %s version %s.',
+                pkg, pkgs[[pkg]])
         file <- system.file("definitions.yml", package=pkg)
         .self$loadDefinitions(file, package=pkg)
     }
@@ -236,8 +233,7 @@ addObservers=function(observers) {
     is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
                      FUN.VALUE=TRUE)
     if (any( ! is.obs))
-        .self$message('error',
-                      "Observers must inherit from BiodbObserver class.")
+        error("Observers must inherit from BiodbObserver class.")
 
     # Add observers to current list (insert at beginning)
     old_obs <- .self$.observers
@@ -366,13 +362,13 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     "
 
     if ( ! is.list(entries))
-        .self$error("Parameter 'entries' must be a list.")
+        error("Parameter 'entries' must be a list.")
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
     if (length(entries) > 0 && (is.null(fields) || length(fields) > 0)) {
 
-        .self$debug(length(entries), "entrie(s) to convert in data frame.")
+        logDebug("%d entrie(s) to convert in data frame.", length(entries))
 
         # Convert list of entries to a list of data frames.
         df.list <- .self$.entriesToListOfDataframes(entries=entries,
@@ -387,9 +383,8 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
-            .self$debug("Merging data frames with a single",
-                        "entry each into a single data frame",
-                        "with all entries.")
+            logDebug0("Merging data frames with a single",
+                "entry each into a single data frame with all entries.")
             entries.df <- plyr::rbind.fill(df.list)
             if (is.null(colnames(entries.df)))
                 colnames(entries.df) <- character()
@@ -449,8 +444,8 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
         }
     }
     else
-        .self$error("Input parameter `ids` must be either a character vector",
-                    " or a list of character vectors.")
+        error(paste("Input parameter `ids` must be either a",
+            "character vector or a list of character vectors."))
 
     # Convert to data frame
     x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
@@ -480,8 +475,8 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     if (ncol(x) > 0) {
         chk::chk_character(id.col)
         if ( ! id.col %in% colnames(x))
-            .self$error('Column "', id.col,
-                        '" was not found inside data frame.')
+            error('Column "%s" was not found inside data frame.',
+                            id.col)
 
         # Get ids
         ids <- as.character(x[[id.col]])
@@ -532,8 +527,8 @@ collapseRows=function(x, sep='|', cols=1L) {
     if (is.numeric(cols))
         cols <- as.integer(cols)
     if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
-        .self$error('The data frame does not contain columns "',
-                    paste(cols, collapse=', '), '".')
+        error('The data frame does not contain columns "%s".',
+              paste(cols, collapse=', '))
     chk::chk_character(sep)
 
     y <- NULL
@@ -632,7 +627,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
     # Save
     for (i in seq_along(entries)) {
         json <- entries[[i]]$getFieldsAsJson(compute=compute)
-        writeChar(json, files[[i]])
+        writeChar(json, files[[i]], eos=NULL)
     }
 },
 
@@ -653,7 +648,8 @@ copyDb=function(conn.from, conn.to, limit=0) {
     entries <- conn.from$getEntry(ids)
 
     # Loop on all entries
-    i <- 0
+    prg <- Progress$new(biodb=.self, msg='Copying entries.',
+                        total=length(entries))
     for (entry in entries) {
 
         # Clone entry
@@ -662,10 +658,8 @@ copyDb=function(conn.from, conn.to, limit=0) {
         # Add new entry
         conn.to$addNewEntry(clone)
 
-        # Send progress message
-        i <- i + 1
-        msg <- 'Copying entries.'
-        .self$.sendProgress(msg=msg, index=i, total=length(ids), first=(i == 1))
+        # Progress message
+        prg$increment()
     }
 },
 
@@ -694,31 +688,6 @@ show=function() {
     }
 },
 
-enableDebug=function() {
-    ":\n\nEnable debug mode: set levels of all message types to maximum.
-    \nReturned value: None.
-    "
-
-    for (type in c('info', 'debug'))
-        .self$getConfig()$set(paste('msg', type, 'lvl', sep='.'), 10)
-},
-
-disableDebug=function() {
-    ":\n\nDisable debug mode: reset levels of all message types to their default
-    value.
-    \nReturned value: None.
-    "
-
-    for (type in c('debug', 'info'))
-        .self$getConfig()$reset(paste('msg', type, 'lvl', sep='.'))
-},
-
-.sendProgress=function(msg, index, total, first, found=NULL) {
-    lapply(.self$getObservers(),
-           function(x) x$progress(type='info', msg=msg, index=index,
-                                  total=total, first=first, found=found))
-},
-
 .checkLocale=function() {
 
     # Get locale
@@ -739,10 +708,9 @@ disableDebug=function() {
         if (.self$.config$isEnabled('force.locale'))
             Sys.setlocale(locale='en_US.UTF-8') # Force locale
         else
-            .self$message('warning',
-                          paste("LC_CTYPE field of locale is set to ", LC_CTYPE,
-                                ". It must be set to a UTF-8 locale like",
-                                "'en_US.UTF-8'."))
+            warn0("LC_CTYPE field of locale is set to ", LC_CTYPE,
+                 ". It must be set to a UTF-8 locale like",
+                 "'en_US.UTF-8'.")
     }
 },
 
@@ -751,19 +719,17 @@ disableDebug=function() {
                                     null.to.na, progress=TRUE) {
 
     df.list <- list()
-    msg <- 'Converting entries to data frame.'
 
     # Loop on all entries
-    i <- 0
+    prg <- Progress$new(biodb=.self, msg='Converting entries to data frame.',
+                        total=length(entries))
     for (e in entries) {
 
         e.df <- NULL
 
         # Send progress message
-        i <- i + 1
         if (progress)
-            .self$.sendProgress(msg=msg, index=i, total=length(entries),
-                                first=(i == 1))
+            prg$increment()
 
         # List of entries
         if (is.list(e)) {
@@ -792,7 +758,7 @@ disableDebug=function() {
                                            own.id=own.id)
         }
 
-        .self$debug2Dataframe("Entry converted to data frame", e.df)
+        logTrace("Entry converted to data frame: %s.", df2str(e.df))
         df.list <- c(df.list, list(e.df))
     }
 
@@ -808,7 +774,7 @@ disableDebug=function() {
         df.list[nulls] <- rep(list(x), sum(nulls))
     }
 
-    .self$debug("Converted", length(df.list), "entry/ies to data frame(s).")
+    logDebug("Converted %d entry/ies to data frame(s).", length(df.list))
     return(df.list)
 },
 

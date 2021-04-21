@@ -1,6 +1,7 @@
 ^Meta$
 ^doc$
 ^ext$
+^.*\.log$
 ^examples$
 ^\.travis\.yml$
 ^scripts$

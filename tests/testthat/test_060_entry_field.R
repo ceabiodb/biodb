@@ -55,10 +55,10 @@ test_updateEntryField <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='entry_field_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test BiodbEntryField.")
+biodb::testContext("Test BiodbEntryField.")
 
 # Run tests
 biodb::testThat("We can add a new alias.", test_newAlias,

@@ -25,6 +25,8 @@ Imports:
     R6,
     methods,
     chk,
+    lgr,
+    progress,
     lifecycle,
     XML,
     stringr,
@@ -61,14 +63,11 @@ Collate:
     'BiodbEditable.R'
     'BiodbEntryField.R'
     'BiodbEntryFields.R'
-    'BiodbErrorReporter.R'
     'BiodbFactory.R'
     'BiodbXmlEntry.R'
     'BiodbHtmlEntry.R'
-    'BiodbInfoReporter.R'
     'BiodbJsonEntry.R'
     'BiodbListEntry.R'
-    'BiodbLogger.R'
     'BiodbMassdbConn.R'
     'BiodbPersitentCache.R'
     'BiodbRequestScheduler.R'
@@ -85,7 +84,6 @@ Collate:
     'BiodbSqlLogicalOp.R'
     'BiodbSqlQuery.R'
     'BiodbSqlValue.R'
-    'BiodbWarningReporter.R'
     'BiodbWritable.R'
     'CsvFileConn.R'
     'CompCsvFileConn.R'
@@ -115,6 +113,7 @@ Collate:
     'MassCsvFileEntry.R'
     'MassSqliteConn.R'
     'MassSqliteEntry.R'
+    'Progress.R'
     'Range.R'
     'RcppExports.R'
     'catch-routine-registration.R'

@@ -206,10 +206,10 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='scheduler_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test scheduler.")
+biodb::testContext("Test scheduler.")
 
 # Run tests
 biodb::testThat("We can create a request outside a connector.",

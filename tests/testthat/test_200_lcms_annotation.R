@@ -6,22 +6,26 @@ test_annotateWithMassCsvFileDb <- function(biodb) {
     massbank <- biodb$getFactory()$createConn('mass.csv.file', url=lcmsdb)
     massbank$addField('ms.level', 1)
     massbank$addField('chrom.rt.unit', 's')
-    massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=c('accession', 'name',
-                                                       'formula', 'chebi.id'),
-                           prefix='mydb.')
+    x <- massbank$searchMsPeaks(mzdf, mz.tol=1e-3, prefix='mydb.',
+                                fields=c('accession', 'name', 'formula',
+                                         'chebi.id'))
+    testthat::expect_is(x, 'data.frame')
+    testthat::expect_true(nrow(x) >= nrow(mzdf))
     chromColIds <- c('TOSOH TSKgel ODS-100V  5um Part no. 21456')
     fields <- c('accession', 'name', 'formula', 'chebi.id', 'chrom.rt',
                 'chrom.col.id')
-    massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.',
-                           chrom.col.ids=chromColIds, rt.unit='s', rt.tol=10,
-                           match.rt=TRUE)
+    x <- massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields,
+                                prefix='mydb.', chrom.col.ids=chromColIds,
+                                rt.unit='s', rt.tol=10, match.rt=TRUE)
+    testthat::expect_is(x, 'data.frame')
+    testthat::expect_true(nrow(x) >= nrow(mzdf))
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='lcms_annotation_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test LCMS annotation.")
+biodb::testContext("Test LCMS annotation.")
 
 # Run tests
 biodb::testThat("We can annotate using mass CSV file db.",

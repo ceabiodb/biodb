@@ -109,9 +109,9 @@ write=function() {
     .self$.initWritable()
     
     if ( ! .self$.writing.allowed)
-        .self$error('Writing is not enabled for this database. However this',
-                    ' database type is writable. Please call allowWriting()',
-                    ' method to enable writing.')
+        error0('Writing is not enabled for this database. However this',
+              ' database type is writable. Please call allowWriting()',
+              ' method to enable writing.')
 },
 
 .doWrite=function() {

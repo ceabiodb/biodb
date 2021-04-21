@@ -18,14 +18,13 @@ test.namedProp <- function(biodb) {
 ################################################################################
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='dbinfo_test.log')
-obs <- biodb::addMsgRecObs(biodb)
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test BiodbDbInfo.")
+biodb::testContext("Test BiodbDbInfo.")
 
 # Run tests
-biodb::testThat("Named properties work correctly.", test.namedProp, biodb = biodb)
+biodb::testThat("Named properties work correctly.", test.namedProp, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

@@ -31,202 +31,17 @@ initialize=function(...) {
     .self$.last.index <- 0
 },
 
-msg=function(type='info', msg, class=NA_character_, method=NA_character_,
-             lvl=1) {
-    # Overrides super class' method.
-
-    testthat::expect_is(msg, 'character')
-
-    invisible(NULL)
-},
-
-progress=function(type='info', msg, index, first, total=NA_character_,
-                    lvl=1L, laptime=10L, found=NULL) {
-    # Overrides super class' method.
-
-    .self$checkMessageType(type)
-    testthat::expect_is(msg, 'character')
-    testthat::expect_length(msg, 1)
-    testthat::expect_true(msg != '')
-
-    if (first)
-        .self$.last.index[msg] <- index - 1
-
-    testthat::expect_true(msg %in% names(.self$.last.index))
-    testthat::expect_true(index > .self$.last.index[[msg]],
-                        paste0("Index ", index, " is not greater than last ",
-                               "index ", .self$.last.index[msg], ' for progress ',
-                               'message "', msg, '", with total ', total, '.'))
-    if ( ! is.na(total))
-        testthat::expect_true(index <= total,
-                             paste0("Index ", index, ' is greater than total ',
-                                    total, ' for progress message "', msg,
-                                    '".'))
-
-    .self$.last.index[msg] <- index
-
-    invisible(NULL)
+notifyProgress=function(what, index, total) {
+    # Override super class' method
+    testthat::expect_type(what, 'character')
+    testthat::expect_true(what != '') # --> expect_not_empty_str
+    #testthat::expect_is(index, 'number') # --> expect_whole_number
+    #testthat::expect_is(total, 'number')
+    testthat::expect_true(index >= 0) # --> expect_positive
+    testthat::expect_true(index <= total)
+    return(invisible(NULL))
 }
-
 ))
-
-#' A class for recording messages during tests.
-#'
-#' The main purpose of this class is to give access to last sent messages of the
-#' different types: "error", "warning", "info" and "debug".
-#'
-#' @examples
-#' # To use the message recorder, the easiest way is to call addMsgRecObs()
-#' # after instantiating the Biodb test instance.
-#'
-#' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
-#'
-#' # Get a message recorder observer
-#' obs <- biodb::addMsgRecObs(biodb)
-#'
-#' # Create a connector
-#' conn <- biodb$getFactory()$createConn('mass.csv.file')
-#'
-#' # Delete the connector
-#' biodb$getFactory()$deleteConn(conn)
-#'
-#' # Get last message
-#' obs$getLastMsg()
-#'
-#' # Terminate the instance
-#' biodb$terminate()
-#'
-#' @import methods
-#' @include BiodbObserver.R
-#' @export BiodbTestMsgRec
-#' @exportClass BiodbTestMsgRec
-BiodbTestMsgRec <- methods::setRefClass("BiodbTestMsgRec",
-    contains = "BiodbObserver",
-    fields = list(
-                  .msgs='character',
-                  .msgs.by.type='list'
-                  ),
-    methods=list(
-
-initialize=function(...) {
-    .self$.msgs <- character()
-    .self$.msgs.by.type <- list()
-},
-
-msg=function(type='info', msg, class=NA_character_, method=NA_character_,
-             lvl=1) {
-    # Overrides super class' method.
-
-    .self$.msgs <- c(.self$.msgs, msg)
-    .self$.msgs.by.type[[type]] <- c(.self$.msgs.by.type[[type]], msg)
-
-    invisible(NULL)
-},
-
-hasMsgs=function(type=NULL) {
-    ":\n\nChecks if at least one message has been received.
-    \ntype: A vector of message types on which to restrict the test.
-    \nReturned value: TRUE if at least one message has been received, FALSE
-    otherwise.
-    "
-
-    f <- FALSE
-
-    if (is.null(type))
-        f = (length(.self$.msgs) > 0)
-    else if (any(type %in% names(.self$.msgs.by.type))) {
-        for (t in type)
-            if (t %in% names(.self$.msgs.by.type)
-                && length(.self$.msgs.by.type[[type]]) > 0) {
-                f <- TRUE
-                break
-            }
-    }
-
-    return(f)
-},
-
-getLastMsg = function() {
-    ":\n\nGet the last message received.
-    \nReturned value: The last message received as a character value.
-    "
-
-    m <- NA_character_
-
-    i <- length(.self$.msgs)
-    if (i > 0)
-        m <- .self$.msgs[[i]]
-
-    return(m)
-},
-
-getLastMsgByType = function(type) {
-    ":\n\nGet the last message of a certain type.
-    \ntype: The type of the message.
-    \nReturned value: The last message.
-    "
-
-    m <- NULL
-
-    if (type %in% names(.self$.msgs.by.type)) {
-        m <- .self$.msgs.by.type[[type]]
-        m <- m[[length(m)]]
-    }
-
-    return(m)
-},
-
-getMsgsByType = function(type) {
-    ":\n\nGet all messages of a certain type.
-    \ntype: The type of the messages to retrieve.
-    \nReturned value: A character vector containing all messages received for
-    this type.
-    "
-
-    msgs <- character()
-
-    if ( ! is.null(type) && type %in% names(.self$.msgs.by.type))
-        msgs <- .self$.msgs.by.type[[type]]
-
-    return(msgs)
-},
-
-clearMessages = function() {
-    ":\n\nErase all lists of messages.
-    \nReturned value: None.
-    "
-
-    .self$.msgs <- character()
-    .self$.msgs.by.type <- list()
-
-    invisible(NULL)
-}
-
-))
-
-#' Set a test context. DEPRECATED
-#'
-#' Use testContext() instead.
-#'
-#' @param biodb A valid Biodb instance.
-#' @param text The text to print as test context.
-#' @return No value returned.
-#'
-#' @examples
-#' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
-#'
-#' # Define a context before running tests:
-#' setTestContext(biodb, "Test my database connector.")
-#'
-#' # Terminate the instance
-#' biodb$terminate()
-#'
-#' @export
-setTestContext <- function(biodb, text) {
-    testContext(text, biodb=biodb)
-}
 
 #' Set a test context.
 #'
@@ -251,21 +66,19 @@ setTestContext <- function(biodb, text) {
 #' biodb$terminate()
 #'
 #' @export
-testContext <- function(text, biodb=NULL) {
+testContext <- function(text) {
 
     # Set testthat context
     testthat::context(text)
 
     # Print banner in log file
-    if ( ! is.null(biodb)) {
-        biodb$info("")
-        biodb$info(paste(rep('*', 80), collapse=''))
-        biodb$info(paste("Test context", text, sep = " - "))
-        biodb$info(paste(rep('*', 80), collapse=''))
-        biodb$info("")
-    }
+    biodb::logInfo("")
+    biodb::logInfo(paste(rep('*', 80), collapse=''))
+    biodb::logInfo(paste("Test context", text, sep = " - "))
+    biodb::logInfo(paste(rep('*', 80), collapse=''))
+    biodb::logInfo("")
 
-    invisible(NULL)
+    return(invisible(NULL))
 }
 
 #' Run a test.
@@ -279,7 +92,6 @@ testContext <- function(text, biodb=NULL) {
 #' @param msg The test message.
 #' @param fct The function to test.
 #' @param biodb A valid Biodb instance to be passed to the test function.
-#' @param obs An instance of BiodbTestMsgRec observer to be passed to test function.
 #' @param conn A connector instance to be passed to the test function.
 #' @return No value returned.
 #'
@@ -332,12 +144,10 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
     if (runFct) {
 
         # Send message to logger
-        if ( ! is.null(bdb)) {
-            bdb$info('')
-            bdb$info(paste('Running test function ', fname, ' ("', msg, '").'))
-            bdb$info(paste(rep('-', 80), collapse=''))
-            bdb$info('')
-        }
+        biodb::logInfo('')
+        biodb::logInfo(paste('Running test function ', fname, ' ("', msg, '").'))
+        biodb::logInfo(paste(rep('-', 80), collapse=''))
+        biodb::logInfo('')
 
         # Call test function
         params <- list()
@@ -346,18 +156,6 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
             for (p in fctArgs)
                 params[[p]] <- if (p == 'db') conn else get(p)
         testthat::test_that(msg, do.call(fct, params))
-#        if ( ! is.null(biodb) && ! is.null(obs))
-#            testthat::test_that(msg, do.call(fct, list(biodb=biodb, obs=obs)))
-#        else if ( ! is.null(biodb))
-#            testthat::test_that(msg, do.call(fct, list(biodb)))
-#        else if ( ! is.null(conn) && ! is.null(obs))
-#            testthat::test_that(msg, do.call(fct, list(conn=conn, obs=obs)))
-#        else if ( ! is.null(conn) && ! is.null(opt))
-#            testthat::test_that(msg, do.call(fct, list(conn)))
-#        else if ( ! is.null(conn))
-#            testthat::test_that(msg, do.call(fct, list(conn)))
-#        else
-#            testthat::test_that(msg, do.call(fct, list()))
     }
 
     invisible(NULL)
@@ -388,21 +186,10 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
 #' biodb$terminate()
 #'
 #' @export
-createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
+createBiodbTestInstance <- function(ack=FALSE) {
 
     # Create instance
     biodb <- Biodb$new(autoloadExtraPkgs=FALSE)
-
-    # Add logger
-    if ( ! is.null(log) && is.character(log) && length(log) == 1
-        && nchar(log) > 0) {
-        logger <- BiodbLogger(file=log)
-        logger$setLevel('debug', 2L)
-        logger$setLevel('info', 2L)
-        logger$setLevel('error', 2L)
-        logger$setLevel('warning', 2L)
-        biodb$addObservers(logger)
-    }
 
     # Add acknowledger
     if (ack) {
@@ -411,48 +198,6 @@ createBiodbTestInstance <- function(log=NULL, ack=FALSE) {
     }
 
     return(biodb)
-}
-
-#' Add a message recorder to a Biodb instance.
-#'
-#' Creates a BiodbTestMsgRec observer instance and add it to a Biodb instance.
-#' Sometimes it is required to test if a message has been emitted.
-#' This function adds a BiodbTestMsgRec observer to a Biodb instance. This class
-#' is target adapted to message testing, since you are then able to retrieve, for
-#' example, the last message emitted.
-#'
-#' @param biodb A valid Biodb instance.
-#' @return The created BiodbTestMsgRec observer instance.
-#'
-#' @examples
-#' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
-#'
-#' # Get a message recorder observer
-#' obs <- biodb::addMsgRecObs(biodb)
-#'
-#' # Create a connector
-#' conn <- biodb$getFactory()$createConn('mass.csv.file')
-#'
-#' # Delete the connector
-#' biodb$getFactory()$deleteConn(conn)
-#'
-#' # Get last message
-#' obs$getLastMsg()
-#'
-#' # Terminate the instance
-#' biodb$terminate()
-#'
-#' @export
-addMsgRecObs <- function(biodb) {
-
-    # Create observer
-    obs <- BiodbTestMsgRec()
-
-    # Set observer
-    biodb$addObservers(obs)
-
-    return(obs)
 }
 
 #' List test reference entries.
@@ -483,6 +228,7 @@ listTestRefEntries <- function(conn.id) {
 
     return(ids)
 }
+
 loadTestRefEntry <- function(db, id) {
 
 	# Replace forbidden characters
@@ -504,6 +250,7 @@ loadTestRefEntry <- function(db, id) {
 
 	return(json)
 }
+
 loadTestRefEntries <- function(db) {
 
 	entries.desc <- NULL

@@ -226,7 +226,7 @@ initialize=function(...) {
 
 ,.doDownload=function() {
 
-    .self$message('info', "Downloading {{dbTitle}}...")
+    biodb::logInfo("Downloading {{dbTitle}}...")
 
     # TODO Build the URL to the file to download
     fileUrl <- c(.self$getPropValSlot('urls', 'base.url'), 'some', 'path',

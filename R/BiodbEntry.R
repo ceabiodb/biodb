@@ -156,19 +156,19 @@ setFieldValue=function(field, value) {
 
     # Specific case to handle objects.
     if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
-      .self$error('Cannot set a non RC instance to field "', field,
-                  '" in BiodEntry.')
+      error0('Cannot set a non RC instance to field "', field,
+            '" in BiodEntry.')
 
     # Check value class
     if (field.def$isAtomic()) {
         if (length(value) == 0)
-            .self$error('Cannot set an empty value into field "', field, '".')
+            error0('Cannot set an empty value into field "', field, '".')
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
-            .self$warning("Unable to convert value(s) \"",
-                          paste(value, collapse=', '), "\" into ",
-                          field.def$getClass(), " type for field \"", field,
-                          "\".")
+            warn0("Unable to convert value(s) \"",
+                 paste(value, collapse=', '), "\" into ",
+                 field.def$getClass(), " type for field \"", field,
+                 "\".")
         value <- v
     }
 
@@ -187,13 +187,13 @@ setFieldValue=function(field, value) {
     # Check cardinality
     if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
         if (length(value) > 1)
-            .self$error('Cannot set more that one value (',
+            error0('Cannot set more that one value (',
                         paste(value, collapse=', '),
                         ') into single value field "', field, '" for entry ',
                         .self$getName(), '.')
         if (length(value) == 0)
-            .self$error('Cannot set an empty vector into single value field "',
-                        field, '" for entry ', .self$getName(), '.')
+            error0('Cannot set an empty vector into single value field "',
+                  field, '" for entry ', .self$getName(), '.')
     }
 
     # Set value
@@ -297,8 +297,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
                                               sort=TRUE)
 
         else
-            .self$error('Do not know how to compute virtual field "', field,'"
-                        for entry "', .self$getFieldValue('accession'), '".')
+            error0('Do not know how to compute virtual field "', field,
+                  '" for entry "', .self$getFieldValue('accession'), '".')
     }
 
     # Unset field
@@ -429,7 +429,8 @@ getFieldsAsJson=function(compute=TRUE) {
     if (compute)
         .self$computeFields()
 
-    return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_))
+    return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_,
+                            auto_unbox=TRUE))
 },
 
 parseContent=function(content) {
@@ -444,8 +445,8 @@ parseContent=function(content) {
 
     # No connector?
     if ( ! .self$parentIsAConnector())
-        .self$error('Impossible to parse content for this entry, because its',
-                    ' parent is not a connector.')
+        error0('Impossible to parse content for this entry, because its',
+              ' parent is not a connector.')
 
     # Parse
     if (.self$.isContentCorrect(content)) {
@@ -467,10 +468,10 @@ parseContent=function(content) {
     dbid.field <- .self$getParent()$getEntryIdField()
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
-            .self$error('Value of accession field ("',
-                        .self$getFieldValue('accession'),
-                        '") is different from value of ', dbid.field,
-                        ' field ("', .self$getFieldValue(dbid.field), '").')
+            error0('Value of accession field ("',
+                  .self$getFieldValue('accession'),
+                  '") is different from value of ', dbid.field,
+                  ' field ("', .self$getFieldValue(dbid.field), '").')
     }
     else {
         if (.self$hasField(dbid.field))
@@ -518,7 +519,7 @@ parseContent=function(content) {
                 if ( ! is.na(db.id)) {
 
                     # Get value for this field in the database
-                    .self$debug("Compute value for field \"", field, "\".") 
+                    logDebug('Compute value for field "%s".', field) 
                     db.entry <- .self$getBiodb()$getFactory()$getEntry(db,
                                                                        id=db.id)
 
@@ -699,7 +700,7 @@ fieldHasBasicClass=function(field) {
     singles <- character()
     dfGrps <- list()
     ef <- .self$getBiodb()$getEntryFields()
-    .self$debug2List('Fields', fields)
+    logTrace('Fields %s', lst2str(fields))
 
     for (field in fields) {
         fieldDef <- ef$get(field)
@@ -716,24 +717,24 @@ fieldHasBasicClass=function(field) {
 
     # Build groups
     groups <- list(singles=singles, dfGrps=dfGrps)
-    .self$debug2List('Groups', groups)
+    logTrace('Groups %s', lst2str(groups))
 
     return(groups)
 },
 
 .selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one) {
 
-    .self$debug2List('Fields', fields)
-    .self$debug2('Fields type: ', fields.type)
+    logTrace('Fields %s', lst2str(fields))
+    logTrace('Fields type: %s', fields.type)
 
     # Set fields to get
-    .self$debug2('Fields is null: ', is.null(fields))
-    .self$debug2('Fields.type is null: ', is.null(fields.type))
+    logTrace('Fields is null: %s', is.null(fields))
+    logTrace('Fields.type is null: %s', is.null(fields.type))
     if ( ! is.null(fields.type))
         fields <- .self$getFieldsByType(fields.type)
     else if (is.null(fields))
         fields <- names(.self$.fields)
-    .self$debug2List('Fields', fields)
+    logTrace('Fields %s', lst2str(fields))
 
     # Filter out unwanted fields
     ef <- .self$getBiodb()$getEntryFields()
@@ -750,7 +751,7 @@ fieldHasBasicClass=function(field) {
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 
-    .self$debug2List('Fields', fields)
+    logTrace('Fields', lst2str(fields))
     return(fields)
 },
 

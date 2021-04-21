@@ -125,8 +125,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
     # Check that we find the M/Z column
     if (nrow(x) > 0 && ! mz.col %in% names(x))
-        .self$error('No column named "', mz.col,
-                    '" was found inside data frame.')
+        error('No column named "%s" was found inside data frame.', mz.col)
 
     # Set M/Z col in output data frame
     if (mz.col %in% names(x))
@@ -146,11 +145,12 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     pm <- .self$getBiodb()$getConfig()$get('proton.mass')
 
     # Loop on all masses
+    prg <- Progress$new(biodb=.self$getBiodb(), msg='Annotating M/Z values.',
+                        total=nrow(x))
     for (i in seq_len(nrow(x))) {
 
         # Send progress message
-        .self$progressMsg(msg='Annotating M/Z values.', index=i,
-                          total=nrow(x), first=(i == 1))
+        prg$increment()
 
         # Compute mass
         m <- x[i, mz.col] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)

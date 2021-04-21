@@ -100,8 +100,8 @@ sendRequest=function(request, cache.read=TRUE) {
     rule <- .self$.findRule(request$getUrl())
 
     # Log URL
-    .self$debug("Getting content of ", request$getMethod(), " URL request \"",
-                request$getUrl()$toString(encode=FALSE), "\".")
+    logDebug0("Getting content of ", request$getMethod(), " URL request \"",
+             request$getUrl()$toString(encode=FALSE), "\".")
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
@@ -110,7 +110,7 @@ sendRequest=function(request, cache.read=TRUE) {
         && cfg$get('cache.all.requests')
         && ! is.null(conn)
         && cch$fileExist(conn$getCacheId(), name=request.key, ext='content')) {
-        .self$debug("Loading content of request from cache.")
+        logDebug("Loading content of request from cache.")
         content <- cch$loadFileContent(conn$getCacheId(),
                                        name=request.key, ext='content',
                                        output.vector=TRUE)
@@ -127,7 +127,7 @@ sendRequest=function(request, cache.read=TRUE) {
         if ( ! is.na(content) && cfg$isEnabled('cache.system')
             && ! is.null(conn)
             && cfg$get('cache.all.requests')) {
-            .self$message('debug', "Saving content of request to cache.")
+            logDebug("Saving content of request to cache.")
             cch$saveContentToFile(content, cache.id=conn$getCacheId(),
                                   name=request.key, ext='content')
             cch$saveContentToFile(request$toString(), cache.id=conn$getCacheId(),
@@ -161,13 +161,13 @@ downloadFile=function(url, dest.file) {
         dir.create(path, recursive=TRUE)
 
     # Download
-    .self$info2('Downloading file "', url, '".')
+    logDebug('Downloading file "%s".', url)
     cfg <- .self$getBiodb()$getConfig()
-    infoLvl <- cfg$get('msg.info.lvl')
     options(HTTPUserAgent=cfg$get('useragent'),
             timeout=cfg$get('dwnld.timeout'))
     utils::download.file(url=url, destfile=dest.file, mode='wb',
-                         method='auto', cacheOK=FALSE, quiet=(infoLvl==0))
+                         method='auto', cacheOK=FALSE, quiet=FALSE)
+    # TODO Add a biodb option for "quiet"?
 },
 
 connTerminating=function(conn) {
@@ -183,8 +183,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has never been registered.')
+        warn('Connector "%s" has never been registered.', conn$getId())
 
     # Update frequency
     else {
@@ -196,7 +195,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 .checkOfflineMode=function() {
 
     if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-        .self$error("Offline mode is enabled. All connections are forbidden.")
+        error("Offline mode is enabled. All connections are forbidden.")
 },
 
 
@@ -204,8 +203,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector already registered?
     if (conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has already been registered.')
+        warn('Connector "%s" has already been registered.', conn$getId())
 
     # Add connector
     else {
@@ -223,8 +221,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Is connector not registered?
     if ( ! conn$getId() %in% names(.self$.connid2rules))
-        .self$warning('Connector "', conn$getId(),
-                      '" has never been registered.')
+        warn('Connector "%s" has never been registered.', conn$getId())
 
     # Unregister connector
     else {
@@ -249,8 +246,8 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Rule does not exist
     if (create && ! domain %in% names(.self$.host2rule)) {
-        .self$info('No rule exists for domain "', domain,
-                   '". Creating a default one.')
+        logInfo0('No rule exists for domain "', domain,
+                '". Creating a default one.')
         rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
@@ -271,8 +268,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # No rule exists => create new one
         if (is.null(rule)) {
             host <- BiodbUrl(url=url)$getDomain()
-            .self$debug('Create new rule for URL "', host,'" of connector "',
-                        conn$getId(), '".')
+            logDebug0('Create new rule for URL "', host,'" of connector "',
+                     conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
                                               conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
@@ -348,7 +345,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
         && length(grep('The proxy server could not handle the request',
                        unname(content))) > 0) {
-        .self$message('debug', 'Found proxy error message in content.')
+        logDebug('Found proxy error message in content.')
         err_msg <- "Error between the proxy and the main server."
         content <- NA_character_
         retry <- FALSE
@@ -366,7 +363,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
-    .self$debug2(paste0('Sent URL is "', request$getUrl()$toString(), '".'))
+    logTrace('Sent URL is "%s".', request$getUrl()$toString())
 
     # Create HTTP header object (to receive HTTP information from server).
     header <- RCurl::basicHeaderGatherer()
@@ -437,10 +434,9 @@ connSchedulerFrequencyUpdated=function(conn) {
         i <- i + 1
 
         # Print debug information about header and body
-        .self$debug('Request header is: "', request$getHeaderAsSingleString(),
-                    '".')
-        .self$debug('Request body is "', paste(request$getBody(),
-                                               collapse=', '), '".')
+        logDebug('Request header is: "%s".', request$getHeaderAsSingleString())
+        logDebug('Request body is "%s".',
+                 paste(request$getBody(), collapse=', '))
 
         # Wait required time between two requests
         rule$.waitAsNeeded()
@@ -457,7 +453,7 @@ connSchedulerFrequencyUpdated=function(conn) {
                             "\". Retrying connection to server...")
                 res$err_msg=paste0(res$err_msg, m)
             }
-            .self$message('info', res$err_msg)
+            logInfo(res$err_msg)
         }
         else
             content <- res$content

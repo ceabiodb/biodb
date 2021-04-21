@@ -84,7 +84,7 @@ possible, sending requests with several identifiers at once.
 
         # full.url is too big, we must split it
         else {
-            .self$message('debug', "Split full URL.")
+            logDebug("Split full URL.")
 
             start <- 1
 
@@ -160,9 +160,11 @@ getEntryPageUrl=function(entry.id) {
 
     # Send requests
     scheduler <- .self$getBiodb()$getRequestScheduler()
+    prg <- Progress$new(biodb=.self$getBiodb(),
+                        msg='Downloading entry contents',
+                        total=length(requests))
     for (i in seq_along(requests)) {
-        .self$progressMsg(msg='Downloading entry contents', index=i,
-                          total=length(requests), first=(i == 1))
+        prg$increment()
         content[[i]] <- scheduler$sendRequest(requests[[i]])
     }
 

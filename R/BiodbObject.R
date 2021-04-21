@@ -34,132 +34,11 @@ notify=function(fct, args) {
     invisible()
 },
 
-progressMsg=function(msg, index, first, total=NA_integer_, type='info',
-                     laptime=10L) {
-    .self$notify('progress', list(type=type, msg=msg, index=index, total=total,
-                                  first=first, laptime=laptime))
-
-    invisible()
-},
-
-message=function(type, msg, lvl=1, callerLvl=0) {
-# Send a message to observers
-
-    type <- tolower(type)
-
-    # Get biodb instance
-    biodb <- NULL
-    if (length(.self$.message.enabled) == 1 # length is 0
-                                            # if called from constructor
-        && .self$.message.enabled) {
-        .self$.message.enabled <- FALSE
-        biodb <- .self$getBiodb() 
-        .self$.message.enabled <- TRUE
-    }
-
-    # Get class and method information
-    class <- class(.self)
-    method <- sys.call(sys.nframe() - (callerLvl + 1))
-    method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)[[1]]
-
-    if ( ! is.null(biodb))
-        .self$notify('msg', list(type=type, msg=msg, class=class, method=method,
-                                 lvl=lvl))
-    else {
-        caller.info <- if (is.na(class)) '' else class
-        if (! is.na(method))
-            caller.info <- paste(caller.info, method, sep='::')
-        if (nchar(caller.info) > 0)
-            caller.info <- paste('[', caller.info, '] ', sep='')
-        switch(type,
-               error=stop(caller.info, msg),
-               warning=warning(caller.info, msg),
-               base::message(caller.info, msg))
-    }
-
-    invisible()
-},
-
-debug=function(...) {
-    .self$message(type='debug', msg=paste0(...))
-
-    invisible()
-},
-
-debug2=function(..., callerLvl=0) {
-    .self$message(type='debug', msg=paste0(...), lvl=2, callerLvl=callerLvl+1)
-
-    invisible()
-},
-
-debug2Dataframe=function(msg, x, rowCut=5, colCut=5) {
-
-    size <- ''
-
-    if (is.null(x))
-        s <- 'NULL'
-    else if ( ! is.data.frame(x))
-        s <- 'not a dataframe'
-    else {
-        size <- paste0('[', nrow(x), ', ', ncol(x), ']')
-        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
-        s <- paste0('[', paste(colNames, collapse=', '), ']')
-        for (nRow in seq_len(min(rowCut, nrow(x)))) {
-            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
-            s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
-        }
-        if (nrow(x) > rowCut)
-            s <- paste(s, '...')
-    }
-
-    .self$debug2(msg, size, ': ', s, '.')
-
-    invisible()
-},
-
-debug2List=function(msg, lst, nCut=10, callerLvl=0) {
-
-    if (length(lst) == 0)
-        s <- 'none'
-    else {
-        s <- paste(if (length(lst) > nCut) c(lst[seq_len(nCut)], '...') else lst,
-                   collapse=", ")
-        s <- paste0('"', s, '"')
-    }
-    .self$debug2(msg, '[', length(lst), ']: ', s, '.', callerLvl=callerLvl+1)
-
-    invisible()
-},
-
-error=function(...) {
-    .self$message(type='error', msg=paste0(...))
-
-    invisible()
-},
-
-warning=function(...) {
-    .self$message(type='warning', msg=paste0(...))
-
-    invisible()
-},
-
-info=function(...) {
-    .self$message(type='info', msg=paste0(...))
-
-    invisible()
-},
-
-info2=function(...) {
-    .self$message(type='info', msg=paste0(...), lvl=2)
-
-    invisible()
-},
-
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
 
     if (class == class(.self))
-        .self$error('Class ', class, ' is abstract and thus cannot be ',
+        error0('Class ', class, ' is abstract and thus cannot be ',
                     'instantiated.')
 },
 
@@ -172,6 +51,6 @@ info2=function(...) {
     method <- method[[1]]
     method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
 
-    .self$error("Method ", method, " is not implemented in ", class, " class.")
+    error0("Method ", method, " is not implemented in ", class, " class.")
 }
 ))

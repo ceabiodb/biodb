@@ -122,8 +122,8 @@ addConnector=function(conn) {
     # Connector already listed?
     if (any(vapply(.self$.conn, function(x) identical(x, conn),
                    FUN.VALUE=TRUE)))
-        .self$debug('Connector "', conn$getId(),
-                    '" is already listed in rule "', .self$.host, '".')
+        logDebug0('Connector "', conn$getId(),
+                 '" is already listed in rule "', .self$.host, '".')
 
     # Add connector
     else {
@@ -147,8 +147,8 @@ removeConnector=function(conn) {
     found.conn <- vapply(.self$.conn, function(x) identical(x, conn),
                          FUN.VALUE=TRUE)
     if ( ! any(found.conn))
-        .self$warning('Connector "', conn$getId(), '" is not listed in rule "',
-                      .self$.host, '".')
+        warn('Connector "%s" is not listed in rule "%s".', conn$getId(),
+             .self$.host)
 
     # Remove connector
     else {
@@ -225,7 +225,7 @@ show=function() {
 
     # Sleep if needed
     if (sleep.time > 0) {
-        .self$debug('Wait ', sleep.time, ' second(s).')
+        logDebug('Wait %g second(s).', sleep.time)
         Sys.sleep(sleep.time)
     }
 

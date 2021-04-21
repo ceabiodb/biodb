@@ -174,7 +174,7 @@ set=function(key, value) {
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
                        else value
-    .self$info2("Set key ", key, ' to ', displayed.value, '.')
+    logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
     .self$notify('cfgKVUpdate', list(k=key, v=v))
@@ -209,7 +209,7 @@ enable=function(key) {
 
     .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Enable ", key, ".", sep=''))
+    logInfo("Enable %s.", key)
     .self$.values[[key]] <- TRUE
 },
 
@@ -221,7 +221,7 @@ disable=function(key) {
 
     .self$.checkKey(key, type='logical')
 
-    .self$message('info', paste("Disable ", key, ".", sep=''))
+    logInfo("Disable %s.", key)
     .self$.values[[key]] <- FALSE
 },
 
@@ -291,17 +291,12 @@ define=function(def) {
     # Get key names
     keys <- names(def)
 
-    # Move some keys at first position
-    for (key in rev(c('msg.debug.lvl', 'msg.info.lvl')))
-        if (key %in% keys)
-            keys <- c(key, keys[keys != key])
-
     # Loop on all keys
     for (key in keys) {
 
         v <- def[[key]]
         v$key <- key
-        .self$debug('Define config key ', key, '.')
+        logDebug('Define config key %s.', key)
         do.call(.self$.newKey, v)
     }
 },
@@ -342,8 +337,8 @@ newObserver=function(obs) {
                     collapse='_')
     if (envvar %in% names(.self$.env)) {
         value <- .self$.env[[envvar]]
-        .self$info2("Found env var ", envvar, ', value "', value,
-                    '", defining default value for config key ', key, '.')
+        logDebug0("Found env var ", envvar, ', value "', value,
+                 '", defining default value for config key ', key, '.')
     }
 
     return(value)
@@ -354,14 +349,12 @@ newObserver=function(obs) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
-        .self$message('error', "Key is NULL, NA or not character type.")
+        error("Key is NULL, NA or not character type.")
 
     # Check duplicated key
     if (key %in% names(.self$.keys))
         # TODO If key is the same, does not raise error.
-        .self$message('error',
-                      paste("Key", key,
-                             "has already been defined in configuration."))
+        error("Key %s has already been defined in configuration.", key)
 
     # Overwrite default value by env var, if defined
     env.var.value <- .self$.getFromEnv(key)
@@ -394,7 +387,7 @@ newObserver=function(obs) {
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
         if (fail)
-            .self$message('error', "Key is NULL, NA or not character type.")
+            error("Key is NULL, NA or not character type.")
         else
             return(FALSE)
     }
@@ -402,22 +395,22 @@ newObserver=function(obs) {
     # Fail if invalid key
     if ( ! key %in% names(.self$.keys)) {
         if (fail)
-            .self$message('error', paste0("Unknown key ", key, "."))
+            error("Unknown key %s.", key)
         else
             return(FALSE)
     }
 
     # Fail if deprecated
     if (.self$.isDeprecated(key))
-        .self$message('warning', paste("Key", key, "is deprecated.",
-                                     .self$.keys[[key]][['deprecated']]))
+        warn("Key %s is deprecated. %s", key,
+             .self$.keys[[key]][['deprecated']])
 
     # Test type
     if ( ! is.null(type) && ! is.na(type)
         && .self$.keys[[key]][['type']] != type) {
         if (fail)
-            .self$message('error', paste0("Key ", key, " is not of type ", type,
-                                          " but of type ", key.type, "."))
+            error0("Key ", key, " is not of type ", type,
+                  " but of type ", key.type, ".")
         else
             return(FALSE)
     }

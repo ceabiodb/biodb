@@ -59,10 +59,10 @@ test.BiodbEntryFields.show <- function(biodb) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='object_printing_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test object printing.")
+biodb::testContext("Test object printing.")
 
 # Run tests
 biodb::testThat("Biodb show method returns correct information.", test.Biodb.show, biodb = biodb)

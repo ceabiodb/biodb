@@ -132,9 +132,9 @@ test.fields <- function(biodb) {
 
     # Set wrong fields
     testthat::expect_error(conn$setField('invalid.tag.name', colname='something'),
-                 regexp='^.* Database field "invalid.tag.name" is not valid.$')
+                 regexp='^.*Database field "invalid.tag.name" is not valid.$')
     testthat::expect_error(conn$setField('ms.mode', colname='wrong.col.name'),
-                 regexp='^.* Column.* is/are not defined in database file.$')
+                 regexp='^.*Column.* is/are not defined in database file.$')
 
     # Reseting accession field should fail
     testthat::expect_error(conn$setField('accession', 'compound.id'))
@@ -146,13 +146,13 @@ test.undefined.fields <- function(biodb) {
                                           url=MASSFILEDB.WRONG.HEADER.URL)
     
     testthat::expect_warning(conn$hasField('accession'),
-        regexp='^.* Column ".*" does not match any biodb field\\.$')
+        regexp='^.*Column ".*" does not match any biodb field\\.$')
 
     testthat::expect_error(conn$getEntryIds(),
-        regexp='^.* Field.* accession is/are undefined in file database\\.$')
+        regexp='^.*Field.* accession is/are undefined in file database\\.$')
 
     testthat::expect_error(conn$getChromCol(),
-        regexp='^.* Field.* is/are undefined in file database\\.$')
+        regexp='^.*Field.* is/are undefined in file database\\.$')
 
     biodb$getFactory()$deleteConn(conn$getId())
 }
@@ -181,7 +181,9 @@ test.field.card.one <- function(biodb) {
     conn$setField('accession', 'ids')
     conn$setField('ms.mode', 'mode')
     conn$setField('peak.mztheo', 'mz')
-    expect_error(conn$checkDb(), regexp='^.* Cannot set more that one value .* into single value field .*\\.$')
+    expect_error(conn$checkDb(),
+                 regexp=paste0('^.*Cannot set more that one value .* into',
+                               ' single value field .*\\.$'))
 }
 
 test.getMzValues.without.peak.attr <- function(biodb) {
@@ -615,10 +617,10 @@ test_matchingField <- function(biodb) {
 # MAIN
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='masscsvfile_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test Mass spectra CSV File connector.")
+biodb::testContext("Test Mass spectra CSV File connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')

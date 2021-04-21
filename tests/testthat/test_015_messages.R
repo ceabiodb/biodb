@@ -37,20 +37,27 @@ test.default.messages <- function(biodb) {
 
     msg <- "Hello"
 
-    testthat::expect_message(biodb$info(msg), "^Info message: Hello$",
-                             perl=TRUE)
-    testthat::expect_message(biodb$progressMsg(msg, index=0, total=10,
-                                               first=TRUE, laptime=0),
-                             "^Info message: Hello.*ETA.*$", perl=TRUE)
-    testthat::expect_warning(biodb$warning(msg), "^.* Hello$", perl=TRUE)
-    testthat::expect_error(biodb$error(msg), "^.* Hello$", perl=TRUE)
+    # Enable console logging
+    lgr::lgr$add_appender(lgr::AppenderConsole$new(), name="test_console")
+    
+    testthat::expect_output(biodb::logInfo(msg), "^.*Hello *$", perl=TRUE)
+    testthat::expect_output(biodb::logDebug(msg), "^.*Hello *$", perl=TRUE)
+    testthat::expect_output(testthat::expect_warning(biodb::warn(msg),
+                                                     "^.*Hello$", perl=TRUE),
+        "^.*Hello *$", perl=TRUE)
+    testthat::expect_output(testthat::expect_error(biodb::error(msg),
+                                                   "^.*Hello$", perl=TRUE),
+        "^.*Hello *$", perl=TRUE)
+    
+    # Disable console logging
+    lgr::lgr$remove_appender("test_console")
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='messages_test.log')
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test messages.")
+biodb::testContext("Test messages.")
 
 # Run tests
 biodb::testThat("Deprecated methods send correct message.",

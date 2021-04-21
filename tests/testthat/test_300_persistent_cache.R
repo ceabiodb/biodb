@@ -33,12 +33,12 @@ test_cacheFiles <- function(conn) {
     testthat::expect_equal(ids, idsFromCache)
 }
 
-test_deleteFilesForWrongCacheId <- function(biodb, obs) {
+test_deleteFilesForWrongCacheId <- function(biodb) {
     
     cache <- biodb$getPersistentCache()
     
     cacheId <- 'foo'
-    msg <- paste0("^.*BiodbPersistentCache::deleteAllFiles.*No cache files exist for ",
+    msg <- paste0("^.*No cache files exist for ",
                   cacheId, ".$")
     testthat::expect_warning(cache$deleteAllFiles(cacheId, fail=TRUE), msg,
                              perl=TRUE)
@@ -88,11 +88,10 @@ test_deleteAllFiles <- function(conn) {
 }
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='persistent_cache_test.log')
-obs <- biodb::addMsgRecObs(biodb)
+biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::setTestContext(biodb, "Test persistent cache.")
+biodb::testContext("Test persistent cache.")
 
 # Enable cache system for local dbs
 biodb$getConfig()$set('use.cache.for.local.db', TRUE)
@@ -104,7 +103,7 @@ conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 biodb::testThat('We can list cache files.', test_cacheFiles, conn=conn)
 biodb::testThat(paste('We got a warning if we try to delete files for a',
                       'cache.id that has no associated folder.'),
-                test_deleteFilesForWrongCacheId, biodb=biodb, obs=obs)
+                test_deleteFilesForWrongCacheId, biodb=biodb)
 biodb::testThat('We detect if cache files exist for a connector',
                 test_filesExistForConn, conn=conn)
 biodb::testThat('No cache files exist for unknown cache ID.', test_noFilesExist,

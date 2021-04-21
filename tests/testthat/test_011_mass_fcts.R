@@ -55,5 +55,6 @@ test_closeMatchPpm <- function() {
 biodb::testContext("Testing mass functions")
 
 # Run tests
-biodb::testThat("Conversion from tolerance to range works correctly.", test_convertTolToRange)
+biodb::testThat("Conversion from tolerance to range works correctly.",
+                test_convertTolToRange)
 biodb::testThat("closeMatchPpm() works correctly.", test_closeMatchPpm)
