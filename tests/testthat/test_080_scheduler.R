@@ -143,41 +143,41 @@ test.schedulerSleepTime <- function(biodb) {
 test.BiodbUrl <- function(biodb) {
 
     # Simple URL
-    url <- BiodbUrl(url = 'https://www.somesite.fr')
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr')
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
-    url <- BiodbUrl(url = 'https://www.somesite.fr/')
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/')
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
-    url <- BiodbUrl(url = c('https://www.somesite.fr', ''))
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr', ''))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
 
     # URL in multiple parts
-    url <- BiodbUrl(url = c('https://www.somesite.fr/', 'some', 'page'))
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr/', 'some', 'page'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
-    url <- BiodbUrl(url = c('https://www.somesite.fr//', 'some', '/page/'))
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr//', 'some', '/page/'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
 
     # With an unnamed parameter in a character vector
-    url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?rerun')
 
     # With a parameter in a character vector
-    url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
 
     # With a parameter in a numeric vector
-    url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(limit = 2))
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(limit = 2))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?limit=2')
 
     # With two parameters in a character vector
-    url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt', limit = '2'))
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt', limit = '2'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
 
     # With a parameter in a list
-    url <- BiodbUrl(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt'))
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt'))
     testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
 
     # With two parameters in a list
-    url <- BiodbUrl(url='https://www.somesite.fr/somepage',
+    url <- BiodbUrl$new(url='https://www.somesite.fr/somepage',
                     params=list(format = 'txt', limit=2))
     refUrl <-  'https://www.somesite.fr/somepage?format=txt&limit=2'
     testthat::expect_equal(url$toString(), refUrl)
@@ -191,7 +191,7 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
 
     # Create URL object
     u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
-    url <- BiodbUrl(url=u)
+    url <- BiodbUrl$new(url=u)
     url$setParam('chebiId', 15440)
 
     # Check rule does not exist

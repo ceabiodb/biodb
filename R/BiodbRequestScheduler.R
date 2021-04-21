@@ -20,7 +20,7 @@
 #'
 #' # Create a request object
 #' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
-#' url <- BiodbUrl(url=u)
+#' url <- BiodbUrl$new(url=u)
 #' url$setParam('chebiId', 15440)
 #' request <- BiodbRequest(method='get', url=url)
 #'
@@ -240,7 +240,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     chk::chk_not_null(url)
     if ( ! is(url, 'BiodbUrl')) {
         chk::chk_string(url)
-        url <- BiodbUrl(url=url)
+        url <- BiodbUrl$new(url=url)
     }
     domain <- url$getDomain()
 
@@ -267,7 +267,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
         # No rule exists => create new one
         if (is.null(rule)) {
-            host <- BiodbUrl(url=url)$getDomain()
+            host <- BiodbUrl$new(url=url)$getDomain()
             logDebug0('Create new rule for URL "', host,'" of connector "',
                      conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
@@ -467,7 +467,7 @@ getUrlString=function(url, params=list()) {
 
     lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
-    url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
+    url <- BiodbUrl$new(url=url, params=params)$toString(encode=FALSE)
 
     return(url)
 },
@@ -481,7 +481,7 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
 
     method <- match.arg(method)
 
-    request <- BiodbRequest(url=BiodbUrl(url=url, params=params), method=method,
+    request <- BiodbRequest(url=BiodbUrl$new(url=url, params=params), method=method,
                             header=header, body=body, encoding=encoding)
 
     return(.self$sendRequest(request))

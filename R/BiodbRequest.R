@@ -23,7 +23,7 @@
 #'
 #' # Create a request object
 #' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
-#' url <- BiodbUrl(url=u)
+#' url <- BiodbUrl$new(url=u)
 #' url$setParam('chebiId', 15440)
 #' request <- BiodbRequest(method='get', url=url)
 #'
@@ -40,7 +40,7 @@
 #' @exportClass BiodbRequest
 BiodbRequest <- methods::setRefClass("BiodbRequest",
     fields=list(
-        .url='BiodbUrl',
+        .url='ANY',
         .method='character',
         .header='character',
         .body='character',
