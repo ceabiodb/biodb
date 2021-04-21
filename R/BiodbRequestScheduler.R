@@ -150,7 +150,7 @@ downloadFile=function(url, dest.file) {
     rule <- .self$.findRule(url)
 
     # Wait required time between two requests
-    rule$.waitAsNeeded()
+    rule$waitAsNeeded()
 
     # Convert URL to string
     url <- url$toString()
@@ -188,7 +188,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Update frequency
     else {
         for (rule in .self$.connid2rules[[conn$getId()]])
-            rule$.recomputeFrequency()
+            rule$recomputeFrequency()
     }
 },
 
@@ -248,7 +248,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     if (create && ! domain %in% names(.self$.host2rule)) {
         logInfo0('No rule exists for domain "', domain,
                 '". Creating a default one.')
-        rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
+        rule <- BiodbRequestSchedulerRule$new(host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
 
@@ -270,8 +270,7 @@ connSchedulerFrequencyUpdated=function(conn) {
             host <- BiodbUrl$new(url=url)$getDomain()
             logDebug0('Create new rule for URL "', host,'" of connector "',
                      conn$getId(), '".')
-            rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
-                                              conn=conn)
+            rule <- BiodbRequestSchedulerRule$new(host=host, conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
         }
 
@@ -439,7 +438,7 @@ connSchedulerFrequencyUpdated=function(conn) {
                  paste(request$getBody(), collapse=', '))
 
         # Wait required time between two requests
-        rule$.waitAsNeeded()
+        rule$waitAsNeeded()
 
         # Send request
         res <- .self$.doSendRequestOnce(request=request)
