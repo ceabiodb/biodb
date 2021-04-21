@@ -1,27 +1,27 @@
 #' This class represents an SQL value.
 #'
 #' @include BiodbSqlExpr.R
-BiodbSqlValue <- methods::setRefClass("BiodbSqlValue",
-    contains="BiodbSqlExpr",
-    fields=list(
-        .value='ANY'
-        ),
+BiodbSqlValue <- R6::R6Class("BiodbSqlValue",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
 initialize=function(value) {
-    .self$.value <- value
+    private$value <- value
 },
 
 toString=function() {
 
     # Quote strings
-    if (is.character(.self$.value))
-        s <- paste0('"', .self$.value, '"')
+    if (is.character(private$value))
+        s <- paste0('"', private$value, '"')
     else
-        s <- as.character(.self$.value)
+        s <- as.character(private$value)
 
     return(s)
 }
+),
 
+private=list(
+    value=NULL
 ))

@@ -1,31 +1,31 @@
 #' This class represents an SQL logical operator.
 #'
 #' @include BiodbSqlExpr.R
-BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp",
-    contains='BiodbSqlExpr',
-    fields=list(
-        .op='character',
-        .expr='list'
-        ),
+BiodbSqlLogicalOp <- R6::R6Class("BiodbSqlLogicalOp",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
 initialize=function(op) {
-    .self$.op <- op
-    .self$.expr <- list()
+    private$op <- op
+    private$expr <- list()
 },
 
 addExpr=function(expr) {
-    .self$.expr <- c(.self$.expr, expr)
+    private$expr <- c(private$expr, expr)
 },
 
 toString=function() {
-    s <- vapply(.self$.expr, function(e) e$toString(), FUN.VALUE='')
+    s <- vapply(private$expr, function(e) e$toString(), FUN.VALUE='')
     s <- s[vapply(s, function(x) nchar(x) > 0, FUN.VALUE=TRUE)]
-    s <- paste(s, collapse=paste0(' ', .self$.op, ' '))
+    s <- paste(s, collapse=paste0(' ', private$op, ' '))
     if (nchar(s) > 0)
         s <- paste0('(', s, ')')
     return(s)
 }
+),
 
+private=list(
+    op=NULL,
+    expr=NULL
 ))

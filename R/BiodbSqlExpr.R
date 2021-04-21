@@ -1,11 +1,12 @@
 #' This abstract class represents an SQL expression.
-BiodbSqlExpr <- methods::setRefClass("BiodbSqlExpr",
+BiodbSqlExpr <- R6::R6Class("BiodbSqlExpr",
 
-methods=list(
+public=list(
 
 toString=function() {
     stop("This method is abstract.")
 }
+),
 
+private=list(
 ))
-

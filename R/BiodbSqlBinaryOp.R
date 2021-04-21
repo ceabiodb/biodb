@@ -1,26 +1,27 @@
 #' This class represents an SQL binary operator.
 #'
+#' @import R6
 #' @include BiodbSqlExpr.R
-BiodbSqlBinaryOp <- methods::setRefClass("BiodbSqlBinaryOp",
-    contains="BiodbSqlExpr",
-    fields=list(
-        .op='character',
-        .lexpr='BiodbSqlExpr',
-        .rexpr='BiodbSqlExpr'
-        ),
+BiodbSqlBinaryOp <- R6::R6Class("BiodbSqlBinaryOp",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
 initialize=function(lexpr, op, rexpr) {
-    .self$.op <- op
-    .self$.lexpr <- lexpr
-    .self$.rexpr <- rexpr
+    private$op <- op
+    private$lexpr <- lexpr
+    private$rexpr <- rexpr
 },
 
 toString=function() {
-    s <- paste0('(', .self$.lexpr$toString(), ' ', .self$.op, ' ' ,
-                .self$.rexpr$toString(), ')')
+    s <- paste0('(', private$lexpr$toString(), ' ', private$op, ' ' ,
+                private$rexpr$toString(), ')')
     return(s)
 }
+),
 
+private=list(
+    op=NULL,
+    lexpr=NULL,
+    rexpr=NULL
 ))

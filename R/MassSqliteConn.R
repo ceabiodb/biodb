@@ -47,7 +47,7 @@ getChromCol=function(ids=NULL) {
             fields.to.get <- c('chrom.col.id', 'chrom.col.name')
 
             if (all(fields.to.get %in% fields)) {
-                query <- BiodbSqlQuery()
+                query <- BiodbSqlQuery$new()
                 query$setTable('entries')
                 query$setDistinct(TRUE)
                 for (field in fields.to.get)
@@ -55,10 +55,10 @@ getChromCol=function(ids=NULL) {
 
                 # Filter on spectra IDs
                 if ( ! is.null(ids)) {
-                    f <- BiodbSqlField(field='accession')
-                    w <- BiodbSqlBinaryOp(op='in',
+                    f <- BiodbSqlField$new(field='accession')
+                    w <- BiodbSqlBinaryOp$new(op='in',
                                           lexpr=f,
-                                          rexpr=BiodbSqlList(ids))
+                                          rexpr=BiodbSqlList$new(ids))
                     query$setWhere(w)
                 }
 
@@ -107,18 +107,18 @@ getChromCol=function(ids=NULL) {
 
 .createMsQuery=function(mzfield, ms.mode=NULL, ms.level=0, precursor=FALSE) {
 
-    query <- BiodbSqlQuery()
+    query <- BiodbSqlQuery$new()
     query$setTable(mzfield)
     query$setDistinct(TRUE)
-    query$setWhere(BiodbSqlLogicalOp(op='and'))
+    query$setWhere(BiodbSqlLogicalOp$new(op='and'))
 
     if (precursor) {
         query$addJoin(table1='msprecmz', field1='accession', table2=mzfield,
                       field2='accession')
-        expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='msprecmz',
+        expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table='msprecmz',
                                                      field='msprecmz'),
                                  op='=',
-                                 rexpr=BiodbSqlField(table=mzfield,
+                                 rexpr=BiodbSqlField$new(table=mzfield,
                                                      field=mzfield))
         query$getWhere()$addExpr(expr)
     }
@@ -126,17 +126,17 @@ getChromCol=function(ids=NULL) {
         && (is.numeric(ms.level) || is.integer(ms.level)) && ms.level > 0) {
         query$addJoin(table1='entries', field1='accession',
                       table2=mzfield, field2='accession')
-        expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='entries',
+        expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table='entries',
                                                      field='ms.level'),
-                                 op='=', rexpr=BiodbSqlValue(ms.level))
+                                 op='=', rexpr=BiodbSqlValue$new(ms.level))
         query$getWhere()$addExpr(expr)
     }
     if ( ! is.null(ms.mode) && ! is.na(ms.mode) && is.character(ms.mode)) {
         query$addJoin(table1='entries', field1='accession',
                       table2=mzfield, field2='accession')
-        expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='entries',
+        expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table='entries',
                                                      field='ms.mode'),
-                                 op='=', rexpr=BiodbSqlValue(ms.mode))
+                                 op='=', rexpr=BiodbSqlValue$new(ms.mode))
         query$getWhere()$addExpr(expr)
     }
 
@@ -164,19 +164,19 @@ getChromCol=function(ids=NULL) {
                                           ms.level=ms.level,
                                           precursor=precursor)
             query$addField(table=mzfield, field='accession')
-            mz.range.or=BiodbSqlLogicalOp('or')
+            mz.range.or=BiodbSqlLogicalOp$new('or')
             for (i in seq_along(if (is.null(mz.max)) mz.min else mz.max)) {
-                and=BiodbSqlLogicalOp('and')
+                and=BiodbSqlLogicalOp$new('and')
                 if ( ! is.null(mz.min) && ! is.na(mz.min[[i]])) {
-                    rval <- BiodbSqlValue(as.numeric(mz.min[[i]]))
-                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table=mzfield,
+                    rval <- BiodbSqlValue$new(as.numeric(mz.min[[i]]))
+                    expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table=mzfield,
                                                                  field=mzfield),
                                              op='>=', rexpr=rval)
                     and$addExpr(expr)
                 }
                 if ( ! is.null(mz.max) && ! is.na(mz.max[[i]])) {
-                    rval <- BiodbSqlValue(as.numeric(mz.max[[i]]))
-                    expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table=mzfield,
+                    rval <- BiodbSqlValue$new(as.numeric(mz.max[[i]]))
+                    expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table=mzfield,
                                                                  field=mzfield),
                                              op='<=', rexpr=rval)
                     and$addExpr(expr)
@@ -190,10 +190,10 @@ getChromCol=function(ids=NULL) {
                 query$addJoin(table1=mzfield, field1='accession',
                               table2='peak.relative.intensity',
                               field2='peak.relative.intensity')
-                lval <- BiodbSqlField(table='peak.relative.intensity',
+                lval <- BiodbSqlField$new(table='peak.relative.intensity',
                                       field='peak.relative.intensity')
-                rval <- BiodbSqlValue(min.rel.int)
-                expr <- BiodbSqlBinaryOp(lexpr=lval, op='>=', rexpr=rval)
+                rval <- BiodbSqlValue$new(min.rel.int)
+                expr <- BiodbSqlBinaryOp$new(lexpr=lval, op='>=', rexpr=rval)
                 query$getWhere()$addExpr(expr)
             }
             if (max.results > 0)
