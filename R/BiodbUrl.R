@@ -21,10 +21,9 @@ public=list(
 
 #' @description
 #' Constructor.
-#' @param url: The URL to access, as a character vector.
-#' @param params: The parameters to append to this URL, as named character
-#' vector.
-#' params: The list of parameters to use with the URL.
+#' @param url The URL to access, as a character vector.
+#' @param params The list of parameters to append to this URL.
+#' @return A new instance.
 initialize=function(url=character(), params=character()) {
 
     chk::chk_character(url)

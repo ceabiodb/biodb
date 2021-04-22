@@ -3,18 +3,6 @@
 #' This class represents a Request object that can be used with the Request
 #' Scheduler.
 #'
-#' The constructor takes the following arguments:
-#'
-#' url: A \code{BiodbUrl} object.
-#'
-#' method: HTTP method. Either "get" or "post".
-#'
-#' header: The header.
-#'
-#' body: The body.
-#'
-#' encoding: The encoding to use.
-#'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbUrl}}.
 #'
 #' @examples
@@ -41,6 +29,15 @@ BiodbRequest <- R6::R6Class("BiodbRequest",
 
 public=list(
 
+#' @description
+#' Constructor.
+#' @param url A \code{BiodbUrl} object.
+#' @param method HTTP method. Either "get" or "post".
+#' @param header The header.
+#' @param body The body.
+#' @param encoding The encoding to use.
+#' @param conn A valid BiodbConn instance for which this request is built.
+#' @return A new instance.
 initialize=function(url, method=c('get', 'post'), header=character(),
                     body=character(), encoding=integer(), conn=NULL) {
 
@@ -54,7 +51,7 @@ initialize=function(url, method=c('get', 'post'), header=character(),
 
 #' @description
 #' Sets the associated connector (usually the connector that created this
-#'     request).
+#' request).
 #' @param conn A valid BiodbConn object.
 #' @return None.
 setConn=function(conn) {
@@ -69,7 +66,7 @@ setConn=function(conn) {
 
 #' @description
 #' gets the associated connector (usually the connector that created this
-#'     request).
+#' request).
 #' @return The associated connector as a BiodbConn object.
 getConn=function() {
 
@@ -121,7 +118,7 @@ getCurlOptions=function(useragent) {
 
 #' @description
 #' Gets a unique key to identify this request. The key is an MD5 sum
-#'     computed from the string representation of this request.
+#' computed from the string representation of this request.
 #' @return A unique key as an MD5 sum.
 getUniqueKey=function() {
 
@@ -132,7 +129,7 @@ getUniqueKey=function() {
 
 #' @description
 #' Gets the HTTP header as a string, concatenating all its information
-#'     into a single string.
+#' into a single string.
 #' @return The header as a single character value.
 getHeaderAsSingleString=function() {
 
