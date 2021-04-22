@@ -44,7 +44,7 @@ getReposName <- function(pkgRoot, default=NULL) {
 
     repos <- default
 
-    if (dir.exists(pkgRoot) && requireNamespace(git2r) && git2r::in_repository(pkgRoot))
+    if (dir.exists(pkgRoot) && requireNamespace('git2r') && git2r::in_repository(pkgRoot))
     {
         remotes <- git2r::remotes(pkgRoot)
         if ('origin' %in% remotes) {
