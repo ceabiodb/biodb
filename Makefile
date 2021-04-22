@@ -91,6 +91,9 @@ coverage:
 	R $(RFLAGS) -e "covr::codecov(token='$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN)', quiet=FALSE)"
 
 check: clean.vignettes $(ZIPPED_PKG)
+	R $(RFLAGS) CMD check $(ZIPPED_PKG)
+
+bioc.check: clean.vignettes $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
 check.version:
