@@ -1,11 +1,19 @@
+#' The SQL Expression abstact class.
+#'
 #' This abstract class represents an SQL expression.
-BiodbSqlExpr <- methods::setRefClass("BiodbSqlExpr",
+#'
+#' @import R6
+BiodbSqlExpr <- R6::R6Class("BiodbSqlExpr",
 
-methods=list(
+public=list(
 
+#' @description
+#' Converts into a string.
+#' @return A string containing the SQL expression.
 toString=function() {
     stop("This method is abstract.")
 }
+),
 
+private=list(
 ))
-

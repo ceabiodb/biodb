@@ -1,23 +1,29 @@
 #' This class represents an SQL list.
 #'
+#' @import R6
 #' @include BiodbSqlExpr.R
-BiodbSqlList <- methods::setRefClass("BiodbSqlList",
-    contains="BiodbSqlExpr",
-    fields=list(
-        .values='ANY'),
+BiodbSqlList <- R6::R6Class("BiodbSqlList",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
+#' @description
+#' Constructor.
+#' @param values The values of the list.
+#' @return A new instance.
 initialize=function(values) {
-    .self$.values <- values
+    private$values <- values
 },
 
+#' @description
+#' Converts into a string.
+#' @return A string containing the SQL expression.
 toString=function() {
 
     # Quote strings
-    if (is.character(.self$.values)) {
+    if (is.character(private$values)) {
         fct <- function(v) paste0('"', v, '"')
-        s <- vapply(.self$.values, fct, FUN.VALUE='')
+        s <- vapply(private$values, fct, FUN.VALUE='')
     }
 
     # Collapse and convert to string
@@ -25,5 +31,8 @@ toString=function() {
 
     return(s)
 }
+),
 
+private=list(
+    values=NULL
 ))

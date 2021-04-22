@@ -2,87 +2,70 @@
 #'
 #' This class represents a rule for the request scheduler.
 #'
-#' The constructor takes the following arguments:
-#'
-#' host: The web host for which this rules is applicable.
-#'
-#' n: The number of connections allowed during a period of t seconds.
-#'
-#' t: The number of seconds during which n connections are allowed.
-#'
-#' conn: The connector instance that is concerned by this rule.
-#'
 #' @seealso \code{\link{BiodbRequestScheduler}}.
 #'
-#' @import methods
+#' @import R6
 #' @include BiodbChildObject.R
-BiodbRequestSchedulerRule <- methods::setRefClass("BiodbRequestSchedulerRule",
-    contains="BiodbChildObject",
-    fields=list(
-        .host="character",
-        .n="integer",
-        .t="numeric",
-        .last.time="list",
-        .n.index='integer',
-        .conn='list'
-     ),
+BiodbRequestSchedulerRule <- R6::R6Class("BiodbRequestSchedulerRule",
 
-methods=list(
+public=list(
 
-initialize=function(host, conn=NULL, ...) {
-
-    callSuper(...)
+#' @description
+#' Constructor.
+#' @param host The web host for which this rules is applicable.
+#' @param conn The connector instance that is concerned by this rule.
+initialize=function(host, conn=NULL) {
 
     chk::chk_character(host)
-    .self$.host <- host
-    .self$.last.time <- list()
-    .self$.n.index <- 0L
+    private$host <- host
+    private$last.time <- list()
+    private$n.index <- 0L
     if ( ! is.null(conn)) {
         chk::chk_is(conn, 'BiodbConn')
-        .self$.conn <- list(conn)
-        .self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
+        private$conn <- list(conn)
+        self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
                            t=conn$getPropertyValue('scheduler.t'))
     }
     else {
-        .self$.conn <- list()
-        .self$setFrequency(n=3L, t=1L)
+        private$conn <- list()
+        self$setFrequency(n=3L, t=1L)
     }
 },
 
+#' @description
+#' Gets host.
+#' @return Returns the host.
 getHost=function() {
-    ":\n\nGets host.
-    \nReturned value: Returns the host.
-    "
 
-    return(.self$.host)
+    return(private$host)
 },
 
+#' @description
+#' Gets N value. The number of connections allowed during a period of
+#'     T seconds.
+#' @return Returns N as an integer.
 getN=function() {
-    ":\n\nGets N value. The number of connections allowed during a period of
-    T seconds.
-    \nReturned value: Returns N as an integer.
-    "
 
-    return(.self$.n)
+    return(private$n)
 },
 
+#' @description
+#' Gets T value. The number of seconds during which N connections
+#' are allowed.
+#' @return Returns T as a numeric.
 getT=function() {
-    ":\n\nGets T value. The number of seconds during which N connections
-    are allowed.
-    \nReturned value: Returns T as a numeric.
-    "
 
-    return(.self$.t)
+    return(private$t)
 },
 
+#' @description
+#' Sets both N and T.
+#' @param n The number of connections allowed during a period of t seconds,
+#' as an integer.
+#' @param t The number of seconds during which n connections are allowed, as a
+#' numeric value.
+#' @return None.
 setFrequency=function(n, t) {
-    ":\n\nSets both N and T.
-    \nn: The number of connections allowed during a period of t seconds,
-    as an integer.
-    \nt: The number of seconds during which n connections are allowed, as a
-    numeric value.
-    \nReturned value: None.
-    "
 
     chk::chk_whole_number(n)
     chk::chk_number(t)
@@ -90,138 +73,96 @@ setFrequency=function(n, t) {
     chk::chk_gt(t, 0)
 
     # Update last time and index
-    if (length(.self$.last.time) >= 1) {
-        ni <- .self$.n.index
-        x <- min(length(.self$.last.time), n)
-        i <- seq(from=ni-1, to=ni-x) %% .self$.n + 1
-        .self$.last.time <- .self$.last.time[i]
-        .self$.n.index <- x
+    if (length(private$last.time) >= 1) {
+        ni <- private$n.index
+        x <- min(length(private$last.time), n)
+        i <- seq(from=ni-1, to=ni-x) %% private$n + 1
+        private$last.time <- private$last.time[i]
+        private$n.index <- x
     }
 
     # Update frequency
-    .self$.n <- n
-    .self$.t <- t
+    private$n <- n
+    private$t <- t
 },
 
+#' @description
+#' Gets connectors associaated with this rule.
+#' @return A list of BiodbConn objects.
 getConnectors=function() {
-    ":\n\nGets connectors associaated with this rule.
-    \nReturned value: A list of BiodbConn objects.
-    "
 
-    return(.self$.conn)
+    return(private$conn)
 },
 
+#' @description
+#' Associate a connector with this rule.
+#' @param conn A BiodbConn object.
+#' @return None.
 addConnector=function(conn) {
-    ":\n\nAssociate a connector with this rule.
-    \nconn: A BiodbConn object.
-    \nReturned value: None.
-    "
 
     chk::chk_is(conn, 'BiodbConn')
 
     # Connector already listed?
-    if (any(vapply(.self$.conn, function(x) identical(x, conn),
+    if (any(vapply(private$conn, function(x) identical(x, conn),
                    FUN.VALUE=TRUE)))
         logDebug0('Connector "', conn$getId(),
-                 '" is already listed in rule "', .self$.host, '".')
+                 '" is already listed in rule "', private$host, '".')
 
     # Add connector
     else {
 
-        .self$.conn <- c(.self$.conn, conn)
+        private$conn <- c(private$conn, conn)
 
         # Update frequency
-        .self$.recomputeFrequency()
+        self$recomputeFrequency()
     }
 },
 
+#' @description
+#' Disassociate a connector from this rule.
+#' @param conn A BiodbConn instance.
+#' @return None.
 removeConnector=function(conn) {
-    ":\n\nDisassociate a connector from this rule.
-    \nconn: A BiodbConn instance.
-    \nReturned value: None.
-    "
 
     chk::chk_is(conn, 'BiodbConn')
 
     # Connector already listed?
-    found.conn <- vapply(.self$.conn, function(x) identical(x, conn),
+    found.conn <- vapply(private$conn, function(x) identical(x, conn),
                          FUN.VALUE=TRUE)
     if ( ! any(found.conn))
         warn('Connector "%s" is not listed in rule "%s".', conn$getId(),
-             .self$.host)
+             private$host)
 
     # Remove connector
     else {
 
         # Update frequency
 
-        .self$.conn <- .self$.conn[ ! found.conn]
+        private$conn <- private$conn[ ! found.conn]
     }
 },
 
-show=function() {
-    ":\n\nDisplays information about this instance.
-    \nReturned value: None.
-    "
+#' @description
+#' Displays information about this instance.
+#' @return None.
+print=function() {
 
     cat("Biodb scheduler rule instance.\n")
-    conlst <- paste(vapply(.self$.conn, function(x) x$getId(), FUN.VALUE=''),
+    conlst <- paste(vapply(private$conn, function(x) x$getId(), FUN.VALUE=''),
                     collapse=', ')
-    cat('  Handle request waiting time for host "', .self$.host, '" for ',
-        length(.self$.conn), " connector(s): ", conlst, ".\n", sep='')
-    cat('  Parameters are T=', .self$getT(), ' and N=', .self$getN(), ".\n",
+    cat('  Handle request waiting time for host "', private$host, '" for ',
+        length(private$conn), " connector(s): ", conlst, ".\n", sep='')
+    cat('  Parameters are T=', self$getT(), ' and N=', self$getN(), ".\n",
         sep='')
-},
+}
 
-.storeCurrentTime=function(cur.time=NULL) {
-
-    if (is.null(cur.time))
-        cur.time <-Sys.time()
-
-    .self$.n.index <- as.integer(if (.self$.n.index == .self$.n) 1
-                                 else .self$.n.index + 1)
-    .self$.last.time[[.self$.n.index]] <- cur.time
-},
-
-.computeSleepTime=function(cur.time=NULL) {
-
-    sleep.time <- 0
-
-    if (is.null(cur.time))
-        cur.time <-Sys.time()
-
-    # Do we need to wait?
-    if (length(.self$.last.time) == .self$.n) {
-
-        # Look at all "last" times starting from most recent one
-        n <- 0
-        last.time.indices <- seq(from=.self$.n.index - 1,
-                                 to=.self$.n.index - .self$.n) %% .self$.n + 1
-        for (i in last.time.indices) {
-            dt <- difftime(.self$.last.time[[i]], cur.time, units='secs')
-            if (dt < .self$.t)
-                n <- n + 1
-            else
-                break
-        }
-
-        # Compute sleep time
-        if (n == .self$.n) {
-            n.oldest <- .self$.n.index %% .self$.n + 1
-            sleep.time <- .self$.t - difftime(cur.time,
-                                              .self$.last.time[[n.oldest]],
-                                              units='secs')
-            sleep.time <- max(0, sleep.time)
-        }
-    }
-
-    return(sleep.time)
-},
-
-.waitAsNeeded=function() {
+#' @description
+#' Wait (sleep) until a new request is allowed.
+#' @return Nothing.
+,waitAsNeeded=function() {
 
     # Compute sleep time
-    sleep.time <- .self$.computeSleepTime()
+    sleep.time <-self$computeSleepTime()
 
     # Sleep if needed
     if (sleep.time > 0) {
@@ -230,16 +171,19 @@ show=function() {
     }
 
     # Store current time
-    .self$.storeCurrentTime()
-},
+    self$storeCurrentTime()
+}
 
-.recomputeFrequency=function() {
+#' @description
+#' Recompute frequency from submitted N and T values. 
+#' @return Nothing.
+,recomputeFrequency=function() {
 
     t <- NULL
     n <- NULL
 
     # Loop on all connectors
-    for (conn in .self$.conn) {
+    for (conn in private$conn) {
         t.conn <- conn$getPropertyValue('scheduler.t')
         n.conn <- conn$getPropertyValue('scheduler.n')
         if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
@@ -250,7 +194,63 @@ show=function() {
     }
 
     # Set frequency
-    .self$setFrequency(n=n, t=t)
+    self$setFrequency(n=n, t=t)
 }
 
+#' @description
+#' Compute the needed sleep time to wait until a new request is allowed,
+#' starting from the submitted time.
+#' @param cur.time Time from which to compute needed sleep time.
+#' @return The needed sleep time in seconds.
+,computeSleepTime=function(cur.time=Sys.time()) {
+
+    sleep.time <- 0
+
+    # Do we need to wait?
+    if (length(private$last.time) == private$n) {
+
+        # Look at all "last" times starting from most recent one
+        n <- 0
+        last.time.indices <- seq(from=private$n.index - 1,
+                                 to=private$n.index - private$n) %% private$n + 1
+        for (i in last.time.indices) {
+            dt <- difftime(private$last.time[[i]], cur.time, units='secs')
+            if (dt < private$t)
+                n <- n + 1
+            else
+                break
+        }
+
+        # Compute sleep time
+        if (n == private$n) {
+            n.oldest <- private$n.index %% private$n + 1
+            sleep.time <- private$t - difftime(cur.time,
+                                              private$last.time[[n.oldest]],
+                                              units='secs')
+            sleep.time <- max(0, sleep.time)
+        }
+    }
+
+    return(sleep.time)
+}
+
+#' @description
+#' Stores the current time.
+#' @param cur.time The current time.
+#' @return Nothing.
+,storeCurrentTime=function(cur.time=Sys.time()) {
+
+    private$n.index <- as.integer(if (private$n.index == private$n) 1
+                                 else private$n.index + 1)
+    private$last.time[[private$n.index]] <- cur.time
+}
+),
+
+private=list(
+    host=NULL,
+    n=NULL,
+    t=NULL,
+    conn=NULL,
+    n.index=NULL,
+    last.time=NULL
 ))

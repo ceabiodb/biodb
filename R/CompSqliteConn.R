@@ -36,18 +36,18 @@ methods=list(
 
     if ( ! is.null(.self$.db)) {
 
-        query <- BiodbSqlQuery()
+        query <- BiodbSqlQuery$new()
         query$setTable('entries')
         query$setDistinct(TRUE)
-        query$setWhere(BiodbSqlLogicalOp(op='and'))
+        query$setWhere(BiodbSqlLogicalOp$new(op='and'))
 
         # Search by name
         if ('name' %in% names(fields)) {
             query$addJoin(table1='name', field1='accession',
                           table2='entries', field2='accession')
-            expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table='name',
+            expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table='name',
                                                          field='name'), op='=',
-                                     rexpr=BiodbSqlValue(fields$name))
+                                     rexpr=BiodbSqlValue$new(fields$name))
             query$getWhere()$addExpr(expr)
         }
         
@@ -74,13 +74,13 @@ methods=list(
                 }
                 
                 # Complete query
-                expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table="entries",
+                expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table="entries",
                                                               field=field),
-                                          op='>=', rexpr=BiodbSqlValue(rng$a))
+                                          op='>=', rexpr=BiodbSqlValue$new(rng$a))
                 query$getWhere()$addExpr(expr)
-                expr <- BiodbSqlBinaryOp(lexpr=BiodbSqlField(table="entries",
+                expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table="entries",
                                                              field=field),
-                                         op='<=', rexpr=BiodbSqlValue(rng$b))
+                                         op='<=', rexpr=BiodbSqlValue$new(rng$b))
                 query$getWhere()$addExpr(expr)
             }
         }

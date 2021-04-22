@@ -1,25 +1,35 @@
 #' This class represents an SQL field.
 #'
+#' @import R6
 #' @include BiodbSqlExpr.R
-BiodbSqlField <- methods::setRefClass("BiodbSqlField",
-    contains="BiodbSqlExpr",
-    fields=list(
-        .table='character',
-        .field='character'),
+BiodbSqlField <- R6::R6Class("BiodbSqlField",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
+#' @description
+#' Constructor.
+#' @param table The table name.
+#' @param field The field name.
+#' @return A new instance.
 initialize=function(table=NA_character_, field) {
-    .self$.table <- table
-    .self$.field <- field
+    private$table <- table
+    private$field <- field
 },
 
+#' @description
+#' Converts into a string.
+#' @return A string containing the SQL expression.
 toString=function() {
-    s <- DBI::dbQuoteIdentifier(DBI::ANSI(), .self$.field)
-    if ( ! is.na(.self$.table))
-        s <- paste(DBI::dbQuoteIdentifier(DBI::ANSI(), .self$.table), s,
+    s <- DBI::dbQuoteIdentifier(DBI::ANSI(), private$field)
+    if ( ! is.na(private$table))
+        s <- paste(DBI::dbQuoteIdentifier(DBI::ANSI(), private$table), s,
                    sep='.')
     return(s)
 }
+),
 
+private=list(
+    table=NULL,
+    field=NULL
 ))

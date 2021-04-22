@@ -21,7 +21,7 @@ before_install:
   - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
 
 script:
-    - make check
+    - make bioc.check
 
 #after_success:
 #    - Rscript -e 'covr::codecov()'

@@ -9,6 +9,7 @@
 #' @seealso \link{Biodb}, \link{BiodbConfig}, \link{BiodbFactory},
 #' \link{BiodbPersistentCache}, \link{BiodbDbsInfo}, \link{BiodbEntryFields}.
 #'
+#' @import withr
 #' @import Rcpp
 #' @importFrom Rcpp evalCpp
 #' @useDynLib biodb, .registration=TRUE

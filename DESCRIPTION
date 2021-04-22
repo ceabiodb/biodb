@@ -38,7 +38,8 @@ Imports:
     rappdirs,
     stats,
     openssl,
-    RSQLite
+    RSQLite,
+    withr
 LinkingTo:
     Rcpp,
     testthat

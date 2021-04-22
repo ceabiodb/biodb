@@ -607,7 +607,7 @@ makeRequest=function(...) {
     \nReturned value: The BiodbRequest instance.
     "
 
-    req <- BiodbRequest(...)
+    req <- BiodbRequest$new(...)
 
     req$setConn(.self)
 

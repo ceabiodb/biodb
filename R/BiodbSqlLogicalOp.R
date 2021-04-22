@@ -1,31 +1,43 @@
 #' This class represents an SQL logical operator.
 #'
+#' @import R6
 #' @include BiodbSqlExpr.R
-BiodbSqlLogicalOp <- methods::setRefClass("BiodbSqlLogicalOp",
-    contains='BiodbSqlExpr',
-    fields=list(
-        .op='character',
-        .expr='list'
-        ),
+BiodbSqlLogicalOp <- R6::R6Class("BiodbSqlLogicalOp",
+inherit=BiodbSqlExpr,
 
-methods=list(
+public=list(
 
+#' @description
+#' Constructor.
+#' @param op The logical operator, as a string.
+#' @return A new instance.
 initialize=function(op) {
-    .self$.op <- op
-    .self$.expr <- list()
+    private$op <- op
+    private$expr <- list()
 },
 
+#' @description
+#' Add an SQL expression to the logical operator.
+#' @param expr A BiodbSqlExpr instance.
+#' @return Nothing.
 addExpr=function(expr) {
-    .self$.expr <- c(.self$.expr, expr)
+    private$expr <- c(private$expr, expr)
 },
 
+#' @description
+#' Converts into a string.
+#' @return A string containing the SQL expression.
 toString=function() {
-    s <- vapply(.self$.expr, function(e) e$toString(), FUN.VALUE='')
+    s <- vapply(private$expr, function(e) e$toString(), FUN.VALUE='')
     s <- s[vapply(s, function(x) nchar(x) > 0, FUN.VALUE=TRUE)]
-    s <- paste(s, collapse=paste0(' ', .self$.op, ' '))
+    s <- paste(s, collapse=paste0(' ', private$op, ' '))
     if (nchar(s) > 0)
         s <- paste0('(', s, ')')
     return(s)
 }
+),
 
+private=list(
+    op=NULL,
+    expr=NULL
 ))

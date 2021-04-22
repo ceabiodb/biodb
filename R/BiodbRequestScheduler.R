@@ -20,9 +20,9 @@
 #'
 #' # Create a request object
 #' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
-#' url <- BiodbUrl(url=u)
+#' url <- BiodbUrl$new(url=u)
 #' url$setParam('chebiId', 15440)
-#' request <- BiodbRequest(method='get', url=url)
+#' request <- BiodbRequest$new(method='get', url=url)
 #'
 #' # Send request
 #' sched$sendRequest(request)
@@ -150,7 +150,7 @@ downloadFile=function(url, dest.file) {
     rule <- .self$.findRule(url)
 
     # Wait required time between two requests
-    rule$.waitAsNeeded()
+    rule$waitAsNeeded()
 
     # Convert URL to string
     url <- url$toString()
@@ -188,7 +188,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Update frequency
     else {
         for (rule in .self$.connid2rules[[conn$getId()]])
-            rule$.recomputeFrequency()
+            rule$recomputeFrequency()
     }
 },
 
@@ -240,7 +240,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     chk::chk_not_null(url)
     if ( ! is(url, 'BiodbUrl')) {
         chk::chk_string(url)
-        url <- BiodbUrl(url=url)
+        url <- BiodbUrl$new(url=url)
     }
     domain <- url$getDomain()
 
@@ -248,7 +248,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     if (create && ! domain %in% names(.self$.host2rule)) {
         logInfo0('No rule exists for domain "', domain,
                 '". Creating a default one.')
-        rule <- BiodbRequestSchedulerRule(parent=.self, host=domain, conn=NULL)
+        rule <- BiodbRequestSchedulerRule$new(host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
 
@@ -267,11 +267,10 @@ connSchedulerFrequencyUpdated=function(conn) {
 
         # No rule exists => create new one
         if (is.null(rule)) {
-            host <- BiodbUrl(url=url)$getDomain()
+            host <- BiodbUrl$new(url=url)$getDomain()
             logDebug0('Create new rule for URL "', host,'" of connector "',
                      conn$getId(), '".')
-            rule <- BiodbRequestSchedulerRule(parent=.self, host=host,
-                                              conn=conn)
+            rule <- BiodbRequestSchedulerRule$new(host=host, conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
         }
 
@@ -439,7 +438,7 @@ connSchedulerFrequencyUpdated=function(conn) {
                  paste(request$getBody(), collapse=', '))
 
         # Wait required time between two requests
-        rule$.waitAsNeeded()
+        rule$waitAsNeeded()
 
         # Send request
         res <- .self$.doSendRequestOnce(request=request)
@@ -467,7 +466,7 @@ getUrlString=function(url, params=list()) {
 
     lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
-    url <- BiodbUrl(url=url, params=params)$toString(encode=FALSE)
+    url <- BiodbUrl$new(url=url, params=params)$toString(encode=FALSE)
 
     return(url)
 },
@@ -481,7 +480,7 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
 
     method <- match.arg(method)
 
-    request <- BiodbRequest(url=BiodbUrl(url=url, params=params), method=method,
+    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params), method=method,
                             header=header, body=body, encoding=encoding)
 
     return(.self$sendRequest(request))

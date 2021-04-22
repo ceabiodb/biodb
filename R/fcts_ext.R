@@ -4,7 +4,7 @@
 #'
 #' @param pkgRoot The path to the root folder of the package.
 #' @param check If set to TRUE the extracted package name is checked against
-#' regular expression "^biodb[A-Z][A-Za-z0-9]+$", to ensure the format is
+#' regular expression "^biodb\[A-Z\]\[A-Za-z0-9\]+$", to ensure the format is
 #' respected.
 #' @return The package name of the biodb extension.
 #' @export
@@ -44,7 +44,7 @@ getReposName <- function(pkgRoot, default=NULL) {
 
     repos <- default
 
-    if (dir.exists(pkgRoot) && require(git2r) && git2r::in_repository(pkgRoot))
+    if (dir.exists(pkgRoot) && requireNamespace('git2r') && git2r::in_repository(pkgRoot))
     {
         remotes <- git2r::remotes(pkgRoot)
         if ('origin' %in% remotes) {

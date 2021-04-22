@@ -107,8 +107,12 @@ endif
 coverage:
 	R $(RFLAGS) -e "covr::codecov(token='$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN)', quiet=FALSE)"
 
-# Bioconductor check
+# Plain check
 check: $(ZIPPED_PKG)
+	R $(RFLAGS) CMD check $<
+
+# Bioconductor check
+bioc.check: $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))'
 
 # Run testthat tests
@@ -186,4 +190,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all win test build check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen
+.PHONY: all win test build check bioc.check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen
