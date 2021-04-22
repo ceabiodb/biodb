@@ -2,12 +2,6 @@
 #'
 #' This class represents a URL object that can be used in requests.
 #'
-#' The following arguments are accepted by the constructor:
-#'
-#' url: The URL to access, as a character string.
-#'
-#' params: The list of parameters to use with the URL.
-#'
 #' @seealso \code{\link{BiodbRequestScheduler}}, \code{\link{BiodbRequest}}.
 #'
 #' @examples
@@ -25,7 +19,19 @@ BiodbUrl <- R6::R6Class("BiodbUrl",
 
 public=list(
 
+#' @description
+#' Constructor.
+#' @param url: The URL to access, as a character vector.
+#' @param params: The parameters to append to this URL, as named character
+#' vector.
+#' params: The list of parameters to use with the URL.
 initialize=function(url=character(), params=character()) {
+
+    chk::chk_character(url)
+    chk::chk_not_any_na(url)
+    # params is not necessarily named, and may contain strings as well as
+    # numbers. TODO How to test its content?
+    #chk::chk_named(params)
 
     # Set URL
     private$url <- url
@@ -62,8 +68,8 @@ setUrl=function(url) {
 
 #' @description
 #' Sets a parameter.
-#' @param key 
-#' @param value 
+#' @param key The parameter name. 
+#' @param value  The value of the parameter.
 #' @return None.
 setParam=function(key, value) {
 

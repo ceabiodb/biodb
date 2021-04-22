@@ -2,16 +2,6 @@
 #'
 #' This class represents a rule for the request scheduler.
 #'
-#' The constructor takes the following arguments:
-#'
-#' host: The web host for which this rules is applicable.
-#'
-#' n: The number of connections allowed during a period of t seconds.
-#'
-#' t: The number of seconds during which n connections are allowed.
-#'
-#' conn: The connector instance that is concerned by this rule.
-#'
 #' @seealso \code{\link{BiodbRequestScheduler}}.
 #'
 #' @import R6
@@ -20,6 +10,10 @@ BiodbRequestSchedulerRule <- R6::R6Class("BiodbRequestSchedulerRule",
 
 public=list(
 
+#' @description
+#' Constructor.
+#' @param host The web host for which this rules is applicable.
+#' @param conn The connector instance that is concerned by this rule.
 initialize=function(host, conn=NULL) {
 
     chk::chk_character(host)
@@ -57,7 +51,7 @@ getN=function() {
 
 #' @description
 #' Gets T value. The number of seconds during which N connections
-#'     are allowed.
+#' are allowed.
 #' @return Returns T as a numeric.
 getT=function() {
 
@@ -67,9 +61,9 @@ getT=function() {
 #' @description
 #' Sets both N and T.
 #' @param n The number of connections allowed during a period of t seconds,
-#'     as an integer.
+#' as an integer.
 #' @param t The number of seconds during which n connections are allowed, as a
-#'     numeric value.
+#' numeric value.
 #' @return None.
 setFrequency=function(n, t) {
 
@@ -162,6 +156,9 @@ print=function() {
         sep='')
 }
 
+#' @description
+#' Wait (sleep) until a new request is allowed.
+#' @return Nothing.
 ,waitAsNeeded=function() {
 
     # Compute sleep time
@@ -177,6 +174,9 @@ print=function() {
     self$storeCurrentTime()
 }
 
+#' @description
+#' Recompute frequency from submitted N and T values. 
+#' @return Nothing.
 ,recomputeFrequency=function() {
 
     t <- NULL
@@ -197,12 +197,14 @@ print=function() {
     self$setFrequency(n=n, t=t)
 }
 
-,computeSleepTime=function(cur.time=NULL) {
+#' @description
+#' Compute the needed sleep time to wait until a new request is allowed,
+#' starting from the submitted time.
+#' @param cur.time Time from which to compute needed sleep time.
+#' @return The needed sleep time in seconds.
+,computeSleepTime=function(cur.time=Sys.time()) {
 
     sleep.time <- 0
-
-    if (is.null(cur.time))
-        cur.time <-Sys.time()
 
     # Do we need to wait?
     if (length(private$last.time) == private$n) {
@@ -232,10 +234,11 @@ print=function() {
     return(sleep.time)
 }
 
-,storeCurrentTime=function(cur.time=NULL) {
-
-    if (is.null(cur.time))
-        cur.time <-Sys.time()
+#' @description
+#' Stores the current time.
+#' @param cur.time The current time.
+#' @return Nothing.
+,storeCurrentTime=function(cur.time=Sys.time()) {
 
     private$n.index <- as.integer(if (private$n.index == private$n) 1
                                  else private$n.index + 1)

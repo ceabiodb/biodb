@@ -1,33 +1,33 @@
-    test.entry.fields <- function(conn) {
+test.entry.fields <- function(conn) {
 
-        biodb <- conn$getBiodb()
-        db.name <- conn$getId()
-        db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
+    biodb <- conn$getBiodb()
+    db.name <- conn$getId()
+    db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
-        # Get IDs of reference entries
-        ref.ids <- listTestRefEntries(db.name)
+    # Get IDs of reference entries
+    ref.ids <- listTestRefEntries(db.name)
 
-        # Create entries
-        entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-        testthat::expect_equal(length(entries), length(ref.ids),
-                               info=paste0("Error while retrieving entries. ",
-                                           length(entries),
-                                           " entrie(s) obtained instead of ",
-                                           length(ref.ids), "."))
+    # Create entries
+    entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
+    testthat::expect_equal(length(entries), length(ref.ids),
+                           info=paste0("Error while retrieving entries. ",
+                                       length(entries),
+                                       " entrie(s) obtained instead of ",
+                                       length(ref.ids), "."))
 
-        # Compute fields
-        biodb$computeFields(entries)
+    # Compute fields
+    biodb$computeFields(entries)
 
-        # Save downloaded entries as JSON
-        json.files <- file.path(getTestOutputDir(),
-                                paste('entry-', db.name, '-', ref.ids, '.json',
-                                      sep = ''))
-        biodb$saveEntriesAsJson(entries, json.files)
+    # Save downloaded entries as JSON
+    json.files <- file.path(getTestOutputDir(),
+                            paste('entry-', db.name, '-', ref.ids, '.json',
+                                  sep = ''))
+    biodb$saveEntriesAsJson(entries, json.files)
 
-        # Loop on all entries
-        entry.fields <- character(0)
-        ref.entry.fields <- character(0)
-        for (i in seq_along(ref.ids)) {
+    # Loop on all entries
+    entry.fields <- character(0)
+    ref.entry.fields <- character(0)
+    for (i in seq_along(ref.ids)) {
 
         # Get ID
         id <- ref.ids[[i]]
