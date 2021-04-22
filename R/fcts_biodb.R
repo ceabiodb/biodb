@@ -154,7 +154,7 @@ lst2str <- function(x, nCut=10) {
 #'
 #' @examples
 #' # Logs an info message:
-#' biodb::info('Index is %d.', 10)
+#' biodb::logInfo('Index is %d.', 10)
 #'
 #' @export
 logInfo <- function(...) {
@@ -171,7 +171,7 @@ logInfo <- function(...) {
 #'
 #' @examples
 #' # Logs an info message:
-#' biodb::info0('Index is ', 10, '.')
+#' biodb::logInfo0('Index is ', 10, '.')
 #'
 #' @export
 logInfo0 <- function(...) {
@@ -188,7 +188,7 @@ logInfo0 <- function(...) {
 #'
 #' @examples
 #' # Logs a trace message:
-#' biodb::trace('Index is %d.', 10)
+#' biodb::logTrace('Index is %d.', 10)
 #'
 #' @export
 logTrace <- function(...) {
@@ -205,7 +205,7 @@ logTrace <- function(...) {
 #'
 #' @examples
 #' # Logs a trace message:
-#' biodb::trace0('Index is ', 10, '.')
+#' biodb::logTrace0('Index is ', 10, '.')
 #'
 #' @export
 logTrace0 <- function(...) {
@@ -222,7 +222,7 @@ logTrace0 <- function(...) {
 #'
 #' @examples
 #' # Logs a debug message:
-#' biodb::debug('Index is %d.', 10)
+#' biodb::logDebug('Index is %d.', 10)
 #'
 #' @export
 logDebug <- function(...) {
@@ -239,7 +239,7 @@ logDebug <- function(...) {
 #'
 #' @examples
 #' # Logs a debug message:
-#' biodb::debug0('Index is ', 10, '.')
+#' biodb::logDebug0('Index is ', 10, '.')
 #'
 #' @export
 logDebug0 <- function(...) {
