@@ -13,7 +13,7 @@ getEntryPageUrl=function(id) {
     url <- c(.self$getPropValSlot('urls', 'base.url'), 'searchId.do')
 
     fct <- function(x) {
-        BiodbUrl(url=url, params=list(chebiId=x))$toString()
+        BiodbUrl$new(url=url, params=list(chebiId=x))$toString()
     }
     
     urls <- vapply(id, fct, FUN.VALUE='')
@@ -27,7 +27,7 @@ getEntryImageUrl=function(id) {
     url <- c(.self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
 
     fct <- function(x) {
-        BiodbUrl(url=url, params=list(defaultImage='true', imageIndex=0,
+        BiodbUrl$new(url=url, params=list(defaultImage='true', imageIndex=0,
                                       chebiId=x, dimensions=400))$toString()
     }
     
@@ -54,8 +54,9 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
                 maximumResults=max.results,
                 starsCategory=stars)
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
-    request <- .self$makeRequest(method='get', url=BiodbUrl(url=url, params=params),
-                            encoding='UTF-8')
+    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url,
+                                                                params=params),
+                                 encoding='UTF-8')
     if (retfmt == 'request')
         return(request)
 
@@ -106,7 +107,7 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
     url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
              'getCompleteEntity')
 
-    urls <- vapply(id, function(x) BiodbUrl(url=url,
+    urls <- vapply(id, function(x) BiodbUrl$new(url=url,
                                             params=list(chebiId=x))$toString(),
                    FUN.VALUE='')
 
