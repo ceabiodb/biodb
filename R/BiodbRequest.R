@@ -59,7 +59,7 @@ setConn=function(conn) {
     if ( ! methods::is(conn, 'BiodbConn'))
         stop("Parameter conn must be a BiodbConn object.")
 
-    self$conn <- conn
+    private$conn <- conn
 
     invisible(NULL)
 },
@@ -70,7 +70,7 @@ setConn=function(conn) {
 #' @return The associated connector as a BiodbConn object.
 getConn=function() {
 
-    return(self$conn)
+    return(private$conn)
 },
 
 #' @description

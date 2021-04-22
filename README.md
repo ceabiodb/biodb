@@ -7,7 +7,7 @@ An R package for connecting to chemical and biological databases.
 
 ## Introduction
 
-*biodb* is a framework for developing database connectors. It is delivered with some non-remote connectors (for CSV file or SQLite db), but the main interest of the package is to ease development of your own connectors. Some connectors are already available in other packages (e.g.: biodbChebi, biodbHmdb, biodbKegg, biodbUniprot) on GitHub or Bioconductor.
+*biodb* is a framework for developing database connectors. It is delivered with some non-remote connectors (for CSV file or SQLite db), but the main interest of the package is to ease development of your own connectors. Some connectors are already available in other packages (e.g.: [biodbChebi](https://github.com/pkrog/biodbChebi), [biodbHmdb](https://github.com/pkrog/biodbHmdb), [biodbKegg](https://github.com/pkrog/biodbKegg), [biodbLipidmaps](https://github.com/pkrog/biodbLipidmaps), [biodbUniprot](https://github.com/pkrog/biodbUniprot)) on GitHub.
 For now, the targeted databases are the ones that store molecules, proteins, lipids and MS spectra. However other type of databases (NMR database for instance) could also be targeted.
 
 With *biodb* you can:
