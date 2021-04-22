@@ -1248,6 +1248,7 @@ test.msmsSearch.no.ids <- function(db) {
 #' specific tests.
 #'
 #' @param conn A valid biodb connector.
+#' @param opt A set of options to pass to the test functions.
 #' @return Nothing.
 #'
 #' @examples
