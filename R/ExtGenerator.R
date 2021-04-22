@@ -109,7 +109,8 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
 #' nothing and return.
 #' @examples
 #' # Generate a new extension package:
-#' biodb::ExtPackage$new('/my/path/to/my/biodbExtension')$generate()
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' biodb::ExtPackage$new(pkgFolder)$generate()
 ,generate=function(overwrite=FALSE, fail=TRUE) {
     private$doGenerate(overwrite=overwrite, fail=fail)
 }
