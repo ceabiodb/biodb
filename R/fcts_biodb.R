@@ -122,6 +122,7 @@ df2str <- function(x, rowCut=5, colCut=5) {
 #'
 #' Prints a string (partially if too big) into a string.
 #'
+#' @param x The list to convert into a string.
 #' @param nCut The maximum of elements to print.
 #' @return A string containing the list representation (or part of it).
 #'
@@ -255,7 +256,7 @@ logDebug0 <- function(...) {
 #'
 #' @examples
 #' # Throws a warning:
-#' biodb::warn('Index is %d.', 10)
+#' tryCatch(biodb::warn('Index is %d.', 10), warning=function(w){w$message})
 #'
 #' @export
 warn <- function(...) {
@@ -272,7 +273,7 @@ warn <- function(...) {
 #'
 #' @examples
 #' # Throws a warning:
-#' biodb::warn0('Index is ', 10, '.')
+#' tryCatch(biodb::warn0('Index is ', 10, '.'), warning=function(w){w$message})
 #'
 #' @export
 warn0 <- function(...) {
@@ -290,7 +291,7 @@ warn0 <- function(...) {
 #'
 #' @examples
 #' # Throws an error:
-#' biodb::error('Index is %d.', 10)
+#' tryCatch(biodb::error('Index is %d.', 10), error=function(e){e$message})
 #'
 #' @export
 error <- function(...) {
@@ -307,7 +308,7 @@ error <- function(...) {
 #'
 #' @examples
 #' # Throws an error:
-#' biodb::error0('Index is ', 10, '.')
+#' tryCatch(biodb::error0('Index is ', 10, '.'), error=function(e){e$message})
 #'
 #' @export
 error0 <- function(...) {
