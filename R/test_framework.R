@@ -52,15 +52,14 @@ notifyProgress=function(what, index, total) {
 #' for tests.
 #'
 #' @param text The text to print as test context.
-#' @param biodb A valid Biodb instance or NULL.
 #' @return No value returned.
 #'
 #' @examples
-#' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
-#'
 #' # Define a context before running tests:
-#' testContext("Test my database connector.", biodb)
+#' biodb::testContext("Test my database connector.")
+#'
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Terminate the instance
 #' biodb$terminate()
@@ -93,14 +92,15 @@ testContext <- function(text) {
 #' @param fct The function to test.
 #' @param biodb A valid Biodb instance to be passed to the test function.
 #' @param conn A connector instance to be passed to the test function.
+#' @param opt A set of options to pass to the test function.
 #' @return No value returned.
 #'
 #' @examples
-#' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
-#'
 #' # Define a context before running tests:
-#' biodb::setTestContext(biodb, "Test my database connector.")
+#' biodb::testContext("Test my database connector.")
+#'
+#' # Instantiate a Biodb instance for testing
+#' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Define a test function
 #' my_test_function <- function(biodb) {
@@ -113,7 +113,7 @@ testContext <- function(text) {
 #' # Terminate the instance
 #' biodb$terminate()
 #' @export
-testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
+testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 
     # Get biodb instance
     if ( ! is.null(biodb) && ! methods::is(biodb, 'Biodb'))
@@ -172,15 +172,13 @@ testThat  <- function(msg, fct, biodb=NULL, obs=NULL, conn=NULL, opt=NULL) {
 #' Do not forget to call `terminate()` on your instance at the end of your
 #' tests.
 #'
-#' @param log The name of the log file to create. If set to NULL, no log file
-#' will be created.
 #' @param ack If set to TRUE, an instance of BiodbTestMsgAck will be attached to
 #' the Biodb instance.
 #' @return The created Biodb instance.
 #'
 #' @examples
 #' # Instantiate a Biodb instance for testing
-#' biodb <- biodb::createBiodbTestInstance(log="mylogfile.log")
+#' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Terminate the instance
 #' biodb$terminate()
