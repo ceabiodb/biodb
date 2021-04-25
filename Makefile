@@ -99,6 +99,8 @@ bioc.check: clean.vignettes $(ZIPPED_PKG)
 bioc.check.clone: clean
 	R $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
 
+check.all: bioc.check.clone check bioc.check
+
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 # Does not work anymore
@@ -193,4 +195,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all clean win test build check vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
+.PHONY: all clean win test build check bioc.check bioc.check.clone check.all vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
