@@ -18,4 +18,5 @@ before_install:
     - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
 
 script:
+    - make bioc.check.clone
     - make bioc.check
