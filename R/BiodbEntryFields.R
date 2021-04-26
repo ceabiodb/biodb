@@ -104,10 +104,13 @@ getRealName=function(name, fail=TRUE) {
     ":\n\nGets the real names (main names) of fields. If some name is not
     found neither in aliases nor in real names, an error is thrown.
     \nname: A character vector of names or aliases.
+    \nfail: Fails if name is unknown.
     \nReturned value: A character vector, the same length as `name`, with the
     real field name for each name given (i.e.: each alias is replaced with the
     real name).
     "
+    chk::chk_character(name)
+    chk::chk_flag(fail)
 
     name <- .self$formatName(name)
 
@@ -116,9 +119,14 @@ getRealName=function(name, fail=TRUE) {
         .self$checkIsDefined(name)
 
     # Get real name
-    if ( ! name %in% names(.self$.fields) &&
-        (fail || name %in% names(.self$.aliasToName)))
-        name <- .self$.aliasToName[[name]]
+    isNotRealName <-  ! name %in% names(.self$.fields) 
+    if (any(isNotRealName)) {
+        realName <- .self$.aliasToName[name[isNotRealName]]
+        if (any(is.na(realName)) && fail)
+            error("Unknown fields: %s.",
+                  paste(name[isNotRealName][is.na(realName)], collapse=', '))
+        name[isNotRealName][ ! is.na(realName)] <- realName[ ! is.na(realName)]
+    }
 
     return(name)
 },
@@ -132,11 +140,18 @@ get=function(name, drop=TRUE) {
     the list are the real names of the entry fields, thus they may be different
     from the one provided inside the name argument.
     "
+    chk::chk_character(name)
+    chk::chk_flag(drop)
 
+    biodb::logDebug('Asked field names are: %s.', paste(name, collapse=', '))
     name <- .self$getRealName(name)
+    biodb::logDebug('Realnames of fields are: %s.', paste(name, collapse=', '))
     fields <- .self$.fields[tolower(name)]
+    biodb::logDebug('%d fields were returned.', length(fields))
+    biodb::logDebug('fields variable is a %s.', class(fields))
     if (drop && length(fields) == 1)
         fields <- fields[[1]]
+    biodb::logDebug('END OF BiodbEntryFields::get()')
 
     return(fields)
 },

@@ -1,3 +1,11 @@
+test_entryFields <- function(biodb) {
+    
+    fields <- biodb$getEntryFields()$get(c('monoisotopic.mass', 'nominal.mass'))
+    testthat::expect_type(fields, 'list')
+    for (f in fields)
+        testthat::expect_s4_class(f, 'BiodbEntryField')
+}
+
 test_newAlias <- function(biodb) {
 
     efs <- biodb$getEntryFields()
@@ -61,6 +69,8 @@ biodb <- biodb::createBiodbTestInstance()
 biodb::testContext("Test BiodbEntryField.")
 
 # Run tests
+biodb::testThat("BiodbEntryFields class works fine.", test_entryFields,
+                biodb=biodb)
 biodb::testThat("We can add a new alias.", test_newAlias,
                 biodb=biodb)
 biodb::testThat("We can add new database for ComputableFrom.",
