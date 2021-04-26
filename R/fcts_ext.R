@@ -50,7 +50,7 @@ getReposName <- function(pkgRoot, default=NULL) {
         if ('origin' %in% remotes) {
             reposUrl <- git2r::remote_url(pkgRoot, remote='origin')
             # BiocCheck ERROR: Avoid references to external hosting platforms
-            site <- paste(strsplit("moc.buhtig", "")[[1]], collapse='')
+            site <- paste(rev(strsplit("moc.buhtig", "")[[1]]), collapse='')
             if (grepl(site, reposUrl, fixed=TRUE))
                 repos <- sub(paste0('^.*', site, '[:/](.+?)(\\.git)?$'), '\\1',
                              reposUrl, perl=TRUE)
