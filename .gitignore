@@ -28,3 +28,4 @@ vignettes/*.html
 vignettes/*.csv
 /doc/
 /Meta/
+check.Renviron

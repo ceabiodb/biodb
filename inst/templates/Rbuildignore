@@ -19,3 +19,4 @@
 ^tests/testthat/_snaps$
 ^tests/testthat/output$
 ^biodb_ext\.yml$
+^check.Renviron$

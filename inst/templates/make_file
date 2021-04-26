@@ -141,7 +141,7 @@ NAMESPACE: # First time creation, then roxygen2 will fill it and keep it updated
 ifdef COMPILE
 doc: install.deps NAMESPACE R/RcppExports.R
 else
-doc: install.deps
+doc: install.deps NAMESPACE
 endif
 	R $(RFLAGS) -e "devtools::document('$(CURDIR)')"
 

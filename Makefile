@@ -57,6 +57,10 @@ else
 TEST_FILE:='$(TEST_FILE)'
 endif
 
+# Check
+CHECK_RENVIRON=check.Renviron
+export R_CHECK_ENVIRON=$(CHECK_RENVIRON)
+
 # Display values of main variables
 $(info "BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY)")
 $(info "BIODB_CACHE_READ_ONLY=$(BIODB_CACHE_READ_ONLY)")
@@ -90,13 +94,13 @@ R/RcppExports.R: src/*.cpp
 coverage:
 	R $(RFLAGS) -e "covr::codecov(token='$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN)', quiet=FALSE)"
 
-check: clean.vignettes $(ZIPPED_PKG)
+check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 	R $(RFLAGS) CMD check $(ZIPPED_PKG)
 
-bioc.check: clean.vignettes $(ZIPPED_PKG)
+bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 	R $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
-bioc.check.clone: clean
+bioc.check.clone: clean.all
 	R $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
 
 check.all: bioc.check.clone check bioc.check
@@ -104,6 +108,9 @@ check.all: bioc.check.clone check bioc.check
 check.version:
 #	test "$(PKG_VERSION)" = "$(GIT_VERSION)"
 # Does not work anymore
+
+$(CHECK_RENVIRON):
+	wget https://raw.githubusercontent.com/Bioconductor/packagebuilder/master/check.Renviron
 
 test: check.version compile
 ifdef VIM
@@ -179,9 +186,12 @@ clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
 	$(RM) -r biodb.Rcheck Meta man
-	$(RM) -f .Rhistory R/.Rhistory
+	$(RM) .Rhistory R/.Rhistory
 	$(RM) -r ..Rcheck
 	$(RM) *.log
+	$(RM) $(CHECK_RENVIRON)
+
+clean.all: clean clean.cache
 
 clean.vignettes:
 	$(RM) -r doc
@@ -195,4 +205,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all clean win test build check bioc.check bioc.check.clone check.all vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
+.PHONY: all clean clean.all win test build check bioc.check bioc.check.clone check.all vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
