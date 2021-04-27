@@ -1,4 +1,4 @@
-# Travis-CI configuration file for biodb extensions packages, version 1.1.1
+# Travis-CI configuration file for biodb extensions packages, version 1.1.2
 
 language: r
 cache: packages
@@ -17,7 +17,7 @@ branches:
     - master
     
 before_install:
-  - test -f travis_deps.sh && bash travis_deps.sh
+  - bash -c '[[ -f travis_deps.sh ]] && bash travis_deps.sh'
   - R -e 'install.packages("devtools")'
   - R -e 'devtools::install_github('pkrog/biodb', dependencies=TRUE)'
   - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
