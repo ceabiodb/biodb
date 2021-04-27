@@ -14,10 +14,11 @@ test.basic.mass.csv.file <- function(db) {
 
     # Test number of entries
     expect_gt(db$getNbEntries(), 1)
-    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('smiles')])))
+    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('accession')])))
 
     # Get an entry ID
-    id <- df[df[['ms.level']] == 1, 'accession'][[1]]
+    id <- df[df[['ms.level']] == 1 & ! is.na(df[['chrom.col.id']]),
+             'accession'][[1]]
 
     # Test number of peaks
     expect_gt(db$getNbPeaks(), 1)
@@ -28,9 +29,10 @@ test.basic.mass.csv.file <- function(db) {
 
     # Test chrom cols
     expect_gt(nrow(db$getChromCol()), 1)
-    expect_gt(nrow(db$getChromCol(ids=id)), 1)
+    expect_gte(nrow(db$getChromCol(ids=id)), 1)
     expect_lte(nrow(db$getChromCol(ids=id)), nrow(db$getChromCol()))
-    expect_true(all(db$getChromCol(ids=id)[['id']] %in% db$getChromCol()[['id']]))
+    expect_true(all(db$getChromCol(ids=id)[['id']] %in%
+                    db$getChromCol()[['id']]))
 
     # Test mz values
     expect_true(is.vector(db$getMzValues()))

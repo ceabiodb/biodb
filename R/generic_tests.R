@@ -877,8 +877,10 @@ test.msmsSearch.self.match <- function(db) {
     db.name <- db$getId()
 
     # Set some initial values to speed up test
-    db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)),
-                      massbank = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
+    db.values <- list(peakforest.mass=list(neg=NULL,
+                                           pos=list(spectrum.id='3828', mz=117.1)),
+                      massbank=list(neg=list(spectrum.id='PR100504', mz=193.0354),
+                                    pos=list(spectrum.id='AU106501', mz=316.075)))
 
     # Loop on distance functions
     for (dist.fct in c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'))
@@ -906,18 +908,22 @@ test.msmsSearch.self.match <- function(db) {
 
             # Get peaks
             peaks <- spectrum.entry$getFieldValue('peaks')
-            int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
-            peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
+            int.col <- if ('peak.intensity' %in% names(peaks))
+                'peak.intensity' else 'peak.relative.intensity'
+            peaks <- peaks[order(peaks[[int.col]], decreasing=TRUE), ]
             peaks <- peaks[seq(2), ]
 
             # Run MSMS search
-            results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = mode, npmin = 2, dist.fun = dist.fct, msms.mz.tol = 3, msms.mz.tol.min = 0.005)
+            results <- db$msmsSearch(peaks, precursor=mz, mz.tol=0.1,
+                                     mz.tol.unit='plain', ms.mode=mode,
+                                     npmin=2, dist.fun=dist.fct, msms.mz.tol=3,
+                                     msms.mz.tol.min=0.005)
 
             # Check results
             testthat::expect_true( ! is.null(results))
             testthat::expect_true(is.data.frame(results))
             testthat::expect_true(nrow(results) > 0)
-            cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
+            cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep='.'))
             testthat::expect_true(all(cols %in% colnames(results)))
             testthat::expect_true(spectrum.id %in% results[['id']])
         }
@@ -1357,7 +1363,9 @@ runGenericTests <- function(conn, opt=NULL) {
         biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
         biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
 
-        biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+        # XXX Commented out because of its dependency on particular connectors
+        #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+
         biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
         biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
         biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
