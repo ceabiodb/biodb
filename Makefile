@@ -105,7 +105,7 @@ check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
 
-bioc.check.clone: clean.all
+bioc.check.clone: clean clean.cache
 	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
 
 check.all: bioc.check.clone check bioc.check
@@ -202,7 +202,9 @@ clean: clean.build clean.vignettes
 	$(RM) $(CHECK_RENVIRON)
 
 clean.all: clean clean.cache
+	@echo "Clean also what is versioned but can be rebuilt."
 	$(RM) inst/extdata/massbank_extract_full.sqlite inst/extdata/chebi_extract.sqlite
+	$(RM) man
 
 clean.vignettes:
 	$(RM) -r doc
