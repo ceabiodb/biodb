@@ -1,7 +1,7 @@
 source(file.path(getwd(), '..', 'db_creation.R'))
 
 # Set context
-biodb::testContext("CompSqlite generic tests")
+biodb::testContext("CompSqlite long generic tests")
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance()
@@ -16,7 +16,7 @@ conn <- biodb$getFactory()$createConn('comp.sqlite', url=COMP.SQLITE.URL)
 
 # Run generic tests only if DB file has been created.
 if (file.exists(COMP.SQLITE.URL))
-    biodb::runGenericTests(conn)
+    biodb::runGenericTests(conn, short=FALSE, long=TRUE)
 
 # Terminate Biodb
 biodb$terminate()

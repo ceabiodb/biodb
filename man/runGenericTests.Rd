@@ -4,7 +4,7 @@
 \alias{runGenericTests}
 \title{Run generic tests.}
 \usage{
-runGenericTests(conn, opt = NULL)
+runGenericTests(conn, opt = NULL, short = TRUE, long = FALSE)
 }
 \arguments{
 \item{conn}{A valid biodb connector.}

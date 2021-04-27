@@ -124,6 +124,9 @@ else
 	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 endif
 
+long.test: install
+	$(R) $(RFLAGS) -e "testthat::test_dir('tests/manual')"
+
 win:
 	$(R) $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
 
@@ -197,6 +200,7 @@ clean: clean.build clean.vignettes
 	$(RM) $(CHECK_RENVIRON)
 
 clean.all: clean clean.cache
+	$(RM) inst/extdata/massbank_extract_full.sqlite inst/extdata/chebi_extract.sqlite
 
 clean.vignettes:
 	$(RM) -r doc

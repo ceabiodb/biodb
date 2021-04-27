@@ -216,7 +216,8 @@ createBiodbTestInstance <- function(ack=FALSE) {
 listTestRefEntries <- function(conn.id) {
 
     # List json files
-    files <- Sys.glob(file.path(getwd(), 'res', paste('entry', conn.id, '*.json', sep = '-')))
+    files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
+                                paste('entry', conn.id, '*.json', sep = '-')))
 
     # Extract ids
     ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
@@ -233,8 +234,11 @@ loadTestRefEntry <- function(db, id) {
 	id = gsub(':', '%3a', id)
 
 	# Entry file
-	file <- file.path(getwd(), 'res', paste('entry-', db, '-', id, '.json', sep = ''))
-	testthat::expect_true(file.exists(file), info = paste0('Cannot find file "', file, '" for ', db, ' reference entry', id, '.'))
+	file <- file.path(getwd(), '..', 'testthat', 'res',
+                      paste('entry-', db, '-', id, '.json', sep=''))
+	testthat::expect_true(file.exists(file),
+                          info=paste0('Cannot find file "', file, '" for ', db,
+                                      ' reference entry', id, '.'))
 
 	# Load JSON
 	json <- jsonlite::fromJSON(file)
@@ -254,7 +258,9 @@ loadTestRefEntries <- function(db) {
 	entries.desc <- NULL
 
 	# List JSON files
-	entry.json.files <- Sys.glob(file.path(getwd(), 'res', paste('entry', db, '*.json', sep = '-')))
+	entry.json.files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
+                                           paste('entry', db, '*.json',
+                                                 sep='-')))
 
 	# Loop on all JSON files
 	for (f in entry.json.files) {

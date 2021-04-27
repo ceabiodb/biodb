@@ -608,13 +608,11 @@ test_matchingField <- function(biodb) {
                            character())
 }
 
-# MAIN
+# Set context
+biodb::testContext("MassCsvFile generic tests")
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance()
-
-# Set context
-biodb::testContext("Test Mass spectra CSV File connector.")
 
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')
@@ -623,8 +621,11 @@ conn$setUrl('base.url', MASSFILEDB.URL)
 # Make sure we have no residual cache entries from previous tests
 biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 
-# Run tests
+# Run generic tests
 biodb::runGenericTests(conn)
+
+# Run specific tests
+biodb::testContext("MassCsvFile specific tests")
 biodb::testThat('Test fields manipulation works correctly.', test.fields,
                 conn=conn)
 biodb::testThat("Mass CSV file entry construction works.",

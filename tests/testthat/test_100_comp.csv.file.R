@@ -63,11 +63,11 @@ test_unmapped_col <- function(biodb) {
     biodb$getFactory()$deleteConn(conn)
 }
 
+# Set context
+biodb::testContext("CompCsvFile generic tests")
+
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance()
-
-# Set context
-biodb::testContext("Test Compound CSV File connector.")
 
 # TODO How to test this connector with both chebi and uniprot extracts?
 # All entry-*.json are named after the connector name.
@@ -77,8 +77,11 @@ biodb::testContext("Test Compound CSV File connector.")
 # Create connector
 conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 
-# Run tests
+# Run generic tests
 biodb::runGenericTests(conn)
+
+# Run specific tests
+biodb::testContext("CompCsvFile specific tests")
 biodb::testThat('We receive a warning for unmapped columns.',
                 test_unmapped_col, biodb=biodb)
 biodb::testThat('We can define a new field even after loading an entry.',

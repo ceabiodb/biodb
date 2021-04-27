@@ -1259,6 +1259,122 @@ test.msmsSearch.no.ids <- function(db) {
     testthat::expect_true(all(c('id', 'score') %in% names(results)))
 }
 
+runGenericShortTests <- function(conn, opt=NULL) {
+
+biodb::testContext("GENERIC FIRST")
+    biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
+    biodb::testThat("One wrong entry does not block the retrieval of good ones",
+              test.wrong.entry.among.good.ones, conn=conn)
+    biodb::testThat("Entry fields have a correct value", test.entry.fields,
+                    conn=conn)
+    biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
+    biodb::testThat("RT unit is defined when there is an RT value.",
+                    test.rt.unit, conn=conn)
+    biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
+    biodb::testThat("We can get a list of entry ids.", test.entry.ids,
+                    conn=conn)
+    biodb::testThat("We can search for an entry by name.", test.searchByName,
+                    conn=conn, opt=opt)
+    biodb::testThat("We can search for an entry by searchable field",
+                    test.searchForEntries, conn=conn, opt=opt)
+    
+biodb::testContext("GENERIC REMOTE")
+    if (conn$isRemotedb()) {
+        biodb::testThat("We can get a URL pointing to the entry page.",
+                        test.entry.page.url, conn=conn)
+        biodb::testThat("We can get a URL pointing to the entry image.",
+                        test.entry.image.url, conn=conn)
+        biodb::testThat("The entry page URL can be downloaded.",
+                        test.entry.page.url.download, conn=conn)
+        biodb::testThat("The entry image URL can be downloaded.",
+                        test.entry.image.url.download, conn=conn)
+    }
+
+biodb::testContext("GENERIC EDITABLE")
+    if (conn$isEditable()) {
+        biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
+        if (conn$isWritable()) {
+            biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn=conn)
+            biodb::testThat('Database writing works.', test.db.writing, conn=conn)
+            biodb::testThat('We can write entries having new fields.', test.db.writing.with.col.add, conn=conn)
+        }
+    }
+
+biodb::testContext("GENERIC COMPOUND")
+    if (conn$isCompounddb()) {
+        biodb::testThat('searchCompound() fails if no mass field is set.',
+                        test.searchCompound.no.mass.field, conn=conn)
+        biodb::testThat('We can search for a compound', test.searchCompound,
+                        conn=conn, opt=opt)
+        biodb::testThat('annotateMzValues() works correctly.',
+                        test.annotateMzValues, conn=conn)
+        biodb::testThat('annotateMzValues() accepts a single vector.',
+                        test_annotateMzValues_input_vector, conn=conn)
+        biodb::testThat('ppm tolerance works in annotateMzValues()',
+                        test_annotateMzValues_ppm_tol, conn=conn)
+        biodb::testThat('Input data frame is not modified by annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
+    }
+
+biodb::testContext("GENERIC MASS")
+    if (conn$isMassdb()) {
+        biodb::testThat("We can retrieve a list of M/Z values.",
+                        test.getMzValues, conn=conn)
+biodb::testContext("GENERIC MASS 2")
+        biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
+biodb::testContext("GENERIC MASS 3")
+        biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
+        
+        # XXX Commented out because of its dependency on particular connectors
+        #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
+        
+biodb::testContext("GENERIC MASS 4")
+        biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
+biodb::testContext("GENERIC MASS 5")
+        biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
+biodb::testContext("GENERIC MASS 6")
+        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
+
+biodb::testContext("GENERIC MASS 7")
+        biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn=conn)
+biodb::testContext("GENERIC MASS 9")
+        biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
+biodb::testContext("GENERIC MASS 10")
+        biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
+
+        # XXX Commented out because of its dependency on particular connectors
+        #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+
+biodb::testContext("GENERIC MASS 11")
+        biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
+biodb::testContext("GENERIC MASS 12")
+        biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
+biodb::testContext("GENERIC MASS 13")
+        biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
+    }
+}
+
+runGenericLongTests <- function(conn, opt=NULL) {
+    
+    # Compound
+    if (conn$isCompounddb()) {
+        biodb::testThat('annotateMzValues() works correctly with real values.',
+                        test.annotateMzValues_real_values, conn=conn)
+        biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn=conn)
+    }
+
+    # Mass
+    if (conn$isMassdb()) {
+        biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn=conn)
+    }
+
+    # Editable
+    if (conn$isEditable()) {
+        if (conn$isWritable()) {
+            biodb::testThat('Database copy works.', test.db.copy, conn=conn)
+        }
+    }
+}
+
 #' Run generic tests.
 #'
 #' This function must be used in tests on all connector classes, before any
@@ -1285,91 +1401,20 @@ test.msmsSearch.no.ids <- function(db) {
 #' biodb$terminate()
 #'
 #' @export
-runGenericTests <- function(conn, opt=NULL) {
+runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE) {
 
-    # Check connector class
+    # Checks
+    chk::chk_flag(short)
+    chk::chk_flag(long)
     testthat::expect_is(conn, 'BiodbConn')
 
     # Delete cache entries
     conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())
-
-    biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
-    biodb::testThat("One wrong entry does not block the retrieval of good ones",
-              test.wrong.entry.among.good.ones, conn=conn)
-    biodb::testThat("Entry fields have a correct value", test.entry.fields,
-                    conn=conn)
-    biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
-    biodb::testThat("RT unit is defined when there is an RT value.",
-                    test.rt.unit, conn=conn)
-    biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
-    biodb::testThat("We can get a list of entry ids.", test.entry.ids,
-                    conn=conn)
-    biodb::testThat("We can search for an entry by name.", test.searchByName,
-                    conn=conn, opt=opt)
-    biodb::testThat("We can search for an entry by searchable field",
-                    test.searchForEntries, conn=conn, opt=opt)
-    if (conn$isRemotedb()) {
-        biodb::testThat("We can get a URL pointing to the entry page.",
-                        test.entry.page.url, conn=conn)
-        biodb::testThat("We can get a URL pointing to the entry image.",
-                        test.entry.image.url, conn=conn)
-        biodb::testThat("The entry page URL can be downloaded.",
-                        test.entry.page.url.download, conn=conn)
-        biodb::testThat("The entry image URL can be downloaded.",
-                        test.entry.image.url.download, conn=conn)
-    }
-    if (conn$isEditable()) {
-        biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
-        if (conn$isWritable()) {
-            biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn=conn)
-            biodb::testThat('Database writing works.', test.db.writing, conn=conn)
-            biodb::testThat('We can write entries having new fields.', test.db.writing.with.col.add, conn=conn)
-            biodb::testThat('Database copy works.', test.db.copy, conn=conn)
-        }
-    }
-
-    if (conn$isCompounddb()) {
-        biodb::testThat('searchCompound() fails if no mass field is set.',
-                        test.searchCompound.no.mass.field, conn=conn)
-        biodb::testThat('We can search for a compound', test.searchCompound,
-                        conn=conn, opt=opt)
-        biodb::testThat('annotateMzValues() works correctly.',
-                        test.annotateMzValues, conn=conn)
-        biodb::testThat('annotateMzValues() works correctly with real values.',
-                        test.annotateMzValues_real_values, conn=conn)
-        biodb::testThat('annotateMzValues() accepts a single vector.',
-                        test_annotateMzValues_input_vector, conn=conn)
-        biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn=conn)
-        biodb::testThat('ppm tolerance works in annotateMzValues()',
-                        test_annotateMzValues_ppm_tol, conn=conn)
-        biodb::testThat('Input data frame is not modified by annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
-    }
-
-    if (conn$isMassdb()) {
-        biodb::testThat("We can retrieve a list of M/Z values.",
-                        test.getMzValues, conn=conn)
-        biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
-        biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
-        
-        # XXX Commented out because of its dependency on particular connectors
-        #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
-        
-        biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
-        biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
-        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
-
-        biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn=conn)
-        biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn=conn)
-        biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
-        biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
-
-        # XXX Commented out because of its dependency on particular connectors
-        #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
-
-        biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
-        biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
-        biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
-    }
+    
+    if (short)
+        runGenericShortTests(conn=conn, opt=opt)
+    if (long)
+        runGenericLongTests(conn=conn, opt=opt)
 
     invisible(NULL)
 }
