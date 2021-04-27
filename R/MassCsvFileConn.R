@@ -90,23 +90,27 @@ getChromCol=function(ids=NULL) {
     # Overrides super class' method.
 
     # Extract needed columns
-    db <- .self$.select(cols='chrom.col.name', ids=ids)
+    fields <- c('chrom.col.id', 'chrom.col.name')
+    fields <- Filter(function(f) .self$hasField(f), fields)
+    
+    db <- .self$.select(cols=fields, ids=ids)
 
-    # Get column names
-    cols <- db[[.self$.fields[['chrom.col.name']]]]
-
-    # Remove NA values
-    cols <- cols[ ! is.na(cols)]
+    # Remove rows with NA values
+    cols <- na.omit(db)
 
     # Remove duplicates
-    cols <- cols[ ! duplicated(cols)]
+    cols <- cols[ ! duplicated(cols), , drop=FALSE]
 
-    # Make data frame
-    if (is.null(cols))
-        chrom.cols <- data.frame(a=character(0), b=character(0))
-    else
-        chrom.cols <- data.frame(cols, cols, stringsAsFactors=FALSE)
-    names(chrom.cols) <- c('id', 'title')
+    # Rename columns
+    if (ncol(cols) == 0) {
+        id <- ttl <- character()
+    } else {
+        id <- if ('chrom.col.id' %in% names(cols)) cols[['chrom.col.id']] else
+            cols[['chrom.col.name']]
+        ttl <- if ('chrom.col.name' %in% names(cols))
+            cols[['chrom.col.name']] else cols[['chrom.col.id']]
+    }
+    chrom.cols <- data.frame(id=id, title=ttl)
 
     return(chrom.cols)
 },

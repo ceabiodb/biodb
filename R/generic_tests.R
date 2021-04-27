@@ -1105,7 +1105,7 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 }
 
 test.getChromCol <- function(db) {
-    chrom.col <- db$getChromCol(ids = biodb::listTestRefEntries(db$getId()))
+    chrom.col <- db$getChromCol(ids=biodb::listTestRefEntries(db$getId()))
     testthat::expect_is(chrom.col, 'data.frame')
     testthat::expect_identical(names(chrom.col), c('id', 'title'))
     testthat::expect_gt(nrow(chrom.col), 0)
@@ -1115,30 +1115,36 @@ test.searchMsPeaks <- function(db) {
 
     mode <- 'neg'
     tol <- 0.1
-    mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+    mzs <- db$getMzValues(ms.mode=mode, max.results=3)
 
     # Test with empty list in input
-    testthat::expect_null(db$searchMsPeaks(NULL, mz.tol = tol, max.results = 1, ms.mode = mode))
-    testthat::expect_null(db$searchMsPeaks(integer(), mz.tol = tol, max.results = 1, ms.mode = mode))
-    testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol = tol, max.results = 1, ms.mode = mode))
+    testthat::expect_null(db$searchMsPeaks(NULL, mz.tol=tol, max.results=1,
+                                           ms.mode=mode))
+    testthat::expect_null(db$searchMsPeaks(integer(), mz.tol=tol,
+                                           max.results=1, ms.mode=mode))
+    testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol=tol,
+                                           max.results=1, ms.mode=mode))
 
     # Test with impossible M/Z value to simulate no match
     impossible.value <- 1e10
     results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
                                 ms.mode=mode, prefix='myprefix.')
     testthat::expect_is(results, 'data.frame')
-    testthat::expect_identical(results, data.frame(mz = impossible.value))
+    testthat::expect_identical(results, data.frame(mz=impossible.value))
 
     # Get only one result per M/Z value
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=1, ms.mode=mode)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true(nrow(results) >= length(mzs))
     testthat::expect_true('accession' %in% names(results))
     testthat::expect_true('peak.mz' %in% names(results))
-    testthat::expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+    fct <- function(mz) {
+        any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol))
+    }
+    testthat::expect_true(all(vapply(mzs, fct, FUN.VALUE=TRUE)))
 
     # Get 2 results per M/Z value
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=2, ms.mode=mode)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true(nrow(results) >  length(mzs))
     testthat::expect_true('accession' %in% names(results))
