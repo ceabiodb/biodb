@@ -328,7 +328,7 @@ test.entriesToDataframe.noPeaksDuplication <- function(biodb) {
 biodb <- biodb::createBiodbTestInstance()
 
 # Set context
-biodb::testContext("Test Biodb instance.")
+biodb::testContext("Test BiodbMain instance.")
 
 # Run tests
 biodb::testThat("convertEntryIdFieldToDbClass() works correctly.",

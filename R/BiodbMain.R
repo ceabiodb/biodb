@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' # Create an instance:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Get the factory instance
 #' fact <- mybiodb$getFactory()
@@ -32,9 +32,9 @@
 #' @import methods
 #' @import yaml
 #' @include BiodbObject.R
-#' @export Biodb
-#' @exportClass Biodb
-Biodb <- methods::setRefClass("Biodb",
+#' @export BiodbMain
+#' @exportClass BiodbMain
+BiodbMain <- methods::setRefClass("BiodbMain",
     contains="BiodbObject",
     fields=list(
         .factory="ANY",
@@ -72,17 +72,17 @@ initialize=function(autoloadExtraPkgs=NULL) {
     # Check locale
     .self$.checkLocale()
 
-    logDebug('Created successfully new Biodb instance.')
+    logDebug('Created successfully new BiodbMain instance.')
     logDebug('This is biodb version %s.', packageVersion('biodb'))
 },
 
 terminate=function() {
-    ":\n\nCloses \\code{Biodb} instance. Call this method when you are done with
-    your \\code{Biodb} instance.
+    ":\n\nCloses \\code{BiodbMain} instance. Call this method when you are done
+    with your \\code{BiodbMain} instance.
     \nReturned value: None.
     "
 
-    logInfo('Closing Biodb instance...')
+    logInfo('Closing BiodbMain instance...')
 
     # Terminate factory
     if ( ! is.null(.self$.factory))
@@ -95,7 +95,7 @@ terminate=function() {
 
 loadDefinitions=function(file, package='biodb') {
     ":\n\nLoads databases and entry fields definitions from YAML file.
-    \nfile: The path to a YAML file containing definitions for \\code{Biodb}
+    \nfile: The path to a YAML file containing definitions for \\code{BiodbMain}
     (databases, fields or configuration keys).
     \npackage: The package to which belong the new definitions.
     \nReturned value: None.
@@ -147,7 +147,7 @@ loadDefinitions=function(file, package='biodb') {
 getConfig=function() {
     ":\n\nReturns the single instance of the \\code{BiodbConfig} class.
     \nReturned value: The instance of the \\code{BiodbConfig} class attached to
-    this Biodb instance.
+    this BiodbMain instance.
     "
 
     if (is.null(.self$.config))
@@ -159,7 +159,7 @@ getConfig=function() {
 getPersistentCache=function() {
     ":\n\nReturns the single instance of the BiodbPersistentCache class.
     \nReturned value: The instance of the BiodbPersistentCache class attached to
-    this Biodb instance.
+    this BiodbMain instance.
     "
 
     if (is.null(.self$persistentCache))
@@ -171,7 +171,7 @@ getPersistentCache=function() {
 getDbsInfo=function() {
     ":\n\nReturns the single instance of the \\code{BiodbDbsInfo} class.
     \nReturned value: The instance of the \\code{BiodbDbsInfo} class attached to
-    this Biodb instance.
+    this BiodbMain instance.
     "
 
     if (is.null(.self$.dbsinfo))
@@ -183,7 +183,7 @@ getDbsInfo=function() {
 getEntryFields=function() {
     ":\n\nReturns the single instance of the \\code{BiodbEntryFields} class.
     \nReturned value: The instance of the \\code{BiodbEntryFields} class
-    attached to this Biodb instance.
+    attached to this BiodbMain instance.
     "
 
     if (is.null(.self$.entry.fields))
@@ -195,7 +195,7 @@ getEntryFields=function() {
 getFactory=function() {
     ":\n\nReturns the single instance of the \\code{BiodbFactory} class.
     \nReturned value: The instance of the \\code{BiodbFactory} class attached to
-    this Biodb instance.
+    this BiodbMain instance.
     "
 
     if (is.null(.self$.factory))
@@ -207,7 +207,7 @@ getFactory=function() {
 getRequestScheduler=function() {
     ":\n\nReturns the single instance of the \\code{BiodbRequestScheduler} class.
     \nReturned value: The instance of the \\code{BiodbRequestScheduler} class
-    attached to this Biodb instance.
+    attached to this BiodbMain instance.
     "
 
     if (is.null(.self$.request.scheduler))
@@ -255,7 +255,7 @@ getObservers=function() {
 
 getBiodb=function() {
     ":\n\nReturns the biodb instance, which is itself in the case of the
-    \\code{Biodb} class.
+    \\code{BiodbMain} class.
     \nReturned value: This instance.
     "
 
@@ -281,7 +281,7 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
                                 limit=0, withNa=TRUE) {
     ":\n\nExtracts the value of a field from a list of entries. Returns either a
     vector or a list depending on the type of the field.
-    \nentries: A list of \\code{Biodb} entries.
+    \nentries: A list of \\code{BiodbEntry} instances. 
     \nfield: The name of a field.
     \nflatten: If set to \\code{TRUE} and the field has a cardinality greater
     than one, then values be converted into a vector of class character in which
@@ -670,7 +670,7 @@ show=function() {
 
     # Print version
     v <- as.character(packageVersion('biodb'))
-    cat("Biodb instance, version ", v, ".\n", sep='')
+    cat("BiodbMain instance, version ", v, ".\n", sep='')
 
     # List loaded connectors
     ids <- sort(.self$getDbsInfo()$getIds())
@@ -790,7 +790,7 @@ fieldIsAtomic=function(field) {
 
 getFieldClass=function(field) {
     ":\n\nDEPRECATED method to get the class of a field. The new method is
-    \\code{Biodb::getEntryFields()$get(field)$getClass()}."
+    \\code{BiodbMain::getEntryFields()$get(field)$getClass()}."
 
     lifecycle::deprecate_warn('1.0.0', 'getFieldClass()',
                               'BiodbEntryField::getClass()')

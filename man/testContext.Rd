@@ -14,16 +14,13 @@ No value returned.
 }
 \description{
 Define a context for tests using testthat framework.
-In addition to calling \code{testthat::context()}, the function will call
-\verb{biodb::Biodb::info()} to signal the context to observers. This will allow
-to print the test context also into the test log file, if logger is used
-for tests.
+In addition to calling \code{testthat::context()}.
 }
 \examples{
 # Define a context before running tests:
 biodb::testContext("Test my database connector.")
 
-# Instantiate a Biodb instance for testing
+# Instantiate a BiodbMain instance for testing
 biodb <- biodb::createBiodbTestInstance()
 
 # Terminate the instance

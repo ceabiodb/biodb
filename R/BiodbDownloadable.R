@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Use a downloadable database
 #' \dontrun{

@@ -283,7 +283,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::BiodbMain()
 
 # Get a compound CSV file database
 chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')

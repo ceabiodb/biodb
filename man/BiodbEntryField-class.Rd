@@ -300,7 +300,7 @@ Returned value: None.
 
 \examples{
 # Get the class of the InChI field.
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::BiodbMain()
 inchi.field.class <- mybiodb$getEntryFields()$get('inchi')$getClass()
 
 # Test the cardinality of a field

@@ -6,7 +6,7 @@
 #' vignette('intro', package='biodb')
 #' ```
 #'
-#' @seealso \link{Biodb}, \link{BiodbConfig}, \link{BiodbFactory},
+#' @seealso \link{BiodbMain}, \link{BiodbConfig}, \link{BiodbFactory},
 #' \link{BiodbPersistentCache}, \link{BiodbDbsInfo}, \link{BiodbEntryFields}.
 #'
 #' @import withr

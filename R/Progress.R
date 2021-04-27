@@ -17,14 +17,14 @@ Progress <- R6::R6Class('Progress'
              
 #' @description
 #' Constructor.
-#' @param biodb A Biodb instance that will be used to notify observers of
+#' @param biodb A BiodbMain instance that will be used to notify observers of
 #' progress.
 #' @param msg The message to display to the user.
 #' @param total The total number of elements to process.             
 #' @return A new instance.
 initialize=function(biodb=NULL, msg, total){
     if ( ! is.null(biodb))
-        chk::chk_is(biodb, "Biodb")
+        chk::chk_is(biodb, "BiodbMain")
     chk::chk_string(msg)
     chk::chk_whole_number(total)
     chk::chk_gte(total, 0)

@@ -9,7 +9,7 @@
 This class is responsible for storing configuration. You must go through the
 single instance of this class to create and set and get configuration values.
 To get the single instance of this class, call the \code{getConfig()} method
-of class \code{Biodb}.
+of class \code{BiodbMain}.
 }
 \section{Methods}{
 
@@ -147,7 +147,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::BiodbMain()
 
 # Get the config instance:
 config <- mybiodb$getConfig()
@@ -172,5 +172,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}.
+\code{\link{BiodbMain}}.
 }

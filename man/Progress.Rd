@@ -30,7 +30,7 @@ Constructor.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{biodb}}{A Biodb instance that will be used to notify observers of
+\item{\code{biodb}}{A BiodbMain instance that will be used to notify observers of
 progress.}
 
 \item{\code{msg}}{The message to display to the user.}

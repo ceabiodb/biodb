@@ -10,11 +10,11 @@
 #' database has one single cache ID, always the same ,except if you change its
 #' URL). In each of theses folders are stored the cache files for this database.
 #'
-#' @seealso \code{\link{Biodb}}.
+#' @seealso \code{\link{BiodbMain}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Get a compound CSV file database
 #' chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')

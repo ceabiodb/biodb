@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Get a BiodbDbInfo object for a database:
 #' mybiodb$getDbsInfo()$get('comp.csv.file')

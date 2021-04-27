@@ -8,7 +8,8 @@
 #' Its main purpose is to store property values. Those values are initialized
 #' from YAML files. The default definition file is located inside the package
 #' in "inst/definitions.yml" and is loaded at Biodb startup. However you can
-#' define your own files and loaded them using the \code{Biodb::()} method.
+#' define your own files and load them using the
+#' \code{BiodbMain::loadDefinitions()} method.
 #'
 #' Arguments to the contructor are:
 #'
@@ -24,7 +25,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Accessing BiodbConnBase methods when using a BiodbDbInfo object
 #' dbinf <- mybiodb$getDbsInfo()$get('comp.csv.file')

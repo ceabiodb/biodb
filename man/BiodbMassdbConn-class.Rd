@@ -384,7 +384,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::BiodbMain()
 
 # Get connector
 conn <- mybiodb$getFactory()$createConn('mass.csv.file')

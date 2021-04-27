@@ -1,13 +1,13 @@
 #' A class for handling description of all entry fields.
 #'
-#' The unique instance of this class is handle by the \code{\link{Biodb}} class
-#' and accessed through the \code{getEntryFields()} method.
+#' The unique instance of this class is handle by the \code{\link{BiodbMain}}
+#' class and accessed through the \code{getEntryFields()} method.
 #'
-#' @seealso \code{\link{Biodb}} and child class \code{\link{BiodbEntryField}}.
+#' @seealso \code{\link{BiodbMain}} and child class \code{\link{BiodbEntryField}}.
 #'
 #' @examples
 #' # Getting information about the accession field:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #' entry.field <- mybiodb$getEntryFields()$get('accession')
 #'
 #' # Test if a name is an alias of a field
@@ -20,7 +20,7 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include Biodb.R
+#' @include BiodbMain.R
 #' @include BiodbChildObject.R
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields

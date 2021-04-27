@@ -14,7 +14,7 @@ see the "intro" vignette.\preformatted{vignette('intro', package='biodb')
 }
 }
 \seealso{
-\link{Biodb}, \link{BiodbConfig}, \link{BiodbFactory},
+\link{BiodbMain}, \link{BiodbConfig}, \link{BiodbFactory},
 \link{BiodbPersistentCache}, \link{BiodbDbsInfo}, \link{BiodbEntryFields}.
 }
 \author{

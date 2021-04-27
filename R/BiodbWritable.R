@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::BiodbMain()
 #'
 #' # Create an empty MASS SQLite database
 #' mydb <- mybiodb$getFactory()$createConn('mass.sqlite')

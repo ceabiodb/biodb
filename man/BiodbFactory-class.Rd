@@ -10,7 +10,7 @@ This class is responsible for the creation of database connectors and
 database entries. You must go through the single instance of this class to
 create and get connectors, as well as instantiate entries. To get the single
 instance of this class, call the \code{getFactory()} method of class
-\code{Biodb}.
+\code{BiodbMain}.
 }
 \section{Methods}{
 
@@ -172,8 +172,8 @@ Returned value: A list of BiodbEntry objects, the same length as `id`. A
 }}
 
 \examples{
-# Create a Biodb instance with default settings:
-mybiodb <- biodb::Biodb()
+# Create a BiodbMain instance with default settings:
+mybiodb <- biodb::BiodbMain()
 
 # Obtain the factory instance:
 factory <- mybiodb$getFactory()
@@ -192,6 +192,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}}, \code{\link{BiodbConn}} and
+\code{\link{BiodbMain}}, \code{\link{BiodbConn}} and
 \code{\link{BiodbEntry}}.
 }

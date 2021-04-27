@@ -73,7 +73,7 @@ and how to define a **new entry field**.
 
 First we instantiate the package:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::BiodbMain$new()
 ```
 
 ## Defining a new parsing of a field
