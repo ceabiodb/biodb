@@ -9,3 +9,6 @@ Changes in version 0.99.1 (2021-04-26)
 
 Changes in version 0.99.2 (2021-04-27)
 + Switch to MassBank extract for testing MassCsvFile and MassSqlite connectors.
+
+Changes in version 0.99.3 (2021-04-27)
++ Added "biodb" as watched tag on my profile on support site https://support.bioconductor.org/.
