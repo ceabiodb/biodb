@@ -37,7 +37,7 @@ Returned value: Returns TRUE if the database is searchable using the specified f
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Get a connector that inherits from SqliteConn:
 chebi_file <- system.file("extdata", "chebi_extract.sqlite", package="biodb")

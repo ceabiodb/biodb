@@ -85,10 +85,10 @@ for a more more information of *biodb* with other packages.
 # Initialization
 
 The first step in using *biodb*, is to create an instance of the
-main class `Biodb`. This is done by calling the constructor of
+main class `BiodbMain`. This is done by calling the constructor of
 the class:
 ```{r, results='hide'}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 During this step the configuration is set up, the cache system is initialized
 and extension packages are loaded.

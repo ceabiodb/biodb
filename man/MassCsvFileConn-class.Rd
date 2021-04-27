@@ -72,7 +72,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Get path to LCMS database example file
 lcmsdb <- system.file("extdata",

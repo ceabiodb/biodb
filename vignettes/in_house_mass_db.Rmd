@@ -21,9 +21,9 @@ bibliography: references.bib
 
 To load an in-house LCMS database, we are going to use the `mass.csv.file` database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
 
-We first create an instance of the `Biodb` class:
+We first create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 
 # Building an MS database from a data frame

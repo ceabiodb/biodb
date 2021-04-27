@@ -49,9 +49,9 @@ convCasToChebi()    | Converts a list of CAS IDs into a list of ChEBI IDs.
 searchCompound()    | Searches for entries by mass and/or by name.
 : (\#tab:biodbChebiCapabilities) Capabilities of the *biodbChebi* extension package.
 
-To start we create an instance of the `Biodb` class:
+To start we create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 
 We will now implement the connector class and its entry class and define the

@@ -11,7 +11,7 @@ testThat(msg, fct, biodb = NULL, conn = NULL, opt = NULL)
 
 \item{fct}{The function to test.}
 
-\item{biodb}{A valid Biodb instance to be passed to the test function.}
+\item{biodb}{A valid BiodbMain instance to be passed to the test function.}
 
 \item{conn}{A connector instance to be passed to the test function.}
 
@@ -22,16 +22,13 @@ No value returned.
 }
 \description{
 Run a test function, using testthat framework.
-In addition to calling \code{testthat::test_that()}, the function will call
-\verb{biodb::Biodb::info()} to signal the test function call to observers.
-This will allow to print the call to the test function also into the test log
-file, if logger is used for tests.
+In addition to calling \code{testthat::test_that()}.
 }
 \examples{
 # Define a context before running tests:
 biodb::testContext("Test my database connector.")
 
-# Instantiate a Biodb instance for testing
+# Instantiate a BiodbMain instance for testing
 biodb <- biodb::createBiodbTestInstance()
 
 # Define a test function

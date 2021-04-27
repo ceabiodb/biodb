@@ -29,7 +29,8 @@ Returned value: None.
 \item{\code{terminate()}}{:
 
 Terminates the instance. This method will be called
-    automatically by the Biodb instance when you call Biodb::terminate().
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
     
 Returned value: None.
     }
@@ -44,7 +45,7 @@ MyObsClass <- methods::setRefClass("MyObsClass", contains='BiodbObserver',
 ))
 
 # Create an instance and register an instance of the new observer class:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 mybiodb$addObservers(MyObsClass$new())
 
 # Terminate instance.

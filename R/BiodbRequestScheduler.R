@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get the scheduler
 #' sched <- mybiodb$getRequestScheduler()

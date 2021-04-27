@@ -3,13 +3,13 @@
 #' This class is responsible for storing configuration. You must go through the
 #' single instance of this class to create and set and get configuration values.
 #' To get the single instance of this class, call the \code{getConfig()} method
-#' of class \code{Biodb}.
+#' of class \code{BiodbMain}.
 #'
-#' @seealso \code{\link{Biodb}}.
+#' @seealso \code{\link{BiodbMain}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get the config instance:
 #' config <- mybiodb$getConfig()

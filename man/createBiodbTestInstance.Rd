@@ -2,19 +2,19 @@
 % Please edit documentation in R/test_framework.R
 \name{createBiodbTestInstance}
 \alias{createBiodbTestInstance}
-\title{Creating a Biodb instance for tests.}
+\title{Creating a BiodbMain instance for tests.}
 \usage{
 createBiodbTestInstance(ack = FALSE)
 }
 \arguments{
 \item{ack}{If set to TRUE, an instance of BiodbTestMsgAck will be attached to
-the Biodb instance.}
+the BiodbMain instance.}
 }
 \value{
-The created Biodb instance.
+The created BiodbMain instance.
 }
 \description{
-Creates a Biodb instance with options specially adapted for tests.
+Creates a BiodbMain instance with options specially adapted for tests.
 You can request the logging of all messages into a log file.
 It is also possible to ask for the creation of a BiodbTestMsgAck observer,
 which will receive all messages and emit a testthat test for each message.
@@ -24,7 +24,7 @@ Do not forget to call \code{terminate()} on your instance at the end of your
 tests.
 }
 \examples{
-# Instantiate a Biodb instance for testing
+# Instantiate a BiodbMain instance for testing
 biodb <- biodb::createBiodbTestInstance()
 
 # Terminate the instance

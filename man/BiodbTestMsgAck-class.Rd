@@ -32,7 +32,7 @@ Returned value: None.
 # instance:
 biodb <- createBiodbTestInstance(ack=TRUE)
 
-# Terminate the Biodb instance
+# Terminate the BiodbMain instance
 biodb$terminate()
 
 }

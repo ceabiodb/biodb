@@ -33,7 +33,7 @@ In this vignette we will merge entries from three different databases into a sin
 
 First we instantiate the package:
 ```{r}
-mybiodb <- biodb::Biodb$new()
+mybiodb <- biodb::BiodbMain$new()
 ```
 
 # Building a database from other databases

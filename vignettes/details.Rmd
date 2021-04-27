@@ -170,7 +170,7 @@ Having dependencies on other languages (=! C/C++) Not good for distribution
 
 # Object oriented programming model
 
-As you will see shortly in the next chapter, we use a call to a constructor to obtain an instance of the class `Biodb`. This means that *biodb* uses an object oriented programming (or OOP) model.
+As you will see shortly in the next chapter, we use a call to a constructor to obtain an instance of the class `BiodbMain`. This means that *biodb* uses an object oriented programming (or OOP) model.
 
 In R, you certainly already know the two classical OOP models *S3* and *S4*. *S4* is certainly the most used model, and is based on an original system of generic methods that can be specialized for each class.
 
@@ -194,7 +194,7 @@ for more details.
 *biodb* uses an initialization/termination scheme. You must first initialize
 library by creating an instance:
 ```{r}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 And when you are done with the library, you have to terminate the instance
 explicitly:
@@ -205,7 +205,7 @@ mybiodb$terminate()
 We will need a *biodb* instance for the rest of this vignette. Let us call the
 constructor again:
 ```{r}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 
 ## Connector and entry classes
@@ -248,15 +248,15 @@ Massbank or Lipidmaps.  You may also write your own connector by extending
 *biodb*. If you are interested, a vignette explains what you need to do in
 details.
 
-When creating the instance of the `Biodb` class you should have received a
+When creating the instance of the `BiodbMain` class you should have received a
 message like "Loading definitions from package ..." if any extending package
 has also been installed on your system. Connector definitions found in
-extending packages are automatically loaded when instantiating `Biodb`, thus
+extending packages are automatically loaded when instantiating `BiodbMain`, thus
 you do not need to call `library()` to individually load each extending
 package.
 
 To get a list of available connectors, simply print information about your
-`Biodb` instance:
+`BiodbMain` instance:
 ```
 mybiodb
 ```
@@ -306,7 +306,7 @@ entry$getFieldsAsDataframe()
 
 Several class instances are attached to the *biodb* instance for managing different aspects of *biodb*: creating connectors, configuring *biodb*, accessing the cache system, etc.
 
-To the Biodb instance are attached several singleton class instances. Each
+To the BiodbMain instance are attached several singleton class instances. Each
 of them gives access to a different set of *biodb* features:
 * `BiodbFactory` is responsible for creating the database connectors.
 * `BiodbConfig` gives access to configuration values.
@@ -382,12 +382,12 @@ mybiodb$getConfig()$set('msg.caution.lvl', 0)
 mybiodb$getConfig()$set('msg.info.lvl', 0)
 ```
 
-Stop information messages of the Biodb instance:
+Stop information messages of the BiodbMain instance:
 ```{r}
 cfg$set('msg.info.lvl', 0)
 ```
 
-Increase verbosity level of the Biodb instance:
+Increase verbosity level of the BiodbMain instance:
 ```{r}
 cfg$set('msg.info.lvl', 2)
 cfg$set('msg.debug.lvl', 2)

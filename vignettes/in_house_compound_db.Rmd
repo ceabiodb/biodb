@@ -29,9 +29,9 @@ In order to facilitate the loading of the file, you should use the **tabulation*
 
 Once the connection to the file is defined, you can use the connector to your in-house file as any other compound database connector.
 
-To start we create an instance of the `Biodb` class:
+To start we create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 ```
 
 # Creating a connector

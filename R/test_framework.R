@@ -9,7 +9,7 @@
 #' # instance:
 #' biodb <- createBiodbTestInstance(ack=TRUE)
 #'
-#' # Terminate the Biodb instance
+#' # Terminate the BiodbMain instance
 #' biodb$terminate()
 #'
 #' @import methods
@@ -46,10 +46,7 @@ notifyProgress=function(what, index, total) {
 #' Set a test context.
 #'
 #' Define a context for tests using testthat framework.
-#' In addition to calling `testthat::context()`, the function will call
-#' `biodb::Biodb::info()` to signal the context to observers. This will allow
-#' to print the test context also into the test log file, if logger is used
-#' for tests.
+#' In addition to calling `testthat::context()`.
 #'
 #' @param text The text to print as test context.
 #' @return No value returned.
@@ -58,7 +55,7 @@ notifyProgress=function(what, index, total) {
 #' # Define a context before running tests:
 #' biodb::testContext("Test my database connector.")
 #'
-#' # Instantiate a Biodb instance for testing
+#' # Instantiate a BiodbMain instance for testing
 #' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Terminate the instance
@@ -83,14 +80,11 @@ testContext <- function(text) {
 #' Run a test.
 #'
 #' Run a test function, using testthat framework.
-#' In addition to calling `testthat::test_that()`, the function will call
-#' `biodb::Biodb::info()` to signal the test function call to observers.
-#' This will allow to print the call to the test function also into the test log
-#' file, if logger is used for tests.
+#' In addition to calling `testthat::test_that()`.
 #'
 #' @param msg The test message.
 #' @param fct The function to test.
-#' @param biodb A valid Biodb instance to be passed to the test function.
+#' @param biodb A valid BiodbMain instance to be passed to the test function.
 #' @param conn A connector instance to be passed to the test function.
 #' @param opt A set of options to pass to the test function.
 #' @return No value returned.
@@ -99,7 +93,7 @@ testContext <- function(text) {
 #' # Define a context before running tests:
 #' biodb::testContext("Test my database connector.")
 #'
-#' # Instantiate a Biodb instance for testing
+#' # Instantiate a BiodbMain instance for testing
 #' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Define a test function
@@ -116,8 +110,8 @@ testContext <- function(text) {
 testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 
     # Get biodb instance
-    if ( ! is.null(biodb) && ! methods::is(biodb, 'Biodb'))
-        stop("`biodb` parameter must be a rightful biodb::Biodb instance.")
+    if ( ! is.null(biodb) && ! methods::is(biodb, 'BiodbMain'))
+        stop("`biodb` parameter must be a rightful biodb::BiodbMain instance.")
     if ( ! is.null(conn) && ! methods::is(conn, 'BiodbConn'))
         stop("`conn` parameter must be a rightful biodb::BiodbConn instance.")
     bdb <- if (is.null(conn)) biodb else conn$getBiodb()
@@ -161,9 +155,9 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
     invisible(NULL)
 }
 
-#' Creating a Biodb instance for tests.
+#' Creating a BiodbMain instance for tests.
 #'
-#' Creates a Biodb instance with options specially adapted for tests.
+#' Creates a BiodbMain instance with options specially adapted for tests.
 #' You can request the logging of all messages into a log file.
 #' It is also possible to ask for the creation of a BiodbTestMsgAck observer,
 #' which will receive all messages and emit a testthat test for each message.
@@ -173,11 +167,11 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 #' tests.
 #'
 #' @param ack If set to TRUE, an instance of BiodbTestMsgAck will be attached to
-#' the Biodb instance.
-#' @return The created Biodb instance.
+#' the BiodbMain instance.
+#' @return The created BiodbMain instance.
 #'
 #' @examples
-#' # Instantiate a Biodb instance for testing
+#' # Instantiate a BiodbMain instance for testing
 #' biodb <- biodb::createBiodbTestInstance()
 #'
 #' # Terminate the instance
@@ -187,7 +181,7 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 createBiodbTestInstance <- function(ack=FALSE) {
 
     # Create instance
-    biodb <- Biodb$new(autoloadExtraPkgs=FALSE)
+    biodb <- BiodbMain$new(autoloadExtraPkgs=FALSE)
 
     # Add acknowledger
     if (ack) {

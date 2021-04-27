@@ -6,8 +6,8 @@
 \alias{BiodbEntryFields}
 \title{A class for handling description of all entry fields.}
 \description{
-The unique instance of this class is handle by the \code{\link{Biodb}} class
-and accessed through the \code{getEntryFields()} method.
+The unique instance of this class is handle by the \code{\link{BiodbMain}}
+class and accessed through the \code{getEntryFields()} method.
 }
 \section{Methods}{
 
@@ -117,7 +117,7 @@ Returned value: A logical vector, the same length as `name`, with TRUE
 
 \examples{
 # Getting information about the accession field:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 entry.field <- mybiodb$getEntryFields()$get('accession')
 
 # Test if a name is an alias of a field
@@ -131,5 +131,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-\code{\link{Biodb}} and child class \code{\link{BiodbEntryField}}.
+\code{\link{BiodbMain}} and child class \code{\link{BiodbEntryField}}.
 }

@@ -47,7 +47,7 @@ Returned value: TRUE if the downloaded database content has been
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Use a downloadable database
 \dontrun{

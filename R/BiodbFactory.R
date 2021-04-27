@@ -4,14 +4,14 @@
 #' database entries. You must go through the single instance of this class to
 #' create and get connectors, as well as instantiate entries. To get the single
 #' instance of this class, call the \code{getFactory()} method of class
-#' \code{Biodb}.
+#' \code{BiodbMain}.
 #'
-#' @seealso \code{\link{Biodb}}, \code{\link{BiodbConn}} and
+#' @seealso \code{\link{BiodbMain}}, \code{\link{BiodbConn}} and
 #' \code{\link{BiodbEntry}}.
 #'
 #' @examples
-#' # Create a Biodb instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' # Create a BiodbMain instance with default settings:
+#' mybiodb <- biodb::newInst()
 #'
 #' # Obtain the factory instance:
 #' factory <- mybiodb$getFactory()

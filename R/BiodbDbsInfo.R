@@ -1,13 +1,13 @@
 #' A class for describing the available databases.
 #'
-#' The unique instance of this class is handle by the \code{\link{Biodb}} class
-#' and accessed through the \code{getDbsInfo()} method.
+#' The unique instance of this class is handle by the \code{\link{BiodbMain}}
+#' class and accessed through the \code{getDbsInfo()} method.
 #'
-#' @seealso \code{\link{Biodb}} and child class \code{\link{BiodbDbInfo}}.
+#' @seealso \code{\link{BiodbMain}} and child class \code{\link{BiodbDbInfo}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Getting the entry content type of a database:
 #' db.inf <- mybiodb$getDbsInfo()$get('comp.csv.file')

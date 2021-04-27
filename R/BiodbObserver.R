@@ -13,7 +13,7 @@
 #' ))
 #'
 #' # Create an instance and register an instance of the new observer class:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #' mybiodb$addObservers(MyObsClass$new())
 #'
 #' # Terminate instance.
@@ -33,7 +33,8 @@ initialize=function() {
 
 terminate=function() {
     ":\n\nTerminates the instance. This method will be called
-    automatically by the Biodb instance when you call Biodb::terminate().
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
     \nReturned value: None.
     "
 
@@ -49,8 +50,8 @@ show=function() {
 },
 
 newObserver=function(obs) {
-    ":\n\nCalled by Biodb when a new observer is registered.
-    \nobs: The observer newly registered by the Biodb instance.
+    ":\n\nCalled by BiodbMain when a new observer is registered.
+    \nobs: The observer newly registered by the BiodbMain instance.
     \nReturned valued: none.
     "
 },

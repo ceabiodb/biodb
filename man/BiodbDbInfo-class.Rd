@@ -13,7 +13,7 @@ This class inherits from \code{\link{BiodbConnBase}}.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::Biodb()
+mybiodb <- biodb::newInst()
 
 # Get a BiodbDbInfo object for a database:
 mybiodb$getDbsInfo()$get('comp.csv.file')
