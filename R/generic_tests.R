@@ -1261,7 +1261,6 @@ test.msmsSearch.no.ids <- function(db) {
 
 runGenericShortTests <- function(conn, opt=NULL) {
 
-biodb::testContext("GENERIC FIRST")
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
               test.wrong.entry.among.good.ones, conn=conn)
@@ -1278,7 +1277,6 @@ biodb::testContext("GENERIC FIRST")
     biodb::testThat("We can search for an entry by searchable field",
                     test.searchForEntries, conn=conn, opt=opt)
     
-biodb::testContext("GENERIC REMOTE")
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.",
                         test.entry.page.url, conn=conn)
@@ -1290,7 +1288,6 @@ biodb::testContext("GENERIC REMOTE")
                         test.entry.image.url.download, conn=conn)
     }
 
-biodb::testContext("GENERIC EDITABLE")
     if (conn$isEditable()) {
         biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
         if (conn$isWritable()) {
@@ -1300,7 +1297,6 @@ biodb::testContext("GENERIC EDITABLE")
         }
     }
 
-biodb::testContext("GENERIC COMPOUND")
     if (conn$isCompounddb()) {
         biodb::testThat('searchCompound() fails if no mass field is set.',
                         test.searchCompound.no.mass.field, conn=conn)
@@ -1315,40 +1311,27 @@ biodb::testContext("GENERIC COMPOUND")
         biodb::testThat('Input data frame is not modified by annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
     }
 
-biodb::testContext("GENERIC MASS")
     if (conn$isMassdb()) {
         biodb::testThat("We can retrieve a list of M/Z values.",
                         test.getMzValues, conn=conn)
-biodb::testContext("GENERIC MASS 2")
         biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
-biodb::testContext("GENERIC MASS 3")
         biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
         
         # XXX Commented out because of its dependency on particular connectors
         #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
         
-biodb::testContext("GENERIC MASS 4")
         biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
-biodb::testContext("GENERIC MASS 5")
         biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
-biodb::testContext("GENERIC MASS 6")
-        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
 
-biodb::testContext("GENERIC MASS 7")
         biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn=conn)
-biodb::testContext("GENERIC MASS 9")
         biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
-biodb::testContext("GENERIC MASS 10")
         biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
 
         # XXX Commented out because of its dependency on particular connectors
         #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
 
-biodb::testContext("GENERIC MASS 11")
         biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
-biodb::testContext("GENERIC MASS 12")
         biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
-biodb::testContext("GENERIC MASS 13")
         biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
     }
 }
@@ -1365,6 +1348,7 @@ runGenericLongTests <- function(conn, opt=NULL) {
     # Mass
     if (conn$isMassdb()) {
         biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn=conn)
+        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
     }
 
     # Editable

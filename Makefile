@@ -125,7 +125,9 @@ else
 endif
 
 long.test: install
-	$(R) $(RFLAGS) -e "testthat::test_dir('tests/manual')"
+	$(R) $(RFLAGS) -e "testthat::test_dir('tests/long')"
+
+test.all: test long.test
 
 win:
 	$(R) $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
