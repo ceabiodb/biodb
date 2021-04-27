@@ -54,7 +54,7 @@ Returned value: TRUE if writing is allowed for this database, FALSE
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Create an empty MASS SQLite database
 mydb <- mybiodb$getFactory()$createConn('mass.sqlite')

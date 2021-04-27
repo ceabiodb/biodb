@@ -5,7 +5,7 @@
 #' @seealso \code{\link{BiodbMain}}.
 #'
 #' @param ... The parameters to pass to the BiodbMain constructor. See
-#' \link{\code{BiodbMain}}.
+#' \code{\link{BiodbMain}}.
 #' @return A new BiodbMain instance.
 #' @examples
 #' # Create a new BiodbMain instance:

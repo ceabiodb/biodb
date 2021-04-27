@@ -155,7 +155,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Get a connector that inherits from CsvFileConn:
 chebi_file <- system.file("extdata", "chebi_extract.tsv", package="biodb")

@@ -216,7 +216,7 @@ Returned value: None.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Accessing BiodbConnBase methods when using a BiodbDbInfo object
 dbinf <- mybiodb$getDbsInfo()$get('comp.csv.file')

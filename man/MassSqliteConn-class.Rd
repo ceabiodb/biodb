@@ -25,7 +25,7 @@ Returned value : A data.frame with two columns, one for the ID 'id' and
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Get path to LCMS database example file
 lcmsdb <- system.file("extdata", "massbank_extract.sqlite", package="biodb")

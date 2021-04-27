@@ -11,7 +11,7 @@ This is the connector class for a Compound CSV file database.
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Get a connector:
 chebi_file <- system.file("extdata", "chebi_extract.tsv", package="biodb")

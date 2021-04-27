@@ -173,7 +173,7 @@ Returned value: A list of BiodbEntry objects, the same length as `id`. A
 
 \examples{
 # Create a BiodbMain instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Obtain the factory instance:
 factory <- mybiodb$getFactory()

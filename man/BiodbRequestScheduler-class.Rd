@@ -79,7 +79,7 @@ Returned value: The results returned by the contacted server, as a single
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Get the scheduler
 sched <- mybiodb$getRequestScheduler()

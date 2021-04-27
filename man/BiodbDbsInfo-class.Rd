@@ -76,7 +76,7 @@ Returned value: TRUE if the specified id corresponds to a defined
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Getting the entry content type of a database:
 db.inf <- mybiodb$getDbsInfo()$get('comp.csv.file')

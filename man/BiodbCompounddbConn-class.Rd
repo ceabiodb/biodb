@@ -106,7 +106,7 @@ Returned value: A character vector of entry IDs.}
 
 \examples{
 # Create an instance with default settings:
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 
 # Get a compound CSV file database
 chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
