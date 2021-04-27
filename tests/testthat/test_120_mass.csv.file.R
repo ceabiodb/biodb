@@ -51,16 +51,11 @@ test.mass.csv.file.output.columns <- function(db) {
                         header=TRUE, quote='"', stringsAsFactors=FALSE,
                         row.names=NULL)
 
-    # Get M/Z value
-    mz <- db$getMzValues(max.results=1, ms.level=1)
-    testthat::expect_equal(length(mz), 1)
-
-    # Run a match
-    spectra.ids <- db$searchMzTol(mz, ms.level=1, mz.tol=5, mz.tol.unit='ppm')
-
-    # Get data frame of results
-    entries <- biodb$getFactory()$getEntry(db$getId(), spectra.ids)
+    # Get all entries
+    entries <- db$getEntry(db$getEntryIds())
     testthat::expect_gte(length(entries), 1)
+
+    # Get data frame
     entries.df <- biodb$entriesToDataframe(entries, only.atomic=FALSE)
     testthat::expect_gte(nrow(entries.df), 1)
     testthat::expect_gte(ncol(entries.df), 5)
