@@ -487,7 +487,7 @@ defineParsingExpressions=function() {
     db <- .self$.doSelect(db, ...)
 
     # Get subset of columns
-    if ( ! is.null(cols) && ! is.na(cols)) {
+    if ( ! is.null(cols)) {
         .self$.checkFields(cols)
         db <- db[, .self$.fields[cols], drop=FALSE]
     }

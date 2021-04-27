@@ -148,9 +148,6 @@ test.undefined.fields <- function(biodb) {
     testthat::expect_error(conn$getEntryIds(),
         regexp='^.*Field.* accession is/are undefined in file database\\.$')
 
-    testthat::expect_error(conn$getChromCol(),
-        regexp='^.*Field.* is/are undefined in file database\\.$')
-
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
