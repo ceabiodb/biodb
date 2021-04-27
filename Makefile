@@ -124,10 +124,10 @@ else
 	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 endif
 
-long.test: install
+test.long: install
 	$(R) $(RFLAGS) -e "testthat::test_dir('tests/long')"
 
-test.all: test long.test
+test.all: test test.long
 
 win:
 	$(R) $(RFLAGS) -e "devtools::check_win_devel('$(CURDIR)')"
@@ -195,7 +195,7 @@ uninstall:
 clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
 	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
-	$(RM) -r biodb.Rcheck Meta man
+	$(RM) -r biodb.Rcheck Meta
 	$(RM) .Rhistory R/.Rhistory
 	$(RM) -r ..Rcheck
 	$(RM) *.log
@@ -204,7 +204,7 @@ clean: clean.build clean.vignettes
 clean.all: clean clean.cache
 	@echo "Clean also what is versioned but can be rebuilt."
 	$(RM) inst/extdata/massbank_extract_full.sqlite inst/extdata/chebi_extract.sqlite
-	$(RM) man
+	$(RM) -r man
 
 clean.vignettes:
 	$(RM) -r doc

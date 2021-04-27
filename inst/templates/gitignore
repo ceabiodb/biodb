@@ -18,3 +18,4 @@ tests/testthat/output
 vignettes/*.md
 vignettes/*.R
 vignettes/*.html
+check.Renviron

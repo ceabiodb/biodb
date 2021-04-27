@@ -87,6 +87,7 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         private$createGenerator(ExtMakefile)$upgrade(generate=generate)
     private$createGenerator(ExtRbuildignore)$upgrade(generate=generate)
     private$createGenerator(ExtGitignore)$upgrade(generate=generate)
+    private$createGenerator(ExtTravisFile)$upgrade(generate=generate)
 
     # Non-upgradable files
     if (generate) {
@@ -101,7 +102,6 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         private$createGenerator(ExtPackageFile)$generate(fail=FALSE)
         if (private$tags$rcpp)
             private$createGenerator(ExtCpp)$generate(fail=FALSE)
-        private$createGenerator(ExtTravisFile)$generate(fail=FALSE)
         private$createGenerator(ExtTests)$generate(fail=FALSE)
         private$createGenerator(ExtVignette)$generate(fail=FALSE)
     }

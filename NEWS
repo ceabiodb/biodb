@@ -25,3 +25,7 @@ Changes in version 0.99.6 (2021-04-27)
 Changes in version 0.99.7 (2021-04-27)
 + Renamed Biodb class into BiodbMain in order to avoid "Rd warning: Previous alias or file overwritten by alias: biodb" on Windows platform.
 + Implement newInst() global function for creating new BiodbMain instance.
+
+Changes in version 0.99.8 (2021-04-27)
++ Correct template travis.yml for extensions: missing deps install, run all checks.
++ Improve template Makefile for extensions.
