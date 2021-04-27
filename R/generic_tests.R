@@ -1366,6 +1366,8 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #'
 #' @param conn A valid biodb connector.
 #' @param opt A set of options to pass to the test functions.
+#' @param short Run short tests.
+#' @param long Run long tests.
 #' @return Nothing.
 #'
 #' @examples
