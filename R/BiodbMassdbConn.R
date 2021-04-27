@@ -506,7 +506,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
                                           (check.param$use.rt.match)
                                           0 else max.results,
                                           ms.level=ms.level)
-        logTrace('Found spectra %s', ids)
+        logTrace('Found spectra %s', lst2str(ids))
 
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {

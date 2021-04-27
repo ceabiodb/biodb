@@ -1,0 +1,22 @@
+{
+  "accession": "KNA00776",
+  "smiles": "C1=NC2=C(N1[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O)O)N=C(NC2=O)N",
+  "monoisotopic.mass": 283.091669,
+  "ms.mode": "neg",
+  "peak.mztheo": [282.083871, 150.041965, 133.015586],
+  "peak.relative.intensity": [100.0, 56.0, 5.0],
+  "chrom.col.id": "TOSOH TSKgel ODS-100V  5um Part no. 21456",
+  "chrom.rt": 329.85108,
+  "formula": "C10H13N5O5",
+  "name": "Guanosine",
+  "inchi": "InChI=1S/C10H13N5O5/c11-10-13-7-4(8(19)14-10)12-2-15(7)9-6(18)5(17)3(1-16)20-9/h2-3,5-6,9,16-18H,1H2,(H3,11,13,14,19)/t3-,5-,6-,9-/m1/s1",
+  "inchikey": "",
+  "cas.id": "118-00-3",
+  "chebi.id": "16750",
+  "kegg.compound.id": "C00387",
+  "ms.level": 1,
+  "chrom.rt.unit": "s",
+  "peak.mz": [282.083871, 150.041965, 133.015586],
+  "chrom.col.name": "TOSOH TSKgel ODS-100V  5um Part no. 21456",
+  "mass.csv.file.id": "KNA00776"
+}

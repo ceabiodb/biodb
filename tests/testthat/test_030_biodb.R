@@ -1,8 +1,3 @@
-# vi: fdm=marker
-
-# Test convertEntryIdFieldToDbClass() {{{1
-################################################################
-
 test.convertEntryIdFieldToDbClass <- function(biodb) {
 
 	# Check all databases
@@ -13,9 +8,6 @@ test.convertEntryIdFieldToDbClass <- function(biodb) {
 	testthat::expect_null(biodb$convertEntryIdFieldToDbClass('chebi'))
 	testthat::expect_null(biodb$convertEntryIdFieldToDbClass('blabla.id'))
 }
-
-# Test collapseRows() {{{1
-################################################################
 
 test.collapseRows <- function(biodb) {
 
@@ -33,9 +25,6 @@ test.collapseRows <- function(biodb) {
 	# Test with NA values
 	testthat::expect_identical(data.frame(a=c(1,NA,NA,2),b=c('5',NA,6,'5|7'), stringsAsFactors=FALSE), biodb$collapseRows(data.frame(a=c(1,NA,NA,2,2),b=c(5,NA,6,5,7))))
 }
-
-# Test entriesToDataframe() {{{1
-################################################################
 
 test.entriesToDataframe <- function(biodb) {
 
@@ -78,9 +67,6 @@ test.entriesToDataframe <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test list of list input in entriesToDataframe() {{{1
-################################################################
-
 test.entriesToDataframe.listOfListInput <- function(biodb) {
 
     # Create database
@@ -118,9 +104,6 @@ test.entriesToDataframe.listOfListInput <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test entryIdsToDataframe() {{{1
-################################################################
-
 test.entryIdsToDataframe <- function(biodb) {
 
     # Create database
@@ -155,9 +138,6 @@ test.entryIdsToDataframe <- function(biodb) {
     # Delete connector
     biodb$getFactory()$deleteConn(conn$getId())
 }
-
-# Test list of list input in entryIdsToDataframe() {{{1
-################################################################
 
 test.entryIdsToDataframe.listOfListInput <- function(biodb) {
 
@@ -197,9 +177,6 @@ test.entryIdsToDataframe.listOfListInput <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test addColsToDataframe() {{{1
-################################################################
-
 test.addColsToDataframe <- function(biodb) {
 
     # Create database
@@ -234,9 +211,6 @@ test.addColsToDataframe <- function(biodb) {
     # Delete connector
     biodb$getFactory()$deleteConn(conn$getId())
 }
-
-# Test entriesToSingleFieldValues() {{{1
-################################################################################
 
 test.entriesToSingleFieldValues <- function(biodb) {
 
@@ -275,9 +249,6 @@ test.entriesToSingleFieldValues <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Test entryIdsToSingleFieldValues() {{{1
-################################################################################
-
 test.entryIdsToSingleFieldValues <- function(biodb) {
 
     # Create database
@@ -315,10 +286,6 @@ test.entryIdsToSingleFieldValues <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-
-# Test entriesFieldToVctOrLst() {{{1
-################################################################################
-
 test.entriesFieldToVctOrLst <- function(biodb) {
 
     # Create database
@@ -345,8 +312,17 @@ test.entriesFieldToVctOrLst <- function(biodb) {
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
-# Main {{{1
-################################################################################
+test.entriesToDataframe.noPeaksDuplication <- function(biodb) {
+    fileUrl <- system.file("extdata", "massbank_extract_full.tsv",
+                           package="biodb")
+    conn <- biodb$getFactory()$createConn('mass.csv.file', url=fileUrl)
+    testthat::expect_s4_class(conn, 'MassCsvFileConn')
+    entries <- conn$getEntry(c('AU200952', 'AU200953'))
+    x <- biodb$entriesToDataframe(entries, only.atomic=FALSE, compute=TRUE,
+                                  flatten=FALSE, limit=0)
+    testthat::expect_false(any(duplicated(x[, c('accession', 'peak.mztheo')])))
+    biodb$getFactory()$deleteConn(conn)
+}
 
 # Instantiate Biodb
 biodb <- biodb::createBiodbTestInstance()
@@ -355,16 +331,28 @@ biodb <- biodb::createBiodbTestInstance()
 biodb::testContext("Test Biodb instance.")
 
 # Run tests
-biodb::testThat("convertEntryIdFieldToDbClass() works correctly.", test.convertEntryIdFieldToDbClass, biodb = biodb)
-biodb::testThat('collapseRows() works correctly.', test.collapseRows, biodb = biodb)
-biodb::testThat("entriesToDataframe() works correctly.", test.entriesToDataframe, biodb = biodb)
-biodb::testThat("entriesToDataframe() handles list of list in input.", test.entriesToDataframe.listOfListInput, biodb = biodb)
-biodb::testThat("entryIdsToDataframe() works correctly.", test.entryIdsToDataframe, biodb = biodb)
-biodb::testThat("entryIdsToDataframe() handles list of list in input.", test.entryIdsToDataframe.listOfListInput, biodb = biodb)
-biodb::testThat("addColsToDataframe() works correctly.", test.addColsToDataframe, biodb = biodb)
-biodb::testThat("entriesToSingleFieldValues() works correctly.", test.entriesToSingleFieldValues, biodb = biodb)
-biodb::testThat("entryIdsToSingleFieldValues() works correctly.", test.entryIdsToSingleFieldValues, biodb = biodb)
-biodb::testThat("entriesFieldToVctOrLst() works correctly.", test.entriesFieldToVctOrLst, biodb = biodb)
+biodb::testThat("convertEntryIdFieldToDbClass() works correctly.",
+                test.convertEntryIdFieldToDbClass, biodb=biodb)
+biodb::testThat('collapseRows() works correctly.', test.collapseRows,
+                biodb=biodb)
+biodb::testThat("entriesToDataframe() works correctly.",
+                test.entriesToDataframe, biodb=biodb)
+biodb::testThat("entriesToDataframe() handles list of list in input.",
+                test.entriesToDataframe.listOfListInput, biodb=biodb)
+biodb::testThat("entriesToDataframe() does not duplicate peaks.",
+                test.entriesToDataframe.noPeaksDuplication, biodb=biodb)
+biodb::testThat("entryIdsToDataframe() works correctly.",
+                test.entryIdsToDataframe, biodb=biodb)
+biodb::testThat("entryIdsToDataframe() handles list of list in input.",
+                test.entryIdsToDataframe.listOfListInput, biodb=biodb)
+biodb::testThat("addColsToDataframe() works correctly.",
+                test.addColsToDataframe, biodb=biodb)
+biodb::testThat("entriesToSingleFieldValues() works correctly.",
+                test.entriesToSingleFieldValues, biodb=biodb)
+biodb::testThat("entryIdsToSingleFieldValues() works correctly.",
+                test.entryIdsToSingleFieldValues, biodb=biodb)
+biodb::testThat("entriesFieldToVctOrLst() works correctly.",
+                test.entriesFieldToVctOrLst, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

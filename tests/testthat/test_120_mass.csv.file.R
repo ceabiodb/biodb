@@ -1,6 +1,9 @@
-MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
-MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_header.tsv')
-MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_nb_cols.tsv')
+MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
+                              package="biodb")
+MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res',
+                                         'mass.csv.file-wrong_header.tsv')
+MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res',
+                                          'mass.csv.file-wrong_nb_cols.tsv')
 
 test.basic.mass.csv.file <- function(db) {
 
@@ -11,10 +14,7 @@ test.basic.mass.csv.file <- function(db) {
 
     # Test number of entries
     expect_gt(db$getNbEntries(), 1)
-    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id',
-                                                           'ms.mode',
-                                                           'chrom.col.name',
-                                                           'chrom.rt')])))
+    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('smiles')])))
 
     # Get an entry ID
     id <- df[df[['ms.level']] == 1, 'accession'][[1]]
@@ -625,8 +625,7 @@ biodb::testContext("Test Mass spectra CSV File connector.")
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')
 conn$setUrl('base.url', MASSFILEDB.URL)
-conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
-                             'chrom.rt'))
+
 # Make sure we have no residual cache entries from previous tests
 biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 

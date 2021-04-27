@@ -249,7 +249,7 @@ removeField=function(field) {
 },
 
 getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
-                       withNa=TRUE) {
+                       withNa=TRUE, duplicatedValues=TRUE) {
     ":\n\nGets the value of the specified field.
     \nfield: The name of a field.
     \ncompute: If set to TRUE and a field is not defined, try to compute it
@@ -319,6 +319,10 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
     # Limit
     if (limit > 0 && ! is.null(val) && length(val) > limit)
         val <- val[seq(limit)]
+
+    # Remove duplicated values
+    if ( ! duplicatedValues)
+        val <- val[ ! duplicated(val)]
 
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
@@ -404,7 +408,8 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     # Process single fields
     singlesDf <- .self$.fieldsToDataframe(groups$singles,
                                           duplicate.rows=duplicate.rows,
-                                          flatten=flatten, limit=limit)
+                                          flatten=flatten, limit=limit,
+                                          duplicatedValues=FALSE)
 
     # Merge all data frames
     outdf <- .self$.mergeDataframes(c(list(singlesDf), groupsDf),
@@ -755,11 +760,13 @@ fieldHasBasicClass=function(field) {
     return(fields)
 },
 
-.fieldsToDataframe=function(fields, duplicate.rows, flatten, limit) {
+.fieldsToDataframe=function(fields, duplicate.rows, flatten, limit,
+                            duplicatedValues=TRUE) {
 
     # Transform values in data frames
     toDf <- function(f) {
-        v <- .self$getFieldValue(f, flatten=flatten, limit=limit)
+        v <- .self$getFieldValue(f, flatten=flatten, limit=limit,
+                                 duplicatedValues=duplicatedValues)
 
         # Transform vector into data frame
         if (is.vector(v)) {
