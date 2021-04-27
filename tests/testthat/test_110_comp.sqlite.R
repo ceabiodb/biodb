@@ -1,4 +1,4 @@
-source(file.path(getwd(), '..', 'db_creation.R'))
+source(file.path(getwd(), 'db_creation.R'))
 
 # Set context
 biodb::testContext("CompSqlite generic tests")
