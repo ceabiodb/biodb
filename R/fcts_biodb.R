@@ -1,3 +1,23 @@
+#' Create a new BiodbMain instance.
+#'
+#' Instantiates a new BiodbMain object by calling the constructor.
+#'
+#' @seealso \code{\link{BiodbMain}}.
+#'
+#' @param ... The parameters to pass to the BiodbMain constructor. See
+#' \link{\code{BiodbMain}}.
+#' @return A new BiodbMain instance.
+#' @examples
+#' # Create a new BiodbMain instance:
+#' mybiodb <- biodb::newInst()
+#'
+#' # Terminate the instance:
+#' mybiodb$terminate()
+#' @export
+newInst <- function(...) {
+    return(BiodbMain$new(...))
+}
+
 #' Get connector class name.
 #'
 #' Gets the name of the connector class corresponding to a connector.

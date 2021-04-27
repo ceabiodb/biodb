@@ -23,7 +23,7 @@ To load an in-house LCMS database, we are going to use the `mass.csv.file` datab
 
 We first create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 ```
 
 # Building an MS database from a data frame

@@ -51,7 +51,7 @@ searchCompound()    | Searches for entries by mass and/or by name.
 
 To start we create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 ```
 
 We will now implement the connector class and its entry class and define the

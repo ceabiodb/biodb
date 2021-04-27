@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' # Create an instance:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get the factory instance
 #' fact <- mybiodb$getFactory()

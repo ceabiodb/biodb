@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get connector
 #' conn <- mybiodb$getFactory()$createConn('mass.csv.file')

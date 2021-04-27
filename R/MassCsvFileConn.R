@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get path to LCMS database example file
 #' lcmsdb <- system.file("extdata",

@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Create a request object
 #' u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'

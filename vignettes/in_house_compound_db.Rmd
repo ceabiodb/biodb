@@ -31,7 +31,7 @@ Once the connection to the file is defined, you can use the connector to your in
 
 To start we create an instance of the `BiodbMain` class:
 ```{r}
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 ```
 
 # Creating a connector

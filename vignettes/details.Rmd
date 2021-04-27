@@ -194,7 +194,7 @@ for more details.
 *biodb* uses an initialization/termination scheme. You must first initialize
 library by creating an instance:
 ```{r}
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 ```
 And when you are done with the library, you have to terminate the instance
 explicitly:
@@ -205,7 +205,7 @@ mybiodb$terminate()
 We will need a *biodb* instance for the rest of this vignette. Let us call the
 constructor again:
 ```{r}
-mybiodb <- biodb::BiodbMain()
+mybiodb <- biodb::newInst()
 ```
 
 ## Connector and entry classes

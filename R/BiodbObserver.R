@@ -13,7 +13,7 @@
 #' ))
 #'
 #' # Create an instance and register an instance of the new observer class:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #' mybiodb$addObservers(MyObsClass$new())
 #'
 #' # Terminate instance.

@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' # Create a BiodbMain instance with default settings:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Obtain the factory instance:
 #' factory <- mybiodb$getFactory()

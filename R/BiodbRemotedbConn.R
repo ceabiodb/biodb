@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Define ChEBI connector example
 #' defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")

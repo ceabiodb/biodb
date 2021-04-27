@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Getting information about the accession field:
-#' mybiodb <- biodb::BiodbMain()
+#' mybiodb <- biodb::newInst()
 #' entry.field <- mybiodb$getEntryFields()$get('accession')
 #'
 #' # Test if a name is an alias of a field
