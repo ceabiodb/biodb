@@ -1,6 +1,9 @@
-MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
-MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_header.tsv')
-MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res', 'mass.csv.file-wrong_nb_cols.tsv')
+MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
+                              package="biodb")
+MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res',
+                                         'mass.csv.file-wrong_header.tsv')
+MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res',
+                                          'mass.csv.file-wrong_nb_cols.tsv')
 
 test.basic.mass.csv.file <- function(db) {
 
@@ -11,13 +14,11 @@ test.basic.mass.csv.file <- function(db) {
 
     # Test number of entries
     expect_gt(db$getNbEntries(), 1)
-    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('compound.id',
-                                                           'ms.mode',
-                                                           'chrom.col.name',
-                                                           'chrom.rt')])))
+    expect_equal(db$getNbEntries(), sum( ! duplicated(df[c('accession')])))
 
     # Get an entry ID
-    id <- df[df[['ms.level']] == 1, 'accession'][[1]]
+    id <- df[df[['ms.level']] == 1 & ! is.na(df[['chrom.col.id']]),
+             'accession'][[1]]
 
     # Test number of peaks
     expect_gt(db$getNbPeaks(), 1)
@@ -28,9 +29,10 @@ test.basic.mass.csv.file <- function(db) {
 
     # Test chrom cols
     expect_gt(nrow(db$getChromCol()), 1)
-    expect_gt(nrow(db$getChromCol(ids=id)), 1)
+    expect_gte(nrow(db$getChromCol(ids=id)), 1)
     expect_lte(nrow(db$getChromCol(ids=id)), nrow(db$getChromCol()))
-    expect_true(all(db$getChromCol(ids=id)[['id']] %in% db$getChromCol()[['id']]))
+    expect_true(all(db$getChromCol(ids=id)[['id']] %in%
+                    db$getChromCol()[['id']]))
 
     # Test mz values
     expect_true(is.vector(db$getMzValues()))
@@ -49,16 +51,11 @@ test.mass.csv.file.output.columns <- function(db) {
                         header=TRUE, quote='"', stringsAsFactors=FALSE,
                         row.names=NULL)
 
-    # Get M/Z value
-    mz <- db$getMzValues(max.results=1, ms.level=1)
-    testthat::expect_equal(length(mz), 1)
-
-    # Run a match
-    spectra.ids <- db$searchMzTol(mz, ms.level=1, mz.tol=5, mz.tol.unit='ppm')
-
-    # Get data frame of results
-    entries <- biodb$getFactory()$getEntry(db$getId(), spectra.ids)
+    # Get all entries
+    entries <- db$getEntry(db$getEntryIds())
     testthat::expect_gte(length(entries), 1)
+
+    # Get data frame
     entries.df <- biodb$entriesToDataframe(entries, only.atomic=FALSE)
     testthat::expect_gte(nrow(entries.df), 1)
     testthat::expect_gte(ncol(entries.df), 5)
@@ -150,9 +147,6 @@ test.undefined.fields <- function(biodb) {
 
     testthat::expect_error(conn$getEntryIds(),
         regexp='^.*Field.* accession is/are undefined in file database\\.$')
-
-    testthat::expect_error(conn$getChromCol(),
-        regexp='^.*Field.* is/are undefined in file database\\.$')
 
     biodb$getFactory()$deleteConn(conn$getId())
 }
@@ -625,8 +619,7 @@ biodb::testContext("Test Mass spectra CSV File connector.")
 # Create connector
 conn <- biodb$getFactory()$createConn('mass.csv.file')
 conn$setUrl('base.url', MASSFILEDB.URL)
-conn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
-                             'chrom.rt'))
+
 # Make sure we have no residual cache entries from previous tests
 biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 

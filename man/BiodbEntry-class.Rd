@@ -159,7 +159,8 @@ Returned value: A character vector containing the field names.}
   flatten = FALSE,
   last = FALSE,
   limit = 0,
-  withNa = TRUE
+  withNa = TRUE,
+  duplicatedValues = TRUE
 )}}{:
 
 Gets the value of the specified field.

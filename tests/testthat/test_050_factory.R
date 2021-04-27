@@ -1,4 +1,5 @@
-MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
+MASSFILEDB.URL <- system.file("extdata", "massbank_extract_lcms_1.tsv",
+                              package="biodb")
 
 test.connectorAlreadyExistsMassCsvFile <- function(biodb) {
 

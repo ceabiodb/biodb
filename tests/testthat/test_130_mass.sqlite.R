@@ -1,5 +1,6 @@
 MASS.SQLITE.URL <- file.path(getwd(), 'output', 'massSqliteDbFromCsvFile.sqlite')
-MASSFILEDB.URL <- file.path(getwd(), 'res', 'mass.csv.file.tsv')
+MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
+                              package="biodb")
 
 test_createSQLiteDbFromCsvFile <- function(biodb) {
 
@@ -7,8 +8,6 @@ test_createSQLiteDbFromCsvFile <- function(biodb) {
 	csvConn <- biodb$getFactory()$createConn('mass.csv.file',
                                              url=MASSFILEDB.URL,
                                              fail.if.exists=FALSE)
-    csvConn$setField('accession', c('compound.id', 'ms.mode', 'chrom.col.name',
-                                    'chrom.rt'))
     testthat::expect_false(file.exists(MASS.SQLITE.URL))
     sqlConn <- biodb$getFactory()$createConn('mass.sqlite', url=MASS.SQLITE.URL)
     testthat::expect_identical(character(), sqlConn$getEntryIds())

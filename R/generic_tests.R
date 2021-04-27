@@ -877,8 +877,10 @@ test.msmsSearch.self.match <- function(db) {
     db.name <- db$getId()
 
     # Set some initial values to speed up test
-    db.values <- list(peakforest.mass = list(neg = NULL, pos = list(spectrum.id = '3828', mz = 117.1)),
-                      massbank = list(neg = list(spectrum.id = 'PR100504', mz = 193.0354), pos = list(spectrum.id = 'AU106501', mz = 316.075)))
+    db.values <- list(peakforest.mass=list(neg=NULL,
+                                           pos=list(spectrum.id='3828', mz=117.1)),
+                      massbank=list(neg=list(spectrum.id='PR100504', mz=193.0354),
+                                    pos=list(spectrum.id='AU106501', mz=316.075)))
 
     # Loop on distance functions
     for (dist.fct in c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'))
@@ -906,18 +908,22 @@ test.msmsSearch.self.match <- function(db) {
 
             # Get peaks
             peaks <- spectrum.entry$getFieldValue('peaks')
-            int.col <- if ('peak.intensity' %in% names(peaks)) 'peak.intensity' else 'peak.relative.intensity'
-            peaks <- peaks[order(peaks[[int.col]], decreasing = TRUE), ]
+            int.col <- if ('peak.intensity' %in% names(peaks))
+                'peak.intensity' else 'peak.relative.intensity'
+            peaks <- peaks[order(peaks[[int.col]], decreasing=TRUE), ]
             peaks <- peaks[seq(2), ]
 
             # Run MSMS search
-            results <- db$msmsSearch(peaks, precursor = mz, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = mode, npmin = 2, dist.fun = dist.fct, msms.mz.tol = 3, msms.mz.tol.min = 0.005)
+            results <- db$msmsSearch(peaks, precursor=mz, mz.tol=0.1,
+                                     mz.tol.unit='plain', ms.mode=mode,
+                                     npmin=2, dist.fun=dist.fct, msms.mz.tol=3,
+                                     msms.mz.tol.min=0.005)
 
             # Check results
             testthat::expect_true( ! is.null(results))
             testthat::expect_true(is.data.frame(results))
             testthat::expect_true(nrow(results) > 0)
-            cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep = '.'))
+            cols <- c('id', 'score', paste('peak', seq(nrow(peaks)), sep='.'))
             testthat::expect_true(all(cols %in% colnames(results)))
             testthat::expect_true(spectrum.id %in% results[['id']])
         }
@@ -1044,8 +1050,8 @@ test.searchMzTol.with.precursor <- function(db) {
     db.name <- db$getId()
 
     # Set some initial values to speed up test
-    db.values <- list(massbank = list('1' = list(mz = 313.3), '2' = list(mz = 285.0208)),
-                      peakforest.mass = list('2' = list(mz = 117.1)))
+    db.values <- list(massbank=list('1'=list(mz=313.3), '2'=list(mz=285.0208)),
+                      peakforest.mass=list('2'=list(mz=117.1)))
 
     tol.ppm <- 5
 
@@ -1053,16 +1059,19 @@ test.searchMzTol.with.precursor <- function(db) {
     for (ms.level in c(1, 2)) {
 
         # Get an M/Z value of a precursor
-        if (db.name %in% names(db.values) && as.character(ms.level) %in% names(db.values[[db.name]]))
+        if (db.name %in% names(db.values) &&
+            as.character(ms.level) %in% names(db.values[[db.name]]))
             mz <- db.values[[db.name]][[as.character(ms.level)]]$mz
         else
-            mz <- db$getMzValues(precursor = TRUE, max.results = 1, ms.level = ms.level)
+            mz <- db$getMzValues(precursor=TRUE, max.results=1,
+                                 ms.level=ms.level)
         testthat::expect_false(is.null(mz))
         testthat::expect_length(mz, 1)
         testthat::expect_false(is.na(mz))
 
         # Search for it
-        spectra.ids <- db$searchMzTol(mz = mz, mz.tol = tol.ppm, mz.tol.unit = 'ppm', precursor = TRUE, ms.level = ms.level)
+        spectra.ids <- db$searchMzTol(mz=mz, mz.tol=tol.ppm, mz.tol.unit='ppm',
+                                      precursor=TRUE, ms.level=ms.level)
         testthat::expect_gte(length(spectra.ids), 1)
         testthat::expect_false(any(is.na(spectra.ids)))
 
@@ -1080,7 +1089,8 @@ test.searchMzTol.with.precursor <- function(db) {
 
             # Check that precursor peak was matched
             testthat::expect_true(entry$hasField('msprecmz'))
-            testthat::expect_true(any(abs(entry$getFieldValue('msprecmz') - mz) < mz * tol.ppm * 1e-6))
+            testthat::expect_true(any(abs(entry$getFieldValue('msprecmz') - mz)
+                                      < mz * tol.ppm * 1e-6))
         }
     }
 }
@@ -1095,12 +1105,13 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
     ms.mode <- 'pos'
 
     # Search
-    ids <- db$searchMzTol(mz = mz, mz.tol = mz.tol, mz.tol.unit = mz.tol.unit, ms.level = ms.level, ms.mode = ms.mode, precursor = TRUE)
+    ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+                          ms.level=ms.level, ms.mode=ms.mode, precursor=TRUE)
     testthat::expect_is(ids, 'character')
 }
 
 test.getChromCol <- function(db) {
-    chrom.col <- db$getChromCol(ids = biodb::listTestRefEntries(db$getId()))
+    chrom.col <- db$getChromCol(ids=biodb::listTestRefEntries(db$getId()))
     testthat::expect_is(chrom.col, 'data.frame')
     testthat::expect_identical(names(chrom.col), c('id', 'title'))
     testthat::expect_gt(nrow(chrom.col), 0)
@@ -1110,30 +1121,36 @@ test.searchMsPeaks <- function(db) {
 
     mode <- 'neg'
     tol <- 0.1
-    mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+    mzs <- db$getMzValues(ms.mode=mode, max.results=3)
 
     # Test with empty list in input
-    testthat::expect_null(db$searchMsPeaks(NULL, mz.tol = tol, max.results = 1, ms.mode = mode))
-    testthat::expect_null(db$searchMsPeaks(integer(), mz.tol = tol, max.results = 1, ms.mode = mode))
-    testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol = tol, max.results = 1, ms.mode = mode))
+    testthat::expect_null(db$searchMsPeaks(NULL, mz.tol=tol, max.results=1,
+                                           ms.mode=mode))
+    testthat::expect_null(db$searchMsPeaks(integer(), mz.tol=tol,
+                                           max.results=1, ms.mode=mode))
+    testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol=tol,
+                                           max.results=1, ms.mode=mode))
 
     # Test with impossible M/Z value to simulate no match
     impossible.value <- 1e10
     results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
                                 ms.mode=mode, prefix='myprefix.')
     testthat::expect_is(results, 'data.frame')
-    testthat::expect_identical(results, data.frame(mz = impossible.value))
+    testthat::expect_identical(results, data.frame(mz=impossible.value))
 
     # Get only one result per M/Z value
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 1, ms.mode = mode)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=1, ms.mode=mode)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true(nrow(results) >= length(mzs))
     testthat::expect_true('accession' %in% names(results))
     testthat::expect_true('peak.mz' %in% names(results))
-    testthat::expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+    fct <- function(mz) {
+        any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol))
+    }
+    testthat::expect_true(all(vapply(mzs, fct, FUN.VALUE=TRUE)))
 
     # Get 2 results per M/Z value
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=2, ms.mode=mode)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true(nrow(results) >  length(mzs))
     testthat::expect_true('accession' %in% names(results))
@@ -1333,7 +1350,10 @@ runGenericTests <- function(conn, opt=NULL) {
                         test.getMzValues, conn=conn)
         biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
         biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
-        biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
+        
+        # XXX Commented out because of its dependency on particular connectors
+        #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
+        
         biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
         biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
         biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
@@ -1343,7 +1363,9 @@ runGenericTests <- function(conn, opt=NULL) {
         biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
         biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
 
-        biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+        # XXX Commented out because of its dependency on particular connectors
+        #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+
         biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
         biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
         biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)

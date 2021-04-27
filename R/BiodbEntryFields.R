@@ -143,15 +143,15 @@ get=function(name, drop=TRUE) {
     chk::chk_character(name)
     chk::chk_flag(drop)
 
-    biodb::logDebug('Asked field names are: %s.', paste(name, collapse=', '))
+    biodb::logTrace('Asked field names are: %s.', paste(name, collapse=', '))
     name <- .self$getRealName(name)
-    biodb::logDebug('Realnames of fields are: %s.', paste(name, collapse=', '))
+    biodb::logTrace('Realnames of fields are: %s.', paste(name, collapse=', '))
     fields <- .self$.fields[tolower(name)]
-    biodb::logDebug('%d fields were returned.', length(fields))
-    biodb::logDebug('fields variable is a %s.', class(fields))
+    biodb::logTrace('%d fields were returned.', length(fields))
+    biodb::logTrace('fields variable is a %s.', class(fields))
     if (drop && length(fields) == 1)
         fields <- fields[[1]]
-    biodb::logDebug('END OF BiodbEntryFields::get()')
+    biodb::logTrace('END OF BiodbEntryFields::get()')
 
     return(fields)
 },
