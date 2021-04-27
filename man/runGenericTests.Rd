@@ -10,6 +10,10 @@ runGenericTests(conn, opt = NULL, short = TRUE, long = FALSE)
 \item{conn}{A valid biodb connector.}
 
 \item{opt}{A set of options to pass to the test functions.}
+
+\item{short}{Run short tests.}
+
+\item{long}{Run long tests.}
 }
 \value{
 Nothing.
