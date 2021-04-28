@@ -20,7 +20,7 @@ test_wsFind <- function(conn) {
 biodb::testContext("Example tests")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='test_200_example.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 defFile <- system.file("definitions.yml", package='{{pkgName}}')

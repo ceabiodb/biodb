@@ -40,11 +40,12 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
                             folder='tests', filename='testthat.R'
                             )$generate(overwrite=overwrite, fail=fail)
 
-    # Generate R test files if no generic tests file exists
+    # Generate R test files if no init logging file exists
     testthatFolder <- c('tests', 'testthat')
     testthatPath <- getFolderFromVect(c(private$path, testthatFolder))
     if (dir.exists(testthatPath)
-        && length(Sys.glob(file.path(testthatPath, '/*generic*.R'))) == 0) {
+        && length(Sys.glob(file.path(testthatPath, '/*init_logging*.R'))) == 0)
+    {
         private$createGenerator(ExtFileGenerator,
                                 template='test_001_init_logging.R',
                                 folder=testthatFolder,
