@@ -39,7 +39,8 @@ Suggests:
     devtools,
     knitr,
     rmarkdown,
-    covr
+    covr,
+    lgr
 # $$$ IF RCPP $$$
 LinkingTo:
     Rcpp,
