@@ -2,7 +2,7 @@
 biodb::testContext("Generic tests")
 
 # Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance(log='test_100_generic.log', ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Load package definitions
 defFile <- system.file("definitions.yml", package='{{pkgName}}')
