@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.0.2
+# Makefile for biodb extensions packages, version 1.1.2
 # vi: ft=make
 
 # $$$SECTION NEWPKG$$$
@@ -85,6 +85,10 @@ else
 TEST_FILE:='$(TEST_FILE)'
 endif
 
+# Check
+CHECK_RENVIRON=check.Renviron
+export R_CHECK_ENVIRON=$(CHECK_RENVIRON)
+
 # Display values of main variables
 $(info PKG_NAME=$(PKG_NAME))
 $(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
@@ -113,12 +117,21 @@ coverage:
 	$(R) $(RFLAGS) -e "covr::codecov(token='$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN)', quiet=FALSE)"
 
 # Plain check
-check: $(ZIPPED_PKG)
-	$(R) $(RFLAGS) CMD check $<
+check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
+	$(R) $(RFLAGS) CMD check $(ZIPPED_PKG)
 
 # Bioconductor check
-bioc.check: $(ZIPPED_PKG)
+bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))'
+
+# Bioconductor check Git clone
+bioc.check.clone: clean clean.cache
+	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
+
+check.all: bioc.check.clone check bioc.check
+
+$(CHECK_RENVIRON):
+	wget https://raw.githubusercontent.com/Bioconductor/packagebuilder/master/check.Renviron
 
 # Run testthat tests
 test: $(COMPILE)
@@ -127,6 +140,11 @@ ifdef VIM
 else
 	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 endif
+
+test.long: install
+	if test -d tests/long ; then $(R) $(RFLAGS) -e "testthat::test_dir('tests/long')" ; fi
+
+test.all: test test.long
 
 # Launch Windows tests on server
 win:
@@ -181,7 +199,13 @@ endif
 	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
 	$(RM) -r $(PKG_NAME).Rcheck
 	$(RM) -r Meta
+	$(RM) *.log
 	$(RM) $(PKG_NAME)_*.tar.gz
+	$(RM) $(CHECK_RENVIRON)
+
+clean.all: clean clean.cache
+	@echo "Clean also what is versioned but can be rebuilt."
+	$(RM) -r man
 
 # Clean vignettes
 clean.vignettes:
