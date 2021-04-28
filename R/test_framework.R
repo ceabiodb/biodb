@@ -214,10 +214,11 @@ listTestRefEntries <- function(conn.id) {
                                 paste('entry', conn.id, '*.json', sep = '-')))
 
     # Extract ids
-    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1', files, perl = TRUE)
+    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1',
+               files, perl = TRUE)
 
     # Replace encoded special characters
-    ids = gsub('%3a', ':', ids)
+    ids = vapply(ids, utils::URLdecode, FUN.VALUE='')
 
     return(ids)
 }
@@ -225,7 +226,7 @@ listTestRefEntries <- function(conn.id) {
 loadTestRefEntry <- function(db, id) {
 
 	# Replace forbidden characters
-	id = gsub(':', '%3a', id)
+	id = utils::URLencode(id, reserved=TRUE)
 
 	# Entry file
 	file <- file.path(getwd(), '..', 'testthat', 'res',

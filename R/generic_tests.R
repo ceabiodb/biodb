@@ -19,9 +19,10 @@ test.entry.fields <- function(conn) {
     biodb$computeFields(entries)
 
     # Save downloaded entries as JSON
-    json.files <- file.path(getTestOutputDir(),
-                            paste('entry-', db.name, '-', ref.ids, '.json',
-                                  sep = ''))
+    filenames <- paste('entry-', db.name, '-', ref.ids, '.json', sep = '')
+    filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
+                        reserved=TRUE)
+    json.files <- file.path(getTestOutputDir(), filenames)
     biodb$saveEntriesAsJson(entries, json.files)
 
     # Loop on all entries
