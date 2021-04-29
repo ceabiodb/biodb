@@ -14,7 +14,7 @@
 ^biodb.*_.*\.tar\.gz$
 ^biodb.*\.Rcheck$
 ^biodb.*\.check\.cache$
-^cache$
+^cache.*$
 ^codecov\.yml$
 ^tests/testthat/_snaps$
 ^tests/testthat/output$

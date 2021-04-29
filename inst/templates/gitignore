@@ -13,7 +13,7 @@ src-x64
 {{pkgName}}_*.tgz
 {{pkgName}}_*.tar.gz
 {{pkgName}}.Rcheck
-cache
+cache*
 tests/testthat/output
 vignettes/*.md
 vignettes/*.R

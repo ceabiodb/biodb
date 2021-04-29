@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.1.2
+# Makefile for biodb extensions packages, version 1.2.0
 # vi: ft=make
 
 # $$$SECTION NEWPKG$$$
@@ -41,9 +41,9 @@ $(error Missing file DESCRIPTION)
 endif
 
 # Set cache folder
-ifndef BIODB_CACHE_DIRECTORY
-export BIODB_CACHE_DIRECTORY=$(CURDIR)/cache
-endif
+CACHE=$(CURDIR)/cache
+LONG_CACHE=$(CURDIR)/cache.long
+export BIODB_CACHE_DIRECTORY=$(CACHE)
 
 # Set testthat reporter
 ifndef TESTTHAT_REPORTER
@@ -75,8 +75,6 @@ R=$(R_HOME)/bin/R
 # For R CMD SHLIB
 export PKG_CXXFLAGS=$(shell $(R) $(RFLAGS) -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
-#  warning _FORTIFY_SOURCE requires compiling with optimization (-O)
-#  XXX How to silence this warning? "-g -O0" is forced during compiling.
 
 # Set test file filter
 ifndef TEST_FILE
@@ -141,8 +139,14 @@ else
 	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 endif
 
+ifeq (,$(wildcard tests/long))
+test.long:
+	$(error No long tests folder tests/long defined. Please upgrade your with `make upgrade`)
+else
+test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
 test.long: install
 	if test -d tests/long ; then $(R) $(RFLAGS) -e "testthat::test_dir('tests/long')" ; fi
+endif
 
 test.all: test test.long
 
@@ -214,9 +218,7 @@ clean.vignettes:
 
 # Clean biodb cache
 clean.cache:
-	$(RM) -r $(BIODB_CACHE_DIRECTORY)
-
-# Phony targets {{{1
-################################################################
+	$(RM) -r $(CACHE)
+	$(RM) -r $(LONG_CACHE)
 
 .PHONY: all win test build check bioc.check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen

@@ -36,9 +36,57 @@ initialize=function(...) {
 private=list(
 doGenerate=function(overwrite=FALSE, fail=TRUE) {
 
+    # Generate testthat.R script
     private$createGenerator(ExtFileGenerator, template='testthat.R',
                             folder='tests', filename='testthat.R'
                             )$generate(overwrite=overwrite, fail=fail)
+
+    # Generate tests
+    private$generateDefaultTests(overwrite=overwrite, fail=fail)
+    private$generateLongTests(overwrite=overwrite, fail=fail)
+    private$generateResFile(overwrite=overwrite, fail=fail)
+}
+
+,generateResFile=function(overwrite=FALSE, fail=TRUE) {
+
+    # Generate reference file resource if none exists
+    resFolder <- c('tests', 'testthat', 'res')
+    resPath <- getFolderFromVect(c(private$path, resFolder))
+    if (dir.exists(resPath) && length(Sys.glob(file.path(resPath, '/*'))) == 0)
+        private$createGenerator(ExtFileGenerator, template='entry-0001.json',
+                                folder=resFolder,
+                                filename=paste('entry', private$tags$dbName,
+                                               '0001.json', sep='-')
+                                )$generate(overwrite=overwrite, fail=fail)
+}
+
+,generateLongTests=function(overwrite=FALSE, fail=TRUE) {
+
+    # Generate long tests
+    longTestFolder <- c('tests', 'long')
+    longTestPath <- getFolderFromVect(c(private$path, longTestFolder))
+    if (dir.exists(longTestPath)
+        && length(Sys.glob(file.path(longTestPath, '/*init_logging*.R'))) == 0)
+    {
+        private$createGenerator(ExtFileGenerator,
+                                template='test_long_001_init_logging.R',
+                                folder=longTestFolder,
+                                filename='test_long_001_init_logging.R'
+                                )$generate(overwrite=overwrite, fail=fail)
+        private$createGenerator(ExtFileGenerator,
+                                template='test_long_100_generic.R',
+                                folder=longTestFolder,
+                                filename='test_long_100_generic.R'
+                                )$generate(overwrite=overwrite, fail=fail)
+        private$createGenerator(ExtFileGenerator,
+                                template='test_long_200_example.R',
+                                folder=longTestFolder,
+                                filename='test_long_200_example.R'
+                                )$generate(overwrite=overwrite, fail=fail)
+    }
+}
+
+,generateDefaultTests=function(overwrite=FALSE, fail=TRUE) {
 
     # Generate R test files if no init logging file exists
     testthatFolder <- c('tests', 'testthat')
@@ -64,15 +112,5 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
                                 filename='test_200_example.R'
                                 )$generate(overwrite=overwrite, fail=fail)
     }
-
-    # Generate reference file resource if none exists
-    resFolder <- c('tests', 'testthat', 'res')
-    resPath <- getFolderFromVect(c(private$path, resFolder))
-    if (dir.exists(resPath) && length(Sys.glob(file.path(resPath, '/*'))) == 0)
-        private$createGenerator(ExtFileGenerator, template='entry-0001.json',
-                                folder=resFolder,
-                                filename=paste('entry', private$tags$dbName,
-                                               '0001.json', sep='-')
-                                )$generate(overwrite=overwrite, fail=fail)
 }
 ))
