@@ -209,6 +209,7 @@ endif
 
 clean.all: clean clean.cache
 	@echo "Clean also what is versioned but can be rebuilt."
+	$(RM) -r inst/extdata/generated
 	$(RM) -r man
 
 # Clean vignettes

@@ -204,6 +204,7 @@ clean: clean.build clean.vignettes
 clean.all: clean clean.cache
 	@echo "Clean also what is versioned but can be rebuilt."
 	$(RM) inst/extdata/massbank_extract_full.sqlite inst/extdata/chebi_extract.sqlite
+	$(RM) -r inst/extdata/generated
 	$(RM) -r man
 
 clean.vignettes:

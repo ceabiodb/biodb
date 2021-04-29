@@ -1,10 +1,10 @@
 MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
                               package="biodb")
-MASS.SQLITE.URL <- file.path(dirname(MASSFILEDB.URL),
-                             "massbank_extract_full.sqlite")
+MASS.SQLITE.URL <- system.file("extdata", 'generated',
+                               "massbank_extract_full.sqlite", package="biodb")
 COMPFILEDB.URL <- system.file("extdata", "chebi_extract.tsv", package="biodb")
-COMP.SQLITE.URL <- file.path(dirname(COMPFILEDB.URL),
-                             'chebi_extract.sqlite')
+COMP.SQLITE.URL <- system.file("extdata", 'generated', "chebi_extract.sqlite",
+                               package="biodb")
 
 test_createCompSQLiteDbFromCsvFile <- function(biodb) {
 
