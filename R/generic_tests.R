@@ -1,11 +1,11 @@
-test.entry.fields <- function(conn) {
+test.entry.fields <- function(conn, opt) {
 
     biodb <- conn$getBiodb()
     db.name <- conn$getId()
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db.name)
+    ref.ids <- listTestRefEntries(db.name, limit=opt$maxRefEntries)
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
@@ -156,10 +156,10 @@ test.entry.ids <- function(conn) {
     testthat::expect_true(length(ids) <= max)
 }
 
-test.rt.unit <- function(conn) {
+test.rt.unit <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId())
+    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
 
     # Get entries
     entries <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), id = ref.ids, drop = FALSE)
@@ -169,39 +169,39 @@ test.rt.unit <- function(conn) {
         testthat::expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
 }
 
-test.entry.page.url <- function(db) {
+test.entry.page.url <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db$getId())
+    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
 
     # Get URLs
-    urls <- db$getEntryPageUrl(ref.ids)
+    urls <- conn$getEntryPageUrl(ref.ids)
 
     # Check
     testthat::expect_is(urls, 'character')
     testthat::expect_length(urls, length(ref.ids))
 }
 
-test.entry.image.url <- function(db) {
+test.entry.image.url <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db$getId())
+    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
 
     # Get URLs
-    urls <- db$getEntryImageUrl(ref.ids)
+    urls <- conn$getEntryImageUrl(ref.ids)
 
     # Check
     testthat::expect_is(urls, 'character')
     testthat::expect_length(urls, length(ref.ids))
 }
 
-test.entry.page.url.download <- function(db) {
+test.entry.page.url.download <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db$getId())
+    ref.ids <- listTestRefEntries(conn$getId())
 
     # Get URL
-    url <- db$getEntryPageUrl(ref.ids[[1]])
+    url <- conn$getEntryPageUrl(ref.ids[[1]])
     testthat::expect_is(url, 'character')
 
     # Try downloading
@@ -214,13 +214,13 @@ test.entry.page.url.download <- function(db) {
     }
 }
 
-test.entry.image.url.download <- function(db) {
+test.entry.image.url.download <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db$getId())
+    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
 
     # Get URL
-    url <- db$getEntryImageUrl(ref.ids[[1]])
+    url <- conn$getEntryImageUrl(ref.ids[[1]])
     testthat::expect_is(url, 'character')
 
     # Try downloading
@@ -400,7 +400,7 @@ test.db.copy <- function(conn) {
     biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.searchForEntries = function(conn, opt=NULL) {
+test.searchForEntries <- function(conn, opt=NULL) {
     
     max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
@@ -416,7 +416,7 @@ test.searchForEntries = function(conn, opt=NULL) {
         if (ef$get(f)$getClass() == 'character') {
             
             # Get an entry
-            id <- listTestRefEntries(conn$getId())[[1]]
+            id <- listTestRefEntries(conn$getId(), limit=1)
             testthat::expect_true( ! is.null(id))
             testthat::expect_length(id, 1)
             entry <- conn$getEntry(id, drop=TRUE)
@@ -460,7 +460,7 @@ test.searchByName = function(conn, opt=NULL) {
     if (conn$isSearchableByField('name')) {
 
         # Get an entry
-        id <- listTestRefEntries(conn$getId())[[1]]
+        id <- listTestRefEntries(conn$getId(), limit=1)
         testthat::expect_true( ! is.null(id))
         testthat::expect_length(id, 1)
         entry <- conn$getEntry(id, drop=TRUE)
@@ -494,7 +494,7 @@ test.searchCompound <- function(db, opt=NULL) {
         max.results <- opt[['max.results']]
 
     # Get an entry
-    id <- biodb::listTestRefEntries(db$getId())[[1]]
+    id <- biodb::listTestRefEntries(db$getId(), limit=1)
     testthat::expect_true( ! is.null(id))
     testthat::expect_length(id, 1)
     entry <- db$getEntry(id, drop = TRUE)
@@ -610,7 +610,7 @@ test.annotateMzValues <- function(conn) {
     testthat::expect_error(conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg', fields='foo'))
 }
 
-test.annotateMzValues_real_values <- function(conn) {
+test.annotateMzValues_real_values <- function(conn, opt) {
 
     # Mass of a proton
     proton.mass <- 1.0072765
@@ -619,14 +619,15 @@ test.annotateMzValues_real_values <- function(conn) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId())
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
     for (mf in mass.fields) {
 
         # Get entries that have a value for this mass field
-        ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+        ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
+                               FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
@@ -672,7 +673,7 @@ test.annotateMzValues_real_values <- function(conn) {
     }
 }
 
-test_annotateMzValues_input_vector <- function(conn) {
+test_annotateMzValues_input_vector <- function(conn, opt) {
 
     # Mass of a proton
     proton.mass <- 1.0072765
@@ -681,7 +682,7 @@ test_annotateMzValues_input_vector <- function(conn) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId())
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -714,7 +715,7 @@ test_annotateMzValues_input_vector <- function(conn) {
     }
 }
 
-test_annotateMzValues_additional_fields <- function(conn) {
+test_annotateMzValues_additional_fields <- function(conn, opt) {
 
     # Mass of a proton
     proton.mass <- 1.0072765
@@ -723,7 +724,7 @@ test_annotateMzValues_additional_fields <- function(conn) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId())
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -774,7 +775,7 @@ test_annotateMzValues_additional_fields <- function(conn) {
     }
 }
 
-test_annotateMzValues_ppm_tol <- function(conn) {
+test_annotateMzValues_ppm_tol <- function(conn, opt) {
 
     # Mass of a proton
     proton.mass <- 1.0072765
@@ -783,7 +784,7 @@ test_annotateMzValues_ppm_tol <- function(conn) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId())
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -818,7 +819,7 @@ test_annotateMzValues_ppm_tol <- function(conn) {
     }
 }
 
-test_annotateMzValues_input_dataframe_untouched <- function(conn) {
+test_annotateMzValues_input_dataframe_untouched <- function(conn, opt) {
 
     # Mass of a proton
     proton.mass <- 1.0072765
@@ -827,7 +828,7 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId())
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -1111,8 +1112,9 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
     testthat::expect_is(ids, 'character')
 }
 
-test.getChromCol <- function(db) {
-    chrom.col <- db$getChromCol(ids=biodb::listTestRefEntries(db$getId()))
+test.getChromCol <- function(conn, opt) {
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    chrom.col <- conn$getChromCol(ids=ids)
     testthat::expect_is(chrom.col, 'data.frame')
     testthat::expect_identical(names(chrom.col), c('id', 'title'))
     testthat::expect_gt(nrow(chrom.col), 0)
@@ -1200,11 +1202,11 @@ test.collapseResultsDataFrame <- function(db) {
     testthat::expect_identical(collapsed.results[['mz']], mzs)
 }
 
-test.searchMsPeaks.rt <- function(db) {
+test.searchMsPeaks.rt <- function(conn, opt) {
 
     # Get reference entries
-    ids <- biodb::listTestRefEntries(db$getId())
-    entry <- db$getBiodb()$getFactory()$getEntry(db$getId(), ids[[1]])
+    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    entry <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), ids[[1]])
 
     # Set retention time info
     if (entry$hasField('chrom.rt'))
@@ -1228,7 +1230,7 @@ test.searchMsPeaks.rt <- function(db) {
     # Search for MZ/RT
     mz.tol <- 0
     rt.tol <- 0
-    peaks <- db$searchMsPeaks(mz=mz, chrom.col.ids=chrom.col.ids, rt=rt,
+    peaks <- conn$searchMsPeaks(mz=mz, chrom.col.ids=chrom.col.ids, rt=rt,
                               rt.tol=rt.tol, mz.tol=mz.tol, max.results=1,
                               ms.mode=entry$getFieldValue('ms.mode'),
                               rt.unit=rt.unit)
@@ -1240,7 +1242,7 @@ test.searchMsPeaks.rt <- function(db) {
                               (peaks$chrom.rt <= rt + rt.tol)))
 
     # Search for MZ/RT without chrom.col.ids
-    peaks <- db$searchMsPeaks(mz=mz, rt=rt, rt.tol=rt.tol, mz.tol=mz.tol,
+    peaks <- conn$searchMsPeaks(mz=mz, rt=rt, rt.tol=rt.tol, mz.tol=mz.tol,
                               max.results=1,
                               ms.mode=entry$getFieldValue('ms.mode'),
                               rt.unit=rt.unit)
@@ -1252,9 +1254,11 @@ test.searchMsPeaks.rt <- function(db) {
                               (peaks$chrom.rt <= rt + rt.tol)))
 }
 
-test.msmsSearch.no.ids <- function(db) {
-    tspec <- data.frame(mz = 1, int = 10000)
-    results <- db$msmsSearch(tspec, precursor.mz = 2, mz.tol = 0.5, mz.tol.unit = 'plain', ms.mode = "pos", msms.mz.tol = 10, msms.mz.tol.min = 0.01, npmin = 2)
+test.msmsSearch.no.ids <- function(conn) {
+    tspec <- data.frame(mz=1, int=10000)
+    results <- conn$msmsSearch(tspec, precursor.mz=2, mz.tol=0.5,
+                               mz.tol.unit='plain', ms.mode="pos",
+                               msms.mz.tol=10, msms.mz.tol.min=0.01, npmin=2)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_equal(nrow(results), 0)
     testthat::expect_true(all(c('id', 'score') %in% names(results)))
@@ -1266,10 +1270,10 @@ runGenericShortTests <- function(conn, opt=NULL) {
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
               test.wrong.entry.among.good.ones, conn=conn)
     biodb::testThat("Entry fields have a correct value", test.entry.fields,
-                    conn=conn)
+                    conn=conn, opt=opt)
     biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
     biodb::testThat("RT unit is defined when there is an RT value.",
-                    test.rt.unit, conn=conn)
+                    test.rt.unit, conn=conn, opt=opt)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids,
                     conn=conn)
@@ -1280,13 +1284,13 @@ runGenericShortTests <- function(conn, opt=NULL) {
     
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.",
-                        test.entry.page.url, conn=conn)
+                        test.entry.page.url, conn=conn, opt=opt)
         biodb::testThat("We can get a URL pointing to the entry image.",
-                        test.entry.image.url, conn=conn)
+                        test.entry.image.url, conn=conn, opt=opt)
         biodb::testThat("The entry page URL can be downloaded.",
-                        test.entry.page.url.download, conn=conn)
+                        test.entry.page.url.download, conn=conn, opt=opt)
         biodb::testThat("The entry image URL can be downloaded.",
-                        test.entry.image.url.download, conn=conn)
+                        test.entry.image.url.download, conn=conn, opt=opt)
     }
 
     if (conn$isEditable()) {
@@ -1294,7 +1298,8 @@ runGenericShortTests <- function(conn, opt=NULL) {
         if (conn$isWritable()) {
             biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn=conn)
             biodb::testThat('Database writing works.', test.db.writing, conn=conn)
-            biodb::testThat('We can write entries having new fields.', test.db.writing.with.col.add, conn=conn)
+            biodb::testThat('We can write entries having new fields.',
+                            test.db.writing.with.col.add, conn=conn)
         }
     }
 
@@ -1306,34 +1311,46 @@ runGenericShortTests <- function(conn, opt=NULL) {
         biodb::testThat('annotateMzValues() works correctly.',
                         test.annotateMzValues, conn=conn)
         biodb::testThat('annotateMzValues() accepts a single vector.',
-                        test_annotateMzValues_input_vector, conn=conn)
+                        test_annotateMzValues_input_vector, conn=conn, opt=opt)
         biodb::testThat('ppm tolerance works in annotateMzValues()',
-                        test_annotateMzValues_ppm_tol, conn=conn)
-        biodb::testThat('Input data frame is not modified by annotateMzValues()', test_annotateMzValues_input_dataframe_untouched, conn=conn)
+                        test_annotateMzValues_ppm_tol, conn=conn, opt=opt)
+        biodb::testThat('Input data frame is not modified by annotateMzValues()'
+                        , test_annotateMzValues_input_dataframe_untouched,
+                        conn=conn, opt=opt)
     }
 
     if (conn$isMassdb()) {
         biodb::testThat("We can retrieve a list of M/Z values.",
                         test.getMzValues, conn=conn)
-        biodb::testThat("We can match M/Z peaks.", test.searchMzTol,conn=conn)
-        biodb::testThat("We can search for spectra containing several M/Z values.", test.searchMzTol.multiple.mz,conn=conn)
+        biodb::testThat("We can match M/Z peaks.", test.searchMzTol, conn=conn)
+        biodb::testThat("We can search for spectra with multiple M/Z values.",
+                        test.searchMzTol.multiple.mz, conn=conn)
         
-        # XXX Commented out because of its dependency on particular connectors
+        # TODO XXX Commented out because of its dependency on particular connectors
         #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
         
-        biodb::testThat("Search by precursor with multiple mz inputs does not fail.", test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
-        biodb::testThat("Search for N/A value returns an empty list.", test.searchMsEntries.with.NA.value, conn=conn)
+        biodb::testThat("Search by precursor on multiple mzs does not fail.",
+                        test.searchMzTol.with.precursor.and.multiple.inputs,
+                        conn=conn)
+        biodb::testThat("Search for N/A value returns an empty list.",
+                        test.searchMsEntries.with.NA.value, conn=conn)
 
-        biodb::testThat("We can retrieve a list of chromatographic columns.", test.getChromCol, conn=conn)
-        biodb::testThat("We can collapse the results from searchMsPeaks().", test.collapseResultsDataFrame, conn=conn)
-        biodb::testThat("We can search for several couples of (M/Z, RT) values, separately.", test.searchMsPeaks.rt, conn=conn)
+        biodb::testThat("We can retrieve a list of chromatographic columns.",
+                        test.getChromCol, conn=conn, opt=opt)
+        biodb::testThat("We can collapse the results from searchMsPeaks().",
+                        test.collapseResultsDataFrame, conn=conn)
+        biodb::testThat("We can search for (M/Z, RT) couples, separately.",
+                        test.searchMsPeaks.rt, conn=conn, opt=opt)
 
-        # XXX Commented out because of its dependency on particular connectors
+        # TODO XXX Commented out because of its dependency on particular connectors
         #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
 
-        biodb::testThat('MSMS search works for an empty spectrum.', test.msmsSearch.empty.spectrum, conn=conn)
-        biodb::testThat('MSMS search works for a null spectrum.', test.msmsSearch.null.spectrum, conn=conn)
-        biodb::testThat('No failure occurs when msmsSearch found no IDs.', test.msmsSearch.no.ids, conn=conn)
+        biodb::testThat('MSMS search works for an empty spectrum.',
+                        test.msmsSearch.empty.spectrum, conn=conn)
+        biodb::testThat('MSMS search works for a null spectrum.',
+                        test.msmsSearch.null.spectrum, conn=conn)
+        biodb::testThat('No failure occurs when msmsSearch found no IDs.',
+                        test.msmsSearch.no.ids, conn=conn)
     }
 }
 
@@ -1342,14 +1359,18 @@ runGenericLongTests <- function(conn, opt=NULL) {
     # Compound
     if (conn$isCompounddb()) {
         biodb::testThat('annotateMzValues() works correctly with real values.',
-                        test.annotateMzValues_real_values, conn=conn)
-        biodb::testThat('We can ask for additional fields in annotateMzValues()', test_annotateMzValues_additional_fields, conn=conn)
+                        test.annotateMzValues_real_values, conn=conn, opt=opt)
+        biodb::testThat('Additional fields are accepted in annotateMzValues()',
+                        test_annotateMzValues_additional_fields, conn=conn,
+                        opt=opt)
     }
 
     # Mass
     if (conn$isMassdb()) {
-        biodb::testThat("We can search for several M/Z values, separately.", test.searchMsPeaks, conn=conn)
-        biodb::testThat("Search for peaks with N/A value returns no match.", test.searchMsPeaks.with.NA.value, conn=conn)
+        biodb::testThat("We can search for several M/Z values, separately.",
+                        test.searchMsPeaks, conn=conn)
+        biodb::testThat("Search for peaks with N/A value returns no match.",
+                        test.searchMsPeaks.with.NA.value, conn=conn)
     }
 
     # Editable
@@ -1369,6 +1390,8 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #' @param opt A set of options to pass to the test functions.
 #' @param short Run short tests.
 #' @param long Run long tests.
+#' @param maxShortTestRefEntries The maximum number of reference entries to use
+#' in short tests.
 #' @return Nothing.
 #'
 #' @examples
@@ -1388,20 +1411,29 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #' biodb$terminate()
 #'
 #' @export
-runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE) {
+runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE,
+                            maxShortTestRefEntries=1) {
 
     # Checks
     chk::chk_flag(short)
     chk::chk_flag(long)
+    chk::chk_whole_number(maxShortTestRefEntries)
     testthat::expect_is(conn, 'BiodbConn')
 
     # Delete cache entries
     conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())
     
-    if (short)
+    # Run short tests
+    if (short) {
+        opt$maxRefEntries <- maxShortTestRefEntries
         runGenericShortTests(conn=conn, opt=opt)
-    if (long)
+    }
+    
+    # Run long tests
+    if (long) {
+        opt$maxRefEntries <- 0
         runGenericLongTests(conn=conn, opt=opt)
+    }
 
     invisible(NULL)
 }

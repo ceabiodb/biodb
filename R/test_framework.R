@@ -200,6 +200,7 @@ createBiodbTestInstance <- function(ack=FALSE) {
 #' `entry-comp.csv.file-1018.json`).
 #'
 #' @param conn.id A valid Biodb connector ID.
+#' @param limit The maximum number of entries to retrieve.
 #' @return A list of entry IDs.
 #'
 #' @examples
@@ -207,15 +208,21 @@ createBiodbTestInstance <- function(ack=FALSE) {
 #' biodb::listTestRefEntries('comp.csv.file')
 #'
 #' @export
-listTestRefEntries <- function(conn.id) {
+listTestRefEntries <- function(conn.id, limit=0) {
+
+    chk::chk_string(conn.id)
+    chk::chk_whole_number(limit)
+    chk::chk_gte(limit, 0)
 
     # List json files
     files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
-                                paste('entry', conn.id, '*.json', sep = '-')))
+                                paste('entry', conn.id, '*.json', sep='-')))
+    if (limit > 0 && length(files) > limit)
+        files <- files[1:limit]
 
     # Extract ids
-    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep = '-'), '\\1',
-               files, perl = TRUE)
+    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep='-'), '\\1',
+               files, perl=TRUE)
 
     # Replace encoded special characters
     ids = vapply(ids, utils::URLdecode, FUN.VALUE='')

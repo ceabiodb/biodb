@@ -4,7 +4,13 @@
 \alias{runGenericTests}
 \title{Run generic tests.}
 \usage{
-runGenericTests(conn, opt = NULL, short = TRUE, long = FALSE)
+runGenericTests(
+  conn,
+  opt = NULL,
+  short = TRUE,
+  long = FALSE,
+  maxShortTestRefEntries = 1
+)
 }
 \arguments{
 \item{conn}{A valid biodb connector.}
@@ -14,6 +20,9 @@ runGenericTests(conn, opt = NULL, short = TRUE, long = FALSE)
 \item{short}{Run short tests.}
 
 \item{long}{Run long tests.}
+
+\item{maxShortTestRefEntries}{The maximum number of reference entries to use
+in short tests.}
 }
 \value{
 Nothing.
