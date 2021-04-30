@@ -217,6 +217,7 @@ define=function(def) {
 
     # Loop on all fields
     for (f in names(def)) {
+        logDebug("Define field %s.", f)
         args <- def[[f]]
         args[['name']] <- f
         do.call(.self$.defineField, args)
