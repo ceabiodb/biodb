@@ -1264,40 +1264,27 @@ test.msmsSearch.no.ids <- function(conn) {
     testthat::expect_true(all(c('id', 'score') %in% names(results)))
 }
 
+# Running quick tests
 runGenericShortTests <- function(conn, opt=NULL) {
+    
+    runGenericAdjustableTests(conn=conn, opt=opt)
 
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
               test.wrong.entry.among.good.ones, conn=conn)
-    biodb::testThat("Entry fields have a correct value", test.entry.fields,
-                    conn=conn, opt=opt)
     biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
-    biodb::testThat("RT unit is defined when there is an RT value.",
-                    test.rt.unit, conn=conn, opt=opt)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids,
                     conn=conn)
-    biodb::testThat("We can search for an entry by name.", test.searchByName,
-                    conn=conn, opt=opt)
-    biodb::testThat("We can search for an entry by searchable field",
-                    test.searchForEntries, conn=conn, opt=opt)
-    
-    if (conn$isRemotedb()) {
-        biodb::testThat("We can get a URL pointing to the entry page.",
-                        test.entry.page.url, conn=conn, opt=opt)
-        biodb::testThat("We can get a URL pointing to the entry image.",
-                        test.entry.image.url, conn=conn, opt=opt)
-        biodb::testThat("The entry page URL can be downloaded.",
-                        test.entry.page.url.download, conn=conn, opt=opt)
-        biodb::testThat("The entry image URL can be downloaded.",
-                        test.entry.image.url.download, conn=conn, opt=opt)
-    }
 
     if (conn$isEditable()) {
         biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
         if (conn$isWritable()) {
-            biodb::testThat("We cannot create another connector with the same URL.", test.create.conn.with.same.url, conn=conn)
-            biodb::testThat('Database writing works.', test.db.writing, conn=conn)
+            biodb::testThat(paste("Creating another connector with the same",
+                                  " URL is forbidden."),
+                                  test.create.conn.with.same.url, conn=conn)
+            biodb::testThat('Database writing works.', test.db.writing,
+                            conn=conn)
             biodb::testThat('We can write entries having new fields.',
                             test.db.writing.with.col.add, conn=conn)
         }
@@ -1306,17 +1293,8 @@ runGenericShortTests <- function(conn, opt=NULL) {
     if (conn$isCompounddb()) {
         biodb::testThat('searchCompound() fails if no mass field is set.',
                         test.searchCompound.no.mass.field, conn=conn)
-        biodb::testThat('We can search for a compound', test.searchCompound,
-                        conn=conn, opt=opt)
         biodb::testThat('annotateMzValues() works correctly.',
                         test.annotateMzValues, conn=conn)
-        biodb::testThat('annotateMzValues() accepts a single vector.',
-                        test_annotateMzValues_input_vector, conn=conn, opt=opt)
-        biodb::testThat('ppm tolerance works in annotateMzValues()',
-                        test_annotateMzValues_ppm_tol, conn=conn, opt=opt)
-        biodb::testThat('Input data frame is not modified by annotateMzValues()'
-                        , test_annotateMzValues_input_dataframe_untouched,
-                        conn=conn, opt=opt)
     }
 
     if (conn$isMassdb()) {
@@ -1335,12 +1313,8 @@ runGenericShortTests <- function(conn, opt=NULL) {
         biodb::testThat("Search for N/A value returns an empty list.",
                         test.searchMsEntries.with.NA.value, conn=conn)
 
-        biodb::testThat("We can retrieve a list of chromatographic columns.",
-                        test.getChromCol, conn=conn, opt=opt)
         biodb::testThat("We can collapse the results from searchMsPeaks().",
                         test.collapseResultsDataFrame, conn=conn)
-        biodb::testThat("We can search for (M/Z, RT) couples, separately.",
-                        test.searchMsPeaks.rt, conn=conn, opt=opt)
 
         # TODO XXX Commented out because of its dependency on particular connectors
         #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
@@ -1354,8 +1328,58 @@ runGenericShortTests <- function(conn, opt=NULL) {
     }
 }
 
+# Run tests whose duration is adujstable using options (i.e.: maxRefEntries)
+runGenericAdjustableTests <- function(conn, opt=NULL) {
+
+    biodb::testThat("Entry fields have a correct value", test.entry.fields,
+                    conn=conn, opt=opt)
+    biodb::testThat("RT unit is defined when there is an RT value.",
+                    test.rt.unit, conn=conn, opt=opt)
+    biodb::testThat("We can search for an entry by searchable field",
+                    test.searchForEntries, conn=conn, opt=opt)
+    biodb::testThat("We can search for an entry by name.", test.searchByName,
+                    conn=conn, opt=opt)
+    
+    # Remote tests
+    if (conn$isRemotedb()) {
+        biodb::testThat("We can get a URL pointing to the entry page.",
+                        test.entry.page.url, conn=conn, opt=opt)
+        biodb::testThat("We can get a URL pointing to the entry image.",
+                        test.entry.image.url, conn=conn, opt=opt)
+        biodb::testThat("The entry page URL can be downloaded.",
+                        test.entry.page.url.download, conn=conn, opt=opt)
+        biodb::testThat("The entry image URL can be downloaded.",
+                        test.entry.image.url.download, conn=conn, opt=opt)
+    }
+    
+    # Compound db
+    if (conn$isCompounddb()) {
+        biodb::testThat('We can search for a compound', test.searchCompound,
+                        conn=conn, opt=opt)
+        biodb::testThat('annotateMzValues() accepts a single vector.',
+                        test_annotateMzValues_input_vector, conn=conn, opt=opt)
+        biodb::testThat('ppm tolerance works in annotateMzValues()',
+                        test_annotateMzValues_ppm_tol, conn=conn, opt=opt)
+        biodb::testThat('Input data frame is not modified by annotateMzValues()'
+                        , test_annotateMzValues_input_dataframe_untouched,
+                        conn=conn, opt=opt)
+    }
+    
+    # Mass db
+    if (conn$isMassdb()) {
+        biodb::testThat("We can retrieve a list of chromatographic columns.",
+                        test.getChromCol, conn=conn, opt=opt)
+        biodb::testThat("We can search for (M/Z, RT) couples, separately.",
+                        test.searchMsPeaks.rt, conn=conn, opt=opt)
+    }
+}
+
+# Running tests that take long time
 runGenericLongTests <- function(conn, opt=NULL) {
     
+    opt$maxRefEntries <- 0
+    runGenericAdjustableTests(conn=conn, opt=opt)
+
     # Compound
     if (conn$isCompounddb()) {
         biodb::testThat('annotateMzValues() works correctly with real values.',
@@ -1430,10 +1454,8 @@ runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE,
     }
     
     # Run long tests
-    if (long) {
-        opt$maxRefEntries <- 0
+    if (long)
         runGenericLongTests(conn=conn, opt=opt)
-    }
 
     invisible(NULL)
 }

@@ -1,18 +1,26 @@
 MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
                               package="biodb")
-MASS.SQLITE.URL <- system.file("extdata", 'generated',
-                               "massbank_extract_full.sqlite", package="biodb")
 COMPFILEDB.URL <- system.file("extdata", "chebi_extract.tsv", package="biodb")
-COMP.SQLITE.URL <- system.file("extdata", 'generated', "chebi_extract.sqlite",
-                               package="biodb")
+
+# Generated files
+MASS.SQLITE.URL <- file.path(system.file("extdata", package="biodb"),
+                             'generated', "massbank_extract_full.sqlite")
+COMP.SQLITE.URL <- file.path(system.file("extdata", package="biodb"),
+                             'generated', "chebi_extract.sqlite")
 
 test_createCompSQLiteDbFromCsvFile <- function(biodb) {
 
+    testthat::expect_false(file.exists(COMP.SQLITE.URL))
+
+    # Create folder
+    folder <- dirname(COMP.SQLITE.URL)
+    if ( ! dir.exists(folder))
+        dir.create(folder, recursive=TRUE)
+    
     # Create connectors
     csvConn <- biodb$getFactory()$createConn('comp.csv.file',
                                              url=COMPFILEDB.URL,
                                              fail.if.exists=FALSE)
-    testthat::expect_false(file.exists(COMP.SQLITE.URL))
     sqlConn <- biodb$getFactory()$createConn('comp.sqlite', url=COMP.SQLITE.URL)
     testthat::expect_identical(character(), sqlConn$getEntryIds())
 
@@ -43,11 +51,17 @@ test_createCompSQLiteDbFromCsvFile <- function(biodb) {
 
 test_createMassSQLiteDbFromCsvFile <- function(biodb) {
 
+    testthat::expect_false(file.exists(MASS.SQLITE.URL))
+
+    # Create folder
+    folder <- dirname(MASS.SQLITE.URL)
+    if ( ! dir.exists(folder))
+        dir.create(folder, recursive=TRUE)
+
     # Create connectors
     csvConn <- biodb$getFactory()$createConn('mass.csv.file',
                                              url=MASSFILEDB.URL,
                                              fail.if.exists=FALSE)
-    testthat::expect_false(file.exists(MASS.SQLITE.URL))
     sqlConn <- biodb$getFactory()$createConn('mass.sqlite', url=MASS.SQLITE.URL)
     testthat::expect_identical(character(), sqlConn$getEntryIds())
 
