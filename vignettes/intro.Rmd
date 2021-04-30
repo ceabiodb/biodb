@@ -260,16 +260,18 @@ In *biodb* each database connector offers the possibility to search entries by
 their name, although some database servers do not propose this feature in which
 case an explicit error message will be returned.
 
-The generic method for searching entries by name is `searchByName()`, it
-returns a character vector containing identifiers of matchings entries:
+The generic method to search for entries is `searchForEntries()`, it
+returns a character vector containing identifiers of matchings entries.
+Here is a search on the *name* field:
 ```{r}
-compdb$searchByName('deoxyguanosine')
+compdb$searchForEntries(list(name='deoxyguanosine'))
 ```
 
-A similar method is specific to compound database connectors, it is called
-`searchCompound()` and it can also be used to search by mass at the same time:
+If you want to search into a compound database, the connector has certainly
+implemented the search on mass.
+With our example database, we can search on the *monoisotopic.mass* field:
 ```{r}
-compdb$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+compdb$searchForEntries(list(name='guanosine', monoisotopic.mass=list(value=283.0917, delta=0.1)))
 ```
 When searching by mass, the *biodb* mass field to use must be selected. To get
 a list of all *biodb* mass fields, run:
@@ -284,6 +286,11 @@ Then to know if you can run a search on a connector on a particular mass field
 run:
 ```{r}
 compdb$isSearchableByField('average.mass')
+```
+
+To get a list of all searchable field for a connector, run:
+```{r}
+compdb$getSearchableFields()
 ```
 
 # Mass spectra

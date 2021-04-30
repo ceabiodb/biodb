@@ -348,6 +348,23 @@ isSearchableByField=function(field) {
     return(v)
 },
 
+getSearchableFields=function() {
+    ":\n\nGet the list of all searchable fields.
+    \nReturned value: A character vector containing all searchable fields for
+    this connector.
+    "
+    
+    # Get all searchable candidates
+    fields <- .self$getPropertyValue('searchable.fields')
+    
+    # Filter out those that are not searchable with this instance
+    # This is for dynamic connectors like CsvFileConn whose list of available
+    # fields may vary.
+    fields <- Filter(function(f) .self$isSearchableByField(f), fields)
+    
+    return(fields)
+},
+
 searchForEntries=function(fields=NULL, max.results=0) {
     ":\n\nSearches the database for entries whose name matches the specified
     name.  Returns a character vector of entry IDs.
