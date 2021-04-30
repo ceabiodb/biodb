@@ -48,6 +48,7 @@ define=function(def, package='biodb') {
     # Loop on all db info
     for (db in names(def)) {
 
+        logDebug("Define connector %s.", db)
         dbdef <- def[[db]]
         dbdef[['package']] <- package
 

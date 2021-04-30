@@ -107,12 +107,11 @@ private=list(
             #}
             if (cmp > 0) {
                 upgradeDst <- FALSE
-                warning('Aborting. A local destination file "',
-                        private$getDstFileRelPath(),
-                        '" already exists with a more',
-                        ' recent version number (', curVer, ' > ', tempVer,
-                        ') than the template file "', private$getTemplateFile(),
-                        '".')
+                warn(paste('Aborting. A local destination file "%s" already',
+                           ' exists with a more recent version number',
+                           '(%s > %s) than the template file "%s".'),
+                     private$getDstFileRelPath(), curVer, templVer,
+                     private$getTemplateFile())
             }
             else
                 upgradeDst <- TRUE
