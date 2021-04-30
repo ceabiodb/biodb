@@ -14,7 +14,7 @@ src-x64
 {{pkgName}}_*.tar.gz
 {{pkgName}}.Rcheck
 cache*
-tests/testthat/output
+tests/*/output
 vignettes/*.md
 vignettes/*.R
 vignettes/*.html
