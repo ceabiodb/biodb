@@ -28,6 +28,8 @@ bibliography: references.bib
 <!-- TODO conversion a list of entries to data frame -->
 <!-- TODO conversion a list of entries to JSON -->
 <!-- TODO getting list of defined fields of an entry -->
+<!-- TODO copying entries from a connector to another -->
+<!-- TODO copying a whole database into another empty database -->
 
 In this vignette we will merge entries from three different databases into a single database.
 
