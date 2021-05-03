@@ -19,14 +19,32 @@ bibliography: references.bib
 
 # Introduction
 
-To load an in-house LCMS database, we are going to use the `mass.csv.file` database connector, which can be used for accessing an MS in-house database CSV file, an LCMS database CSV file, an MSMS database CSV file, or MSn, or a mix of all those different types.
+*biodb* is able to handle in-house mass spectra databases either stored inside
+a CSV file, using the `mass.csv.file`, or inside an SQLite file, using
+`mass.sqlite` connectors.
 
-We first create an instance of the `BiodbMain` class:
+Both connectors accept the creation of new entries through *biodb* methods.
+The CSV file connector is able to read any CSV file in input, while the SQLite
+connector is only able to interact with a database file created by *biodb*.
+
+Inside vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('entries')
+```
+you can learn how to create a new empty SQLite of CSV file connector in order
+to copy entries into it entries from another connector, and thus create your
+own database.
+
+To start we create an instance of the `BiodbMain` class:
 ```{r}
 mybiodb <- biodb::newInst()
 ```
 
-# Building an MS database from a data frame
+# CSV File connector
+
+We are going to use the `mass.csv.file` database connector to load an in-house
+LCMS database.  This connector is able to access any in-house database CSV
+file, containing LCMS entries and/or MSMS entries.
 
 We will use an extract of Massbank database for our example:
 ```{r}
@@ -60,20 +78,20 @@ conn$setMatchingMzField('peak.mztheo')
 
 Searching by M/Z:
 ```{r}
-conn$searchMsEntries(mz.min=145.96, mz.max=147.13)
+conn$searchForMassSpectra(mz.min=145.96, mz.max=147.13)
 ```
 
 Searching with multiple M/Z:
 ```{r}
-conn$searchMsEntries(mz=c(86.000002, 146.999997), mz.tol=10, mz.tol.unit='ppm')
+conn$searchForMassSpectra(mz=c(86.000002, 146.999997), mz.tol=10, mz.tol.unit='ppm')
 ```
 
 Searching by M/Z and RT:
 ```{r}
-conn$searchMsEntries(mz.min=72.78, mz.max=73.12, rt=45.5, rt.tol=1, rt.unit='s')
+conn$searchForMassSpectra(mz.min=72.78, mz.max=73.12, rt=45.5, rt.tol=1, rt.unit='s')
 ```
 
-Other parameters can be used in `searchMsEntries()`:
+Other parameters can be used in `searchForMassSpectra()`:
 
  * MS level.
  * MS mode.
@@ -154,24 +172,46 @@ conn <- mybiodb$getFactory()$createConn('mass.csv.file', url=db.tsv)
 
 We can search for entries containing certain M/Z values with the following method:
 ```{r}
-conn$searchMsEntries(mz.min = 115, mz.max = 115.1, max.results = 5)
+conn$searchForMassSpectra(mz.min=115, mz.max=115.1, max.results=5)
 ```
 
 It is also possible to call it with a tolerance:
 ```{r}
-conn$searchMsEntries(mz = 115, mz.tol = 0.1, mz.tol.unit = 'plain', max.results = 5)
+conn$searchForMassSpectra(mz=115, mz.tol=0.1, mz.tol.unit='plain', max.results=5)
 ```
 
 ## Spectrum matching
 
 The spectrum to search for must be defined inside a data frame:
 ```{r}
-spectrum <- data.frame(mz = c(286.1456, 287.1488, 288.1514), rel.int = c(100, 45, 18))
+spectrum <- data.frame(mz=c(286.1456, 287.1488, 288.1514), rel.int=c(100, 45, 18))
 ```
 
 Then we call the `msmsSearch()` method:
 ```{r}
-conn$msmsSearch(spectrum, precursor.mz = 286.1438, mz.tol = 0.1, mz.tol.unit = 'plain', ms.mode = 'pos')
+conn$msmsSearch(spectrum, precursor.mz=286.1438, mz.tol=0.1, mz.tol.unit='plain', ms.mode='pos')
+```
+
+# SQLite connector
+
+The SQLite connector operates in the same way as the CSV file connector, except
+for the instantiation step for which it needs an SQLite file as input instead
+of a CSV file.
+Moreover the SQLite file needs to be in *biodb* format (the relations need to be created by *biodb*).
+
+Here is a *biodb* SQLite mass spectra file, already filled with entries:
+```{r}
+sqliteFile <- system.file("extdata", "generated", "massbank_extract_full.sqlite", package='biodb')
+```
+
+We create a connector from this file:
+```{r}
+sqliteConn <-  mybiodb$getFactory()$createConn('mass.sqlite', url=sqliteFile)
+```
+
+We can search inside this database the same way we have been searching inside the CSV file database:
+```{r}
+sqliteConn$searchMsPeaks(mzdf, mz.tol=1e-3, fields=c('accession', 'name', 'formula', 'chebi.id'), prefix='mydb.')
 ```
 
 # Closing biodb instance

@@ -24,8 +24,9 @@ bibliography: references.bib
 
 # Introduction
 
-*biodb* is able to handle an in-house compound database stored inside a CSV
-file, using the `comp.csv.file` and `comp.sqlite` connectors.
+*biodb* is able to handle in-house compound databases either stored inside a
+CSV file, using the `comp.csv.file`, or inside an SQLite file, using
+`comp.sqlite` connectors.
 
 Both connectors accept the creation of new entries through *biodb* methods.
 The CSV file connector is able to read any CSV file in input, while the SQLite
@@ -309,7 +310,7 @@ for the instantiation step for which it needs an SQLite file as input instead
 of a CSV file.
 Moreover the SQLite file needs to be in *biodb* format (the relations need to be created by *biodb*).
 
-Here is an *biodb* SQLite compounds file, already filled with entries:
+Here is a *biodb* SQLite compounds file, already filled with entries:
 ```{r}
 sqliteFile <- system.file("extdata", "generated", "chebi_extract.sqlite", package='biodb')
 ```
