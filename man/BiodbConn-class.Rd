@@ -192,6 +192,14 @@ count: If set to TRUE and no straightforward way exists to get number of
 Returned value: The number of entries in the database, as an integer.
     }
 
+\item{\code{getSearchableFields()}}{:
+
+Get the list of all searchable fields.
+    
+Returned value: A character vector containing all searchable fields for
+    this connector.
+    }
+
 \item{\code{isCompounddb()}}{:
 
 Tests if the connector's database is a compound database (i.e.: the
