@@ -46,7 +46,7 @@ We are going to use the `mass.csv.file` database connector to load an in-house
 LCMS database.  This connector is able to access any in-house database CSV
 file, containing LCMS entries and/or MSMS entries.
 
-We will use an extract of Massbank database for our example:
+We will use an extract of [Massbank](http://www.massbank.jp/) [@horai2010_massbank] database for our example:
 ```{r}
 fileUrl <- system.file("extdata", "massbank_extract_lcms_2.tsv", package='biodb')
 ```
@@ -220,3 +220,5 @@ Do not forget to terminate your biodb instance once you are done with it:
 ```{r}
 mybiodb$terminate()
 ```
+
+# References
