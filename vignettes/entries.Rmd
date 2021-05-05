@@ -1,14 +1,14 @@
 ---
-title: "Entries"
+title: "Manipulating entry objects"
 author: "Pierrick Roger"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('biodb')`"
 vignette: |
-  %\VignetteIndexEntry{Advanced features about entries}
+  %\VignetteIndexEntry{Manipulating entry objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: |
-  This vignette
+  This vignette shows you how to interact with BiodbEntry objects. How to retrieve them, get the values stored in them, search for entries by name, convert them to a data frame, and copy into a new local database.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -19,46 +19,277 @@ output:
 bibliography: references.bib
 ---
 
+```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```
+
 # Introduction
 
-<!-- TODO Write abstract -->
-<!-- TODO Rewrite this vignette: see title and abstract for new content. -->
-<!-- TODO searchByName() -->
-<!-- TODO conversion of one entry to data frame -->
-<!-- TODO conversion a list of entries to data frame -->
-<!-- TODO conversion a list of entries to JSON -->
-<!-- TODO getting list of defined fields of an entry -->
-<!-- TODO copying entries from a connector to another -->
-<!-- TODO copying a whole database into another empty database -->
+The contents of the database entries, once parsed, are stored by *biodb* into
+objects of the class `BiodbEntry`.
 
-In this vignette we will merge entries from three different databases into a single database.
+The `BiodbEntry` class is an RC (aka R5) class (not S3 or S4).
+RC instances are never copied implicitly by R.
+This means that each instance is shared by all parts of your code.
+If one part of your code modifies or deletes a `BiodbEntry` object, any other
+part of your code will be affected by this modification.
+See [Reference classes](http://adv-r.had.co.nz/R5.html) and the vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('details')
+```
+, for more explanations.
 
-First we instantiate the package:
+*biodb* uses identifiers (IDs) to retrieve and manipulate `BiodbEntry`
+instances indirectly. Those identifiers are, in case of web server databases,
+the official accession numbers provided by these databases.
+
+We will see in this vignette how to
+**retrieve** entries using a connector,
+manipulate **fields** of an entry,
+**free** entry instances from memory and delete their content from disk cache,
+**search** for entries in a database,
+**convert** entries into data frames or JSON,
+**copying** all entries of a database into a new empty database,
+and **merge** the entries of several databases into a single database.
+
+To start we need to instantiate the package main class:
 ```{r}
 mybiodb <- biodb::BiodbMain$new()
 ```
 
-# Building a database from other databases
+For the demonstration of this vignette, we will use an extract of the
+[ChEBI](http://www.ebi.ac.uk/chebi/) [@hastings2012_chebi] database, that we
+have put inside a TSV file.
 
-Merging entries from different databases into a single new database.
-
-## Getting the connectors
-
-We will use compound databases instantiated from TSV files. These files have been built using data from three public databases: ChEBI, Uniprot and ExPASy enzyme.
-
-First we instantiate the connector to the ChEBI data:
+Here is the TSV file:
 ```{r}
 chebi.tsv <- system.file("extdata", "chebi_extract.tsv", package='biodb')
+```
+
+And now we create the connector to this CSV File database:
+```{r}
 chebi <- mybiodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 ```
 
-Then the connector to the Uniprot data:
+# Getting entries
+
+To retrieve entries, we first need to get their identifiers.
+We can either ask the connector to give us the full list of all entry
+identifiers:
+```{r}
+chebi$getEntryIds()
+```
+or get the first n entry IDs:
+```{r}
+chebi$getEntryIds(max.results=3)
+```
+
+Another way of getting entry IDs, is to search the database using a filter.
+Here we search for entries by name:
+```{r}
+chebi$searchForEntries(list(name='deoxyguanosine'))
+```
+Now we search by mass:
+```{r}
+chebi$searchForEntries(list(monoisotopic.mass=list(value=283.0917, delta=0.1)))
+```
+And finally by both name and mass:
+```{r}
+chebi$searchForEntries(list(name='guanosine', monoisotopic.mass=list(value=283.0917, delta=0.1)))
+```
+
+Now that we have identifiers, we can get entry objects.
+First we choose two identifiers:
+```{r}
+ids <- chebi$searchForEntries(list(monoisotopic.mass=list(value=283.0917, delta=0.1)), max.results=2)
+```
+Then we get the corresponding list of entry instances:
+```{r}
+chebi$getEntry(ids)
+```
+
+# Entry fields
+
+The content of an entry is stored inside its fields.
+To access the values contained in the fields or information about the fields,
+you need to call methods onto the entry object.
+
+First, we get an entry object:
+```{r}
+e <- chebi$getEntry(ids[[1]])
+```
+
+To get a list of all fields having a value inside an entry object, call:
+```{r}
+e$getFieldNames()
+```
+
+To get the value of a field, call:
+```{r}
+e$getFieldValue('name')
+```
+
+To get all the mass fields, run:
+```{r}
+e$getFieldsByType('mass')
+```
+
+If you want more information about a field, you have to access the entry fields instance:
+```{r}
+mybiodb$getEntryFields()$get('monoisotopic.mass')
+```
+
+# Conversion
+
+Entries may be converted into lists of values, data frames, and JSON.
+
+To convert a single entry into a data frame, run (result in \@ref(tab:entryToDf)):
+```{r}
+x <- e$getFieldsAsDataframe()
+```
+```{r entryToDf, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Converting an entry to a data frame")
+```
+Several options are available to control which fields are output.
+For instance, you can select the set of fields by their name (result in \@ref(tab:filterByName)):
+```{r}
+x <- e$getFieldsAsDataframe(fields=c('name', 'monoisotopic.mass'))
+```
+```{r filterByName, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Selecting fields by names")
+```
+or by their type (result in \@ref(tab:filterByType)):
+```{r}
+x <- e$getFieldsAsDataframe(fields.type='mass')
+```
+```{r filterByType, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Selecting fields by type")
+```
+
+In case of entries with fields that contain multiple values, other options are
+useful.
+This is the case for mass spectrum entries.
+If we get an entry from an extract of [Massbank](http://www.massbank.jp/) [@horai2010_massbank]:
+```{r}
+massSqliteFile <- system.file("extdata", "generated", "massbank_extract_full.sqlite", package='biodb')
+massbank <- mybiodb$getFactory()$createConn('mass.sqlite', url=massSqliteFile)
+massbankEntry <- massbank$getEntry('KNA00776')
+```
+we can select the fields of cardinality one only (result in \@ref(tab:filterCardOne)):
+```{r}
+x <- massbankEntry$getFieldsAsDataframe(only.card.one=TRUE)
+```
+```{r filterCardOne, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Selecting fields with only one value")
+```
+or get all the fields, in which case fields with more than one value will have
+their values concatenated into a string using a default separator (result in \@ref(tab:concatenated)):
+```{r}
+x <- massbankEntry$getFieldsAsDataframe(only.card.one=FALSE)
+```
+```{r concatenated, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Concatenate multiple values")
+```
+It is also possible to get one value per line for fields with cardinality
+greater than one (result in \@ref(tab:onePerLine)):
+```{r}
+x <- massbankEntry$getFieldsAsDataframe(only.card.one=FALSE, flatten=FALSE)
+```
+```{r onePerLine, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Output one value per row")
+```
+And we can limit the number of values for each field (result in \@ref(tab:oneValuePerField)):
+```{r}
+x <- massbankEntry$getFieldsAsDataframe(only.card.one=FALSE, limit=1)
+```
+```{r oneValuePerField, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Output only one value for each field")
+```
+
+A list of several entries can also be convert into a data frame (result in \@ref(tab:entriesToDf)):
+```{r}
+entries <- chebi$getEntry(chebi$getEntryIds(max.results=3))
+x <- mybiodb$entriesToDataframe(entries)
+```
+```{r entriesToDf, echo=FALSE, results='asis'}
+knitr::kable(head(x), "pipe", caption="Converting a list of entries into a data frame")
+```
+or to JSON
+```{r}
+mybiodb$entriesToJson(entries)
+```
+
+# Memory usage
+
+Each time you call the `getEntry()` method, *biodb* checks first if the entries
+you requested are already in memory.
+If this is the case, it returns them, otherwise it looks into the cache on disk
+for downloaded contents.
+If the entry contents have never been downloaded, the connector contacts the
+database to get the missing contents and save them into the cache.
+From the contents, *biodb* create the corresponding `BiodbEntry` objects.
+
+You may want either to free memory usage by removing entry objects in memory,
+or delete entry contents from cache in order to download more recent versions
+of entries.
+To remove entries from memory, run:
+```{r}
+chebi$deleteAllEntriesFromVolatileCache()
+```
+To remove entry content files in cache folder, run:
+```{r}
+chebi$deleteAllEntriesFromPersistentCache()
+```
+To remove all cache files attached to a connector, run:
+```{r}
+chebi$deleteWholePersistentCache()
+```
+This will also delete the caching of all HTTP requests and all downloads,
+including the possible download of the database, thus forcing to download again
+data from the database.
+
+# Copy
+
+Entry objects from any connector can be copied into a writable connector.
+
+If we create a new connector to a SQLite file that does not exist:
+```{r}
+sqliteOutputFile <- tempfile(pattern="biodb_copy_entries_new_db", fileext='.sqlite')
+newDbConn <- mybiodb$getFactory()$createConn('comp.sqlite', url=sqliteOutputFile)
+```
+
+And allow modifications for this connector:
+```{r}
+newDbConn$allowEditing()
+newDbConn$allowWriting()
+```
+
+We can copy all entries from another connector into it:
+```{r}
+mybiodb$copyDb(chebi, newDbConn)
+```
+
+And finally write the entries into the SQLite file:
+```{r}
+newDbConn$write()
+```
+
+# Merging databases
+
+In this vignette we will merge entries from three different databases into a
+single database.
+
+For the demonstration we will use the ChEBI connector already created, and
+create two other connectors.
+
+A connector to the [Uniprot](https://www.uniprot.org/)
+[@uniprotConsortium2016UniProtKB] database:
 ```{r}
 uniprot.tsv <- system.file("extdata", "uniprot_extract.tsv", package='biodb')
 uniprot <- mybiodb$getFactory()$createConn('comp.csv.file', url=uniprot.tsv)
 ```
 
-And finally the connector to the ExPASy Enzyme data:
+A connector to the [ExPASy enzyme](https://enzyme.expasy.org/)
+[@bairoch2000_expasy] database:
 ```{r}
 expasy.tsv <- system.file("extdata", "expasy_enzyme_extract.tsv", package='biodb')
 expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
@@ -66,10 +297,15 @@ expasy <- mybiodb$getFactory()$createConn('comp.csv.file', url=expasy.tsv)
 
 ## Merging the entries
 
-We will now merge the entries into a single database. However we will use differently the entries of the three databases.
-The ChEBI and Uniprot will just be put together since they have no link between them. But we will use the ExPASy entries to add missing fields to the uniprot entries. We will be able to do that because the uniprot entries have a field `'expasy.enzyme.id'` that we can use to make the link with the ExPASy entries.
+We will now merge the entries into a single database.
+However we will use differently the entries of the three databases.
+The ChEBI and Uniprot will just be put together since they have no link between them.
+But we will use the ExPASy entries to add missing fields to the uniprot entries.
+We will be able to do that because the uniprot entries have a field
+`'expasy.enzyme.id'` that we can use to make the link with the ExPASy entries.
 
-We will write a function that takes a Uniprot entry and search for the ExPASy entry referenced and take missing fields from it:
+We will write a function that takes a Uniprot entry and search for the ExPASy
+entry referenced and take missing fields from it:
 ```{r}
 completeUniprotEntry <- function(e) {
 	expasy.id <- e$getFieldValue('expasy.enzyme.id');
@@ -85,7 +321,9 @@ completeUniprotEntry <- function(e) {
 	}
 }
 ```
-Remember that we use RC (Reference Classes, or R5) OOP model in biodb. This means that we use references to objects. Thus we can modify an instance at any place inside the code.
+Remember that we use RC (Reference Classes, or R5) OOP model in biodb.
+This means that we use references to objects.
+Thus we can modify an instance at any place inside the code.
 
 Now we will get all entries from Uniprot and run the function to complete all entries:
 ```{r}
@@ -93,18 +331,24 @@ uniprot.entries <- uniprot$getEntry(uniprot$getEntryIds())
 invisible(lapply(uniprot.entries, completeUniprotEntry))
 ```
 
-Finally we get all entries from our ChEBI extract, merge all our entries into a single data frame and save it in a file:
+Finally we get all entries from our ChEBI extract, merge all our entries into a
+single data frame and save it in a file (see content in \@ref(tab:mergedData)):
 ```{r}
 chebi.entries <- chebi$getEntry(chebi$getEntryIds())
 all.entries.df <- mybiodb$entriesToDataframe(c(chebi.entries, uniprot.entries))
 output.file <- tempfile(pattern="biodb_merged_entries", fileext='.tsv')
 write.table(all.entries.df, file=output.file, sep="\t", row.names=FALSE)
-all.entries.df
+```
+```{r mergedData, echo=FALSE, results='asis'}
+knitr::kable(head(all.entries.df), "pipe", caption="Merged data")
 ```
 
 ## Use a writable database
 
-There exists another method to merge entries and write them into a file. We can create a writable database. Here is a new file database for which we enable edition (for inserting new entries) and writing (for saving it onto disk):
+Instead of building the data frame, we could have used a writable database as
+seen earlier.
+Here is a new file database for which we enable edition (for inserting new
+entries) and writing (for saving it onto disk):
 ```{r}
 newDbOutputFile <- tempfile(pattern="biodb_merged_entries_new_db", fileext='.tsv')
 newDbConn <- mybiodb$getFactory()$createConn('comp.csv.file', url=newDbOutputFile)
@@ -130,19 +374,4 @@ Do not forget to terminate your biodb instance once you are done with it:
 mybiodb$terminate()
 ```
 
-# Citations
-
-<!-- TODO Move those citations into references. -->
-
-<http://www.ebi.ac.uk/chebi/>
-
- * Hastings, J., de Matos, P., Dekker, A., Ennis, M., Harsha, B., Kale, N., Muthukrishnan, V., Owen, G., Turner, S., Williams, M., and Steinbeck, C. (2013) The ChEBI reference database and ontology for biologically relevant chemistry: enhancements for 2013. Nucleic Acids Res, <http://dx.doi.org/10.1093/nar/gks1146>.
-
-<https://enzyme.expasy.org>
-
- * Bairoch A. The ENZYME database in 2000. Nucleic Acids Res 28:304-305(2000), <https://enzyme.expasy.org/data/enz00.pdf>.
-
-<http://www.uniprot.org>
-
- * The UniProt Consortium. UniProt: the universal protein knowledgebase. Nucleic Acids Res. 45: D158-D169 (2017), <https://doi.org/10.1093/nar/gkw1099>.
- * Pundir S., Martin M.J., O’Donovan C. (2017) UniProt Protein Knowledgebase. In: Wu C., Arighi C., Ross K. (eds) Protein Bioinformatics. Methods in Molecular Biology, vol 1558. Humana Press, New York, NY. <https://doi.org/10.1007/978-1-4939-6783-4_2>.
+# References

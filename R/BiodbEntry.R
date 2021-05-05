@@ -356,7 +356,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
                               virtualFields=FALSE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
-    (i.e.: of type vector and length one).
+    (i.e.: of type vector).
     \ncompute: If set to TRUE and a field is not defined, try to compute it
     using internal defined computing rules. If set to FALSE, let the field
     undefined.

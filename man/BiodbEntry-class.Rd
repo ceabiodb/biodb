@@ -98,7 +98,7 @@ Returned value: A character vector containing all field names defined in
 Converts this entry into a data frame.
     
 only.atomic: If set to TRUE, only export field's values that are atomic
-    (i.e.: of type vector and length one).
+    (i.e.: of type vector).
     
 compute: If set to TRUE and a field is not defined, try to compute it
     using internal defined computing rules. If set to FALSE, let the field

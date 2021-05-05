@@ -474,34 +474,67 @@ fields:
 # Proteins and genes {{{2
 ################################################################################
 
+  aa.seq:
+    alias: sequence
+    description: Amino acids sequence.
+
+  aa.seq.length:
+    alias:
+    - seq.length
+    - length
+    class: integer
+    description: Length of the amino acids sequence.
+
   aa.seq.location:
     alias:
     - seq.location
     - location
     description: Location of the amino acids sequence.
+
   nt.seq:
     description: Nucleotids sequence.
+
   nt.seq.length:
     class: integer
     description: Length of the nucleotids sequence.
+
+  ec:
+    description: Enzyme Commission number. See https://en.wikipedia.org/wiki/Enzyme_Commission_number.
+    case.insensitive: true
+    forbids.duplicates: true
+    card: many
+
   organism:
     description: The biological organism to which this entry belongs.
+
   pathway.class:
     card: many
     description: Pathway class.
 
-# Other fields {{{2
-################################################################################
-
   catalytic.activity:
     card: many
     description: Catalytic activity.
-  charge:
-    class: integer
-    description: Charge.
+
   cofactor:
     card: many
     description: Cofactor.
+
+  gene.symbol:
+    alias:
+    - gene.symbols
+    - symbol
+    - genesymbols
+    card: many
+    case.insensitive: true
+    description: A list of gene symbols.
+    forbids.duplicates: true
+
+# Other fields {{{2
+################################################################################
+
+  charge:
+    class: integer
+    description: Charge.
   comp.iupac.name.allowed:
     description: IUPAC allowed name
     type: name

@@ -520,6 +520,8 @@ deleteAllEntriesFromVolatileCache=function() {
     "
 
     .self$.entries <- list()
+    
+    return(invisible(NULL))
 },
 
 deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
@@ -534,6 +536,8 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
     fileExt <- .self$getPropertyValue('entry.content.type')
     .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(),
                                                       ext=fileExt)
+    
+    return(invisible(NULL))
 },
 
 deleteWholePersistentCache=function(deleteVolatile=TRUE) {
