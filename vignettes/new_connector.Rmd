@@ -268,8 +268,8 @@ Method                        | Description
 ----------------------------- | --------------------------------
 `getEntryPageUrl()`           | This public method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
 `getEntryImageUrl()`          | This public method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
-`.doGetEntryContentRequest()` | This protected method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
-`.doGetEntryIds()`            | This protected method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
+`.doGetEntryContentRequest()` | This method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
+`.doGetEntryIds()`            | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
 `.doSearchForEntries()`  | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
 : (\#tab:chebiExMethods) Methods to implement inside the chebi.ex connector.
 
@@ -442,7 +442,7 @@ Method                       | Description
 `getNbEntries()`             | Must return the number of entries contained in the database.
 `getEntryContentFromDb()`    | Return the content(s), as strings, of one or more entries from the database.
 `defineParsingExpressions()` | May be overriden in order to define parsing expressions dynamically (see `CsvFileConn` class for an example).
-`.doGetEntryIds()`           | See above in \@ref(tab:remoteMethods) for a description of this method.
+`.doGetEntryIds()`           | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
 
 : (\#tab:connMethods) `BiodbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbConn` class.
 

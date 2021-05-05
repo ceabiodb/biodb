@@ -60,12 +60,32 @@ initialize=function(...) {
     .self$getBiodb()$addObservers(.self)
 },
 
-getKeys=function() {
+getKeys=function(deprecated=FALSE) {
     ":\n\nGet the list of available keys.
+    \ndeprecated: If set to TRUE returns also the deprecated keys.
     \nReturned value: A character vector containing the config key names.
     "
 
-    return(names(.self$.keys))
+    keys <- Filter(function(k) { ! .self$.isDeprecated(k) }, names(.self$.keys))
+
+    return(keys)
+},
+
+getTitle=function(key) {
+    ":\n\nGet the title of a key.
+    \nkey: The name of a configuration key.
+    \nReturned value: The title of the key as a character value.
+    "
+
+    title <- ''
+
+    .self$.checkKey(key)
+
+    if ('title' %in% names(.self$.keys[[key]]) &&
+        length(.self$.keys[[key]][['title']]) > 0)
+        title <- .self$.keys[[key]][['title']]
+
+    return(title)
 },
 
 getDescription=function(key) {
@@ -78,16 +98,16 @@ getDescription=function(key) {
 
     .self$.checkKey(key)
 
-    # Get default value
     if ('description' %in% names(.self$.keys[[key]]))
         description <- .self$.keys[[key]][['description']]
 
     return(description)
 },
 
-getDefaultValue=function(key) {
+getDefaultValue=function(key, as.chr=FALSE) {
     ":\n\nGet the default value of a key.
     \nkey: The name of a configuration key.
+    \nas.chr: If set to TRUE, returns the value as character.
     \nReturned value: The default value for that key.
     "
 
@@ -98,6 +118,10 @@ getDefaultValue=function(key) {
     # Get default value
     if ('default' %in% names(.self$.keys[[key]]))
         default <- .self$.keys[[key]][['default']]
+
+    if (as.chr)
+        default <- if (is.null(default)) NA_character_ else
+            as.character(default)
 
     return(default)
 },
@@ -244,24 +268,19 @@ show=function() {
 
 listKeys=function() {
     ":\n\nGet the full list of keys as a data frame.
-    \nReturned value: A data frame containing four columns: Key, Type, Default
-    value and Description.
+    \nReturned value: A data frame containing keys, titles, types, and default
+    values.
     "
 
-    # Fields to extract
-    field2title <- c(type="Type", default="Default value",
-                     description="Description")
+    keys <- .self$getKeys()
+    x <- data.frame(key=keys, stringsAsFactors=FALSE)
+    x$title <- vapply(keys, function(k) .self$getTitle(k), FUN.VALUE='')
+    x$type <- vapply(keys, function(k) .self$.getType(k), FUN.VALUE='')
+    x$default <- vapply(keys,
+                        function(k) .self$getDefaultValue(k, as.chr=TRUE),
+                        FUN.VALUE='')
 
-    # Build data frame
-    df <- data.frame(Key=names(.self$.keys), stringsAsFactors=FALSE)
-    for (field in names(field2title))
-        df[[field2title[[field]]]] <-
-            vapply(.self$.keys,
-                   function(k) if ( ! field %in% names(k)
-                                   || is.null(k[[field]])) ''
-               else as.character(k[[field]]), FUN.VALUE='')
-
-    return(df)
+    return(x)
 },
 
 getAssocEnvVar=function(key) {
@@ -344,7 +363,7 @@ newObserver=function(obs) {
     return(value)
 },
 
-.newKey=function(key, type, default=NULL, description=NA_character_,
+.newKey=function(key, title, type, default=NULL, description=NA_character_,
                    deprecated=NULL) {
 
     # Check key
@@ -370,7 +389,7 @@ newObserver=function(obs) {
     }
 
     # Define new key
-    .self$.keys[[key]] <- list(type=type, default=default,
+    .self$.keys[[key]] <- list(title=title, type=type, default=default,
                                description=description)
 
     # Set as deprecated

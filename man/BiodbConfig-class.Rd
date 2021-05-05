@@ -59,11 +59,13 @@ key: The name of a configuration key.
 Returned value: None.
     }
 
-\item{\code{getDefaultValue(key)}}{:
+\item{\code{getDefaultValue(key, as.chr = FALSE)}}{:
 
 Get the default value of a key.
     
 key: The name of a configuration key.
+    
+as.chr: If set to TRUE, returns the value as character.
     
 Returned value: The default value for that key.
     }
@@ -77,11 +79,22 @@ key: The name of a configuration key.
 Returned value: The description of the key as a character value.
     }
 
-\item{\code{getKeys()}}{:
+\item{\code{getKeys(deprecated = FALSE)}}{:
 
 Get the list of available keys.
     
+deprecated: If set to TRUE returns also the deprecated keys.
+    
 Returned value: A character vector containing the config key names.
+    }
+
+\item{\code{getTitle(key)}}{:
+
+Get the title of a key.
+    
+key: The name of a configuration key.
+    
+Returned value: The title of the key as a character value.
     }
 
 \item{\code{hasKey(key)}}{:
@@ -120,8 +133,8 @@ Returned value: TRUE if the boolean key has a value set to TRUE, FALSE
 
 Get the full list of keys as a data frame.
     
-Returned value: A data frame containing four columns: Key, Type, Default
-    value and Description.
+Returned value: A data frame containing keys, titles, types, and default
+    values.
     }
 
 \item{\code{reset(key = NULL)}}{:

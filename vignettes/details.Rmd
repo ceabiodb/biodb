@@ -112,59 +112,41 @@ To get a list of the existing configuration keys with their current value, run:
 mybiodb$getConfig()
 ```
 
-## Keys information and value
-
-Get all available configuration keys:
-```{r}
-mybiodb$getConfig()$getKeys()
-```
-
-Get description of a key:
-```{r}
-mybiodb$getConfig()$getDescription('cache.directory')
-```
-
-Get a value:
-```{r}
-mybiodb$getConfig()$get('cache.directory')
-```
-
-If the key's value is boolean, you can use the following method instead:
-```{r}
-if (mybiodb$getConfig()$isEnabled('offline')) 'Biodb is running offline.' else 'Biodb is running online.'
-```
-
-To get a complete list of all keys with their description, call:
+To get a list of all keys with their descriptions, call:
 ```{r}
 mybiodb$getConfig()$listKeys()
 ```
 
-## Setting a value
+To get the description of a key, run:
+```{r}
+mybiodb$getConfig()$getDescription('cache.directory')
+```
 
-Set a field value:
+To get a value, run:
+```{r}
+mybiodb$getConfig()$get('cache.directory')
+```
+
+To set a field value, run:
 ```{r}
 mybiodb$getConfig()$set('cache.directory', '~/my.biodb.cache')
-mybiodb$getConfig()$get('cache.directory') # See modifications
 ```
 
 If the field is boolean, you can use the following methods instead:
 ```{r}
-mybiodb$getConfig()$enable('offline')    # set to TRUE
-mybiodb$getConfig()$disable('offline')   # set to FALSE
+mybiodb$getConfig()$enable('offline')
+mybiodb$getConfig()$disable('offline')
 ```
 
-## Default values
-
-Get field default value:
+Configuration keys have default values. 
+You can get a key's default value with this call:
 ```{r}
 mybiodb$getConfig()$getDefaultValue('cache.directory')
 ```
 
-## Environment variables
-
 Environment variables can be used to overwrite default values.
-
-To get the name of the environment variable associated with a particular key, call the following method:
+To get the name of the environment variable associated with a particular key,
+call the following method:
 ```{r}
 mybiodb$getConfig()$getAssocEnvVar('cache.directory')
 ```
