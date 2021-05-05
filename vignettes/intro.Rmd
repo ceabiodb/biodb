@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{Introduction to the biodb package.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  A quick tour of the various features of *biodb*: creating connectors, accessing entries, converting entries into a data frame, searching for entries, dealing with mass spectra, existing connectors.
 output:
   BiocStyle::html_document:
     toc: yes

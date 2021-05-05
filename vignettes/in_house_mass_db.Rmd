@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{In-house LCMS database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  In this vignette you will learn how to load your in-house mass spectra CSV file database into *biodb*, how to **search** for LCMS spectra and MSMS spectra, how find matching peaks, and how to annotate your **mass spectrum**. You will also learn how to create a connector for a *biodb* SQLite database
 output:
   BiocStyle::html_document:
     toc: yes
