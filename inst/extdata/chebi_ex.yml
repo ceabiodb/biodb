@@ -21,7 +21,7 @@ databases:
       - name
       - monoisotopic.mass
       - molecular.mass
-    scheduler.t: 3
+    scheduler.t: 1
     scheduler.n: 3
     urls:
       base.url: https://www.ebi.ac.uk/chebi/
