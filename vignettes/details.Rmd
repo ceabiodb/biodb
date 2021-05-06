@@ -346,32 +346,52 @@ conn$deleteWholePersistentCache()
 
 # Logging messages
 
-*biodb* implements five level of messages:
-* `error` which is mapped to R error messages.
-* `warning` which is mapped to R warning messages.
-* `caution` which uses R message() method.
-* `info` which uses R message() method.
-* `debug` which uses R message() method.
-
-The three last (`caution`, `info` and `debug`) use each multiple levels.
-By default debug messages are disabled. To change the level of a message
-type, you need to access its configuration variable. Here we silence the
-caution and info messages by setting their maximum level allowed to 0:
+*biodb* uses the *lgr* package for logging messages.
+The *lgr* instance used by *biodb* can be gotten by calling:
 ```{r}
-mybiodb$getConfig()$set('msg.caution.lvl', 0)
-mybiodb$getConfig()$set('msg.info.lvl', 0)
+biodb::getLogger()
+```
+See the [lgr](https://s-fleck.github.io/lgr/) home page for demonstration on
+how to use it.
+
+You can use the following *biodb* short cuts to send messages of different
+levels.
+To send an information message:
+```{r}
+biodb::logInfo("%d entries have been processed.", 12)
+```
+To send a debug message:
+```{r}
+biodb::logDebug("The file %s has been written.", 'myfile.txt')
+```
+To send a trace message:
+```{r}
+biodb::logTrace("%d bytes written.", 1284902)
 ```
 
-Stop information messages of the BiodbMain instance:
-```{r}
-#cfg$set('msg.info.lvl', 0)
-```
+In addition *biodb* defines two methods to throw an error or a warning and log
+this error or warning at the same time.
+These are `biodb::error()` and `biodb::warn()`.
 
-Increase verbosity level of the BiodbMain instance:
+By default the *lgr* package displays information messages.
+If you want to silence all messages, just run `lgr::lgr$remove_appender(1)`.
+This is will remove the default appender and silence all messages from all
+packages using *lgr*, including *biodb*.
+However if you just want to silence *biodb* messages, run:
 ```{r}
-#cfg$set('msg.info.lvl', 2)
-#cfg$set('msg.debug.lvl', 2)
-#cfg$set('msg.caution.lvl', 2)
+biodb::getLogger()$set_threshold(300)
+```
+Information messages are now silenced:
+```{r}
+biodb::logInfo("hello")
+```
+For enabling again:
+```{r}
+biodb::getLogger()$set_threshold(400)
+```
+And messages are echoed again:
+```{r}
+biodb::logInfo("hello")
 ```
 
 # Closing biodb instance
