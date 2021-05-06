@@ -2,13 +2,7 @@ databases:
 
   chebi.ex:
     name: ChEBI example connector
-    urls:
-      base.url: https://www.ebi.ac.uk/chebi/
-      ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
-    xml.ns:
-      chebi: https://www.ebi.ac.uk/webservices/chebi
-      xsd: http://www.w3.org/2001/XMLSchema
-    scheduler.n: 3
+    description: An example connector for ChEBI.
     entry.content.encoding: UTF-8
     entry.content.type: xml
     parsing.expr:
@@ -27,6 +21,14 @@ databases:
       - name
       - monoisotopic.mass
       - molecular.mass
+    scheduler.t: 1
+    scheduler.n: 3
+    urls:
+      base.url: https://www.ebi.ac.uk/chebi/
+      ws.url: https://www.ebi.ac.uk/webservices/chebi/2.0/
+    xml.ns:
+      chebi: https://www.ebi.ac.uk/webservices/chebi
+      xsd: http://www.w3.org/2001/XMLSchema
 
 fields:
 

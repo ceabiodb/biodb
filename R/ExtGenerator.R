@@ -7,7 +7,7 @@
 #' All generator classes for biodb extensions must inherit from this class.
 #'
 #' @examples
-#' # Generate a new connector class inside R folder:
+#' # Generate a new connector class inside the R folder:
 #' pkgFolder <- file.path(tempfile(), 'biodbFoo')
 #' dir.create(pkgFolder, recursive=TRUE)
 #' biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',

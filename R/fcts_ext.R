@@ -1,3 +1,30 @@
+#' Generate a new extension package for biodb.
+#'
+#' Generates all the necessary files for a new extension package.
+#'
+#' @seealso \code{\link{ExtPackage}}.
+#'
+#' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
+#' @return Nothing.
+#' @export
+genNewExtPkg <- function(...) {
+    ExtPackage$new(newPkg=TRUE, ...)$generate()
+    return(invisible(NULL))
+}
+
+#' Upgrading an existing extension package for biodb.
+#'
+#' Upgrades some of the files previously generated (.gitignore, .travis.yml,
+#' .Rbuildignore, Makefile, etc) to the latest versions.
+#'
+#' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
+#' @return Nothing.
+#' @export
+upgradeExtPkg <- function(...) {
+    ExtPackage$new(...)$upgrade()
+    return(invisible(NULL))
+}
+
 #' Get the package name from a package folder path.
 #'
 #' The package name is extracted from the path by taking the basename.

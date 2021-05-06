@@ -1,9 +1,9 @@
 #' @details
 #'
 #' To get a presentation of the *biodb* package and get started with it, please
-#' see the "intro" vignette. 
+#' see the "biodb" vignette. 
 #' ```
-#' vignette('intro', package='biodb')
+#' vignette('biodb', package='biodb')
 #' ```
 #'
 #' @seealso \link{BiodbMain}, \link{BiodbConfig}, \link{BiodbFactory},

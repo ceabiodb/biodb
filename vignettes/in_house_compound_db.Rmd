@@ -8,7 +8,7 @@ vignette: |
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: |
-  In this vignette you will learn how to load your in-house compounds CSV file into *biodb*, how to **search** for compounds by **name** and/or **mass**, and how to **annotate** your **mass spectrum** using that in-house database.
+  In this vignette you will learn how to load your in-house compounds CSV file into *biodb*, how to **search** for compounds by **name** and/or **mass**, and how to **annotate** your **mass spectrum** using that in-house database. You will also learn how to create a connector for a *biodb* SQLite database.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -24,17 +24,41 @@ bibliography: references.bib
 
 # Introduction
 
-*biodb* is able to handle an in-house compound database stored inside a CSV file, using the `comp.csv.file` connector.
-In order to facilitate the loading of the file, you should use the **tabulation** character as columns separator and name the columns of your file with *biodb* **standard field names**. However, if your CSV file does not respect the *biodb* standard, you have also the possibility to declare a **custom column separator character** and the mapping between **column names of your file** and *biodb* field names just before loading the file.
+*biodb* is able to handle in-house compound databases either stored inside a
+CSV file, using the `comp.csv.file`, or inside an SQLite file, using
+`comp.sqlite` connectors.
 
-Once the connection to the file is defined, you can use the connector to your in-house file as any other compound database connector.
+Both connectors accept the creation of new entries through *biodb* methods.
+The CSV file connector is able to read any CSV file in input, while the SQLite
+connector is only able to interact with a database file created by *biodb*.
+
+Inside vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('entries')
+```
+you can learn how to create a new empty SQLite of CSV file connector in order
+to copy entries into it entries from another connector, and thus create your
+own database.
 
 To start we create an instance of the `BiodbMain` class:
 ```{r}
 mybiodb <- biodb::newInst()
 ```
 
-# Creating a connector
+# CSV File connector
+
+In order to facilitate the loading of the file, you should use the
+**tabulation** character as columns separator and name the columns of your file
+with *biodb* **standard field names**.
+However, if your CSV file does not respect the *biodb* standard, you have also
+the possibility to declare a **custom column separator character** and the
+mapping between **column names of your file** and *biodb* field names just
+before loading the file.
+
+Once the connection to the file is defined, you can use the connector to your
+in-house file as any other compound database connector.
+
+## Creating a connector
 
 In order to create a connector to a CSV database, you have to provide the path
 to your CSV file.
@@ -51,7 +75,7 @@ Thus it has to be done immediately after the connector creation.
 In the following sub-sections we are going to see how to load a *biodb*
 standard CSV file and a custom CSV file.
 
-## Loading a biodb standard CSV file
+### Loading a biodb standard CSV file
 
 Here is a *biodb* standard CSV file containing an extract of the ChEBI
 database:
@@ -62,7 +86,7 @@ See table \@ref(tab:csvTable) for the content of this file.
 
 ```{r csvTable, echo=FALSE, results='asis'}
 csvDf <- read.table(csvUrl, sep="\t", header=TRUE, quote="")
-# Prevent RMarkdown from interpreting @ character as a reference:
+## Prevent RMarkdown from interpreting @ character as a reference:
 csvDf$smiles <- vapply(csvDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(head(csvDf), "pipe", caption="Excerpt from compound database TSV file.")
 ```
@@ -79,7 +103,7 @@ conn <- mybiodb$getFactory()$createConn('comp.csv.file', url=csvUrl)
 
 We will later use this connector to run the examples of this vignette.
 
-## Loading a custom CSV file
+### Loading a custom CSV file
 
 Here is a custom CSV file containing the same extract of the ChEBI database than with the *biodb* standard CSV file:
 ```{r}
@@ -134,7 +158,7 @@ unique entry inside your CSV file.
 Depending on your CSV file, you may need to associate several columns to create
 a valid accession value that identifies a unique entry.
 
-# Retrieving entries
+## Retrieving entries
 
 Retrieving entries is done as with any other connector in *biodb*, using their
 accession numbers.
@@ -151,7 +175,7 @@ entriesDf <- mybiodb$entriesToDataframe(entries)
 See table \@ref(tab:entriesTable) for the content of this data frame.
 
 ```{r entriesTable, echo=FALSE, results='asis'}
-# Prevent RMarkdown from interpreting @ character as a reference:
+## Prevent RMarkdown from interpreting @ character as a reference:
 entriesDf$smiles <- vapply(entriesDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
 knitr::kable(entriesDf, "pipe", caption="Some entries from the compound database.")
 ```
@@ -162,29 +186,28 @@ make_vignette_ref('entries')
 ```
 to know everything you can do with *biodb* entry objects and also the help page of the class `?biodb::BiodbEntry`.
 
-# Searching for entries
+## Searching for entries
 
 It is possible to search for entries by mass inside a compounds database:
 ```{r}
-conn$searchCompound(mass=283.0917, mass.field='monoisotopic.mass')
+conn$searchForEntries(list(monoisotopic.mass=list(value=283.0917, delta=0.1)))
 ```
 The function returns a list of accession numbers that you can use with the
 `getEntry()` method to retrieve full entry objects.
 
-By default the tolerance is `0.01` and the type is `plain`.
-To set another tolerance, use the parameters `mass.tol` and `mass.tol.unit`:
+The tolerance can also be expressed in PPM:
 ```{r}
-conn$searchCompound(mass=283.0917, mass.tol=10, mass.tol.unit='ppm', mass.field='monoisotopic.mass')
+conn$searchForEntries(list(monoisotopic.mass=list(value=283.0917, ppm=10)))
 ```
-The `mass.tol.unit` sets the type of tolerance.
-It can be either `ppm` or `plain` (m ± tolerance).
-The default is `plain`.
+or with a range:
+```{r}
+conn$searchForEntries(list(monoisotopic.mass=list(min=283.091, max=283.093)))
+```
 
-As for the `searchByName()` method, you can set a maximum to the number of entries returned:
+You can set a maximum to the number of entries returned with the `max.results` parameter:
 ```{r}
-conn$searchCompound(mass=283.0917, mass.field='monoisotopic.mass', max.results=2)
+conn$searchForEntries(list(monoisotopic.mass=list(value=283.0917, delta=0.1)), max.results=2)
 ```
-Depending on the type of connector and the request, this may accelerate the processing.
 
 To get a list of all possible mass fields in *biodb*, run:
 ```{r}
@@ -194,30 +217,27 @@ To get information on these fields run:
 ```{r}
 mybiodb$getEntryFields()$get(c('monoisotopic.mass', 'nominal.mass'))
 ```
-To check if a connector is searchable by a mass field, use the following
+
+To check if a connector is searchable by a field, use the following
 method:
 ```{r}
 conn$isSearchableByField('monoisotopic.mass')
 ```
-
-Like with other connectors, you can search entries by name with the generic
-method `searchByName()`:
+To get the list of searchable fields for a connector, run:
 ```{r}
-conn$searchByName('deoxyguanosine')
-```
-But you can do it too with `searchCompound()`:
-```{r}
-conn$searchCompound(name='deoxyguanosine')
-```
-And combine a search by mass with a search by name:
-```{r}
-conn$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+conn$getSearchableFields()
 ```
 
-You will find a complete description of this method and other compound methods
-by running `?biodb::BiodbCompounddbConn`.
+Entries are also searchable by name:
+```{r}
+conn$searchForEntries(list(name='deoxyguanosine'))
+```
+And it is possible to combine a search by mass with a search by name:
+```{r}
+conn$searchForEntries(list(name='guanosine', monoisotopic.mass=list(value=283.0917, delta=0.1)))
+```
 
-# Annotation of an MS file
+## Annotation of an MS file
 
 Your in-house chemical database can be used to annotate a mass spectrum, using
 a data frame or a vector as input.
@@ -239,7 +259,10 @@ knitr::kable(mzDf, "pipe", caption="Input M/Z values.")
 
 We run the annotation with the `annotateMzValues()` method:
 ```{r}
-annotDf <- conn$annotateMzValues(mzDf, mz.tol=1e-3, ms.mode='neg', fields=c('accession', 'name', 'formula', 'molecular.mass', 'monoisotopic.mass'), prefix='mydb.', fieldsLimit=1)
+annotDf <- conn$annotateMzValues(mzDf, mz.tol=1e-3, ms.mode='neg', mz.tol.unit='plain',
+                                 fields=c('accession', 'name', 'formula',
+                                          'molecular.mass', 'monoisotopic.mass'),
+                                 prefix='mydb.', fieldsLimit=1)
 ```
 See table \@ref(tab:annotTable) for the results.
 
@@ -252,8 +275,8 @@ The first parameter is the input, as a data frame or a numeric vector.
 In case of a data frame the column containing the M/Z values must be named `mz`
 or you have to specify its name using the `mz.col` parameter.
 
-The `mz.tol` and `mz.tol.unit` parameters are used to set the tolerance as with
-`searchCompound()` for the mass.
+The `mz.tol` and `mz.tol.unit` parameters are used to set the tolerance, see
+the manual of the class `BiodbCompounddbConn`.
 You can set the mass field to use in the database with the `mass.field`
 parameter (default is `monoisotopic.mass`).
 
@@ -279,6 +302,28 @@ See also vignette
 make_vignette_ref('in_house_mass_db')
 ```
 for annotation using a mass spectra database.
+
+# SQLite connector
+
+The SQLite connector operates in the same way as the CSV file connector, except
+for the instantiation step for which it needs an SQLite file as input instead
+of a CSV file.
+Moreover the SQLite file needs to be in *biodb* format (the relations need to be created by *biodb*).
+
+Here is a *biodb* SQLite compounds file, already filled with entries:
+```{r}
+sqliteFile <- system.file("extdata", "generated", "chebi_extract.sqlite", package='biodb')
+```
+
+We create a connector from this file:
+```{r}
+sqliteConn <-  mybiodb$getFactory()$createConn('comp.sqlite', url=sqliteFile)
+```
+
+We can search inside this database the same way we have been searching inside the CSV file database:
+```{r}
+sqliteConn$searchForEntries(list(monoisotopic.mass=list(value=283.0917, delta=0.1)))
+```
 
 # Closing biodb instance
 

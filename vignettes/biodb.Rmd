@@ -7,6 +7,8 @@ vignette: |
   %\VignetteIndexEntry{Introduction to the biodb package.}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+abstract: |
+  A quick tour of the various features of *biodb*: creating connectors, accessing entries, converting entries into a data frame, searching for entries, dealing with mass spectra, existing connectors.
 output:
   BiocStyle::html_document:
     toc: yes
@@ -28,19 +30,25 @@ databases, and offers a **development framework** that facilitates the writing
 of new connectors.
 
 <!-- Many databases. -->
-Many public databases from which scientific need to extract data exist today
-but few are easily accessible from a programming environment, and new databases
-are published every year.
+Numerous public databases are available for scientific research, but few are
+easily accessible from a programming environment, making it hard for most of
+researchers to use their content.
+Developing a code to access databases and keep it up to date with the
+evolutions of these databases are two time consuming tasks. It is thus greatly
+preferable to use an already developed package.
 
 <!-- Package incomplete, no capitalization. -->
 In R, packages with public database connectors, most often propose to connect
 to one single database with a specific API, and do not offer a **development
-framework** [@szocs2020_webchem; @guha2016_rpubchem; @tenenbaum2020_keggrest; @carey2020_hmbdQuery; @soudy2020_uniprotr; @carlson2020_uniprotws; @wolf2019_chemspiderapi; @stravs2013_rmassbank; @drost2017_biomartr; @winter2020_rentrez].
+framework** [@szocs2020_webchem; @guha2016_rpubchem; @tenenbaum2020_keggrest;
+@carey2020_hmbdQuery; @soudy2020_uniprotr; @carlson2020_uniprotws;
+@wolf2019_chemspiderapi; @stravs2013_rmassbank; @drost2017_biomartr;
+@winter2020_rentrez].
 When a package does not offer the services the scientific programmer
 requests, or when no package exists for the targeted database, a homemade
 solution is implemented.
-In such a case, the effort spent is often lost and never capitalized for the
-good of the community.
+In such a case, the effort spent is often lost and never capitalized for
+sharing with the community.
 
 <!-- Development framework. -->
 *biodb* has been designed and implemented as a unified API to databases and a
@@ -254,16 +262,18 @@ In *biodb* each database connector offers the possibility to search entries by
 their name, although some database servers do not propose this feature in which
 case an explicit error message will be returned.
 
-The generic method for searching entries by name is `searchByName()`, it
-returns a character vector containing identifiers of matchings entries:
+The generic method to search for entries is `searchForEntries()`, it
+returns a character vector containing identifiers of matchings entries.
+Here is a search on the *name* field:
 ```{r}
-compdb$searchByName('deoxyguanosine')
+compdb$searchForEntries(list(name='deoxyguanosine'))
 ```
 
-A similar method is specific to compound database connectors, it is called
-`searchCompound()` and it can also be used to search by mass at the same time:
+If you want to search into a compound database, the connector has certainly
+implemented the search on mass.
+With our example database, we can search on the *monoisotopic.mass* field:
 ```{r}
-compdb$searchCompound(name='guanosine', mass=283.0917, mass.field='monoisotopic.mass')
+compdb$searchForEntries(list(name='guanosine', monoisotopic.mass=list(value=283.0917, delta=0.1)))
 ```
 When searching by mass, the *biodb* mass field to use must be selected. To get
 a list of all *biodb* mass fields, run:
@@ -278,6 +288,11 @@ Then to know if you can run a search on a connector on a particular mass field
 run:
 ```{r}
 compdb$isSearchableByField('average.mass')
+```
+
+To get a list of all searchable field for a connector, run:
+```{r}
+compdb$getSearchableFields()
 ```
 
 # Mass spectra

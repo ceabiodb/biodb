@@ -304,7 +304,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
     # Unset field
     else {
         # Return NULL or NA
-        val <- if (field.def$isVector() && field.def$hasCardOne())
+        val <- if (field.def$isAtomic() && field.def$hasCardOne())
             as.vector(NA, mode=field.def$getClass()) else NULL
     }
 
@@ -326,7 +326,7 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
 
     # Flatten: convert atomic values with cardinality > 1 into a string
     if (flatten && ! is.null(val)) {
-        if (field.def$isVector() && field.def$hasCardMany()
+        if (field.def$isAtomic() && field.def$hasCardMany()
             && length(val) > 1) {
             if (all(is.na(val)))
                 val <-  as.vector(NA, mode=field.def$getClass())
@@ -356,7 +356,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
                               virtualFields=FALSE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
-    (i.e.: of type vector and length one).
+    (i.e.: of type vector).
     \ncompute: If set to TRUE and a field is not defined, try to compute it
     using internal defined computing rules. If set to FALSE, let the field
     undefined.
@@ -748,11 +748,11 @@ fieldHasBasicClass=function(field) {
         fields <- Filter(function(f) f != ownIdField, fields)
     }
     if (only.atomic)
-        fields <- Filter(function(f) ef$get(f)$isVector(), fields)
+        fields <- Filter(function(f) ef$get(f)$isAtomic(), fields)
     if (only.card.one)
         fields <- Filter(function(f) ef$get(f)$hasCardOne(), fields)
     # Ignore if value is not data frame or vector
-    fields <- Filter(function(f) ef$get(f)$isVector() || ef$get(f)$isDataFrame(), fields)
+    fields <- Filter(function(f) ef$get(f)$isAtomic() || ef$get(f)$isDataFrame(), fields)
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 

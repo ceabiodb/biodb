@@ -8,7 +8,7 @@ test.listKeys <- function(biodb) {
 	expect_is(keys, 'data.frame')
 	expect_true(nrow(keys) > 10)
 	expect_true(all(vapply(keys, class, FUN.VALUE = '') == 'character'))
-	expect_true(all(c('Description') %in% names(keys)))
+	expect_true(all(c('title') %in% names(keys)))
 	expect_false(any(is.na(keys$Description)))
 }
 

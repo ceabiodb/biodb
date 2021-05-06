@@ -17,5 +17,5 @@
 ^cache$
 ^codecov\.yml$
 ^tests/testthat/_snaps$
-^tests/testthat/output$
+^tests/.*/output$
 ^check.Renviron$

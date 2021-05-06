@@ -28,3 +28,4 @@ vignettes/*.csv
 /doc/
 /Meta/
 check.Renviron
+codecov.yml

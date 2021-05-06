@@ -10,7 +10,7 @@ The biodb package provides access to standard remote chemical and biological dat
 }
 \details{
 To get a presentation of the \emph{biodb} package and get started with it, please
-see the "intro" vignette.\preformatted{vignette('intro', package='biodb')
+see the "biodb" vignette.\preformatted{vignette('biodb', package='biodb')
 }
 }
 \seealso{

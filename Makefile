@@ -194,7 +194,7 @@ uninstall:
 
 clean: clean.build clean.vignettes
 	$(RM) src/*.o src/*.so src/*.dll
-	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
+	$(RM) -r tests/test.log tests/*/output tests/testthat/*.log
 	$(RM) -r biodb.Rcheck Meta
 	$(RM) .Rhistory R/.Rhistory
 	$(RM) -r ..Rcheck
@@ -219,4 +219,4 @@ clean.cache:
 # Phony targets {{{1
 ################################################################
 
-.PHONY: all clean clean.all win test build check bioc.check bioc.check.clone check.all vignettes install uninstall devtools.check devtools.build clean.build clean.cache doc check.version
+.PHONY: vignettes

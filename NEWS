@@ -26,8 +26,11 @@ Changes in version 0.99.7 (2021-04-27)
 + Renamed Biodb class into BiodbMain in order to avoid "Rd warning: Previous alias or file overwritten by alias: biodb" on Windows platform.
 + Implement newInst() global function for creating new BiodbMain instance.
 
-Changes in version 0.99.8 (2021-04-30)
+Changes in version 0.99.8 (2021-05-06)
 + Correct template travis.yml for extensions: missing deps install, run all checks.
 + Improve template Makefile for extensions.
 + Add missing test-cpp.R template file for running C++ tests from testthat.
 + Limit by default the entries to test to one entry inside generic tests.
++ Improve vignettes.
++ Rename default vignette into "biodb.Rmd".
++ Remove "codecov.yml".
