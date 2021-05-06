@@ -258,34 +258,90 @@ Be careful to do not keep those entry objects in some variable on your side, oth
 
 # Request scheduler
 
-<!-- TODO
-URL request scheduler:
- * run requests on a database server.
- * controls the frequency of requests for a database server.
- * Use the cache system to store results of requests.
- * Use cached request result instead of sending again the request.
-   -->
+The `BiodbRequestScheduler` instance is responsible for sending requests to web
+server, taking care of respecting the frequency specified by the `scheduler.n`
+and `scheduler.t` parameters, and for receiving results and saving them to cache.
 
-# Cache system
+The cache is used to give back a result immediately without contacting the
+server, in case the exact same request has already been run previously.
 
-<!-- TODO
-Cache system :
-a
- * stores entries on disk (persistence cache).
- * gives back entries instead of reloading them from database.
- * allows you to delete cached entries from disk.
- * allows you to delete all cached files for a database.
--->
+You do not have to interact with the request scheduler, it runs as a back end
+component.
+
 # Entry fields information
+
+The `BiodbEntryFields` instance stores information about all entry fields
+declared inside definitions YAML files.
 
 Get the entry fields instance:
 ```{r}
-fieldDefs <- mybiodb$getEntryFields()
+mybiodb$getEntryFields()
 ```
 
 Get information about a field:
 ```{r}
-fieldDefs$get('monoisotopic.mass')
+mybiodb$getEntryFields()$get('monoisotopic.mass')
+```
+The object returned is a `BiodbEntryField` instance.
+See the help page of this class to get a list of all methods you can call on
+such an instance.
+
+# Persistent cache system
+
+The persistent cache system is responsible for saving entry contents and
+results of web server requests onto disk, and reuse them later to avoid
+recontacting the web server.
+
+Run the following method to get the instance of the `BiodbPersistentCache` class:
+```{r}
+mybiodb$getPersistentCache()
+```
+
+It is possible to delete files from the cache directly from the persistent
+cache instance.
+However it is a lot preferable to do it from the connector instance.
+If we open an instance of the ChEBI example connector from the vignette
+```{r, echo=FALSE, results='asis'}
+make_vignette_ref('new_connector')
+```
+:
+```{r}
+source(system.file("extdata", "ChebiExConn.R", package='biodb'))
+source(system.file("extdata", "ChebiExEntry.R", package='biodb'))
+mybiodb$loadDefinitions(system.file("extdata", "chebi_ex.yml", package='biodb'))
+conn <- mybiodb$getFactory()$createConn('chebi.ex')
+```
+And load some entry:
+```{r}
+entry <- conn$getEntry('17001')
+```
+The entry is now downloaded into the cache system.
+We can check that with the following call:
+```{r}
+mybiodb$getPersistentCache()$fileExist(conn$getCacheId(), name='17001', ext=conn$getEntryFileExt())
+```
+And get the path to the cache file:
+```{r}
+mybiodb$getPersistentCache()$getFilePath(conn$getCacheId(), name='17001', ext=conn$getEntryFileExt())
+```
+If we delete the entry content from the cache:
+```{r}
+conn$deleteAllEntriesFromPersistentCache()
+```
+The file does not exist anymore:
+```{r}
+mybiodb$getPersistentCache()$fileExist(conn$getCacheId(), name='17001', ext=conn$getEntryFileExt())
+```
+But the entry object is still in memory.
+We need to delete entry instances with the following call:
+```{r}
+conn$deleteAllEntriesFromVolatileCache()
+```
+Note that the results of web server requests are still inside the cache folder.
+In order to force a new downloading of data, we need to erase those files too.
+The following call will erase all cache files associated with a connector, including the files deleted by `deleteAllEntriesFromPersistentCache()`:
+```{r}
+conn$deleteWholePersistentCache()
 ```
 
 # Logging messages
