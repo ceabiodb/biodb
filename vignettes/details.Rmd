@@ -112,9 +112,12 @@ To get a list of the existing configuration keys with their current value, run:
 mybiodb$getConfig()
 ```
 
-To get a list of all keys with their descriptions, call:
+To get a data frame of all keys with their title (short description), type and default value, call (result in \@ref(tab:keysDf)):
 ```{r}
-mybiodb$getConfig()$listKeys()
+x <- mybiodb$getConfig()$listKeys()
+```
+```{r keysDf, echo=FALSE, results='asis'}
+knitr::kable(x, "pipe", caption="List of keys with some of their parameters")
 ```
 
 To get the description of a key, run:

@@ -18,149 +18,149 @@ config:
     default: TRUE
       
   cache.all.requests:
-    title:
+    title: Enable caching of all requests and their results.
     type: logical
     description: All requests are cached. If disabled, only requests of entries by accession number are cached.
     default: TRUE
 
   cache.directory:
-    title:
+    title: Path to the cache folder.
     type: character
     description: The directory in which cache files are stored. The default location depends on your operating system.
     default: NULL
 
   cache.read.only:
-    title:
+    title: Set cache system in read only mode.
     type: logical
     description: If set to TRUE, then the cache system becomes not writable. This is mainly used for test purposes.
     default: FALSE
 
   cache.subfolders:
-    title:
+    title: Use subfolders to divide files into cache folder.
     type: logical
     description: Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.
     default: TRUE
 
   cache.system:
-    title:
+    title: Enable cache system.
     type: logical
     description: Cache system is ON.
     default: TRUE
 
   use.cache.for.local.db:
-    title:
+    title: Enable the use of the cache system also for local databases.
     type: logical
     description: |-
       "If set to TRUE, then the cache system will also be used for connectors to local databases (i.e.: non-remote databases)."
     default: FALSE
 
   dwnld.chunk.size:
-    title:
+    title: The number of new entries to wait before saving them into the cache.
     type: integer
     description: The number of entries to download before saving to cache. By default, saving to cache is only down once all requested entries have been downloaded.
 
   dwnld.timeout:
-    title:
+    title: Download timeout in seconds.
     type: integer
     description: The timeout used when downloading big files, in seconds.
     default: 3600
       
   compute.fields:
-    title:
+    title: Enable automatic computing of missing fields.
     type: logical
     description: If the field of an entry is accessed but has no value, then biodb will try to compute one. This is done by following rules that tell biodb in which database to look for this field's value.
     default: TRUE
 
   factory.cache:
-    title:
+    title: Enable factory cache.
     type: logical
     description: Set the factory cache system ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.
     default: FALSE
     deprecated: The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.
 
   force.locale:
-    title:
+    title: Force change of current locale for the application.
     type: logical
     description: Forcing current locale is allowed.
     default: TRUE
 
   longterm.cache.subfolder:
-    title:
+    title: Name of the long term cache subfolder.
     type: character
     description: The name of the long term cache subfolder.
     default: longterm
     deprecated: We do not use anymore a longterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   msg.caution.lvl:
-    title:
+    title: Maximum level of the caution messages to display.
     type: integer
     description: The desired level of caution messages. Set to 0 to turn messages off.
     deprecated: Caution messages have been replaced by warnings.
     default: 1
 
   msg.debug.lvl:
-    title:
+    title: Maximum level of the debug messages to display.
     type: integer
     description: The desired level of debug messages. Debug messages are turned off by default.
     deprecated: Debug messages are not handled by the `lgr` package. You can get the biodb `lgr::Logger` instance by calling `biodb::getLogger()`.
     default: 0
 
   msg.info.lvl:
-    title:
+    title: Maximum level of the information messages to display.
     type: integer
     description: The desired level of information messages. Set to 0 to turn messages off.
     deprecated: Info messages are not handled by the `lgr` package. You can get the biodb `lgr::Logger` instance by calling `biodb::getLogger()`.
     default: 1
 
   multival.field.sep:
-    title:
+    title: The separator used for concatenating values.
     type: character
     description: The character used as separator when concatenating multiple values of a field.
     default: ';'
 
   intra.field.name.sep:
-    title:
+    title: The separator use for building a field name.
     type: character
     description: The character to use for separating words inside a field name. When defining or accessing a field, all non alphanumeric characters will be replaced by this character.
     default: '.'
 
   entries.sep:
-    title:
+    title: The separator used between values from different entries.
     type: character
     description: The character used as separator when concatenating values from different entries.
     default: '|'
 
   offline:
-    title:
+    title: Stops sending requests to the network.
     type: logical
     description: If set to TRUE, all network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
 
   proton.mass:
-    title:
+    title: The mass of one proton.
     type: numeric
     description: The mass of a proton, in u or Da.
     default: 1.0072765
 
   shortterm.cache.subfolder:
-    title:
+    title: Name of the short term cache subfolder.
     type: character
     description: The name of the short term cache subfolder.
     default: shortterm
     deprecated: We do not use anymore a shortterm subfolder in cache directory. Cache files are now stored under a different folder for each database.
 
   svn.binary.path:
-    title:
+    title: The path to the svn binary.
     type: character
     description: The path to the SubVersion binary (svn).
 
   test.functions:
-    title:
+    title: List of functions to test.
     type: character
     description: A comma separated list of test functions to run during tests. Only those functions will be run.
 
   useragent:
-    title:
+    title: The application name and contact address to send to the contacted web server.
     type: character
     description: The user agent description string. This string is compulsory when connection to remote databases.
 
