@@ -2,9 +2,9 @@
 #'
 #' Generates all the necessary files for a new extension package.
 #'
-#' @seealso \link{\code{ExtPackage}}.
+#' @seealso \code{\link{ExtPackage}}.
 #'
-#' @param ... Parameters passed to \link{\code{ExtPackage}} constructor.
+#' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
 #' @return Nothing.
 #' @export
 genNewExtPkg <- function(...) {
@@ -17,7 +17,7 @@ genNewExtPkg <- function(...) {
 #' Upgrades some of the files previously generated (.gitignore, .travis.yml,
 #' .Rbuildignore, Makefile, etc) to the latest versions.
 #'
-#' @param ... Parameters passed to \link{\code{ExtPackage}} constructor.
+#' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
 #' @return Nothing.
 #' @export
 upgradeExtPkg <- function(...) {

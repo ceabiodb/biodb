@@ -7,7 +7,7 @@
 genNewExtPkg(...)
 }
 \arguments{
-\item{...}{Parameters passed to \link{\code{ExtPackage}} constructor.}
+\item{...}{Parameters passed to \code{\link{ExtPackage}} constructor.}
 }
 \value{
 Nothing.
@@ -16,5 +16,5 @@ Nothing.
 Generates all the necessary files for a new extension package.
 }
 \seealso{
-\link{\code{ExtPackage}}.
+\code{\link{ExtPackage}}.
 }

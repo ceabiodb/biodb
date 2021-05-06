@@ -7,7 +7,7 @@
 upgradeExtPkg(...)
 }
 \arguments{
-\item{...}{Parameters passed to \link{\code{ExtPackage}} constructor.}
+\item{...}{Parameters passed to \code{\link{ExtPackage}} constructor.}
 }
 \value{
 Nothing.
