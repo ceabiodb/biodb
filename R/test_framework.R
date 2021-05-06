@@ -218,7 +218,7 @@ listTestRefEntries <- function(conn.id, limit=0) {
     files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
                                 paste('entry', conn.id, '*.json', sep='-')))
     if (limit > 0 && length(files) > limit)
-        files <- files[1:limit]
+        files <- files[seq_len(limit)]
 
     # Extract ids
     ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep='-'), '\\1',

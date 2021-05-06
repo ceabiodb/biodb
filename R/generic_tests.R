@@ -82,7 +82,7 @@ test.entry.fields <- function(conn, opt) {
     not.tested.fields <- entry.fields[ ! entry.fields %in% c(ref.entry.fields, db.id.field)]
     not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
     for (f in not.tested.fields)
-        biodb$message('warning', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
+        biodb::warn0("Field \"", f, "\" of database ", db.name, " is never tested.")
 }
 
 test.wrong.entry <- function(conn) {

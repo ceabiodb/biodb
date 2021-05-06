@@ -407,7 +407,7 @@ setPropValSlot=function(name, slot, value) {
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
                    FUN.VALUE=TRUE)))
-        .self$message('warning', "Observer is already registered.")
+        biodb::warn("Observer is already registered.")
 
     # Register this new observer
     else
@@ -424,7 +424,7 @@ setPropValSlot=function(name, slot, value) {
 
     # Not found
     if ( ! any(found.obs))
-        .self$message('warning', 'Unknown observer to unregister.')
+        biodb::warn('Unknown observer to unregister.')
 
     # Unregister observer
     else
