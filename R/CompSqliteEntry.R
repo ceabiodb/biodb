@@ -24,4 +24,4 @@
 #' @export CompSqliteEntry
 #' @exportClass CompSqliteEntry
 CompSqliteEntry <- methods::setRefClass("CompSqliteEntry",
-                                        contains="BiodbListEntry")
+    contains="BiodbListEntry")

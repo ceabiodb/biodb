@@ -58,7 +58,7 @@ getMatchingMzField=function() {
     # If it contains no value, throw an error
     else if (length(fields) == 0)
         error0("No macthing field defined for M/Z values.",
-              "Use setMatchingMzField() to set one.")
+            "Use setMatchingMzField() to set one.")
     
     # If it contains more than one value, try to determine which one to use
     else {
@@ -106,19 +106,19 @@ getMatchingMzField=function() {
         # No choice made
         if (is.null(field))
             error0("Impossible to determine which field to use for",
-                  " M/Z matching. Please set the wanted field using",
-                  " setMatchingMzField() method, and make sure it is",
-                  " defined inside your database.")
+                " M/Z matching. Please set the wanted field using",
+                " setMatchingMzField() method, and make sure it is",
+                " defined inside your database.")
         
         # Throw a warning telling which field was chosen for matching and tell
         # to use setMatchingMzField() to set another field if needed
         .self$setMatchingMzField(field)
         if (multiple.match)
             warn0('Field "', field, '" has been automatically chosen',
-                 ' among several possibilities (',
-                 paste(fields, collapse=', '), ') for matching',
-                 ' M/Z values. Use setMatchingMzField() method',
-                 ' explicitly to avoid this warning in the future.')
+                ' among several possibilities (',
+                paste(fields, collapse=', '), ') for matching',
+                ' M/Z values. Use setMatchingMzField() method',
+                ' explicitly to avoid this warning in the future.')
     }
     
     return(field)
@@ -135,8 +135,8 @@ setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
     .self$setPropValSlot('matching.fields', 'mz', field)
 },
 
-getMzValues=function(ms.mode=NULL, max.results=0,
-                     precursor=FALSE, ms.level=0) {
+getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0)
+{
     ":\n\nGets a list of M/Z values contained inside the database.
     \nms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
     to one mode.
@@ -148,7 +148,7 @@ getMzValues=function(ms.mode=NULL, max.results=0,
     "
 
     .self$.doGetMzValues(ms.mode=ms.mode, max.results=max.results,
-                         precursor=precursor, ms.level=ms.level)
+        precursor=precursor, ms.level=ms.level)
 },
 
 getNbPeaks=function(mode=NULL, ids=NULL) {
@@ -164,7 +164,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
-                           chrom.col.ids, match.rt) {
+    chrom.col.ids, match.rt) {
     ":\n\nFilters a list of entries on retention time values.
     \nentry.ids: A character vector of entry IDs.
     \nrt: A vector of retention times to match. Used if input.df is not set.
@@ -186,15 +186,14 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
     "
 
     .self$.checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
-                        rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
-                        match.rt=match.rt)
+        rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids, match.rt=match.rt)
 
     if (match.rt) {
 
         # Get entries
         logDebug('Getting entries from spectra IDs.')
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(),
-                                                          entry.ids, drop=FALSE)
+            entry.ids, drop=FALSE)
 
         # Filter on chromatographic columns
         if ( ! is.null(chrom.col.ids) && length(chrom.col.ids) > 0) {
@@ -203,17 +202,17 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
             }
             entries <- entries[vapply(entries, fct, FUN.VALUE=TRUE)]
             logDebug0(length(entries),
-                     ' spectra remaining after chrom col filtering: ',
-                     paste(vapply((if (length(entries) <= 10) entries
-                                   else entries[seq_len(10)]),
-                                   function(e) e$getFieldValue('accession'),
-                                   FUN.VALUE=''), collapse=', '), '.')
+                ' spectra remaining after chrom col filtering: ',
+                paste(vapply((if (length(entries) <= 10) entries
+                else entries[seq_len(10)]),
+                function(e) e$getFieldValue('accession'),
+                FUN.VALUE=''), collapse=', '), '.')
         }
 
         # Filter out entries with no RT values or no RT unit
         fct <- function(e) {
             e$hasField('chrom.rt') || (e$hasField('chrom.rt.min')
-                                       && e$hasField('chrom.rt.max'))
+                && e$hasField('chrom.rt.max'))
         }
         has.chrom.rt.values <- vapply(entries, fct, FUN.VALUE=TRUE)
         entries <- entries[has.chrom.rt.values]
@@ -224,15 +223,15 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         no.chrom.rt.unit <- ! vapply(entries, fct, FUN.VALUE=TRUE)
         if (any(no.chrom.rt.unit))
             warn0('No RT unit specified in entries ',
-                 paste(vapply(entries[no.chrom.rt.unit],
-                              function(e) e$getFieldValue('accession'),
-                              FUN.VALUE=''),
-                       collapse=', '),
-                 ', impossible to match retention times.')
+                paste(vapply(entries[no.chrom.rt.unit],
+                function(e) e$getFieldValue('accession'),
+                FUN.VALUE=''),
+                collapse=', '),
+                ', impossible to match retention times.')
 
         # Compute RT range for this input, in seconds
         rt.range <- .self$.computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
-                                          rt.tol.exp=rt.tol.exp)
+            rt.tol.exp=rt.tol.exp)
 
         # Loop on all entries
         entry.ids <- character()
@@ -243,32 +242,29 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
 
             # Test and possibly keep entry
             logDebug0('Testing if RT value ', rt, ' (', rt.unit,
-                        ') is in range [', col.rt.range$min, ';',
-                        col.rt.range$max, '] (s) of database entry ',
-                        e$getFieldValue('accession'), '. Used range (after',
-                        ' applying tolerances) for RT value is [', rt.range$min,
-                        ', ', rt.range$max, '] (s).')
+                ') is in range [', col.rt.range$min, ';',
+                col.rt.range$max, '] (s) of database entry ',
+                e$getFieldValue('accession'), '. Used range (after',
+                ' applying tolerances) for RT value is [', rt.range$min,
+                ', ', rt.range$max, '] (s).')
             if ((rt.range$max >= col.rt.range$min)
                 && (rt.range$min <= col.rt.range$max))
                 entry.ids <- c(entry.ids, e$getFieldValue('accession'))
         }
 
         logDebug0(length(entry.ids),
-                 ' spectra remaining after retention time filtering:',
-                 paste((if (length(entry.ids) <= 10) entry.ids
-                        else entry.ids[seq_len(10)]), collapse=', '), '.')
+            ' spectra remaining after retention time filtering:',
+            paste((if (length(entry.ids) <= 10) entry.ids
+            else entry.ids[seq_len(10)]), collapse=', '), '.')
     }
 
     return(entry.ids)
 },
 
 searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-                         mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), 
-                         rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
-                         rt.tol.exp=NULL, chrom.col.ids=NULL,
-                         precursor=FALSE,
-                         min.rel.int=0, ms.mode=NULL,
-                         max.results=0, ms.level=0) {
+    mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'),
+    rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE,
+    min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
     ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the
     given M/Z value. Entries can also be filtered on RT values. You can input
     either a list of M/Z values through mz argument and set a tolerance with
@@ -373,27 +369,19 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
 },
 
 searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-                         mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), 
-                         rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
-                         rt.tol.exp=NULL, chrom.col.ids=NULL,
-                         precursor=FALSE,
-                         min.rel.int=0, ms.mode=NULL,
-                         max.results=0, ms.level=0) { # DEPRECATED
+    mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'),
+    rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE,
+    min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) { # DEPRECATED
     ":\n\nThis method is deprecated.
     \nUse searchForMassSpectra() instead.
     "
     lifecycle::deprecate_soft('1.0.0', 'searchMsEntries()',
-                              "searchForMassSpectra()")
+        "searchForMassSpectra()")
     return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
-                                      mz.tol=mz.tol,
-                                      mz.tol.unit=mz.tol.unit, rt=rt,
-                                      rt.unit=rt.unit,  rt.tol= rt.tol,
-                                      rt.tol.exp=rt.tol.exp,
-                                      chrom.col.ids=chrom.col.ids,
-                                      precursor=precursor,
-                                      min.rel.int=min.rel.int, ms.mode=ms.mode,
-                                      ms.level=ms.level,
-                                      max.results=max.results))
+        mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit,
+        rt.tol= rt.tol, rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
+        precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
+        ms.level=ms.level, max.results=max.results))
 },
 
 searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
@@ -479,17 +467,17 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
             precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
             ms.level=ms.level)
         logDebug0('Found ', length(precursor.match.ids),
-                 ' spectra with matched precursor: ',
-                 paste((if (length(precursor.match.ids) <= 10)
-                        precursor.match.ids else
-                            precursor.match.ids[seq_len(10)]), collapse=', '),
-                 '.')
+            ' spectra with matched precursor: ',
+            paste((if (length(precursor.match.ids) <= 10)
+            precursor.match.ids else
+            precursor.match.ids[seq_len(10)]), collapse=', '),
+            '.')
     }
 
     # Loop on the list of M/Z values
     logDebug('Looping on all M/Z values.')
     logTrace('M/Z values to process %s',
-             lst2str(input.df[[input.df.colnames[['mz']]]]))
+        lst2str(input.df[[input.df.colnames[['mz']]]]))
     for (i in seq_along(input.df[[input.df.colnames[['mz']]]])) {
 
         # Compute M/Z range
@@ -498,23 +486,20 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Search for spectra
         logDebug('Searching for spectra that contains M/Z value in ranges %s',
-                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+            paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
         ids <- .self$searchForMassSpectra(mz.min=rng$a,
-                                          mz.max=rng$b,
-                                          min.rel.int=min.rel.int,
-                                          ms.mode=ms.mode, max.results=if
-                                          (check.param$use.rt.match)
-                                          0 else max.results,
-                                          ms.level=ms.level)
+            mz.max=rng$b, min.rel.int=min.rel.int, ms.mode=ms.mode,
+            max.results=if (check.param$use.rt.match) 0 else max.results,
+            ms.level=ms.level)
         logTrace('Found spectra %s', lst2str(ids))
 
         # Filter out IDs that were not found in step 1.
         if ( ! is.null(precursor.match.ids)) {
             ids <- ids[ids %in% precursor.match.ids]
             logDebug0('After filtering on IDs with precursor match, we have ',
-                     length(ids), ' spectra: ',
-                     paste((if (length(ids) <= 10) ids
-                            else ids[seq_len(10)]), collapse=', '), '.')
+                length(ids), ' spectra: ',
+                paste((if (length(ids) <= 10) ids
+                else ids[seq_len(10)]), collapse=', '), '.')
         }
 
         # Filter on RT value
@@ -528,7 +513,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Get entries
         logDebug('Getting entries from spectra IDs.')
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
-                                                          drop=FALSE)
+            drop=FALSE)
 
         # Cut
         if (max.results > 0) {
@@ -544,23 +529,21 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Display first entry
         if (length(entries) > 0)
-                logDebug0('Field names of entry:',
-                         paste(entries[[1]]$getFieldNames(), collapse=', '))
+            logDebug0('Field names of entry:',
+                paste(entries[[1]]$getFieldNames(), collapse=', '))
 
         # Convert to data frame
         logDebug('Converting list of entries to data frame.')
         df <- .self$getBiodb()$entriesToDataframe(entries,
-                                                  only.atomic=FALSE,
-                                                  compute=compute,
-                                                  flatten=FALSE,
-                                                  limit=fieldsLimit)
+            only.atomic=FALSE, compute=compute, flatten=FALSE,
+            limit=fieldsLimit)
         logTrace('Entries obtained %s', df2str(df))
 
         # Select lines with right M/Z values
         mz <- input.df[i, input.df.colnames[['mz']]]
         rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
         logDebug0("Filtering entries data frame on M/Z ranges ",
-                 paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
+            paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
         df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
         logTrace('After filtering on M/Z range %s', df2str(df))
 
@@ -583,7 +566,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         if (insert.input.values) {
             df <- if (is.null(df) || nrow(df) == 0) input.df[i, , drop=FALSE]
                 else cbind(input.df[i, , drop=FALSE], df, row.names=NULL,
-                           stringsAsFactors=FALSE)
+                stringsAsFactors=FALSE)
         }
 
         # Appending to main results data frame
@@ -605,7 +588,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 },
 
 msmsSearch=function(spectrum, precursor.mz, mz.tol,
-                    mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2,
+    mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2,
     dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
     msms.mz.tol.min=0.005, max.results=0) {
     ":\n\nSearches MSMS spectra matching a template spectrum. The mz.tol
@@ -652,19 +635,18 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
     # Get list of peak tables from spectra
     if (length(ids) > 0) {
         entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
-                                                          drop=FALSE)
+            drop=FALSE)
         fct <- function(x) {
             x$getFieldsAsDataframe(only.atomic=FALSE, flatten=FALSE,
-                                   fields=c('peak.mz',
-                                            'peak.relative.intensity',
-                                            'peak.intensity'))
+                fields=c('peak.mz', 'peak.relative.intensity',
+                'peak.intensity'))
         }
         peak.tables <- lapply(entries, fct)
     }
 
     # Compare spectrum against database spectra
     res <- compareSpectra(spectrum, peak.tables, npmin=npmin, fun=dist.fun,
-                          params=list(ppm=msms.mz.tol, dmz=msms.mz.tol.min))
+        params=list(ppm=msms.mz.tol, dmz=msms.mz.tol.min))
     
     cols <- colnames(res)
     res[['id']] <- ids
@@ -677,14 +659,14 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
 },
 
 collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
-                                  sep='|') {
+    sep='|') {
     ":\n\nCollapse rows of a results data frame, by outputing a data frame with
     only one row for each MZ/RT value.
     \nresults.df: Results data frame.
     \n mz.col: The name of the M/Z column in the results data frame.
     \n rt.col: The name of the RT column in the results data frame.
-    \n sep:    The separator used to concatenate values, when
-               collapsing results data frame.
+    \n sep: The separator used to concatenate values, when collapsing results
+    data frame.
     \nReturned value: A data frame with rows collapsed."
 
     cols <- mz.col
@@ -696,12 +678,11 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
 },
 
 searchMzRange=function(mz.min, mz.max, min.rel.int=0,
-                       ms.mode=NULL, max.results=0,
-                       precursor=FALSE, ms.level=0) {
+    ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
     "Find spectra in the given M/Z range. Returns a list of spectra IDs."
 
     lifecycle::deprecate_soft('1.0.0', 'searchMzRange()',
-                              'BiodbMassdbConn::searchForMassSpectra()')
+        'BiodbMassdbConn::searchForMassSpectra()')
 
     return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
@@ -709,23 +690,20 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=0,
 },
 
 searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
-                     ms.mode=NULL, max.results=0,
-                     precursor=FALSE, ms.level=0) {
+    ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
     "Find spectra containg a peak around the given M/Z value. Returns a
     character vector of spectra IDs."
 
     lifecycle::deprecate_soft('1.0.0', 'searchMzTol()',
-                              'BiodbMassdbConn::searchForMassSpectra()')
+        'BiodbMassdbConn::searchForMassSpectra()')
     
     return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
-                                      mz.tol.unit=mz.tol.unit,
-                                      min.rel.int=min.rel.int, ms.mode=ms.mode,
-                                      max.results=max.results,
-                                      precursor=precursor, ms.level=ms.level))
+        mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int, ms.mode=ms.mode,
+        max.results=max.results, precursor=precursor, ms.level=ms.level))
 },
 
 .doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
-                        max.results, precursor, ms.level) {
+    max.results, precursor, ms.level) {
 
     rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
@@ -735,7 +713,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 },
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
-                          precursor, ms.level) {
+    precursor, ms.level) {
     .self$.abstractMethod()
 },
 
@@ -753,13 +731,13 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         if ('s' %in% units[rt.wrong]) {
             if (wanted.unit != 'min')
                 error0('Error when converting retention times values.',
-                      ' Was expecting "min" for target unit.')
+                    ' Was expecting "min" for target unit.')
             rt[rt.wrong] <- rt[rt.wrong] / 60
         }
         if ('min' %in% units[rt.wrong]) {
             if (wanted.unit != 's')
                 error0('Error when converting retention times values.',
-                      ' Was expecting "s" for target unit.')
+                    ' Was expecting "s" for target unit.')
             rt[rt.wrong] <- rt[rt.wrong] * 60
         }
     }
@@ -801,7 +779,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 .checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
 
     use.tol <- .self$.checkMzTolParam(mz=mz, mz.tol=mz.tol,
-                                      mz.tol.unit=mz.tol.unit)
+        mz.tol.unit=mz.tol.unit)
     use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
     if (use.tol && use.min.max)
@@ -812,7 +790,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 },
 
 .checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp,
-                       chrom.col.ids, match.rt) {
+    chrom.col.ids, match.rt) {
 
     if (match.rt) {
         chk::chk_numeric(rt)
@@ -897,8 +875,8 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     chk::chk_gte(ms.level, 0)
 
     return(list(use.mz.tol=mz.match$use.tol,
-                use.mz.min.max=mz.match$use.min.max, use.rt.match=match.rt,
-                input.df=input.df))
+        use.mz.min.max=mz.match$use.min.max, use.rt.match=match.rt,
+        input.df=input.df))
 },
 
 .computeChromColRtRange=function(entry) {
@@ -907,14 +885,14 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 
     if (entry$hasField('chrom.rt')) {
         rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt'),
-                                       rt.col.unit, 's')
+            rt.col.unit, 's')
         rt.col.max <- rt.col.min
     } else if (entry$hasField('chrom.rt.min')
-               && entry$hasField('chrom.rt.max')) {
+        && entry$hasField('chrom.rt.max')) {
         rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt.min'),
-                                       rt.col.unit, 's')
+            rt.col.unit, 's')
         rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),
-                                       rt.col.unit, 's')
+            rt.col.unit, 's')
     } else
         error0('Impossible to match on retention time, no retention time',
             ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')

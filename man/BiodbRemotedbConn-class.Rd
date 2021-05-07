@@ -38,8 +38,8 @@ entry.id: A character vector with the IDs of entries to retrieve.
 concatenate: If set to TRUE, then try to build as few URLs as
 possible, sending requests with several identifiers at once.
     
-max.length: The maximum length of the URLs to return, in number of
- characters.
+max.length: The maximum length of the URLs to return, in
+    number of characters.
     
 Returned value: A list of BiodbUrl objects.
     }

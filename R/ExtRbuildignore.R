@@ -22,13 +22,13 @@ ExtRbuildignore <- R6::R6Class('ExtRbuildignore',
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(filename=".Rbuildignore", template='Rbuildignore',
-                     upgrader='lineAdder', ...)
+        upgrader='lineAdder', ...)
 }
 ))

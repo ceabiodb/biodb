@@ -217,13 +217,13 @@ listTestRefEntries <- function(conn.id, limit=0) {
 
     # List json files
     files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
-                                paste('entry', conn.id, '*.json', sep='-')))
+        paste('entry', conn.id, '*.json', sep='-')))
     if (limit > 0 && length(files) > limit)
         files <- files[seq_len(limit)]
 
     # Extract ids
     ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep='-'), '\\1',
-               files, perl=TRUE)
+        files, perl=TRUE)
 
     # Replace encoded special characters
     ids = vapply(ids, utils::URLdecode, FUN.VALUE='')
@@ -238,10 +238,10 @@ loadTestRefEntry <- function(db, id) {
 
     # Entry file
     file <- file.path(getwd(), '..', 'testthat', 'res',
-                      paste('entry-', db, '-', id, '.json', sep=''))
+        paste('entry-', db, '-', id, '.json', sep=''))
     testthat::expect_true(file.exists(file),
-                          info=paste0('Cannot find file "', file, '" for ', db,
-                                      ' reference entry', id, '.'))
+        info=paste0('Cannot find file "', file, '" for ', db,
+        ' reference entry', id, '.'))
 
     # Load JSON
     json <- jsonlite::fromJSON(file)
@@ -262,8 +262,7 @@ loadTestRefEntries <- function(db) {
 
     # List JSON files
     entry.json.files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
-                                           paste('entry', db, '*.json',
-                                                 sep='-')))
+        paste('entry', db, '*.json', sep='-')))
 
     # Loop on all JSON files
     for (f in entry.json.files) {

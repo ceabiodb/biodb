@@ -22,7 +22,7 @@ ExtTests <- R6::R6Class('ExtTests',
 inherit=ExtGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtGenerator for the parameters.
@@ -38,8 +38,8 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
 
     # Generate testthat.R script
     private$createGenerator(ExtFileGenerator, template='testthat.R',
-                            folder='tests', filename='testthat.R'
-                            )$generate(overwrite=overwrite, fail=fail)
+        folder='tests', filename='testthat.R')$generate(overwrite=overwrite,
+        fail=fail)
 
     # Generate tests
     private$generateDefaultTests(overwrite=overwrite, fail=fail)
@@ -54,10 +54,8 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
     resPath <- getFolderFromVect(c(private$path, resFolder))
     if (dir.exists(resPath) && length(Sys.glob(file.path(resPath, '/*'))) == 0)
         private$createGenerator(ExtFileGenerator, template='entry-0001.json',
-                                folder=resFolder,
-                                filename=paste('entry', private$tags$dbName,
-                                               '0001.json', sep='-')
-                                )$generate(overwrite=overwrite, fail=fail)
+            folder=resFolder, filename=paste('entry', private$tags$dbName,
+            '0001.json', sep='-'))$generate(overwrite=overwrite, fail=fail)
 }
 
 ,generateLongTests=function(overwrite=FALSE, fail=TRUE) {
@@ -69,20 +67,17 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         && length(Sys.glob(file.path(longTestPath, '/*init_logging*.R'))) == 0)
     {
         private$createGenerator(ExtFileGenerator,
-                                template='test_long_001_init_logging.R',
-                                folder=longTestFolder,
-                                filename='test_long_001_init_logging.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            template='test_long_001_init_logging.R', folder=longTestFolder,
+            filename='test_long_001_init_logging.R')$generate(
+            overwrite=overwrite, fail=fail)
         private$createGenerator(ExtFileGenerator,
-                                template='test_long_100_generic.R',
-                                folder=longTestFolder,
-                                filename='test_long_100_generic.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            template='test_long_100_generic.R', folder=longTestFolder,
+            filename='test_long_100_generic.R')$generate(overwrite=overwrite,
+            fail=fail)
         private$createGenerator(ExtFileGenerator,
-                                template='test_long_200_example.R',
-                                folder=longTestFolder,
-                                filename='test_long_200_example.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            template='test_long_200_example.R', folder=longTestFolder,
+            filename='test_long_200_example.R')$generate(overwrite=overwrite,
+            fail=fail)
     }
 }
 
@@ -95,22 +90,21 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         && length(Sys.glob(file.path(testthatPath, '/*init_logging*.R'))) == 0)
     {
         private$createGenerator(ExtFileGenerator,
-                                template='test_001_init_logging.R',
-                                folder=testthatFolder,
-                                filename='test_001_init_logging.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            template='test_001_init_logging.R', folder=testthatFolder,
+            filename='test_001_init_logging.R')$generate(overwrite=overwrite,
+            fail=fail)
         private$createGenerator(ExtFileGenerator, template='test_050_fcts.R',
-                                folder=testthatFolder,
-                                filename='test_050_fcts.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            folder=testthatFolder,
+            filename='test_050_fcts.R')$generate(overwrite=overwrite,
+            fail=fail)
         private$createGenerator(ExtFileGenerator, template='test_100_generic.R',
-                                folder=testthatFolder,
-                                filename='test_100_generic.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            folder=testthatFolder,
+            filename='test_100_generic.R')$generate(overwrite=overwrite,
+            fail=fail)
         private$createGenerator(ExtFileGenerator, template='test_200_example.R',
-                                folder=testthatFolder,
-                                filename='test_200_example.R'
-                                )$generate(overwrite=overwrite, fail=fail)
+            folder=testthatFolder,
+            filename='test_200_example.R')$generate(overwrite=overwrite,
+            fail=fail)
     }
 }
 ))

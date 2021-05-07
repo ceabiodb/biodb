@@ -58,7 +58,7 @@ initialize=function(...) {
 },
 
 sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
-                         encoding=integer()) {
+    encoding=integer()) {
     ":\n\nSends a SOAP request to a URL. Returns the string result.
     \nurl: The URL to access, as a character string.
     \nsoap.request: The XML SOAP request to send, as a character string. 
@@ -70,13 +70,13 @@ sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
 
     # Prepare request
     header <- c(Accept="text/xml", Accept="multipart/*",
-                'Content-Type'="text/xml; charset=utf-8")
+        'Content-Type'="text/xml; charset=utf-8")
     if ( ! is.na(soap.action))
         header <- c(header, SOAPAction=soap.action)
 
     # Send request
     results <- .self$getUrl(url, method='post', header=header,
-                            body=soap.request, encoding=encoding)
+        body=soap.request, encoding=encoding)
 
     return(results)
 },
@@ -101,7 +101,7 @@ sendRequest=function(request, cache.read=TRUE) {
 
     # Log URL
     logDebug0("Getting content of ", request$getMethod(), " URL request \"",
-             request$getUrl()$toString(encode=FALSE), "\".")
+        request$getUrl()$toString(encode=FALSE), "\".")
 
     # Try to get query result from cache
     request.key <- request$getUniqueKey()
@@ -112,8 +112,7 @@ sendRequest=function(request, cache.read=TRUE) {
         && cch$fileExist(conn$getCacheId(), name=request.key, ext='content')) {
         logDebug("Loading content of request from cache.")
         content <- cch$loadFileContent(conn$getCacheId(),
-                                       name=request.key, ext='content',
-                                       output.vector=TRUE)
+            name=request.key, ext='content', output.vector=TRUE)
     }
 
     if (is.na(content)) {
@@ -129,7 +128,7 @@ sendRequest=function(request, cache.read=TRUE) {
             && cfg$get('cache.all.requests')) {
             logDebug("Saving content of request to cache.")
             cch$saveContentToFile(content, cache.id=conn$getCacheId(),
-                                  name=request.key, ext='content')
+                name=request.key, ext='content')
             cch$saveContentToFile(request$toString(),
                 cache.id=conn$getCacheId(), name=request.key, ext='request')
         }
@@ -164,9 +163,9 @@ downloadFile=function(url, dest.file) {
     logDebug('Downloading file "%s".', url)
     cfg <- .self$getBiodb()$getConfig()
     options(HTTPUserAgent=cfg$get('useragent'),
-            timeout=cfg$get('dwnld.timeout'))
+        timeout=cfg$get('dwnld.timeout'))
     utils::download.file(url=url, destfile=dest.file, mode='wb',
-                         method='auto', cacheOK=FALSE, quiet=FALSE)
+        method='auto', cacheOK=FALSE, quiet=FALSE)
     # TODO Add a biodb option for "quiet"?
 },
 
@@ -247,7 +246,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     # Rule does not exist
     if (create && ! domain %in% names(.self$.host2rule)) {
         logInfo0('No rule exists for domain "', domain,
-                '". Creating a default one.')
+            '". Creating a default one.')
         rule <- BiodbRequestSchedulerRule$new(host=domain, conn=NULL)
         .self$.host2rule[[domain]] <- rule
     }
@@ -269,7 +268,7 @@ connSchedulerFrequencyUpdated=function(conn) {
         if (is.null(rule)) {
             host <- BiodbUrl$new(url=url)$getDomain()
             logDebug0('Create new rule for URL "', host,'" of connector "',
-                     conn$getId(), '".')
+                conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule$new(host=host, conn=conn)
             .self$.host2rule[[rule$getHost()]] <- rule
         }
@@ -317,24 +316,24 @@ connSchedulerFrequencyUpdated=function(conn) {
 
     # Recoverable HTTP errors
     lst <- c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT,
-             .HTTP.STATUS.INTERNAL.SERVER.ERROR,
-             .HTTP.STATUS.SERVICE.UNAVAILABLE) 
+        .HTTP.STATUS.INTERNAL.SERVER.ERROR,
+        .HTTP.STATUS.SERVICE.UNAVAILABLE) 
     if ( ! is.null(hdr) && hdr$status %in% lst) {
         err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage,
-                          "\").")
+            "\").")
         if ('Retry-After' %in% names(hdr))
             err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
-                              ".")
+                ".")
         retry <- TRUE
     }
 
     # Other HTTP errors
     if (is.null(err_msg) && ! is.null(hdr) && hdr$status != .HTTP.STATUS.OK) {
         err_msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"",
-                          hdr$statusMessage, "\").")
+            hdr$statusMessage, "\").")
         if ('Retry-After' %in% names(hdr))
             err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
-                              ".")
+                ".")
         content <- NA_character_
         retry <- FALSE
     }
@@ -343,7 +342,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     # This happens sometime with NCBI CCDS server.
     if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
         && length(grep('The proxy server could not handle the request',
-                       unname(content))) > 0) {
+        unname(content))) > 0) {
         logDebug('Found proxy error message in content.')
         err_msg <- "Error between the proxy and the main server."
         content <- NA_character_
@@ -372,13 +371,13 @@ connSchedulerFrequencyUpdated=function(conn) {
     content <- tryCatch(expr={
             if (request$getMethod() == 'get')
                 RCurl::getURL(request$getUrl()$toString(), .opts=opts,
-                              ssl.verifypeer=.self$.ssl.verifypeer,
-                              .encoding=request$getEncoding(),
-                              headerfunction=header$update)
+                    ssl.verifypeer=.self$.ssl.verifypeer,
+                    .encoding=request$getEncoding(),
+                    headerfunction=header$update)
             else
                 RCurl::postForm(request$getUrl()$toString(), .opts=opts,
-                                .encoding=request$getEncoding(),
-                                headerfunction=header$update)
+                    .encoding=request$getEncoding(),
+                    headerfunction=header$update)
             },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
@@ -394,8 +393,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         # We want to catch "<simpleWarning in max(i): no non-missing arguments
         # to max; returning -Inf>".
         hdr <- tryCatch(expr=as.list(header$value()),
-                       warning=function(w) w,
-                       error=function(e) e)
+            warning=function(w) w,
+            error=function(e) e)
 
         if (methods::is(hdr, 'simpleError')
             || methods::is(hdr, 'simpleWarning')) {
@@ -415,7 +414,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     }
 
     res <- .self$.processRequestErrors(content=content, hdr=hdr,
-                                       err_msg=err_msg, retry=retry)
+        err_msg=err_msg, retry=retry)
 
     return(list(content=content, err_msg=res$err_msg, retry=res$retry))
 },
@@ -435,7 +434,7 @@ connSchedulerFrequencyUpdated=function(conn) {
         # Print debug information about header and body
         logDebug('Request header is: "%s".', request$getHeaderAsSingleString())
         logDebug('Request body is "%s".',
-                 paste(request$getBody(), collapse=', '))
+            paste(request$getBody(), collapse=', '))
 
         # Wait required time between two requests
         rule$waitAsNeeded()
@@ -448,8 +447,8 @@ connSchedulerFrequencyUpdated=function(conn) {
         if ( ! is.null(res$err_msg)) {
             if (retry) {
                 m <- paste0(" When contacting URL \"",
-                            request$getUrl()$toString(),
-                            "\". Retrying connection to server...")
+                    request$getUrl()$toString(),
+                    "\". Retrying connection to server...")
                 res$err_msg=paste0(res$err_msg, m)
             }
             logInfo(res$err_msg)
@@ -472,11 +471,11 @@ getUrlString=function(url, params=list()) {
 },
 
 getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
-                body=character(), encoding=integer()) {
+    body=character(), encoding=integer()) {
     "Send a URL request, either with GET or POST method, and return result."
 
     lifecycle::deprecate_warn('1.0.0', 'getUrl()',
-                              "BiodbRequestScheduler::sendRequest()")
+        "BiodbRequestScheduler::sendRequest()")
 
     method <- match.arg(method)
 

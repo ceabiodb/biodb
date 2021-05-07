@@ -21,13 +21,13 @@ ExtPackageFile <- R6::R6Class('ExtPackageFile',
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' @return A new instance.
 initialize=function(...) {
     super$initialize(template='package.R', folder='R', filename='package.R',
-                     ...)
+        ...)
 }
 ))

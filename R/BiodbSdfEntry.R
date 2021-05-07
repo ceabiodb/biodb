@@ -53,7 +53,7 @@ initialize=function(...) {
         
         # Read and set value
         else if (nchar(line) > 0 && ! is.null(tag)
-                 && tag %in% names(tag2field)) {
+            && tag %in% names(tag2field)) {
             
             # Get biodb field
             field <- tag2field[[tag]]

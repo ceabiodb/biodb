@@ -128,7 +128,7 @@ loadDefinitions=function(file, package='biodb') {
         pkgs <- installed.packages()[, 'Version']
         pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
         pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may
-                                          # happen while building vignettes.
+        # happen while building vignettes.
     } else
         pkgs <- character()
 
@@ -138,7 +138,7 @@ loadDefinitions=function(file, package='biodb') {
 .loadBiodbPkgsDefinitions=function(pkgs) {
     for (pkg in sort(names(pkgs))) {
         logInfo('Loading definitions from package %s version %s.',
-                pkg, pkgs[[pkg]])
+            pkg, pkgs[[pkg]])
         file <- system.file("definitions.yml", package=pkg)
         .self$loadDefinitions(file, package=pkg)
     }
@@ -232,7 +232,7 @@ addObservers=function(observers) {
 
     # Check types of observers
     is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
-                     FUN.VALUE=TRUE)
+        FUN.VALUE=TRUE)
     if (any( ! is.obs))
         error("Observers must inherit from BiodbObserver class.")
 
@@ -305,10 +305,8 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
 
         if (length(entries) > 0) {
             val <-lapply(entries,
-                         function(e)
-                             e$getFieldValue(field, flatten=flatten,
-                                             compute=compute, limit=limit,
-                                             withNa=withNa))
+                function(e) e$getFieldValue(field, flatten=flatten,
+                    compute=compute, limit=limit, withNa=withNa))
             val <- unlist(val)
         }
         else
@@ -319,9 +317,7 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
     else {
         if (length(entries) > 0)
             val <- lapply(entries, function(e) e$getFieldValue(field,
-                                                               compute=compute,
-                                                               limit=limit,
-                                                               withNa=withNa))
+                compute=compute, limit=limit, withNa=withNa))
         else
             val <- list()
     }
@@ -330,10 +326,9 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
 },
 
 entriesToDataframe=function(entries, only.atomic=TRUE,
-                            null.to.na=TRUE, compute=TRUE,
-                            fields=NULL, limit=0, drop=FALSE,
-                            sort.cols=FALSE, flatten=TRUE,
-                            only.card.one=FALSE, own.id=TRUE, prefix='') {
+    null.to.na=TRUE, compute=TRUE, fields=NULL, limit=0, drop=FALSE,
+    sort.cols=FALSE, flatten=TRUE, only.card.one=FALSE, own.id=TRUE, prefix='')
+{
     ":\n\nConverts a list of entries or a list of list of entries
     (\\code{BiodbEntry} objects) into a data frame.
     \nentries: A list of \\code{BiodbEntry} instances or a list of list of
@@ -373,14 +368,9 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 
         # Convert list of entries to a list of data frames.
         df.list <- .self$.entriesToListOfDataframes(entries=entries,
-                                                    only.atomic=only.atomic,
-                                                    compute=compute,
-                                                    fields=fields,
-                                                    flatten=flatten,
-                                                    limit=limit,
-                                                    only.card.one=only.card.one,
-                                                    own.id=own.id,
-                                                    null.to.na=null.to.na)
+            only.atomic=only.atomic, compute=compute, fields=fields,
+            flatten=flatten, limit=limit, only.card.one=only.card.one,
+            own.id=own.id, null.to.na=null.to.na)
 
         # Build data frame of all entries
         if ( ! is.null(df.list)) {
@@ -401,7 +391,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
         fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
         noprefix <- vapply(colnames(entries.df), fct, FUN.VALUE=TRUE)
         colnames(entries.df)[noprefix] <- paste0(prefix,
-                                                colnames(entries.df)[noprefix])
+            colnames(entries.df)[noprefix])
     }
 
     # Drop
@@ -412,7 +402,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
 },
 
 entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
-                             own.id=FALSE) {
+    own.id=FALSE) {
     ":\n\nConstruct a data frame using entry IDs and field values of the
     corresponding entries.
     \nids: A character vector of entry IDs or a list of character vectors of
@@ -450,7 +440,7 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
 
     # Convert to data frame
     x <- .self$entriesToDataframe(entries, fields=fields, limit=limit,
-                                  prefix=prefix, drop=FALSE, own.id=own.id)
+        prefix=prefix, drop=FALSE, own.id=own.id)
 
     return(x)
 },
@@ -476,15 +466,14 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     if (ncol(x) > 0) {
         chk::chk_character(id.col)
         if ( ! id.col %in% colnames(x))
-            error('Column "%s" was not found inside data frame.',
-                            id.col)
+            error('Column "%s" was not found inside data frame.', id.col)
 
         # Get ids
         ids <- as.character(x[[id.col]])
 
         # Get data frame of fields
         y <- .self$entryIdsToDataframe(ids, db=db, fields=fields, limit=limit,
-                                       prefix=prefix)
+            prefix=prefix)
 
         # Merge data frames
         if (is.data.frame(y) && nrow(y) > 0)
@@ -503,7 +492,7 @@ entriesToJson=function(entries, compute=TRUE) {
     "
 
     json <- vapply(entries, function(e) e$getFieldsAsJson(compute=compute),
-                   FUN.VALUE='')
+        FUN.VALUE='')
 
     return(json)
 },
@@ -530,7 +519,7 @@ collapseRows=function(x, sep='|', cols=1L) {
         cols <- as.integer(cols)
     if ( ! is.integer(cols) && ! all(cols %in% colnames(x)))
         error('The data frame does not contain columns "%s".',
-              paste(cols, collapse=', '))
+            paste(cols, collapse=', '))
     chk::chk_character(sep)
 
     y <- NULL
@@ -553,8 +542,8 @@ collapseRows=function(x, sep='|', cols=1L) {
         if (j > i)
             for (col in colnames(x)) {
                 if (( ! all(is.na(x[i:j, col]))
-                     && any(is.na(x[i:j, col])))
-                || ( ( ! is.na(one.line[[col]]))
+                    && any(is.na(x[i:j, col])))
+                    || ( ( ! is.na(one.line[[col]]))
                     && any(x[i:j, col] != one.line[[col]])))
                     one.line[[col]] <- paste(x[i:j, col], collapse=sep)
             }
@@ -599,7 +588,7 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE,
 
     # Call other method
     .self$entriesToSingleFieldValues(entries, field=field,
-                                     sortOutput=sortOutput, uniq=uniq)
+        sortOutput=sortOutput, uniq=uniq)
 },
 
 computeFields=function(entries) {
@@ -653,7 +642,7 @@ copyDb=function(conn.from, conn.to, limit=0) {
 
     # Loop on all entries
     prg <- Progress$new(biodb=.self, msg='Copying entries.',
-                        total=length(entries))
+        total=length(entries))
     for (entry in entries) {
 
         # Clone entry
@@ -702,7 +691,7 @@ show=function() {
     else {
         keys <- vapply(locale.split, function(x) x[[1]], FUN.VALUE='')
         locale.values <- vapply(locale.split, function(x) x[[2]],
-                                FUN.VALUE='')
+            FUN.VALUE='')
         names(locale.values) <- keys
         LC_CTYPE <- locale.values[['LC_CTYPE']]
     }
@@ -713,20 +702,19 @@ show=function() {
             Sys.setlocale(locale='en_US.UTF-8') # Force locale
         else
             warn0("LC_CTYPE field of locale is set to ", LC_CTYPE,
-                 ". It must be set to a UTF-8 locale like",
-                 "'en_US.UTF-8'.")
+                ". It must be set to a UTF-8 locale like",
+                "'en_US.UTF-8'.")
     }
 },
 
 .entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
-                                    flatten, limit, only.card.one, own.id,
-                                    null.to.na, progress=TRUE) {
+    flatten, limit, only.card.one, own.id, null.to.na, progress=TRUE) {
 
     df.list <- list()
 
     # Loop on all entries
     prg <- Progress$new(biodb=.self, msg='Converting entries to data frame.',
-                        total=length(entries))
+        total=length(entries))
     for (e in entries) {
 
         e.df <- NULL
@@ -739,9 +727,8 @@ show=function() {
         if (is.list(e)) {
             # Get the list of data frames for those entries
             x <- .self$.entriesToListOfDataframes(e, only.atomic, compute,
-                                                  fields, flatten, limit,
-                                                  only.card.one, own.id,
-                                                  null.to.na, progress=FALSE)
+                fields, flatten, limit, only.card.one, own.id, null.to.na,
+                progress=FALSE)
 
             # Reduce these data frames to one data frame with one row.
             sep <- .self$getConfig()$get('entries.sep')
@@ -754,12 +741,8 @@ show=function() {
         # Single entry
         else if (methods::is(e, "BiodbEntry")) {
             e.df <- e$getFieldsAsDataframe(only.atomic=only.atomic,
-                                           compute=compute,
-                                           fields=fields,
-                                           flatten=flatten,
-                                           limit=limit,
-                                           only.card.one=only.card.one,
-                                           own.id=own.id)
+                compute=compute, fields=fields, flatten=flatten, limit=limit,
+                only.card.one=only.card.one, own.id=own.id)
         }
 
         logTrace("Entry converted to data frame: %s.", df2str(e.df))
@@ -787,7 +770,7 @@ fieldIsAtomic=function(field) {
     method is \\code{BiodbEntryField::isVector()}."
 
     lifecycle::deprecate_warn('1.0.0', 'fieldIsAtomic()',
-                              'BiodbEntryField::isVector()')
+        'BiodbEntryField::isVector()')
 
     return(.self$getEntryFields()$get(field)$isVector())
 },
@@ -797,7 +780,7 @@ getFieldClass=function(field) {
     \\code{BiodbMain::getEntryFields()$get(field)$getClass()}."
 
     lifecycle::deprecate_warn('1.0.0', 'getFieldClass()',
-                              'BiodbEntryField::getClass()')
+        'BiodbEntryField::getClass()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$getClass())
 }

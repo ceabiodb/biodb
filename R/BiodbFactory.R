@@ -80,7 +80,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     if (db.info$getPropertyValue('disabled')) {
         reason <- db.info$getPropertyValue('disabling.reason')
         warn('The "%s" connector is disabled. %s %s', db.class,
-             reason, 'You use it at your own risks.')
+            reason, 'You use it at your own risks.')
     }
 
     # Get connector class
@@ -104,7 +104,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Create connector instance
     prop <- if (is.na(token)) list() else list(token=token)
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
-                           properties=prop, parent=.self)
+        properties=prop, parent=.self)
     if ( ! is.null(url) && ! is.na(url))
         conn$setPropValSlot('urls', 'base.url', url)
 
@@ -122,10 +122,10 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     } else {
         conn$.terminate()
         msg <- paste0('A connector (', existingConn$getId(),
-                      ') already exists for database ', db.class,
-                      (if (is.null(url)) '' else
-                          paste0(' with the same URL (', url, ')')),
-                      (if (is.na(token)) '' else 'and the same token'), '.')
+            ') already exists for database ', db.class,
+            (if (is.null(url)) '' else
+            paste0(' with the same URL (', url, ')')),
+            (if (is.na(token)) '' else 'and the same token'), '.')
         if (fail.if.exists) error(msg) else warn(msg)
         conn <- if (get.existing.conn) existingConn else NULL
     }
@@ -342,7 +342,7 @@ deleteAllCacheEntries=function(conn.id) { # DEPRECATED
     \nReturned values: None.
     "
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
-                              "deleteAllEntriesFromVolatileCache()")
+        "deleteAllEntriesFromVolatileCache()")
     .self$deleteAllCacheEntries(conn.id)
 },
 
@@ -371,7 +371,7 @@ show=function() {
 
         # Create entries
         new.entries <- .self$.createEntryFromContent(conn$getId(),
-                                                     content=content, drop=drop)
+            content=content, drop=drop)
 
         # Store new entries in cache
         conn$.addEntriesToCache(ids, new.entries)
@@ -392,8 +392,8 @@ show=function() {
             bu <- conn$getPropValSlot('urls', 'base.url')
             nbu <- new.conn$getPropValSlot('urls', 'base.url')
             same.url <- ( ! is.na(bu) && ! is.na(nbu)
-                         && normalizePath(bu, mustWork=FALSE)
-                            == normalizePath(nbu, mustWork=FALSE))
+                && normalizePath(bu, mustWork=FALSE)
+                == normalizePath(nbu, mustWork=FALSE))
 
             # Compare tokens
             tk <- conn$getPropertyValue('token')
@@ -422,14 +422,14 @@ show=function() {
         conn <- .self$getConn(conn.id)
 
         logDebug('Creating %s entries from %d content(s).',
-                 conn$getPropertyValue('name'), length(content))
+            conn$getPropertyValue('name'), length(content))
 
         # Get entry class
         entry.class <- conn$getEntryClass()
 
         # Loop on all contents
         logDebug('Parsing %d %s entries.', length(content),
-                 conn$getPropertyValue('name'))
+            conn$getPropertyValue('name'))
         prg <- Progress$new(biodb=.self$getBiodb(),
                             msg='Creating entry instances from contents',
                             total=length(content))
@@ -449,7 +449,7 @@ show=function() {
 
         # Replace elements with no accession id by NULL
         accessions <- vapply(entries, function(x) x$getFieldValue('accession'),
-                             FUN.VALUE='')
+            FUN.VALUE='')
         fct <- function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0)
         entries.without.accession <- vapply(accessions, fct, FUN.VALUE=TRUE)
         strIds <- paste(accessions, collapse=', ')

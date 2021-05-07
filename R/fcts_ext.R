@@ -116,7 +116,7 @@ getReposName <- function(pkgRoot, default=NULL) {
             site <- paste(rev(strsplit("moc.buhtig", "")[[1]]), collapse='')
             if (grepl(site, reposUrl, fixed=TRUE))
                 repos <- sub(paste0('^.*', site, '[:/](.+?)(\\.git)?$'), '\\1',
-                             reposUrl, perl=TRUE)
+                    reposUrl, perl=TRUE)
         }
     }
     

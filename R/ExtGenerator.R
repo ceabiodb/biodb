@@ -20,7 +20,7 @@
 ExtGenerator <- R6::R6Class('ExtGenerator',
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param path      The path to the package folder.
@@ -161,14 +161,14 @@ private=list(
 ,checkTags=function() {
     chk::chk_match(private$tags$pkgName, regexp="^biodb[A-Z][A-Za-z0-9]+$")
     chk::chk_match(private$tags$email,
-                   regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$")
+        regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$")
     chk::chk_string(private$tags$firstname)
     chk::chk_string(private$tags$lastname)
     chk::chk_match(private$tags$dbName, regexp="^[a-z0-9.]+$")
     chk::chk_string(private$tags$dbTitle)
     chk::chk_string(private$tags$vignetteName)
     chk::chk_match(private$tags$githubRepos,
-                   regexp="^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$")
+        regexp="^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$")
     chk::chk_flag(private$tags$newPkg)
     chk::chk_flag(private$tags$makefile)
     chk::chk_flag(private$tags$downloadable)

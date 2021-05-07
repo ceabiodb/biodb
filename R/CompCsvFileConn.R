@@ -65,7 +65,7 @@ initialize=function(...) {
                     rng <- convertTolToRange(param$value, param$ppm, 'ppm')
             }
             db <- .self$.selectByRange(db=db, field=field,
-                                       minValue=rng$a, maxValue=rng$b)
+                minValue=rng$a, maxValue=rng$b)
         }
     }
     

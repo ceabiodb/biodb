@@ -38,11 +38,11 @@ initialize=function(...) {
 
     if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
         .self$setFieldValue('chrom.col.id',
-                            .self$getFieldValue('chrom.col.name'))
+            .self$getFieldValue('chrom.col.name'))
 
     if ( ! .self$hasField('chrom.col.name') && .self$hasField('chrom.col.id'))
         .self$setFieldValue('chrom.col.name',
-                            .self$getFieldValue('chrom.col.id'))
+            .self$getFieldValue('chrom.col.id'))
 },
 
 .parsePrecursor=function() {
@@ -59,9 +59,9 @@ initialize=function(...) {
         # Select peak with highest intensity for precursor
         else if (sum(precursors) > 1) {
             warn0("Found more than one precursor inside entry ",
-                 .self$getFieldValue('accession', compute=FALSE),
-                 ': ', paste(pkattr[precursors], collapse=", "),
-                 ". Trying to take the one with highest intensity.")
+                .self$getFieldValue('accession', compute=FALSE),
+                ': ', paste(pkattr[precursors], collapse=", "),
+                ". Trying to take the one with highest intensity.")
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
                 if (.self$hasField(int.col)) {
@@ -71,10 +71,10 @@ initialize=function(...) {
                 }
             if (is.null(strongest.precursor.mz))
                 warn0('No intensity information found for choosing',
-                     ' the strongest precursor.')
+                    ' the strongest precursor.')
             else {
                 logInfo('Found strongest precursor: %g.',
-                        strongest.precursor.mz)
+                    strongest.precursor.mz)
                 .self$setFieldValue('msprecmz', strongest.precursor.mz)
             }
         }
@@ -89,12 +89,12 @@ initialize=function(...) {
     if ( ! is.null(mz)) {
         if (is.null(peaks))
             error0('No peaks table while a peak.mz field exists for entry ',
-                  .self$getFieldValue('accession'), ' .')
+                .self$getFieldValue('accession'), ' .')
         if (nrow(peaks) != length(mz))
             error0('Peaks table (nrow=', nrow(peaks), ') does not have ',
-                  'the same number of elements as peak.mz field (',
-                  length(mz), ') for entry ', .self$getFieldValue('accession'),
-                  '.')
+                'the same number of elements as peak.mz field (',
+                length(mz), ') for entry ', .self$getFieldValue('accession'),
+                '.')
     }
 
     # Chromatographic column id and name

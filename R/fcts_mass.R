@@ -38,7 +38,7 @@ simplifySpectrum <- function(spec) {
 }
 
 calcDistance <- function(spec1, spec2, npmin=2, fun=c("wcosine"),
-                         params=list()) {
+params=list()) {
         #fun <- match.arg(fun)
 
         #Spec are always normalized in percentage
@@ -54,11 +54,11 @@ calcDistance <- function(spec1, spec2, npmin=2, fun=c("wcosine"),
         if (sum(res$matched != -1) < npmin)
             return(list(matched=res$matched, similarity=0))
         list(matched=res$matched,
-             similarity=res$measure)
+            similarity=res$measure)
     }
 
 compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
-                           params=list()) {
+params=list()) {
 ###The returned sim list is not ordered
 
     res <- data.frame(score=numeric(0))
@@ -75,7 +75,7 @@ compareSpectra <- function(spec, libspec, npmin=2, fun="wcosine",
 
         # `spec` is supposed to be already normalized.
         vall <- lapply(libspec, calcDistance, spec1=spec, npmin=npmin,
-                       params=params, fun=fun)
+            params=params, fun=fun)
 
         # The list is ordered with the chosen metric.
         sim <- vapply(vall, '[[', i="similarity", FUN.VALUE=1)

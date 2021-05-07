@@ -10,10 +10,9 @@ test.entry.fields <- function(conn, opt) {
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
     testthat::expect_equal(length(entries), length(ref.ids),
-                           info=paste0("Error while retrieving entries. ",
-                                       length(entries),
-                                       " entrie(s) obtained instead of ",
-                                       length(ref.ids), "."))
+        info=paste0("Error while retrieving entries. ",
+        length(entries), " entrie(s) obtained instead of ", length(ref.ids),
+        "."))
 
     # Compute fields
     biodb$computeFields(entries)
@@ -21,7 +20,7 @@ test.entry.fields <- function(conn, opt) {
     # Save downloaded entries as JSON
     filenames <- paste('entry-', db.name, '-', ref.ids, '.json', sep = '')
     filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
-                        reserved=TRUE)
+        reserved=TRUE)
     json.files <- file.path(getTestOutputDir(), filenames)
     biodb$saveEntriesAsJson(entries, json.files)
 
@@ -130,20 +129,20 @@ test.wrong.entry <- function(conn) {
 
 test.wrong.entry.among.good.ones <- function(conn) {
 
-   biodb <- conn$getBiodb()
-   db.name <- conn$getId()
+    biodb <- conn$getBiodb()
+    db.name <- conn$getId()
 
-   # Load reference entries
-   entries.desc <- loadTestRefEntries(db.name)
+    # Load reference entries
+    entries.desc <- loadTestRefEntries(db.name)
 
-   # Test a wrong accession number
-   ids <- c('WRONGB', entries.desc[['accession']])
-   entries <- biodb$getFactory()$getEntry(db.name, id = ids)
-   testthat::expect_equal(length(entries), nrow(entries.desc) + 1,
-        info=paste0("Error while retrieving entries. ", length(entries),
+    # Test a wrong accession number
+    ids <- c('WRONGB', entries.desc[['accession']])
+    entries <- biodb$getFactory()$getEntry(db.name, id = ids)
+    testthat::expect_equal(length(entries), nrow(entries.desc) + 1,
+    info=paste0("Error while retrieving entries. ", length(entries),
         " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
-   testthat::expect_null(entries[[1]])
-   testthat::expect_false(any(vapply(entries[2:length(entries)], is.null,
+    testthat::expect_null(entries[[1]])
+    testthat::expect_false(any(vapply(entries[2:length(entries)], is.null,
         FUN.VALUE=TRUE)))
 }
 
@@ -310,8 +309,8 @@ test.db.writing.with.col.add = function(conn) {
 
     # Set database file
     db.file <- file.path(getTestOutputDir(),
-                         paste('test.db.writing.with.col.add',
-                               conn$getDbClass(), 'db', sep='.'))
+        paste('test.db.writing.with.col.add',
+        conn$getDbClass(), 'db', sep='.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -322,7 +321,7 @@ test.db.writing.with.col.add = function(conn) {
 
     # Create other connector
     conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass(),
-                                                     url=db.file)
+        url=db.file)
     conn.2$allowEditing()
     conn.2$allowWriting()
     conn.2$addNewEntry(entry$clone())
@@ -333,7 +332,7 @@ test.db.writing.with.col.add = function(conn) {
     testthat::expect_equal(id, entry$getFieldValue('accession'))
     entries = conn.2$getEntry(id, drop=FALSE)
     entries.df = conn.2$getBiodb()$entriesToDataframe(entries, compute=FALSE,
-                                                      only.card.one=TRUE)
+        only.card.one=TRUE)
 
     # Get a list of all fields currently used in connector
     current.fields = colnames(entries.df)
@@ -386,7 +385,7 @@ test.db.writing = function(conn) {
     df.1 <- biodb$entriesToDataframe(list(entry), only.atomic=FALSE,
         sort.cols=TRUE)
     df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic=FALSE,
-        ort.cols=TRUE)
+        sort.cols=TRUE)
     testthat::expect_identical(df.1, df.2)
 
     # Add new entry
@@ -425,8 +424,7 @@ test.db.copy <- function(conn) {
 
     # Set destination database file
     db.file <- file.path(getTestOutputDir(),
-                         paste('test.db.copy', conn$getDbClass(), 'db',
-                               sep='.'))
+        paste('test.db.copy', conn$getDbClass(), 'db', sep='.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -445,9 +443,9 @@ test.db.copy <- function(conn) {
     entries.1 <- conn$getEntry(ids.1)
     entries.2 <- conn.2$getEntry(ids.2)
     df.1 <- biodb$entriesToDataframe(entries.1, only.atomic=FALSE,
-                                     compute=FALSE)
+        compute=FALSE)
     df.2 <- biodb$entriesToDataframe(entries.2, only.atomic=FALSE,
-                                     compute=FALSE)
+        compute=FALSE)
     testthat::expect_identical(df.1, df.2)
 
     # Delete connector
@@ -597,51 +595,48 @@ test.searchCompound <- function(db, opt=NULL) {
             ' with mass field ', field, '.')
         if ( ! db$isSearchableByField(field)) {
             testthat::expect_warning(ids <- db$searchCompound(mass=mass,
-                                                mass.tol=mass.tol,
-                                                mass.field=field,
-                                                max.results=max.results))
+                mass.tol=mass.tol, mass.field=field, max.results=max.results))
             testthat::expect_null(ids, msg)
         } else {
             ids <- db$searchCompound(mass=mass, mass.tol=mass.tol,
-                                     mass.field=field, max.results=max.results)
+                mass.field=field, max.results=max.results)
             testthat::expect_true( ! is.null(ids), msg)
             testthat::expect_true(length(ids) > 0, msg)
             # Search again if not found with limited max.results
             if ( ! id %in% ids) {
                 max.results <- 1000000
                 ids <- db$searchCompound(mass=mass, mass.tol=mass.tol,
-                                         mass.field=field,
-                                         max.results=max.results)
+                    mass.field=field, max.results=max.results)
             }
             testthat::expect_true(id %in% ids, msg)
             testthat::expect_true(is.na(max.results)
-                                  || length(ids) <= max.results)
+                || length(ids) <= max.results)
 
             # Search by mass and name
             if (db$isSearchableByField('name')) {
 
                 # Search by mass and name
                 ids <- db$searchCompound(name=name, mass=mass,
-                                         mass.tol=mass.tol, mass.field=field,
-                                         max.results=max.results)
+                    mass.tol=mass.tol, mass.field=field,
+                    max.results=max.results)
                 msg <- paste0('While searching for entry ', id, ' by mass ',
-                              mass, ' with mass field ', field, ' and by name
-                              ', name, '.')
+                    mass, ' with mass field ', field, ' and by name
+                    ', name, '.')
                 testthat::expect_true( ! is.null(ids), msg)
                 testthat::expect_true(length(ids) > 0, msg)
                 testthat::expect_true(id %in% ids, msg)
                 testthat::expect_true(is.na(max.results)
-                                      || length(ids) <= max.results)
+                    || length(ids) <= max.results)
 
                 # Search by name and slightly different mass
                 mass <- mass + mass.tol
                 mass.tol <- 2 * mass.tol
                 ids <- db$searchCompound(name=name, mass=mass,
-                                         mass.field=field, mass.tol=mass.tol,
-                                         max.results=max.results)
+                    mass.field=field, mass.tol=mass.tol,
+                    max.results=max.results)
                 msg <- paste0('While searching for entry ', id, ' by mass ',
-                              mass, ' with mass field ', field, ' and by name
-                              ', name, '.')
+                    mass, ' with mass field ', field, ' and by name
+                    ', name, '.')
                 testthat::expect_true( ! is.null(ids), msg)
                 testthat::expect_true(length(ids) > 0, msg)
                 testthat::expect_true(id %in% ids, msg)
@@ -697,7 +692,7 @@ test.annotateMzValues_real_values <- function(conn, opt) {
 
         # Get entries that have a value for this mass field
         ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
-                               FUN.VALUE=TRUE)]
+            FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
@@ -720,17 +715,13 @@ test.annotateMzValues_real_values <- function(conn, opt) {
                     if ( ! conn$isSearchableByField(mf)) {
                         testthat::expect_warning(
                             ret <- conn$annotateMzValues(df,
-                                                         mz.tol=abs(shift)+0.01,
-                                                         mass.field=mf,
-                                                         ms.mode=mode,
-                                                         max.results=3))
+                                mz.tol=abs(shift)+0.01, mass.field=mf,
+                                ms.mode=mode, max.results=3))
                         testthat::expect_identical(ret, df)
                     } else {
                         ret <- conn$annotateMzValues(df,
-                                                     mz.tol=abs(shift)+0.01,
-                                                     mass.field=mf,
-                                                     ms.mode=mode,
-                                                     max.results=3)
+                            mz.tol=abs(shift)+0.01, mass.field=mf,
+                            ms.mode=mode, max.results=3)
                         testthat::expect_is(ret, 'data.frame')
                         testthat::expect_true(all(colnames(df) %in%
                             colnames(ret)))
@@ -774,12 +765,11 @@ test_annotateMzValues_input_vector <- function(conn, opt) {
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=0.01,
-                                                 mass.field=mf, ms.mode='neg',
-                                                 max.results=3))
+                        mass.field=mf, ms.mode='neg', max.results=3))
                 testthat::expect_identical(ret, data.frame(mz=mz))
             } else {
                 ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
-                                             ms.mode='neg', max.results=3)
+                    ms.mode='neg', max.results=3)
                 testthat::expect_is(ret, 'data.frame')
                 id.col <- conn$getEntryIdField()
                 testthat::expect_identical(c('mz', id.col), colnames(ret))
@@ -822,13 +812,11 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
-                                                 ms.mode='neg', max.results=3,
-                                                 fields=fields))
+                        ms.mode='neg', max.results=3, fields=fields))
                 testthat::expect_identical(ret, data.frame(mz=mz))
             } else {
                 ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
-                                             ms.mode='neg', max.results=3,
-                                             fields=fields)
+                    ms.mode='neg', max.results=3, fields=fields)
                 testthat::expect_is(ret, 'data.frame')
                 testthat::expect_identical(sort(c('mz', outputFields)),
                     sort(colnames(ret)))
@@ -839,13 +827,13 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
-                                                 ms.mode='neg', max.results=3,
-                                                 fields=c(fields, 'peak.attr')))
+                        ms.mode='neg', max.results=3, fields=c(fields,
+                        'peak.attr')))
                 testthat::expect_identical(ret, data.frame(mz=mz))
             } else {
                 ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
-                                             ms.mode='neg', max.results=3,
-                                             fields=c(fields, 'peak.attr'))
+                    ms.mode='neg', max.results=3, fields=c(fields,
+                    'peak.attr'))
                 testthat::expect_is(ret, 'data.frame')
                 testthat::expect_identical(sort(c('mz', outputFields)),
                     sort(colnames(ret)))
@@ -883,14 +871,12 @@ test_annotateMzValues_ppm_tol <- function(conn, opt) {
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=15,
-                                                 mz.tol.unit='ppm',
-                                                 mass.field=mf, ms.mode='neg',
-                                                 max.results=3))
+                        mz.tol.unit='ppm', mass.field=mf, ms.mode='neg',
+                        max.results=3))
                 testthat::expect_identical(ret, data.frame(mz=mz))
             } else {
                 ret <- conn$annotateMzValues(mz, mz.tol=15, mz.tol.unit='ppm',
-                                             mass.field=mf, ms.mode='neg',
-                                             max.results=3)
+                    mass.field=mf, ms.mode='neg', max.results=3)
                 testthat::expect_is(ret, 'data.frame')
                 id.col <- conn$getEntryIdField()
                 testthat::expect_identical(c('mz', id.col), colnames(ret))
@@ -935,12 +921,11 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn, opt) {
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(idf, mz.tol=0.01,
-                                                 mass.field=mf, ms.mode='neg',
-                                                 max.results=3))
+                        mass.field=mf, ms.mode='neg', max.results=3))
                 testthat::expect_identical(ret, idf)
             } else {
                 ret <- conn$annotateMzValues(idf, mz.tol=0.01, mass.field=mf,
-                                             ms.mode='neg', max.results=3)
+                    ms.mode='neg', max.results=3)
                 testthat::expect_is(ret, 'data.frame')
                 testthat::expect_true(all(colnames(idf) %in% colnames(ret)))
                 testthat::expect_true(nrow(ret) >= nrow(idf))
@@ -1003,9 +988,8 @@ test.msmsSearch.self.match <- function(db) {
 
             # Run MSMS search
             results <- db$msmsSearch(peaks, precursor=mz, mz.tol=0.1,
-                                     mz.tol.unit='plain', ms.mode=mode,
-                                     npmin=2, dist.fun=dist.fct, msms.mz.tol=3,
-                                     msms.mz.tol.min=0.005)
+                mz.tol.unit='plain', ms.mode=mode, npmin=2, dist.fun=dist.fct,
+                msms.mz.tol=3, msms.mz.tol.min=0.005)
 
             # Check results
             testthat::expect_true( ! is.null(results))
@@ -1095,7 +1079,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
     mzs <- db$getMzValues(ms.mode=mode, max.results=3)
     mzs <- c(mzs, NA_real_)
     peaks <- db$searchMsPeaks(mz=mzs, mz.tol=tol, mz.tol.unit='plain',
-                              ms.mode=mode, max.results=2)
+        ms.mode=mode, max.results=2)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) >= length(mzs))
     testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
@@ -1118,7 +1102,7 @@ test.searchMzTol.multiple.mz <- function(db) {
     all.ids <- character(0)
     for (mz in mzs) {
         ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit='plain',
-                              min.rel.int=0, ms.mode=mode)
+            min.rel.int=0, ms.mode=mode)
         testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
         all.ids <- c(all.ids, ids)
@@ -1127,7 +1111,7 @@ test.searchMzTol.multiple.mz <- function(db) {
 
     # Search all M/Z values at once
     all.ids.2 <- db$searchMzTol(mz=mzs, mz.tol=mz.tol, mz.tol.unit='plain',
-                                min.rel.int=0, ms.mode=mode)
+        min.rel.int=0, ms.mode=mode)
 
     # List of IDs must be the same
     testthat::expect_true(all(all.ids.2 %in% all.ids))
@@ -1140,7 +1124,7 @@ test.searchMzTol.with.precursor <- function(db) {
 
     # Set some initial values to speed up test
     db.values <- list(massbank=list('1'=list(mz=313.3), '2'=list(mz=285.0208)),
-                      peakforest.mass=list('2'=list(mz=117.1)))
+        peakforest.mass=list('2'=list(mz=117.1)))
 
     tol.ppm <- 5
 
@@ -1153,14 +1137,14 @@ test.searchMzTol.with.precursor <- function(db) {
             mz <- db.values[[db.name]][[as.character(ms.level)]]$mz
         else
             mz <- db$getMzValues(precursor=TRUE, max.results=1,
-                                 ms.level=ms.level)
+                ms.level=ms.level)
         testthat::expect_false(is.null(mz))
         testthat::expect_length(mz, 1)
         testthat::expect_false(is.na(mz))
 
         # Search for it
         spectra.ids <- db$searchMzTol(mz=mz, mz.tol=tol.ppm, mz.tol.unit='ppm',
-                                      precursor=TRUE, ms.level=ms.level)
+            precursor=TRUE, ms.level=ms.level)
         testthat::expect_gte(length(spectra.ids), 1)
         testthat::expect_false(any(is.na(spectra.ids)))
 
@@ -1179,7 +1163,7 @@ test.searchMzTol.with.precursor <- function(db) {
             # Check that precursor peak was matched
             testthat::expect_true(entry$hasField('msprecmz'))
             testthat::expect_true(any(abs(entry$getFieldValue('msprecmz') - mz)
-                                      < mz * tol.ppm * 1e-6))
+                < mz * tol.ppm * 1e-6))
         }
     }
 }
@@ -1195,7 +1179,7 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 
     # Search
     ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
-                          ms.level=ms.level, ms.mode=ms.mode, precursor=TRUE)
+        ms.level=ms.level, ms.mode=ms.mode, precursor=TRUE)
     testthat::expect_is(ids, 'character')
 }
 
@@ -1215,16 +1199,16 @@ test.searchMsPeaks <- function(db) {
 
     # Test with empty list in input
     testthat::expect_null(db$searchMsPeaks(NULL, mz.tol=tol, max.results=1,
-                                           ms.mode=mode))
+        ms.mode=mode))
     testthat::expect_null(db$searchMsPeaks(integer(), mz.tol=tol,
-                                           max.results=1, ms.mode=mode))
+        max.results=1, ms.mode=mode))
     testthat::expect_null(db$searchMsPeaks(numeric(), mz.tol=tol,
-                                           max.results=1, ms.mode=mode))
+        max.results=1, ms.mode=mode))
 
     # Test with impossible M/Z value to simulate no match
     impossible.value <- 1e10
     results <- db$searchMsPeaks(impossible.value, mz.tol=tol, max.results=1,
-                                ms.mode=mode, prefix='myprefix.')
+        ms.mode=mode, prefix='myprefix.')
     testthat::expect_is(results, 'data.frame')
     testthat::expect_identical(results, data.frame(mz=impossible.value))
 
@@ -1327,34 +1311,31 @@ test.searchMsPeaks.rt <- function(conn, opt) {
     mz.tol <- 0
     rt.tol <- 0
     peaks <- conn$searchMsPeaks(mz=mz, chrom.col.ids=chrom.col.ids, rt=rt,
-                              rt.tol=rt.tol, mz.tol=mz.tol, max.results=1,
-                              ms.mode=entry$getFieldValue('ms.mode'),
-                              rt.unit=rt.unit)
+        rt.tol=rt.tol, mz.tol=mz.tol, max.results=1,
+        ms.mode=entry$getFieldValue('ms.mode'), rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
     testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
-                              (peaks$peak.mz <= mz + mz.tol)))
+        (peaks$peak.mz <= mz + mz.tol)))
     testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
-                              (peaks$chrom.rt <= rt + rt.tol)))
+        (peaks$chrom.rt <= rt + rt.tol)))
 
     # Search for MZ/RT without chrom.col.ids
     peaks <- conn$searchMsPeaks(mz=mz, rt=rt, rt.tol=rt.tol, mz.tol=mz.tol,
-                              max.results=1,
-                              ms.mode=entry$getFieldValue('ms.mode'),
-                              rt.unit=rt.unit)
+        max.results=1, ms.mode=entry$getFieldValue('ms.mode'), rt.unit=rt.unit)
     testthat::expect_is(peaks, 'data.frame')
     testthat::expect_true(nrow(peaks) > 0)
     testthat::expect_true(all((peaks$peak.mz >= mz - mz.tol) &
-                              (peaks$peak.mz <= mz + mz.tol)))
+        (peaks$peak.mz <= mz + mz.tol)))
     testthat::expect_true(all((peaks$chrom.rt >= rt - rt.tol) &
-                              (peaks$chrom.rt <= rt + rt.tol)))
+        (peaks$chrom.rt <= rt + rt.tol)))
 }
 
 test.msmsSearch.no.ids <- function(conn) {
     tspec <- data.frame(mz=1, int=10000)
     results <- conn$msmsSearch(tspec, precursor.mz=2, mz.tol=0.5,
-                               mz.tol.unit='plain', ms.mode="pos",
-                               msms.mz.tol=10, msms.mz.tol.min=0.01, npmin=2)
+        mz.tol.unit='plain', ms.mode="pos", msms.mz.tol=10,
+        msms.mz.tol.min=0.01, npmin=2)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_equal(nrow(results), 0)
     testthat::expect_true(all(c('id', 'score') %in% names(results)))
@@ -1367,38 +1348,38 @@ runGenericShortTests <- function(conn, opt=NULL) {
 
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
-              test.wrong.entry.among.good.ones, conn=conn)
+        test.wrong.entry.among.good.ones, conn=conn)
     biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids,
-                    conn=conn)
+        conn=conn)
 
     if (conn$isEditable()) {
         biodb::testThat('We can edit a database.', test.db.editing, conn=conn)
         if (conn$isWritable()) {
             biodb::testThat(paste("Creating another connector with the same",
-                                  " URL is forbidden."),
-                                  test.create.conn.with.same.url, conn=conn)
+                " URL is forbidden."),
+                test.create.conn.with.same.url, conn=conn)
             biodb::testThat('Database writing works.', test.db.writing,
-                            conn=conn)
+                conn=conn)
             biodb::testThat('We can write entries having new fields.',
-                            test.db.writing.with.col.add, conn=conn)
+                test.db.writing.with.col.add, conn=conn)
         }
     }
 
     if (conn$isCompounddb()) {
         biodb::testThat('searchCompound() fails if no mass field is set.',
-                        test.searchCompound.no.mass.field, conn=conn)
+            test.searchCompound.no.mass.field, conn=conn)
         biodb::testThat('annotateMzValues() works correctly.',
-                        test.annotateMzValues, conn=conn)
+            test.annotateMzValues, conn=conn)
     }
 
     if (conn$isMassdb()) {
         biodb::testThat("We can retrieve a list of M/Z values.",
-                        test.getMzValues, conn=conn)
+            test.getMzValues, conn=conn)
         biodb::testThat("We can match M/Z peaks.", test.searchMzTol, conn=conn)
         biodb::testThat("We can search for spectra with multiple M/Z values.",
-                        test.searchMzTol.multiple.mz, conn=conn)
+            test.searchMzTol.multiple.mz, conn=conn)
         
         # TODO XXX Commented out because of its dependency on particular
         # connectors
@@ -1406,13 +1387,12 @@ runGenericShortTests <- function(conn, opt=NULL) {
         #    test.searchMzTol.with.precursor, conn=conn)
         
         biodb::testThat("Search by precursor on multiple mzs does not fail.",
-                        test.searchMzTol.with.precursor.and.multiple.inputs,
-                        conn=conn)
+            test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
         biodb::testThat("Search for N/A value returns an empty list.",
-                        test.searchMsEntries.with.NA.value, conn=conn)
+            test.searchMsEntries.with.NA.value, conn=conn)
 
         biodb::testThat("We can collapse the results from searchMsPeaks().",
-                        test.collapseResultsDataFrame, conn=conn)
+            test.collapseResultsDataFrame, conn=conn)
 
         # TODO XXX Commented out because of its dependency on particular
         # connectors
@@ -1420,11 +1400,11 @@ runGenericShortTests <- function(conn, opt=NULL) {
         #   "from the database itself."), test.msmsSearch.self.match, conn=conn)
 
         biodb::testThat('MSMS search works for an empty spectrum.',
-                        test.msmsSearch.empty.spectrum, conn=conn)
+            test.msmsSearch.empty.spectrum, conn=conn)
         biodb::testThat('MSMS search works for a null spectrum.',
-                        test.msmsSearch.null.spectrum, conn=conn)
+            test.msmsSearch.null.spectrum, conn=conn)
         biodb::testThat('No failure occurs when msmsSearch found no IDs.',
-                        test.msmsSearch.no.ids, conn=conn)
+            test.msmsSearch.no.ids, conn=conn)
     }
 }
 
@@ -1432,45 +1412,45 @@ runGenericShortTests <- function(conn, opt=NULL) {
 runGenericAdjustableTests <- function(conn, opt=NULL) {
 
     biodb::testThat("Entry fields have a correct value", test.entry.fields,
-                    conn=conn, opt=opt)
+        conn=conn, opt=opt)
     biodb::testThat("RT unit is defined when there is an RT value.",
-                    test.rt.unit, conn=conn, opt=opt)
+        test.rt.unit, conn=conn, opt=opt)
     biodb::testThat("We can search for an entry by searchable field",
-                    test.searchForEntries, conn=conn, opt=opt)
+        test.searchForEntries, conn=conn, opt=opt)
     biodb::testThat("We can search for an entry by name.", test.searchByName,
-                    conn=conn, opt=opt)
+        conn=conn, opt=opt)
     
     # Remote tests
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.",
-                        test.entry.page.url, conn=conn, opt=opt)
+            test.entry.page.url, conn=conn, opt=opt)
         biodb::testThat("We can get a URL pointing to the entry image.",
-                        test.entry.image.url, conn=conn, opt=opt)
+            test.entry.image.url, conn=conn, opt=opt)
         biodb::testThat("The entry page URL can be downloaded.",
-                        test.entry.page.url.download, conn=conn, opt=opt)
+            test.entry.page.url.download, conn=conn, opt=opt)
         biodb::testThat("The entry image URL can be downloaded.",
-                        test.entry.image.url.download, conn=conn, opt=opt)
+            test.entry.image.url.download, conn=conn, opt=opt)
     }
     
     # Compound db
     if (conn$isCompounddb()) {
         biodb::testThat('We can search for a compound', test.searchCompound,
-                        conn=conn, opt=opt)
+            conn=conn, opt=opt)
         biodb::testThat('annotateMzValues() accepts a single vector.',
-                        test_annotateMzValues_input_vector, conn=conn, opt=opt)
+            test_annotateMzValues_input_vector, conn=conn, opt=opt)
         biodb::testThat('ppm tolerance works in annotateMzValues()',
-                        test_annotateMzValues_ppm_tol, conn=conn, opt=opt)
+            test_annotateMzValues_ppm_tol, conn=conn, opt=opt)
         biodb::testThat('Input data frame is not modified by annotateMzValues()'
-                        , test_annotateMzValues_input_dataframe_untouched,
-                        conn=conn, opt=opt)
+            , test_annotateMzValues_input_dataframe_untouched, conn=conn,
+            opt=opt)
     }
     
     # Mass db
     if (conn$isMassdb()) {
         biodb::testThat("We can retrieve a list of chromatographic columns.",
-                        test.getChromCol, conn=conn, opt=opt)
+            test.getChromCol, conn=conn, opt=opt)
         biodb::testThat("We can search for (M/Z, RT) couples, separately.",
-                        test.searchMsPeaks.rt, conn=conn, opt=opt)
+            test.searchMsPeaks.rt, conn=conn, opt=opt)
     }
 }
 
@@ -1483,18 +1463,17 @@ runGenericLongTests <- function(conn, opt=NULL) {
     # Compound
     if (conn$isCompounddb()) {
         biodb::testThat('annotateMzValues() works correctly with real values.',
-                        test.annotateMzValues_real_values, conn=conn, opt=opt)
+            test.annotateMzValues_real_values, conn=conn, opt=opt)
         biodb::testThat('Additional fields are accepted in annotateMzValues()',
-                        test_annotateMzValues_additional_fields, conn=conn,
-                        opt=opt)
+            test_annotateMzValues_additional_fields, conn=conn, opt=opt)
     }
 
     # Mass
     if (conn$isMassdb()) {
         biodb::testThat("We can search for several M/Z values, separately.",
-                        test.searchMsPeaks, conn=conn)
+            test.searchMsPeaks, conn=conn)
         biodb::testThat("Search for peaks with N/A value returns no match.",
-                        test.searchMsPeaks.with.NA.value, conn=conn)
+            test.searchMsPeaks.with.NA.value, conn=conn)
     }
 
     # Editable
@@ -1536,7 +1515,7 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #'
 #' @export
 runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE,
-                            maxShortTestRefEntries=1) {
+maxShortTestRefEntries=1) {
 
     # Checks
     chk::chk_flag(short)

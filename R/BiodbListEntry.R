@@ -29,8 +29,8 @@ methods=list(
 
 .isParsedContentCorrect=function(parsed.content) {
     return(is.list(parsed.content) && length(parsed.content) > 0
-           && ! is.null(names(parsed.content))
-           && length(names(parsed.content)) > 0)
+        && ! is.null(names(parsed.content))
+        && length(names(parsed.content)) > 0)
 },
 
 .parseFieldsStep1=function(parsed.content) {

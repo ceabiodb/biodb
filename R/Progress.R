@@ -25,7 +25,7 @@
 Progress <- R6::R6Class('Progress'
 
 ,public=list(
-             
+
 #' @description
 #' Constructor.
 #' @param biodb A BiodbMain instance that will be used to notify observers of
@@ -61,7 +61,7 @@ initialize=function(biodb=NULL, msg, total){
     # Notify biodb observers
     if ( ! is.null(private$biodb))
         private$biodb$notify('notifyProgress', list(what=private$msg,
-                             index=private$index, total=private$total))
+            index=private$index, total=private$total))
     
     return(invisible(NULL))
 }    

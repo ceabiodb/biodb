@@ -29,8 +29,8 @@ public=list(
 #' @examples
 #' # Create an instance from min and max:
 #' Range$new(min=1.2, max=1.5)
-initialize=function(min=NULL, max=NULL, value=NULL, delta=NULL,
-                    ppm=NULL, tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
+initialize=function(min=NULL, max=NULL, value=NULL, delta=NULL, ppm=NULL,
+tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
     chk::chk_null_or(min, chk::chk_number)
     chk::chk_null_or(max, chk::chk_number)
     chk::chk_null_or(value, chk::chk_number)
@@ -139,7 +139,7 @@ initialize=function(min=NULL, max=NULL, value=NULL, delta=NULL,
             chk::chk_number(private$min)
             chk::chk_number(private$max)
             private$ppm <- ((private$max - private$min) * 1e6
-                            / (private$min + private$max))
+                / (private$min + private$max))
         }
     }
 

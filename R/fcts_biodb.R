@@ -95,7 +95,7 @@ connNameToClassPrefix <- function(connName) {
     indices <- c(1, indices) # Add first letter.
     for (i in indices)
         s <- paste(substring(s, 1, i - 1), toupper(substring(s, i, i)),
-                   substring(s, i + 1), sep='')
+            substring(s, i + 1), sep='')
     s <- gsub('.', '', s, fixed=TRUE) # Remove dots
 
     return(s)
@@ -179,7 +179,7 @@ lst2str <- function(x, nCut=10) {
         s <- 'none'
     else {
         s <- paste(if (length(x) > nCut) c(x[seq_len(nCut)], '...') else x,
-                   collapse=", ")
+            collapse=", ")
         s <- paste0('"', s, '"')
         s <- paste0('[', length(x), ']: ', s)
     }

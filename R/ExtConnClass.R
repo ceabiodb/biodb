@@ -25,7 +25,7 @@ ExtConnClass <- R6::R6Class('ExtConnClass',
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.

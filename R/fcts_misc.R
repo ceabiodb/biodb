@@ -38,10 +38,10 @@ extractVersion <- function(filepath) {
     # Extract version number
     if (length(versionLine) == 1) {
         version <- sub('^.* version:? ([0-9]+\\.[0-9]+(\\.[0-9]+)?)$', '\\1',
-                       versionLine, perl=TRUE)
+            versionLine, perl=TRUE)
         if ( ! chk::vld_match(version, regexp="^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"))
             stop('Impossible to extract version number from line ("',
-                 versionLine, '") of file "', filepath, '".')
+                versionLine, '") of file "', filepath, '".')
     }
 
     return(version)
@@ -53,7 +53,7 @@ splitVersion <- function(version) {
     m <- stringr::str_match(version, "([0-9]+).([0-9]+)(.([0-9]+))?")
     
     return(list(major=m[1, 2], minor=m[1, 3],
-                patch=(if (is.na(m[1, 4])) 0 else m[1, 5]) ))
+        patch=(if (is.na(m[1, 4])) 0 else m[1, 5]) ))
 }
 
 compareVersions <- function(v1, v2) {

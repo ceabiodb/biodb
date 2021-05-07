@@ -38,8 +38,6 @@ initialize=function(...) {
 
 .parseFieldsStep1=function(parsed.content) {
 
-    ef <- .self$getBiodb()$getEntryFields()
- 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
 
@@ -49,6 +47,7 @@ initialize=function(...) {
         XML::xmlNamespaceDefinitions(parsed.content, simplify=TRUE) else xml.ns
 
     # Loop on all parsing expressions
+    ef <- .self$getBiodb()$getEntryFields()
     for (field in names(parsing.expr)) {
 
         # Expression using only path
@@ -62,7 +61,7 @@ initialize=function(...) {
 
                 # Parse
                 v <- XML::xpathSApply(parsed.content, expr, XML::xmlValue,
-                                      namespaces=ns)
+                    namespaces=ns)
 
                 # The field accepts only one value
                 if (field.single.value) {
@@ -82,7 +81,7 @@ initialize=function(...) {
             pth <- parsing.expr[[field]]$path
             attr <- parsing.expr[[field]]$attr
             value <- XML::xpathSApply(parsed.content, pth, XML::xmlGetAttr,
-                                      attr, namespaces=ns)
+                attr, namespaces=ns)
         }
 
         # Set value

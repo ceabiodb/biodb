@@ -75,7 +75,7 @@ setCsvQuote=function(quote) {
     
     if ( ! is.null(.self$.db))
         error0("The CSV file has already been loaded. Modification of",
-              " the quote parameter is not allowed.")
+            " the quote parameter is not allowed.")
     
     .self$.file.quote <- quote
 },
@@ -99,7 +99,7 @@ setCsvSep=function(sep) {
     
     if ( ! is.null(.self$.db))
         error0("The CSV file has already been loaded. Modification of",
-              " the separator character parameter is not allowed.")
+            " the separator character parameter is not allowed.")
     
     .self$.file.sep <- sep
 },
@@ -173,7 +173,7 @@ addField=function(field, value) {
 
     # Add new field
     logDebug0('Adding new field ', field, ' with value ',
-             paste(value, collapse=', '), '.')
+        paste(value, collapse=', '), '.')
     .self$.db[[field]] <- value
     .self$setField(field, field)
 },
@@ -230,16 +230,16 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     if ( ! all(colname %in% names(.self$.db))) {
         undefined.cols <- colname[ ! colname %in% names(.self$.db)]
         error0("Column(s) ", paste(undefined.cols, collapse=", "), "
-              is/are not defined in database file.")
+            is/are not defined in database file.")
     }
 
     # Fail if already defined
     if (field %in% names(.self$.fields))
         error0('Field "', field, '" is already set to "',
-              .self$.fields[[field]], '".')
+            .self$.fields[[field]], '".')
 
     logDebug0('Set field ', field, ' to column(s) ',
-             paste(colname, collapse=', '), '.')
+        paste(colname, collapse=', '), '.')
 
     # One column used, only
     if (length(colname) == 1) {
@@ -362,8 +362,8 @@ setDb=function(db) {
     url <- .self$getPropValSlot('urls', 'base.url')
     if ( ! is.null(url) && ! is.na(url) && file.exists(url))
         error0('Cannot set this data frame as database. A URL that',
-              ' points to an existing file has already been set for the',
-              ' connector.')
+            ' points to an existing file has already been set for the',
+            ' connector.')
 
     .self$.doSetDb(db)
 },
@@ -381,7 +381,7 @@ defineParsingExpressions=function() {
 .doWrite=function() {
 
     logInfo0('Write all entries into "',
-            .self$getPropValSlot('urls', 'base.url'), '".')
+        .self$getPropValSlot('urls', 'base.url'), '".')
 
     # Make sure all entries are loaded into cache.
     entry.ids <- .self$getEntryIds()
@@ -396,7 +396,7 @@ defineParsingExpressions=function() {
 
     # Write data frame
     write.table(df, file=.self$getPropValSlot('urls', 'base.url'),
-                row.names=FALSE, sep="\t", quote=FALSE)
+        row.names=FALSE, sep="\t", quote=FALSE)
 },
 
 .initDb=function(setFields=TRUE) {
@@ -419,10 +419,10 @@ defineParsingExpressions=function() {
         else {
             logInfo('Loading file database "%s".', file)
             db <- read.table(.self$getPropValSlot('urls', 'base.url'),
-                             sep=.self$.file.sep, quote=.self$.file.quote,
-                             header=TRUE, stringsAsFactors=FALSE,
-                             row.names=NULL, comment.char='', check.names=FALSE,
-                             fill=FALSE)
+                sep=.self$.file.sep, quote=.self$.file.quote,
+                header=TRUE, stringsAsFactors=FALSE,
+                row.names=NULL, comment.char='',
+                check.names=FALSE, fill=FALSE)
         }
 
         # Set database
@@ -444,7 +444,7 @@ defineParsingExpressions=function() {
     unknown.fields <- fields[ ! vapply(fields, fct, FUN.VALUE=FALSE)]
     if (length(unknown.fields) > 0)
         error0("Field(s) ", paste(fields, collapse=", "),
-              " is/are unknown.")
+            " is/are unknown.")
 
     # Init db
     .self$.initDb()
@@ -453,7 +453,7 @@ defineParsingExpressions=function() {
     undefined.fields <- fields[ ! fields %in% .self$getFieldNames()]
     if (length(undefined.fields) > 0) {
         msg <- sprintf("Field(s) %s is/are undefined in file database.",
-                       paste(undefined.fields, collapse=", "))
+            paste(undefined.fields, collapse=", "))
         if (fail) error(msg) else logDebug(fail)
         return(FALSE)
     }
@@ -470,7 +470,7 @@ defineParsingExpressions=function() {
 },
 
 .select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE,
-                 sort=FALSE, max.rows=0, ...) {
+    sort=FALSE, max.rows=0, ...) {
     
     chk::chk_number(max.rows)
     chk::chk_gte(max.rows, 0)
@@ -524,10 +524,10 @@ defineParsingExpressions=function() {
         error0('You must set both min and max values.')
     if (length(minValue) != length(maxValue))
         error0("'minValue' and 'maxValue' must have equal lengths.",
-              " 'minValue' has ", length(minValue), " element(s),",
-              " and 'maxValue' has ", length(maxValue), "element(s).")
+            " 'minValue' has ", length(minValue), " element(s),",
+            " and 'maxValue' has ", length(maxValue), "element(s).")
     logDebug0('Filtering on field "', field, '", with range: ',
-             paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.')
+            paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.')
     
     # Check field
     .self$.checkFields(field)
@@ -588,8 +588,8 @@ defineParsingExpressions=function() {
         if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url)
             && file.exists(url))
             error0('You cannot overwrite base URL. A URL has already',
-                  ' been set ("', url, '") that points to a valid file',
-                  ' that has already been loaded in memory.')
+                ' been set ("', url, '") that points to a valid file',
+                ' that has already been loaded in memory.')
     }
 },
 
@@ -648,7 +648,7 @@ ignoreUnassignedColumns=function(ignore=TRUE) {
     ids <- NA_character_
 
     ids <- as.character(.self$.select(cols='accession', drop=TRUE, uniq=TRUE,
-                                      sort=TRUE, max.rows=max.results))
+        sort=TRUE, max.rows=max.results))
 
     return(ids)
 }

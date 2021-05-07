@@ -50,9 +50,9 @@ choose=function(set, case) {
     case <- gsub('[^A-Za-z0-9]', '_', toupper(case))
     caseRE <- paste0('^.*\\$\\$\\$ *CASE *', set, ' *.*\\$\\$\\$.*$')
     caseChosenRE <- paste0('^.*\\$\\$\\$ *CASE *', set, ' *',
-                           case, ' *\\$\\$\\$.*$')
+        case, ' *\\$\\$\\$.*$')
     caseDefaultRE <- paste0('^.*\\$\\$\\$ *CASE *', set,
-                            ' *DEFAULT *\\$\\$\\$.*$')
+        ' *DEFAULT *\\$\\$\\$.*$')
     caseEndRE <- paste0('^.*\\$\\$\\$ *END_CASE *', set, ' *\\$\\$\\$.*$')
 
     while (length(starts <- grep(caseRE, private$txt)) > 0) {
@@ -99,7 +99,7 @@ select=function(section, enable) {
     ifRE <- paste0('^.*\\$\\$\\$ *(SECTION|IF) *', section, ' *\\$\\$\\$.*$')
     elseRE <- paste0('^.*\\$\\$\\$ *ELSE *', section, ' *\\$\\$\\$.*$')
     endRE <- paste0('^.*\\$\\$\\$ *END_(SECTION|IF) *', section,
-                           ' *\\$\\$\\$.*$')
+        ' *\\$\\$\\$.*$')
 
     # Get all start and section sections
     ifs <- grep(ifRE, private$txt)
@@ -109,19 +109,19 @@ select=function(section, enable) {
     # Match each start with its corresponding end (i.e.: the closest one)
     elseEnds <- sort(c(elses, ends))
     ifMatchingEnds <- vapply(ifs, function(i) head(elseEnds[elseEnds > i], n=1),
-                           FUN.VALUE=1)
+        FUN.VALUE=1)
     elseMatchingEnds <- vapply(elses, function(i) head(ends[ends > i], n=1),
-                           FUN.VALUE=1)
+        FUN.VALUE=1)
 
     # Select lines to remove
     if (enable) {
         linesToRemove <- c(ifs, ifMatchingEnds,
-                           unlist(lapply(seq_along(elses), function(i)
-                                      seq(elses[[i]], elseMatchingEnds[[i]]))))
+            unlist(lapply(seq_along(elses), function(i)
+            seq(elses[[i]], elseMatchingEnds[[i]]))))
     } else {
         linesToRemove <- c(elses, elseMatchingEnds,
-                           unlist(lapply(seq_along(ifs), function(i)
-                                      seq(ifs[[i]], ifMatchingEnds[[i]]))))
+            unlist(lapply(seq_along(ifs), function(i)
+            seq(ifs[[i]], ifMatchingEnds[[i]]))))
     }
 
     # Remove lines
@@ -172,12 +172,11 @@ private=list(
     
     # Search for {{...}} tags
     tags <- unlist(lapply(stringr::str_match_all(private$txt,
-                                                 '\\{\\{([^}]+)\\}\\}'),
-                          function(x) x[,2]))
+        '\\{\\{([^}]+)\\}\\}'), function(x) x[,2]))
     
     # Search for $$$ ... $$$ tags
     tagLines <- stringr::str_match(private$txt,
-                                   '^.*\\$\\$\\$ *[^ ]+ +([^ ]+).*\\$\\$\\$.*$')
+        '^.*\\$\\$\\$ *[^ ]+ +([^ ]+).*\\$\\$\\$.*$')
     tags <- c(tags, tagLines[,2])
     
     # Sort and remove duplicates
@@ -187,6 +186,6 @@ private=list(
     # Print warning
     if (length(tags) > 0)
         warning('The following tags were not replaced inside "', private$path,
-                '": ', paste(tags, collapse=', '), '.')
+            '": ', paste(tags, collapse=', '), '.')
 }
 ))

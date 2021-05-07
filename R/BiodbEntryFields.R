@@ -29,9 +29,9 @@
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
     contains=c("BiodbChildObject", "BiodbObserver"),
     fields=list( .fields="list",
-                  .aliasToName="character",
-                  .field.name.sep='character'
-                  ),
+        .aliasToName="character",
+        .field.name.sep='character'
+    ),
     methods=list(
 
 initialize=function(...) {
@@ -98,7 +98,7 @@ checkIsDefined=function(name) {
     def <- .self$isDefined(name)
     if (any( ! def))
         error0("Field(s) \"", paste(name[ ! def], collapse=", "),
-              "\" is/are not defined.")
+            "\" is/are not defined.")
 },
 
 getRealName=function(name, fail=TRUE) {
@@ -125,7 +125,7 @@ getRealName=function(name, fail=TRUE) {
         realName <- .self$.aliasToName[name[isNotRealName]]
         if (any(is.na(realName)) && fail)
             error("Unknown fields: %s.",
-                  paste(name[isNotRealName][is.na(realName)], collapse=', '))
+                paste(name[isNotRealName][is.na(realName)], collapse=', '))
         name[isNotRealName][ ! is.na(realName)] <- realName[ ! is.na(realName)]
     }
 
@@ -234,8 +234,8 @@ define=function(def) {
 
     # Is field already defined?
     if (.self$isDefined(name)) {
-       .self$.fields[[name]]$equals(field, fail=TRUE)
-       .self$.fields[[name]]$updateWithValuesFrom(field)
+        .self$.fields[[name]]$equals(field, fail=TRUE)
+        .self$.fields[[name]]$updateWithValuesFrom(field)
     }
 
     # Register new field
