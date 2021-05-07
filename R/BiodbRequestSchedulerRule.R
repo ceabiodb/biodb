@@ -212,7 +212,7 @@ print=function() {
         # Look at all "last" times starting from most recent one
         n <- 0
         last.time.indices <- seq(from=private$n.index - 1,
-                                 to=private$n.index - private$n) %% private$n + 1
+            to=private$n.index - private$n) %% private$n + 1
         for (i in last.time.indices) {
             dt <- difftime(private$last.time[[i]], cur.time, units='secs')
             if (dt < private$t)

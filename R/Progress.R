@@ -10,6 +10,17 @@
 #' @import R6
 #' @import chk
 #' @import progress
+#'
+#' @examples
+#' # Create an instance
+#' prg <- biodb::Progress(msg='Processing data.', total=10)
+#'
+#' # Processing
+#' for (i in seq_len(10)) {
+#'     print("Doing something.")
+#'     prg$increment()
+#' }
+#'
 #' @export
 Progress <- R6::R6Class('Progress'
 

@@ -23,13 +23,22 @@ With *biodb* you can:
 
 ## Installation
 
-The package is currently in submission to Bioconductor.
+Install the latest stable version using Bioconductor:
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install('biodb')
+```
 
-In the meantime you can install the latest stable version with:
+### Installing from GitHub
+
+You can install the latest development version of *biodb* from GitHub:
 ```r
 install.packages('devtools')
 devtools::install_github('pkrog/biodb', dependencies=TRUE)
 ```
+
+### Installing extension packages
 
 Alongside *biodb* you can install the following R extension packages that use  *biodb* for implementing connectors to online databases:
 

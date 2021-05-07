@@ -130,8 +130,8 @@ sendRequest=function(request, cache.read=TRUE) {
             logDebug("Saving content of request to cache.")
             cch$saveContentToFile(content, cache.id=conn$getCacheId(),
                                   name=request.key, ext='content')
-            cch$saveContentToFile(request$toString(), cache.id=conn$getCacheId(),
-                                  name=request.key, ext='request')
+            cch$saveContentToFile(request$toString(),
+                cache.id=conn$getCacheId(), name=request.key, ext='request')
         }
     }
 
@@ -480,8 +480,8 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
 
     method <- match.arg(method)
 
-    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params), method=method,
-                            header=header, body=body, encoding=encoding)
+    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params),
+        method=method, header=header, body=body, encoding=encoding)
 
     return(.self$sendRequest(request))
 }

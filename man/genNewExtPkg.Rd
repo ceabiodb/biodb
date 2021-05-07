@@ -15,6 +15,16 @@ Nothing.
 \description{
 Generates all the necessary files for a new extension package.
 }
+\examples{
+# Generate a new package:
+pkgFolder <- file.path(tempfile(), 'biodbFoo')
+dir.create(pkgFolder, recursive=TRUE)
+biodb::genNewExtPkg(path=pkgFolder, dbName='foo.db',
+                    dbTitle='Foo database', rcpp=TRUE,
+                    connType='mass', entryType='txt', downloadable=TRUE,
+                    remote=TRUE)
+
+}
 \seealso{
 \code{\link{ExtPackage}}.
 }

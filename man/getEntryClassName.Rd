@@ -16,3 +16,7 @@ The name of the corresponding entry class (e.g.:
 \description{
 Gets the name of the entry class corresponding to a connector.
 }
+\examples{
+biodb::getEntryClassName('foo.db')
+
+}

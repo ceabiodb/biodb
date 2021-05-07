@@ -12,3 +12,7 @@ A character vector containing the connector types.
 \description{
 Get the list of available connector types.
 }
+\examples{
+biodb::getConnTypes()
+
+}

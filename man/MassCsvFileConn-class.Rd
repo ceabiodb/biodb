@@ -13,7 +13,8 @@ This is the connector class for a MASS CSV file database.
 \describe{
 \item{\code{addPrecursorFormulae(formulae)}}{:
 
-Adds new formulae to the list of formulae used to recognize precursors.
+Adds new formulae to the list of formulae used to recognize
+    precursors.
     
 formulae: A character vector containing formulae.
     

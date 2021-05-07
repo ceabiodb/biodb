@@ -233,8 +233,8 @@ recurse: If set to TRUE, the algorithm will follow all references to
     entries from other databases, to see if it can establish an indirect link
     to `oid`.
     
-Returned value: TRUE if this entry makes reference to the entry oid from database
-    db, FALSE otherwise.
+Returned value: TRUE if this entry makes reference to the entry oid from
+    database db, FALSE otherwise.
     }
 
 \item{\code{parentIsAConnector()}}{:

@@ -12,3 +12,7 @@ A character vector containing license names.
 \description{
 Get the available licenses for extension packages.
 }
+\examples{
+biodb::getLicenses()
+
+}

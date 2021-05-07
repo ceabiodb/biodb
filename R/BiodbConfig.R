@@ -197,7 +197,7 @@ set=function(key, value) {
     v <- as.vector(value, mode=.self$.getType(key))
     .self$.values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
-                       else value
+        else value
     logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
@@ -295,7 +295,7 @@ getAssocEnvVar=function(key) {
 
     # Build env var
     env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
-                     collapse='_')
+        collapse='_')
 
     return(env.var)
 },
@@ -337,8 +337,8 @@ newObserver=function(obs) {
     # On Windows, look in common locations
     if (is.null(svn.path) && .Platform$OS.type == "windows") {
         look_in <- c("C:/Program Files/Svn/bin/svn.exe",
-                     "C:/Program Files (x86)/Svn/bin/svn.exe",
-                     "C:/Program Files/SlikSvn/bin/svn.exe")
+            "C:/Program Files (x86)/Svn/bin/svn.exe",
+            "C:/Program Files/SlikSvn/bin/svn.exe")
         found <- file.exists(look_in)
         if (any(found))
             svn.path <- look_in[found][1]
@@ -357,14 +357,14 @@ newObserver=function(obs) {
     if (envvar %in% names(.self$.env)) {
         value <- .self$.env[[envvar]]
         logDebug0("Found env var ", envvar, ', value "', value,
-                 '", defining default value for config key ', key, '.')
+            '", defining default value for config key ', key, '.')
     }
 
     return(value)
 },
 
 .newKey=function(key, title, type, default=NULL, description=NA_character_,
-                   deprecated=NULL) {
+    deprecated=NULL) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
@@ -390,7 +390,7 @@ newObserver=function(obs) {
 
     # Define new key
     .self$.keys[[key]] <- list(title=title, type=type, default=default,
-                               description=description)
+        description=description)
 
     # Set as deprecated
     if ( ! is.null(deprecated))
@@ -422,14 +422,14 @@ newObserver=function(obs) {
     # Fail if deprecated
     if (.self$.isDeprecated(key))
         warn("Key %s is deprecated. %s", key,
-             .self$.keys[[key]][['deprecated']])
+            .self$.keys[[key]][['deprecated']])
 
     # Test type
     if ( ! is.null(type) && ! is.na(type)
         && .self$.keys[[key]][['type']] != type) {
         if (fail)
             error0("Key ", key, " is not of type ", type,
-                  " but of type ", key.type, ".")
+                " but of type ", key.type, ".")
         else
             return(FALSE)
     }

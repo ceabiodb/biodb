@@ -33,4 +33,3 @@ Changes in version 0.99.8 (2021-05-06)
 + Limit by default the entries to test to one entry inside generic tests.
 + Improve vignettes.
 + Rename default vignette into "biodb.Rmd".
-+ Remove "codecov.yml".

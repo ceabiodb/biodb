@@ -25,6 +25,10 @@ newInst <- function(...) {
 #' @param connName A connector name (e.g.: "mass.csv.file").
 #' @return The name of the corresponding connector class (e.g.:
 #' "MassCsvFileConn").
+#'
+#' @examples
+#' biodb::getConnClassName('foo.db')
+#'
 #' @export
 getConnClassName <- function(connName) {
     return(paste0(connNameToClassPrefix(connName), 'Conn'))
@@ -37,6 +41,10 @@ getConnClassName <- function(connName) {
 #' @param connName A connector name (e.g.: "mass.csv.file").
 #' @return The name of the corresponding entry class (e.g.:
 #' "MassCsvFileEntry").
+#'
+#' @examples
+#' biodb::getEntryClassName('foo.db')
+#'
 #' @export
 getEntryClassName <- function(connName) {
     return(paste0(connNameToClassPrefix(connName), 'Entry'))
@@ -47,6 +55,10 @@ getEntryClassName <- function(connName) {
 #' Get the list of available connector types.
 #'
 #' @return A character vector containing the connector types.
+#'
+#' @examples
+#' biodb::getConnTypes()
+#'
 #' @export
 getConnTypes <- function() {
     return(c('plain', 'compound', 'mass'))
@@ -57,6 +69,10 @@ getConnTypes <- function() {
 #' Get the list of available entry types.
 #'
 #' @return A character vector containing the entry types.
+#'
+#' @examples
+#' biodb::getEntryTypes()
+#'
 #' @export
 getEntryTypes <- function() {
     return(c('plain', 'csv', 'html', 'json', 'list', 'sdf', 'txt', 'xml'))
@@ -91,6 +107,10 @@ connNameToClassPrefix <- function(connName) {
 #'
 #' @return The main package logger (named "biodb") as a lgr::Logger object.
 #' @import lgr
+#'
+#' @examples
+#' biodb::getLogger()
+#'
 #' @export
 getLogger <- function() {
     return(lgr::get_logger("biodb"))
@@ -122,10 +142,12 @@ df2str <- function(x, rowCut=5, colCut=5) {
         s <- 'not a dataframe'
     else {
         size <- paste0('[', nrow(x), ', ', ncol(x), ']')
-        colNames <- if (ncol(x) > colCut) c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
+        colNames <- if (ncol(x) > colCut)
+            c(colnames(x)[seq_len(colCut)], '...') else colnames(x)
         s <- paste0('[', paste(colNames, collapse=', '), ']')
         for (nRow in seq_len(min(rowCut, nrow(x)))) {
-            rowValues <- if (ncol(x) > colCut) c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
+            rowValues <- if (ncol(x) > colCut)
+                c(x[nRow, seq_len(colCut)], '...') else x[nRow, ]
             s <- paste0(s, ' [', paste(rowValues, collapse=', '), ']')
         }
         if (nrow(x) > rowCut)

@@ -93,7 +93,8 @@ Returned value: None.
 \item{\code{deleteAllEntriesFromVolatileCache(conn.id)}}{:
 
 Deletes all entries stored in the cache of the given connector. This
-    method is deprecated, please use deleteAllEntriesFromVolatileCache() instead.
+    method is deprecated, please use deleteAllEntriesFromVolatileCache()
+    instead.
     
 conn.id: A connector ID.
     

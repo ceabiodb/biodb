@@ -39,7 +39,8 @@ Returned values: None.}
 
 \item{\code{correctIds(ids)}}{:
 
-Correct a vector of IDs by formatting them to the database official format, if required and possible.
+Correct a vector of IDs by formatting them to the database official
+    format, if required and possible.
     
 ids: A character vector of IDs.
     
@@ -116,8 +117,8 @@ Returned value: The cache ID of this connector.
 
 \item{\code{getEntry(id, drop = TRUE, nulls = TRUE)}}{:
 
-Return the entry corresponding to this ID. You can pass a vector of IDs,
-    and you will get a list of entries.
+Return the entry corresponding to this ID. You can pass a vector of
+    IDs, and you will get a list of entries.
     
 id: A character vector containing entry identifiers.
     
@@ -247,7 +248,8 @@ Tests if a field can be used to search entries when using methods
     
 field: The name of the field.
     
-Returned value: Returns TRUE if the database is searchable using the specified field, FALSE otherwise.
+Returned value: Returns TRUE if the database is searchable using the
+    specified field, FALSE otherwise.
     }
 
 \item{\code{isWritable()}}{:

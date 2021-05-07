@@ -543,7 +543,8 @@ defineParsingExpressions=function() {
             rep(FALSE, length(values))
         else
             ((if (is.na(minV)) rep(TRUE, length(values)) else values >= minV)
-             & (if (is.na(maxV)) rep(TRUE, length(values)) else  values <= maxV))
+            &
+            (if (is.na(maxV)) rep(TRUE, length(values)) else  values <= maxV))
     }
     s <- mapply(fct, minValue, maxValue)
 
@@ -596,11 +597,11 @@ defineParsingExpressions=function() {
 
     # Already set?
     if ( ! is.null(.self$.db))
-        .self$message('error', 'Database has already been set.')
+        biodb::error('Database has already been set.')
 
     # Not a data frame
     if ( ! is.data.frame(db))
-        .self$message('error', 'The database object must be a data frame.')
+        biodb::error('The database object must be a data frame.')
 
     # Set data frame as database
     .self$.db <- db

@@ -8,29 +8,23 @@
 #' @seealso \code{\link{BiodbRemotedbConn}}.
 #'
 #' @examples
-#' # Create an instance with default settings:
-#' mybiodb <- biodb::newInst()
+#' # Creating a connector class for a downloadable database:
+#' FooDownloadableDb <- methods::setRefClass('FooDownloadableDb',
+#'     contains=c('BiodbRemotedbConn', 'BiodbDownloadable'),
 #'
-#' # Use a downloadable database
-#' \dontrun{
-#' conn <- mybiodb$getFactory()$getConn('my_database')
-#' }
+#' methods=list(
 #'
-#' # Check if database has been downloaded
-#' \dontrun{
-#' conn$isDownloaded()
-#' }
+#'    # ... other methods ...
 #'
-#' # Download the whole database content
-#' \dontrun{
-#' conn$download()
-#' }
-#' # Note though that you do not need to call this method explicitly. This
-#' # will be done automatically by biodb if needed.
+#'    # BiodbDownloadable methods
+#'    .doDownload=function() {
+#'        # Download the database
+#'    },
 #'
-#' # Terminate instance.
-#' mybiodb$terminate()
-#' mybiodb <- NULL
+#'    .doExtractDownload=function() {
+#'        # Extract data from the downloaded file(s)
+#'    }
+#' ))
 #'
 #' @import methods
 #' @include BiodbObject.R
@@ -88,7 +82,7 @@ isExtracted=function() {
 
     cch <- .self$getBiodb()$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
-                           name='extracted'))
+        name='extracted'))
 },
 
 download=function() {
@@ -108,7 +102,7 @@ download=function() {
         .self$.doDownload()
         if ( ! file.exists(.self$getDownloadPath()))
             error("File %s does not exists. Downloading went wrong.",
-                  .self$getDownloadPath())
+                .self$getDownloadPath())
         logDebug0('Downloading of ', .self$getId(), ' completed.')
 
         # Set marker

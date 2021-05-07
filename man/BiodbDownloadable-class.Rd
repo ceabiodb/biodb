@@ -46,29 +46,23 @@ Returned value: TRUE if the downloaded database content has been
 }}
 
 \examples{
-# Create an instance with default settings:
-mybiodb <- biodb::newInst()
+# Creating a connector class for a downloadable database:
+FooDownloadableDb <- methods::setRefClass('FooDownloadableDb',
+    contains=c('BiodbRemotedbConn', 'BiodbDownloadable'),
 
-# Use a downloadable database
-\dontrun{
-conn <- mybiodb$getFactory()$getConn('my_database')
-}
+methods=list(
 
-# Check if database has been downloaded
-\dontrun{
-conn$isDownloaded()
-}
+   # ... other methods ...
 
-# Download the whole database content
-\dontrun{
-conn$download()
-}
-# Note though that you do not need to call this method explicitly. This
-# will be done automatically by biodb if needed.
+   # BiodbDownloadable methods
+   .doDownload=function() {
+       # Download the database
+   },
 
-# Terminate instance.
-mybiodb$terminate()
-mybiodb <- NULL
+   .doExtractDownload=function() {
+       # Extract data from the downloaded file(s)
+   }
+))
 
 }
 \seealso{

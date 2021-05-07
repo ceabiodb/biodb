@@ -42,9 +42,9 @@ initialize=function(sep=',', na.strings='NA', ...) {
     # interpreted as row names by read.table in case the header line contains
     # one less field than the second line.
     df <- read.table(text=content, header=FALSE, row.names=NULL, sep=.self$.sep,
-                     quote='', stringsAsFactors=FALSE,
-                     na.strings=.self$.na.strings, fill=TRUE, check.names=FALSE,
-                     comment.char='')
+        quote='', stringsAsFactors=FALSE,
+        na.strings=.self$.na.strings, fill=TRUE, check.names=FALSE,
+        comment.char='')
 
     # Now name the columns
     if (nrow(df) >= 1) {

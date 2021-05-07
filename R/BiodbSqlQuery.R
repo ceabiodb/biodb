@@ -148,7 +148,8 @@ toString=function() {
     query <- c(query, self$getFields())
 
     # Set table
-    query <- c(query, 'from', DBI::dbQuoteIdentifier(DBI::ANSI(), private$table))
+    query <- c(query, 'from',
+        DBI::dbQuoteIdentifier(DBI::ANSI(), private$table))
 
     # Set join clause
     query <- c(query, self$getJoin())

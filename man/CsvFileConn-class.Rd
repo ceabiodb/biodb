@@ -96,7 +96,8 @@ Tests if a field can be used to search entries when using methods
     
 field: The name of the field.
     
-Returned value: Returns TRUE if the database is searchable using the specified field, FALSE otherwise.
+Returned value: Returns TRUE if the database is searchable using the
+    specified field, FALSE otherwise.
     }
 
 \item{\code{setCsvQuote(quote)}}{:

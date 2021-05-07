@@ -16,3 +16,16 @@ Nothing.
 Upgrades some of the files previously generated (.gitignore, .travis.yml,
 .Rbuildignore, Makefile, etc) to the latest versions.
 }
+\examples{
+# Generate a new package:
+pkgFolder <- file.path(tempfile(), 'biodbFoo')
+dir.create(pkgFolder, recursive=TRUE)
+biodb::genNewExtPkg(path=pkgFolder, dbName='foo.db',
+                    dbTitle='Foo database', rcpp=TRUE,
+                    connType='mass', entryType='txt', downloadable=TRUE,
+                    remote=TRUE)
+
+# Upgrade it later
+biodb::upgradeExtPkg(path=pkgFolder)
+
+}

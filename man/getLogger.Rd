@@ -12,3 +12,7 @@ The main package logger (named "biodb") as a lgr::Logger object.
 \description{
 Gets the main package logger, parent of all loggers of this package.
 }
+\examples{
+biodb::getLogger()
+
+}

@@ -542,10 +542,10 @@ the mother class constructor to pass it your separator and/or the string values
 that have to be converted to `NA`:
 ```{r}
 MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
-	methods=list(
-		initialize=function() {
-			callSuper(sep=';', na.strings=c('', 'NA'))
-		}
+    methods=list(
+        initialize=function() {
+            callSuper(sep=';', na.strings=c('', 'NA'))
+        }
 ))
 ```
 

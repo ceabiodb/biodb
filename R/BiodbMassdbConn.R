@@ -269,11 +269,11 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
                          precursor=FALSE,
                          min.rel.int=0, ms.mode=NULL,
                          max.results=0, ms.level=0) {
-    ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the given
-    M/Z value. Entries can also be filtered on RT values. You can input either a
-    list of M/Z values through mz argument and set a tolerance with mz.tol
-    argument, or two lists of minimum and maximum M/Z values through mz.min and
-    mz.max arguments.
+    ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the
+    given M/Z value. Entries can also be filtered on RT values. You can input
+    either a list of M/Z values through mz argument and set a tolerance with
+    mz.tol argument, or two lists of minimum and maximum M/Z values through
+    mz.min and mz.max arguments.
     \nmz: A vector of M/Z values.
     \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
     \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
@@ -471,8 +471,8 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
     # Step 1 matching of entries with matched precursor
     precursor.match.ids <- NULL
     if (precursor) {
-        precursor.match.ids <- .self$searchForMassSpectra(mz.min=NULL, mz.max=NULL,
-            mz=input.df[[input.df.colnames[['mz']]]],
+        precursor.match.ids <- .self$searchForMassSpectra(mz.min=NULL,
+            mz.max=NULL, mz=input.df[[input.df.colnames[['mz']]]],
             mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
             rt=input.df[[input.df.colnames[['rt']]]], rt.unit=rt.unit,
             rt.tol=precursor.rt.tol, chrom.col.ids=chrom.col.ids,
@@ -678,8 +678,8 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
 
 collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
                                   sep='|') {
-    ":\n\nCollapse rows of a results data frame, by outputing a data frame with only
-    one row for each MZ/RT value.
+    ":\n\nCollapse rows of a results data frame, by outputing a data frame with
+    only one row for each MZ/RT value.
     \nresults.df: Results data frame.
     \n mz.col: The name of the M/Z column in the results data frame.
     \n rt.col: The name of the RT column in the results data frame.

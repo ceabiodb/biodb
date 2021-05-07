@@ -308,17 +308,17 @@ We will write a function that takes a Uniprot entry and search for the ExPASy
 entry referenced and take missing fields from it:
 ```{r}
 completeUniprotEntry <- function(e) {
-	expasy.id <- e$getFieldValue('expasy.enzyme.id');
-	if ( ! is.na(expasy.id)) {
-		ex <- expasy$getEntry(expasy.id)
-		if ( ! is.null(ex)) {
-			for (field in c('catalytic.activity', 'cofactor')) {
-				v <- ex$getFieldValue(field)
-				if ( ! is.na(v) && length(v) > 0)
-					e$setFieldValue(field, v)
-			}
-		}
-	}
+    expasy.id <- e$getFieldValue('expasy.enzyme.id');
+    if ( ! is.na(expasy.id)) {
+        ex <- expasy$getEntry(expasy.id)
+        if ( ! is.null(ex)) {
+            for (field in c('catalytic.activity', 'cofactor')) {
+                v <- ex$getFieldValue(field)
+                if ( ! is.na(v) && length(v) > 0)
+                    e$setFieldValue(field, v)
+            }
+        }
+    }
 }
 ```
 Remember that we use RC (Reference Classes, or R5) OOP model in biodb.

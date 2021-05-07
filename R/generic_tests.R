@@ -35,13 +35,25 @@ test.entry.fields <- function(conn, opt) {
 
         # Get entry
         e <- entries[[i]]
-        testthat::expect_false(is.null(e), info=paste0('Entry ', id, ' of database ', db.name, ' could not be loaded for testing.'))
+        testthat::expect_false(is.null(e),
+            info=paste0('Entry ', id, ' of database ', db.name,
+            ' could not be loaded for testing.'))
 
         # Check IDs
-        testthat::expect_true(e$hasField('accession'), info=paste0(db.name, ' entry ', id, ' has no accession number.'))
-        testthat::expect_true(e$hasField(db.id.field), info=paste0(db.name, ' entry ', id, ' has no field ', db.id.field, '.'))
-        testthat::expect_equal(id, e$getFieldValue('accession'), info=paste0(db.name, ' entry ', id, ' has an accession number (', e$getFieldValue('accession'), ') different from the ID.'))
-        testthat::expect_equal(e$getFieldValue('accession'), e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id, ' has a value (', e$getFieldValue(db.id.field), ') of database id field (', db.id.field, ') different from the accession number (', e$getFieldValue('accession'), ').'))
+        testthat::expect_true(e$hasField('accession'),
+            info=paste0(db.name, ' entry ', id, ' has no accession number.'))
+        testthat::expect_true(e$hasField(db.id.field),
+            info=paste0(db.name, ' entry ', id, ' has no field ',
+            db.id.field, '.'))
+        testthat::expect_equal(id, e$getFieldValue('accession'),
+            info=paste0(db.name, ' entry ', id, ' has an accession number (',
+            e$getFieldValue('accession'), ') different from the ID.'))
+        testthat::expect_equal(e$getFieldValue('accession'),
+            e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id,
+            ' has a value (', e$getFieldValue(db.id.field),
+            ') of database id field (', db.id.field,
+            ') different from the accession number (',
+            e$getFieldValue('accession'), ').'))
 
         # Load reference entry
         ref.entry <- loadTestRefEntry(db.name, id)
@@ -55,23 +67,42 @@ test.entry.fields <- function(conn, opt) {
                 v <- as.data.frame(v, stringsAsFactors=FALSE)
 
             # Check that field exists
-            testthat::expect_true(ef$get(f)$isVirtual() || e$hasField(f), info=paste0('Field "', f, '" cannot be found inside ', db.name, ' entry ', id, '.'))
+            testthat::expect_true(ef$get(f)$isVirtual() ||
+                e$hasField(f), info=paste0('Field "', f,
+                '" cannot be found inside ', db.name, ' entry ', id, '.'))
 
             # Check field type
-            testthat::expect_equal(typeof(w), typeof(v), info=paste0('Type of field "', f, '" for database ', db.name, ' entry ', id, ' (', typeof(w), ') is different in reference entry (', typeof(v), ').'))
+            testthat::expect_equal(typeof(w), typeof(v),
+                info=paste0('Type of field "', f, '" for database ', db.name,
+                ' entry ', id, ' (', typeof(w),
+                ') is different in reference entry (', typeof(v), ').'))
 
             # Check length
-            testthat::expect_equal(length(w), length(v), info=paste0('Length of field "', f, '" for database ', db.name, ' entry ', id, ' (', length(w), ') is different in reference entry (', length(v), ').'))
+            testthat::expect_equal(length(w), length(v),
+                info=paste0('Length of field "', f, '" for database ', db.name,
+                ' entry ', id, ' (', length(w),
+                ') is different in reference entry (', length(v), ').'))
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
-                testthat::expect_identical(w, v, info=paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' (', paste(w, collapse=', '), ') is different in reference entry (', paste(v, collapse=', '), ').'))
+                testthat::expect_identical(w, v, info=paste0('Value of field "',
+                f, '" for database ', db.name, ' entry ', id,
+                ' (', paste(w, collapse=', '),
+                ') is different in reference entry (',
+                paste(v, collapse=', '), ').'))
             else
-                testthat::expect_identical(w, v, info=paste0('Value of field "', f, '" for database ', db.name, ' entry ', id, ' is different in reference entry. Non equal values are: ', paste(vapply(which(v != w), function(i) paste(w[[i]], '!=', v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
+                testthat::expect_identical(w, v, info=paste0('Value of field "',
+                f, '" for database ', db.name, ' entry ', id,
+                ' is different in reference entry. Non equal values are: ',
+                paste(vapply(which(v != w), function(i) paste(w[[i]], '!=',
+                v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
         }
 
         # Loop on all fields of loaded entry
         for (f in e$getFieldNames())
             if ( ! f %in% c(db.id.field, 'peaks'))
-                testthat::expect_true(any(ef$get(f)$getAllNames() %in% names(ref.entry)), info = paste0('Field ', f, ' of ', db.name, ' entry ', id, ' has not been tested. Its value is: ', paste(e$getFieldValue(f), collapse = ', '), '.'))
+                testthat::expect_true(any(ef$get(f)$getAllNames() %in%
+                names(ref.entry)), info=paste0('Field ', f, ' of ', db.name,
+                ' entry ', id, ' has not been tested. Its value is: ',
+                paste(e$getFieldValue(f), collapse=', '), '.'))
 
         # Store all encountered fields
         entry.fields <- c(entry.fields, e$getFieldNames())
@@ -79,10 +110,12 @@ test.entry.fields <- function(conn, opt) {
     }
 
     # Search for untested fields and send a Biodb WARNING message
-    not.tested.fields <- entry.fields[ ! entry.fields %in% c(ref.entry.fields, db.id.field)]
+    not.tested.fields <- entry.fields[ ! entry.fields %in%
+        c(ref.entry.fields, db.id.field)]
     not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
     for (f in not.tested.fields)
-        biodb$message('warning', paste("Field \"", f, "\" of database ", db.name, " is never tested.", sep = ''))
+        biodb::warn0("Field \"", f, "\" of database ", db.name,
+            " is never tested.")
 }
 
 test.wrong.entry <- function(conn) {
@@ -106,9 +139,12 @@ test.wrong.entry.among.good.ones <- function(conn) {
    # Test a wrong accession number
    ids <- c('WRONGB', entries.desc[['accession']])
    entries <- biodb$getFactory()$getEntry(db.name, id = ids)
-   testthat::expect_equal(length(entries), nrow(entries.desc) + 1, info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
+   testthat::expect_equal(length(entries), nrow(entries.desc) + 1,
+        info=paste0("Error while retrieving entries. ", length(entries),
+        " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))
    testthat::expect_null(entries[[1]])
-   testthat::expect_false(any(vapply(entries[2:length(entries)], is.null, FUN.VALUE = TRUE)))
+   testthat::expect_false(any(vapply(entries[2:length(entries)], is.null,
+        FUN.VALUE=TRUE)))
 }
 
 test.peak.table <- function(conn) {
@@ -120,20 +156,28 @@ test.peak.table <- function(conn) {
     entries.desc <- loadTestRefEntries(db.name)
 
     # Create entries
-    entries <- biodb$getFactory()$getEntry(db.name, id = entries.desc[['accession']], drop = FALSE)
-    testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE = TRUE)), "One of the entries is NULL.")
-    testthat::expect_equal(length(entries), nrow(entries.desc), info = paste0("Error while retrieving entries. ", length(entries), " entrie(s) obtained instead of ", nrow(entries.desc), "."))
+    entries <- biodb$getFactory()$getEntry(db.name,
+        id=entries.desc[['accession']], drop=FALSE)
+    testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=TRUE)),
+        "One of the entries is NULL.")
+    testthat::expect_equal(length(entries), nrow(entries.desc),
+        info=paste0("Error while retrieving entries. ", length(entries),
+        " entrie(s) obtained instead of ", nrow(entries.desc), "."))
 
     # Check number of peaks
     if ('nbpeaks' %in% colnames(entries.desc)) {
 
         # Check that the registered number of peaks is correct
-        testthat::expect_equal(vapply(entries, function(e) e$getFieldValue('nbpeaks'), FUN.VALUE = 10), entries.desc[['nbpeaks']])
+        testthat::expect_equal(vapply(entries,
+            function(e) e$getFieldValue('nbpeaks'), FUN.VALUE=10),
+            entries.desc[['nbpeaks']])
 
         # Check that the peak table has this number of peaks
         peak.tables <- lapply(entries, function(e) e$getFieldValue('peaks'))
-        testthat::expect_false(any(vapply(peak.tables, is.null, FUN.VALUE = TRUE)))
-        testthat::expect_equal(entries.desc[['nbpeaks']], vapply(peak.tables, nrow, FUN.VALUE = 1))
+        testthat::expect_false(any(vapply(peak.tables, is.null,
+            FUN.VALUE=TRUE)))
+        testthat::expect_equal(entries.desc[['nbpeaks']],
+            vapply(peak.tables, nrow, FUN.VALUE=1))
 
         # Check that the peak table contains the right columns
         # TODO
@@ -162,11 +206,16 @@ test.rt.unit <- function(conn, opt) {
     ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
 
     # Get entries
-    entries <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), id = ref.ids, drop = FALSE)
+    entries <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), id=ref.ids,
+        drop=FALSE)
 
     # Loop on all entries
     for (e in entries)
-        testthat::expect_true( ( ! e$hasField('chrom.rt') && ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) || e$hasField('chrom.rt.unit'), paste('No RT unit for entry ', e$getFieldValue('accession'), '. If an entry defines a retention time, it must also defines the unit.', sep = ''))
+        testthat::expect_true( ( ! e$hasField('chrom.rt') &&
+            ! e$hasField('chrom.rt.min') && ! e$hasField('chrom.rt.max')) ||
+            e$hasField('chrom.rt.unit'), paste0('No RT unit for entry ',
+            e$getFieldValue('accession'), '. If an entry defines a retention',
+            ' time, it must also defines the unit.'))
 }
 
 test.entry.page.url <- function(conn, opt) {
@@ -231,7 +280,9 @@ test.entry.image.url.download <- function(conn, opt) {
 }
 
 test.create.conn.with.same.url = function(conn) {
-    testthat::expect_error(conn$getBiodb()$getFactory()$createConn(conn$getDbClass(), url = conn$getUrl('base.url')))
+    testthat::expect_error(
+        conn$getBiodb()$getFactory()$createConn(conn$getDbClass(),
+        url=conn$getUrl('base.url')))
 }
 
 test.db.editing = function(conn) {
@@ -317,7 +368,8 @@ test.db.writing = function(conn) {
     entry = conn$getEntry(conn$getEntryIds(1))
 
     # Set database file
-    db.file <- file.path(getTestOutputDir(), paste('test.db.writing', conn$getDbClass(), 'db', sep = '.'))
+    db.file <- file.path(getTestOutputDir(), paste('test.db.writing',
+        conn$getDbClass(), 'db', sep = '.'))
     if (file.exists(db.file))
         unlink(db.file)
 
@@ -331,8 +383,10 @@ test.db.writing = function(conn) {
     testthat::expect_false(entry.2$parentIsAConnector())
 
     # Compare entries
-    df.1 <- biodb$entriesToDataframe(list(entry), only.atomic = FALSE, sort.cols = TRUE)
-    df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic = FALSE, sort.cols = TRUE)
+    df.1 <- biodb$entriesToDataframe(list(entry), only.atomic=FALSE,
+        sort.cols=TRUE)
+    df.2 <- biodb$entriesToDataframe(list(entry.2), only.atomic=FALSE,
+        ort.cols=TRUE)
     testthat::expect_identical(df.1, df.2)
 
     # Add new entry
@@ -438,8 +492,8 @@ test.searchForEntries <- function(conn, opt=NULL) {
             if (is.null(v) || v == '')
                 testthat::expect_null(ids)
             else {
-                msg <- paste0('While searching for entry ', id, ' by value ("', v,
-                              '") of field "', f, '".')
+                msg <- paste0('While searching for entry ', id, ' by value ("',
+                    v, '") of field "', f, '".')
                 testthat::expect_true( ! is.null(ids), msg)
                 testthat::expect_true(length(ids) > 0, msg)
                 testthat::expect_true(id %in% ids, msg)
@@ -475,7 +529,8 @@ test.searchByName = function(conn, opt=NULL) {
         ids <- conn$searchByName(name=name, max.results=max.results)
 
         # Test
-        msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+        msg <- paste0('While searching for entry ', id, ' by name "', name,
+            '".')
         testthat::expect_true( ! is.null(ids), msg)
         testthat::expect_true(length(ids) > 0, msg)
         testthat::expect_true(id %in% ids, msg)
@@ -508,7 +563,8 @@ test.searchCompound <- function(db, opt=NULL) {
     testthat::expect_true( ! is.na(name))
     ids <- db$searchCompound(name=name, max.results=max.results)
     if (db$isSearchableByField('name')) {
-        msg <- paste0('While searching for entry ', id, ' by name "', name, '".')
+        msg <- paste0('While searching for entry ', id, ' by name "', name,
+            '".')
         testthat::expect_true( ! is.null(ids), msg)
         testthat::expect_true(length(ids) > 0, msg)
         testthat::expect_true(id %in% ids, msg)
@@ -519,21 +575,26 @@ test.searchCompound <- function(db, opt=NULL) {
     for (field in db$getBiodb()$getEntryFields()$getFieldNames(type='mass')) {
 
         if ( ! entry$hasField(field)) {
-            testthat::expect_false(db$isSearchableByField(field), paste0('No test for searchCompound() with mass field "', field, '" for database "', db$getId(), '".'))
+            testthat::expect_false(db$isSearchableByField(field),
+            paste0('No test for searchCompound() with mass field "', field,
+            '" for database "', db$getId(), '".'))
             next
         }
 
         mass <- if (entry$hasField(field)) entry$getFieldValue(field) else 10.0
         if (field == 'molecular.mass')
             mass.tol <- 0.01
-        else if (mass != floor(mass))
-            mass.tol <- 10^-as.integer(nchar(strsplit(as.character(mass), '\\.')[[1]][[2]]))
-        else
+        else if (mass != floor(mass)) {
+            n <- as.integer(nchar(strsplit(as.character(mass),
+                '\\.')[[1]][[2]]))
+            mass.tol <- 10^-n
+        } else
             mass.tol <- 1.0
 
         # Search by mass
         max.results <- 3
-        msg <- paste0('While searching for entry ', id, ' by mass ', mass, ' with mass field ', field, '.')
+        msg <- paste0('While searching for entry ', id, ' by mass ', mass,
+            ' with mass field ', field, '.')
         if ( ! db$isSearchableByField(field)) {
             testthat::expect_warning(ids <- db$searchCompound(mass=mass,
                                                 mass.tol=mass.tol,
@@ -584,7 +645,8 @@ test.searchCompound <- function(db, opt=NULL) {
                 testthat::expect_true( ! is.null(ids), msg)
                 testthat::expect_true(length(ids) > 0, msg)
                 testthat::expect_true(id %in% ids, msg)
-                testthat::expect_true(is.na(max.results) || length(ids) <= max.results)
+                testthat::expect_true(is.na(max.results) ||
+                    length(ids) <= max.results)
             }
         }
     }
@@ -596,18 +658,26 @@ test.searchCompound.no.mass.field <- function(db) {
 
 test.annotateMzValues <- function(conn) {
 
-    testthat::expect_null(conn$annotateMzValues(NULL, mz.tol=0.01, ms.mode='neg'))
-    testthat::expect_identical(data.frame(), conn$annotateMzValues(data.frame(), mz.tol=0.01, ms.mode='neg'))
-    testthat::expect_identical(data.frame(mz=numeric()), conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg'))
+    testthat::expect_null(conn$annotateMzValues(NULL, mz.tol=0.01,
+        ms.mode='neg'))
+    testthat::expect_identical(data.frame(), conn$annotateMzValues(data.frame(),
+        mz.tol=0.01, ms.mode='neg'))
+    testthat::expect_identical(data.frame(mz=numeric()),
+        conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01,
+        ms.mode='neg'))
 
     # No M/Z column
-    testthat::expect_error(conn$annotateMzValues(data.frame(mass=1.0), mz.tol=0.01, ms.mode='neg'))
+    testthat::expect_error(conn$annotateMzValues(data.frame(mass=1.0),
+        mz.tol=0.01, ms.mode='neg'))
 
     # Custom M/Z column name
-    testthat::expect_identical(data.frame(mass=numeric()), conn$annotateMzValues(data.frame(mass=numeric()), mz.tol=0.01, ms.mode='neg', mz.col='mass'))
+    testthat::expect_identical(data.frame(mass=numeric()),
+        conn$annotateMzValues(data.frame(mass=numeric()), mz.tol=0.01,
+        ms.mode='neg', mz.col='mass'))
 
     # An error should be raised if the field name does not exist
-    testthat::expect_error(conn$annotateMzValues(data.frame(mz=numeric()), mz.tol=0.01, ms.mode='neg', fields='foo'))
+    testthat::expect_error(conn$annotateMzValues(data.frame(mz=numeric()),
+        mz.tol=0.01, ms.mode='neg', fields='foo'))
 }
 
 test.annotateMzValues_real_values <- function(conn, opt) {
@@ -631,7 +701,8 @@ test.annotateMzValues_real_values <- function(conn, opt) {
         if (length(ewmf) > 0) {
 
             # Get masses
-            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)),
+                FUN.VALUE=1.0)
 
             # Loop on modes
             for (mode in c('neg', 'pos')) {
@@ -661,7 +732,8 @@ test.annotateMzValues_real_values <- function(conn, opt) {
                                                      ms.mode=mode,
                                                      max.results=3)
                         testthat::expect_is(ret, 'data.frame')
-                        testthat::expect_true(all(colnames(df) %in% colnames(ret)))
+                        testthat::expect_true(all(colnames(df) %in%
+                            colnames(ret)))
                         testthat::expect_true(nrow(ret) >= nrow(df))
                         testthat::expect_true(all(df[['mz']] %in% ret[['mz']]))
                         id.col <- conn$getEntryIdField()
@@ -689,11 +761,13 @@ test_annotateMzValues_input_vector <- function(conn, opt) {
     for (mf in mass.fields) {
 
         # Get entries that have a value for this mass field
-        ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+        ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
+            FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
-            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)),
+                FUN.VALUE=1.0)
 
             # Annotate
             mz <- masses - proton.mass
@@ -731,17 +805,20 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
     for (mf in mass.fields) {
 
         # Get entries that have a value for this mass field
-        ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+        ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
+            FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
-            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)),
+                FUN.VALUE=1.0)
 
             # Annotate
             mz <- masses - proton.mass
             fields <- ewmf[[1]]$getFieldNames()
             outputFields <- paste(conn$getId(), fields, sep='.')
-            outputFields <- sub(paste0('^', conn$getId(), '.', conn$getId(), '.'), paste0(conn$getId(), '.'), outputFields)
+            outputFields <- sub(paste0('^', conn$getId(), '.', conn$getId(),
+                '.'), paste0(conn$getId(), '.'), outputFields)
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
@@ -753,11 +830,12 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
                                              ms.mode='neg', max.results=3,
                                              fields=fields)
                 testthat::expect_is(ret, 'data.frame')
-                testthat::expect_identical(sort(c('mz', outputFields)), sort(colnames(ret)))
+                testthat::expect_identical(sort(c('mz', outputFields)),
+                    sort(colnames(ret)))
             }
 
-            # We should obtain the same result with a field that does not exist in entries.
-            # The field will just be ignored.
+            # We should obtain the same result with a field that does not exist
+            # in entries. The field will just be ignored.
             if ( ! conn$isSearchableByField(mf)) {
                 testthat::expect_warning(
                     ret <- conn$annotateMzValues(mz, mz.tol=0.01, mass.field=mf,
@@ -769,7 +847,8 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
                                              ms.mode='neg', max.results=3,
                                              fields=c(fields, 'peak.attr'))
                 testthat::expect_is(ret, 'data.frame')
-                testthat::expect_identical(sort(c('mz', outputFields)), sort(colnames(ret)))
+                testthat::expect_identical(sort(c('mz', outputFields)),
+                    sort(colnames(ret)))
             }
         }
     }
@@ -791,11 +870,13 @@ test_annotateMzValues_ppm_tol <- function(conn, opt) {
     for (mf in mass.fields) {
 
         # Get entries that have a value for this mass field
-        ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+        ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
+            FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
-            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)),
+                FUN.VALUE=1.0)
 
             # Annotate
             mz <- masses - proton.mass
@@ -835,11 +916,13 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn, opt) {
     for (mf in mass.fields) {
 
         # Get entries that have a value for this mass field
-        ewmf <- entries[vapply(entries, function(e) e$hasField(mf), FUN.VALUE=TRUE)]
+        ewmf <- entries[vapply(entries, function(e) e$hasField(mf),
+            FUN.VALUE=TRUE)]
         if (length(ewmf) > 0) {
 
             # Get masses
-            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)), FUN.VALUE=1.0)
+            masses <- vapply(ewmf, function(e) as.numeric(e$getFieldValue(mf)),
+                FUN.VALUE=1.0)
             testthat::expect_is(masses, 'numeric')
 
             # Compute M/Z values from masses
@@ -880,9 +963,9 @@ test.msmsSearch.self.match <- function(db) {
 
     # Set some initial values to speed up test
     db.values <- list(peakforest.mass=list(neg=NULL,
-                                           pos=list(spectrum.id='3828', mz=117.1)),
-                      massbank=list(neg=list(spectrum.id='PR100504', mz=193.0354),
-                                    pos=list(spectrum.id='AU106501', mz=316.075)))
+        pos=list(spectrum.id='3828', mz=117.1)),
+        massbank=list(neg=list(spectrum.id='PR100504', mz=193.0354),
+        pos=list(spectrum.id='AU106501', mz=316.075)))
 
     # Loop on distance functions
     for (dist.fct in c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'))
@@ -891,7 +974,8 @@ test.msmsSearch.self.match <- function(db) {
         for (mode in c('neg', 'pos')) {
 
             # Get M/Z value and spectrum ID to be tested
-            if (db.name %in% names(db.values) && mode %in% names(db.values[[db.name]])) {
+            if (db.name %in% names(db.values) &&
+                mode %in% names(db.values[[db.name]])) {
                 if (is.null(db.values[[db.name]][[mode]]))
                     next
                 mz <- db.values[[db.name]][[mode]]$mz
@@ -899,10 +983,12 @@ test.msmsSearch.self.match <- function(db) {
             }
             else {
                 # Search for one M/Z value
-                mz <- db$getMzValues(ms.mode = mode, ms.level = 2, max.results = 1, precursor = TRUE)
+                mz <- db$getMzValues(ms.mode=mode, ms.level=2, max.results=1,
+                    precursor=TRUE)
 
                 # Find corresponding spectrum
-                spectrum.id <- db$searchMzTol(mz, mz.tol = 5, mz.tol.unit = 'ppm', ms.mode = mode, max.results = 1, ms.level = 2, precursor = TRUE)
+                spectrum.id <- db$searchMzTol(mz, mz.tol=5, mz.tol.unit='ppm',
+                    ms.mode=mode, max.results=1, ms.level=2, precursor=TRUE)
             }
 
             # Get entry
@@ -979,7 +1065,7 @@ test.searchMzTol <- function(conn) {
     # Search
     for (mz in mzs) {
         ids <- conn$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
-                                min.rel.int=0, ms.mode=mode)
+            min.rel.int=0, ms.mode=mode)
         testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
     }
@@ -987,7 +1073,8 @@ test.searchMzTol <- function(conn) {
 
 test.searchMsEntries.with.NA.value <- function(db) {
 
-    ids <- db$searchMsEntries(mz = NA_real_, mz.tol = 5.0, mz.tol.unit = 'plain', min.rel.int = 0, ms.mode = 'pos')
+    ids <- db$searchMsEntries(mz=NA_real_, mz.tol=5.0, mz.tol.unit='plain',
+        min.rel.int=0, ms.mode='pos')
     testthat::expect_is(ids, 'character')
     testthat::expect_length(ids, 0)
 }
@@ -1158,17 +1245,23 @@ test.searchMsPeaks <- function(db) {
     testthat::expect_true(nrow(results) >  length(mzs))
     testthat::expect_true('accession' %in% names(results))
     testthat::expect_true('peak.mz' %in% names(results))
-    testthat::expect_true(all(vapply(mzs, function(mz) any((results$peak.mz >= mz - tol) & (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
+    testthat::expect_true(all(vapply(mzs,
+        function(mz) any((results$peak.mz >= mz - tol) &
+        (results$peak.mz <= mz + tol)), FUN.VALUE = TRUE)))
 
     # Test insert.input.values
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=2, ms.mode=mode,
+        insert.input.values=TRUE)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true('mz' %in% colnames(results))
-    results <- db$searchMsPeaks(input.df = data.frame(mz = mzs), mz.tol = tol, max.results = 2, ms.mode = mode, insert.input.values = TRUE)
+    results <- db$searchMsPeaks(input.df=data.frame(mz=mzs), mz.tol=tol,
+        max.results=2, ms.mode=mode, insert.input.values=TRUE)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true('mz' %in% colnames(results))
     some.col = rep('xxx', length(mzs))
-    results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE)
+    results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col,
+        stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode,
+        insert.input.values=TRUE)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true('mz' %in% colnames(results))
     testthat::expect_true('some.col' %in% colnames(results))
@@ -1176,7 +1269,9 @@ test.searchMsPeaks <- function(db) {
     testthat::expect_true(all(results[['some.col']] == some.col[[1]]))
 
     # Test insert.input.values with prefix
-    results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col, stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode, insert.input.values=TRUE, prefix='myprefix.')
+    results <- db$searchMsPeaks(input.df=data.frame(mz=mzs, some.col=some.col,
+        stringsAsFactors=FALSE), mz.tol=tol, max.results=2, ms.mode=mode,
+        insert.input.values=TRUE, prefix='myprefix.')
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true('mz' %in% colnames(results))
     testthat::expect_true('some.col' %in% colnames(results))
@@ -1188,10 +1283,10 @@ test.collapseResultsDataFrame <- function(db) {
 
     mode <- 'neg'
     tol <- 0.1
-    mzs <- db$getMzValues(ms.mode = mode, max.results = 3)
+    mzs <- db$getMzValues(ms.mode=mode, max.results=3)
 
     # Get 2 results per M/Z value
-    results <- db$searchMsPeaks(mzs, mz.tol = tol, max.results = 2, ms.mode = mode)
+    results <- db$searchMsPeaks(mzs, mz.tol=tol, max.results=2, ms.mode=mode)
     testthat::expect_is(results, 'data.frame')
     testthat::expect_true(nrow(results) >  length(mzs))
 
@@ -1212,7 +1307,8 @@ test.searchMsPeaks.rt <- function(conn, opt) {
     if (entry$hasField('chrom.rt'))
         rt <- entry$getFieldValue('chrom.rt')
     else if (entry$hasField('chrom.rt.min') && entry$hasField('chrom.rt.max'))
-        rt <- (entry$getFieldValue('chrom.rt.min') + entry$getFieldValue('chrom.rt.max')) / 2
+        rt <- (entry$getFieldValue('chrom.rt.min') +
+            entry$getFieldValue('chrom.rt.max')) / 2
     testthat::expect_is(rt, 'numeric')
     testthat::expect_false(is.na(rt))
     chrom.col.ids <- entry$getFieldValue('chrom.col.id')
@@ -1304,8 +1400,10 @@ runGenericShortTests <- function(conn, opt=NULL) {
         biodb::testThat("We can search for spectra with multiple M/Z values.",
                         test.searchMzTol.multiple.mz, conn=conn)
         
-        # TODO XXX Commented out because of its dependency on particular connectors
-        #biodb::testThat("Search by precursor returns at least one match.", test.searchMzTol.with.precursor, conn=conn)
+        # TODO XXX Commented out because of its dependency on particular
+        # connectors
+        #biodb::testThat("Search by precursor returns at least one match.",
+        #    test.searchMzTol.with.precursor, conn=conn)
         
         biodb::testThat("Search by precursor on multiple mzs does not fail.",
                         test.searchMzTol.with.precursor.and.multiple.inputs,
@@ -1316,8 +1414,10 @@ runGenericShortTests <- function(conn, opt=NULL) {
         biodb::testThat("We can collapse the results from searchMsPeaks().",
                         test.collapseResultsDataFrame, conn=conn)
 
-        # TODO XXX Commented out because of its dependency on particular connectors
-        #biodb::testThat("MSMS search can find a match for a spectrum from the database itself.", test.msmsSearch.self.match, conn=conn)
+        # TODO XXX Commented out because of its dependency on particular
+        # connectors
+        #biodb::testThat(paste("MSMS search can find a match for a spectrum".
+        #   "from the database itself."), test.msmsSearch.self.match, conn=conn)
 
         biodb::testThat('MSMS search works for an empty spectrum.',
                         test.msmsSearch.empty.spectrum, conn=conn)
@@ -1427,7 +1527,7 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #' conn <- biodb$getFactory()$createConn('mass.csv.file', lcmsdb)
 #'
 #' # Run generic tests
-#' \dontrun{
+#' \donttest{
 #' biodb::runGenericTests(conn)
 #' }
 #'

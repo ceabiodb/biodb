@@ -1,6 +1,5 @@
 BiodbObject <- methods::setRefClass("BiodbObject",
     fields=list(
-                .message.enabled="logical"
                 ),
 
 methods=list(
@@ -8,8 +7,6 @@ methods=list(
 initialize=function() {
 
     .self$.abstractClass('BiodbObject')
-
-    .self$.message.enabled <- TRUE
 },
 
 getBiodb=function() {
