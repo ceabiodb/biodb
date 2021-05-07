@@ -7,17 +7,15 @@
 closeMatchPpm(x, y, xidx, yidx, xolength, dppm, dmz)
 }
 \arguments{
-\item{x}{sorted M/Z values (ascending order) of input spectrum (no
-NA).}
+\item{x}{sorted M/Z values (ascending order) of input spectrum (no NA).}
 
-\item{y}{sorted M/Z values (ascending order) of reference spectrum
-(no NA).}
+\item{y}{sorted M/Z values (ascending order) of reference spectrum (no NA).}
 
-\item{xidx}{indices of the M/Z peaks of x, taken from the original
-spectrum ordered in decreasing intensity values.}
+\item{xidx}{indices of the M/Z peaks of x, taken from the original spectrum
+ordered in decreasing intensity values.}
 
-\item{yidx}{indices of the M/Z peaks of y, taken from the original
-spectrum ordered in decreasing intensity values.}
+\item{yidx}{indices of the M/Z peaks of y, taken from the original spectrum
+ordered in decreasing intensity values.}
 
 \item{xolength}{???}
 

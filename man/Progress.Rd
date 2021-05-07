@@ -12,7 +12,7 @@ notifications of this progress to observers too.
 }
 \examples{
 # Create an instance
-prg <- biodb::Progress(msg='Processing data.', total=10)
+prg <- biodb::Progress$new(msg='Processing data.', total=10)
 
 # Processing
 for (i in seq_len(10)) {
