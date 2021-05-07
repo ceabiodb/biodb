@@ -661,7 +661,7 @@ getEntryContentType=function() {
     "Returns the entry content type."
 
     lifecycle::deprecate_soft('1.0.0', "getEntryContentType()",
-                              "setPropertyValue()")
+        "setPropertyValue()")
 
     return(.self$getPropertyValue('entry.content.type'))
 },
@@ -670,7 +670,7 @@ getSchedulerNParam=function() {
     "Returns the N parameter for the scheduler."
 
     lifecycle::deprecate_soft('1.0.0', "getSchedulerNParam()",
-                              "getPropertyValue()")
+        "getPropertyValue()")
 
     return(.self$getPropertyValue('scheduler.n'))
 },
@@ -679,7 +679,7 @@ setSchedulerNParam=function(n) {
     "Sets the N parameter for the scheduler."
 
     lifecycle::deprecate_soft('1.0.0', "setSchedulerNParam()",
-                              "setPropertyValue()")
+        "setPropertyValue()")
 
     .self$setPropertyValue('scheduler.n', n)
 },
@@ -689,7 +689,7 @@ getSchedulerTParam=function() {
 
 
     lifecycle::deprecate_soft('1.0.0', "getSchedulerTParam()",
-                              "getPropertyValue()")
+        "getPropertyValue()")
 
     return(.self$getPropertyValue('scheduler.t'))
 },
@@ -698,7 +698,7 @@ setSchedulerTParam=function(t) {
     "Sets the T parameter for the scheduler."
 
     lifecycle::deprecate_soft('1.0.0', "setSchedulerTParam()",
-                              "setPropertyValue()")
+        "setPropertyValue()")
 
     .self$setPropertyValue('scheduler.t', t)
 },

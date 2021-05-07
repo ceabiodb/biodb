@@ -82,7 +82,7 @@ isExtracted=function() {
 
     cch <- .self$getBiodb()$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
-                           name='extracted'))
+        name='extracted'))
 },
 
 download=function() {
@@ -102,7 +102,7 @@ download=function() {
         .self$.doDownload()
         if ( ! file.exists(.self$getDownloadPath()))
             error("File %s does not exists. Downloading went wrong.",
-                  .self$getDownloadPath())
+                .self$getDownloadPath())
         logDebug0('Downloading of ', .self$getId(), ' completed.')
 
         # Set marker
