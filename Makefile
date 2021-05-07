@@ -103,7 +103,7 @@ check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 	$(R) $(RFLAGS) CMD check $(ZIPPED_PKG)
 
 bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
-	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE, `no-check-formatting`=TRUE)'
+	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)", `new-package`=TRUE, `quit-with-status`=TRUE)' 2>&1 | sed 's!^ *\(R\|vignettes\)/!Issue in \1/!'
 
 bioc.check.clone: clean clean.cache
 	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'

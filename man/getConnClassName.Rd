@@ -16,3 +16,7 @@ The name of the corresponding connector class (e.g.:
 \description{
 Gets the name of the connector class corresponding to a connector.
 }
+\examples{
+biodb::getConnClassName('foo.db')
+
+}

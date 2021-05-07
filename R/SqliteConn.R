@@ -144,16 +144,18 @@ defineParsingExpressions=function() {
                     if (field$getClass() == 'data.frame') {
                         v <- cbind(accession=acc,
                                    entry$getFieldValue(field.name))
-                        .self$.appendToTable(tableName=.self$.fieldToSqlId(field.name), values=v)
+                        .self$.appendToTable(
+                            ableName=.self$.fieldToSqlId(field.name), values=v)
                     }
 
                     # Write multiple values field
                     else if (field$hasCardMany()) {
                         values <- list(accession=acc)
-                        values[[.self$.fieldToSqlId(field.name)]] <- entry$getFieldValue(field.name)
-                        DBI::dbWriteTable(conn=.self$.db, name=.self$.fieldToSqlId(field.name),
-                                          value=as.data.frame(values),
-                                          append=TRUE)
+                        values[[.self$.fieldToSqlId(field.name)]] <-
+                            entry$getFieldValue(field.name)
+                        DBI::dbWriteTable(conn=.self$.db,
+                            name=.self$.fieldToSqlId(field.name),
+                            value=as.data.frame(values), append=TRUE)
                     }
                 }
 

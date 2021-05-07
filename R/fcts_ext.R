@@ -6,6 +6,16 @@
 #'
 #' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
 #' @return Nothing.
+#'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::genNewExtPkg(path=pkgFolder, dbName='foo.db',
+#'                     dbTitle='Foo database', rcpp=TRUE,
+#'                     connType='mass', entryType='txt', downloadable=TRUE,
+#'                     remote=TRUE)
+#'
 #' @export
 genNewExtPkg <- function(...) {
     ExtPackage$new(newPkg=TRUE, ...)$generate()
@@ -19,6 +29,19 @@ genNewExtPkg <- function(...) {
 #'
 #' @param ... Parameters passed to \code{\link{ExtPackage}} constructor.
 #' @return Nothing.
+#'
+#' @examples
+#' # Generate a new package:
+#' pkgFolder <- file.path(tempfile(), 'biodbFoo')
+#' dir.create(pkgFolder, recursive=TRUE)
+#' biodb::genNewExtPkg(path=pkgFolder, dbName='foo.db',
+#'                     dbTitle='Foo database', rcpp=TRUE,
+#'                     connType='mass', entryType='txt', downloadable=TRUE,
+#'                     remote=TRUE)
+#'
+#' # Upgrade it later
+#' biodb::upgradeExtPkg(path=pkgFolder)
+#'
 #' @export
 upgradeExtPkg <- function(...) {
     ExtPackage$new(...)$upgrade()
@@ -34,6 +57,10 @@ upgradeExtPkg <- function(...) {
 #' regular expression "^biodb\[A-Z\]\[A-Za-z0-9\]+$", to ensure the format is
 #' respected.
 #' @return The package name of the biodb extension.
+#'
+#' @examples
+#' biodb::getPkgName('/my/path/to/my/extension/biodbFoo')
+#'
 #' @export
 getPkgName <- function(pkgRoot, check=TRUE) {
     
@@ -53,6 +80,10 @@ getPkgName <- function(pkgRoot, check=TRUE) {
 #' Get the available licenses for extension packages.
 #'
 #' @return A character vector containing license names.
+#'
+#' @examples
+#' biodb::getLicenses()
+#'
 #' @export
 getLicenses <- function() {
     return(c('AGPL-3'))
@@ -66,12 +97,17 @@ getLicenses <- function() {
 #' @param default A default value to return in case git4r package is not
 #' available or the folder is not a Git repository.
 #' @return The repository name.
+#'
+#' @examples
+#' biodb::getReposName('/my/path/to/my/extension/biodbFoo')
+#'
 #' @export
 getReposName <- function(pkgRoot, default=NULL) {
 
     repos <- default
 
-    if (dir.exists(pkgRoot) && requireNamespace('git2r') && git2r::in_repository(pkgRoot))
+    if (dir.exists(pkgRoot) && requireNamespace('git2r')
+        && git2r::in_repository(pkgRoot))
     {
         remotes <- git2r::remotes(pkgRoot)
         if ('origin' %in% remotes) {

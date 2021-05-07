@@ -12,3 +12,7 @@ A character vector containing the entry types.
 \description{
 Get the list of available entry types.
 }
+\examples{
+biodb::getEntryTypes()
+
+}

@@ -80,9 +80,13 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     # Set if it is a remote database connector
     if (methods::extends(.self$getConnClassName(), "BiodbRemotedbConn")
-        || ('scheduler.n' %in% names(properties) && ! is.na(properties$scheduler.n))
-        || ('scheduler.t' %in% names(properties) && ! is.na(properties$scheduler.t))
-        || ('urls' %in% names(properties) && 'base.url' %in% names(properties$url) && length(grep('^http', properties$url$base.url)) > 0))
+        || ('scheduler.n' %in% names(properties)
+            && ! is.na(properties$scheduler.n))
+        || ('scheduler.t' %in% names(properties)
+            && ! is.na(properties$scheduler.t))
+        || ('urls' %in% names(properties)
+            && 'base.url' %in% names(properties$url)
+            && length(grep('^http', properties$url$base.url)) > 0))
         properties$remotedb <- TRUE
     
     # Set properties
@@ -354,7 +358,8 @@ setPropertyValue=function(name, value) {
         && ! .self$.prop.def[[name]]$modifiable
         && ! identical(.self$.prop[[name]], value))
         error0('Property "', name, '" of database "', .self$getDbClass(),
-              '" is not modifiable. Current value is "', .self$.prop[[name]], '". New desired value was "', value, '".')
+            '" is not modifiable. Current value is "', .self$.prop[[name]],
+            '". New desired value was "', value, '".')
 
     # Set value
     .self$.prop[[name]] <- value
@@ -406,7 +411,7 @@ setPropValSlot=function(name, slot, value) {
 
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
-                   FUN.VALUE=TRUE)))
+        FUN.VALUE=TRUE)))
         biodb::warn("Observer is already registered.")
 
     # Register this new observer
@@ -437,7 +442,7 @@ setPropValSlot=function(name, slot, value) {
     if ( ! name %in% names(.self$.prop.def)) {
         if (fail)
             error0('Unknown property "', name, '" for database ',
-                  .self$getDbClass(), '.')
+            .self$getDbClass(), '.')
         else
             return(FALSE)
     }
@@ -449,7 +454,7 @@ setPropValSlot=function(name, slot, value) {
     if (is.logical(slot) && slot && ! 'named' %in% names(pdef)) {
         if (fail)
             error0('Property "', name, '" of database "',
-                  .self$getDbClass(), '" is not a slot property.')
+            .self$getDbClass(), '" is not a slot property.')
         else
             return(FALSE)
     }
@@ -458,8 +463,8 @@ setPropValSlot=function(name, slot, value) {
     if ( ! is.null(slot) && ! 'named' %in% names(pdef)) {
         if (fail)
             error0('Unauthorized use of slot "', slot,
-                  '" with unnamed property "', name, '" of database "',
-                  .self$getDbClass(), '".')
+                '" with unnamed property "', name, '" of database "',
+                .self$getDbClass(), '".')
         else
             return(FALSE)
     }
@@ -476,17 +481,17 @@ setPropValSlot=function(name, slot, value) {
     # Check cardinality
     if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
         error0('Multiple values are forbidden for property "', name,
-              '" of database "', .self$getDbClass(), '".')
+            '" of database "', .self$getDbClass(), '".')
 
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
             error0('Value vector for property "', name, '"of database "',
-                  .self$getDbClass(), '" must be named. Values are: ',
-                  paste(paste(names(value), value, sep='='), collapse=', '))
+                .self$getDbClass(), '" must be named. Values are: ',
+                paste(paste(names(value), value, sep='='), collapse=', '))
         if (any(duplicated(names(value))))
             error0('Value vector for property "', name, '"of database "',
-                  .self$getDbClass(), '" contains duplicated names.')
+                .self$getDbClass(), '" contains duplicated names.')
     }
 
     # Convert value
@@ -498,11 +503,11 @@ setPropValSlot=function(name, slot, value) {
     if (length(value) == 1) {
         if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
             error0('NA value is not allowed for property "', name,
-                  '" of database "', .self$getDbClass(), '".')
+                '" of database "', .self$getDbClass(), '".')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
             error0('Value "', value, '" is not allowed for property "',
-                  name, '" of database "', .self$getDbClass(), '".')
+                name, '" of database "', .self$getDbClass(), '".')
     }
 
     return(value)
@@ -520,7 +525,7 @@ setPropValSlot=function(name, slot, value) {
     if ( ! is.null(properties))
         for (p in names(properties))
             .self$.prop.def[[p]]$default <- .self$.chkPropVal(p,
-                                                              properties[[p]])
+                properties[[p]])
 
     # Set property values
     if (is.null(other))
@@ -557,39 +562,36 @@ setPropValSlot=function(name, slot, value) {
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),
         disabling.reason=list(class='character', default=''),
         dwnld.ext=list(class='character', default=NA_character_,
-                       modifiable=FALSE),
+            modifiable=FALSE),
         entry.content.encoding=list(class='character',
-                                      default=NA_character_,
-                                      na.allowed=TRUE),
+            default=NA_character_, na.allowed=TRUE),
         entry.content.type=list(class='character', default=NA_character_,
-                                  allowed=c('html', 'sdf', 'txt', 'xml', 'csv',
-                                              'tsv', 'json', 'list'),
-                                  na.allowed=FALSE, modifiable=FALSE),
+            allowed=c('html', 'sdf', 'txt', 'xml', 'csv',
+            'tsv', 'json', 'list'),
+            na.allowed=FALSE, modifiable=FALSE),
         matching.fields=list(class='list',
-                             default=list(mz=c('peak.mztheo',
-                                            'peak.mzexp')),
-                             named=TRUE, mult=TRUE, na.allowed=FALSE,
-                             allowed_item_types='character'),
+            default=list(mz=c('peak.mztheo', 'peak.mzexp')),
+            named=TRUE, mult=TRUE, na.allowed=FALSE,
+            allowed_item_types='character'),
         name=list(class='character', default=NA_character_,
-                    na.allowed=FALSE, modifiable=FALSE),
+            na.allowed=FALSE, modifiable=FALSE),
         package=list(class='character', default='biodb', na.allowed=FALSE,
-                     modifiable=FALSE),
+            modifiable=FALSE),
         parsing.expr=list(class='list', default=NULL, named=TRUE,
-                            mult=TRUE, allowed_item_types='character',
-                            na.allowed=FALSE,
-                            hook='defineParsingExpressions'),
+            mult=TRUE, allowed_item_types='character',
+            na.allowed=FALSE, hook='defineParsingExpressions'),
         remotedb=list(class='logical', default=FALSE, na.allowed=FALSE,
-                      modifiable=FALSE),
+            modifiable=FALSE),
         searchable.fields=list(class='character', default=character(),
-                               na.allowed=FALSE, modifiable=FALSE, mult=TRUE),
+            na.allowed=FALSE, modifiable=FALSE, mult=TRUE),
         scheduler.n=list(class='integer', default=1, na.allowed=FALSE),
         scheduler.t=list(class='numeric', default=1, na.allowed=FALSE),
         token=list(class='character', default=default_token,
-                     na.allowed=TRUE),
+            na.allowed=TRUE),
         urls=list(class='character', default=character(), named=TRUE,
-                    mult=TRUE),
+            mult=TRUE),
         xml.ns=list(class='character', default=character(), named=TRUE,
-                      mult=TRUE)
+            mult=TRUE)
     )
 
     return(prop.def)

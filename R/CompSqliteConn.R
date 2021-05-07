@@ -74,13 +74,13 @@ methods=list(
                 }
                 
                 # Complete query
-                expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table="entries",
-                                                              field=field),
-                                          op='>=', rexpr=BiodbSqlValue$new(rng$a))
+                expr <- BiodbSqlBinaryOp$new(
+                    lexpr=BiodbSqlField$new(table="entries", field=field),
+                    op='>=', rexpr=BiodbSqlValue$new(rng$a))
                 query$getWhere()$addExpr(expr)
-                expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table="entries",
-                                                             field=field),
-                                         op='<=', rexpr=BiodbSqlValue$new(rng$b))
+                expr <- BiodbSqlBinaryOp$new(
+                    lexpr=BiodbSqlField$new(table="entries", field=field),
+                    op='<=', rexpr=BiodbSqlValue$new(rng$b))
                 query$getWhere()$addExpr(expr)
             }
         }

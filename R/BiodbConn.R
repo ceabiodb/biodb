@@ -80,12 +80,13 @@ show=function() {
     \nReturned value: None.
     "
     
-   callSuper() 
-   cat("  ID: ", .self$.id, ".\n", sep='')
+    callSuper() 
+    cat("  ID: ", .self$.id, ".\n", sep='')
 },
 
 correctIds=function(ids) {
-    ":\n\nCorrect a vector of IDs by formatting them to the database official format, if required and possible.
+    ":\n\nCorrect a vector of IDs by formatting them to the database official
+    format, if required and possible.
     \nids: A character vector of IDs.
     \nReturned values: The vector of IDs corrected.
     "
@@ -94,8 +95,8 @@ correctIds=function(ids) {
 },
 
 getEntry=function(id, drop=TRUE, nulls=TRUE) {
-    ":\n\nReturn the entry corresponding to this ID. You can pass a vector of IDs,
-    and you will get a list of entries.
+    ":\n\nReturn the entry corresponding to this ID. You can pass a vector of
+    IDs, and you will get a list of entries.
     \nid: A character vector containing entry identifiers.
     \ndrop: If set to TRUE and only one entry is requrested, then the returned
     value will be a single BiodbEntry object, otherwise it will be a list of 
@@ -110,7 +111,7 @@ getEntry=function(id, drop=TRUE, nulls=TRUE) {
     "
 
     entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id=id,
-                                                  drop=drop)
+        drop=drop)
 
     if ( ! nulls && is.list(entries))
         entries <- Filter(function(e) ! is.null(e), entries)
@@ -151,7 +152,7 @@ getEntryContent=function(id) {
 
         # Debug
         logDebug0("Get ", nm, " entry content(s) for ", length(id),
-                 " id(s)...")
+            " id(s)...")
 
         # Download full database
         if (.self$isDownloadable())
@@ -161,8 +162,7 @@ getEntryContent=function(id) {
         if (cch$isReadable(.self) && ! is.null(.self$getCacheId())) {
             # Load content from cache
             content <- cch$loadFileContent(.self$getCacheId(),
-                                          name=id,
-                                          ext=.self$getEntryFileExt())
+                name=id, ext=.self$getEntryFileExt())
             missing.ids <- id[vapply(content, is.null, FUN.VALUE=TRUE)]
         }
         else {
@@ -185,7 +185,7 @@ getEntryContent=function(id) {
             logDebug("%d %s entry content(s) loaded from cache.", nld, nm)
             if (n.duplicates > 0)
                 logDebug0(n.duplicates, " ", nm, " entry ids, whose content",
-                         " needs to be fetched, are duplicates.")
+                    " needs to be fetched, are duplicates.")
         }
 
         # Get contents
@@ -193,8 +193,8 @@ getEntryContent=function(id) {
             && ( ! .self$isDownloadable() || ! .self$isDownloaded())) {
 
             logDebug0(length(missing.ids), " entry content(s) need to be ",
-                     "fetched from ", nm, " database \"",
-                     .self$getPropValSlot('urls', 'base.url'), "\".")
+                "fetched from ", nm, " database \"",
+                .self$getPropValSlot('urls', 'base.url'), "\".")
 
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)
@@ -215,9 +215,8 @@ getEntryContent=function(id) {
                 if ( ! is.null(ec)
                     && ! is.null(.self$getCacheId()) && cch$isWritable(.self))
                     cch$saveContentToFile(ec,
-                                          cache.id=.self$getCacheId(),
-                                          name=ch.missing.ids,
-                                          ext=.self$getEntryFileExt())
+                        cache.id=.self$getCacheId(), name=ch.missing.ids,
+                        ext=.self$getEntryFileExt())
 
                 # Append
                 missing.contents <- c(missing.contents, ec)
@@ -232,7 +231,7 @@ getEntryContent=function(id) {
             # Merge content and missing.contents
             missing.contents <- as.list(missing.contents)
             ii <- vapply(id[id %in% missing.ids],
-                         function(x) which(missing.ids == x), FUN.VALUE=1L)
+                function(x) which(missing.ids == x), FUN.VALUE=1L)
             content[id %in% missing.ids] <- missing.contents[ii]
         }
     }
@@ -332,7 +331,8 @@ isSearchableByField=function(field) {
     ":\n\nTests if a field can be used to search entries when using methods
     searchByName() and searchCompound().
     \nfield: The name of the field.
-    \nReturned value: Returns TRUE if the database is searchable using the specified field, FALSE otherwise.
+    \nReturned value: Returns TRUE if the database is searchable using the
+    specified field, FALSE otherwise.
     "
 
     v <- FALSE
@@ -415,8 +415,8 @@ searchForEntries=function(fields=NULL, max.results=0) {
     # No implementation
     if (is.null(ids) && length(fields) > 0)
         error0('This database has been declared to be ',
-              'searchable by field "', names(fields)[[1]],
-              '", but no implementation has been defined.')
+            'searchable by field "', names(fields)[[1]],
+            '", but no implementation has been defined.')
 
     return(ids)
 },
@@ -510,7 +510,7 @@ getAllCacheEntries=function() { # DEPRECATED
     \nUse getAllVolatileCacheEntries() instead.
     "
     lifecycle::deprecate_soft('1.0.0', 'getAllCacheEntries()',
-                              "getAllVolatileCacheEntries()")
+        "getAllVolatileCacheEntries()")
     .self$getAllVolatileCacheEntries()
 },
 
@@ -535,7 +535,7 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
         .self$deleteAllEntriesFromVolatileCache()
     fileExt <- .self$getPropertyValue('entry.content.type')
     .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(),
-                                                      ext=fileExt)
+        ext=fileExt)
     
     return(invisible(NULL))
 },
@@ -558,7 +558,7 @@ deleteAllCacheEntries=function() { # DEPRECATED
     \nReturned value: None.
     "
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
-                              "deleteAllEntriesFromVolatileCache()")
+        "deleteAllEntriesFromVolatileCache()")
     .self$deleteAllEntriesFromVolatileCache()
 },
 
@@ -613,10 +613,8 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
     else {
         entries <- .self$getEntry(id, drop=FALSE)
         makes_ref <- vapply(entries,
-                           function(e) ! is.null(e)
-                           && e$makesRefToEntry(db=db, oid=oid,
-                                                recurse=recurse),
-                           FUN.VALUE=TRUE)
+            function(e) ! is.null(e) && e$makesRefToEntry(db=db, oid=oid,
+            recurse=recurse), FUN.VALUE=TRUE)
     }
     return(makes_ref)
 },

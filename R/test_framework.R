@@ -139,7 +139,8 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 
         # Send message to logger
         biodb::logInfo('')
-        biodb::logInfo(paste('Running test function ', fname, ' ("', msg, '").'))
+        biodb::logInfo(paste('Running test function ', fname, ' ("', msg,
+            '").'))
         biodb::logInfo(paste(rep('-', 80), collapse=''))
         biodb::logInfo('')
 
@@ -232,55 +233,55 @@ listTestRefEntries <- function(conn.id, limit=0) {
 
 loadTestRefEntry <- function(db, id) {
 
-	# Replace forbidden characters
-	id = utils::URLencode(id, reserved=TRUE)
+    # Replace forbidden characters
+    id = utils::URLencode(id, reserved=TRUE)
 
-	# Entry file
-	file <- file.path(getwd(), '..', 'testthat', 'res',
+    # Entry file
+    file <- file.path(getwd(), '..', 'testthat', 'res',
                       paste('entry-', db, '-', id, '.json', sep=''))
-	testthat::expect_true(file.exists(file),
+    testthat::expect_true(file.exists(file),
                           info=paste0('Cannot find file "', file, '" for ', db,
                                       ' reference entry', id, '.'))
 
-	# Load JSON
-	json <- jsonlite::fromJSON(file)
+    # Load JSON
+    json <- jsonlite::fromJSON(file)
 
-	# Set NA values
-	for (n in names(json))
-		if (length(json[[n]]) == 1) {
-			if (json[[n]] == 'NA_character_')
-				json[[n]] <- NA_character_
-		}
+    # Set NA values
+    for (n in names(json))
+        if (length(json[[n]]) == 1) {
+            if (json[[n]] == 'NA_character_')
+                json[[n]] <- NA_character_
+        }
 
-	return(json)
+    return(json)
 }
 
 loadTestRefEntries <- function(db) {
 
-	entries.desc <- NULL
+    entries.desc <- NULL
 
-	# List JSON files
-	entry.json.files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
+    # List JSON files
+    entry.json.files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
                                            paste('entry', db, '*.json',
                                                  sep='-')))
 
-	# Loop on all JSON files
-	for (f in entry.json.files) {
+    # Loop on all JSON files
+    for (f in entry.json.files) {
 
-		# Load entry from JSON
-		entry <- jsonlite::read_json(f)
+        # Load entry from JSON
+        entry <- jsonlite::read_json(f)
 
-		# Replace NULL values by NA
-		entry <- lapply(entry, function(x) if (is.null(x)) NA else x)
+        # Replace NULL values by NA
+        entry <- lapply(entry, function(x) if (is.null(x)) NA else x)
 
-		# Convert to data frame
-		entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
+        # Convert to data frame
+        entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
 
-		# Append entry to main data frame
-		entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
-	}
+        # Append entry to main data frame
+        entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
+    }
 
-	return(entries.desc)
+    return(entries.desc)
 }
 
 #' Get the test output directory.

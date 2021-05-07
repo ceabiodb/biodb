@@ -74,10 +74,8 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
 },
 
 annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
-                          mass.field='monoisotopic.mass',
-                          max.results=3, mz.col='mz',
-                          fields=NULL, prefix=NULL, insert.input.values=TRUE,
-                          fieldsLimit=0) {
+    mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL,
+    prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
     ":\n\nAnnotates a mass spectrum with the database. For each matching entry
     the entry field values will be set inside columns appended to the data
     frame. Names of these columns will use a common prefix in order to
@@ -164,7 +162,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
 
         # Convert entries to data frame
         df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields,
-                                                  limit=fieldsLimit)
+            limit=fieldsLimit)
 
         # Add prefix
         if ( ! is.null(df) && ncol(df) > 0 && ! is.na(prefix)
@@ -172,7 +170,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
             fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
             noprefix <- vapply(colnames(df), fct, FUN.VALUE=TRUE)
             colnames(df)[noprefix] <- paste0(prefix,
-                                             colnames(df)[noprefix])
+                colnames(df)[noprefix])
     }
 
         # Register new columns
@@ -185,7 +183,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         if (insert.input.values)
             df <- if (is.null(df) || nrow(df) == 0) x[i, , drop=FALSE]
                 else cbind(x[i, , drop=FALSE], df, row.names=NULL,
-                           stringsAsFactors=FALSE)
+                    stringsAsFactors=FALSE)
 
         # Append local data frame to main data frame
         ret <- plyr::rbind.fill(ret, df)

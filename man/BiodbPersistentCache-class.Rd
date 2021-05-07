@@ -229,8 +229,8 @@ Returned value: A list (or a vector if \code{output.vector} is set to
 
 \item{\code{markerExist(cache.id, name)}}{:
 
-Tests if markers exist in the cache. Markers are used, for instance, by
-    biodb to remember that a downloaded zip file from a database has been
+Tests if markers exist in the cache. Markers are used, for instance,
+    by biodb to remember that a downloaded zip file from a database has been
     extracted correctly.
     
 cache.id: The cache ID to use.

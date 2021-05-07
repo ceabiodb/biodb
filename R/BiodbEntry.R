@@ -606,8 +606,8 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
     \nrecurse: If set to TRUE, the algorithm will follow all references to
     entries from other databases, to see if it can establish an indirect link
     to `oid`.
-    \nReturned value: TRUE if this entry makes reference to the entry oid from database
-    db, FALSE otherwise.
+    \nReturned value: TRUE if this entry makes reference to the entry oid from
+    database db, FALSE otherwise.
     "
 
     makes_ref <- FALSE
@@ -727,7 +727,8 @@ fieldHasBasicClass=function(field) {
     return(groups)
 },
 
-.selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one) {
+.selectFields=function(fields, fields.type, own.id, only.atomic, only.card.one)
+{
 
     logTrace('Fields %s', lst2str(fields))
     logTrace('Fields type: %s', fields.type)
@@ -752,7 +753,8 @@ fieldHasBasicClass=function(field) {
     if (only.card.one)
         fields <- Filter(function(f) ef$get(f)$hasCardOne(), fields)
     # Ignore if value is not data frame or vector
-    fields <- Filter(function(f) ef$get(f)$isAtomic() || ef$get(f)$isDataFrame(), fields)
+    fields <- Filter(function(f) ef$get(f)$isAtomic() ||
+                     ef$get(f)$isDataFrame(), fields)
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 

@@ -3,7 +3,8 @@
 #' The unique instance of this class is handle by the \code{\link{BiodbMain}}
 #' class and accessed through the \code{getEntryFields()} method.
 #'
-#' @seealso \code{\link{BiodbMain}} and child class \code{\link{BiodbEntryField}}.
+#' @seealso \code{\link{BiodbMain}} and child class
+#' \code{\link{BiodbEntryField}}.
 #'
 #' @examples
 #' # Getting information about the accession field:

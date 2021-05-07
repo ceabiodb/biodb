@@ -169,16 +169,16 @@ getChromCol=function(ids=NULL) {
                 and=BiodbSqlLogicalOp$new('and')
                 if ( ! is.null(mz.min) && ! is.na(mz.min[[i]])) {
                     rval <- BiodbSqlValue$new(as.numeric(mz.min[[i]]))
-                    expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table=mzfield,
-                                                                 field=mzfield),
-                                             op='>=', rexpr=rval)
+                    expr <- BiodbSqlBinaryOp$new(
+                        lexpr=BiodbSqlField$new(table=mzfield,
+                        field=mzfield), op='>=', rexpr=rval)
                     and$addExpr(expr)
                 }
                 if ( ! is.null(mz.max) && ! is.na(mz.max[[i]])) {
                     rval <- BiodbSqlValue$new(as.numeric(mz.max[[i]]))
-                    expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table=mzfield,
-                                                                 field=mzfield),
-                                             op='<=', rexpr=rval)
+                    expr <- BiodbSqlBinaryOp$new(
+                        lexpr=BiodbSqlField$new(table=mzfield, field=mzfield),
+                        op='<=', rexpr=rval)
                     and$addExpr(expr)
                 }
                 mz.range.or$addExpr(and)

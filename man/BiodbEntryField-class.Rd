@@ -43,8 +43,8 @@ computed.
 virtual: If set to \code{TRUE}, the field is computed from other fields, and
 thus cannot be modified.
 
-virtual.group.by.type: For a virtual field of class data.frame, this indicates to
-gather all fields of the specified type to build a data frame.
+virtual.group.by.type: For a virtual field of class data.frame, this
+indicates to gather all fields of the specified type to build a data frame.
 }
 \section{Methods}{
 
@@ -171,7 +171,8 @@ Returned value: The type of this field.
 
 \item{\code{getVirtualGroupByType()}}{:
 
-Gets type for grouping field values when building a virtual data frame.
+Gets type for grouping field values when building a virtual data
+    frame.
     
 Returned value: The type, as a character value.
     }

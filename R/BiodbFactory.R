@@ -233,7 +233,8 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
         conn <- .self$.conn[[conn.id]]
 
     # Does conn.id look like a database class?
-    if (class && is.null(conn) && .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+    if (class && is.null(conn) &&
+        .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
 
         # Try to find connectors that are of this class
         for (c in .self$.conn)
@@ -321,7 +322,8 @@ getAllCacheEntries=function(conn.id) {
 
 deleteAllEntriesFromVolatileCache=function(conn.id) {
     ":\n\nDeletes all entries stored in the cache of the given connector. This
-    method is deprecated, please use deleteAllEntriesFromVolatileCache() instead.
+    method is deprecated, please use deleteAllEntriesFromVolatileCache()
+    instead.
     \nconn.id: A connector ID.
     \nReturned values: None.
     "

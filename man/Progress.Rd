@@ -10,6 +10,17 @@ A class for informing user about the progress of a process.
 This class displays progress of a process to user, and sends
 notifications of this progress to observers too.
 }
+\examples{
+# Create an instance
+prg <- biodb::Progress(msg='Processing data.', total=10)
+
+# Processing
+for (i in seq_len(10)) {
+    print("Doing something.")
+    prg$increment()
+}
+
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{

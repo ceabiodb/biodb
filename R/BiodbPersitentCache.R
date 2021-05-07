@@ -154,8 +154,8 @@ fileExist=function(cache.id, name, ext) {
 },
 
 markerExist=function(cache.id, name) {
-    ":\n\nTests if markers exist in the cache. Markers are used, for instance, by
-    biodb to remember that a downloaded zip file from a database has been
+    ":\n\nTests if markers exist in the cache. Markers are used, for instance,
+    by biodb to remember that a downloaded zip file from a database has been
     extracted correctly.
     \ncache.id: The cache ID to use.
     \nname: A character vector containing marker names.

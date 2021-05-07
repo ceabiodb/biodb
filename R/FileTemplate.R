@@ -31,7 +31,8 @@ replace=function(tag, value) {
     chk::chk_null_or(value, chk_string)
     
     if ( ! is.null(value))
-        private$txt <- gsub(paste0('{{', tag, '}}'), value, private$txt, fixed=TRUE)
+        private$txt <- gsub(paste0('{{', tag, '}}'),
+            value, private$txt, fixed=TRUE)
     
     return(invisible(self))
 },

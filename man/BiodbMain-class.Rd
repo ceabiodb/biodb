@@ -49,9 +49,9 @@ Returned value: A data frame containing `x` and new columns appended for
 
 \item{\code{addObservers(observers)}}{:
 
-Adds new observers. Observers will be called each time an event occurs.
-    This is the way used in biodb to get feedback about what is going inside
-    biodb code.
+Adds new observers. Observers will be called each time an event
+    occurs. This is the way used in biodb to get feedback about what is going
+    inside biodb code.
     
 observers: Either a \code{BiodbObserver} instance or a list of
     \code{BiodbObserver} instances.
@@ -61,12 +61,13 @@ Returned value: None.
 
 \item{\code{collapseRows(x, sep = "|", cols = 1L)}}{:
 
-Collapses rows of a data frame, by looking for duplicated values in the
-    reference columns (parameter `cols`). The values contained in the reference
-    columns are supposed to be ordered inside the data frame, in the sens that
-    all duplicated values are supposed to directly follow the original values.
-    For all rows containing duplicated values, we look at values in all other
-    columns and concatenate values in each column containing different values.
+Collapses rows of a data frame, by looking for duplicated values in
+    the reference columns (parameter `cols`). The values contained in the
+    reference columns are supposed to be ordered inside the data frame, in the
+    sens that all duplicated values are supposed to directly follow the
+    original values.  For all rows containing duplicated values, we look at
+    values in all other columns and concatenate values in each column
+    containing different values.
     
 x: A data frame.
     
@@ -300,7 +301,8 @@ Returned value: The instance of the BiodbPersistentCache class attached to
 
 \item{\code{getRequestScheduler()}}{:
 
-Returns the single instance of the \code{BiodbRequestScheduler} class.
+Returns the single instance of the \code{BiodbRequestScheduler}
+    class.
     
 Returned value: The instance of the \code{BiodbRequestScheduler} class
     attached to this BiodbMain instance.

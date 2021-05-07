@@ -18,3 +18,7 @@ The repository name.
 \description{
 Given the root path of a package, returns the GitHub repository name.
 }
+\examples{
+biodb::getReposName('/my/path/to/my/extension/biodbFoo')
+
+}

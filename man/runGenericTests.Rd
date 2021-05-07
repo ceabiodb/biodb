@@ -40,7 +40,7 @@ lcmsdb <- system.file("extdata", "massbank_extract.tsv", package="biodb")
 conn <- biodb$getFactory()$createConn('mass.csv.file', lcmsdb)
 
 # Run generic tests
-\dontrun{
+\donttest{
 biodb::runGenericTests(conn)
 }
 

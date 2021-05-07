@@ -19,3 +19,7 @@ The package name of the biodb extension.
 \description{
 The package name is extracted from the path by taking the basename.
 }
+\examples{
+biodb::getPkgName('/my/path/to/my/extension/biodbFoo')
+
+}

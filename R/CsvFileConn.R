@@ -543,7 +543,8 @@ defineParsingExpressions=function() {
             rep(FALSE, length(values))
         else
             ((if (is.na(minV)) rep(TRUE, length(values)) else values >= minV)
-             & (if (is.na(maxV)) rep(TRUE, length(values)) else  values <= maxV))
+            &
+            (if (is.na(maxV)) rep(TRUE, length(values)) else  values <= maxV))
     }
     s <- mapply(fct, minValue, maxValue)
 

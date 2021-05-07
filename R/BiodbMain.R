@@ -127,8 +127,8 @@ loadDefinitions=function(file, package='biodb') {
     if (autoloadExtraPkgs) {
         pkgs <- installed.packages()[, 'Version']
         pkgs <- pkgs[grep('^biodb[A-Z]', names(pkgs))]
-        pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may happen
-                                          # while building vignettes.
+        pkgs <- pkgs[unique(names(pkgs))] # Having twice the library name may
+                                          # happen while building vignettes.
     } else
         pkgs <- character()
 
@@ -205,7 +205,8 @@ getFactory=function() {
 },
 
 getRequestScheduler=function() {
-    ":\n\nReturns the single instance of the \\code{BiodbRequestScheduler} class.
+    ":\n\nReturns the single instance of the \\code{BiodbRequestScheduler}
+    class.
     \nReturned value: The instance of the \\code{BiodbRequestScheduler} class
     attached to this BiodbMain instance.
     "
@@ -217,9 +218,9 @@ getRequestScheduler=function() {
 },
 
 addObservers=function(observers) {
-    ":\n\nAdds new observers. Observers will be called each time an event occurs.
-    This is the way used in biodb to get feedback about what is going inside
-    biodb code.
+    ":\n\nAdds new observers. Observers will be called each time an event
+    occurs. This is the way used in biodb to get feedback about what is going
+    inside biodb code.
     \nobservers: Either a \\code{BiodbObserver} instance or a list of
     \\code{BiodbObserver} instances.
     \nReturned value: None.
@@ -508,12 +509,13 @@ entriesToJson=function(entries, compute=TRUE) {
 },
 
 collapseRows=function(x, sep='|', cols=1L) {
-    ":\n\nCollapses rows of a data frame, by looking for duplicated values in the
-    reference columns (parameter `cols`). The values contained in the reference
-    columns are supposed to be ordered inside the data frame, in the sens that
-    all duplicated values are supposed to directly follow the original values.
-    For all rows containing duplicated values, we look at values in all other
-    columns and concatenate values in each column containing different values.
+    ":\n\nCollapses rows of a data frame, by looking for duplicated values in
+    the reference columns (parameter `cols`). The values contained in the
+    reference columns are supposed to be ordered inside the data frame, in the
+    sens that all duplicated values are supposed to directly follow the
+    original values.  For all rows containing duplicated values, we look at
+    values in all other columns and concatenate values in each column
+    containing different values.
     \nx: A data frame.
     \ncols: The indices or the names of the columns used as reference.
     \nsep: The separator to use when concatenating values in collapsed rows.
@@ -566,7 +568,8 @@ collapseRows=function(x, sep='|', cols=1L) {
     return(y)
 },
 
-entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE) {
+entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE,
+    uniq=TRUE) {
 
     # Get values
     fct <- function(e) {
@@ -585,7 +588,8 @@ entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE)
     return(values)
 },
 
-entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE) {
+entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE,
+    uniq=TRUE) {
 
     # Get connector
     conn <- .self$getFactory()$getConn(db)

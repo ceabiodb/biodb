@@ -73,7 +73,8 @@ setPrecursorFormulae=function(formulae) {
 },
 
 addPrecursorFormulae=function(formulae) {
-    ":\n\nAdds new formulae to the list of formulae used to recognize precursors.
+    ":\n\nAdds new formulae to the list of formulae used to recognize
+    precursors.
     \nformulae: A character vector containing formulae.
     \nReturned value: None.
     "

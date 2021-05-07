@@ -14,8 +14,8 @@ specific to mass spectrometry.
 \describe{
 \item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt", sep = "|")}}{:
 
-Collapse rows of a results data frame, by outputing a data frame with only
-    one row for each MZ/RT value.
+Collapse rows of a results data frame, by outputing a data frame with
+    only one row for each MZ/RT value.
     
 results.df: Results data frame.
     
@@ -179,11 +179,11 @@ Returned value: A data frame with columns `id`, `score` and `peak.*`. Each
   ms.level = 0
 )}}{:
 
-Searches for entries (i.e.: spectra) that contain a peak around the given
-    M/Z value. Entries can also be filtered on RT values. You can input either a
-    list of M/Z values through mz argument and set a tolerance with mz.tol
-    argument, or two lists of minimum and maximum M/Z values through mz.min and
-    mz.max arguments.
+Searches for entries (i.e.: spectra) that contain a peak around the
+    given M/Z value. Entries can also be filtered on RT values. You can input
+    either a list of M/Z values through mz argument and set a tolerance with
+    mz.tol argument, or two lists of minimum and maximum M/Z values through
+    mz.min and mz.max arguments.
     
 mz: A vector of M/Z values.
     

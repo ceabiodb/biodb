@@ -4,8 +4,8 @@
 #' A class for generating C++ example files (code & test).
 #'
 #' @details
-#' This class generates examples of an R function written in C++ using Rcpp,
-#' of a pure C++ function used to speed up computing, and of C++ code for testing
+#' This class generates examples of an R function written in C++ using Rcpp, of
+#' a pure C++ function used to speed up computing, and of C++ code for testing
 #' the pure C++ function.
 #' As for the R function written with Rcpp, it is tested inside standard
 #' testthat R code. 

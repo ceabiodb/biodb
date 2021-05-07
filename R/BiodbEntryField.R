@@ -36,8 +36,8 @@
 #' virtual: If set to \code{TRUE}, the field is computed from other fields, and
 #' thus cannot be modified.
 #'
-#' virtual.group.by.type: For a virtual field of class data.frame, this indicates to
-#' gather all fields of the specified type to build a data frame.
+#' virtual.group.by.type: For a virtual field of class data.frame, this
+#' indicates to gather all fields of the specified type to build a data frame.
 #'
 #' @seealso Parent class \code{\link{BiodbEntryFields}}.
 #'
@@ -86,8 +86,9 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
                             'object', 'data.frame'), card=c('one', 'many'),
                     forbids.duplicates=FALSE, description=NA_character_,
                     allowed.values=NULL, lower.case=FALSE,
-                    case.insensitive=FALSE, computable.from=NULL, virtual=FALSE,
-                    virtual.group.by.type=NULL, dataFrameGroup=NA_character_,...) {
+                    case.insensitive=FALSE, computable.from=NULL,
+                    virtual=FALSE, virtual.group.by.type=NULL,
+                    dataFrameGroup=NA_character_,...) {
 
     callSuper(...)
 
@@ -156,13 +157,14 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
 
     # Virtual
     .self$virtual <- virtual
-    .self$virtualGroupByType <- if (is.null(virtual.group.by.type)) character() else virtual.group.by.type
+    .self$virtualGroupByType <- if (is.null(virtual.group.by.type)) character()
+        else virtual.group.by.type
     if ( ! .self$virtual && length(.self$virtualGroupByType) > 0)
         error0('virtual.group.by.type is not usable with non-virtual field "',
               name, '".')
     if (length(.self$virtualGroupByType) > 0 && .self$.class != 'data.frame')
-        error0('virtual.group.by.type is only usable for virtual field of class',
-              ' data.frame. Error for field "', name, '".')
+        error0('virtual.group.by.type is only usable for virtual field of',
+              ' class data.frame. Error for field "', name, '".')
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
@@ -401,7 +403,8 @@ isVirtual=function() {
 },
 
 getVirtualGroupByType=function() {
-    ":\n\nGets type for grouping field values when building a virtual data frame.
+    ":\n\nGets type for grouping field values when building a virtual data
+    frame.
     \nReturned value: The type, as a character value.
     "
 
