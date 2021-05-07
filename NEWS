@@ -37,3 +37,6 @@ Changes in version 0.99.8 (2021-05-06)
 Changes in version 0.99.9 (2021-05-07)
 + Solving some NOTES from BiocCheck.
 + Correct example in Progress class.
+
+Changes in version 0.99.10 (2021-05-07)
++ Correct documentation of C++ function.
