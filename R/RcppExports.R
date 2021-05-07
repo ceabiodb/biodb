@@ -5,16 +5,16 @@
 #'
 #' Matches peaks between two spectra.
 #'
-#' @param x        sorted M/Z values (ascending order) of input spectrum (no NA).
-#' @param y        sorted M/Z values (ascending order) of reference spectrum (no NA).
-#' @param xidx     indices of the M/Z peaks of x, taken from the original spectrum 
-#'          ordered in decreasing intensity values.
-#' @param yidx     indices of the M/Z peaks of y, taken from the original spectrum 
-#'          ordered in decreasing intensity values.
-#' @param xolength ???
-#' @param dppm     ???
-#' @param dmz      ???
-#' @return  ???
+#' @param x sorted M/Z values (ascending order) of input spectrum (no NA).
+#' @param y sorted M/Z values (ascending order) of reference spectrum (no NA).
+#' @param xidx indices of the M/Z peaks of x, taken from the original spectrum 
+#' ordered in decreasing intensity values.
+#' @param yidx indices of the M/Z peaks of y, taken from the original spectrum 
+#' ordered in decreasing intensity values.
+#' @param xolength The length of the output.
+#' @param dppm The M/Z tolerance in PPM.
+#' @param dmz Minimum M/Z tolerance.
+#' @return A list of results.
 #'
 closeMatchPpm <- function(x, y, xidx, yidx, xolength, dppm, dmz) {
     .Call(`_biodb_closeMatchPpm`, x, y, xidx, yidx, xolength, dppm, dmz)

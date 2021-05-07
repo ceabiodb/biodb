@@ -17,14 +17,14 @@ ordered in decreasing intensity values.}
 \item{yidx}{indices of the M/Z peaks of y, taken from the original spectrum
 ordered in decreasing intensity values.}
 
-\item{xolength}{???}
+\item{xolength}{The length of the output.}
 
-\item{dppm}{???}
+\item{dppm}{The M/Z tolerance in PPM.}
 
-\item{dmz}{???}
+\item{dmz}{Minimum M/Z tolerance.}
 }
 \value{
-???
+A list of results.
 }
 \description{
 Matches peaks between two spectra.
