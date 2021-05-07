@@ -32,7 +32,7 @@ ExtPackage <- R6::R6Class('ExtPackage',
 inherit=ExtGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtGenerator for the parameters.
@@ -49,33 +49,33 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         dir.create(private$path, recursive=TRUE)
 
     private$createGenerator(ExtDescriptionFile)$generate(overwrite=overwrite,
-                                                         fail=fail)
+        fail=fail)
     if (private$tags$makefile)
         private$createGenerator(ExtMakefile)$generate(overwrite=overwrite,
-                                                      fail=fail)
+            fail=fail)
     private$createGenerator(ExtLicense)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtReadme)$generate(overwrite=overwrite, fail=fail)
     if ( ! is.null(private$tags$dbName)) {
         private$createGenerator(ExtConnClass)$generate(overwrite=overwrite,
-                                                       fail=fail)
+            fail=fail)
         private$createGenerator(ExtEntryClass)$generate(overwrite=overwrite,
-                                                        fail=fail)
+            fail=fail)
         private$createGenerator(ExtDefinitions)$generate(overwrite=overwrite,
-                                                         fail=fail)
+            fail=fail)
     }
     private$createGenerator(ExtPackageFile)$generate(overwrite=overwrite,
-                                                     fail=fail)
+        fail=fail)
     if (private$tags$rcpp)
         private$createGenerator(ExtCpp)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtRbuildignore)$generate(overwrite=overwrite,
-                                                      fail=fail)
+        fail=fail)
     private$createGenerator(ExtGitignore)$generate(overwrite=overwrite,
-                                                      fail=fail)
+        fail=fail)
     private$createGenerator(ExtTravisFile)$generate(overwrite=overwrite,
-                                                    fail=fail)
+        fail=fail)
     private$createGenerator(ExtTests)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtVignette)$generate(overwrite=overwrite,
-                                                  fail=fail)
+        fail=fail)
 }
 
 ,doUpgrade=function(generate=TRUE) {

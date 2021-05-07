@@ -24,7 +24,7 @@ ExtCpp <- R6::R6Class('ExtCpp',
 inherit=ExtGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtGenerator for the parameters.

@@ -21,7 +21,7 @@ ExtLicense <- R6::R6Class('ExtLicense',
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.

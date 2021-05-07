@@ -66,9 +66,8 @@ getEntryContentFromDb=function(entry.id) {
 
                 # Get data frame
                 q <- paste0("select * from ",
-                            DBI::dbQuoteIdentifier(.self$.db, tableName),
-                            " where accession='",
-                            accession, "';")
+                    DBI::dbQuoteIdentifier(.self$.db, tableName), " where
+                    accession='", accession, "';")
                 df <- DBI::dbGetQuery(.self$.db, q)
 
                 # Set value
@@ -111,7 +110,7 @@ defineParsingExpressions=function() {
     if ( ! is.null(.self$.db)) {
 
         logInfo('Write all new entries into "%s".',
-                .self$getPropValSlot('urls', 'base.url'))
+            .self$getPropValSlot('urls', 'base.url'))
 
         # Get new entries
         cached.entries <- .self$getAllVolatileCacheEntries()
@@ -122,7 +121,7 @@ defineParsingExpressions=function() {
 
             # Loop on all new entries and write other fields to separate tables
             prg <- Progress$new(biodb=.self$getBiodb(), msg='Writing entries.',
-                                total=length(new.entries))
+                total=length(new.entries))
             for (entry in new.entries) {
 
                 acc <- entry$getFieldValue('accession')
@@ -132,7 +131,7 @@ defineParsingExpressions=function() {
 
                 # Write into main table
                 df <- .self$getBiodb()$entriesToDataframe(list(entry),
-                                                          only.card.one=TRUE)
+                    only.card.one=TRUE)
                 .self$.appendToTable(tableName='entries', values=df)
 
                 # Loop on all fields
@@ -143,7 +142,7 @@ defineParsingExpressions=function() {
                     # Write data frame field
                     if (field$getClass() == 'data.frame') {
                         v <- cbind(accession=acc,
-                                   entry$getFieldValue(field.name))
+                            entry$getFieldValue(field.name))
                         .self$.appendToTable(
                             ableName=.self$.fieldToSqlId(field.name), values=v)
                     }
@@ -230,17 +229,16 @@ getQuery=function(query) {
         new.fields <- colnames(values)[ ! colnames(values) %in% current.fields]
         for (field in new.fields) {
             query <- paste0('alter table ',
-                            DBI::dbQuoteIdentifier(.self$.db, tableName),
-                            ' add ', DBI::dbQuoteIdentifier(.self$.db, field),
-                            ' ', DBI::dbDataType(.self$.db, values[[field]]),
-                            ';')
+                DBI::dbQuoteIdentifier(.self$.db, tableName), ' add ',
+                DBI::dbQuoteIdentifier(.self$.db, field), ' ',
+                DBI::dbDataType(.self$.db, values[[field]]), ';')
             result <- DBI::dbSendQuery(.self$.db, query)
             DBI::dbClearResult(result)
         }
 
         # Append to table
         DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values,
-                          append=TRUE)
+            append=TRUE)
 
     # Create table
     } else

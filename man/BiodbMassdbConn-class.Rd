@@ -23,8 +23,8 @@ results.df: Results data frame.
     
  rt.col: The name of the RT column in the results data frame.
     
- sep:    The separator used to concatenate values, when
-               collapsing results data frame.
+ sep: The separator used to concatenate values, when collapsing results
+    data frame.
     
 Returned value: A data frame with rows collapsed.}
 

@@ -95,7 +95,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
     # Set name
     if ( is.null(name) || is.na(name) || nchar(name) == '')
         error0("You cannot set an empty name for a field. Name was',
-              ' empty (either NULL or NA or empty string).")
+            ' empty (either NULL or NA or empty string).")
     .self$.name <- tolower(name)
 
     # Set type
@@ -126,18 +126,17 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
             && ! is.vector(allowed.values, mode='character')
             && ! is.vector(allowed.values, mode='list'))
             error0('Allowed values must be either a list, a numeric',
-                  ' vector or a character vector.')
+                ' vector or a character vector.')
 
         # For a list check that all values are character vectors
         if (is.vector(allowed.values, mode='list')) {
             if (is.null(names(allowed.values)))
                 error0('When allowed values are specified as a list,',
-                      ' names must be set.')
+                    ' names must be set.')
             if ( ! all(vapply(allowed.values,
-                              function(x) is.vector(x, 'character'),
-                              FUN.VALUE=TRUE)))
+                function(x) is.vector(x, 'character'), FUN.VALUE=TRUE)))
                 error0('When allowed values are specified as a list,',
-                      ' all values must be characters.')
+                    ' all values must be characters.')
         }
     }
     .self$.allowed.values <- allowed.values
@@ -161,10 +160,10 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
         else virtual.group.by.type
     if ( ! .self$virtual && length(.self$virtualGroupByType) > 0)
         error0('virtual.group.by.type is not usable with non-virtual field "',
-              name, '".')
+            name, '".')
     if (length(.self$virtualGroupByType) > 0 && .self$.class != 'data.frame')
         error0('virtual.group.by.type is only usable for virtual field of',
-              ' class data.frame. Error for field "', name, '".')
+            ' class data.frame. Error for field "', name, '".')
 
     # Set other fields
     .self$.forbids.duplicates <- forbids.duplicates
@@ -178,7 +177,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
         # Is a list
         if ( ! is.list(computable.from) || ! is.null(names(computable.from)))
             error0('computable.from must be an unnamed list, for field "',
-                  .self$.name, '".')
+                .self$.name, '".')
 
         # Loop on all directives
         for (directive in computable.from) {
@@ -186,13 +185,13 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
             # Has a "database" field
             if ( ! 'database' %in% names(directive))
                 error0('You must specified the database for directive',
-                       ', for field "', .self$.name, '".')
+                    ', for field "', .self$.name, '".')
 
             # Check list of fields
             if ('fields' %in% names(directive)
                 && ! is.character(directive$fields))
                 error0('In directive of field "', .self$.name,
-                      '", "fields" must be a list of field names.')
+                    '", "fields" must be a list of field names.')
         }
     }
 
@@ -319,13 +318,13 @@ addComputableFrom=function(directive) {
     # Has a "database" field
     if ( ! 'database' %in% names(directive))
         error0('You must specified the database for directive',
-              ', for field "', .self$.name, '".')
+            ', for field "', .self$.name, '".')
 
     # Search if the directive exists
     for (d in .self$.computable.from) {
         if (d$database == directive$database)
             error(paste0('A "computable from" directive already',
-                         'exists for database "%s".'), d$database)
+                'exists for database "%s".'), d$database)
     }
 
     # Add the new directive
@@ -356,8 +355,8 @@ correctValue=function(value) {
     \nReturned value: The corrected value.
     "
 
-    if (.self$isVector() && ! is.null(value) && ! (length(value) == 1
-                                                   && is.na(value))) {
+    if (.self$isVector() && ! is.null(value)
+        && ! (length(value) == 1 && is.na(value))) {
 
         # Correct type
         if (.self$getClass() != class(value))
@@ -470,21 +469,21 @@ addAllowedValue=function(key, value) {
     # Check that key exists
     if (is.null(names(.self$.allowed.values)))
         error0('Field "', .self$.name,
-              '" doesn\'t use keys for its allowed values.')
+            '" doesn\'t use keys for its allowed values.')
     if ( ! key %in% names(.self$.allowed.values))
         error0('Field "', .self$.name, '" doesn\'t use key "', key,
-              '" for its allowed values.')
+            '" for its allowed values.')
 
     # Check that value is not already used
     if (value %in% .self$getAllowedValues()) {
         current.key <- .self$correctValue(value)
         if (current.key != key)
             error0('Field "', .self$.name, '" already uses value "', value,
-                  '" for its allowed values, but with key "', current.key,
-                  '" instead of key "', key, '".')
+                '" for its allowed values, but with key "', current.key,
+                '" instead of key "', key, '".')
         else
             logInfo0('Field "', .self$.name, '" already uses value "', value,
-                    '" for its allowed values, with key "', key, '".')
+                '" for its allowed values, with key "', key, '".')
     }
 
     # Add new value
@@ -505,7 +504,7 @@ checkValue=function(value) {
         bv <- paste(bad.values[ ! duplicated(bad.values)], collapse=', ')
         av <- paste(.self$getAllowedValues(), collapse=', ')
         error0('Value(s) ', bv, ' is/are not allowed for field ',
-              .self$getName(), '. Allowed values are: ', av, '.')
+            .self$getName(), '. Allowed values are: ', av, '.')
     }
 },
 
@@ -608,8 +607,8 @@ equals=function(other, fail=FALSE) {
         a <- .self[[f]]
         b <- other[[f]]
         if ( ! ((is.na(a) && is.na(b)) || (is.null(a) && is.null(b))
-                || ( ! is.na(a) && ! is.na(b) && ! is.null(a) && ! is.null(b)
-                     && a == b))) {
+            || ( ! is.na(a) && ! is.na(b) && ! is.null(a) && ! is.null(b)
+            && a == b))) {
             eq <- FALSE
             break
         }

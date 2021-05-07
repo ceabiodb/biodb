@@ -18,17 +18,17 @@
 #' @include ExtFileGenerator.R
 #' @export
 ExtDefinitions <- R6::R6Class('ExtDefinitions',
-                              
+
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' offers this possiblity.
 initialize=function(...) {
     super$initialize(template='definitions.yml', folder='inst',
-                     filename='definitions.yml', ...)
+        filename='definitions.yml', ...)
 }
 ))

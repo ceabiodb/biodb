@@ -33,3 +33,6 @@ Changes in version 0.99.8 (2021-05-06)
 + Limit by default the entries to test to one entry inside generic tests.
 + Improve vignettes.
 + Rename default vignette into "biodb.Rmd".
+
+Changes in version 0.99.9 (2021-05-07)
++ Solving some NOTES from BiocCheck.

@@ -24,7 +24,7 @@ toString=function() {
     s <- DBI::dbQuoteIdentifier(DBI::ANSI(), private$field)
     if ( ! is.na(private$table))
         s <- paste(DBI::dbQuoteIdentifier(DBI::ANSI(), private$table), s,
-                   sep='.')
+            sep='.')
     return(s)
 }
 ),

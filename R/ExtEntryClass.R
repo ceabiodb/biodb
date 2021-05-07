@@ -24,7 +24,7 @@ ExtEntryClass <- R6::R6Class('ExtEntryClass',
 inherit=ExtFileGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param ... See the constructor of ExtFileGenerator for the parameters.

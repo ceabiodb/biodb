@@ -41,8 +41,7 @@ initialize=function(...) {
 
     # Precursors
     .self$.precursors <- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+",
-                           "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-",
-                           "[(M+Cl)]-", "[M+Cl]-")
+    "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
 },
 
 getPrecursorFormulae=function() {
@@ -192,7 +191,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 .doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL,
-                   mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
+mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
 {
 
     # Filtering
@@ -213,12 +212,11 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 },
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
-                          precursor, ms.level) {
+precursor, ms.level) {
     # Overrides super class' method.
     return(.self$.select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
-                         mode=ms.mode, max.rows=max.results, cols='accession',
-                         drop=TRUE, uniq=TRUE, sort=TRUE, precursor=precursor,
-                         level=ms.level))
+    mode=ms.mode, max.rows=max.results, cols='accession', drop=TRUE, uniq=TRUE,
+    sort=TRUE, precursor=precursor, level=ms.level))
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
@@ -227,8 +225,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     # Get mz values
     mzcol <- .self$getMatchingMzField()
     mz <- .self$.select(cols=mzcol, mode=ms.mode, drop=TRUE, uniq=TRUE,
-                        sort=TRUE, max.rows=max.results, precursor=precursor,
-                        level=ms.level)
+    sort=TRUE, max.rows=max.results, precursor=precursor, level=ms.level)
 
     return(mz)
 }

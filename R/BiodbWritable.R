@@ -110,8 +110,8 @@ write=function() {
     
     if ( ! .self$.writing.allowed)
         error0('Writing is not enabled for this database. However this',
-              ' database type is writable. Please call allowWriting()',
-              ' method to enable writing.')
+            ' database type is writable. Please call allowWriting()',
+            ' method to enable writing.')
 },
 
 .doWrite=function() {

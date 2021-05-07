@@ -64,8 +64,8 @@ getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
     \nentry.id: A character vector with the IDs of entries to retrieve.
     \nconcatenate: If set to TRUE, then try to build as few URLs as
 possible, sending requests with several identifiers at once.
-    \nmax.length: The maximum length of the URLs to return, in number of
- characters.
+    \nmax.length: The maximum length of the URLs to return, in
+    number of characters.
     \nReturned value: A list of BiodbUrl objects.
     "
 
@@ -75,7 +75,7 @@ possible, sending requests with several identifiers at once.
 
         # Get full URL
         full.url <- .self$.doGetEntryContentRequest(entry.id,
-                                                    concatenate=concatenate)
+            concatenate=concatenate)
 
         # No single URL for multiple IDs
         if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0
@@ -102,7 +102,7 @@ possible, sending requests with several identifiers at once.
                         b <- m
                 }
                 urls <- c(urls,
-                          .self$.doGetEntryContentRequest(entry.id[start:a]))
+                    .self$.doGetEntryContentRequest(entry.id[start:a]))
                 start <- a + 1
             }
         }
@@ -154,7 +154,7 @@ getEntryPageUrl=function(entry.id) {
     # We now convert the requests to the new scheme, using class BiodbRequest.
     if (is.character(requests)) {
         fct <- function(x) .self$makeRequest(method='get', url=BiodbUrl$new(x),
-                                             encoding=encoding)
+            encoding=encoding)
         requests <- lapply(requests, fct)
     }
 

@@ -68,9 +68,9 @@ setLimit=function(limit) {
 addJoin=function(table1, field1, table2, field2) {
     # Check if this join already exists
     fct <- function(x) ((x$table1 == table1 && x$field1 == field1
-                         && x$table2 == table2 && x$field2 == field2)
+        && x$table2 == table2 && x$field2 == field2)
         || (x$table1 == table1 && x$field1 == field1 && x$table2 == table2
-            && x$field2 == field2))
+        && x$field2 == field2))
     duplicate <- any(vapply(private$join, fct, FUN.VALUE=TRUE))
 
     # Append
@@ -97,11 +97,11 @@ getJoin=function() {
 
     for (j in private$join) {
         j1 <- paste(DBI::dbQuoteIdentifier(DBI::ANSI(), j$table1),
-                    DBI::dbQuoteIdentifier(DBI::ANSI(), j$field1), sep='.')
+            DBI::dbQuoteIdentifier(DBI::ANSI(), j$field1), sep='.')
         j2 <- paste(DBI::dbQuoteIdentifier(DBI::ANSI(), j$table2),
-                    DBI::dbQuoteIdentifier(DBI::ANSI(), j$field2), sep='.')
+            DBI::dbQuoteIdentifier(DBI::ANSI(), j$field2), sep='.')
         join <- c(join, 'join', DBI::dbQuoteIdentifier(DBI::ANSI(), j$table1),
-                  'on', j1, '=', j2)
+            'on', j1, '=', j2)
     }
 
     return(join)

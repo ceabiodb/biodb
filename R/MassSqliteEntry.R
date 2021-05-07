@@ -24,4 +24,4 @@
 #' @export MassSqliteEntry
 #' @exportClass MassSqliteEntry
 MassSqliteEntry <- methods::setRefClass("MassSqliteEntry",
-                                        contains="BiodbListEntry")
+    contains="BiodbListEntry")

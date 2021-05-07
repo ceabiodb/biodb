@@ -28,7 +28,7 @@ initialize=function(lexpr, op, rexpr) {
 #' @return A string containing the SQL expression.
 toString=function() {
     s <- paste0('(', private$lexpr$toString(), ' ', private$op, ' ' ,
-                private$rexpr$toString(), ')')
+        private$rexpr$toString(), ')')
     return(s)
 }
 ),

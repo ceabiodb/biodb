@@ -156,8 +156,8 @@ setFieldValue=function(field, value) {
 
     # Specific case to handle objects.
     if (field.def$isObject() && !(isS4(value) & methods::is(value, "refClass")))
-      error0('Cannot set a non RC instance to field "', field,
-            '" in BiodEntry.')
+        error0('Cannot set a non RC instance to field "', field,
+        '" in BiodEntry.')
 
     # Check value class
     if (field.def$isAtomic()) {
@@ -166,9 +166,9 @@ setFieldValue=function(field, value) {
         v <- as.vector(value, mode=field.def$getClass())
         if ( ! all(is.na(value)) && all(is.na(v)))
             warn0("Unable to convert value(s) \"",
-                 paste(value, collapse=', '), "\" into ",
-                 field.def$getClass(), " type for field \"", field,
-                 "\".")
+            paste(value, collapse=', '), "\" into ",
+            field.def$getClass(), " type for field \"", field,
+            "\".")
         value <- v
     }
 
@@ -180,20 +180,20 @@ setFieldValue=function(field, value) {
 
     # Remove duplicates
     if (field.def$forbidsDuplicates() || (field.def$isAtomic()
-                                          && field.def$hasCardOne()))
+        && field.def$hasCardOne()))
         value <- value[ ! duplicated(if (field.def$isCaseInsensitive())
-                                     tolower(value) else value)]
+            tolower(value) else value)]
 
     # Check cardinality
     if ( ! field.def$isDataFrame() && field.def$hasCardOne()) {
         if (length(value) > 1)
             error0('Cannot set more that one value (',
-                        paste(value, collapse=', '),
-                        ') into single value field "', field, '" for entry ',
-                        .self$getName(), '.')
+            paste(value, collapse=', '),
+            ') into single value field "', field, '" for entry ',
+            .self$getName(), '.')
         if (length(value) == 0)
             error0('Cannot set an empty vector into single value field "',
-                  field, '" for entry ', .self$getName(), '.')
+            field, '" for entry ', .self$getName(), '.')
     }
 
     # Set value
@@ -249,7 +249,7 @@ removeField=function(field) {
 },
 
 getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
-                       withNa=TRUE, duplicatedValues=TRUE) {
+    withNa=TRUE, duplicatedValues=TRUE) {
     ":\n\nGets the value of the specified field.
     \nfield: The name of a field.
     \ncompute: If set to TRUE and a field is not defined, try to compute it
@@ -291,14 +291,12 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
         # Gather other fields to build data frame
         if (field.def$isDataFrame() && ! is.null(gbt))
             val <- .self$getFieldsAsDataframe(fields.type=gbt,
-                                              flatten=FALSE,
-                                              duplicate.rows=FALSE,
-                                              only.atomic=FALSE,
-                                              sort=TRUE)
+                flatten=FALSE, duplicate.rows=FALSE, only.atomic=FALSE,
+                sort=TRUE)
 
         else
             error0('Do not know how to compute virtual field "', field,
-                  '" for entry "', .self$getFieldValue('accession'), '".')
+                '" for entry "', .self$getFieldValue('accession'), '".')
     }
 
     # Unset field
@@ -350,10 +348,8 @@ getFieldsByType=function(type) {
 },
 
 getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
-                              fields.type=NULL, flatten=TRUE, limit=0,
-                              only.card.one=FALSE, own.id=TRUE,
-                              duplicate.rows=TRUE, sort=FALSE,
-                              virtualFields=FALSE) {
+    fields.type=NULL, flatten=TRUE, limit=0, only.card.one=FALSE, own.id=TRUE,
+    duplicate.rows=TRUE, sort=FALSE, virtualFields=FALSE) {
     ":\n\nConverts this entry into a data frame.
     \nonly.atomic: If set to TRUE, only export field's values that are atomic
     (i.e.: of type vector).
@@ -392,8 +388,7 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
 
     # Select fields
     fields <- .self$.selectFields(fields=fields, fields.type=fields.type,
-                                  own.id=own.id, only.atomic=only.atomic,
-                                  only.card.one=only.card.one)
+        own.id=own.id, only.atomic=only.atomic, only.card.one=only.card.one)
 
     # Organize fields by groups
     groups <- .self$.organizeFieldsByGroups(fields)
@@ -401,19 +396,18 @@ getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
     # Process data frame groups
     fct <-  function(fields) {
         .self$.fieldsToDataframe(fields, flatten=flatten, duplicate.rows=FALSE,
-                                 limit=limit)
+            limit=limit)
     }
     groupsDf <- lapply(groups$dfGrps, fct)
 
     # Process single fields
     singlesDf <- .self$.fieldsToDataframe(groups$singles,
-                                          duplicate.rows=duplicate.rows,
-                                          flatten=flatten, limit=limit,
-                                          duplicatedValues=FALSE)
+        duplicate.rows=duplicate.rows, flatten=flatten, limit=limit,
+        duplicatedValues=FALSE)
 
     # Merge all data frames
     outdf <- .self$.mergeDataframes(c(list(singlesDf), groupsDf),
-                                    duplicate.rows=duplicate.rows)
+        duplicate.rows=duplicate.rows)
 
     # Sort
     if (sort)
@@ -435,7 +429,7 @@ getFieldsAsJson=function(compute=TRUE) {
         .self$computeFields()
 
     return(jsonlite::toJSON(.self$.fields, pretty=TRUE, digits=NA_integer_,
-                            auto_unbox=TRUE))
+        auto_unbox=TRUE))
 },
 
 parseContent=function(content) {
@@ -451,7 +445,7 @@ parseContent=function(content) {
     # No connector?
     if ( ! .self$parentIsAConnector())
         error0('Impossible to parse content for this entry, because its',
-              ' parent is not a connector.')
+            ' parent is not a connector.')
 
     # Parse
     if (.self$.isContentCorrect(content)) {
@@ -474,9 +468,9 @@ parseContent=function(content) {
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
             error0('Value of accession field ("',
-                  .self$getFieldValue('accession'),
-                  '") is different from value of ', dbid.field,
-                  ' field ("', .self$getFieldValue(dbid.field), '").')
+                .self$getFieldValue('accession'),
+                '") is different from value of ', dbid.field,
+                ' field ("', .self$getFieldValue(dbid.field), '").')
     }
     else {
         if (.self$hasField(dbid.field))
@@ -504,7 +498,7 @@ parseContent=function(content) {
 
             # Database is itself
             if (db == 'self' || (methods::is(.self$getParent(), 'BiodbConn')
-                                 && db == .self$getParent()$getId())) {
+                && db == .self$getParent()$getId())) {
                 # Look for field in entry
                 if ('fields' %in% names(directive))
                     for (otherField in directive$fields)
@@ -526,7 +520,7 @@ parseContent=function(content) {
                     # Get value for this field in the database
                     logDebug('Compute value for field "%s".', field) 
                     db.entry <- .self$getBiodb()$getFactory()$getEntry(db,
-                                                                       id=db.id)
+                        id=db.id)
 
                     # Get found value
                     if ( ! is.null(db.entry))
@@ -637,8 +631,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 .isContentCorrect=function(content) {
 
     correct <- ! is.null(content) && ((is.list(content) && length(content) > 0)
-                                      || (is.character(content)
-                                          && ! is.na(content) && content != ''))
+        || (is.character(content) && ! is.na(content) && content != ''))
     # NOTE `nchar(content)` may give "invalid multibyte string, element 1" on
     # some strings.
 
@@ -651,8 +644,8 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 
 .isParsedContentCorrect=function(parsed.content) {
     return( ! is.null(parsed.content)
-           && ( ! is.vector(parsed.content) || length(parsed.content) > 1
-               || ! is.na(parsed.content)))
+        && ( ! is.vector(parsed.content) || length(parsed.content) > 1
+        || ! is.na(parsed.content)))
 },
 
 .parseFieldsStep1=function(parsed.content) {
@@ -695,7 +688,7 @@ getFieldCardinality=function(field) {
 fieldHasBasicClass=function(field) {
 
     lifecycle::deprecate_warn('1.0.0', 'fieldHasBasicClass()',
-                              'BiodbEntryField::isVector()')
+        'BiodbEntryField::isVector()')
 
     return(.self$getBiodb()$getEntryFields()$get(field)$isVector())
 },
@@ -754,7 +747,7 @@ fieldHasBasicClass=function(field) {
         fields <- Filter(function(f) ef$get(f)$hasCardOne(), fields)
     # Ignore if value is not data frame or vector
     fields <- Filter(function(f) ef$get(f)$isAtomic() ||
-                     ef$get(f)$isDataFrame(), fields)
+        ef$get(f)$isDataFrame(), fields)
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 
@@ -768,7 +761,7 @@ fieldHasBasicClass=function(field) {
     # Transform values in data frames
     toDf <- function(f) {
         v <- .self$getFieldValue(f, flatten=flatten, limit=limit,
-                                 duplicatedValues=duplicatedValues)
+            duplicatedValues=duplicatedValues)
 
         # Transform vector into data frame
         if (is.vector(v)) {
@@ -800,6 +793,6 @@ fieldHasBasicClass=function(field) {
                 outdf <- merge(outdf, v)
         }
 
-   return(outdf)
+    return(outdf)
 }
 ))

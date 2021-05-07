@@ -44,10 +44,10 @@ methods=list(
         # Search by name
         if ('name' %in% names(fields)) {
             query$addJoin(table1='name', field1='accession',
-                          table2='entries', field2='accession')
+                table2='entries', field2='accession')
             expr <- BiodbSqlBinaryOp$new(lexpr=BiodbSqlField$new(table='name',
-                                                         field='name'), op='=',
-                                     rexpr=BiodbSqlValue$new(fields$name))
+                field='name'), op='=',
+                rexpr=BiodbSqlValue$new(fields$name))
             query$getWhere()$addExpr(expr)
         }
         
@@ -68,7 +68,7 @@ methods=list(
                     .self$.checkMassField(mass=param$value, mass.field=field)
                     if ('delta' %in% names(param))
                         rng <- convertTolToRange(param$value, param$delta,
-                                                 'delta')
+                            'delta')
                     else
                         rng <- convertTolToRange(param$value, param$ppm, 'ppm')
                 }

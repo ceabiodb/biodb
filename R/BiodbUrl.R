@@ -79,9 +79,7 @@ setParam=function(key, value) {
 #' Displays information about this instance.
 #' @return None.
 print=function() {
-
     cat(self$toString(), "\n", sep='')
- 
     return(invisible(self))
 },
 

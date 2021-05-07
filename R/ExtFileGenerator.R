@@ -22,7 +22,7 @@ ExtFileGenerator <- R6::R6Class('ExtFileGenerator',
 inherit=ExtGenerator,
 
 public=list(
-         
+
 #' @description
 #' Constructor
 #' @param filename  The name of the generated file.
@@ -108,10 +108,10 @@ private=list(
             if (cmp > 0) {
                 upgradeDst <- FALSE
                 warn(paste('Aborting. A local destination file "%s" already',
-                           ' exists with a more recent version number',
-                           '(%s > %s) than the template file "%s".'),
-                     private$getDstFileRelPath(), curVer, templVer,
-                     private$getTemplateFile())
+                    ' exists with a more recent version number',
+                    '(%s > %s) than the template file "%s".'),
+                    private$getDstFileRelPath(), curVer, templVer,
+                    private$getTemplateFile())
             }
             else
                 upgradeDst <- TRUE
@@ -120,8 +120,8 @@ private=list(
 
     # Generate or upgrade
     if ( ( ! private$existsDstFile() && generate) || upgradeDst) {
-        message("Upgrade to latest version (", templVer, ") of ",
-                private$getDstFileRelPath(), '.')
+        logInfo0("Upgrade to latest version (", templVer, ") of ",
+            private$getDstFileRelPath(), '.')
         private$generateFromTemplate(overwrite=TRUE)
     }
 
@@ -176,7 +176,7 @@ private=list(
 
     if ( ! is.null(private$template))
         templFile <- system.file('templates', private$template,
-                                 package='biodb', mustWork=TRUE)
+            package='biodb', mustWork=TRUE)
     
     return(templFile)
 }
@@ -185,7 +185,7 @@ private=list(
 
     chk::chk_string(private$filename)
     dst <- file.path(getFolderFromVect(c(private$path, private$folder)),
-                     private$filename)
+        private$filename)
 
     if ( ! is.null(exist)) {
         if (exist)
@@ -210,8 +210,8 @@ private=list(
 
     if ( ! overwrite && private$existsDstFile()) {
         if (fail)
-            stop('Cannot generate file "', private$getDstFile(),
-                 '". A file of the same name already exists.')
+            error('Cannot generate file "', private$getDstFile(),
+                '". A file of the same name already exists.')
     } else {
         templ <- FileTemplate$new(private$getTemplateFile())
         private$fillTemplate(templ)

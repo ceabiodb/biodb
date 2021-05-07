@@ -24,7 +24,7 @@ initialize=function(host, conn=NULL) {
         chk::chk_is(conn, 'BiodbConn')
         private$conn <- list(conn)
         self$setFrequency(n=conn$getPropertyValue('scheduler.n'),
-                           t=conn$getPropertyValue('scheduler.t'))
+            t=conn$getPropertyValue('scheduler.t'))
     }
     else {
         private$conn <- list()
@@ -104,9 +104,9 @@ addConnector=function(conn) {
 
     # Connector already listed?
     if (any(vapply(private$conn, function(x) identical(x, conn),
-                   FUN.VALUE=TRUE)))
+        FUN.VALUE=TRUE)))
         logDebug0('Connector "', conn$getId(),
-                 '" is already listed in rule "', private$host, '".')
+            '" is already listed in rule "', private$host, '".')
 
     # Add connector
     else {
@@ -128,10 +128,10 @@ removeConnector=function(conn) {
 
     # Connector already listed?
     found.conn <- vapply(private$conn, function(x) identical(x, conn),
-                         FUN.VALUE=TRUE)
+        FUN.VALUE=TRUE)
     if ( ! any(found.conn))
         warn('Connector "%s" is not listed in rule "%s".', conn$getId(),
-             private$host)
+            private$host)
 
     # Remove connector
     else {
@@ -149,7 +149,7 @@ print=function() {
 
     cat("Biodb scheduler rule instance.\n")
     conlst <- paste(vapply(private$conn, function(x) x$getId(), FUN.VALUE=''),
-                    collapse=', ')
+        collapse=', ')
     cat('  Handle request waiting time for host "', private$host, '" for ',
         length(private$conn), " connector(s): ", conlst, ".\n", sep='')
     cat('  Parameters are T=', self$getT(), ' and N=', self$getN(), ".\n",
@@ -187,7 +187,7 @@ print=function() {
         t.conn <- conn$getPropertyValue('scheduler.t')
         n.conn <- conn$getPropertyValue('scheduler.n')
         if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
-                           || t.conn / n.conn > t / n)) {
+            || t.conn / n.conn > t / n)) {
             t <- t.conn
             n <- n.conn
         }
@@ -225,8 +225,7 @@ print=function() {
         if (n == private$n) {
             n.oldest <- private$n.index %% private$n + 1
             sleep.time <- private$t - difftime(cur.time,
-                                              private$last.time[[n.oldest]],
-                                              units='secs')
+                private$last.time[[n.oldest]], units='secs')
             sleep.time <- max(0, sleep.time)
         }
     }
@@ -241,7 +240,7 @@ print=function() {
 ,storeCurrentTime=function(cur.time=Sys.time()) {
 
     private$n.index <- as.integer(if (private$n.index == private$n) 1
-                                 else private$n.index + 1)
+        else private$n.index + 1)
     private$last.time[[private$n.index]] <- cur.time
 }
 ),

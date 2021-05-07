@@ -39,7 +39,7 @@ public=list(
 #' @param conn A valid BiodbConn instance for which this request is built.
 #' @return A new instance.
 initialize=function(url, method=c('get', 'post'), header=character(),
-                    body=character(), encoding=integer(), conn=NULL) {
+    body=character(), encoding=integer(), conn=NULL) {
 
     private$url <- url
     private$method <- match.arg(method)
@@ -111,7 +111,7 @@ getCurlOptions=function(useragent) {
         opts$postfields <- private$body
 
     opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=60000,
-                               verbose=FALSE, .opts=opts)
+        verbose=FALSE, .opts=opts)
 
     return(opts)
 },
@@ -156,9 +156,7 @@ getBody=function() {
 #' Displays information about this instance.
 #' @return None.
 print=function() {
-
     cat("Biodb request object on ", private$url$toString(), "\n", sep='')
- 
     return(invisible(self))
 },
 
@@ -168,7 +166,7 @@ print=function() {
 toString=function() {
 
     request <- list(url=private$url$toString(), header=private$header,
-                    body=private$body)
+        body=private$body)
     request.json <- jsonlite::serializeJSON(request)
     request.json.str <- as.character(request.json)
 
