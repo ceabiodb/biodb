@@ -1,9 +1,5 @@
-# Makefile for biodb extensions packages, version 1.2.1
+# Makefile for biodb extensions packages, version 1.3.0
 # vi: ft=make
-
-# $$$SECTION NEWPKG$$$
-NEWPKG=true
-# $$$END_SECTION NEWPKG$$$
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
 # Messages that were output:
@@ -18,8 +14,15 @@ export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 # Constants
 COMMA := ,
 
+# Get package version
+PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
+PKG_MAJOR=$(shell echo $(PKG_VERSION) | sed "s/\..*$$//")
+ifeq (0,$(PKG_MAJOR))
+	NEW_PKG=true
+endif
+
 # Bioconductor check flags
-BIOC_CHECK_FLAGS=quit-with-status no-check-formatting
+BIOC_CHECK_FLAGS=quit-with-status
 ifeq (true,$(NEWPKG))
 BIOC_CHECK_FLAGS+=new-package
 endif
@@ -58,9 +61,6 @@ endif
 ifneq (,$(wildcard src))
 COMPILE=compile
 endif
-
-# Get package version
-PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 
 # Set zip filename
 ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
@@ -120,7 +120,7 @@ check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 
 # Bioconductor check
 bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
-	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))'
+	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))' 2>&1 | sed 's!^ *\(R\|man\|vignettes\)/!Issue in \1/!'
 
 # Bioconductor check Git clone
 bioc.check.clone: clean clean.cache
@@ -145,7 +145,7 @@ test.long:
 else
 test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
 test.long: install
-	if test -d tests/long ; then $(R) $(RFLAGS) -e "library({{pkgName}});Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('tests/long')" ; fi
+	if test -d tests/long ; then $(R) $(RFLAGS) -e "library($(PKG_NAME));Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('tests/long')" ; fi
 endif
 
 test.all: test test.long
@@ -222,4 +222,4 @@ clean.cache:
 	$(RM) -r $(CACHE)
 	$(RM) -r $(LONG_CACHE)
 
-.PHONY: all win test build check bioc.check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen
+.PHONY: vignettes doc
