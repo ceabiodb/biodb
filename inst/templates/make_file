@@ -14,12 +14,14 @@ export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 # Constants
 COMMA := ,
 
-# Get package version
+# Get versions
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
 PKG_MAJOR=$(shell echo $(PKG_VERSION) | sed "s/\..*$$//")
 ifeq (0,$(PKG_MAJOR))
 	NEW_PKG=true
 endif
+R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
+R_VER_SELECT=$(shell which R_ver_select 2>/dev/null)
 
 # Bioconductor check flags
 BIOC_CHECK_FLAGS=quit-with-status
@@ -69,8 +71,13 @@ ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
 RFLAGS=--slave --no-restore
+ifeq (,$(R_VER_SELECT))
 R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 R=$(R_HOME)/bin/R
+else
+R=$(shell $(R_VER_SELECT) --r-version $(R_VERSION) --print-bin)
+R_HOME=$(shell $(R_VER_SELECT) --r-version $(R_VERSION) --print-home)
+endif
 
 # For R CMD SHLIB
 export PKG_CXXFLAGS=$(shell $(R) $(RFLAGS) -e "Rcpp:::CxxFlags()")
@@ -88,6 +95,11 @@ CHECK_RENVIRON=check.Renviron
 export R_CHECK_ENVIRON=$(CHECK_RENVIRON)
 
 # Display values of main variables
+$(info R_VERSION=$(R_VERSION))
+$(info R_VER_SELECT=$(R_VER_SELECT))
+$(info R=$(R))
+$(info R_HOME=$(R_HOME))
+$(info R_VERSION=$(R_VERSION))
 $(info PKG_NAME=$(PKG_NAME))
 $(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
 $(info PKG_VERSION=$(PKG_VERSION))
@@ -103,10 +115,10 @@ all: $(COMPILE)
 
 # Compiling
 ifdef COMPILE
-compile: R/RcppExports.R
+compile: R/RcppExports.R src/RcppExports.cpp
 	$(R) $(RFLAGS) CMD SHLIB -o src/$(PKG_NAME).so src/*.cpp
 
-R/RcppExports.R: src/*.cpp
+R/RcppExports.R src/RcppExports.cpp: src/*.cpp
 	$(R) $(RFLAGS) -e "Rcpp::compileAttributes('$(CURDIR)')"
 endif
 
