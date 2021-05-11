@@ -72,16 +72,17 @@ export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
 RFLAGS=--slave --no-restore
 ifeq (,$(R_VER_SELECT))
-R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
-R=$(R_HOME)/bin/R
+export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 else
-R=$(shell $(R_VER_SELECT) --r-version $(R_VERSION) --print-bin)
-R_HOME=$(shell $(R_VER_SELECT) --r-version $(R_VERSION) --print-home)
+export R_HOME=$(shell $(R_VER_SELECT) --r-version $(R_VERSION) --print-home)
 endif
+R=$(R_HOME)/bin/R
 
 # For R CMD SHLIB
-export PKG_CXXFLAGS=$(shell $(R) $(RFLAGS) -e "Rcpp:::CxxFlags()")
-PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
+ifdef COMPILE
+	export PKG_CXXFLAGS:=$(shell $(R) $(RFLAGS) -e "install.packages(Filter(function(pkg) ! require(pkg, character.only=TRUE), c('Rcpp', 'devtools', 'testthat')), dependencies=TRUE, repos='https://cloud.r-project.org/') ; Rcpp:::CxxFlags()" | tail -n 1)
+	PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
+endif
 
 # Set test file filter
 ifndef TEST_FILE
