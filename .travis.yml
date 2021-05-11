@@ -1,6 +1,6 @@
 language: r
 cache: packages
-r: 4.1.0
+r: devel # 4.1.0
 
 env:
     - BIODB_USERAGENT="biodb.test ; pierrick.roger@cea.fr"
