@@ -2,7 +2,8 @@
 
 language: r
 cache: packages
-r: release
+r:
+  - bioc-devel
 
 env:
     - BIODB_USERAGENT="{{pkgName}}.test ; {{email}}"
