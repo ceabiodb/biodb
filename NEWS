@@ -40,3 +40,6 @@ Changes in version 0.99.9 (2021-05-07)
 
 Changes in version 0.99.10 (2021-05-07)
 + Correct documentation of C++ function.
+
+Changes in version 0.99.11 (2021-05-17)
++ Change example inside BiodbConfig to avoid misinterpretation of `set('cache.directory', '~/my.biodb.cache')`, leading to believe that some files are written inside USER HOME folder when running the example.
