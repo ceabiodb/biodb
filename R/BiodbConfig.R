@@ -21,7 +21,7 @@
 #' value <- config$get('cache.directory')
 #'
 #' # Set a configuration value:
-#' config$set('cache.directory', '~/my.biodb.cache')
+#' config$set('dwnld.timeout', 600)
 #'
 #' # For boolean values, you can use boolean methods:
 #' config$get('offline')
