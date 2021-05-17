@@ -1,9 +1,6 @@
 language: r
 cache: packages
 r:
-  - oldrel
-  - release
-  - devel
   - bioc-devel
 
 env:
@@ -18,8 +15,8 @@ branches:
   only:
     - master
     
-before_install:
-    - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
+#before_install:
+#    - R -e 'install.packages("BiocManager");BiocManager::install("BiocCheck")'
 
 script:
     - make bioc.check.clone
