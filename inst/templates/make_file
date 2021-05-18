@@ -32,11 +32,6 @@ ifeq (0,$(PKG_MAJOR))
 	NEW_PKG=true
 endif
 R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
-ifeq (biodb,$(PKG_NAME))
-R_FRONT=bash $(wildcard $(CURDIR)/inst/templates/R_front)
-else
-R_FRONT=bash $(wildcard $(CURDIR)/R_front)
-endif
 
 # Bioconductor check flags
 BIOC_CHECK_FLAGS=quit-with-status
@@ -71,16 +66,17 @@ endif
 # Set zip filename
 ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 
-# R
+# Configure R version to use
 export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
 RFLAGS=--slave --no-restore
+R_FRONT=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
 #ifeq (,$(R_FRONT))
 #export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 #R=R
 #else
-export R_HOME=$(shell $(R_FRONT) --r-version $(R_VERSION) --print-home)
-R=$(shell $(R_FRONT) --r-version $(R_VERSION) --print-bin)
+export R_HOME=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-home)
+R=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-bin)
 #endif
 
 # For R CMD SHLIB
