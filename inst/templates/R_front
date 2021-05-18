@@ -8,6 +8,7 @@ DEBUG=0
 R_BUILD_FOLDER=${R_BUILD_FOLDER:-$HOME/.local/opt/r}
 R=R
 MIRROR="https://cloud.r-project.org/"
+R_VERSION=${R_VERSION:-current}
 declare -a ACTIONS=()
 
 # Print help {{{1
@@ -36,7 +37,7 @@ Options:
    --print-home Print path to R folder.
 
    --r-version <version>
-                Choose the version of R to run.
+                Choose the version of R to run. Either a version number (4.0, 4.1, ...) or one of "current" (version installed), "release" (official release), "beta" (official prerelease) or "devel" (official development). Default is "current".
 
    --run        Run the R binary, passing any remaining arguments to it.
 
@@ -130,32 +131,77 @@ function read_args {
 	debug 1 "R_VERSION=$R_VERSION"
 }
 
+# Download versions file {{{1
+################################################################
+
+function download_versions_file {
+
+	if [[ -z $VERSIONS_FILE ]] ; then
+		local versions_info=VERSION-INFO.dcf
+		local dst_versions=$R_BUILD_FOLDER/$versions_info
+		mkdir -p "$R_BUILD_FOLDER"
+		if [[ -f "$dst_versions" ]] ; then
+			curl -o "$dst_versions" -z "$dst_versions" "$MIRROR/src/base/$versions_info"
+		else
+			curl -o "$dst_versions" "$MIRROR/src/base/$versions_info"
+		fi
+		VERSIONS_FILE="$dst_versions"
+	fi
+
+	debug 1 "download_versions_file VERSIONS_FILE=$VERSIONS_FILE"
+}
+
 # Select version {{{1
 ################################################################
 
 function select_version {
 
-	local version=
+	if [[ -z $SELECTED_VERSION ]] ; then
+		# Version name
+		if [[ $R_VERSION =~ ^(beta|devel|release|current)$ ]] ; then
+			SELECTED_VERSION=$R_VERSION
 
-	# Version name
-	if [[ $R_VERSION == beta || $R_VERSION == devel ]] ; then
-		version=$R_VERSION
+		# Version number
+		elif [[ $R_VERSION =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] ; then
+			[[ -n $VERSIONS_FILE ]] || download_versions_file
+			local versions_file=$VERSIONS_FILE
+			local version_name=$(grep ": $R_VERSION" "$versions_file" | sed 's/^\(.*\):.*$/\1/')
+			case $version_name in
+				Next-release) SELECTED_VERSION=beta ;;
+				Devel)        SELECTED_VERSION=devel ;;
+				Release)      SELECTED_VERSION=release ;;
+			esac
 
-	# Version number
-	else
-		local versions_info=VERSION-INFO.dcf
-		local dst_versions=$R_BUILD_FOLDER/$versions_info
-		[[ -f $dst_versions ]] || curl -o $dst_versions $MIRROR/src/base/$versions_info
-		local version_name=$(grep ": $R_VERSION" "$dst_versions" | sed 's/^\(.*\):.*$/\1/')
-		case $version_name in
-			Next-release) version=beta ;;
-			Devel)        version=devel ;;
-			Release)      version=release ;;
-		esac
+		# Unknown version
+		else
+			error "Unknown version $R_VERSION."
+		fi
 	fi
 
-	debug 1 "Selected version=$version"
-	echo "$version"
+	debug 1 "select_version SELECTED_VERSION=$SELECTED_VERSION"
+}
+
+# Extract real version {{{1
+################################################################
+
+function extract_real_version {
+
+	[[ -n $SELECTED_VERSION ]] || select_version
+
+	if [[ -z $REAL_VERSION ]] ; then
+
+		[[ -n $VERSIONS_FILE ]] || download_versions_file
+		case $SELECTED_VERSION in
+			beta)    version_name=Next-release ;;
+			devel)   version_name=Devel ;;
+			release) version_name=Release ;;
+			*)       error "Unknown version $SELECTED_VERSION to download." ;;
+		esac
+
+		REAL_VERSION=$(grep "^$version_name:" "$VERSIONS_FILE" | sed 's/^[^:]*: *\(.*\)$/\1/')
+	fi
+
+	debug 1 "extract_real_version real_version=$REAL_VERSION"
 }
 
 # Get download URL {{{1
@@ -164,51 +210,54 @@ function select_version {
 function get_download_url {
 
 	local url=
-	local version=$(select_version)
+	[[ -n $SELECTED_VERSION ]] || select_version
 
-	case $version in
+	case $SELECTED_VERSION in
 		beta)    url=$MIRROR/src/base-prerelease/R-latest.tar.gz ;;
 		devel)   url=$MIRROR/src/base-prerelease/R-devel.tar.gz ;;
-		release) url= ;;
+		release) url=$MIRROR/src/base/R-latest.tar.gz ;;
+		current) url= ;;
 	esac
 
-	debug 1 "Download URL=$url"
+	debug 1 "get_download_url URL=$url"
 	echo "$url"
 }
 
-# Get R folder {{{1
+# Set R folder {{{1
 ################################################################
 
-function get_r_folder {
+function set_r_folder {
 
-	local r_folder=
-	local version=$(select_version)
+	if [[ -z $R_FOLDER ]] ; then
 
-	case $version in
-		beta) r_folder="$R_BUILD_FOLDER/R-beta" ;;
-		devel) r_folder="$R_BUILD_FOLDER/R-devel" ;;
-		release) r_folder= ;;
-	esac
+		[[ -n $SELECTED_VERSION ]] || select_version
 
-	debug 1 "R FOLDER=$r_folder"
-	echo "$r_folder"
+		if [[ $SELECTED_VERSION == current ]] ; then
+			R_FOLDER=$(/usr/bin/env R --slave --no-restore RHOME)
+		else
+			[[ -n $REAL_VERSION ]] || extract_real_version
+			R_FOLDER=$R_BUILD_FOLDER/R-$REAL_VERSION
+		fi
+	fi
+
+	debug 1 "get_r_folder R_FOLDER=$R_FOLDER"
 }
 
-# Get R bin path {{{1
+# Set R bin path {{{1
 ################################################################
 
-function get_r_bin_path {
+function set_r_bin_path {
 
-	local r_path=R
-	local version=$(select_version)
+	if [[ -z $R_BIN_PATH ]] ; then
+		R_BIN_PATH=R
+		[[ -n $SELECTED_VERSION ]] || select_version
+		if [[ $SELECTED_VERSION != current ]] ; then
+			set_r_folder
+			R_BIN_PATH="$R_FOLDER/bin/R"
+		fi
+	fi
 
-	case $version in
-		beta|devel) r_path=$(get_r_folder)/bin/R ;;
-		release)    r_path=R ;;
-	esac
-
-	debug 1 "R bin path=$r_path"
-	echo "$r_path"
+	debug 1 "set_r_bin_path R_BIN_PATH=$R_BIN_PATH"
 }
 
 # Install R {{{1
@@ -217,15 +266,42 @@ function get_r_bin_path {
 function install_r {
 
 	[[ -d $R_BUILD_FOLDER ]] || mkdir -p "$R_BUILD_FOLDER"
+	set_r_folder
+	set_r_bin_path
 
-	if [[ ! -x $(get_r_bin_path) ]] ; then
-		rm -rf $(get_r_folder)
+	debug 1 "install_r R_BUILD_FOLDER=$R_BUILD_FOLDER"
+	if [[ ! -x $R_BIN_PATH ]] ; then
+
+		debug 1 "install_r R_BIN_PATH=$R_BIN_PATH"
+		# Remove possible existing destination folder
+		rm -rf "$R_FOLDER"
+
+		# Make temporary folder for extraction
+		tmp="$R_BUILD_FOLDER/extract_folder"
+		mkdir -p "$tmp"
+
+		# Move to temporary folder
 		oldpwd=$(pwd)
-		cd "$R_BUILD_FOLDER"
-		curl $(get_download_url) | tar -xz
-		cd $(get_r_folder) && ./configure --prefix="$HOME/.local"
-		make -C $(get_r_folder)
+		cd "$tmp"
+
+		# Extract
+		curl "$(get_download_url)" | tar -xz
+
+		# Create destination folder
+		mkdir -p "$R_FOLDER"
+
+		# Move code
+		mv "$tmp"/*/* "$R_FOLDER"/.
+
+		# Exit temporary folder
 		cd "$oldpwd"
+
+		# Remove temporary folder
+		rm -r "$tmp"
+
+		# Build
+		cd "$R_FOLDER" && ./configure --prefix="$HOME/.local"
+		make -C "$R_FOLDER"
 	fi
 }
 
@@ -234,14 +310,14 @@ function install_r {
 
 function select_r {
 
-	if [[ -n $R_VERSION ]] ; then
-		install_r $R_VERSION
-		R=$(get_r_bin_path)
-		R_HOME=$(get_r_folder)
-	else
-		R=R
-		R_HOME=$(/usr/bin/env R --slave --no-restore RHOME)
-	fi
+	set_r_folder
+	set_r_bin_path
+	R="$R_BIN_PATH"
+	R_HOME="$R_FOLDER"
+	[[ $R_VERSION == current ]] || install_r $R_VERSION
+
+	debug 1 "select_r R=$R"
+	debug 1 "select_r R_HOME=$R_HOME"
 }
 
 # Print bin path {{{1
@@ -272,7 +348,7 @@ function run_r {
 ################################################################
 
 function clean {
-	[[ -n $R_BUILD_FOLDER ]] && rm -r "$R_BUILD_FOLDER"
+	[[ -n $R_BUILD_FOLDER ]] && rm -rf "$R_BUILD_FOLDER"
 }
 
 # Run actions {{{1

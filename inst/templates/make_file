@@ -69,14 +69,14 @@ ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 # Configure R version to use
 export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
-RFLAGS=--slave --no-restore
-R_FRONT=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
+RFLAGS:=--slave --no-restore
+R_FRONT:=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
 #ifeq (,$(R_FRONT))
 #export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 #R=R
 #else
-export R_HOME=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-home)
-R=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-bin)
+export R_HOME:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-home)
+R:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-bin)
 #endif
 
 # For R CMD SHLIB
@@ -100,6 +100,7 @@ export R_CHECK_ENVIRON=$(CHECK_RENVIRON)
 $(info R_VERSION=$(R_VERSION))
 $(info R_FRONT=$(R_FRONT))
 $(info R=$(R))
+$(info REAL R VERSION=$(shell $(R) $(RFLAGS) -e 'cat(version$$major, ".", version$$minor, "\n", sep="")'))
 $(info R_HOME=$(R_HOME))
 $(info PKG_NAME=$(PKG_NAME))
 $(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
@@ -133,11 +134,11 @@ check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 
 # Bioconductor check
 bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
-	$(R) $(RFLAGS) -e 'if ( ! required(BiocManager)) install.packages("BiocManager", dependencies=TRUE, repos="https://cloud.r-project.org/") ; if ( ! required(BiocCheck)) BiocManager::install("BiocCheck") ; BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))' 2>&1 | sed 's!^ *\(R\|man\|vignettes\)/!Issue in \1/!'
+	$(R) $(RFLAGS) -e 'if ( ! require(BiocManager)) install.packages("BiocManager", dependencies=TRUE, repos="https://cloud.r-project.org/") ; if ( ! require(BiocCheck)) BiocManager::install("BiocCheck") ; BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))' 2>&1 | sed 's!^ *\(R\|man\|vignettes\)/!Issue in \1/!'
 
 # Bioconductor check Git clone
 bioc.check.clone: clean clean.cache
-	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
+	$(R) $(RFLAGS) -e 'if ( ! require(BiocManager)) install.packages("BiocManager", dependencies=TRUE, repos="https://cloud.r-project.org/") ; if ( ! require(BiocCheck)) BiocManager::install("BiocCheck") ; BiocCheck::BiocCheckGitClone()'
 
 check.all: bioc.check.clone check bioc.check
 
