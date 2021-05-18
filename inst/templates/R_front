@@ -1,0 +1,337 @@
+#!/bin/zsh
+# vi: se fdm=marker
+
+SCRIPT_FILE=$(basename $0)
+SCRIPT_DIR=$(dirname $0)
+VERSION=1.0
+DEBUG=0
+R_BUILD_FOLDER=${R_BUILD_FOLDER:-$HOME/.local/opt/r}
+R=R
+MIRROR="https://cloud.r-project.org/"
+declare -a ACTIONS=()
+
+# Print help {{{1
+################################################################
+
+function print_help {
+cat <<END_HELP_MSG
+$SCRIPT_FILE, version $VERSION, is a front end for R, allowing to choose between installed R or R beta or R devel versions.
+
+Usage: $SCRIPT_FILE [options] [-- [options passed to R]] 
+
+Options:
+
+   --beta       Install and use beta version of R.
+
+   --clean      Remove everything from build folder.
+
+   --devel      Install and use devel version of R.
+
+   -g, --debug  Debug mode.
+
+   -h, --help   Print this help message.
+
+   --print-bin  Print path to R bin.
+
+   --print-home Print path to R folder.
+
+   --r-version <version>
+                Choose the version of R to run.
+
+   --run        Run the R binary, passing any remaining arguments to it.
+
+END_HELP_MSG
+}
+
+# Error {{{1
+################################################################
+
+error() {
+	local msg="$1"
+
+	echo "[ERROR] $msg at ${BASH_SOURCE[1]}:${BASH_LINENO[0]}" >&2
+	quit 1
+}
+
+# Warning {{{1
+################################################################
+
+warning() {
+	local msg="$1"
+
+	[[ -n $QUIET ]] || echo "[WARNING] $msg at ${BASH_SOURCE[1]}:${BASH_LINENO[0]}" >&2
+}
+
+# Debug {{{1
+################################################################
+
+debug() {
+	local lvl=$1
+	local msg="$2"
+
+	[[ $DEBUG -ge $lvl ]] && echo "[DEBUG] $msg" >&2
+}
+
+# Info {{{1
+################################################################
+
+info() {
+	local msg="$1"
+
+	[[ -n $QUIET ]] || echo "[INFO] $msg" >&2
+}
+
+# Quit {{{1
+################################################################
+
+function quit {
+
+	local mystatus=$1
+
+	[[ ${#ACTIONS[@]} -eq 0 ]] || warning "Some remaining actions where not run: ${ACTIONS[@]}."
+
+	exit $mystatus
+}
+
+# Read args {{{1
+################################################################
+
+function read_args {
+
+	local args="$*" # save arguments for debugging purpose
+	local print=
+
+	while true ; do
+		case $1 in
+			--beta)       R_VERSION=beta ;;
+			--clean)      ACTIONS+=('clean') ;;
+			--devel)      R_VERSION=devel ;;
+			-g|--debug)   DEBUG=$((DEBUG + 1)) ;;
+			-h|--help)    print_help ; exit 0 ;;
+			--print-bin)  ACTIONS+=('select_r' 'print_bin') ;;
+			--print-home) ACTIONS+=('select_r' 'print_home') ;;
+			--r-version)  R_VERSION="$2" ; shift ;;
+			--run)        ACTIONS+=('select_r' 'run_r') ;;
+			-[^-]*)       split_opt=$(echo $1 | sed 's/^-//' | sed 's/\([a-zA-Z]\)/ -\1/g') ; set -- $1$split_opt "${@:2}" ;;
+			--)          shift ; break ;;
+			*)           break
+		esac
+		shift
+	done
+
+	# Read remaining arguments
+	R_ARGS=("$@")
+
+	# Debug
+	debug 1 "Arguments are : $args"
+	debug 1 "ACTIONS=${ACTIONS}"
+	debug 1 "DEBUG=$DEBUG"
+	debug 1 "R_ARGS=$R_ARGS"
+	debug 1 "R_VERSION=$R_VERSION"
+}
+
+# Select version {{{1
+################################################################
+
+function select_version {
+
+	local version=
+
+	# Version name
+	if [[ $R_VERSION == beta || $R_VERSION == devel ]] ; then
+		version=$R_VERSION
+
+	# Version number
+	else
+		local versions_info=VERSION-INFO.dcf
+		local dst_versions=$R_BUILD_FOLDER/$versions_info
+		[[ -f $dst_versions ]] || curl -o $dst_versions $MIRROR/src/base/$versions_info
+		local version_name=$(grep ": $R_VERSION" "$dst_versions" | sed 's/^\(.*\):.*$/\1/')
+		case $version_name in
+			Next-release) version=beta ;;
+			Devel)        version=devel ;;
+			Release)      version=release ;;
+		esac
+	fi
+
+	debug 1 "Selected version=$version"
+	echo "$version"
+}
+
+# Get download URL {{{1
+################################################################
+
+function get_download_url {
+
+	local url=
+	local version=$(select_version)
+
+	case $version in
+		beta)    url=$MIRROR/src/base-prerelease/R-latest.tar.gz ;;
+		devel)   url=$MIRROR/src/base-prerelease/R-devel.tar.gz ;;
+		release) url= ;;
+	esac
+
+	debug 1 "Download URL=$url"
+	echo "$url"
+}
+
+# Get R folder {{{1
+################################################################
+
+function get_r_folder {
+
+	local r_folder=
+	local version=$(select_version)
+
+	case $version in
+		beta) r_folder="$R_BUILD_FOLDER/R-beta" ;;
+		devel) r_folder="$R_BUILD_FOLDER/R-devel" ;;
+		release) r_folder= ;;
+	esac
+
+	debug 1 "R FOLDER=$r_folder"
+	echo "$r_folder"
+}
+
+# Get R bin path {{{1
+################################################################
+
+function get_r_bin_path {
+
+	local r_path=R
+	local version=$(select_version)
+
+	case $version in
+		beta|devel) r_path=$(get_r_folder)/bin/R ;;
+		release)    r_path=R ;;
+	esac
+
+	debug 1 "R bin path=$r_path"
+	echo "$r_path"
+}
+
+# Install R {{{1
+################################################################
+
+function install_r {
+
+	[[ -d $R_BUILD_FOLDER ]] || mkdir -p "$R_BUILD_FOLDER"
+
+	if [[ ! -x $(get_r_bin_path) ]] ; then
+		rm -rf $(get_r_folder)
+		oldpwd=$(pwd)
+		cd "$R_BUILD_FOLDER"
+		curl $(get_download_url) | tar -xz
+		cd $(get_r_folder) && ./configure --prefix="$HOME/.local"
+		make -C $(get_r_folder)
+		cd "$oldpwd"
+	fi
+}
+
+# Select R {{{1
+################################################################
+
+function select_r {
+
+	if [[ -n $R_VERSION ]] ; then
+		install_r $R_VERSION
+		R=$(get_r_bin_path)
+		R_HOME=$(get_r_folder)
+	else
+		R=R
+		R_HOME=$(/usr/bin/env R --slave --no-restore RHOME)
+	fi
+}
+
+# Print bin path {{{1
+################################################################
+
+function print_bin {
+	echo "$R"
+}
+
+# Print path to home {{{1
+################################################################
+
+function print_home {
+	echo "$R_HOME"
+}
+
+# Run R {{{1
+################################################################
+
+function run_r {
+	export R_HOME
+	debug 1 "R_HOME=$R_HOME"
+	debug 1 "$R $R_ARGS"
+	$R "${R_ARGS[@]}"
+}
+
+# Clean build folder {{{1
+################################################################
+
+function clean {
+	[[ -n $R_BUILD_FOLDER ]] && rm -r "$R_BUILD_FOLDER"
+}
+
+# Run actions {{{1
+################################################################
+
+function run_actions {
+
+	# Loop on all actions in the submitted order
+	while [[ ${#ACTIONS[@]} -gt 0 ]] ; do
+
+		# Pop first action
+		local action=${ACTIONS[1]} # Index starts at 1 in zsh, 0 in bash.
+		ACTIONS=("${ACTIONS[@]:1}") # Remove first element
+		debug 1 "action=$action"
+
+		# Run
+		case $action in
+			clean)      ;&
+			print_bin)  ;&
+			print_home) ;&
+			select_r)   ;&
+			run_r)      $action ;;
+			*)          error "Unknown action \"$action\"." ;;
+		esac
+	done
+}
+
+# Move action to start of array {{{1
+################################################################
+
+function move_action_to_start {
+
+	local action="$1"
+
+	if [[ " ${ACTIONS[@]} " == *" $action "* ]] ; then
+		declare -a new_actions=($action)
+		for a in ${ACTIONS[@]} ; do
+			[[ $a == $action ]] || new_actions+=($a)
+		done
+		ACTIONS=("${new_actions[@]}")
+		unset new_actions
+	fi
+}
+
+# Order actions {{{1
+################################################################
+
+function order_actions {
+
+	move_action_to_start "select_r"
+	move_action_to_start "clean"
+}
+
+# Main {{{1
+################################################################
+
+read_args "$@"
+
+order_actions
+run_actions
+
+quit 0
