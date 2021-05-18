@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # vi: se fdm=marker
 
 SCRIPT_FILE=$(basename $0)
@@ -284,7 +284,7 @@ function run_actions {
 	while [[ ${#ACTIONS[@]} -gt 0 ]] ; do
 
 		# Pop first action
-		local action=${ACTIONS[1]} # Index starts at 1 in zsh, 0 in bash.
+		local action=${ACTIONS[0]} # Index starts at 1 in zsh, 0 in bash.
 		ACTIONS=("${ACTIONS[@]:1}") # Remove first element
 		debug 1 "action=$action"
 

@@ -33,9 +33,9 @@ ifeq (0,$(PKG_MAJOR))
 endif
 R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
 ifeq (biodb,$(PKG_NAME))
-R_FRONT=zsh $(wildcard $(CURDIR)/inst/templates/R_front)
+R_FRONT=bash $(wildcard $(CURDIR)/inst/templates/R_front)
 else
-R_FRONT=zsh $(wildcard $(CURDIR)/R_front)
+R_FRONT=bash $(wildcard $(CURDIR)/R_front)
 endif
 
 # Bioconductor check flags
