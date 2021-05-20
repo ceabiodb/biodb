@@ -20,3 +20,4 @@
 ^tests/testthat/output$
 ^biodb_ext\.yml$
 ^check.Renviron$
+^R_front$

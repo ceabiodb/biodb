@@ -1,9 +1,5 @@
-# Makefile for biodb extensions packages, version 1.2.1
+# Makefile for biodb extensions packages, version 1.4.0
 # vi: ft=make
-
-# $$$SECTION NEWPKG$$$
-NEWPKG=true
-# $$$END_SECTION NEWPKG$$$
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
 # Messages that were output:
@@ -18,12 +14,6 @@ export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 # Constants
 COMMA := ,
 
-# Bioconductor check flags
-BIOC_CHECK_FLAGS=quit-with-status no-check-formatting
-ifeq (true,$(NEWPKG))
-BIOC_CHECK_FLAGS+=new-package
-endif
-
 # Set and check name
 PKG_NAME := $(notdir $(realpath $(CURDIR)))
 ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
@@ -33,6 +23,20 @@ ifeq (biodb,$(PKG_NAME))
 PKG_NAME_CAPS := BIODB
 else
 PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
+endif
+
+# Get versions
+PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
+PKG_MAJOR=$(shell echo $(PKG_VERSION) | sed "s/\..*$$//")
+ifeq (0,$(PKG_MAJOR))
+	NEW_PKG=true
+endif
+R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
+
+# Bioconductor check flags
+BIOC_CHECK_FLAGS=quit-with-status
+ifeq (true,$(NEWPKG))
+BIOC_CHECK_FLAGS+=new-package
 endif
 
 # Check files
@@ -59,22 +63,27 @@ ifneq (,$(wildcard src))
 COMPILE=compile
 endif
 
-# Get package version
-PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
-
 # Set zip filename
 ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 
-# R
+# Configure R version to use
 export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
-RFLAGS=--slave --no-restore
-R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
-R=$(R_HOME)/bin/R
+RFLAGS:=--slave --no-restore
+R_FRONT:=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
+#ifeq (,$(R_FRONT))
+#export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
+#R=R
+#else
+export R_HOME:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-home)
+R:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-bin)
+#endif
 
 # For R CMD SHLIB
-export PKG_CXXFLAGS=$(shell $(R) $(RFLAGS) -e "Rcpp:::CxxFlags()")
-PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
+ifdef COMPILE
+	export PKG_CXXFLAGS:=$(shell $(R) $(RFLAGS) -e "install.packages(Filter(function(pkg) ! require(pkg, character.only=TRUE), c('Rcpp', 'devtools', 'testthat')), dependencies=TRUE, repos='https://cloud.r-project.org/') ; Rcpp:::CxxFlags()" | tail -n 1)
+	PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
+endif
 
 # Set test file filter
 ifndef TEST_FILE
@@ -88,6 +97,11 @@ CHECK_RENVIRON=check.Renviron
 export R_CHECK_ENVIRON=$(CHECK_RENVIRON)
 
 # Display values of main variables
+$(info R_VERSION=$(R_VERSION))
+$(info R_FRONT=$(R_FRONT))
+$(info R=$(R))
+$(info REAL R VERSION=$(shell $(R) $(RFLAGS) -e 'cat(version$$major, ".", version$$minor, "\n", sep="")'))
+$(info R_HOME=$(R_HOME))
 $(info PKG_NAME=$(PKG_NAME))
 $(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
 $(info PKG_VERSION=$(PKG_VERSION))
@@ -103,10 +117,10 @@ all: $(COMPILE)
 
 # Compiling
 ifdef COMPILE
-compile: R/RcppExports.R
+compile: R/RcppExports.R src/RcppExports.cpp
 	$(R) $(RFLAGS) CMD SHLIB -o src/$(PKG_NAME).so src/*.cpp
 
-R/RcppExports.R: src/*.cpp
+R/RcppExports.R src/RcppExports.cpp: src/*.cpp
 	$(R) $(RFLAGS) -e "Rcpp::compileAttributes('$(CURDIR)')"
 endif
 
@@ -120,11 +134,11 @@ check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
 
 # Bioconductor check
 bioc.check: clean.vignettes $(CHECK_RENVIRON) $(ZIPPED_PKG)
-	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))'
+	$(R) $(RFLAGS) -e 'if ( ! require(BiocManager)) install.packages("BiocManager", dependencies=TRUE, repos="https://cloud.r-project.org/") ; if ( ! require(BiocCheck)) BiocManager::install("BiocCheck") ; BiocCheck::BiocCheck("$(ZIPPED_PKG)"$(patsubst %,$(COMMA) `%`=TRUE,$(BIOC_CHECK_FLAGS)))' 2>&1 | sed 's!^ *\(R\|man\|vignettes\)/!Issue in \1/!'
 
 # Bioconductor check Git clone
 bioc.check.clone: clean clean.cache
-	$(R) $(RFLAGS) -e 'BiocCheck::BiocCheckGitClone()'
+	$(R) $(RFLAGS) -e 'if ( ! require(BiocManager)) install.packages("BiocManager", dependencies=TRUE, repos="https://cloud.r-project.org/") ; if ( ! require(BiocCheck)) BiocManager::install("BiocCheck") ; BiocCheck::BiocCheckGitClone()'
 
 check.all: bioc.check.clone check bioc.check
 
@@ -145,7 +159,7 @@ test.long:
 else
 test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
 test.long: install
-	if test -d tests/long ; then $(R) $(RFLAGS) -e "library({{pkgName}});Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('tests/long')" ; fi
+	if test -d tests/long ; then $(R) $(RFLAGS) -e "library($(PKG_NAME));Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('tests/long')" ; fi
 endif
 
 test.all: test test.long
@@ -222,4 +236,4 @@ clean.cache:
 	$(RM) -r $(CACHE)
 	$(RM) -r $(LONG_CACHE)
 
-.PHONY: all win test build check bioc.check vignettes install uninstall clean clean.all clean.vignettes clean.cache doc coverage doxygen
+.PHONY: vignettes doc
