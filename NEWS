@@ -43,3 +43,6 @@ Changes in version 0.99.10 (2021-05-07)
 
 Changes in version 0.99.11 (2021-05-17)
 + Change example inside BiodbConfig to avoid misinterpretation of `set('cache.directory', '~/my.biodb.cache')`, leading to believe that some files are written inside USER HOME folder when running the example.
+
+Changes in version 1.0.1 (2021-05-20)
++ Bug fix: correct some calls to logging functions that raised a warning.

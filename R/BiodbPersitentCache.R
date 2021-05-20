@@ -279,7 +279,7 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     logTrace('Trying to load from cache %s', lst2str(file.paths))
     content <- lapply(file.paths,  rdCnt)
     files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-    logTrace('Loaded from cache', lst2str(files.read))
+    logTrace('Loaded from cache %s', lst2str(files.read))
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
@@ -336,7 +336,7 @@ saveContentToFile=function(content, cache.id, name, ext) {
     content[is.na(content)] <- 'NA'
 
     # Write content to files
-    logTrace('Saving to cache', lst2str(file.paths))
+    logTrace('Saving to cache %s', lst2str(file.paths))
     fct <- function(cnt, f) {
         if ( ! is.null(cnt)) {
             if ( ! is.character(cnt))

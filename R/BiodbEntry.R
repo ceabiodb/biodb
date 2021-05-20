@@ -751,7 +751,7 @@ fieldHasBasicClass=function(field) {
     # Keep only fields with a value
     fields <- fields[fields %in% names(.self$.fields)]
 
-    logTrace('Fields', lst2str(fields))
+    logTrace('Fields %s', lst2str(fields))
     return(fields)
 },
 
