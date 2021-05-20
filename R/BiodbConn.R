@@ -418,6 +418,14 @@ searchForEntries=function(fields=NULL, max.results=0) {
             'searchable by field "', names(fields)[[1]],
             '", but no implementation has been defined.')
 
+    # Convert NULL to empty list                                                 
+    if (is.null(ids))                                                           
+        ids <- character()                                                      
+
+    # Cut                                                                       
+    if (max.results > 0 && max.results < length(ids))                           
+        ids <- ids[seq_len(max.results)]                                        
+
     return(ids)
 },
 
