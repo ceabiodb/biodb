@@ -46,3 +46,6 @@ Changes in version 0.99.11 (2021-05-17)
 
 Changes in version 1.0.1 (2021-05-20)
 + Bug fix: correct some calls to logging functions that raised a warning.
+
+Changes in version 1.0.2 (2021-05-23)
++ Bug fix: correct return type of searchForEntries(), which now returns always a character vector and never NULL.
