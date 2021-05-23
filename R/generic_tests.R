@@ -487,8 +487,10 @@ test.searchForEntries <- function(conn, opt=NULL) {
             ids <- conn$searchForEntries(fields=x, max.results=max.results)
             
             # Test result
-            if (is.null(v) || v == '')
-                testthat::expect_null(ids)
+            if (is.null(v) || v == '') {
+                testthat::expect_is(ids, 'character')
+                testthat::expect_length(ids, 0)
+            }
             else {
                 msg <- paste0('While searching for entry ', id, ' by value ("',
                     v, '") of field "', f, '".')
@@ -536,7 +538,9 @@ test.searchByName = function(conn, opt=NULL) {
     else {
         testthat::expect_warning(conn$searchByName(name='foo'))
         testthat::expect_warning(conn$searchByName(name=''))
-        testthat::expect_null(conn$searchByName(name=NULL))
+        ids <- conn$searchByName(name=NULL)
+        testthat::expect_is(ids, 'character')
+        testthat::expect_length(ids, 0)
     }
 }
 

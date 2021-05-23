@@ -412,11 +412,13 @@ searchForEntries=function(fields=NULL, max.results=0) {
     if (length(fields) > 0 || ! wrong_fields)
         ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
 
-    # No implementation
-    if (is.null(ids) && length(fields) > 0)
-        error0('This database has been declared to be ',
-            'searchable by field "', names(fields)[[1]],
-            '", but no implementation has been defined.')
+    # Convert NULL to empty list
+    if (is.null(ids))
+        ids <- character()
+
+    # Cut
+    if (max.results > 0 && max.results < length(ids))
+        ids <- ids[seq_len(max.results)]
 
     return(ids)
 },
