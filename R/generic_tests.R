@@ -493,7 +493,8 @@ test.searchForEntries <- function(conn, opt=NULL) {
             }
             else {
                 msg <- paste0('While searching for entry ', id, ' by value ("',
-                    v, '") of field "', f, '".')
+                    v, '") of field "', f, '". Found IDs are: ', lst2str(ids),
+                    '.')
                 testthat::expect_true( ! is.null(ids), msg)
                 testthat::expect_true(length(ids) > 0, msg)
                 testthat::expect_true(id %in% ids, msg)
@@ -1412,7 +1413,7 @@ runGenericShortTests <- function(conn, opt=NULL) {
     }
 }
 
-# Run tests whose duration is adujstable using options (i.e.: maxRefEntries)
+# Run tests whose duration is adjustable using options (i.e.: maxRefEntries)
 runGenericAdjustableTests <- function(conn, opt=NULL) {
 
     biodb::testThat("Entry fields have a correct value", test.entry.fields,
