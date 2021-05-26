@@ -461,6 +461,8 @@ test.searchForEntries <- function(conn, opt=NULL) {
     ef <- conn$getBiodb()$getEntryFields()
     fields <- conn$getPropertyValue('searchable.fields')
     testthat::expect_is(fields, 'character')
+    if ('skip.searchable.fields' %in% names(opt))
+        fields <- fields[ ! fields %in% opt$skip.searchable.fields]
 
     for (f in fields) {
         
