@@ -49,3 +49,6 @@ Changes in version 1.0.1 (2021-05-20)
 
 Changes in version 1.0.2 (2021-05-23)
 + Bug fix: correct return type of searchForEntries(), which now returns always a character vector and never NULL.
+
+Changes in version 1.0.3 (2021-05-26)
++ Bug fix: correct generic test of searchForEntries(), allowing testing with NA value.

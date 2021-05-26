@@ -480,14 +480,13 @@ test.searchForEntries <- function(conn, opt=NULL) {
                 testthat::expect_is(v, 'character')
                 testthat::expect_gt(length(v), 0)
                 v <- v[[1]]
-                testthat::expect_true( ! is.na(v))
             }
             x <- list()
             x[[f]] <- v
             ids <- conn$searchForEntries(fields=x, max.results=max.results)
             
             # Test result
-            if (is.null(v) || v == '') {
+            if (is.null(v) || is.na(v) || v == '') {
                 testthat::expect_is(ids, 'character')
                 testthat::expect_length(ids, 0)
             }
