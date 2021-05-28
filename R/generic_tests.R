@@ -84,9 +84,9 @@ test.entry.fields <- function(conn, opt) {
             if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
                 testthat::expect_identical(w, v, info=paste0('Value of field "',
                 f, '" for database ', db.name, ' entry ', id,
-                ' (', paste(w, collapse=', '),
+                ' (', lst2str(w),
                 ') is different in reference entry (',
-                paste(v, collapse=', '), ').'))
+                lst2str(v), ').'))
             else
                 testthat::expect_identical(w, v, info=paste0('Value of field "',
                 f, '" for database ', db.name, ' entry ', id,
@@ -461,6 +461,8 @@ test.searchForEntries <- function(conn, opt=NULL) {
     ef <- conn$getBiodb()$getEntryFields()
     fields <- conn$getPropertyValue('searchable.fields')
     testthat::expect_is(fields, 'character')
+    if ('skip.searchable.fields' %in% names(opt))
+        fields <- fields[ ! fields %in% opt$skip.searchable.fields]
 
     for (f in fields) {
         
@@ -469,8 +471,11 @@ test.searchForEntries <- function(conn, opt=NULL) {
             
             # Get an entry
             id <- listTestRefEntries(conn$getId(), limit=1)
+            biodb::logDebug(
+                'Testing searchForEntries() with entry "%s" and field "%s".',
+                id, f)
             testthat::expect_true( ! is.null(id))
-            testthat::expect_length(id, 1)
+            testthat::expect_true(length(id) == 1)
             entry <- conn$getEntry(id, drop=TRUE)
             testthat::expect_true( ! is.null(entry))
 
@@ -481,22 +486,23 @@ test.searchForEntries <- function(conn, opt=NULL) {
                 testthat::expect_gt(length(v), 0)
                 v <- v[[1]]
             }
+            biodb::logDebug0('With value "', (if (is.null(v)) 'NULL' else v),
+                '".')
             x <- list()
             x[[f]] <- v
             ids <- conn$searchForEntries(fields=x, max.results=max.results)
+            biodb::logDebug('With found IDs %s.', lst2str(ids))
             
             # Test result
             if (is.null(v) || is.na(v) || v == '') {
                 testthat::expect_is(ids, 'character')
-                testthat::expect_length(ids, 0)
+                if (is.null(v) || is.na(v))
+                    testthat::expect_true(length(ids) == 0)
             }
             else {
-                msg <- paste0('While searching for entry ', id, ' by value ("',
-                    v, '") of field "', f, '". Found IDs are: ', lst2str(ids),
-                    '.')
-                testthat::expect_true( ! is.null(ids), msg)
-                testthat::expect_true(length(ids) > 0, msg)
-                testthat::expect_true(id %in% ids, msg)
+                testthat::expect_true( ! is.null(ids))
+                testthat::expect_true(length(ids) > 0)
+                testthat::expect_true(id %in% ids)
             }
         }
     }
