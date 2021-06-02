@@ -1,29 +1,29 @@
-# Makefile for biodb extensions packages, version 1.4.2
-# vi: ft=make
+	# Makefile for biodb extensions packages, version 1.4.2
+	# vi: ft=make
 
-# Mute R 3.6 "Registered S3 method overwritten" warning messages.
-# Messages that were output:
-#     Registered S3 method overwritten by 'R.oo':
-#       method        from
-#       throw.default R.methodsS3
-#     Registered S3 method overwritten by 'openssl':
-#       method      from
-#       print.bytes Rcpp
-export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
+	# Mute R 3.6 "Registered S3 method overwritten" warning messages.
+	# Messages that were output:
+	#     Registered S3 method overwritten by 'R.oo':
+	#       method        from
+	#       throw.default R.methodsS3
+	#     Registered S3 method overwritten by 'openssl':
+	#       method      from
+	#       print.bytes Rcpp
+	export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 
-# Constants
-COMMA := ,
+	# Constants
+	COMMA := ,
 
-# Set and check name
-PKG_NAME := $(notdir $(realpath $(CURDIR)))
-ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
-$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
-endif
-ifeq (biodb,$(PKG_NAME))
-PKG_NAME_CAPS := BIODB
-else
-PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
-endif
+	# Set and check name
+	PKG_NAME := $(notdir $(realpath $(CURDIR)))
+	ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
+	$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
+	endif
+	ifeq (biodb,$(PKG_NAME))
+	PKG_NAME_CAPS := BIODB
+	else
+	PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
+	endif
 
 # Get versions
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
@@ -53,8 +53,10 @@ export BIODB_CACHE_DIRECTORY=$(CACHE)
 ifndef TESTTHAT_REPORTER
 ifdef VIM
 TESTTHAT_REPORTER=summary
+ERROR_MSG_FILTER= | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
 else
 TESTTHAT_REPORTER=progress
+ERROR_MSG_FILTER=
 endif
 endif
 
@@ -145,30 +147,18 @@ check.all: bioc.check.clone check bioc.check
 $(CHECK_RENVIRON):
 	wget https://raw.githubusercontent.com/Bioconductor/packagebuilder/master/check.Renviron
 
+longtests: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
+tests longtests: $(COMPILE)
+	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/$@', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" $(ERROR_MSG_FILTER)
+	
 # Run testthat tests
-test: $(COMPILE)
-ifdef VIM
-	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
-else
-	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
-endif
+test: tests
 
 # Run testthat long tests
-ifeq (,$(wildcard longtests))
-test.long:
-	$(error No long tests folder longtests defined. Please upgrade your with `make upgrade`)
-else
-test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
-test.long: $(COMPILE)
-ifdef VIM
-	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/longtests', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
-else
-	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/longtests', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
-endif
-endif
+test.long: longtests
 
 # Run all tests
-test.all: test test.long
+test.all: tests longtests
 
 # Launch Windows tests on server
 win:
@@ -243,4 +233,4 @@ clean.cache:
 	$(RM) -r $(CACHE)
 	$(RM) -r $(LONG_CACHE)
 
-.PHONY: vignettes doc
+.PHONY: vignettes doc tests longtests
