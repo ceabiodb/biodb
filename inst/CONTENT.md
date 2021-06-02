@@ -1,4 +1,8 @@
-# Data files
+# Description of the `inst` folder content
+
+## extdata folder
+
+### Data files
 
 TSV and SQLite files in `inst/extdata` folder have been constructed from
 [ChEBI](https://www.ebi.ac.uk/chebi/), [ExPASy](https://www.expasy.org/),
@@ -12,6 +16,10 @@ and
 
 The files in `inst/extdata/generated` are conversion of the TSV files in `inst/extdata`, using *biodb*.
 
-# Other files
+### Other files
 
 The YAML and R files are example files for the vignettes.
+
+## testref folder
+
+Entry reference files for testing connectors.

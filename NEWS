@@ -55,3 +55,5 @@ Changes in version 1.0.3 (2021-05-26)
 
 Changes in version 1.1.0 (???)
 + Allow skiping of some fields when testing searchForEntries().
++ Move test reference entries folder from tests/testthat/res to inst/testref.
++ Move long tests folder from tests/long to longtests and enable Bioconductor long tests.

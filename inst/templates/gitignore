@@ -15,6 +15,7 @@ src-x64
 {{pkgName}}.Rcheck
 cache*
 tests/*/output
+longtests/*/output
 vignettes/*.md
 vignettes/*.R
 vignettes/*.html
