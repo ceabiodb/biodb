@@ -19,8 +19,8 @@ dir.create(pkgFolder, recursive=TRUE)
 biodb::ExtMakefile$new(path=pkgFolder)$generate()
 
 }
-\section{Super classes}{
-\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtMakefile}
+\section{Super class}{
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{ExtMakefile}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -49,7 +49,7 @@ Constructor.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{See the constructor of ExtFileGenerator for the parameters.}
+\item{\code{...}}{See the constructor of ExtGenerator for the parameters.}
 }
 \if{html}{\out{</div>}}
 }
