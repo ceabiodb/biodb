@@ -204,10 +204,15 @@ getTestRefFolder <- function(pkgName=NULL) {
                 pkgName)
     }
     else {
-        testRef <- file.path(getwd(), '..', '..', 'inst', 'testref')
+        # Look for testref folder in ../../inst or in ../../<pkg_name>
+        # (<pkg>.Rcheck folder)
+        testRef <- Sys.glob(file.path(getwd(), '..', '..', '*', 'testref'))[[1]]
+        
+        # No folder
         if ( ! dir.exists(testRef)) {
+
             oldTestRef <- file.path(getwd(), '..', 'testthat', 'res')
-            if (dir.exsts(oldTestRef))
+            if (dir.exists(oldTestRef))
                 warn0("The location of reference entry files for tests has",
                     ' changed. Please move folder "', oldTestRef, '" to "', 
                     testRef, '".')
@@ -226,12 +231,13 @@ getTestRefFolder <- function(pkgName=NULL) {
 #' `entry-comp.csv.file-1018.json`).
 #'
 #' @param conn.id A valid Biodb connector ID.
-#' @param limit The maximum number of entries to retrieve.
+#' @param limit   The maximum number of entries to retrieve.
+#' @param pkgName The name of the 
 #' @return A list of entry IDs.
 #'
 #' @examples
 #' # List IDs of test reference entries:
-#' biodb::listTestRefEntries('comp.csv.file')
+#' biodb::listTestRefEntries('comp.csv.file', pkgName='biodb')
 #'
 #' @export
 listTestRefEntries <- function(conn.id, limit=0, pkgName=NULL) {

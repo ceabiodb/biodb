@@ -159,8 +159,12 @@ test.long:
 	$(error No long tests folder longtests defined. Please upgrade your with `make upgrade`)
 else
 test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
-test.long: install
-	if test -d longtests ; then $(R) $(RFLAGS) -e "library($(PKG_NAME));Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('longtests')" ; fi
+test.long: $(COMPILE)
+ifdef VIM
+	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/longtests', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
+else
+	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/longtests', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
+endif
 endif
 
 # Run all tests
@@ -216,7 +220,7 @@ clean: clean.vignettes
 ifdef COMPILE
 	$(RM) src/*.o src/*.so src/*.dll
 endif
-	$(RM) -r tests/test.log tests/testthat/output tests/testthat/*.log
+	$(RM) -r *tests/*/output
 	$(RM) -r $(PKG_NAME).Rcheck
 	$(RM) -r Meta
 	$(RM) *.log

@@ -19,3 +19,4 @@
 ^tests/testthat/_snaps$
 ^tests/.*/output$
 ^check.Renviron$
+^.BBSoptions$

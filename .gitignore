@@ -31,3 +31,4 @@ vignettes/*.csv
 /Meta/
 check.Renviron
 codecov.yml
+cache.long
