@@ -130,12 +130,13 @@ test_newExtPkgSkeletonGeneration <- function() {
                                                    'testthat')))
         testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
                                                     'test_100_generic.R')))
-        testthat::expect_true(dir.exists(file.path(pkgDir, 'tests',
-                                                   'testthat', 'res')))
-        testthat::expect_true(file.exists(file.path(pkgDir, 'tests',
-            'testthat', 'res', paste0('entry-', dbName, '-0001.json'))))
+        testthat::expect_true(dir.exists(file.path(pkgDir, 'inst', 'testref')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'inst',
+            'testref', paste0('entry-', dbName, '-0001.json'))))
         testthat::expect_true(file.exists(file.path(pkgDir, 'tests', 'testthat',
-                                                    'test_200_example.R')))
+            'test_200_example.R')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'longtests',
+            'testthat', 'test_long_200_example.R')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
     }
 }

@@ -22,6 +22,8 @@ biodb_*.tar.gz
 biodb.Rcheck
 vignettes/figure
 cache
+tests/*/output
+longtests/*/output
 vignettes/*.R
 vignettes/*.html
 vignettes/*.csv

@@ -1,9 +1,9 @@
 MASSFILEDB.URL <- system.file("extdata", "massbank_extract_full.tsv",
-                              package="biodb")
-MASSFILEDB.WRONG.HEADER.URL <- file.path(getwd(), 'res',
-                                         'mass.csv.file-wrong_header.tsv')
-MASSFILEDB.WRONG.NB.COLS.URL <- file.path(getwd(), 'res',
-                                          'mass.csv.file-wrong_nb_cols.tsv')
+    package="biodb", mustWork=TRUE)
+MASSFILEDB.WRONG.HEADER.URL <- system.file('testref',
+    'mass.csv.file-wrong_header.tsv', package="biodb", mustWork=TRUE)
+MASSFILEDB.WRONG.NB.COLS.URL <- system.file('testref',
+    'mass.csv.file-wrong_nb_cols.tsv', package="biodb", mustWork=TRUE)
 
 test.basic.mass.csv.file <- function(db) {
 

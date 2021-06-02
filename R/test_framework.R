@@ -193,10 +193,35 @@ createBiodbTestInstance <- function(ack=FALSE) {
     return(biodb)
 }
 
+getTestRefFolder <- function(pkgName=NULL) {
+
+    testRef <- NULL
+
+    if ( ! is.null(pkgName)) {
+        testRef <- system.file('testref', package=pkgName)
+        if ( ! dir.exists(testRef))
+            error("No folder %s has been defined for package %s.", testRef,
+                pkgName)
+    }
+    else {
+        testRef <- file.path(getwd(), '..', '..', 'inst', 'testref')
+        if ( ! dir.exists(testRef)) {
+            oldTestRef <- file.path(getwd(), '..', 'testthat', 'res')
+            if (dir.exsts(oldTestRef))
+                warn0("The location of reference entry files for tests has",
+                    ' changed. Please move folder "', oldTestRef, '" to "', 
+                    testRef, '".')
+            error("No folder %s has been defined.", testRef)
+        }
+    }
+
+    return(testRef)
+}
+
 #' List test reference entries.
 #'
 #' Lists the reference entries in the test folder for a specified connector.
-#' The test reference files must be in `<pkg>/tests/testthat/res/` folder and
+#' The test reference files must be in `<pkg>/inst/testref/` folder and
 #' their names must match `entry-<database_name>-<entry_accession>.json` (e.g.:
 #' `entry-comp.csv.file-1018.json`).
 #'
@@ -209,15 +234,18 @@ createBiodbTestInstance <- function(ack=FALSE) {
 #' biodb::listTestRefEntries('comp.csv.file')
 #'
 #' @export
-listTestRefEntries <- function(conn.id, limit=0) {
+listTestRefEntries <- function(conn.id, limit=0, pkgName=NULL) {
 
     chk::chk_string(conn.id)
     chk::chk_whole_number(limit)
     chk::chk_gte(limit, 0)
 
+    # Get test ref folder
+    testRef <- getTestRefFolder(pkgName=pkgName)
+
     # List json files
-    files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
-        paste('entry', conn.id, '*.json', sep='-')))
+    files <- Sys.glob(file.path(testRef, paste('entry', conn.id, '*.json',
+        sep='-')))
     if (limit > 0 && length(files) > limit)
         files <- files[seq_len(limit)]
 
@@ -231,13 +259,13 @@ listTestRefEntries <- function(conn.id, limit=0) {
     return(ids)
 }
 
-loadTestRefEntry <- function(db, id) {
+loadTestRefEntry <- function(db, id, pkgName=NULL) {
 
     # Replace forbidden characters
     id = utils::URLencode(id, reserved=TRUE)
 
     # Entry file
-    file <- file.path(getwd(), '..', 'testthat', 'res',
+    file <- file.path(getTestRefFolder(pkgName=pkgName),
         paste('entry-', db, '-', id, '.json', sep=''))
     testthat::expect_true(file.exists(file),
         info=paste0('Cannot find file "', file, '" for ', db,
@@ -256,12 +284,12 @@ loadTestRefEntry <- function(db, id) {
     return(json)
 }
 
-loadTestRefEntries <- function(db) {
+loadTestRefEntries <- function(db, pkgName=NULL) {
 
     entries.desc <- NULL
 
     # List JSON files
-    entry.json.files <- Sys.glob(file.path(getwd(), '..', 'testthat', 'res',
+    entry.json.files <- Sys.glob(file.path(getTestRefFolder(pkgName=pkgName),
         paste('entry', db, '*.json', sep='-')))
 
     # Loop on all JSON files

@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.1
+# Makefile for biodb extensions packages, version 1.4.2
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -153,15 +153,17 @@ else
 	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))"
 endif
 
-ifeq (,$(wildcard tests/long))
+# Run testthat long tests
+ifeq (,$(wildcard longtests))
 test.long:
-	$(error No long tests folder tests/long defined. Please upgrade your with `make upgrade`)
+	$(error No long tests folder longtests defined. Please upgrade your with `make upgrade`)
 else
 test.long: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
 test.long: install
-	if test -d tests/long ; then $(R) $(RFLAGS) -e "library($(PKG_NAME));Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('tests/long')" ; fi
+	if test -d longtests ; then $(R) $(RFLAGS) -e "library($(PKG_NAME));Sys.setenv(TESTTHAT_REPORTER='$(TESTTHAT_REPORTER)');testthat::test_dir('longtests')" ; fi
 endif
 
+# Run all tests
 test.all: test test.long
 
 # Launch Windows tests on server
