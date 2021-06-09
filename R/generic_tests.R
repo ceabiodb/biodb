@@ -576,8 +576,10 @@ test.searchCompound <- function(db, opt=NULL) {
         testthat::expect_true( ! is.null(ids), msg)
         testthat::expect_true(length(ids) > 0, msg)
         testthat::expect_true(id %in% ids, msg)
-    } else
-        testthat::expect_null(ids)
+    } else {
+        testthat::expect_is(ids, 'character')
+        testthat::expect_length(ids, 0)
+    }
 
     # Loop on all mass fields
     for (field in db$getBiodb()$getEntryFields()$getFieldNames(type='mass')) {
