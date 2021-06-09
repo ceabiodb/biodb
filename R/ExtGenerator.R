@@ -44,6 +44,7 @@ public=list(
 #' @param connType  The type of connector class to implement.
 #' @param entryType The type of entry class to implement.
 #' @param makefile  Set to TRUE if you want a Makefile to be generated.
+#' @param travis    Set to TRUE if you want a .travis.yml file to be generated.
 #' @param remote    Set to TRUE if the database to connect to is not local.
 #' @param downloadable  Set to TRUE if the database needs to be downloaded or
 #' offers this possiblity.
@@ -64,7 +65,7 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
                     lastname='Lastname of author', newPkg=FALSE,
                     connType=getConnTypes(), entryType=getEntryTypes() ,
                     editable=FALSE, writable=FALSE, remote=FALSE,
-                    downloadable=FALSE, makefile=FALSE,
+                    downloadable=FALSE, makefile=FALSE, travis=FALSE,
                     rcpp=FALSE, vignetteName='intro',
                     githubRepos=getReposName(path, default='myaccount/myrepos')
                     ) {

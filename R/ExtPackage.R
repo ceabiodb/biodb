@@ -87,7 +87,8 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         private$createGenerator(ExtMakefile)$upgrade(generate=generate)
     private$createGenerator(ExtRbuildignore)$upgrade(generate=generate)
     private$createGenerator(ExtGitignore)$upgrade(generate=generate)
-    private$createGenerator(ExtTravisFile)$upgrade(generate=generate)
+    if (private$tags$travis)
+        private$createGenerator(ExtTravisFile)$upgrade(generate=generate)
 
     # Non-upgradable files
     if (generate) {
