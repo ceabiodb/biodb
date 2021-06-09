@@ -608,7 +608,8 @@ test.searchCompound <- function(db, opt=NULL) {
         if ( ! db$isSearchableByField(field)) {
             testthat::expect_warning(ids <- db$searchCompound(mass=mass,
                 mass.tol=mass.tol, mass.field=field, max.results=max.results))
-            testthat::expect_null(ids, msg)
+            testthat::expect_is(ids, 'character')
+            testthat::expect_length(ids, 0)
         } else {
             ids <- db$searchCompound(mass=mass, mass.tol=mass.tol,
                 mass.field=field, max.results=max.results)
