@@ -384,8 +384,8 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
             length(dstFilePaths), ').')
 
     # Move files
-    logTrace('Moving files to cache ', lst2str(src.file.paths))
-    logTrace('Destination files are ', lst2str(dstFilePaths))
+    logTrace('Moving files to cache %s.', lst2str(src.file.paths))
+    logTrace('Destination files are %s.', lst2str(dstFilePaths))
     file.rename(src.file.paths, dstFilePaths)
     logDebug('Done moving files.')
 },
