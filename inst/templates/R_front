@@ -33,6 +33,9 @@ Options:
 
    -h, --help   Print this help message.
 
+   -n, --no-current
+                Do not use the R binary currently installed on system.
+
    --print-bin  Print path to R bin.
 
    --print-home Print path to R folder.
@@ -105,18 +108,19 @@ function read_args {
 
 	while true ; do
 		case $1 in
-			--beta)       R_VERSION=beta ;;
-			--clean)      ACTIONS+=('clean') ;;
-			--devel)      R_VERSION=devel ;;
-			-g|--debug)   DEBUG=$((DEBUG + 1)) ;;
-			-h|--help)    print_help ; exit 0 ;;
-			--print-bin)  ACTIONS+=('select_r' 'print_bin') ;;
-			--print-home) ACTIONS+=('select_r' 'print_home') ;;
-			--r-version)  R_VERSION="$2" ; shift ;;
-			--run)        ACTIONS+=('select_r' 'run_r') ;;
-			-[^-]*)       split_opt=$(echo $1 | sed 's/^-//' | sed 's/\([a-zA-Z]\)/ -\1/g') ; set -- $1$split_opt "${@:2}" ;;
-			--)          shift ; break ;;
-			*)           break
+			--beta)          R_VERSION=beta ;;
+			--clean)         ACTIONS+=('clean') ;;
+			--devel)         R_VERSION=devel ;;
+			-g|--debug)      DEBUG=$((DEBUG + 1)) ;;
+			-h|--help)       print_help ; exit 0 ;;
+			-n|--no-current) NO_CURRENT=1 ;;
+			--print-bin)     ACTIONS+=('select_r' 'print_bin') ;;
+			--print-home)    ACTIONS+=('select_r' 'print_home') ;;
+			--r-version)     R_VERSION="$2" ; shift ;;
+			--run)           ACTIONS+=('select_r' 'run_r') ;;
+			-[^-]*)          split_opt=$(echo $1 | sed 's/^-//' | sed 's/\([a-zA-Z]\)/ -\1/g') ; set -- $1$split_opt "${@:2}" ;;
+			--)              shift ; break ;;
+			*)               break
 		esac
 		shift
 	done
@@ -128,6 +132,7 @@ function read_args {
 	debug 1 "Arguments are : $args"
 	debug 1 "ACTIONS=${ACTIONS}"
 	debug 1 "DEBUG=$DEBUG"
+	debug 1 "NO_CURRENT=$NO_CURRENT"
 	debug 1 "R_ARGS=$R_ARGS"
 	debug 1 "R_VERSION=$R_VERSION"
 }
@@ -166,13 +171,19 @@ function select_version {
 		# Version number
 		elif [[ $R_VERSION =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] ; then
 
-			# Get version name
 			local version_name=
-			local current_version=$(R --version | head -n 1 | sed 's/^.*version \([^ ]*\).*$/\1/')
-			debug 1 current_version=$current_version
-			if [[ $current_version =~ ^$R_VERSION(\.[0-9]+)?$ ]] ; then
-				version_name=current
-			else
+
+			# Try current version
+			if [[ -z $NO_CURRENT ]] ; then
+				local current_version=$(R --version | head -n 1 | sed 's/^.*version \([^ ]*\).*$/\1/')
+				debug 1 current_version=$current_version
+				if [[ $current_version =~ ^$R_VERSION(\.[0-9]+)?$ ]] ; then
+					version_name=current
+				fi
+			fi
+
+			# Try downloadable versions
+			if [[ -z $version_name ]] ; then
 				[[ -n $VERSIONS_FILE ]] || download_versions_file
 				local versions_file=$VERSIONS_FILE
 				version_name=$(grep ": $R_VERSION" "$versions_file" | sed 's/^\(.*\):.*$/\1/')
