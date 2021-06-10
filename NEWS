@@ -56,7 +56,7 @@ Changes in version 1.0.3 (2021-05-26)
 Changes in version 1.0.4 (2021-06-09)
 + Bug fix: correct call to logger in BiodbPersitentCache class.
 
-Changes in version 1.1.0 (???)
+Changes in version 1.1.1 (2021-06-10)
 + Allow skiping of some fields when testing searchForEntries().
 + Move test reference entries folder from tests/testthat/res to inst/testref.
 + Move long tests folder from tests/long to longtests and enable Bioconductor long tests.
