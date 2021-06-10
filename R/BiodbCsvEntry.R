@@ -22,17 +22,22 @@ BiodbCsvEntry <- methods::setRefClass("BiodbCsvEntry",
     contains='BiodbEntry',
     fields=list(
                 .sep='character',
-                .na.strings='character'),
+                .na.strings='character',
+                .quotes='character'),
 
 methods=list(
 
-initialize=function(sep=',', na.strings='NA', ...) {
+initialize=function(sep=',', na.strings='NA', quotes='', ...) {
 
     callSuper(...)
     .self$.abstractClass('BiodbCsvEntry')
 
+    chk::chk_string(sep)
+    chk::chk_character(na.strings)
+    chk::chk_string(quotes)
     .self$.sep <- sep
     .self$.na.strings <- na.strings
+    .self$.quotes <- quotes
 },
 
 .doParseContent=function(content) {
@@ -42,19 +47,23 @@ initialize=function(sep=',', na.strings='NA', ...) {
     # interpreted as row names by read.table in case the header line contains
     # one less field than the second line.
     df <- read.table(text=content, header=FALSE, row.names=NULL, sep=.self$.sep,
-        quote='', stringsAsFactors=FALSE,
+        quote=.self$.quotes, stringsAsFactors=FALSE,
         na.strings=.self$.na.strings, fill=TRUE, check.names=FALSE,
         comment.char='')
 
     # Now name the columns
     if (nrow(df) >= 1) {
 
-        # Remove unnamed columns
-        df <- df[, ! is.na(df[1, ])]
+        if (all(is.na(df[1, ])) || ncol(df) == 0) # No column names
+            df <- data.frame()
+        else {
+            # Remove unnamed columns
+            df <- df[, ! is.na(df[1, ])]
 
-        # Set colnames
-        colnames(df) <- df[1, ]
-        df <- df[seq(nrow(df)) != 1, ]
+            # Set colnames
+            colnames(df) <- df[1, ]
+            df <- df[seq(nrow(df)) != 1, ]
+        }
     }
 
     return(df)
