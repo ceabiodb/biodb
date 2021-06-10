@@ -158,19 +158,32 @@ function download_versions_file {
 function select_version {
 
 	if [[ -z $SELECTED_VERSION ]] ; then
+
 		# Version name
 		if [[ $R_VERSION =~ ^(beta|devel|release|current)$ ]] ; then
 			SELECTED_VERSION=$R_VERSION
 
 		# Version number
 		elif [[ $R_VERSION =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] ; then
-			[[ -n $VERSIONS_FILE ]] || download_versions_file
-			local versions_file=$VERSIONS_FILE
-			local version_name=$(grep ": $R_VERSION" "$versions_file" | sed 's/^\(.*\):.*$/\1/')
+
+			# Get version name
+			local version_name=
+			local current_version=$(R --version | head -n 1 | sed 's/^.*version \([^ ]*\).*$/\1/')
+			debug 1 current_version=$current_version
+			if [[ $current_version =~ ^$R_VERSION(\.[0-9]+)?$ ]] ; then
+				version_name=current
+			else
+				[[ -n $VERSIONS_FILE ]] || download_versions_file
+				local versions_file=$VERSIONS_FILE
+				version_name=$(grep ": $R_VERSION" "$versions_file" | sed 's/^\(.*\):.*$/\1/')
+			fi
+
+			# Set selected version
 			case $version_name in
 				Next-release) SELECTED_VERSION=beta ;;
 				Devel)        SELECTED_VERSION=devel ;;
 				Release)      SELECTED_VERSION=release ;;
+				current)      SELECTED_VERSION=current ;;
 			esac
 
 		# Unknown version
