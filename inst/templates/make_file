@@ -1,29 +1,29 @@
-	# Makefile for biodb extensions packages, version 1.4.2
-	# vi: ft=make
+# Makefile for biodb extensions packages, version 1.4.3
+# vi: ft=make
 
-	# Mute R 3.6 "Registered S3 method overwritten" warning messages.
-	# Messages that were output:
-	#     Registered S3 method overwritten by 'R.oo':
-	#       method        from
-	#       throw.default R.methodsS3
-	#     Registered S3 method overwritten by 'openssl':
-	#       method      from
-	#       print.bytes Rcpp
-	export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
+# Mute R 3.6 "Registered S3 method overwritten" warning messages.
+# Messages that were output:
+#     Registered S3 method overwritten by 'R.oo':
+#       method        from
+#       throw.default R.methodsS3
+#     Registered S3 method overwritten by 'openssl':
+#       method      from
+#       print.bytes Rcpp
+export _R_S3_METHOD_REGISTRATION_NOTE_OVERWRITES_=no
 
-	# Constants
-	COMMA := ,
+# Constants
+COMMA := ,
 
-	# Set and check name
-	PKG_NAME := $(notdir $(realpath $(CURDIR)))
-	ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
-	$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
-	endif
-	ifeq (biodb,$(PKG_NAME))
-	PKG_NAME_CAPS := BIODB
-	else
-	PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
-	endif
+# Set and check name
+PKG_NAME := $(notdir $(realpath $(CURDIR)))
+ifeq (,$(shell echo $(PKG_NAME) | grep '^biodb\([A-Z][A-Za-z0-9]*\)\?$$'))
+$(error "$(PKG_NAME)" is not a standard package name for a biodb extension. The package name for a biodb extension must respect the format "^biodb([A-Z][A-Za-z0-9]*)?")
+endif
+ifeq (biodb,$(PKG_NAME))
+PKG_NAME_CAPS := BIODB
+else
+PKG_NAME_CAPS := BIODB_$(shell echo $(PKG_NAME) | sed 's/^biodb//' | tr '[:lower:]' '[:upper:]')
+endif
 
 # Get versions
 PKG_VERSION=$(shell grep '^Version:' DESCRIPTION | sed 's/^Version: //')
@@ -77,8 +77,8 @@ R_FRONT:=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
 #export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 #R=R
 #else
-export R_HOME:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-home)
-R:=$(shell bash $(R_FRONT) -g --r-version $(R_VERSION) --print-bin)
+export R_HOME:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-home)
+R:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-bin)
 #endif
 
 # For R CMD SHLIB
