@@ -357,8 +357,7 @@ entriesToDataframe=function(entries, only.atomic=TRUE,
     according to field names.
     "
 
-    if ( ! is.list(entries))
-        error("Parameter 'entries' must be a list.")
+    chk::chk_list(entries)
 
     entries.df <- data.frame(stringsAsFactors=FALSE)
 
@@ -486,13 +485,23 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
 entriesToJson=function(entries, compute=TRUE) {
     ":\n\nConverts a list of \\code{BiodbEntry} objects into JSON. Returns a
     vector of characters.
-    \nentries: A list of \\code{BiodbEntry} instances.
+    \nentries: A list of \\code{BiodbEntry} instances. It may contain NULL
+    elements.
     \ncompute: If set to \\code{TRUE}, computable fields will added to JSON too.
     \nReturned value: A list of JSON strings, the same length as entries list.
     "
 
-    json <- vapply(entries, function(e) e$getFieldsAsJson(compute=compute),
-        FUN.VALUE='')
+    chk::chk_list(entries)
+    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
+    chk::chk_flag(compute)
+
+    fct <- function(e) { 
+        if (is.null(e))
+            jsonlite::toJSON(e)
+        else
+            e$getFieldsAsJson(compute=compute)
+    }
+    json <- vapply(entries, fct, FUN.VALUE='')
 
     return(json)
 },
@@ -594,34 +603,41 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE,
 computeFields=function(entries) {
     ":\n\nComputes missing fields in entries, for those fields that are
     comptable.
-    \nentries: A list of \\code{BiodbEntry} instances.
+    \nentries: A list of \\code{BiodbEntry} instances. It may contain NULL
+    elements.
     \nReturned value: None.
     "
+    chk::chk_list(entries)
+    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
 
     # Loop on all entries
     for (e in entries)
-        e$computeFields()
+        if ( ! is.null(e))
+            e$computeFields()
 },
 
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
     ":\n\nSaves a list of entries in JSON format. Each entry will be saved in a
     separate file.
-    \nentries: A list of \\code{BiodbEntry} instances.
+    \nentries: A list of \\code{BiodbEntry} instances. It may contain NULL
+    elements.
     \nfiles: A character vector of file paths, the same length as entries list.
     \ncompute: If set to \\code{TRUE}, computable fields will be saved too.
     \nReturned value: None.
     "
 
     chk::chk_list(entries)
+    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
     chk::chk_character(files)
     chk::chk_flag(compute)
     chk::chk_length(entries, length(files))
 
     # Save
-    for (i in seq_along(entries)) {
-        json <- entries[[i]]$getFieldsAsJson(compute=compute)
-        writeChar(json, files[[i]], eos=NULL)
-    }
+    for (i in seq_along(entries))
+        if ( ! is.null(entries[[i]])) {
+            json <- entries[[i]]$getFieldsAsJson(compute=compute)
+            writeChar(json, files[[i]], eos=NULL)
+        }
 },
 
 copyDb=function(conn.from, conn.to, limit=0) {
