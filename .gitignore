@@ -32,3 +32,4 @@ vignettes/*.csv
 check.Renviron
 codecov.yml
 cache.long
+Renviron.bioc

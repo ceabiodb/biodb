@@ -60,6 +60,7 @@ Constructor
   remote = FALSE,
   downloadable = FALSE,
   makefile = FALSE,
+  travis = FALSE,
   rcpp = FALSE,
   vignetteName = "intro",
   githubRepos = getReposName(path, default = "myaccount/myrepos")
@@ -114,6 +115,8 @@ the database.}
 offers this possiblity.}
 
 \item{\code{makefile}}{Set to TRUE if you want a Makefile to be generated.}
+
+\item{\code{travis}}{Set to TRUE if you want a .travis.yml file to be generated.}
 
 \item{\code{rcpp}}{Set to TRUE to enable Rcpp C/C++ code inside the package.}
 

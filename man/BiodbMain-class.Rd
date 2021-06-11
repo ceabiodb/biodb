@@ -82,7 +82,8 @@ Returned value: A data frame, with rows collapsed.}
 Computes missing fields in entries, for those fields that are
     comptable.
     
-entries: A list of \code{BiodbEntry} instances.
+entries: A list of \code{BiodbEntry} instances. It may contain NULL
+    elements.
     
 Returned value: None.
     }
@@ -202,7 +203,8 @@ Returned value: A data frame containing the entries. Columns are named
 Converts a list of \code{BiodbEntry} objects into JSON. Returns a
     vector of characters.
     
-entries: A list of \code{BiodbEntry} instances.
+entries: A list of \code{BiodbEntry} instances. It may contain NULL
+    elements.
     
 compute: If set to \code{TRUE}, computable fields will added to JSON too.
     
@@ -325,7 +327,8 @@ Returned value: None.
 Saves a list of entries in JSON format. Each entry will be saved in a
     separate file.
     
-entries: A list of \code{BiodbEntry} instances.
+entries: A list of \code{BiodbEntry} instances. It may contain NULL
+    elements.
     
 files: A character vector of file paths, the same length as entries list.
     

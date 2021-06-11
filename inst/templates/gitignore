@@ -20,3 +20,4 @@ vignettes/*.md
 vignettes/*.R
 vignettes/*.html
 check.Renviron
+Renviron.bioc
