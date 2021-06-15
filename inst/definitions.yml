@@ -26,7 +26,7 @@ config:
   cache.directory:
     title: Path to the cache folder.
     type: character
-    description: The directory in which cache files are stored. The default location depends on your operating system.
+    description: The directory in which cache files are stored. The default location depends on your operating system and the choice between the custom persistent cache and the Bioconductor persistent cache.
     default: NULL
 
   cache.read.only:
@@ -39,6 +39,7 @@ config:
     title: Use subfolders to divide files into cache folder.
     type: logical
     description: Use subfolders shortterm and longterm in cache system, in order to divide the downloaded files. If a whole database is downloaded, the file(s) will be put in the longterm subfolders.
+    deprecated: Short and long term folders are not used anymore. Now one subfolder is automatically created for each database connector.
     default: TRUE
 
   cache.system:
@@ -135,6 +136,12 @@ config:
     type: logical
     description: If set to TRUE, all network accesses are blocked. This is mainly used for test purposes.
     default: FALSE
+
+  persistent.cache.impl:
+    title: The implementation to use for the persistent cache.
+    type: character
+    description: 'Choose either "custom" or "bioccache".'
+    default: custom
 
   proton.mass:
     title: The mass of one proton.

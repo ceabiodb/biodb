@@ -1,16 +1,13 @@
-#' A class for handling file caching.
+#' The abstract class for handling file caching.
 #'
-#' This class manages a cache system for saving downloaded files and request
-#' results.
+#' This abstract class is the mother class of concrete classes that manage
+#' cache systems for saving downloaded files and request results.
 #'
 #' It is designed for internal use, but you can still access some of
 #' the read-only methods if you wish.
 #'
-#' Inside the cache folder, one folder is created for each cache ID (each remote
-#' database has one single cache ID, always the same ,except if you change its
-#' URL). In each of theses folders are stored the cache files for this database.
-#'
-#' @seealso \code{\link{BiodbMain}}.
+#' @seealso \code{\link{BiodbMain}}, \code{\link{BiodbBiocPersistentCache}},
+#' \code{\link{BiodbBiocPersistentCache}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -42,57 +39,14 @@
 #' @exportClass BiodbPersistentCache
 BiodbPersistentCache <- methods::setRefClass("BiodbPersistentCache",
     contains='BiodbChildObject',
+    fields=list(
+        cacheDir='ANY'
+                ),
     methods=list(
 
-getVersion=function() {
-    ":\n\nReturns the cache version.
-    \nReturned value: The current cache version.
-    "
-
-    version <- '0.1'
-
-    # Check version file
-    version_file <- file.path(.self$getDir(), 'VERSION')
-    if (file.exists(version_file))
-        version <- readLines(version_file)
-
-    return(version)
-},
-
-getDir=function() {
-    ":\n\nGets the absolute path to the cache directory.
-    \nReturned value: The absolute path of the cache directory.
-    "
-
-    cachedir <- .self$getBiodb()$getConfig()$get('cache.directory')
-
-    # Check old cache folder
-    env <- Sys.getenv()
-    if ('HOME' %in% names(env)) {
-        old_cachedir <- file.path(env[['HOME']], '.biodb.cache')
-        if ( ! is.null(cachedir) && ! is.na(cachedir)
-            && old_cachedir != cachedir && file.exists(old_cachedir)) {
-            if (file.exists(cachedir))
-                warn0('An old cache folder ("', old_cachedir,
-                    '") is still present on this machine, ',
-                    'but you are now using the new cache folder "',
-                    cachedir, '". Please, consider removing the old ',
-                    'location since it has no utility anymore.')
-            else {
-                # Move folder to new location
-                dir.create(dirname(cachedir), recursive=TRUE)
-                file.rename(old_cachedir, cachedir)
-                logInfo0('Cache folder location has been moved from "',
-                    old_cachedir, '" to "', cachedir, '".')
-            }
-        }
-    }
-
-    # Create cache dir if needed
-    if ( ! is.na(cachedir) && ! file.exists(cachedir))
-        dir.create(cachedir, recursive=TRUE)
-
-    return(cachedir)
+initialize=function(...) {
+    callSuper(...)
+    .self$cacheDir <- NULL
 },
 
 isReadable=function(conn=NULL) {
@@ -129,6 +83,60 @@ isWritable=function(conn=NULL) {
         enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
     
     return(enabled)
+},
+
+getDir=function() {
+
+    if ( is.null(.self$cacheDir)) {
+        
+        # Get configured cache
+        .self$cacheDir <- .self$getBiodb()$getConfig()$get('cache.directory')
+        
+        # Check old default folders
+        checkDeprecatedCacheFolders()
+        
+        # Use default cache if unset
+        if (is.null(.self$cacheDir) || is.na(.self$cacheDir)
+            || ! is.character(.self$cacheDir))
+            .self$cacheDir <- getDefaultCacheDir()
+
+        # Create cache dir if needed
+        if ( ! dir.exists(.self$cacheDir))
+            dir.create(.self$cacheDir, recursive=TRUE)
+    }
+
+    return(.self$cacheDir)
+},
+
+getFolderPath=function(cache.id) {
+    ":\n\nGets path to the cache system sub-folder dedicated to this cache ID.
+    \ncache.id: The cache ID to use.
+    \nReturned value: A string containing the path to the folder.
+    "
+
+    return(file.path(.self$getDir(), cache.id))
+},
+
+getFilePath=function(cache.id, name, ext) {
+    ":\n\nGets path of file in cache system.
+    \ncache.id: The cache ID to use.
+    \nname: A character vector containing file names.
+    \next: The extension of the files.
+    \nReturned value: A character vector, the same size as \\code{names},
+    containing the paths to the files.
+    "
+
+    # Replace unwanted characters
+    name <- gsub('[^A-Za-z0-9._-]', '_', name)
+
+    # Set file path
+    filepaths <- file.path(.self$getFolderPath(cache.id),
+        paste(name, '.', ext, sep=''))
+
+    # Set NA values
+    filepaths[is.na(name)] <- NA_character_
+
+    return(filepaths)
 },
 
 filesExist=function(cache.id) {
@@ -194,37 +202,6 @@ getTmpFolderPath=function() {
         dir.create(tmp_dir)
 
     return(tmp_dir)
-},
-
-getFolderPath=function(cache.id) {
-    ":\n\nGets path to the cache system sub-folder dedicated to this cache ID.
-    \ncache.id: The cache ID to use.
-    \nReturned value: A string containing the path to the folder.
-    "
-
-    return(file.path(.self$getDir(), cache.id))
-},
-
-getFilePath=function(cache.id, name, ext) {
-    ":\n\nGets path of file in cache system.
-    \ncache.id: The cache ID to use.
-    \nname: A character vector containing file names.
-    \next: The extension of the files.
-    \nReturned value: A character vector, the same size as \\code{names},
-    containing the paths to the files.
-    "
-
-    # Replace unwanted characters
-    name <- gsub('[^A-Za-z0-9._-]', '_', name)
-
-    # Set file path
-    filepaths <- file.path(.self$getFolderPath(cache.id),
-        paste(name, '.', ext, sep=''))
-
-    # Set NA values
-    filepaths[is.na(name)] <- NA_character_
-
-    return(filepaths)
 },
 
 getUsedCacheIds=function() {
@@ -528,7 +505,10 @@ show=function() {
     ":\n\nDisplays information about this object."
 
     cat("Biodb persistent cache system instance.\n")
-    cat("  The path to the cache system is: ", .self$getDir(), "\n", sep='')
+    cat("  The used implementation is: ",
+        .self$getBiodb()$getConfig()$get('persistent.cache.impl'), ".\n",
+        sep='')
+    cat("  The path to the cache system is: ", .self$getDir(), ".\n", sep='')
     cat("  The cache is ", (if (.self$isReadable()) "" else "not "),
         "readable.\n", sep='')
     cat("  The cache is ", (if (.self$isWritable()) "" else "not "),
