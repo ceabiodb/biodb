@@ -41,7 +41,7 @@ BiodbPersistentCache <- methods::setRefClass("BiodbPersistentCache",
     contains='BiodbChildObject',
     fields=list(
         cacheDir='ANY'
-                ),
+    ),
     methods=list(
 
 initialize=function(...) {
@@ -87,7 +87,7 @@ isWritable=function(conn=NULL) {
 
 getDir=function() {
 
-    if ( is.null(.self$cacheDir)) {
+    if (is.null(.self$cacheDir)) {
         
         # Get configured cache
         .self$cacheDir <- .self$getBiodb()$getConfig()$get('cache.directory')
@@ -108,13 +108,24 @@ getDir=function() {
     return(.self$cacheDir)
 },
 
-getFolderPath=function(cache.id) {
+getFolderPath=function(cache.id, create=TRUE, fail=FALSE) {
     ":\n\nGets path to the cache system sub-folder dedicated to this cache ID.
+    \ncreate: If set to TRUE and the folder does not exist, creates it.
+    \nfail: If set to TRUE, throws a warning if the folder does not exist.
     \ncache.id: The cache ID to use.
     \nReturned value: A string containing the path to the folder.
     "
 
-    return(file.path(.self$getDir(), cache.id))
+    path <- file.path(.self$getDir(), cache.id)
+
+    if ( ! dir.exists(path)) {
+        msg <- paste0('No cache files exist for ', cache.id, '.')
+        if (fail) warn(msg) else logInfo(msg)
+        if (create)
+            dir.create(path, recursive=TRUE)
+    }
+
+    return(path)
 },
 
 getFilePath=function(cache.id, name, ext) {
@@ -126,17 +137,19 @@ getFilePath=function(cache.id, name, ext) {
     containing the paths to the files.
     "
 
-    # Replace unwanted characters
-    name <- gsub('[^A-Za-z0-9._-]', '_', name)
+    chk::chk_string(cache.id)
+    chk::chk_character(name)
+    chk::chk_string(ext)
 
-    # Set file path
-    filepaths <- file.path(.self$getFolderPath(cache.id),
-        paste(name, '.', ext, sep=''))
-
-    # Set NA values
-    filepaths[is.na(name)] <- NA_character_
+    filepath <- name
+    filepath[ ! is.na(name)] <- .self$.doGetFilePath(cache.id,
+        name[ ! is.na(name)], ext)
 
     return(filepaths)
+},
+
+.doGetFilePath=function(cache.id, name, ext) {
+    .self$.abstractMethod()
 },
 
 filesExist=function(cache.id) {
@@ -145,10 +158,15 @@ filesExist=function(cache.id) {
     \nReturned value: A single boolean value.
     "
     
-    return(length(Sys.glob(file.path(.self$getFolderPath(cache.id), '*'))) > 0)
+    .self$.abstractMethod()
 },
 
 fileExist=function(cache.id, name, ext) {
+    lifecycle::deprecate_soft('1.1.0', 'fileExist()', "fileExists()")
+    return(.self$fileExists(cache.id, name, ext))
+},
+
+fileExists=function(cache.id, name, ext) {
     ":\n\nTests if a particular file exist in the cache.
     \ncache.id: The cache ID to use.
     \nname: A character vector containing file names.
@@ -158,7 +176,7 @@ fileExist=function(cache.id, name, ext) {
     otherwise.
     "
 
-    return(file.exists(.self$getFilePath(cache.id, name, ext)))
+    .self$.abstractMethod()
 },
 
 markerExist=function(cache.id, name) {
@@ -172,7 +190,7 @@ markerExist=function(cache.id, name) {
     otherwise.
     "
 
-    return(.self$fileExist(cache.id=cache.id, name=name, ext='marker'))
+    return(.self$fileExists(cache.id=cache.id, name=name, ext='marker'))
 },
 
 setMarker=function(cache.id, name) {
@@ -181,11 +199,6 @@ setMarker=function(cache.id, name) {
     \nname: A character vector containing marker names.
     \nReturned value: None.
     "
-
-    # Make sure the path exists
-    path <- file.path(.self$getDir(), cache.id)
-    if ( ! dir.exists(path))
-        dir.create(path, recursive=TRUE)
 
     marker.path <- .self$getFilePath(cache.id, name=name, ext='marker')
 
@@ -212,9 +225,9 @@ getUsedCacheIds=function() {
     
     ids <- character()
 
-    folders <- Sys.glob(file.path(.self$getDir(), '*'))
+    folders <- Sys.glob(file.path(.self$getDir(), '*-*'))
     ids <- basename(folders)
-    
+
     return(ids)
 },
 
@@ -327,16 +340,15 @@ saveContentToFile=function(content, cache.id, name, ext) {
     mapply(fct, content, file.paths)
 },
 
-.checkWritable=function(cache.id) {
+.checkWritable=function(cache.id, create=TRUE) {
 
     if ( ! .self$isWritable())
         error0('Attempt to write into non-writable cache. "',
             .self$getDir(), '".')
 
     # Make sure the path exists
-    path <- file.path(.self$getDir(), cache.id)
-    if ( ! dir.exists(path))
-        dir.create(path, recursive=TRUE)
+    if (create)
+        path <- .self$getFolderPath(cache.id)
 },
 
 moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
@@ -351,20 +363,27 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
     .self$.checkWritable(cache.id)
 
-    # Get destination file paths
-    dstFilePaths <- .self$getFilePath(cache.id, name, ext)
+    chk::chk_character(src.file.paths)
+    chk::chk_character(name)
+    chk::chk_string(cache.id)
+    chk::chk_string(ext)
 
-    # Check that we have the same number of src and dst file paths
-    if (length(src.file.paths) != length(dstFilePaths))
+    # Check that we have the same number of src and file names
+    if (length(src.file.paths) != length(name))
         error0('The number of files to move (', length(src.file.paths),
-            ') is different from the number of destination paths (',
-            length(dstFilePaths), ').')
+            ') is different from the number of file names (',
+            length(name), ').')
 
-    # Move files
     logTrace('Moving files to cache %s.', lst2str(src.file.paths))
-    logTrace('Destination files are %s.', lst2str(dstFilePaths))
-    file.rename(src.file.paths, dstFilePaths)
+
+    .self$.doMoveFilesToCache(cache.id, src=src.file.paths, name=name, ext=ext)
     logDebug('Done moving files.')
+
+    return(invisible(NULL))
+},
+
+.doMoveFilesToCache=function(cache,id, src, name, ext) {
+    .self$.abstractMethod()
 },
 
 erase=function() {
@@ -374,9 +393,15 @@ erase=function() {
 
     # Erase whole cache
     logInfo('Erasing cache "%s".', .self$getDir())
+    .self$.doErase()
     unlink(.self$getDir(), recursive=TRUE)
+    .self$cacheDir <- NULL
 
-    invisible(NULL)
+    return(invisible(NULL))
+},
+
+.doErase=function() {
+    .self$.abstractMethod()
 },
 
 deleteFile=function(cache.id, name, ext) {
@@ -387,17 +412,14 @@ deleteFile=function(cache.id, name, ext) {
     \nReturned value: None.
     "
 
-    if ( ! .self$isWritable())
-        error0('Attempt to write into non-writable cache. "',
-            .self$getDir(), '".')
+    .self$.checkWritable(cache.id, create=FALSE)
+    .self$.doDeleteFile(cache.id, name=name, ext=ext)
 
-    # Get file paths
-    file.paths <- .self$getFilePath(cache.id, name, ext)
+    return(invisible(NULL))
+},
 
-    # Delete files
-    lapply(file.paths, unlink)
-
-    invisible(NULL)
+.doDeleteFile=function(cache.id, name, ext) {
+    .self$.abstractMethod()
 },
 
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
@@ -410,29 +432,22 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
     \nReturned value: None.
     "
 
-    paths <- character()
+    lifecycle::deprecate_stop("1.1.0", "deleteAllFiles(prefix)")
+    chk::chk_string(cache.id)
+    chk::chk_flag(fail)
 
-    # Set paths
-    if (prefix) {
-        paths <- Sys.glob(file.path(.self$getDir(), paste0(cache.id, '*')))
-    }
-    else {
-        path <- file.path(.self$getDir(), cache.id)
-        if ( ! file.exists(path)) {
-            msg <- paste0('No cache files exist for ', cache.id, '.')
-            if (fail) warn(msg) else logInfo(msg)
-        }
-        else
-            paths <- path
-    }
+    .self$.checkWritable(cache.id, create=FALSE)
 
-    # Erase cache files
-    for (path in paths) {
-        logInfo('Erasing all files in "%s".', path)
-        unlink(path, recursive=TRUE)
-    }
+    path <- .self$getFolderPath(cache.id, fail=fail, create=FALSE)
+    logInfo('Erasing all files in "%s".', path)
+    .self$.doDeleteAllFiles(cache.id)
+    unlink(path, recursive=TRUE)
 
-    invisible(NULL)
+    return(invisible(NULL))
+},
+
+.doDeleteAllFiles=function(cache.id) {
+    .self$.abstractMethod()
 },
 
 deleteFiles=function(cache.id, ext) {
@@ -447,18 +462,15 @@ deleteFiles=function(cache.id, ext) {
     chk::chk_string(cache.id)
     chk::chk_string(ext)
     
-    if ( ! .self$isWritable())
-        error0('Attempt to write into non-writable cache. "',
-            .self$getDir(), '".')
+    .self$.checkWritable(cache.id, create=FALSE)
 
     files <- paste('*', ext, sep='.')
-
-    unlink(file.path(.self$getDir(), cache.id, files))
+    unlink(file.path(.self$getFolderPath(cache.id), files))
     
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
-listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
+listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
     full.path=FALSE) {
     ":\n\nLists files present in the cache system.
     \ncache.id: The cache ID to use.
@@ -471,34 +483,38 @@ listFiles=function(cache.id, ext=NA_character_, extract.name=FALSE,
     \\code{extract.name} is set to \\code{TRUE}.
     "
 
+    chk::chk_string(cache.id)
+    chk::chk_null_or(ext, chk::chk_string)
+    chk::chk_flag(extract.name)
+    chk::chk_flag(full.path)
+    if (full.path)
+        extract.name <- FALSE
+
     # Pattern
     pattern <- paste('^.*', sep='')
-    if ( ! is.na(ext))
+    if ( ! is.null(ext))
         pattern <- paste(pattern, ext, sep='\\.')
     pattern <- paste(pattern, '$', sep='')
 
-    # List files
-    path <- .self$getFolderPath(cache.id=cache.id)
-    logDebug("List files in %s using pattern %s.", path, pattern)
-    files <- list.files(path=path, pattern=pattern)
+    files <- .self$.doListFiles(cache.id, pattern=pattern, full.path=full.path)
 
     # Extract only the name part
     if (extract.name) {
         pattern <- paste('^(.*)', sep='')
-        if ( ! is.na(ext))
+        if ( ! is.null(ext))
             pattern <- paste(pattern, ext, sep='\\.')
         pattern <- paste(pattern, '$', sep='')
         logDebug0("Extracting accession number from file names in ", path,
         " using pattern ", pattern)
         logDebug("files = %s", paste(head(files), collapse=", "))
         files <- sub(pattern, '\\1', files, perl=TRUE)
-        
-    # Set full path
-    } else if (full.path) {
-        files <- file.path(path, files)
     }
 
     return(files)
+},
+
+.doListFiles=function(cache.id, pattern, full.path) {
+    .self$.abstractMethod()
 },
 
 show=function() {
