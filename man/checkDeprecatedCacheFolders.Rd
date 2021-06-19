@@ -6,6 +6,14 @@
 \usage{
 checkDeprecatedCacheFolders()
 }
+\value{
+Nothing.
+}
 \description{
-Check deprecated default cache folders.
+Searches for a deprecated location of the default cache folder, and moves
+files to the new location if possible. Otherwise raises a warning.
+}
+\examples{
+biodb::checkDeprecatedCacheFolders()
+
 }

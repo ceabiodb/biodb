@@ -22,8 +22,8 @@ Deletes, in the cache system, all files associated with this cache ID.
     
 cache.id: The cache ID to use.
     
-prefix: If set to TRUE, use cache.id as a prefix, deleting all files
-    whose cache.id starts with this prefix.
+prefix: DEPRECATED If set to TRUE, use cache.id as a prefix, deleting all
+    files whose cache.id starts with this prefix.
     
 fail: If set to TRUE, a warning will be emitted if no cache files exist
     for this cache ID.
@@ -82,7 +82,7 @@ Erases the whole cache.
 Returned value: None.
     }
 
-\item{\code{fileExist(cache.id, name, ext)}}{:
+\item{\code{fileExists(cache.id, name, ext)}}{:
 
 Tests if a particular file exist in the cache.
     
@@ -106,6 +106,15 @@ cache.id: The cache ID to use.
 Returned value: A single boolean value.
     }
 
+\item{\code{folderExists(cache.id)}}{:
+
+Tests if a cache folder exists for this cache ID.
+    
+cache.id: The cache ID to use.
+    
+Returned value: TRUE if a cache folder exists.
+    }
+
 \item{\code{getFilePath(cache.id, name, ext)}}{:
 
 Gets path of file in cache system.
@@ -120,11 +129,15 @@ Returned value: A character vector, the same size as \code{names},
     containing the paths to the files.
     }
 
-\item{\code{getFolderPath(cache.id)}}{:
+\item{\code{getFolderPath(cache.id, create = TRUE, fail = FALSE)}}{:
 
 Gets path to the cache system sub-folder dedicated to this cache ID.
     
 cache.id: The cache ID to use.
+    
+create: If set to TRUE and the folder does not exist, creates it.
+    
+fail: If set to TRUE, throws a warning if the folder does not exist.
     
 Returned value: A string containing the path to the folder.
     }
@@ -166,12 +179,7 @@ Returned value: \code{TRUE} if the cache system is writable,
     \code{FALSE} otherwise.
     }
 
-\item{\code{listFiles(
-  cache.id,
-  ext = NA_character_,
-  extract.name = FALSE,
-  full.path = FALSE
-)}}{:
+\item{\code{listFiles(cache.id, ext = NULL, extract.name = FALSE, full.path = FALSE)}}{:
 
 Lists files present in the cache system.
     

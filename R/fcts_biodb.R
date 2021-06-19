@@ -368,7 +368,7 @@ error0 <- function(...) {
 #' @examples
 #' cacheFolderPath <- biodb::getDefaultCacheDir()
 #'
-#' @import tools
+#' @importFrom tools R_user_dir
 #' @export
 getDefaultCacheDir <- function() {
     return(tools::R_user_dir('biodb', which="cache"))
