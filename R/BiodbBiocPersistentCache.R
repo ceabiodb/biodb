@@ -10,13 +10,13 @@
 BiodbBiocPersistentCache <- methods::setRefClass('BiodbBiocPersistentCache',
     contains='BiodbPersistentCache',
     fields=list(
-        bfc='ANY' # A list of created BiocFileCache objects
+        cacheId2Bfc='ANY' # A list of created BiocFileCache objects
     ),
     methods=list(
 
 initialize=function(...) {
     callSuper(...)
-    .self$bfc <- list()
+    .self$cacheId2Bfc <- list()
 },
 
 .getBfc=function(cache.id, create=FALSE) {
@@ -24,8 +24,8 @@ initialize=function(...) {
     bfc <- NULL
 
     # Already exists
-    if (cache.id %in% names(.self$bfc))
-        bfc <-.self$bfc[[cache.id]]
+    if (cache.id %in% names(.self$cacheId2Bfc))
+        bfc <-.self$cacheId2Bfc[[cache.id]]
 
     # Instantiate
     else if (create || .self$folderExists(cache.id)) {
@@ -41,7 +41,7 @@ initialize=function(...) {
             cachedFiles <- Sys.glob(file.path(folder, '*'))
 
         # Create/Instantiate bfc
-        .self$bfc <- BiocFileCache::BiocFileCache(folder, ask=FALSE)
+        .self$cacheId2Bfc <- BiocFileCache::BiocFileCache(folder, ask=FALSE)
 
         # Integrate existing files
         if ( ! is.null(cachedFiles) && length(cachedFiles) > 0) {
@@ -55,7 +55,7 @@ initialize=function(...) {
             }
         }
 
-        bfc <-.self$bfc[[cache.id]]
+        bfc <-.self$cacheId2Bfc[[cache.id]]
     }
 
     return(bfc)
@@ -110,7 +110,7 @@ initialize=function(...) {
 },
 
 .doErase=function() {
-    .self$bfc <- list()
+    .self$cacheId2Bfc <- list()
 
     return(invisible(NULL))
 },
@@ -132,8 +132,9 @@ initialize=function(...) {
 },
 
 .doDeleteAllFiles=function(cache.id) {
-    if (cache.id %in% names(.self$bfc))
-        .self$bfc[[cache.id]] <- NULL
+
+    if (cache.id %in% names(.self$cacheId2Bfc))
+        .self$cacheId2Bfc[[cache.id]] <- NULL
 
     return(invisible(NULL))
 },
