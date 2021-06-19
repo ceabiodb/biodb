@@ -110,22 +110,40 @@ getDir=function() {
 
 getFolderPath=function(cache.id, create=TRUE, fail=FALSE) {
     ":\n\nGets path to the cache system sub-folder dedicated to this cache ID.
+    \ncache.id: The cache ID to use.
     \ncreate: If set to TRUE and the folder does not exist, creates it.
     \nfail: If set to TRUE, throws a warning if the folder does not exist.
-    \ncache.id: The cache ID to use.
     \nReturned value: A string containing the path to the folder.
     "
+
+    chk::chk_string(cache.id)
+    chk::chk_flag(create)
+    chk::chk_flag(fail)
 
     path <- file.path(.self$getDir(), cache.id)
 
     if ( ! dir.exists(path)) {
-        msg <- paste0('No cache files exist for ', cache.id, '.')
-        if (fail) warn(msg) else logInfo(msg)
-        if (create)
+        if (fail) {
+            warn('No cache folder "%s" exists for "%s".', path, cache.id)
+            if ( ! create)
+                path <- NULL
+        }
+        if (create) {
+            logInfo('Create cache folder "%s" for "%s".', path, cache.id)
             dir.create(path, recursive=TRUE)
+        }
     }
 
     return(path)
+},
+
+folderExists=function(cache.id) {
+    ":\n\nTests if a cache folder exists for this cache ID.
+    \ncache.id: The cache ID to use.
+    \nReturned value: TRUE if a cache folder exists.
+    "
+
+    return(dir.exists(.self$getFolderPath(cache.id, create=FALSE)))
 },
 
 getFilePath=function(cache.id, name, ext) {
@@ -145,7 +163,7 @@ getFilePath=function(cache.id, name, ext) {
     filepath[ ! is.na(name)] <- .self$.doGetFilePath(cache.id,
         name[ ! is.na(name)], ext)
 
-    return(filepaths)
+    return(filepath)
 },
 
 .doGetFilePath=function(cache.id, name, ext) {
@@ -425,23 +443,26 @@ deleteFile=function(cache.id, name, ext) {
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
     ":\n\nDeletes, in the cache system, all files associated with this cache ID.
     \ncache.id: The cache ID to use.
-    \nprefix: If set to TRUE, use cache.id as a prefix, deleting all files
-    whose cache.id starts with this prefix.
+    \nprefix: DEPRECATED If set to TRUE, use cache.id as a prefix, deleting all
+    files whose cache.id starts with this prefix.
     \nfail: If set to TRUE, a warning will be emitted if no cache files exist
     for this cache ID.
     \nReturned value: None.
     "
 
-    lifecycle::deprecate_stop("1.1.0", "deleteAllFiles(prefix)")
+    if ( ! missing(prefix))
+        lifecycle::deprecate_stop("1.1.0", "deleteAllFiles(prefix)")
     chk::chk_string(cache.id)
     chk::chk_flag(fail)
 
     .self$.checkWritable(cache.id, create=FALSE)
 
     path <- .self$getFolderPath(cache.id, fail=fail, create=FALSE)
-    logInfo('Erasing all files in "%s".', path)
-    .self$.doDeleteAllFiles(cache.id)
-    unlink(path, recursive=TRUE)
+    if (.self$folderExists(cache.id)) {
+        logInfo('Erasing all files in "%s".', path)
+        .self$.doDeleteAllFiles(cache.id)
+        unlink(path, recursive=TRUE)
+    }
 
     return(invisible(NULL))
 },
@@ -504,8 +525,8 @@ listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
         if ( ! is.null(ext))
             pattern <- paste(pattern, ext, sep='\\.')
         pattern <- paste(pattern, '$', sep='')
-        logDebug0("Extracting accession number from file names in ", path,
-        " using pattern ", pattern)
+        logDebug0("Extracting accession number from file names associated ",
+        "with ", cache.id, " using pattern ", pattern)
         logDebug("files = %s", paste(head(files), collapse=", "))
         files <- sub(pattern, '\\1', files, perl=TRUE)
     }

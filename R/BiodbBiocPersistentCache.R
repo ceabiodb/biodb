@@ -19,18 +19,51 @@ initialize=function(...) {
     .self$bfc <- list()
 },
 
-.getBfc=function(cache.id) {
+.getBfc=function(cache.id, create=FALSE) {
 
-    if ( ! cache.id %in% names(.self$bfc))
-        .self$bfc <- BiocFileCache::BiocFileCache(.self$getFolderPath(cache.id),
-            ask=FALSE)
+    bfc <- NULL
 
-    return(.self$bfc[[cache.id]])
+    # Already exists
+    if (cache.id %in% names(.self$bfc))
+        bfc <-.self$bfc[[cache.id]]
+
+    # Instantiate
+    else if (create || .self$folderExists(cache.id)) {
+
+        cachedFiles <- NULL
+
+        # Get cache folder
+        folder <- .self$getFolderPath(cache.id)
+
+        # Is this an upgrade?
+        upgrade <- ! file.exists(file.path(folder, 'BiocFileCache.sqlite'))
+        if (upgrade)
+            cachedFiles <- Sys.glob(file.path(folder, '*'))
+
+        # Create/Instantiate bfc
+        .self$bfc <- BiocFileCache::BiocFileCache(folder, ask=FALSE)
+
+        # Integrate existing files
+        if ( ! is.null(cachedFiles) && length(cachedFiles) > 0) {
+            msg <- sprintf('Converting cache folder of %s into BiocFileCache',
+                cache.id)
+            prg <- Progress$new(biodb=.self$getBiodb(), msg=msg,
+                total=length(cachedFiles))
+            for (f in cachedFiles) {
+                BiocFileCache::bfcadd(bfc, basename(f), f, action='move')
+                prg$increment()
+            }
+        }
+
+        bfc <-.self$bfc[[cache.id]]
+    }
+
+    return(bfc)
 },
 
 .doGetFilePath=function(cache.id, name, ext) {
 
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$getBfc(cache.id, create=TRUE)
     filename <- paste(name, ext, sep='.')
     return(BiocFileCache::bfcrpath(bfc, filename))
 },
@@ -38,26 +71,45 @@ initialize=function(...) {
 filesExist=function(cache.id) {
     # Overwrites super class' method
 
+    chk::chk_string(cache.id)
+
+    fExist <- FALSE
     bfc <- .self$getBfc(cache.id)
-    result <- BiocFileCache::bfcquery(bfc, '.*', file='rname')
-    return(BiocFileCache::bfccount(result) > 0)
+    if ( ! is.null(bfc)) {
+        result <- BiocFileCache::bfcquery(bfc, '.*', file='rname')
+        fExist <- BiocFileCache::bfccount(result) > 0
+    }
+
+    return(fExist)
 },
 
 fileExists=function(cache.id, name, ext) {
     # Overwrites super class' method
 
+    chk::chk_string(cache.id)
+    chk::chk_character(name)
+    chk::chk_string(ext)
+
+    fExists <- NULL
+
     bfc <- .self$getBfc(cache.id)
-    filenames <- paste(name, ext, sep='.')
-    fct <- function(f) {
-        result <- BiocFileCache::bfcquery(bfc, f, file='rname', exact=TRUE)
-        return(BiocFileCache::bfccount(result) > 0)
+    if (is.null(bfc)) {
+        fExists <- rep(FALSE, length(name))
+    } else {
+        filenames <- paste(name, ext, sep='.')
+        fct <- function(f) {
+            result <- BiocFileCache::bfcquery(bfc, f, file='rname', exact=TRUE)
+            return(BiocFileCache::bfccount(result) > 0)
+        }
+        fExists <- vapply(filenames, fct, FUN.VALUE=TRUE)
     }
-    return(vapply(filenames, fct, FUN.VALUE=TRUE))
+
+    return(fExists)
 },
 
 .doMoveFilesToCache=function(cache,id, src, name, ext) {
 
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$getBfc(cache.id, create=TRUE)
     filenames <- paste(name, ext, sep='.')
     for (i in seq_along(src))
         BiocFileCache::bfcadd(bfc, filenames[[i]], src[[i]], action='move')
@@ -67,30 +119,42 @@ fileExists=function(cache.id, name, ext) {
 
 .doErase=function() {
     .self$bfc <- list()
+
+    return(invisible(NULL))
 },
 
 .doDeleteFile=function(cache.id, name, ext) {
 
     bfc <- .self$getBfc(cache.id)
-    filenames <- paste(name, ext, sep='.')
-    rids <- character()
-    for (filename in filenames) {
-        result <- BiocFileCache::bfcquery(bfc, filename, file='rname', exact=TRUE)
-        rids <- c(rids, result$rid)
+    if ( ! is.null(bfc)) {
+        filenames <- paste(name, ext, sep='.')
+        rids <- character()
+        for (filename in filenames) {
+            result <- BiocFileCache::bfcquery(bfc, filename, file='rname', exact=TRUE)
+            rids <- c(rids, result$rid)
+        }
+        BiocFileCache::bfcremove(bfc, rids)
     }
-    BiocFileCache::bfcremove(bfc, rids)
+
+    return(invisible(NULL))
 },
 
 .doDeleteAllFiles=function(cache.id) {
     if (cache.id %in% names(.self$bfc))
         .self$bfc[[cache.id]] <- NULL
+
+    return(invisible(NULL))
 },
 
 .doListFiles=function(cache.id, pattern, full.path) {
 
     bfc <- .self$getBfc(cache.id)
-    result <- BiocFileCache::bfcquery(bfc, pattern, file='rname')
-    files <- if (full.path) result$rpath else result$rname
+    if (is.null(bfc)) {
+        result <- BiocFileCache::bfcquery(bfc, pattern, file='rname')
+        files <- if (full.path) result$rpath else result$rname
+    } else {
+        files <- character()
+    }
 
     return(files)
 }

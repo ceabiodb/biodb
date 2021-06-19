@@ -38,10 +38,12 @@ test_deleteFilesForWrongCacheId <- function(biodb) {
     cache <- biodb$getPersistentCache()
     
     cacheId <- 'foo'
-    msg <- paste0("^.*No cache files exist for ",
-                  cacheId, ".$")
+    if (cache$folderExists(cacheId))
+        cache$deleteAllFiles(cacheId)
+        
+    msg <- paste0('^.*No cache folder .* exists for "', cacheId, '".$')
     testthat::expect_warning(cache$deleteAllFiles(cacheId, fail=TRUE), msg,
-                             perl=TRUE)
+        perl=TRUE)
 }
 
 test_filesExistForConn <- function(conn) {
@@ -54,6 +56,8 @@ test_filesExistForConn <- function(conn) {
 test_noFilesExist <- function(biodb) {
     cache <- biodb$getPersistentCache()
     cacheId <- 'foo'
+    if (cache$folderExists(cacheId))
+        cache$deleteAllFiles(cacheId)
     testthat::expect_false(cache$filesExist(cacheId))
 }
 
@@ -81,9 +85,8 @@ test_deleteAllFiles <- function(conn) {
     conn$deleteAllEntriesFromVolatileCache()
     entries <- conn$getEntry(ids)
     testthat::expect_true(cache$filesExist(conn$getCacheId()))
-    cache$deleteAllFiles(conn$getId(), prefix=FALSE)
-    testthat::expect_true(cache$filesExist(conn$getCacheId()))
-    cache$deleteAllFiles(conn$getId(), prefix=TRUE)
+    testthat::expect_error(cache$deleteAllFiles(conn$getId(), prefix=FALSE))
+    cache$deleteAllFiles(conn$getId())
     testthat::expect_false(cache$filesExist(conn$getCacheId()))
 }
 
