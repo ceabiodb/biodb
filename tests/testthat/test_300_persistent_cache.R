@@ -85,8 +85,8 @@ test_deleteAllFiles <- function(conn) {
     conn$deleteAllEntriesFromVolatileCache()
     entries <- conn$getEntry(ids)
     testthat::expect_true(cache$filesExist(conn$getCacheId()))
-    testthat::expect_error(cache$deleteAllFiles(conn$getId(), prefix=FALSE))
-    cache$deleteAllFiles(conn$getId())
+    testthat::expect_error(cache$deleteAllFiles(conn$getCacheId(), prefix=FALSE))
+    cache$deleteAllFiles(conn$getCacheId())
     testthat::expect_false(cache$filesExist(conn$getCacheId()))
 }
 
