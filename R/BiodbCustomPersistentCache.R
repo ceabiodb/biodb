@@ -27,15 +27,11 @@ BiodbCustomPersistentCache <- methods::setRefClass('BiodbCustomPersistentCache',
     return(filepaths)
 },
 
-filesExist=function(cache.id) {
-    # Overwrites super class' method
-
+.doFilesExist=function(cache.id) {
     return(length(Sys.glob(file.path(.self$getFolderPath(cache.id), '*'))) > 0)
 },
 
-fileExists=function(cache.id, name, ext) {
-    # Overwrites super class' method
-
+.doFileExists=function(cache.id, name, ext) {
     return(file.exists(.self$getFilePath(cache.id, name, ext)))
 },
 

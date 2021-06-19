@@ -1,3 +1,5 @@
+.CACHE_ID_PATTERN <- '^.+-[0-9a-f]{16,}$'
+
 #' The abstract class for handling file caching.
 #'
 #' This abstract class is the mother class of concrete classes that manage
@@ -117,6 +119,7 @@ getFolderPath=function(cache.id, create=TRUE, fail=FALSE) {
     "
 
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_flag(create)
     chk::chk_flag(fail)
 
@@ -143,6 +146,9 @@ folderExists=function(cache.id) {
     \nReturned value: TRUE if a cache folder exists.
     "
 
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+
     return(dir.exists(.self$getFolderPath(cache.id, create=FALSE)))
 },
 
@@ -156,6 +162,7 @@ getFilePath=function(cache.id, name, ext) {
     "
 
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_character(name)
     chk::chk_string(ext)
 
@@ -176,6 +183,13 @@ filesExist=function(cache.id) {
     \nReturned value: A single boolean value.
     "
     
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+
+    return(.self$.doFilesExist(cache.id))
+},
+
+.doFilesExist=function(cache.id) {
     .self$.abstractMethod()
 },
 
@@ -194,6 +208,15 @@ fileExists=function(cache.id, name, ext) {
     otherwise.
     "
 
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+    chk::chk_character(name)
+    chk::chk_string(ext)
+
+    return(.self$.doFileExists(cache.id, name, ext))
+},
+
+.doFileExists=function(cache.id, name, ext) {
     .self$.abstractMethod()
 },
 
@@ -263,6 +286,12 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     the list.
     "
 
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+    chk::chk_character(name)
+    chk::chk_string(ext)
+    chk::chk_flag(output.vector)
+
     if ( ! .self$isReadable())
         error0("Attempt to read from non-readable cache \"",
             .self$getDir(), "\".")
@@ -329,6 +358,12 @@ saveContentToFile=function(content, cache.id, name, ext) {
     \nReturned value: None.
     "
 
+    chk::chkor(chk::chk_character(content), chk::chk_list(content))
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+    chk::chk_character(name)
+    chk::chk_string(ext)
+
     .self$.checkWritable(cache.id)
 
     # Get file paths
@@ -379,12 +414,13 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
     \nReturned value: None.
     "
 
-    .self$.checkWritable(cache.id)
-
     chk::chk_character(src.file.paths)
     chk::chk_character(name)
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_string(ext)
+
+    .self$.checkWritable(cache.id)
 
     # Check that we have the same number of src and file names
     if (length(src.file.paths) != length(name))
@@ -430,6 +466,11 @@ deleteFile=function(cache.id, name, ext) {
     \nReturned value: None.
     "
 
+    chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
+    chk::chk_character(name)
+    chk::chk_string(ext)
+
     .self$.checkWritable(cache.id, create=FALSE)
     .self$.doDeleteFile(cache.id, name=name, ext=ext)
 
@@ -453,6 +494,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
     if ( ! missing(prefix))
         lifecycle::deprecate_stop("1.1.0", "deleteAllFiles(prefix)")
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_flag(fail)
 
     .self$.checkWritable(cache.id, create=FALSE)
@@ -481,6 +523,7 @@ deleteFiles=function(cache.id, ext) {
     "
 
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_string(ext)
     
     .self$.checkWritable(cache.id, create=FALSE)
@@ -505,6 +548,7 @@ listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
     "
 
     chk::chk_string(cache.id)
+    chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_null_or(ext, chk::chk_string)
     chk::chk_flag(extract.name)
     chk::chk_flag(full.path)

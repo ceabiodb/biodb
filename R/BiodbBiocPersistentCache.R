@@ -68,10 +68,7 @@ initialize=function(...) {
     return(BiocFileCache::bfcrpath(bfc, filename))
 },
 
-filesExist=function(cache.id) {
-    # Overwrites super class' method
-
-    chk::chk_string(cache.id)
+.doFilesExist=function(cache.id) {
 
     fExist <- FALSE
     bfc <- .self$getBfc(cache.id)
@@ -83,12 +80,7 @@ filesExist=function(cache.id) {
     return(fExist)
 },
 
-fileExists=function(cache.id, name, ext) {
-    # Overwrites super class' method
-
-    chk::chk_string(cache.id)
-    chk::chk_character(name)
-    chk::chk_string(ext)
+.doFileExists=function(cache.id, name, ext) {
 
     fExists <- NULL
 

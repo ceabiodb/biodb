@@ -37,7 +37,7 @@ test_deleteFilesForWrongCacheId <- function(biodb) {
     
     cache <- biodb$getPersistentCache()
     
-    cacheId <- 'foo'
+    cacheId <- 'foo-1234567890abcdef01234'
     if (cache$folderExists(cacheId))
         cache$deleteAllFiles(cacheId)
         
@@ -55,7 +55,7 @@ test_filesExistForConn <- function(conn) {
 
 test_noFilesExist <- function(biodb) {
     cache <- biodb$getPersistentCache()
-    cacheId <- 'foo'
+    cacheId <- 'foo-1234567890abcdef01234'
     if (cache$folderExists(cacheId))
         cache$deleteAllFiles(cacheId)
     testthat::expect_false(cache$filesExist(cacheId))
