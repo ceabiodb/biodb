@@ -317,25 +317,6 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     logTrace('Loaded %d files from cache: %s.', length(file.paths),
         lst2str(file.paths))
 
-#    # Read content
-#    rdCnt <- function(x) {
-#        if (is.na(x))
-#            NA_character_
-#        else if ( ! file.exists(x))
-#            NULL
-#        else if (ext == 'RData') {
-#            load(x)
-#            c
-#        } else
-#            readChar(x, file.info(x)$size, useBytes=TRUE)
-#    }
-
-    # Read contents from files
-#    logTrace('Trying to load from cache %s', lst2str(file.paths))
-#    content <- lapply(file.paths,  rdCnt)
-#    files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-#    logTrace('Loaded from cache %s', lst2str(files.read))
-
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
         n <- tryCatch(nchar(content[[i]]), error=function(e) NULL)
