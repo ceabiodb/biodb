@@ -167,8 +167,9 @@ getFilePath=function(cache.id, name, ext) {
     chk::chk_string(ext)
 
     filepath <- name
-    filepath[ ! is.na(name)] <- .self$.doGetFilePath(cache.id,
-        name[ ! is.na(name)], ext)
+    is.valid.name <- (! is.na(name)) & (name != '')
+    filepath[is.valid.name] <- .self$.doGetFilePath(cache.id,
+        name[is.valid.name], ext)
 
     return(filepath)
 },
@@ -251,6 +252,14 @@ getTmpFolderPath=function() {
     \nReturned value: A string containing the path to the folder.
     "
 
+    # This temporary folder located inside the cache folder is needed in order
+    # to be able to move/rename files into the right cache location.
+    # When creating files in the system temporary folder, which may reside on a
+    # different partition, moving a file could fail as in the following error:
+    #     cannot rename file '/tmp/Rtmpld18y7/10182e3a086e7b8a7.tsv' to
+    #     '/home/pr228844/dev/biodb/cache/comp.csv.file-58e...c4/2e3...a7.tsv',
+    #     reason 'Invalid cross-device link'
+
     tmp_dir <- file.path(.self$getDir(), 'tmp')
     if ( ! dir.exists(tmp_dir))
         dir.create(tmp_dir)
@@ -296,27 +305,36 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
         error0("Attempt to read from non-readable cache \"",
             .self$getDir(), "\".")
 
-    content <- NULL
+    logTrace('Trying to load %d files from cache.', length(name))
+    content <- rep(list(NULL), length(name))
+    file.exist <- .self$fileExists(cache.id, name, ext)
+    content[is.na(name)] <- NA_character_
+    content[name == ""] <- NA_character_
+    fct <- if (ext == 'RData') function(f) { load(f) ; c } else
+        function(n) readChar(f, file.info(f)$size, useBytes=TRUE)
+    file.paths <- .self$getFilePath(cache.id, name[file.exist], ext)
+    content[file.exist] <- lapply(file.paths, fct)
+    logTrace('Loaded %d files from cache: %s.', length(file.paths),
+        lst2str(file.paths))
 
-    # Read content
-    rdCnt <- function(x) {
-        if (is.na(x))
-            NA_character_
-        else if ( ! file.exists(x))
-            NULL
-        else if (ext == 'RData') {
-            load(x)
-            c
-        } else
-            readChar(x, file.info(x)$size, useBytes=TRUE)
-    }
+#    # Read content
+#    rdCnt <- function(x) {
+#        if (is.na(x))
+#            NA_character_
+#        else if ( ! file.exists(x))
+#            NULL
+#        else if (ext == 'RData') {
+#            load(x)
+#            c
+#        } else
+#            readChar(x, file.info(x)$size, useBytes=TRUE)
+#    }
 
     # Read contents from files
-    file.paths <- .self$getFilePath(cache.id, name, ext)
-    logTrace('Trying to load from cache %s', lst2str(file.paths))
-    content <- lapply(file.paths,  rdCnt)
-    files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
-    logTrace('Loaded from cache %s', lst2str(files.read))
+#    logTrace('Trying to load from cache %s', lst2str(file.paths))
+#    content <- lapply(file.paths,  rdCnt)
+#    files.read <- file.paths[ ! vapply(content, is.null, FUN.VALUE=TRUE)]
+#    logTrace('Loaded from cache %s', lst2str(files.read))
 
     # Check that the read content is not conflicting with the current locale
     for (i in seq(content)) {
@@ -366,31 +384,29 @@ saveContentToFile=function(content, cache.id, name, ext) {
 
     .self$.checkWritable(cache.id)
 
-    # Get file paths
-    file.paths <- .self$getFilePath(cache.id, name, ext)
-
-    # Check that we have the same number of content and file paths
-    if (length(file.paths) != length(content))
+    # Check that we have the same number of content and names
+    if (length(name) != length(content))
         error0('The number of content to save (', length(content),
-            ') is different from the number of paths (', length(file.paths),
+            ') is different from the number of names (', length(name),
             ').')
+
+    # Remove elements with NULL content
+    nulls <- vapply(content, is.null, FUN.VALUE=TRUE)
+    content <- content[ ! nulls]
+    name <- name[ ! nulls]
 
     # Replace NA values with 'NA' string
     content[is.na(content)] <- 'NA'
 
-    # Write content to files
-    logTrace('Saving to cache %s', lst2str(file.paths))
-    fct <- function(cnt, f) {
-        if ( ! is.null(cnt)) {
-            if ( ! is.character(cnt))
-                cnt <- jsonlite::toJSON(cnt, pretty=TRUE,
-                                        digits=NA_integer_)
-            # Use cat instead of writeChar, because writeChar was not
-            # working with some unicode string (wrong string length).
-            cat(cnt, file=f)
-        }
-    }
-    mapply(fct, content, file.paths)
+    # Encode non character contents into JSON
+    chars <- vapply(content, is.character, FUN.VALUE=TRUE)
+    content[ ! chars] <- vapply(content[ ! chars], jsonlite::toJSON,
+        FUN.VALUE='', pretty=TRUE, digits=NA_integer_)
+
+    # Save content
+    .self$.doSaveContentToFile(cache.id, content=content, name=name, ext=ext)
+
+    return(invisible(NULL))
 },
 
 .checkWritable=function(cache.id, create=TRUE) {
@@ -402,6 +418,8 @@ saveContentToFile=function(content, cache.id, name, ext) {
     # Make sure the path exists
     if (create)
         path <- .self$getFolderPath(cache.id)
+
+    return(invisible(NULL))
 },
 
 moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {

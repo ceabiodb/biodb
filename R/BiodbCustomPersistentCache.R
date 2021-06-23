@@ -70,5 +70,20 @@ BiodbCustomPersistentCache <- methods::setRefClass('BiodbCustomPersistentCache',
         files <- file.path(path, files)
         
     return(files)
+},
+
+.doSaveContentToFile=function(cache.id, content, name, ext) {
+
+    # Get file paths
+    file.paths <- .self$getFilePath(cache.id, name, ext)
+
+    # Write content to files
+    logTrace('Saving to cache %s', lst2str(file.paths))
+    # Use cat instead of writeChar, because writeChar is not
+    # working with some unicode string (wrong string length).
+    mapply(function(cnt, f) cat(cnt, file=f), content, file.paths)
+
+    return(invisible(NULL))
 }
+
 ))

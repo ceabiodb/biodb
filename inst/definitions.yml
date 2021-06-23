@@ -140,8 +140,8 @@ config:
   persistent.cache.impl:
     title: The implementation to use for the persistent cache.
     type: character
-    description: 'Choose either "custom" or "bioccache".'
-    default: custom
+    description: 'Choose either "custom" or "bioc".'
+    default: bioc
 
   proton.mass:
     title: The mass of one proton.

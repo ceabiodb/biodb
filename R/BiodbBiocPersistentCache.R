@@ -41,7 +41,7 @@ initialize=function(...) {
             cachedFiles <- Sys.glob(file.path(folder, '*'))
 
         # Create/Instantiate bfc
-        .self$cacheId2Bfc <- BiocFileCache::BiocFileCache(folder, ask=FALSE)
+        bfc <- BiocFileCache::BiocFileCache(folder, ask=FALSE)
 
         # Integrate existing files
         if ( ! is.null(cachedFiles) && length(cachedFiles) > 0) {
@@ -55,7 +55,7 @@ initialize=function(...) {
             }
         }
 
-        bfc <-.self$cacheId2Bfc[[cache.id]]
+        .self$cacheId2Bfc[[cache.id]] <- bfc
     }
 
     return(bfc)
@@ -63,17 +63,23 @@ initialize=function(...) {
 
 .doGetFilePath=function(cache.id, name, ext) {
 
-    bfc <- .self$getBfc(cache.id, create=TRUE)
-    filename <- paste(name, ext, sep='.')
-    return(BiocFileCache::bfcrpath(bfc, filename))
+    file.paths <- character()
+
+    if (length(name) > 0) {
+        bfc <- .self$.getBfc(cache.id, create=TRUE)
+        filename <- paste(name, ext, sep='.')
+        file.paths <- BiocFileCache::bfcrpath(bfc, rnames=filename)
+    }
+
+    return(file.paths)
 },
 
 .doFilesExist=function(cache.id) {
 
     fExist <- FALSE
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$.getBfc(cache.id)
     if ( ! is.null(bfc)) {
-        result <- BiocFileCache::bfcquery(bfc, '.*', file='rname')
+        result <- BiocFileCache::bfcquery(bfc, '.*', field='rname')
         fExist <- BiocFileCache::bfccount(result) > 0
     }
 
@@ -84,13 +90,15 @@ initialize=function(...) {
 
     fExists <- NULL
 
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$.getBfc(cache.id)
     if (is.null(bfc)) {
         fExists <- rep(FALSE, length(name))
     } else {
         filenames <- paste(name, ext, sep='.')
         fct <- function(f) {
-            result <- BiocFileCache::bfcquery(bfc, f, file='rname', exact=TRUE)
+            if (is.na(f) || f == '')
+                return(FALSE)
+            result <- BiocFileCache::bfcquery(bfc, f, field='rname', exact=TRUE)
             return(BiocFileCache::bfccount(result) > 0)
         }
         fExists <- vapply(filenames, fct, FUN.VALUE=TRUE)
@@ -101,7 +109,7 @@ initialize=function(...) {
 
 .doMoveFilesToCache=function(cache,id, src, name, ext) {
 
-    bfc <- .self$getBfc(cache.id, create=TRUE)
+    bfc <- .self$.getBfc(cache.id, create=TRUE)
     filenames <- paste(name, ext, sep='.')
     for (i in seq_along(src))
         BiocFileCache::bfcadd(bfc, filenames[[i]], src[[i]], action='move')
@@ -117,12 +125,12 @@ initialize=function(...) {
 
 .doDeleteFile=function(cache.id, name, ext) {
 
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$.getBfc(cache.id)
     if ( ! is.null(bfc)) {
         filenames <- paste(name, ext, sep='.')
         rids <- character()
         for (filename in filenames) {
-            result <- BiocFileCache::bfcquery(bfc, filename, file='rname', exact=TRUE)
+            result <- BiocFileCache::bfcquery(bfc, filename, field='rname', exact=TRUE)
             rids <- c(rids, result$rid)
         }
         BiocFileCache::bfcremove(bfc, rids)
@@ -141,14 +149,49 @@ initialize=function(...) {
 
 .doListFiles=function(cache.id, pattern, full.path) {
 
-    bfc <- .self$getBfc(cache.id)
+    bfc <- .self$.getBfc(cache.id)
     if (is.null(bfc)) {
-        result <- BiocFileCache::bfcquery(bfc, pattern, file='rname')
-        files <- if (full.path) result$rpath else result$rname
-    } else {
         files <- character()
+    } else {
+        result <- BiocFileCache::bfcquery(bfc, pattern, field='rname')
+        files <- if (full.path) result$rpath else result$rname
     }
 
     return(files)
+},
+
+.doSaveContentToFile=function(cache.id, content, name, ext) {
+
+    bfc <- .self$.getBfc(cache.id)
+    if ( ! is.null(bfc)) {
+    
+        existsInCache <- .self$fileExists(cache.id, name, ext)
+
+        # Overwrite contents of existing files
+        if (any(existsInCache)) {
+            file.paths <- .self$getFilePath(cache.id, name[existsInCache], ext)
+            logTrace('Overwriting contents of cache files %s',
+                lst2str(file.paths))
+            # Use cat instead of writeChar, because writeChar is not
+            # working with some unicode string (wrong string length).
+            mapply(function(cnt, f) cat(cnt, file=f), content[existsInCache],
+                file.paths)
+        }
+
+        # Add non-existing files
+        tmpDir <- .self$getTmpFolderPath()
+        fct <- function(cnt, name) {
+            tmpfile <- tempfile(name, fileext=paste0('.', ext), tmpdir=tmpDir)
+            # Use cat instead of writeChar, because writeChar is not
+            # working with some unicode string (wrong string length).
+            cat(cnt, file=tmpfile)
+            BiocFileCache::bfcadd(bfc, paste(name, ext, sep='.'), tmpfile,
+                action='move')
+        }
+        mapply(fct, content[ ! existsInCache], name[ ! existsInCache])
+    }
+
+    return(invisible(NULL))
 }
+
 ))
