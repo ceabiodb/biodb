@@ -311,7 +311,7 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     content[is.na(name)] <- NA_character_
     content[name == ""] <- NA_character_
     fct <- if (ext == 'RData') function(f) { load(f) ; c } else
-        function(n) readChar(f, file.info(f)$size, useBytes=TRUE)
+        function(f) readChar(f, file.info(f)$size, useBytes=TRUE)
     file.paths <- .self$getFilePath(cache.id, name[file.exist], ext)
     content[file.exist] <- lapply(file.paths, fct)
     logTrace('Loaded %d files from cache: %s.', length(file.paths),
