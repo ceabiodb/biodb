@@ -2,8 +2,7 @@
 #'
 #' This is the connector class for a MASS CSV file database.
 #'
-#' @seealso Super class \code{\link{CsvFileConn}} and sub-class 
-#' \code{\link{BiodbMassdbConn}}.
+#' @seealso Super class \code{\link{CsvFileConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -23,11 +22,10 @@
 #' mybiodb$terminate()
 #'
 #' @include CsvFileConn.R
-#' @include BiodbMassdbConn.R
 #' @export MassCsvFileConn
 #' @exportClass MassCsvFileConn
 MassCsvFileConn <- methods::setRefClass("MassCsvFileConn",
-    contains=c("CsvFileConn", "BiodbMassdbConn"),
+    contains="CsvFileConn",
     fields=list(
         .precursors="character"
         ),

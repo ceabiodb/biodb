@@ -225,12 +225,12 @@ to learn how to access database entries and manipulate them.
 
 All the connectors inherit from super class `BiodbConn`, hence they share a set
 of common methods like `getEntryIds()`, `getEntry()` and `searchForEntries()`.
-Moreover a connector may inherit from special super classes like
-`BiodbMassdbConn` or `BiodbCompoundConn`, in which case they will inherit
-specific methods.
-In the case of `BiodbMassdbConn`, it will be methods targeted toward mass
+Moreover a connector may be specialized as a connector to a compound database
+or to a mass spectra database, in which case they will inherit specific
+methods.
+In the case of a mass spectra database, it will be methods targeted toward mass
 spectra like `getNbPeaks()`, `searchForMassSpectra()`, `msmsSearch()`, etc.
-In the case of `BiodbCompoundConn`, it will be `annotateMzValues()`.
+In the case of a compound database, it will be `annotateMzValues()`.
 Those methods are generic and thus can be used with any connector inheriting
 the super class.
 

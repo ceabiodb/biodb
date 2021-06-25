@@ -91,8 +91,8 @@ Returned value: TRUE of the field is defined, FALSE otherwise.
 
 \item{\code{isSearchableByField(field)}}{:
 
-Tests if a field can be used to search entries when using methods
-    searchByName() and searchCompound().
+Tests if a field can be used to search entries when using method
+    searchForEntries().
     
 field: The name of the field.
     

@@ -35,6 +35,7 @@ Range$new(min=1.2, max=1.5)
 \item \href{#method-getMinMax}{\code{Range$getMinMax()}}
 \item \href{#method-getDelta}{\code{Range$getDelta()}}
 \item \href{#method-getPpm}{\code{Range$getPpm()}}
+\item \href{#method-getTolExpr}{\code{Range$getTolExpr()}}
 \item \href{#method-clone}{\code{Range$clone()}}
 }
 }
@@ -166,6 +167,15 @@ Gets the PPM tolerance of the range.
 \subsection{Returns}{
 The tolerance in PPM.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getTolExpr"></a>}}
+\if{latex}{\out{\hypertarget{method-getTolExpr}{}}}
+\subsection{Method \code{getTolExpr()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Range$getTolExpr()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

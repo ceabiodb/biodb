@@ -41,6 +41,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-Super classes \code{\link{BiodbMassdbConn}} and
-\code{\link{SqliteConn}}.
+Super class \code{\link{SqliteConn}}.
 }

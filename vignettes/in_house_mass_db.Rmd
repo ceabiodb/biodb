@@ -161,7 +161,7 @@ Finally we run the annotation on M/Z and RT values:
 massbank$searchMsPeaks(mzdf, mz.tol=1e-3, fields=fields, prefix='mydb.', chrom.col.ids=chromColIds, rt.unit='s', rt.tol=10, match.rt=TRUE)
 ```
 
-For more details on the `searchMsPeaks()` method, please this the help page of `BiodbMassdbConn`.
+For more details on the `searchMsPeaks()` method, please this the help page of `BiodbConn`.
 
 # MS/MS
 
