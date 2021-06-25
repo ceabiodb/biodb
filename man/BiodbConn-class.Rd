@@ -48,6 +48,13 @@ Allows editing for this database.
 Returned value: None.
     }
 
+\item{\code{allowWriting()}}{:
+
+Allows the connector to write into this database.
+    
+Returned value: None.
+    }
+
 \item{\code{checkDb()}}{:
 
 Checks that the database is correct by trying to retrieve all its
@@ -103,6 +110,13 @@ Returned value: None.
 \item{\code{disallowEditing()}}{:
 
 Disallows editing for this database.
+    
+Returned value: None.
+    }
+
+\item{\code{disallowWriting()}}{:
+
+Disallows the connector to write into this database.
     
 Returned value: None.
     }
@@ -351,9 +365,8 @@ Returned value: Returns TRUE if the database is searchable using the
 
 \item{\code{isWritable()}}{:
 
-Tests if this connector is able to write into the database (i.e.: the
-    connector class implements the interface BiodbWritable). If this connector
-    is writable, then you can call allowWriting() to enable writing.
+Tests if this connector is able to write into the database.  If this
+    connector is writable, then you can call allowWriting() to enable writing.
     
 Returned value: Returns TRUE if the database is writable.
     }
@@ -427,11 +440,36 @@ allow: A logical value.
 Returned value: None.
     }
 
+\item{\code{setWritingAllowed(allow)}}{:
+
+Allows or disallows writing for this database.
+    
+allow: If set to TRUE, allows writing.
+    
+Returned value: None.
+    }
+
 \item{\code{show()}}{:
 
 Prints a description of this connector.
     
 Returned value: None.
+    }
+
+\item{\code{write()}}{:
+
+Writes into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    
+Returned value: None.
+    }
+
+\item{\code{writingIsAllowed()}}{:
+
+Tests if the connector has access right to the database.
+    
+Returned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
     }
 }}
 

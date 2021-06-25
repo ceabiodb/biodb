@@ -590,6 +590,8 @@ setPropValSlot=function(name, slot, value) {
             na.allowed=TRUE),
         urls=list(class='character', default=character(), named=TRUE,
             mult=TRUE),
+        writable=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         xml.ns=list(class='character', default=character(), named=TRUE,
             mult=TRUE)
     )

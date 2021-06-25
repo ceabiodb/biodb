@@ -7,6 +7,9 @@ databases:
 #' $$$ SECTION EDITABLE $$$
     editable: true
 #' $$$ END_SECTION EDITABLE $$$
+#' $$$ SECTION WRITABLE $$$
+    writable: true
+#' $$$ END_SECTION WRITABLE $$$
 # $$$ CASE ENTRYTYPE CSV $$$
     entry.content.type: csv
 # $$$ CASE ENTRYTYPE HTML $$$

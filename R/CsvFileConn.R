@@ -21,11 +21,10 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
-#' @include BiodbWritable.R
 #' @export CsvFileConn
 #' @exportClass CsvFileConn
 CsvFileConn <- methods::setRefClass("CsvFileConn",
-    contains=c("BiodbConn", 'BiodbWritable'),
+    contains="BiodbConn",
     fields=list(
         .file.sep="character",
         .file.quote="character",

@@ -53,7 +53,8 @@ BiodbConn <- methods::setRefClass("BiodbConn",
         .id="character",
         .entries="list",
         .cache.id='character',
-        .editing.allowed='logical'
+        .editing.allowed='logical',
+        .writing.allowed='logical'
     ),
 
 methods=list(
@@ -496,13 +497,93 @@ addNewEntry=function(entry) {
 },
 
 isWritable=function() {
-    ":\n\nTests if this connector is able to write into the database (i.e.: the
-    connector class implements the interface BiodbWritable). If this connector
-    is writable, then you can call allowWriting() to enable writing.
+    ":\n\nTests if this connector is able to write into the database.  If this
+    connector is writable, then you can call allowWriting() to enable writing.
     \nReturned value: Returns TRUE if the database is writable.
     "
 
-    return(methods::is(.self, 'BiodbWritable'))
+    return(.self$getPropertyValue('writable'))
+},
+
+.checkIsWritable=function() {
+    if ( ! .self$isWritable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not writable.")
+},
+
+allowWriting=function() {
+    ":\n\nAllows the connector to write into this database.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsWritable()
+    .self$setWritingAllowed(TRUE)
+},
+
+disallowWriting=function() {
+    ":\n\nDisallows the connector to write into this database.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsWritable()
+    .self$setWritingAllowed(FALSE)
+},
+
+setWritingAllowed=function(allow) {
+    ":\n\nAllows or disallows writing for this database.
+    \nallow: If set to TRUE, allows writing.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsWritable()
+    chk::chk_logical(allow)
+    .self$.writing.allowed <- allow
+},
+
+writingIsAllowed=function() {
+    ":\n\nTests if the connector has access right to the database.
+    \nReturned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
+    "
+    
+    .self$.checkIsWritable()
+    .self$.initWritable()
+
+    return(.self$.writing.allowed)
+},
+
+write=function() {
+    ":\n\nWrites into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsWritable()
+    .self$.checkWritingIsAllowed()
+    .self$.doWrite()
+
+    # Unset "new" flag for all entries
+    for (e in .self$.entries)
+        e$.setAsNew(FALSE)
+},
+
+.checkWritingIsAllowed=function() {
+    
+    .self$.initWritable()
+    
+    if ( ! .self$.writing.allowed)
+        error0('Writing is not enabled for this database. However this',
+            ' database type is writable. Please call allowWriting()',
+            ' method to enable writing.')
+},
+
+.doWrite=function() {
+    .self$.abstractMethod()
+},
+
+.initWritable=function() {
+    if (length(.self$.writing.allowed) == 0)
+        .self$setWritingAllowed(FALSE)
 },
 
 isSearchableByField=function(field) {

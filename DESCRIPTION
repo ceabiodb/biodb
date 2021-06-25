@@ -85,7 +85,6 @@ Collate:
     'BiodbSqlLogicalOp.R'
     'BiodbSqlQuery.R'
     'BiodbSqlValue.R'
-    'BiodbWritable.R'
     'CsvFileConn.R'
     'CompCsvFileConn.R'
     'CompCsvFileEntry.R'

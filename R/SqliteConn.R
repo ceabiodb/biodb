@@ -22,11 +22,10 @@
 #' @import methods
 #' @import RSQLite
 #' @include BiodbConn.R
-#' @include BiodbWritable.R
 #' @export SqliteConn
 #' @exportClass SqliteConn
 SqliteConn <- methods::setRefClass("SqliteConn",
-    contains=c("BiodbConn", 'BiodbWritable'),
+    contains="BiodbConn",
     fields=list(
         .db="ANY"
     ),
