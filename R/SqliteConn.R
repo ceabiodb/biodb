@@ -211,12 +211,14 @@ getQuery=function(query) {
     return(DBI::dbGetQuery(.self$.db, query_str))
 },
 
-.doTerminate=function() {
+.terminate=function() {
 
     if ( ! is.null(.self$.db)) {
         DBI::dbDisconnect(.self$.db)
         .self$.db <- NULL
     }
+
+    callSuper()
 },
 
 .appendToTable=function(tableName, values) {

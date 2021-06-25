@@ -10,9 +10,6 @@
 #' $$$ CASE CONNTYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
 #' $$$ END_CASE CONNTYPE $$$
-#' $$$ SECTION REMOTE $$$
-#' \code{\link{BiodbRemotedbConn}}
-#' $$$ END_SECTION REMOTE $$$
 #' $$$ SECTION EDITABLE $$$
 #' ,\code{\link{BiodbEditable}}
 #' $$$ END_SECTION EDITABLE $$$
@@ -46,9 +43,6 @@
 # $$$ CASE CONNTYPE MASS $$$
         "BiodbMassdbConn"
 # $$$ END_CASE CONNTYPE $$$
-# $$$ SECTION REMOTE $$$
-        ,"BiodbRemotedbConn"
-# $$$ END_SECTION REMOTE $$$
 # $$$ SECTION EDITABLE $$$
         ,'BiodbEditable'
 # $$$ END_SECTION EDITABLE $$$

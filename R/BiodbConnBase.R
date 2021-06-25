@@ -78,16 +78,15 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
     # Set observers
     .self$.observers <- list()
 
-    # Set if it is a remote database connector
-    if (methods::extends(.self$getConnClassName(), "BiodbRemotedbConn")
-        || ('scheduler.n' %in% names(properties)
+    # Configure automatically as a remote database connector
+    if (('scheduler.n' %in% names(properties)
             && ! is.na(properties$scheduler.n))
         || ('scheduler.t' %in% names(properties)
             && ! is.na(properties$scheduler.t))
         || ('urls' %in% names(properties)
             && 'base.url' %in% names(properties$url)
             && length(grep('^http', properties$url$base.url)) > 0))
-        properties$remotedb <- TRUE
+        properties$remote <- TRUE
     
     # Set properties
     .self$.defineProperties(other, properties)
@@ -130,7 +129,7 @@ show=function() {
     }
 
     # Scheduler parameters
-    if (.self$getPropertyValue('remotedb')) {
+    if (.self$getPropertyValue('remote')) {
         st <- .self$getPropertyValue('scheduler.t')
         sn <- .self$getPropertyValue('scheduler.n')
         if ( ! is.na(st) && ! is.na(sn))
@@ -397,9 +396,6 @@ setPropValSlot=function(name, slot, value) {
     # Notify observers
     for (obs in .self$.observers)
         obs$connTerminating(.self)
-
-    # Do terminate (do specific job for the connector)
-    .self$.doTerminate()
 },
 
 .doTerminate=function() {
@@ -561,7 +557,8 @@ setPropValSlot=function(name, slot, value) {
                     na.allowed=TRUE, modifiable=FALSE),
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),
         disabling.reason=list(class='character', default=''),
-        downloadable=list(class='logical', default=FALSE),
+        downloadable=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         dwnld.ext=list(class='character', default=NA_character_,
             modifiable=FALSE),
         entry.content.encoding=list(class='character',
@@ -581,7 +578,7 @@ setPropValSlot=function(name, slot, value) {
         parsing.expr=list(class='list', default=NULL, named=TRUE,
             mult=TRUE, allowed_item_types='character',
             na.allowed=FALSE, hook='defineParsingExpressions'),
-        remotedb=list(class='logical', default=FALSE, na.allowed=FALSE,
+        remote=list(class='logical', default=FALSE, na.allowed=FALSE,
             modifiable=FALSE),
         searchable.fields=list(class='character', default=character(),
             na.allowed=FALSE, modifiable=FALSE, mult=TRUE),

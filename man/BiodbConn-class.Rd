@@ -9,7 +9,7 @@
 This is the super class of all connector classes. All methods defined here
 are thus common to all connector classes. Some connector classes inherit
 directly from this abstract class. Some others inherit from intermediate
-classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
 As for all connector concrete classes, you won't have to create an instance
 of this class directly, but you will instead go through the factory class.
 However, if you plan to develop a new connector, you will have to call the
@@ -174,6 +174,22 @@ Returned value: A character vector, the same size of entry.id, with
     of each entry for which the retrieval failed.
     }
 
+\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
+
+Gets the URL to use in order to get the contents of the specified
+    entries.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+concatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    
+max.length: The maximum length of the URLs to return, in
+    number of characters.
+    
+Returned value: A list of BiodbUrl objects.
+    }
+
 \item{\code{getEntryIds(max.results = 0, ...)}}{:
 
 Get entry identifiers from the database. More arguments can be given,
@@ -188,6 +204,26 @@ max.results: The maximum of elements to return from the method.
 Returned value: A character vector containing entry IDs from the
     database. An empty vector for a remote database may mean that the database
     does not support requesting for entry accessions.
+    }
+
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Gets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    
+entry.id: A character vector containing entry IDs.
+    
+Returned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    }
+
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 
 \item{\code{getId()}}{:
@@ -265,8 +301,7 @@ Returned value: Returns TRUE if the database is a mass database.
 
 \item{\code{isRemotedb()}}{:
 
-Tests of the connector is connected to a remote database (i.e.: the
-    connector class inherits from BiodbRemotedbConn class).
+Tests if the connector is connected to a remote database.
     
 Returned value: Returns TRUE if the database is a remote database.}
 
@@ -380,5 +415,5 @@ mybiodb$terminate()
 }
 \seealso{
 Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
-\code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+\code{\link{BiodbCompoundbConn}} and \code{\link{BiodbMassdbConn}}.
 }

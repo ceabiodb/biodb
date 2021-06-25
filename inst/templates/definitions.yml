@@ -113,6 +113,7 @@ databases:
       - nominal.mass
 # $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
+    remote: true
     # Length in seconds of the connection sliding window
     scheduler.t: 1
     # Number of connections allowed inside the connection sliding window

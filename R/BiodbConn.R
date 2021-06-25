@@ -3,7 +3,7 @@
 #' This is the super class of all connector classes. All methods defined here
 #' are thus common to all connector classes. Some connector classes inherit
 #' directly from this abstract class. Some others inherit from intermediate
-#' classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+#' classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
 #' As for all connector concrete classes, you won't have to create an instance
 #' of this class directly, but you will instead go through the factory class.
 #' However, if you plan to develop a new connector, you will have to call the
@@ -21,7 +21,7 @@
 #' cache.id: The identifier used in the disk cache.
 #'
 #' @seealso Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
-#' \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+#' \code{\link{BiodbCompoundbConn}} and \code{\link{BiodbMassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -65,6 +65,10 @@ initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
     .self$.id <- id
     .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
     .self$.entries <- list()
+
+    # Register with request scheduler
+    if (.self$isRemotedb())
+        .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 },
 
 getId=function() {
@@ -249,7 +253,64 @@ getEntryContentFromDb=function(entry.id) {
     of each entry for which the retrieval failed.
     "
 
+    if (.self$isRemotedb())
+        return(.self$.doGetEntryContentOneByOne(entry.id))
+
     .self$.abstractMethod()
+},
+
+getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
+    ":\n\nGets the URL to use in order to get the contents of the specified
+    entries.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nconcatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    \nmax.length: The maximum length of the URLs to return, in
+    number of characters.
+    \nReturned value: A list of BiodbUrl objects.
+    "
+
+    .self$.checkIsRemote()
+    urls <- character(0)
+
+    if (length(entry.id) > 0) {
+
+        # Get full URL
+        full.url <- .self$.doGetEntryContentRequest(entry.id,
+            concatenate=concatenate)
+
+        # No single URL for multiple IDs
+        if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0
+            || nchar(full.url) <= max.length)
+            urls <- full.url
+
+        # full.url is too big, we must split it
+        else {
+            logDebug("Split full URL.")
+
+            start <- 1
+
+            # Loop as long as there are IDs
+            while (start <= length(entry.id)) {
+                # Find max size URL
+                a <- start
+                b <- length(entry.id)
+                while (a < b) {
+                    m <- as.integer((a + b) / 2)
+                    url <- .self$.doGetEntryContentRequest(entry.id[start:m])
+                    if (all(nchar(url) <= max.length) && m != a)
+                        a <- m
+                    else
+                        b <- m
+                }
+                urls <- c(urls,
+                    .self$.doGetEntryContentRequest(entry.id[start:a]))
+                start <- a + 1
+            }
+        }
+    }
+
+    return(urls)
 },
 
 getEntryIds=function(max.results=0, ...) {
@@ -453,7 +514,7 @@ isDownloadable=function() {
     return(.self$getPropertyValue('downloadable'))
 },
 
-.checkDownloadable=function() {
+.checkIsDownloadable=function() {
     if ( ! .self$isDownloadable())
         error0("The database associated to this connector ", .self$getId(),
             " is not downloadable.")
@@ -464,7 +525,7 @@ isDownloaded=function() {
     \nReturned value: TRUE if the database content has already been downloaded.
     "
 
-    .self$.checkDownloadable()
+    .self$.checkIsDownloadable()
     cch <- .self$getBiodb()$getPersistentCache()
     dwnlded  <- cch$markerExist(.self$getCacheId(),
                     name='downloaded')
@@ -484,7 +545,7 @@ getDownloadPath=function() {
     \nReturned value: The path where the downloaded database is written.
     "
 
-    .self$.checkDownloadable()
+    .self$.checkIsDownloadable()
     cch <- .self$getBiodb()$getPersistentCache()
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
@@ -501,7 +562,7 @@ isExtracted=function() {
     extracted, FALSE otherwise.
     "
 
-    .self$.checkDownloadable()
+    .self$.checkIsDownloadable()
     cch <- .self$getBiodb()$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
         name='extracted'))
@@ -512,7 +573,7 @@ download=function() {
     \nReturned value: None.
     "
 
-    .self$.checkDownloadable()
+    .self$.checkIsDownloadable()
     cch <- .self$getBiodb()$getPersistentCache()
 
     # Download
@@ -552,12 +613,17 @@ download=function() {
     .self$.abstractMethod()
 },
 
+.checkIsRemote=function() {
+    if ( ! .self$isRemotedb())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not a remote database.")
+},
+
 isRemotedb=function() {
-    ":\n\nTests of the connector is connected to a remote database (i.e.: the
-    connector class inherits from BiodbRemotedbConn class).
+    ":\n\nTests if the connector is connected to a remote database.
     \nReturned value: Returns TRUE if the database is a remote database."
 
-    return(methods::is(.self, 'BiodbRemotedbConn'))
+    return(.self$getPropertyValue('remote'))
 },
 
 isCompounddb=function() {
@@ -733,6 +799,68 @@ makeRequest=function(...) {
     return(req)
 },
 
+getEntryImageUrl=function(entry.id) {
+    ":\n\nGets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    \nentry.id: A character vector containing entry IDs.
+    \nReturned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    "
+
+    .self$.checkIsRemote()
+    return(rep(NA_character_, length(entry.id)))
+},
+
+getEntryPageUrl=function(entry.id) {
+    ":\n\nGets the URL to the page of the entry on the database web site.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nReturned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    "
+
+    .self$.checkIsRemote()
+    .self$.abstractMethod()
+},
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    .self$.checkIsRemote()
+    .self$.abstractMethod()
+},
+
+.doGetEntryContentOneByOne=function(entry.id) {
+
+    .self$.checkIsRemote()
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    # Get requests
+    requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
+
+    # Get encoding
+    encoding <- .self$getPropertyValue('entry.content.encoding')
+
+    # If requests is a vector of characters, then the method is using the old
+    # scheme.
+    # We now convert the requests to the new scheme, using class BiodbRequest.
+    if (is.character(requests)) {
+        fct <- function(x) .self$makeRequest(method='get', url=BiodbUrl$new(x),
+            encoding=encoding)
+        requests <- lapply(requests, fct)
+    }
+
+    # Send requests
+    scheduler <- .self$getBiodb()$getRequestScheduler()
+    prg <- Progress$new(biodb=.self$getBiodb(),
+                        msg='Downloading entry contents',
+                        total=length(requests))
+    for (i in seq_along(requests)) {
+        prg$increment()
+        content[[i]] <- scheduler$sendRequest(requests[[i]])
+    }
+
+    return(content)
+},
+
 .doGetEntryIds=function(max.results=0) {
     .self$.abstractMethod()
 },
@@ -766,6 +894,15 @@ makeRequest=function(...) {
     missing.ids <- ids[ ! ids %in% names(.self$.entries)]
 
     return(missing.ids)
+},
+
+.terminate=function() {
+
+    # Unregister from the request scheduler
+    if (.self$isRemotedb())
+        .self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
+
+    callSuper()
 }
 
 ))
