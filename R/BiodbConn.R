@@ -52,7 +52,9 @@ BiodbConn <- methods::setRefClass("BiodbConn",
     fields=list(
         .id="character",
         .entries="list",
-        .cache.id='character'),
+        .cache.id='character',
+        .editing.allowed='logical'
+    ),
 
 methods=list(
 
@@ -375,7 +377,122 @@ isEditable=function() {
     \nReturned value: Returns TRUE if the database is editable.
     "
 
-    return(methods::is(.self, 'BiodbEditable'))
+    return(.self$getPropertyValue('editable'))
+},
+
+.checkIsEditable=function() {
+    if ( ! .self$isEditable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not editable.")
+},
+
+editingIsAllowed=function() {
+    ":\n\nTests if editing is allowed.
+    \nReturned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
+    "
+    
+    .self$.checkIsEditable()
+    .self$.initEditable()
+
+    return(.self$.editing.allowed)
+},
+
+allowEditing=function() {
+    ":\n\nAllows editing for this database.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsEditable()
+    .self$setEditingAllowed(TRUE)
+},
+
+disallowEditing=function() {
+    ":\n\nDisallows editing for this database.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsEditable()
+    .self$setEditingAllowed(FALSE)
+},
+
+setEditingAllowed=function(allow) {
+    ":\n\nAllow or disallow editing for this database.
+    \nallow: A logical value.
+    \nReturned value: None.
+    "
+    
+    chk::chk_logical(allow)
+
+    .self$.checkIsEditable()
+    .self$.editing.allowed <- allow
+},
+
+addNewEntry=function(entry) {
+    ":\n\nAdds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    \nentry: The new entry to add. It must be a valid BiodbEntry object.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsEditable()
+    .self$.checkEditingIsAllowed()
+
+    # Is already part of a connector instance?
+    if (entry$parentIsAConnector())
+        error0('Impossible to add entry as a new entry. The passed',
+            ' entry is already part of a connector.')
+
+    # No accession number?
+    if ( ! entry$hasField('accession'))
+        error0('Impossible to add entry as a new entry. The passed entry',
+            ' has no accession number.')
+    id <- entry$getFieldValue('accession')
+    if (is.na(id))
+        error0('Impossible to add entry as a new entry. The passed',
+            ' entry has an accession number set to NA.')
+
+    # Accession number is already used?
+    e <- .self$getEntry(id)
+    if ( ! is.null(e))
+        error0('Impossible to add entry as a new entry. The accession',
+            ' number of the passed entry is already used in the',
+            ' connector.')
+
+    # Make sure ID field is equal to accession
+    id.field <- .self$getEntryIdField()
+    if ( ! entry$hasField(id.field) || entry$getFieldValue(id.field) != id)
+        entry$setFieldValue(id.field, id)
+
+    # Remove entry from non-volatile cache
+    cch <- .self$getBiodb()$getPersistentCache()
+    if (cch$isWritable(.self))
+        cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
+
+    # Flag entry as new
+    entry$.setAsNew(TRUE)
+
+    # Set the connector as its parent
+    entry$.setParent(.self)
+
+    # Add entry to volatile cache
+    .self$.addEntriesToCache(id, list(entry))
+},
+
+.initEditable=function() {
+    if (length(.self$.editing.allowed) == 0)
+        .self$setEditingAllowed(FALSE)
+},
+
+.checkEditingIsAllowed=function() {
+
+    .self$.initEditable()
+
+    if ( ! .self$.editing.allowed)
+        error0('Editing is not enabled for this database. However this',
+            ' database type is editable. Please call allowEditing()',
+            ' method to enable editing.')
 },
 
 isWritable=function() {

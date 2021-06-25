@@ -182,6 +182,7 @@ databases:
     name: Compound CSV File
     description: A connector to handle a compound database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields.
     entry.content.type: tsv
+    editable: true
     searchable.fields:
       - name
       - monoisotopic.mass
@@ -195,6 +196,7 @@ databases:
     name: Compound SQLite
     description: A connector to handle a compound database stored inside an SQLite file.
     entry.content.type: list
+    editable: true
     searchable.fields:
       - name
       - monoisotopic.mass
@@ -208,12 +210,14 @@ databases:
     name: Mass spectra CSV File
     description: A connector to handle a mass spectra database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields..
     entry.content.type: tsv
+    editable: true
 
 # Mass SQLite {{{2
 ################################################################################
   mass.sqlite:
     name: Mass spectra SQLite
     entry.content.type: list
+    editable: true
 
 # FIELDS {{{1
 ################################################################################

@@ -52,7 +52,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-Super classes \code{\link{BiodbConn}}, \code{\link{BiodbWritable}},
-\code{\link{BiodbEditable}}, and sub-classes \code{\link{CompSqliteConn}},
-and \code{\link{MassSqliteConn}}.
+Super class \code{\link{BiodbConn}} and sub-classes
+\code{\link{CompSqliteConn}}, and \code{\link{MassSqliteConn}}.
 }

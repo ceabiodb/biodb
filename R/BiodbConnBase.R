@@ -561,6 +561,8 @@ setPropValSlot=function(name, slot, value) {
             modifiable=FALSE),
         dwnld.ext=list(class='character', default=NA_character_,
             modifiable=FALSE),
+        editable=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         entry.content.encoding=list(class='character',
             default=NA_character_, na.allowed=TRUE),
         entry.content.type=list(class='character', default=NA_character_,

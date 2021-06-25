@@ -30,6 +30,24 @@ cache.id: The identifier used in the disk cache.
 \section{Methods}{
 
 \describe{
+\item{\code{addNewEntry(entry)}}{:
+
+Adds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    
+entry: The new entry to add. It must be a valid BiodbEntry object.
+    
+Returned value: None.
+    }
+
+\item{\code{allowEditing()}}{:
+
+Allows editing for this database.
+    
+Returned value: None.
+    }
+
 \item{\code{checkDb()}}{:
 
 Checks that the database is correct by trying to retrieve all its
@@ -82,11 +100,26 @@ deleteVolatile: If TRUE deletes also all entries
 Returned value: None.
     }
 
+\item{\code{disallowEditing()}}{:
+
+Disallows editing for this database.
+    
+Returned value: None.
+    }
+
 \item{\code{download()}}{:
 
 Downloads the database content locally.
     
 Returned value: None.
+    }
+
+\item{\code{editingIsAllowed()}}{:
+
+Tests if editing is allowed.
+    
+Returned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
     }
 
 \item{\code{getAllCacheEntries()}}{:
@@ -383,6 +416,15 @@ max.results: If set, the number of returned IDs is limited to this
     
 Returned value: A character vector of entry IDs whose name matches the
     requested name.
+    }
+
+\item{\code{setEditingAllowed(allow)}}{:
+
+Allow or disallow editing for this database.
+    
+allow: A logical value.
+    
+Returned value: None.
     }
 
 \item{\code{show()}}{:

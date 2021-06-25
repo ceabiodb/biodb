@@ -10,9 +10,6 @@
 #' $$$ CASE CONNTYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
 #' $$$ END_CASE CONNTYPE $$$
-#' $$$ SECTION EDITABLE $$$
-#' ,\code{\link{BiodbEditable}}
-#' $$$ END_SECTION EDITABLE $$$
 #' $$$ SECTION WRITABLE $$$
 #' ,\code{\link{BiodbWritable}}
 #' $$$ END_SECTION WRITABLE $$$
@@ -43,9 +40,6 @@
 # $$$ CASE CONNTYPE MASS $$$
         "BiodbMassdbConn"
 # $$$ END_CASE CONNTYPE $$$
-# $$$ SECTION EDITABLE $$$
-        ,'BiodbEditable'
-# $$$ END_SECTION EDITABLE $$$
 # $$$ SECTION WRITABLE $$$
         ,'BiodbWritable'
 # $$$ END_SECTION WRITABLE $$$

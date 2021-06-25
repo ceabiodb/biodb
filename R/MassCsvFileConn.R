@@ -2,9 +2,8 @@
 #'
 #' This is the connector class for a MASS CSV file database.
 #'
-#' @seealso Super class \code{\link{CsvFileConn}} and interfaces
-#' \code{\link{BiodbMassdbConn}}, \code{\link{BiodbWritable}} and
-#' \code{\link{BiodbEditable}}.
+#' @seealso Super class \code{\link{CsvFileConn}} and sub-class 
+#' \code{\link{BiodbMassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:

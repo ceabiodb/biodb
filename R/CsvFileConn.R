@@ -2,8 +2,8 @@
 #'
 #' This is the abstract connector class for all CSV file databases.
 #'
-#' @seealso Super classes \code{\link{BiodbConn}}, \code{\link{BiodbWritable}},
-#' \code{\link{BiodbEditable}}, and sub-classes \code{\link{CompCsvFileConn}},
+#' @seealso Super classes \code{\link{BiodbConn}},
+#' and sub-classes \code{\link{CompCsvFileConn}},
 #' \code{\link{MassCsvFileConn}}.
 #'
 #' @examples
@@ -21,12 +21,11 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
-#' @include BiodbEditable.R
 #' @include BiodbWritable.R
 #' @export CsvFileConn
 #' @exportClass CsvFileConn
 CsvFileConn <- methods::setRefClass("CsvFileConn",
-    contains=c("BiodbConn", 'BiodbWritable', 'BiodbEditable'),
+    contains=c("BiodbConn", 'BiodbWritable'),
     fields=list(
         .file.sep="character",
         .file.quote="character",

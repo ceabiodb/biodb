@@ -4,6 +4,9 @@ databases:
   {{dbName}}:
     name: {{dbTitle}}
     description: Write here the description of this database.
+#' $$$ SECTION EDITABLE $$$
+    editable: true
+#' $$$ END_SECTION EDITABLE $$$
 # $$$ CASE ENTRYTYPE CSV $$$
     entry.content.type: csv
 # $$$ CASE ENTRYTYPE HTML $$$
