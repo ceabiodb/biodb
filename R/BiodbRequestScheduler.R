@@ -109,7 +109,7 @@ sendRequest=function(request, cache.read=TRUE) {
     if (cache.read && cfg$isEnabled('cache.system')
         && cfg$get('cache.all.requests')
         && ! is.null(conn)
-        && cch$fileExist(conn$getCacheId(), name=request.key, ext='content')) {
+        && cch$fileExists(conn$getCacheId(), name=request.key, ext='content')) {
         logDebug("Loading content of request from cache.")
         content <- cch$loadFileContent(conn$getCacheId(),
             name=request.key, ext='content', output.vector=TRUE)

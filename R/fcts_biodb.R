@@ -175,12 +175,25 @@ df2str <- function(x, rowCut=5, colCut=5) {
 #' @export
 lst2str <- function(x, nCut=10) {
 
+    # Empty
     if (length(x) == 0)
         s <- 'none'
+
+    # Not empty
     else {
+
+        # Cut
         s <- paste(if (length(x) > nCut) c(x[seq_len(nCut)], '...') else x,
             collapse=", ")
+
+        # Convert to character
+        if ( ! is.character(s))
+            s <- vapply(s, utils::capture.output, FUN.VALUE='')
+
+        # Quote
         s <- paste0('"', s, '"')
+
+        # Add length information
         s <- paste0('[', length(x), ']: ', s)
     }
     
@@ -357,4 +370,65 @@ error0 <- function(...) {
     msg <- paste0(...)
     getLogger()$error(msg, caller=lgr::get_caller(-9L))
     stop(msg)
+}
+
+#' Get default cache folder.
+#'
+#' Returns the path to the default cache folder.
+#'
+#' @return The path to the cache folder.
+#'
+#' @examples
+#' cacheFolderPath <- biodb::getDefaultCacheDir()
+#'
+#' @importFrom tools R_user_dir
+#' @export
+getDefaultCacheDir <- function() {
+    return(tools::R_user_dir('biodb', which="cache"))
+}
+
+#' Check deprecated default cache folders.
+#'
+#' Searches for a deprecated location of the default cache folder, and moves
+#' files to the new location if possible. Otherwise raises a warning.
+#'
+#' @examples
+#' biodb::checkDeprecatedCacheFolders()
+#'
+#' @return Nothing.
+#'
+#' @import rappdirs
+#' @export
+checkDeprecatedCacheFolders  <- function() {
+
+    # Get folders
+    newFolder <- getDefaultCacheDir()
+    oldFolders <- rappdirs::user_cache_dir("biodb")
+    env <- Sys.getenv()
+    if ('HOME' %in% names(env))
+        oldFolders <- c(oldFolders, file.path(env[['HOME']], '.biodb.cache'))
+
+    # Check if some deprecated default folder still exists
+    for (oldFolder in oldFolders)
+        if (file.exists(oldFolder)) {
+
+            # New folder already in use
+            if (file.exists(newFolder))
+                warn0('A deprecated default cache folder ("', oldFolder,
+                    '") is still present on this machine, ',
+                    'while new default cache folder "', newFolder, 
+                    '" is already in used. Please, consider removing the old ',
+                    'location since it has no utility anymore.')
+
+            # Move deprecated folder to new location
+            else {
+                if ( ! dir.exists(dirname(newFolder)))
+                    dir.create(dirname(newFolder), recursive=TRUE)
+                file.rename(oldFolder, newFolder)
+                logInfo0('Cache folder location has been moved from "',
+                    oldFolder, '" to "', newFolder, '".')
+            }
+        }
+
+    return(invisible(NULL))
 }

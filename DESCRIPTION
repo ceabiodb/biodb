@@ -21,24 +21,26 @@ Suggests:
     xml2,
     git2r
 Imports:
+	BiocFileCache,
     R6,
-    methods,
-    chk,
-    lgr,
-    progress,
-    lifecycle,
-    XML,
-    stringr,
-    plyr,
-    yaml,
-    jsonlite,
     RCurl,
+    RSQLite,
     Rcpp,
+    XML,
+    chk,
+    jsonlite,
+    lgr,
+    lifecycle,
+    methods,
+    openssl,
+    plyr,
+    progress,
     rappdirs,
     stats,
-    openssl,
-    RSQLite,
-    withr
+    stringr,
+    tools,
+    withr,
+    yaml
 LinkingTo:
     Rcpp,
     testthat
@@ -48,6 +50,8 @@ RoxygenNote: 7.1.1
 Collate:
     'BiodbObject.R'
     'BiodbChildObject.R'
+    'BiodbPersistentCache.R'
+    'BiodbBiocPersistentCache.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
     'BiodbCompounddbConn.R'
@@ -56,6 +60,7 @@ Collate:
     'BiodbConnObserver.R'
     'BiodbEntry.R'
     'BiodbCsvEntry.R'
+    'BiodbCustomPersistentCache.R'
     'BiodbDbInfo.R'
     'BiodbDbsInfo.R'
     'BiodbDownloadable.R'
@@ -69,7 +74,6 @@ Collate:
     'BiodbJsonEntry.R'
     'BiodbListEntry.R'
     'BiodbMassdbConn.R'
-    'BiodbPersitentCache.R'
     'BiodbRequestScheduler.R'
     'BiodbRemotedbConn.R'
     'BiodbUrl.R'

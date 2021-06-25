@@ -9,12 +9,15 @@ test_cacheFiles <- function(conn) {
     
     # Get cache instance
     cache <- conn$getBiodb()$getPersistentCache()
-    
-    # Erase all files inside cache folder
-    cache$deleteAllFiles(conn$getCacheId(), fail=FALSE)
-    
+
     # Get extension
     ctype <- conn$getPropertyValue('entry.content.type')
+
+    # Erase all files inside cache folder
+    cache$deleteAllFiles(conn$getCacheId(), fail=FALSE)
+    files <- cache$listFiles(conn$getCacheId(), ext=ctype, full.path=TRUE)
+    testthat::expect_is(files, 'character')
+    testthat::expect_length(files, 0)
     
     # Get entries
     entries <- conn$getEntry(ids)
@@ -37,11 +40,13 @@ test_deleteFilesForWrongCacheId <- function(biodb) {
     
     cache <- biodb$getPersistentCache()
     
-    cacheId <- 'foo'
-    msg <- paste0("^.*No cache files exist for ",
-                  cacheId, ".$")
+    cacheId <- 'foo-1234567890abcdef01234'
+    if (cache$folderExists(cacheId))
+        cache$deleteAllFiles(cacheId)
+        
+    msg <- paste0('^.*No cache folder .* exists for "', cacheId, '".$')
     testthat::expect_warning(cache$deleteAllFiles(cacheId, fail=TRUE), msg,
-                             perl=TRUE)
+        perl=TRUE)
 }
 
 test_filesExistForConn <- function(conn) {
@@ -53,14 +58,16 @@ test_filesExistForConn <- function(conn) {
 
 test_noFilesExist <- function(biodb) {
     cache <- biodb$getPersistentCache()
-    cacheId <- 'foo'
+    cacheId <- 'foo-1234567890abcdef01234'
+    if (cache$folderExists(cacheId))
+        cache$deleteAllFiles(cacheId)
     testthat::expect_false(cache$filesExist(cacheId))
 }
 
 test_usedCacheIds <- function(conn) {
     
     conn$deleteAllEntriesFromVolatileCache()
-    cache <- biodb$getPersistentCache()
+    cache <- conn$getBiodb()$getPersistentCache()
     ids <- conn$getEntryIds(3)
     entries <- conn$getEntry(ids)
     testthat::expect_true(conn$getCacheId() %in% cache$getUsedCacheIds())
@@ -71,7 +78,7 @@ test_usedCacheIds <- function(conn) {
 test_deleteAllFiles <- function(conn) {
     
     conn$deleteAllEntriesFromVolatileCache()
-    cache <- biodb$getPersistentCache()
+    cache <- conn$getBiodb()$getPersistentCache()
     ids <- conn$getEntryIds(3)
     entries <- conn$getEntry(ids)
     testthat::expect_true(cache$filesExist(conn$getCacheId()))
@@ -81,37 +88,49 @@ test_deleteAllFiles <- function(conn) {
     conn$deleteAllEntriesFromVolatileCache()
     entries <- conn$getEntry(ids)
     testthat::expect_true(cache$filesExist(conn$getCacheId()))
-    cache$deleteAllFiles(conn$getId(), prefix=FALSE)
-    testthat::expect_true(cache$filesExist(conn$getCacheId()))
-    cache$deleteAllFiles(conn$getId(), prefix=TRUE)
+    testthat::expect_error(cache$deleteAllFiles(conn$getCacheId(), prefix=FALSE))
+    cache$deleteAllFiles(conn$getCacheId())
     testthat::expect_false(cache$filesExist(conn$getCacheId()))
 }
 
-# Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
+run_tests <- function(impl=c('custom', 'bioc')) {
+
+    impl <- match.arg(impl)
+
+    # Instantiate Biodb
+    biodb <- biodb::createBiodbTestInstance()
+
+    # Enable cache system for local dbs
+    biodb$getConfig()$set('use.cache.for.local.db', TRUE)
+    biodb$getConfig()$set('persistent.cache.impl', impl)
+
+    # Erase whole cache
+    biodb$getPersistentCache()$erase()
+
+    # Create connector
+    conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
+
+    # Run tests
+    biodb::testThat('We can list cache files.', test_cacheFiles, conn=conn)
+    biodb::testThat(paste('We got a warning if we try to delete files for a',
+        'cache.id that has no associated folder.'),
+        test_deleteFilesForWrongCacheId, biodb=biodb)
+    biodb::testThat('We detect if cache files exist for a connector',
+        test_filesExistForConn, conn=conn)
+    biodb::testThat('No cache files exist for unknown cache ID.',
+        test_noFilesExist, biodb=biodb)
+    biodb::testThat('We can a list of used cache IDs', test_usedCacheIds,
+        conn=conn)
+    biodb::testThat('We can delete all cache files for a connector',
+        test_deleteAllFiles, conn=conn)
+
+    # Terminate Biodb
+    biodb$terminate()
+}
 
 # Set context
 biodb::testContext("Test persistent cache.")
 
-# Enable cache system for local dbs
-biodb$getConfig()$set('use.cache.for.local.db', TRUE)
-
-# Create connector
-conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
-
-# Run tests
-biodb::testThat('We can list cache files.', test_cacheFiles, conn=conn)
-biodb::testThat(paste('We got a warning if we try to delete files for a',
-                      'cache.id that has no associated folder.'),
-                test_deleteFilesForWrongCacheId, biodb=biodb)
-biodb::testThat('We detect if cache files exist for a connector',
-                test_filesExistForConn, conn=conn)
-biodb::testThat('No cache files exist for unknown cache ID.', test_noFilesExist,
-                biodb=biodb)
-biodb::testThat('We can a list of used cache IDs', test_usedCacheIds,
-                conn=conn)
-biodb::testThat('We can delete all cache files for a connector',
-                test_deleteAllFiles, conn=conn)
-
-# Terminate Biodb
-biodb$terminate()
+# Test all cache implementations
+for (impl in c('custom', 'bioc'))
+    run_tests(impl)

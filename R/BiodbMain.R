@@ -162,8 +162,14 @@ getPersistentCache=function() {
     this BiodbMain instance.
     "
 
-    if (is.null(.self$persistentCache))
-        .self$persistentCache <- BiodbPersistentCache$new(parent = .self)
+    if (is.null(.self$persistentCache)) {
+        impl <- .self$getConfig()$get('persistent.cache.impl')
+        if (impl == 'bioc')
+            .self$persistentCache <- BiodbBiocPersistentCache$new(parent=.self)
+        else # custom
+            .self$persistentCache <-
+                BiodbCustomPersistentCache$new(parent=.self)
+    }
 
     return(.self$persistentCache)
 },

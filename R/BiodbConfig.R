@@ -380,8 +380,6 @@ newObserver=function(obs) {
     if ( ! is.null(env.var.value))
         default <- env.var.value
     if (is.null(default)) {
-        if (key == 'cache.directory' && 'HOME' %in% names(.self$.env))
-            default <- rappdirs::user_cache_dir("biodb")
         if (key == 'useragent' && 'EMAIL' %in% names(.self$.env))
             default <- paste('Biodb user', .self$.env[['EMAIL']], sep=' ; ')
         if (key == 'svn.binary.path')

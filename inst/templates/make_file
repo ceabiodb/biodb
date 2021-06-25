@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.4
+# Makefile for biodb extensions packages, version 1.4.5
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -58,7 +58,16 @@ export BIODB_CACHE_DIRECTORY=$(CACHE)
 ifndef TESTTHAT_REPORTER
 ifdef VIM
 TESTTHAT_REPORTER=summary
-ERROR_MSG_FILTER= | sed 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
+
+# Call stack
+# 8. .self$.parseDbLinks(parsed.content) R/KeggCompoundEntry.R:37:4
+ERROR_MSG_FILTER= | sed -e 's!^ *\([0-9]\+\. \)!Callstack \1!'
+
+# Adjust path to test source file in tests/testthat
+ERROR_MSG_FILTER+= -e 's!\([^/A-Za-z_-]\)\(test[^/A-Za-z][^/]\+\.R\)!\1tests/testthat/\2!'
+
+# TODO Adjust path to test source file in longtests/testthat
+
 else
 TESTTHAT_REPORTER=progress
 ERROR_MSG_FILTER=

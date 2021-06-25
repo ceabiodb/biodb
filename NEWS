@@ -60,3 +60,6 @@ Changes in version 1.1.1 (2021-06-10)
 + Allow skiping of some fields when testing searchForEntries().
 + Move test reference entries folder from tests/testthat/res to inst/testref.
 + Move long tests folder from tests/long to longtests and enable Bioconductor long tests.
+
+Changes in version 1.1.2 (2021-XX-XX)
++ Use BiocFileCache for the persistent cache system.
