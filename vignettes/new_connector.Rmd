@@ -257,8 +257,7 @@ Here the generated skeleton:
 ### Inheritance
 
 The connector class is responsible for the connection to the database.
-In our case, the database is a compound database, so it must also inherit from
-`BiodbCompounddbConn`.
+In our case, the database is a compound database.
 
 ### Methods to implement
 

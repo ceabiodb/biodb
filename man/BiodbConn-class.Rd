@@ -7,20 +7,17 @@
 \title{The mother abstract class of all database connectors.}
 \description{
 This is the super class of all connector classes. All methods defined here
-are thus common to all connector classes. Some connector classes inherit
-directly from this abstract class. Some others inherit from intermediate
-classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
-As for all connector concrete classes, you won't have to create an instance
-of this class directly, but you will instead go through the factory class.
-However, if you plan to develop a new connector, you will have to call the
-constructor of this class. See section Fields for a list of the constructor's
+are thus common to all connector classes. All connector classes inherit
+from this abstract class.
+}
+\details{
+See section Fields for a list of the constructor's
 parameters. Concrete classes may have direct web services methods or other
 specific methods implemented, in which case they will be described inside the
 documentation of the concrete class. Please refer to the documentation of
 each concrete class for more information. The database direct web services
 methods will be named "ws.*".
-}
-\details{
+
 The constructor has the following arguments:
 
 id: The identifier of the connector.
@@ -53,6 +50,64 @@ Returned value: None.
 Allows the connector to write into this database.
     
 Returned value: None.
+    }
+
+\item{\code{annotateMzValues(
+  x,
+  mz.tol,
+  ms.mode,
+  mz.tol.unit = c("plain", "ppm"),
+  mass.field = "monoisotopic.mass",
+  max.results = 3,
+  mz.col = "mz",
+  fields = NULL,
+  prefix = NULL,
+  insert.input.values = TRUE,
+  fieldsLimit = 0
+)}}{:
+
+Annotates a mass spectrum with the database. For each matching entry
+    the entry field values will be set inside columns appended to the data
+    frame. Names of these columns will use a common prefix in order to
+    distinguish them from other data from the input data frame.
+    
+x: Either a data frame or a numeric vector containing the M/Z values.
+    
+mz.col: The name of the column where to find M/Z values in case x is a
+    data frame.
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+mz.tol: The tolerance on the M/Z values. 
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    
+mass.field: The mass field to use for matching M/Z values. One of:
+    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
+    
+fields: A character vector containing the additional entry fields you
+    would like to get for each matched entry. Each field will be output in a
+    different column.
+    
+insert.input.values: Insert input values at the beginning of the
+    result data frame.
+    
+prefix: A prefix that will be inserted before the name of each added
+    column in the output. By default it will be set to the name of the database
+    followed by a dot.
+    
+fieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value. To get all the matches, set this parameter to NA_integer_.
+    Default value is 3.
+    
+Returned value: A data frame containing the input values, and annotation
+    columns appended at the end. The first annotation column contains the IDs
+    of the matched entries. The following columns contain the fields you have
+    requested through the `fields` parameter.
     }
 
 \item{\code{checkDb()}}{:
@@ -300,8 +355,7 @@ Returned value: A character vector containing all searchable fields for
 
 \item{\code{isCompounddb()}}{:
 
-Tests if the connector's database is a compound database (i.e.: the
-    connector class inherits from BiodbCompounddbConn class).
+Tests if the connector's database is a compound database.
     
 Returned value: Returns TRUE if the database is a compound database.
     }
@@ -409,6 +463,39 @@ This method is deprecated.
     
 Use searchForEntries() instead.
     }
+
+\item{\code{searchCompound(
+  name = NULL,
+  mass = NULL,
+  mass.field = NULL,
+  mass.tol = 0.01,
+  mass.tol.unit = "plain",
+  max.results = 0
+)}}{:
+
+This method is deprecated. Use searchForEntries() instead.
+    
+ Searches for compounds by name and/or by mass. At least one of name or
+    mass must be set.
+    
+name: The name of a compound to search for.
+    
+description: A character vector of words or expressions to search for
+    inside description field. The words will be searched in order. A match will
+    be made only if all words are inside the description field.
+    
+mass: The searched mass.
+    
+mass.field: For searching by mass, you must indicate a mass field to use
+    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+    
+mass.tol: The tolerance value on the molecular mass.
+    
+mass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
+    
+max.results: The maximum number of matches to return.
+    
+Returned value: A character vector of entry IDs.}
 
 \item{\code{searchForEntries(fields = NULL, max.results = 0)}}{:
 

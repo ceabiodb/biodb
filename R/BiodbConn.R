@@ -1,13 +1,10 @@
 #' The mother abstract class of all database connectors.
 #'
 #' This is the super class of all connector classes. All methods defined here
-#' are thus common to all connector classes. Some connector classes inherit
-#' directly from this abstract class. Some others inherit from intermediate
-#' classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
-#' As for all connector concrete classes, you won't have to create an instance
-#' of this class directly, but you will instead go through the factory class.
-#' However, if you plan to develop a new connector, you will have to call the
-#' constructor of this class. See section Fields for a list of the constructor's
+#' are thus common to all connector classes. All connector classes inherit
+#' from this abstract class.
+#'
+#' See section Fields for a list of the constructor's
 #' parameters. Concrete classes may have direct web services methods or other
 #' specific methods implemented, in which case they will be described inside the
 #' documentation of the concrete class. Please refer to the documentation of
@@ -587,8 +584,8 @@ write=function() {
 },
 
 isSearchableByField=function(field) {
-    ":\n\nTests if a field can be used to search entries when using methods
-    searchByName() and searchCompound().
+    ":\n\nTests if a field can be used to search entries when using method
+    searchForEntries().
     \nfield: The name of the field.
     \nReturned value: Returns TRUE if the database is searchable using the
     specified field, FALSE otherwise.
@@ -693,13 +690,8 @@ searchByName=function(name, max.results=0) { # DEPRECATED
     "
     
     lifecycle::deprecate_warn('1.0.0', 'searchByName()', "searchForEntries()")
-    ids <- NULL
 
-    # Try deprecated method searchCompound()
-    if (.self$isCompounddb())
-        ids <- .self$searchCompound(name=name, max.results=max.results)
-    else
-        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+    ids <- .self$searchForEntries(list(name=name), max.results=max.results)
 
     return(ids)
 },
@@ -825,12 +817,198 @@ isRemotedb=function() {
 },
 
 isCompounddb=function() {
-    ":\n\nTests if the connector's database is a compound database (i.e.: the
-    connector class inherits from BiodbCompounddbConn class).
+    ":\n\nTests if the connector's database is a compound database.
     \nReturned value: Returns TRUE if the database is a compound database.
     "
 
-    return(methods::is(.self, 'BiodbCompounddbConn'))
+    return(.self$getPropertyValue('compound.db'))
+},
+
+.checkIsCompounddb=function() {
+    if ( ! .self$isCompounddb())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not a compound database.")
+},
+
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
+                        mass.tol=0.01, mass.tol.unit='plain',
+                        max.results=0) {
+    ":\n\nThis method is deprecated. Use searchForEntries() instead.
+    \n Searches for compounds by name and/or by mass. At least one of name or
+    mass must be set.
+    \nname: The name of a compound to search for.
+    \ndescription: A character vector of words or expressions to search for
+    inside description field. The words will be searched in order. A match will
+    be made only if all words are inside the description field.
+    \nmass: The searched mass.
+    \nmass.field: For searching by mass, you must indicate a mass field to use
+    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+    \nmass.tol: The tolerance value on the molecular mass.
+    \nmass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
+    \nmax.results: The maximum number of matches to return.
+    \nReturned value: A character vector of entry IDs."
+
+    lifecycle::deprecate_warn('1.0.0', 'searchCompound()',
+        "searchForEntries()")
+    .self$.checkIsCompounddb()
+    .self$.checkMassField(mass=mass, mass.field=mass.field)
+
+    ids <- NULL
+
+    # Try searchForEntries
+    if ( ! is.null(name) && is.null(mass))
+        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+    else if ( ! is.null(mass)) {
+        fields <- if (is.null(name)) list() else list(name=name)
+        fields[[mass.field]] <- list(value=mass)
+        if (mass.tol.unit == 'ppm')
+            fields[[mass.field]]$ppm = mass.tol
+        else
+            fields[[mass.field]]$delta = mass.tol
+        ids <- .self$searchForEntries(fields, max.results=max.results)
+    }
+
+    return(ids)
+},
+
+annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
+    mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL,
+    prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
+    ":\n\nAnnotates a mass spectrum with the database. For each matching entry
+    the entry field values will be set inside columns appended to the data
+    frame. Names of these columns will use a common prefix in order to
+    distinguish them from other data from the input data frame.
+    \nx: Either a data frame or a numeric vector containing the M/Z values.
+    \nmz.col: The name of the column where to find M/Z values in case x is a
+    data frame.
+    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    \nmz.tol: The tolerance on the M/Z values. 
+    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    \nmass.field: The mass field to use for matching M/Z values. One of:
+    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
+    \nfields: A character vector containing the additional entry fields you
+    would like to get for each matched entry. Each field will be output in a
+    different column.
+    \ninsert.input.values: Insert input values at the beginning of the
+    result data frame.
+    \nprefix: A prefix that will be inserted before the name of each added
+    column in the output. By default it will be set to the name of the database
+    followed by a dot.
+    \nfieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
+    \nmax.results: If set, it is used to limit the number of matches found for
+    each M/Z value. To get all the matches, set this parameter to NA_integer_.
+    Default value is 3.
+    \nReturned value: A data frame containing the input values, and annotation
+    columns appended at the end. The first annotation column contains the IDs
+    of the matched entries. The following columns contain the fields you have
+    requested through the `fields` parameter.
+    "
+
+    .self$.checkIsCompounddb()
+    if (is.null(x))
+        return(NULL)
+
+    ret <- data.frame(stringsAsFactors=FALSE)
+    newCols <- character()
+    mz.tol.unit <- match.arg(mz.tol.unit)
+    ef <- .self$getBiodb()$getEntryFields()
+    mass.field <- match.arg(mass.field, ef$getFieldNames('mass'))
+
+    # Convert x to data frame
+    if ( ! is.data.frame(x))
+        x <- data.frame(mz = x)
+
+    # Check that we find the M/Z column
+    if (nrow(x) > 0 && ! mz.col %in% names(x))
+        error('No column named "%s" was found inside data frame.', mz.col)
+
+    # Set M/Z col in output data frame
+    if (mz.col %in% names(x))
+        ret[[mz.col]] <- numeric()
+
+    # Set output fields
+    if ( ! is.null(fields))
+        ef$checkIsDefined(fields)
+    if (is.null(fields))
+        fields <- .self$getEntryIdField()
+
+    # Set prefix
+    if (is.null(prefix))
+        prefix <- paste0(.self$getId(), '.')
+
+    # Get proton mass
+    pm <- .self$getBiodb()$getConfig()$get('proton.mass')
+
+    # Loop on all masses
+    prg <- Progress$new(biodb=.self$getBiodb(), msg='Annotating M/Z values.',
+                        total=nrow(x))
+    for (i in seq_len(nrow(x))) {
+
+        # Send progress message
+        prg$increment()
+
+        # Compute mass
+        m <- x[i, mz.col] + pm * (if (ms.mode == 'neg') +1.0 else -1.0)
+
+        # Search for compounds matching this mass
+        rng <- Range$new(value=m, tol=mz.tol, tolType=mz.tol.unit)
+        fieldsFilter <- list()
+        fieldsFilter[[mass.field]] <- rng$getTolExpr()
+        ids <- .self$searchForEntries(fieldsFilter, max.results=max.results)
+
+        # Get entries
+        entries <- .self$getEntry(ids, drop=FALSE)
+
+        # Convert entries to data frame
+        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields,
+            limit=fieldsLimit)
+
+        # Add prefix
+        if ( ! is.null(df) && ncol(df) > 0 && ! is.na(prefix)
+            && nchar(prefix) > 0) {
+            fct <- function(x) substr(x, 1, nchar(prefix)) != prefix
+            noprefix <- vapply(colnames(df), fct, FUN.VALUE=TRUE)
+            colnames(df)[noprefix] <- paste0(prefix,
+                colnames(df)[noprefix])
+    }
+
+        # Register new columns
+        if ( ! is.null(df)) {
+            c <- colnames(df)[ ! colnames(df) %in% newCols]
+            newCols <- c(newCols, c)
+        }
+
+        # Insert input values
+        if (insert.input.values)
+            df <- if (is.null(df) || nrow(df) == 0) x[i, , drop=FALSE]
+                else cbind(x[i, , drop=FALSE], df, row.names=NULL,
+                    stringsAsFactors=FALSE)
+
+        # Append local data frame to main data frame
+        ret <- plyr::rbind.fill(ret, df)
+    }
+
+    # Sort new columns
+    if ( ! is.null(ret)) {
+        isAnInputCol <- ! colnames(ret) %in% newCols
+        inputCols <- colnames(ret)[isAnInputCol]
+        ret <- ret[, c(inputCols, sort(newCols)), drop=FALSE]
+    }
+
+    return(ret)
+},
+
+.checkMassField=function(mass, mass.field) {
+
+    if ( ! is.null(mass)) {
+        chk::chk_number(mass)
+        chk::chk_string(mass.field)
+        ef <- .self$getBiodb()$getEntryFields()
+        mass.fields <- ef$getFieldNames(type='mass')
+        chk::chk_in(mass.field, mass.fields)
+    }
 },
 
 isMassdb=function() {

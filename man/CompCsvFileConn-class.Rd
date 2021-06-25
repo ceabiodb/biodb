@@ -25,6 +25,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-Super class \code{\link{CsvFileConn}} and interfaces
-\code{\link{BiodbCompounddbConn}}.
+Super class \code{\link{CsvFileConn}}.
 }

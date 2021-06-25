@@ -3,6 +3,7 @@ databases:
   chebi.ex:
     name: ChEBI example connector
     description: An example connector for ChEBI.
+    compound.db: true
     entry.content.encoding: UTF-8
     entry.content.type: xml
     parsing.expr:

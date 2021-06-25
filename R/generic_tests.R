@@ -550,6 +550,7 @@ test.searchByName = function(conn, opt=NULL) {
         testthat::expect_is(ids, 'character')
         testthat::expect_length(ids, 0)
     }
+    withr::local_options(lifecycle_verbosity="error")
 }
 
 test.searchCompound <- function(db, opt=NULL) {
@@ -571,6 +572,9 @@ test.searchCompound <- function(db, opt=NULL) {
     testthat::expect_gt(length(name), 0)
     name <- name[[1]]
     testthat::expect_true( ! is.na(name))
+    lifecycle::expect_deprecated(db$searchCompound(name=name,
+        max.results=max.results))
+    withr::local_options(lifecycle_verbosity="quiet")
     ids <- db$searchCompound(name=name, max.results=max.results)
     if (db$isSearchableByField('name')) {
         msg <- paste0('While searching for entry ', id, ' by name "', name,
@@ -660,10 +664,7 @@ test.searchCompound <- function(db, opt=NULL) {
             }
         }
     }
-}
-
-test.searchCompound.no.mass.field <- function(db) {
-    testthat::expect_error(db$searchCompound(mass=45))
+    withr::local_options(lifecycle_verbosity="error")
 }
 
 test.annotateMzValues <- function(conn) {
@@ -1383,8 +1384,6 @@ runGenericShortTests <- function(conn, opt=NULL) {
     }
 
     if (conn$isCompounddb()) {
-        biodb::testThat('searchCompound() fails if no mass field is set.',
-            test.searchCompound.no.mass.field, conn=conn)
         biodb::testThat('annotateMzValues() works correctly.',
             test.annotateMzValues, conn=conn)
     }

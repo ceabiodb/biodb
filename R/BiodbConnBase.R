@@ -553,6 +553,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Define properties
     prop.def <- list(
+        compound.db=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         description=list(class='character', default=NA_character_,
                     na.allowed=TRUE, modifiable=FALSE),
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),

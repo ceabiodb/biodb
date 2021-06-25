@@ -5,8 +5,6 @@
 #' @seealso 
 #' $$$ CASE CONNTYPE PLAIN $$$
 #' \code{\link{BiodbConn}}
-#' $$$ CASE CONNTYPE COMPOUND $$$
-#' \code{\link{BiodbCompounddbConn}}
 #' $$$ CASE CONNTYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
 #' $$$ END_CASE CONNTYPE $$$
@@ -32,8 +30,6 @@
     contains=
 # $$$ CASE CONNTYPE PLAIN $$$
         "BiodbConn"
-# $$$ CASE CONNTYPE COMPOUND $$$
-        "BiodbCompounddbConn"
 # $$$ CASE CONNTYPE MASS $$$
         "BiodbMassdbConn"
 # $$$ END_CASE CONNTYPE $$$
