@@ -5,9 +5,9 @@
 #'
 #' @details
 #' This class generates a new connector class from given parameters.
-#' The new class can inherit directly from \code{BiodbConn} or
-#' \code{BiodbCompounddbConn} or \code{BiodbMassdbConn}.
-#' It can also be editable and/or writable.
+#' The new class inherits from \code{BiodbConn}.
+#' It can be defined as a compound or mass database connector, and made
+#' downloadable, editable and/or writable.
 #'
 #' @examples
 #' # Generate a new connector class inside R folder:

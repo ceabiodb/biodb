@@ -2,8 +2,7 @@
 #'
 #' This is the connector class for a Compound database.
 #'
-#' @seealso Super class \code{\link{SqliteConn}} and interfaces
-#' \code{\link{BiodbCompounddbConn}}.
+#' @seealso Super class \code{\link{SqliteConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -22,7 +21,7 @@
 #' @import methods
 #' @include SqliteConn.R
 CompSqliteConn <- methods::setRefClass('CompSqliteConn',
-    contains=c("SqliteConn", "BiodbCompounddbConn"),
+    contains="SqliteConn",
     fields=list(
     ),
 

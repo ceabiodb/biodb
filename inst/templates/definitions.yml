@@ -4,6 +4,9 @@ databases:
   {{dbName}}:
     name: {{dbTitle}}
     description: Write here the description of this database.
+# $$$ CASE CONNTYPE COMPOUND $$$
+    compound.db: true
+#' $$$ END_CASE CONNTYPE $$$
 #' $$$ SECTION EDITABLE $$$
     editable: true
 #' $$$ END_SECTION EDITABLE $$$

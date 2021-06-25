@@ -145,6 +145,20 @@ tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
 
     return(private$ppm)
 }
+
+,getTolExpr=function() {
+
+    expr <- NULL
+
+    if ( ! is.null(private$min) && ! is.null(private$max))
+        expr <- list(min=private$min, max=private$max)
+    else if ( ! is.null(private$value) && ! is.null(private$ppm))
+        expr <- list(value=private$value, ppm=private$ppm)
+    else if ( ! is.null(private$value) && ! is.null(private$delta))
+        expr <- list(value=private$value, delta=private$delta)
+
+    return(expr)
+}
 )
 
 ,private=list(
