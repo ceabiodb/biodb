@@ -6,6 +6,8 @@ databases:
     description: Write here the description of this database.
 # $$$ CASE CONNTYPE COMPOUND $$$
     compound.db: true
+#' $$$ CASE CONNTYPE MASS $$$
+    mass.db: true
 #' $$$ END_CASE CONNTYPE $$$
 #' $$$ SECTION EDITABLE $$$
     editable: true

@@ -90,6 +90,5 @@ mybiodb$terminate()
 
 }
 \seealso{
-Super class \code{\link{CsvFileConn}} and sub-class
-\code{\link{BiodbMassdbConn}}.
+Super class \code{\link{CsvFileConn}}.
 }

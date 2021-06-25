@@ -575,6 +575,8 @@ setPropValSlot=function(name, slot, value) {
             default=list(mz=c('peak.mztheo', 'peak.mzexp')),
             named=TRUE, mult=TRUE, na.allowed=FALSE,
             allowed_item_types='character'),
+        mass.db=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         name=list(class='character', default=NA_character_,
             na.allowed=FALSE, modifiable=FALSE),
         package=list(class='character', default='biodb', na.allowed=FALSE,

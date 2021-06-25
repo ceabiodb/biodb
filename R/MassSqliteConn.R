@@ -2,8 +2,7 @@
 #'
 #' This is the connector class for a MASS SQLite database.
 #'
-#' @seealso Super classes \code{\link{BiodbMassdbConn}} and
-#' \code{\link{SqliteConn}}.
+#' @seealso Super class \code{\link{SqliteConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -22,10 +21,9 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include BiodbMassdbConn.R
 #' @include SqliteConn.R
 MassSqliteConn <- methods::setRefClass('MassSqliteConn',
-    contains=c("SqliteConn", "BiodbMassdbConn"),
+    contains="SqliteConn",
     fields=list(),
 
 methods=list(
@@ -72,7 +70,7 @@ getChromCol=function(ids=NULL) {
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    # Inherited from BiodbMassdbConn.
+    # Overwrites super class' method
 
     mz <- numeric()
 

@@ -2,12 +2,7 @@
 #'
 #' Connector class for {{dbTitle}}.
 #'
-#' @seealso 
-#' $$$ CASE CONNTYPE PLAIN $$$
-#' \code{\link{BiodbConn}}
-#' $$$ CASE CONNTYPE MASS $$$
-#' \code{\link{BiodbMassdbConn}}
-#' $$$ END_CASE CONNTYPE $$$
+#' @seealso \code{\link{BiodbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -27,13 +22,7 @@
 #' @export {{connClass}}
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
-    contains=
-# $$$ CASE CONNTYPE PLAIN $$$
-        "BiodbConn"
-# $$$ CASE CONNTYPE MASS $$$
-        "BiodbMassdbConn"
-# $$$ END_CASE CONNTYPE $$$
-    ,
+    contains="BiodbConn",
     fields=list(
     ),
 

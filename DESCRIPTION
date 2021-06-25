@@ -70,7 +70,6 @@ Collate:
     'BiodbHtmlEntry.R'
     'BiodbJsonEntry.R'
     'BiodbListEntry.R'
-    'BiodbMassdbConn.R'
     'BiodbUrl.R'
     'BiodbRequest.R'
     'BiodbRequestScheduler.R'

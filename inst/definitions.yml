@@ -213,6 +213,7 @@ databases:
   mass.csv.file:
     name: Mass spectra CSV File
     description: A connector to handle a mass spectra database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields..
+    mass.db: true
     entry.content.type: tsv
     editable: true
     writable: true
@@ -221,6 +222,8 @@ databases:
 ################################################################################
   mass.sqlite:
     name: Mass spectra SQLite
+    description: A connector to handle a mass spectra database stored inside an SQLite file.
+    mass.db: true
     entry.content.type: list
     editable: true
     writable: true

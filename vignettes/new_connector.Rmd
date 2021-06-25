@@ -445,8 +445,6 @@ Method                       | Description
 
 In the example above, we have implemented a compound database.
 Another type of database is a mass spectra database.
-*biodb* defines the abstract mass database connector `BiodbMassdbConn` that
-proposes a generic API for all mass spectra databases.
 The following connectors included in *biodb* package are mass spectra database
 connectors: `mass.csv.file` and `mass.sqlite`.
 See \@ref(tab:massdbConnMethods) for a list of methods to implement when
@@ -459,7 +457,7 @@ Method                       | Description
 `.doGetMzValues()`           | Returns a list of M/Z values contained inside the database, with the possibility of filtering on MS mode, MS level, and some other variables.
 `.doSearchMzRange()`         | Searches for spectra using an M/Z range and optional filtering on some other variables.
 
-: (\#tab:massdbConnMethods) `BiodbMassdbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbMassdbConn` class.
+: (\#tab:massdbConnMethods) Methods to implement when defining a connector to a mass spectra database.
 
 ### Connector for a downloadable database
 

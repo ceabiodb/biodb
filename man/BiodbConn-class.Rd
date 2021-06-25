@@ -117,6 +117,22 @@ Checks that the database is correct by trying to retrieve all its
     
 Returned values: None.}
 
+\item{\code{collapseResultsDataFrame(results.df, mz.col = "mz", rt.col = "rt", sep = "|")}}{:
+
+Collapse rows of a results data frame, by outputing a data frame with
+    only one row for each MZ/RT value.
+    
+results.df: Results data frame.
+    
+ mz.col: The name of the M/Z column in the results data frame.
+    
+ rt.col: The name of the RT column in the results data frame.
+    
+ sep: The separator used to concatenate values, when collapsing results
+    data frame.
+    
+Returned value: A data frame with rows collapsed.}
+
 \item{\code{correctIds(ids)}}{:
 
 Correct a vector of IDs by formatting them to the database official
@@ -191,6 +207,44 @@ Returned value: TRUE if editing is allowed for this database, FALSE
     otherwise.
     }
 
+\item{\code{filterEntriesOnRt(
+  entry.ids,
+  rt,
+  rt.unit,
+  rt.tol,
+  rt.tol.exp,
+  chrom.col.ids,
+  match.rt
+)}}{:
+
+Filters a list of entries on retention time values.
+    
+entry.ids: A character vector of entry IDs.
+    
+rt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    
+rt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    
+rt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    
+rt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    
+chrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    
+match.rt: If set to TRUE, filters on RT values, otherwise does not do any
+    filtering.
+    
+Returned value: A character vector containing entry IDs after filtering.
+    }
+
 \item{\code{getAllCacheEntries()}}{:
 
 This method is deprecated.
@@ -222,6 +276,17 @@ Returned value: A character vector, the same length as the vector of IDs,
 Gets the ID used by this connector in the disk cache.
     
 Returned value: The cache ID of this connector.
+    }
+
+\item{\code{getChromCol(ids = NULL)}}{:
+
+Gets a list of chromatographic columns contained in this database.
+    
+ids: A character vector of entry identifiers (i.e.: accession numbers).
+    Used to restrict the set of entries on which to run the algorithm.
+    
+Returned value : A data.frame with two columns, one for the ID 'id' and
+    another one for the title 'title'.
     }
 
 \item{\code{getDownloadPath()}}{:
@@ -295,9 +360,8 @@ Returned value: A list of BiodbUrl objects.
 \item{\code{getEntryIds(max.results = 0, ...)}}{:
 
 Get entry identifiers from the database. More arguments can be given,
-    depending on implementation in specific databases. For mass databases, the
-    ones derived from BiodbBiodbMassdbConn class, the ms.level argument can be
-    set.
+    depending on implementation in specific databases. For mass databases
+    the ms.level argument can also be set.
     
 max.results: The maximum of elements to return from the method.
     
@@ -335,6 +399,30 @@ Get the identifier of this connector.
 Returned value: The identifier of this connector.
     }
 
+\item{\code{getMatchingMzField()}}{:
+
+Gets the field to use for M/Z matching.
+    
+Returned value: The name of the field (one of peak.mztheo or peak.mzexp).
+    }
+
+\item{\code{getMzValues(ms.mode = NULL, max.results = 0, precursor = FALSE, ms.level = 0)}}{:
+
+Gets a list of M/Z values contained inside the database.
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
+    to one mode.
+    
+max.results: If set, it is used to limit the size of the output.
+    
+precursor: If set to TRUE, then restrict the search to precursor peaks.
+    
+ms.level: The MS level to which you want to restrict your search.
+    0 means that you want to search in all levels.
+    
+Returned value: A numeric vector containing M/Z values.
+    }
+
 \item{\code{getNbEntries(count = FALSE)}}{:
 
 Get the number of entries contained in this database.
@@ -343,6 +431,19 @@ count: If set to TRUE and no straightforward way exists to get number of
     entries, count the output of getEntryIds().
     
 Returned value: The number of entries in the database, as an integer.
+    }
+
+\item{\code{getNbPeaks(mode = NULL, ids = NULL)}}{:
+
+Gets the number of peaks contained in the database.
+    
+mode: The MS mode. Set it to either 'neg' or 'pos' to limit the counting
+    to one mode.
+    
+ids: A character vector of entry identifiers (i.e.: accession numbers).
+    Used to restrict the set of entries on which to run the algorithm.
+    
+Returned value: The number of peaks, as an integer.
     }
 
 \item{\code{getSearchableFields()}}{:
@@ -394,8 +495,7 @@ Returned value: TRUE if the downloaded database content has been
 
 \item{\code{isMassdb()}}{:
 
-Tests if the connector's database is a mass spectra database (i.e.:
-    the connector class inherits from BiodbMassdbConn class).
+Tests if the connector's database is a mass spectra database.
     
 Returned value: Returns TRUE if the database is a mass database.
     }
@@ -408,8 +508,8 @@ Returned value: Returns TRUE if the database is a remote database.}
 
 \item{\code{isSearchableByField(field)}}{:
 
-Tests if a field can be used to search entries when using methods
-    searchByName() and searchCompound().
+Tests if a field can be used to search entries when using method
+    searchForEntries().
     
 field: The name of the field.
     
@@ -455,6 +555,53 @@ recurse: If set to TRUE, the algorithm will follow all references to
     
 Returned value: A logical vector, the same size as `id`, with TRUE for
     each entry making reference to `oid`, and FALSE otherwise.
+    }
+
+\item{\code{msmsSearch(
+  spectrum,
+  precursor.mz,
+  mz.tol,
+  mz.tol.unit = c("plain", "ppm"),
+  ms.mode,
+  npmin = 2,
+  dist.fun = c("wcosine", "cosine", "pkernel", "pbachtttarya"),
+  msms.mz.tol = 3,
+  msms.mz.tol.min = 0.005,
+  max.results = 0
+)}}{:
+
+Searches MSMS spectra matching a template spectrum. The mz.tol
+    parameter is applied on the precursor search.
+    
+spectrum: A template spectrum to match inside the database.
+    
+precursor.mz: The M/Z value of the precursor peak of the mass spectrum.
+    
+mz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+npmin: The minimum number of peak to detect a match (2 is recommended).
+    
+dist.fun: The distance function used to compute the distance betweem two
+    mass spectra.
+    
+msms.mz.tol: M/Z tolerance to apply while matching MSMS spectra.  In PPM.
+    
+msms.mz.tol.min: Minimum of the M/Z tolerance (plain unit). If the M/Z
+    tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
+    `msms.mz.tol.min` will be used.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    
+Returned value: A data frame with columns `id`, `score` and `peak.*`. Each
+    `peak.*` column corresponds to a peak in the input spectrum, in the same
+    order and gives the number of the peak that was matched with it inside the
+    matched spectrum whose ID is inside the `id` column.
     }
 
 \item{\code{searchByName(name, max.results = 0)}}{:
@@ -518,11 +665,231 @@ Returned value: A character vector of entry IDs whose name matches the
     requested name.
     }
 
+\item{\code{searchForMassSpectra(
+  mz.min = NULL,
+  mz.max = NULL,
+  mz = NULL,
+  mz.tol = NULL,
+  mz.tol.unit = c("plain", "ppm"),
+  rt = NULL,
+  rt.unit = c("s", "min"),
+  rt.tol = NULL,
+  rt.tol.exp = NULL,
+  chrom.col.ids = NULL,
+  precursor = FALSE,
+  min.rel.int = 0,
+  ms.mode = NULL,
+  max.results = 0,
+  ms.level = 0
+)}}{:
+
+Searches for entries (i.e.: spectra) that contain a peak around the
+    given M/Z value. Entries can also be filtered on RT values. You can input
+    either a list of M/Z values through mz argument and set a tolerance with
+    mz.tol argument, or two lists of minimum and maximum M/Z values through
+    mz.min and mz.max arguments.
+    
+mz: A vector of M/Z values.
+    
+mz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    
+mz.min: A vector of minimum M/Z values.
+    
+mz.max: A vector of maximum M/Z values. Its length must be the same as
+    `mz.min`.
+    
+rt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    
+rt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    
+rt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    
+rt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    
+chrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    
+precursor: If set to TRUE, then restrict the search to precursor peaks.
+    
+min.rel.int: The minimum relative intensity, in percentage (i.e.: float
+    number between 0 and 100).
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+ms.level: The MS level to which you want to restrict your search.
+    0 means that you want to search in all levels.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    
+Returned value: A character vector of spectra IDs.
+    }
+
+\item{\code{searchMsEntries(
+  mz.min = NULL,
+  mz.max = NULL,
+  mz = NULL,
+  mz.tol = NULL,
+  mz.tol.unit = c("plain", "ppm"),
+  rt = NULL,
+  rt.unit = c("s", "min"),
+  rt.tol = NULL,
+  rt.tol.exp = NULL,
+  chrom.col.ids = NULL,
+  precursor = FALSE,
+  min.rel.int = 0,
+  ms.mode = NULL,
+  max.results = 0,
+  ms.level = 0
+)}}{:
+
+This method is deprecated.
+    
+Use searchForMassSpectra() instead.
+    }
+
+\item{\code{searchMsPeaks(
+  input.df = NULL,
+  mz = NULL,
+  mz.tol = NULL,
+  mz.tol.unit = c("plain", "ppm"),
+  min.rel.int = 0,
+  ms.mode = NULL,
+  ms.level = 0,
+  max.results = 0,
+  chrom.col.ids = NULL,
+  rt = NULL,
+  rt.unit = c("s", "min"),
+  rt.tol = NULL,
+  rt.tol.exp = NULL,
+  precursor = FALSE,
+  precursor.rt.tol = NULL,
+  insert.input.values = TRUE,
+  prefix = NULL,
+  compute = TRUE,
+  fields = NULL,
+  fieldsLimit = 0,
+  input.df.colnames = c(mz = "mz", rt = "rt"),
+  match.rt = FALSE
+)}}{:
+
+For each M/Z value, searches for matching MS spectra and returns the
+    matching peaks.
+    
+input.df: A data frame taken as input for searchMsPeaks(). It must
+    contain a columns 'mz', and optionaly an 'rt' column.
+    
+mz: A vector of M/Z values to match. Used if input.df is not set.
+    
+mz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
+    
+mz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
+    'plain'.
+    
+min.rel.int: The minimum relative intensity, in percentage (i.e.: float
+    number between 0 and 100).
+    
+ms.mode: The MS mode. Set it to either 'neg' or 'pos'.
+    
+ms.level: The MS level to which you want to restrict your search.
+    0 means that you want to search in all levels.
+    
+max.results: If set, it is used to limit the number of matches found for
+    each M/Z value.
+    
+chrom.col.ids: IDs of chromatographic columns on which to match the
+    retention time.
+    
+rt: A vector of retention times to match. Used if input.df is not set.
+    Unit is specified by rt.unit parameter.
+    
+rt.unit: The unit for submitted retention times. Either 's' or 'min'.
+    
+rt.tol: The plain tolerance (in seconds) for retention times:
+    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+    
+rt.tol.exp: A special exponent tolerance for retention times:
+    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
+    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+    input.rt ** rt.tol.exp.
+    
+precursor: If set to TRUE, then restrict the search to precursor peaks.
+    
+precursor.rt.tol: The RT tolerance used when matching the precursor.
+    
+insert.input.values: Insert input values at the beginning of the
+    result data frame.
+    
+prefix: Add prefix on column names of result data frame.
+    
+compute: If set to TRUE, use the computed values when converting found
+    entries to data frame.
+    
+fields: A character vector of field names to output. The data frame output
+    will be restricted to this list of fields.
+    
+fieldsLimit: The maximum of values to output for fields with multiple
+    values. Set it to 0 to get all values.
+    
+input.df.colnames: Names of the columns in the input data frame.
+    
+match.rt: If set to TRUE, match also RT values.
+    
+Returned value: A data frame with at least input MZ and RT columns, and
+    annotation columns prefixed with `prefix` if set. For each
+    matching found a row is output. Thus if n matchings are found for M/Z value
+    x, then there will be n rows for x, each for a different match. The number
+    of matching found for each M/Z value is limited to `max.results`.
+    }
+
+\item{\code{searchMzRange(
+  mz.min,
+  mz.max,
+  min.rel.int = 0,
+  ms.mode = NULL,
+  max.results = 0,
+  precursor = FALSE,
+  ms.level = 0
+)}}{Find spectra in the given M/Z range. Returns a list of spectra IDs.}
+
+\item{\code{searchMzTol(
+  mz,
+  mz.tol,
+  mz.tol.unit = "plain",
+  min.rel.int = 0,
+  ms.mode = NULL,
+  max.results = 0,
+  precursor = FALSE,
+  ms.level = 0
+)}}{Find spectra containg a peak around the given M/Z value. Returns a
+character vector of spectra IDs.}
+
 \item{\code{setEditingAllowed(allow)}}{:
 
 Allow or disallow editing for this database.
     
 allow: A logical value.
+    
+Returned value: None.
+    }
+
+\item{\code{setMatchingMzField(field = c("peak.mztheo", "peak.mzexp"))}}{:
+
+Sets the field to use for M/Z matching.
+    
+field: The field to use for matching.
     
 Returned value: None.
     }
@@ -581,6 +948,6 @@ mybiodb$terminate()
 
 }
 \seealso{
-Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
-\code{\link{BiodbCompoundbConn}} and \code{\link{BiodbMassdbConn}}.
+Super class \code{\link{BiodbConnBase}}, and
+\code{\link{BiodbFactory}} class.
 }
