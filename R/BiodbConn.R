@@ -446,12 +446,110 @@ searchByName=function(name, max.results=0) { # DEPRECATED
 },
 
 isDownloadable=function() {
-    ":\n\nTests if the connector can download the database (i.e.: the connector
-    class implements the interface BiodbDownloadable).
+    ":\n\nTests if the connector can download the database.
     \nReturned value: Returns TRUE if the database is downloadable.
     "
 
-    return(methods::is(.self, 'BiodbDownloadable'))
+    return(.self$getPropertyValue('downloadable'))
+},
+
+.checkDownloadable=function() {
+    if ( ! .self$isDownloadable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not downloadable.")
+},
+
+isDownloaded=function() {
+    ":\n\nTests if the database has been downloaded.
+    \nReturned value: TRUE if the database content has already been downloaded.
+    "
+
+    .self$.checkDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    dwnlded  <- cch$markerExist(.self$getCacheId(),
+                    name='downloaded')
+
+    s <- (if (dwnlded) 'already' else 'not yet')
+    logDebug0('Database ', .self$getId(), ' has ', s, ' been downloaded.')
+
+    return(dwnlded)
+},
+
+requiresDownload=function() {
+    return(FALSE)
+},
+
+getDownloadPath=function() {
+    ":\n\nGets the path where the downloaded content is written.
+    \nReturned value: The path where the downloaded database is written.
+    "
+
+    .self$.checkDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    ext <- .self$getPropertyValue('dwnld.ext')
+    path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
+
+    logDebug0('Download path of ', .self$getId(), ' is "', path, '".')
+
+    return(path)
+},
+
+isExtracted=function() {
+    ":\n\nTests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    \nReturned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
+    "
+
+    .self$.checkDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    return(cch$markerExist(.self$getCacheId(),
+        name='extracted'))
+},
+
+download=function() {
+    ":\n\nDownloads the database content locally.
+    \nReturned value: None.
+    "
+
+    .self$.checkDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+
+    # Download
+    cfg <- .self$getBiodb()$getConfig()
+    if (cch$isWritable(.self) && ! .self$isDownloaded()
+        && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
+        && ! cfg$isEnabled('offline')) {
+
+        logInfo0("Downloading whole database of ", .self$getId(), ".")
+        .self$.doDownload()
+        if ( ! file.exists(.self$getDownloadPath()))
+            error("File %s does not exists. Downloading went wrong.",
+                .self$getDownloadPath())
+        logDebug0('Downloading of ', .self$getId(), ' completed.')
+
+        # Set marker
+        cch$setMarker(.self$getCacheId(), name='downloaded')
+    }
+
+    # Extract
+    if (.self$isDownloaded() && ! .self$isExtracted()) {
+
+        logInfo0("Extract whole database of ", .self$getId(), ".")
+
+        .self$.doExtractDownload()
+
+        # Set marker
+        cch$setMarker(.self$getCacheId(), name='extracted')
+    }
+},
+
+.doDownload=function() {
+    .self$.abstractMethod()
+},
+
+.doExtractDownload=function() {
+    .self$.abstractMethod()
 },
 
 isRemotedb=function() {

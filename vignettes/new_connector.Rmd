@@ -472,10 +472,10 @@ Some database servers do not propose web services, or other connection to the
 database, but propose to download the whole database for local processing.
 
 *biodb* offers the possibility to handle the connection to such database
-servers, by implementing the `BiodbDownloadable` interface into your connector
-class, which already inherits from `BiodbRemotedbConn`.
+servers, by setting `downloadable` to `TRUE` inside the definition of the
+database connector.
 
-See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
+See \@ref(tab:downloadableMethods) for a list of methods to implement inside your connector when writing a downloadable database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
@@ -483,7 +483,7 @@ Method                       | Description
 `.doDownload()`              | This method must implement the download of the database file.
 `.doExtractDownload()`       | This method must implement the extraction of the database files (e.g.: from a zip).
 
-: (\#tab:downloadableMethods) `BiodbDownloadable` methods to implement. The list of methods to override when implementing the `BiodbDownloadable`interface. 
+: (\#tab:downloadableMethods) Methods to implement when defining a downloadable connector class.
 
 ### How to implement other types of entry classes
 

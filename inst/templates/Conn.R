@@ -13,9 +13,6 @@
 #' $$$ SECTION REMOTE $$$
 #' \code{\link{BiodbRemotedbConn}}
 #' $$$ END_SECTION REMOTE $$$
-#' $$$ SECTION DOWNLOADABLE $$$
-#' ,\code{\link{BiodbDownloadable}}
-#' $$$ END_SECTION DOWNLOADABLE $$$
 #' $$$ SECTION EDITABLE $$$
 #' ,\code{\link{BiodbEditable}}
 #' $$$ END_SECTION EDITABLE $$$
@@ -52,9 +49,6 @@
 # $$$ SECTION REMOTE $$$
         ,"BiodbRemotedbConn"
 # $$$ END_SECTION REMOTE $$$
-# $$$ SECTION DOWNLOADABLE $$$
-        ,'BiodbDownloadable'
-# $$$ END_SECTION DOWNLOADABLE $$$
 # $$$ SECTION EDITABLE $$$
         ,'BiodbEditable'
 # $$$ END_SECTION EDITABLE $$$

@@ -127,6 +127,7 @@ databases:
       #     .self$getPropValSlot('urls', 'ws.url')
 # $$$ END_SECTION REMOTE $$$
 # $$$ SECTION DOWNLOADABLE $$$
+    downloadable: true
     dwnld.ext: zip
 # $$$ END_SECTION DOWNLOADABLE $$$
 

@@ -561,6 +561,7 @@ setPropValSlot=function(name, slot, value) {
                     na.allowed=TRUE, modifiable=FALSE),
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),
         disabling.reason=list(class='character', default=''),
+        downloadable=list(class='logical', default=FALSE),
         dwnld.ext=list(class='character', default=NA_character_,
             modifiable=FALSE),
         entry.content.encoding=list(class='character',

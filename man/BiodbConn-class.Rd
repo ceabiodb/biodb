@@ -82,6 +82,13 @@ deleteVolatile: If TRUE deletes also all entries
 Returned value: None.
     }
 
+\item{\code{download()}}{:
+
+Downloads the database content locally.
+    
+Returned value: None.
+    }
+
 \item{\code{getAllCacheEntries()}}{:
 
 This method is deprecated.
@@ -113,6 +120,13 @@ Returned value: A character vector, the same length as the vector of IDs,
 Gets the ID used by this connector in the disk cache.
     
 Returned value: The cache ID of this connector.
+    }
+
+\item{\code{getDownloadPath()}}{:
+
+Gets the path where the downloaded content is written.
+    
+Returned value: The path where the downloaded database is written.
     }
 
 \item{\code{getEntry(id, drop = TRUE, nulls = TRUE)}}{:
@@ -211,10 +225,16 @@ Returned value: Returns TRUE if the database is a compound database.
 
 \item{\code{isDownloadable()}}{:
 
-Tests if the connector can download the database (i.e.: the connector
-    class implements the interface BiodbDownloadable).
+Tests if the connector can download the database.
     
 Returned value: Returns TRUE if the database is downloadable.
+    }
+
+\item{\code{isDownloaded()}}{:
+
+Tests if the database has been downloaded.
+    
+Returned value: TRUE if the database content has already been downloaded.
     }
 
 \item{\code{isEditable()}}{:
@@ -224,6 +244,15 @@ Tests if this connector is able to edit the database (i.e.: the
     is editable, then you can call allowEditing() to enable editing.
     
 Returned value: Returns TRUE if the database is editable.
+    }
+
+\item{\code{isExtracted()}}{:
+
+Tests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    
+Returned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
     }
 
 \item{\code{isMassdb()}}{:
