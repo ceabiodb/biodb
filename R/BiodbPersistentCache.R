@@ -167,7 +167,7 @@ getFilePath=function(cache.id, name, ext) {
     chk::chk_string(ext)
 
     filepath <- name
-    is.valid.name <- (! is.na(name)) & (name != '')
+    is.valid.name <- ( ! is.na(name)) & (name != '')
     filepath[is.valid.name] <- .self$.doGetFilePath(cache.id,
         name[is.valid.name], ext)
 
@@ -305,9 +305,11 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
         error0("Attempt to read from non-readable cache \"",
             .self$getDir(), "\".")
 
-    logTrace('Trying to load %d files from cache.', length(name))
+    logTrace('Trying to load %d files from cache: %s.', length(name),
+        lst2str(name))
     content <- rep(list(NULL), length(name))
     file.exist <- .self$fileExists(cache.id, name, ext)
+    logTrace('file.exist = %s.', lst2str(file.exist))
     content[is.na(name)] <- NA_character_
     content[name == ""] <- NA_character_
     fct <- if (ext == 'RData') function(f) { load(f) ; c } else

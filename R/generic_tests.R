@@ -137,7 +137,9 @@ test.wrong.entry.among.good.ones <- function(conn) {
 
     # Test a wrong accession number
     ids <- c('WRONGB', entries.desc[['accession']])
-    entries <- biodb$getFactory()$getEntry(db.name, id = ids)
+    logDebug("IDS: %s", lst2str(ids))
+    entries <- biodb$getFactory()$getEntry(db.name, id=ids)
+    logDebug("Entries: %s", lst2str(entries))
     testthat::expect_equal(length(entries), nrow(entries.desc) + 1,
     info=paste0("Error while retrieving entries. ", length(entries),
         " entrie(s) obtained instead of ", nrow(entries.desc) + 1, "."))

@@ -21,6 +21,18 @@ test_getEntry <- function(conn) {
     conn$deleteAllEntriesFromVolatileCache()
     entry <- conn$getEntry('17001')
     testthat::expect_is(entry, 'BiodbEntry')
+    entry <- conn$getEntry('foo')
+    testthat::expect_null(entry)
+    ids <- c('foo', '17001', '2528', '15440', '7799')
+    entries <- conn$getEntry(ids)
+    testthat::expect_is(entries, 'list')
+    testthat::expect_length(entries, length(ids))
+    testthat::expect_null(entries[[1]])
+    for (i in seq(2, length(ids))) {
+        e <- entries[[i]]
+        testthat::expect_is(e, 'BiodbEntry')
+        testthat::expect_equal(e$getFieldValue('accession'), ids[[i]])
+    }
 }
 
 # Set context

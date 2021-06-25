@@ -21,6 +21,7 @@ Suggests:
     xml2,
     git2r
 Imports:
+	BiocFileCache,
     R6,
     RCurl,
     RSQLite,

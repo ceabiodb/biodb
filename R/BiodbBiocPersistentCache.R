@@ -5,6 +5,7 @@
 #' \code{\link{BiodbBiocPersistentCache}}.
 #'
 #' @include BiodbPersistentCache.R
+#' @import BiocFileCache
 #' @export BiodbBiocPersistentCache
 #' @exportClass BiodbBiocPersistentCache
 BiodbBiocPersistentCache <- methods::setRefClass('BiodbBiocPersistentCache',
@@ -68,7 +69,8 @@ initialize=function(...) {
     if (length(name) > 0) {
         bfc <- .self$.getBfc(cache.id, create=TRUE)
         filename <- paste(name, ext, sep='.')
-        file.paths <- BiocFileCache::bfcrpath(bfc, rnames=filename)
+        file.paths <- vapply(filename, function(f)
+            BiocFileCache::bfcrpath(bfc, rnames=f), FUN.VALUE='')
     }
 
     return(file.paths)

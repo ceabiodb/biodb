@@ -175,12 +175,25 @@ df2str <- function(x, rowCut=5, colCut=5) {
 #' @export
 lst2str <- function(x, nCut=10) {
 
+    # Empty
     if (length(x) == 0)
         s <- 'none'
+
+    # Not empty
     else {
+
+        # Cut
         s <- paste(if (length(x) > nCut) c(x[seq_len(nCut)], '...') else x,
             collapse=", ")
+
+        # Convert to character
+        if ( ! is.character(s))
+            s <- vapply(s, utils::capture.output, FUN.VALUE='')
+
+        # Quote
         s <- paste0('"', s, '"')
+
+        # Add length information
         s <- paste0('[', length(x), ']: ', s)
     }
     
