@@ -50,7 +50,7 @@ test_updateEntryField <- function(biodb) {
     directive <- list(database='mydb')
 
     # Create new entry
-    newEf <- BiodbEntryField(parent=ef$getParent(), name=ef$getName(),
+    newEf <- BiodbEntryField(parent=efs, name=ef$getName(),
                              computable.from=list(directive))
     ef$updateWithValuesFrom(newEf)
     compFromRef <- if (is.null(compFrom)) list(directive) else c(compFrom, directive)

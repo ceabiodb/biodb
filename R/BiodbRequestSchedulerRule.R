@@ -5,7 +5,6 @@
 #' @seealso \code{\link{BiodbRequestScheduler}}.
 #'
 #' @import R6
-#' @include BiodbChildObject.R
 BiodbRequestSchedulerRule <- R6::R6Class("BiodbRequestSchedulerRule",
 
 public=list(
