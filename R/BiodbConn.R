@@ -3,7 +3,7 @@
 #' This is the super class of all connector classes. All methods defined here
 #' are thus common to all connector classes. Some connector classes inherit
 #' directly from this abstract class. Some others inherit from intermediate
-#' classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+#' classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
 #' As for all connector concrete classes, you won't have to create an instance
 #' of this class directly, but you will instead go through the factory class.
 #' However, if you plan to develop a new connector, you will have to call the
@@ -21,7 +21,7 @@
 #' cache.id: The identifier used in the disk cache.
 #'
 #' @seealso Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
-#' \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+#' \code{\link{BiodbCompoundbConn}} and \code{\link{BiodbMassdbConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -52,7 +52,10 @@ BiodbConn <- methods::setRefClass("BiodbConn",
     fields=list(
         .id="character",
         .entries="list",
-        .cache.id='character'),
+        .cache.id='character',
+        .editing.allowed='logical',
+        .writing.allowed='logical'
+    ),
 
 methods=list(
 
@@ -65,6 +68,10 @@ initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
     .self$.id <- id
     .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
     .self$.entries <- list()
+
+    # Register with request scheduler
+    if (.self$isRemotedb())
+        .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
 },
 
 getId=function() {
@@ -249,7 +256,64 @@ getEntryContentFromDb=function(entry.id) {
     of each entry for which the retrieval failed.
     "
 
+    if (.self$isRemotedb())
+        return(.self$.doGetEntryContentOneByOne(entry.id))
+
     .self$.abstractMethod()
+},
+
+getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
+    ":\n\nGets the URL to use in order to get the contents of the specified
+    entries.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nconcatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    \nmax.length: The maximum length of the URLs to return, in
+    number of characters.
+    \nReturned value: A list of BiodbUrl objects.
+    "
+
+    .self$.checkIsRemote()
+    urls <- character(0)
+
+    if (length(entry.id) > 0) {
+
+        # Get full URL
+        full.url <- .self$.doGetEntryContentRequest(entry.id,
+            concatenate=concatenate)
+
+        # No single URL for multiple IDs
+        if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0
+            || nchar(full.url) <= max.length)
+            urls <- full.url
+
+        # full.url is too big, we must split it
+        else {
+            logDebug("Split full URL.")
+
+            start <- 1
+
+            # Loop as long as there are IDs
+            while (start <= length(entry.id)) {
+                # Find max size URL
+                a <- start
+                b <- length(entry.id)
+                while (a < b) {
+                    m <- as.integer((a + b) / 2)
+                    url <- .self$.doGetEntryContentRequest(entry.id[start:m])
+                    if (all(nchar(url) <= max.length) && m != a)
+                        a <- m
+                    else
+                        b <- m
+                }
+                urls <- c(urls,
+                    .self$.doGetEntryContentRequest(entry.id[start:a]))
+                start <- a + 1
+            }
+        }
+    }
+
+    return(urls)
 },
 
 getEntryIds=function(max.results=0, ...) {
@@ -314,17 +378,212 @@ isEditable=function() {
     \nReturned value: Returns TRUE if the database is editable.
     "
 
-    return(methods::is(.self, 'BiodbEditable'))
+    return(.self$getPropertyValue('editable'))
+},
+
+.checkIsEditable=function() {
+    if ( ! .self$isEditable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not editable.")
+},
+
+editingIsAllowed=function() {
+    ":\n\nTests if editing is allowed.
+    \nReturned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
+    "
+    
+    .self$.checkIsEditable()
+    .self$.initEditable()
+
+    return(.self$.editing.allowed)
+},
+
+allowEditing=function() {
+    ":\n\nAllows editing for this database.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsEditable()
+    .self$setEditingAllowed(TRUE)
+},
+
+disallowEditing=function() {
+    ":\n\nDisallows editing for this database.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsEditable()
+    .self$setEditingAllowed(FALSE)
+},
+
+setEditingAllowed=function(allow) {
+    ":\n\nAllow or disallow editing for this database.
+    \nallow: A logical value.
+    \nReturned value: None.
+    "
+    
+    chk::chk_logical(allow)
+
+    .self$.checkIsEditable()
+    .self$.editing.allowed <- allow
+},
+
+addNewEntry=function(entry) {
+    ":\n\nAdds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    \nentry: The new entry to add. It must be a valid BiodbEntry object.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsEditable()
+    .self$.checkEditingIsAllowed()
+
+    # Is already part of a connector instance?
+    if (entry$parentIsAConnector())
+        error0('Impossible to add entry as a new entry. The passed',
+            ' entry is already part of a connector.')
+
+    # No accession number?
+    if ( ! entry$hasField('accession'))
+        error0('Impossible to add entry as a new entry. The passed entry',
+            ' has no accession number.')
+    id <- entry$getFieldValue('accession')
+    if (is.na(id))
+        error0('Impossible to add entry as a new entry. The passed',
+            ' entry has an accession number set to NA.')
+
+    # Accession number is already used?
+    e <- .self$getEntry(id)
+    if ( ! is.null(e))
+        error0('Impossible to add entry as a new entry. The accession',
+            ' number of the passed entry is already used in the',
+            ' connector.')
+
+    # Make sure ID field is equal to accession
+    id.field <- .self$getEntryIdField()
+    if ( ! entry$hasField(id.field) || entry$getFieldValue(id.field) != id)
+        entry$setFieldValue(id.field, id)
+
+    # Remove entry from non-volatile cache
+    cch <- .self$getBiodb()$getPersistentCache()
+    if (cch$isWritable(.self))
+        cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
+
+    # Flag entry as new
+    entry$.setAsNew(TRUE)
+
+    # Set the connector as its parent
+    entry$.setParent(.self)
+
+    # Add entry to volatile cache
+    .self$.addEntriesToCache(id, list(entry))
+},
+
+.initEditable=function() {
+    if (length(.self$.editing.allowed) == 0)
+        .self$setEditingAllowed(FALSE)
+},
+
+.checkEditingIsAllowed=function() {
+
+    .self$.initEditable()
+
+    if ( ! .self$.editing.allowed)
+        error0('Editing is not enabled for this database. However this',
+            ' database type is editable. Please call allowEditing()',
+            ' method to enable editing.')
 },
 
 isWritable=function() {
-    ":\n\nTests if this connector is able to write into the database (i.e.: the
-    connector class implements the interface BiodbWritable). If this connector
-    is writable, then you can call allowWriting() to enable writing.
+    ":\n\nTests if this connector is able to write into the database.  If this
+    connector is writable, then you can call allowWriting() to enable writing.
     \nReturned value: Returns TRUE if the database is writable.
     "
 
-    return(methods::is(.self, 'BiodbWritable'))
+    return(.self$getPropertyValue('writable'))
+},
+
+.checkIsWritable=function() {
+    if ( ! .self$isWritable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not writable.")
+},
+
+allowWriting=function() {
+    ":\n\nAllows the connector to write into this database.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsWritable()
+    .self$setWritingAllowed(TRUE)
+},
+
+disallowWriting=function() {
+    ":\n\nDisallows the connector to write into this database.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsWritable()
+    .self$setWritingAllowed(FALSE)
+},
+
+setWritingAllowed=function(allow) {
+    ":\n\nAllows or disallows writing for this database.
+    \nallow: If set to TRUE, allows writing.
+    \nReturned value: None.
+    "
+    
+    .self$.checkIsWritable()
+    chk::chk_logical(allow)
+    .self$.writing.allowed <- allow
+},
+
+writingIsAllowed=function() {
+    ":\n\nTests if the connector has access right to the database.
+    \nReturned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
+    "
+    
+    .self$.checkIsWritable()
+    .self$.initWritable()
+
+    return(.self$.writing.allowed)
+},
+
+write=function() {
+    ":\n\nWrites into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsWritable()
+    .self$.checkWritingIsAllowed()
+    .self$.doWrite()
+
+    # Unset "new" flag for all entries
+    for (e in .self$.entries)
+        e$.setAsNew(FALSE)
+},
+
+.checkWritingIsAllowed=function() {
+    
+    .self$.initWritable()
+    
+    if ( ! .self$.writing.allowed)
+        error0('Writing is not enabled for this database. However this',
+            ' database type is writable. Please call allowWriting()',
+            ' method to enable writing.')
+},
+
+.doWrite=function() {
+    .self$.abstractMethod()
+},
+
+.initWritable=function() {
+    if (length(.self$.writing.allowed) == 0)
+        .self$setWritingAllowed(FALSE)
 },
 
 isSearchableByField=function(field) {
@@ -446,20 +705,123 @@ searchByName=function(name, max.results=0) { # DEPRECATED
 },
 
 isDownloadable=function() {
-    ":\n\nTests if the connector can download the database (i.e.: the connector
-    class implements the interface BiodbDownloadable).
+    ":\n\nTests if the connector can download the database.
     \nReturned value: Returns TRUE if the database is downloadable.
     "
 
-    return(methods::is(.self, 'BiodbDownloadable'))
+    return(.self$getPropertyValue('downloadable'))
+},
+
+.checkIsDownloadable=function() {
+    if ( ! .self$isDownloadable())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not downloadable.")
+},
+
+isDownloaded=function() {
+    ":\n\nTests if the database has been downloaded.
+    \nReturned value: TRUE if the database content has already been downloaded.
+    "
+
+    .self$.checkIsDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    dwnlded  <- cch$markerExist(.self$getCacheId(),
+                    name='downloaded')
+
+    s <- (if (dwnlded) 'already' else 'not yet')
+    logDebug0('Database ', .self$getId(), ' has ', s, ' been downloaded.')
+
+    return(dwnlded)
+},
+
+requiresDownload=function() {
+    return(FALSE)
+},
+
+getDownloadPath=function() {
+    ":\n\nGets the path where the downloaded content is written.
+    \nReturned value: The path where the downloaded database is written.
+    "
+
+    .self$.checkIsDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    ext <- .self$getPropertyValue('dwnld.ext')
+    path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
+
+    logDebug0('Download path of ', .self$getId(), ' is "', path, '".')
+
+    return(path)
+},
+
+isExtracted=function() {
+    ":\n\nTests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    \nReturned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
+    "
+
+    .self$.checkIsDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+    return(cch$markerExist(.self$getCacheId(),
+        name='extracted'))
+},
+
+download=function() {
+    ":\n\nDownloads the database content locally.
+    \nReturned value: None.
+    "
+
+    .self$.checkIsDownloadable()
+    cch <- .self$getBiodb()$getPersistentCache()
+
+    # Download
+    cfg <- .self$getBiodb()$getConfig()
+    if (cch$isWritable(.self) && ! .self$isDownloaded()
+        && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
+        && ! cfg$isEnabled('offline')) {
+
+        logInfo0("Downloading whole database of ", .self$getId(), ".")
+        .self$.doDownload()
+        if ( ! file.exists(.self$getDownloadPath()))
+            error("File %s does not exists. Downloading went wrong.",
+                .self$getDownloadPath())
+        logDebug0('Downloading of ', .self$getId(), ' completed.')
+
+        # Set marker
+        cch$setMarker(.self$getCacheId(), name='downloaded')
+    }
+
+    # Extract
+    if (.self$isDownloaded() && ! .self$isExtracted()) {
+
+        logInfo0("Extract whole database of ", .self$getId(), ".")
+
+        .self$.doExtractDownload()
+
+        # Set marker
+        cch$setMarker(.self$getCacheId(), name='extracted')
+    }
+},
+
+.doDownload=function() {
+    .self$.abstractMethod()
+},
+
+.doExtractDownload=function() {
+    .self$.abstractMethod()
+},
+
+.checkIsRemote=function() {
+    if ( ! .self$isRemotedb())
+        error0("The database associated to this connector ", .self$getId(),
+            " is not a remote database.")
 },
 
 isRemotedb=function() {
-    ":\n\nTests of the connector is connected to a remote database (i.e.: the
-    connector class inherits from BiodbRemotedbConn class).
+    ":\n\nTests if the connector is connected to a remote database.
     \nReturned value: Returns TRUE if the database is a remote database."
 
-    return(methods::is(.self, 'BiodbRemotedbConn'))
+    return(.self$getPropertyValue('remote'))
 },
 
 isCompounddb=function() {
@@ -635,6 +997,68 @@ makeRequest=function(...) {
     return(req)
 },
 
+getEntryImageUrl=function(entry.id) {
+    ":\n\nGets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    \nentry.id: A character vector containing entry IDs.
+    \nReturned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    "
+
+    .self$.checkIsRemote()
+    return(rep(NA_character_, length(entry.id)))
+},
+
+getEntryPageUrl=function(entry.id) {
+    ":\n\nGets the URL to the page of the entry on the database web site.
+    \nentry.id: A character vector with the IDs of entries to retrieve.
+    \nReturned value: A list of BiodbUrl objects, the same length as `entry.id`.
+    "
+
+    .self$.checkIsRemote()
+    .self$.abstractMethod()
+},
+
+.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    .self$.checkIsRemote()
+    .self$.abstractMethod()
+},
+
+.doGetEntryContentOneByOne=function(entry.id) {
+
+    .self$.checkIsRemote()
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    # Get requests
+    requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
+
+    # Get encoding
+    encoding <- .self$getPropertyValue('entry.content.encoding')
+
+    # If requests is a vector of characters, then the method is using the old
+    # scheme.
+    # We now convert the requests to the new scheme, using class BiodbRequest.
+    if (is.character(requests)) {
+        fct <- function(x) .self$makeRequest(method='get', url=BiodbUrl$new(x),
+            encoding=encoding)
+        requests <- lapply(requests, fct)
+    }
+
+    # Send requests
+    scheduler <- .self$getBiodb()$getRequestScheduler()
+    prg <- Progress$new(biodb=.self$getBiodb(),
+                        msg='Downloading entry contents',
+                        total=length(requests))
+    for (i in seq_along(requests)) {
+        prg$increment()
+        content[[i]] <- scheduler$sendRequest(requests[[i]])
+    }
+
+    return(content)
+},
+
 .doGetEntryIds=function(max.results=0) {
     .self$.abstractMethod()
 },
@@ -668,6 +1092,15 @@ makeRequest=function(...) {
     missing.ids <- ids[ ! ids %in% names(.self$.entries)]
 
     return(missing.ids)
+},
+
+.terminate=function() {
+
+    # Unregister from the request scheduler
+    if (.self$isRemotedb())
+        .self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
+
+    callSuper()
 }
 
 ))

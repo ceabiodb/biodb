@@ -4,6 +4,12 @@ databases:
   {{dbName}}:
     name: {{dbTitle}}
     description: Write here the description of this database.
+#' $$$ SECTION EDITABLE $$$
+    editable: true
+#' $$$ END_SECTION EDITABLE $$$
+#' $$$ SECTION WRITABLE $$$
+    writable: true
+#' $$$ END_SECTION WRITABLE $$$
 # $$$ CASE ENTRYTYPE CSV $$$
     entry.content.type: csv
 # $$$ CASE ENTRYTYPE HTML $$$
@@ -113,6 +119,7 @@ databases:
       - nominal.mass
 # $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
+    remote: true
     # Length in seconds of the connection sliding window
     scheduler.t: 1
     # Number of connections allowed inside the connection sliding window
@@ -127,6 +134,7 @@ databases:
       #     .self$getPropValSlot('urls', 'ws.url')
 # $$$ END_SECTION REMOTE $$$
 # $$$ SECTION DOWNLOADABLE $$$
+    downloadable: true
     dwnld.ext: zip
 # $$$ END_SECTION DOWNLOADABLE $$$
 

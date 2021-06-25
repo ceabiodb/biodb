@@ -1,5 +1,5 @@
 ChebiExConn <- methods::setRefClass("ChebiExConn",
-    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
+    contains="BiodbCompounddbConn",
 
 methods=list(
 

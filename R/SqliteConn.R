@@ -2,9 +2,8 @@
 #'
 #' This is the abstract connector class for all SQLite databases.
 #'
-#' @seealso Super classes \code{\link{BiodbConn}}, \code{\link{BiodbWritable}},
-#' \code{\link{BiodbEditable}}, and sub-classes \code{\link{CompSqliteConn}},
-#' and \code{\link{MassSqliteConn}}.
+#' @seealso Super class \code{\link{BiodbConn}} and sub-classes
+#' \code{\link{CompSqliteConn}}, and \code{\link{MassSqliteConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -23,12 +22,10 @@
 #' @import methods
 #' @import RSQLite
 #' @include BiodbConn.R
-#' @include BiodbEditable.R
-#' @include BiodbWritable.R
 #' @export SqliteConn
 #' @exportClass SqliteConn
 SqliteConn <- methods::setRefClass("SqliteConn",
-    contains=c("BiodbConn", 'BiodbWritable', 'BiodbEditable'),
+    contains="BiodbConn",
     fields=list(
         .db="ANY"
     ),
@@ -211,12 +208,14 @@ getQuery=function(query) {
     return(DBI::dbGetQuery(.self$.db, query_str))
 },
 
-.doTerminate=function() {
+.terminate=function() {
 
     if ( ! is.null(.self$.db)) {
         DBI::dbDisconnect(.self$.db)
         .self$.db <- NULL
     }
+
+    callSuper()
 },
 
 .appendToTable=function(tableName, values) {

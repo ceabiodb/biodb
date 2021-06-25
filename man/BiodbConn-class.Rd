@@ -9,7 +9,7 @@
 This is the super class of all connector classes. All methods defined here
 are thus common to all connector classes. Some connector classes inherit
 directly from this abstract class. Some others inherit from intermediate
-classes \code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+classes \code{\link{BiodbCompounddbConn}} or \code{\link{BiodbMassdbConn}}.
 As for all connector concrete classes, you won't have to create an instance
 of this class directly, but you will instead go through the factory class.
 However, if you plan to develop a new connector, you will have to call the
@@ -30,6 +30,31 @@ cache.id: The identifier used in the disk cache.
 \section{Methods}{
 
 \describe{
+\item{\code{addNewEntry(entry)}}{:
+
+Adds a new entry to the database. The passed entry must have been
+    previously created from scratch using BiodbFactory::createNewEntry() or
+    cloned from an existing entry using BiodbEntry::clone().
+    
+entry: The new entry to add. It must be a valid BiodbEntry object.
+    
+Returned value: None.
+    }
+
+\item{\code{allowEditing()}}{:
+
+Allows editing for this database.
+    
+Returned value: None.
+    }
+
+\item{\code{allowWriting()}}{:
+
+Allows the connector to write into this database.
+    
+Returned value: None.
+    }
+
 \item{\code{checkDb()}}{:
 
 Checks that the database is correct by trying to retrieve all its
@@ -82,6 +107,35 @@ deleteVolatile: If TRUE deletes also all entries
 Returned value: None.
     }
 
+\item{\code{disallowEditing()}}{:
+
+Disallows editing for this database.
+    
+Returned value: None.
+    }
+
+\item{\code{disallowWriting()}}{:
+
+Disallows the connector to write into this database.
+    
+Returned value: None.
+    }
+
+\item{\code{download()}}{:
+
+Downloads the database content locally.
+    
+Returned value: None.
+    }
+
+\item{\code{editingIsAllowed()}}{:
+
+Tests if editing is allowed.
+    
+Returned value: TRUE if editing is allowed for this database, FALSE
+    otherwise.
+    }
+
 \item{\code{getAllCacheEntries()}}{:
 
 This method is deprecated.
@@ -113,6 +167,13 @@ Returned value: A character vector, the same length as the vector of IDs,
 Gets the ID used by this connector in the disk cache.
     
 Returned value: The cache ID of this connector.
+    }
+
+\item{\code{getDownloadPath()}}{:
+
+Gets the path where the downloaded content is written.
+    
+Returned value: The path where the downloaded database is written.
     }
 
 \item{\code{getEntry(id, drop = TRUE, nulls = TRUE)}}{:
@@ -160,6 +221,22 @@ Returned value: A character vector, the same size of entry.id, with
     of each entry for which the retrieval failed.
     }
 
+\item{\code{getEntryContentRequest(entry.id, concatenate = TRUE, max.length = 0)}}{:
+
+Gets the URL to use in order to get the contents of the specified
+    entries.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+concatenate: If set to TRUE, then try to build as few URLs as
+possible, sending requests with several identifiers at once.
+    
+max.length: The maximum length of the URLs to return, in
+    number of characters.
+    
+Returned value: A list of BiodbUrl objects.
+    }
+
 \item{\code{getEntryIds(max.results = 0, ...)}}{:
 
 Get entry identifiers from the database. More arguments can be given,
@@ -174,6 +251,26 @@ max.results: The maximum of elements to return from the method.
 Returned value: A character vector containing entry IDs from the
     database. An empty vector for a remote database may mean that the database
     does not support requesting for entry accessions.
+    }
+
+\item{\code{getEntryImageUrl(entry.id)}}{:
+
+Gets the URL to a picture of the entry (e.g.: a picture of the
+    molecule in case of a compound entry).
+    
+entry.id: A character vector containing entry IDs.
+    
+Returned value: A character vector, the same length as `entry.id`,
+    containing for each entry ID either a URL or NA if no URL exists.
+    }
+
+\item{\code{getEntryPageUrl(entry.id)}}{:
+
+Gets the URL to the page of the entry on the database web site.
+    
+entry.id: A character vector with the IDs of entries to retrieve.
+    
+Returned value: A list of BiodbUrl objects, the same length as `entry.id`.
     }
 
 \item{\code{getId()}}{:
@@ -211,10 +308,16 @@ Returned value: Returns TRUE if the database is a compound database.
 
 \item{\code{isDownloadable()}}{:
 
-Tests if the connector can download the database (i.e.: the connector
-    class implements the interface BiodbDownloadable).
+Tests if the connector can download the database.
     
 Returned value: Returns TRUE if the database is downloadable.
+    }
+
+\item{\code{isDownloaded()}}{:
+
+Tests if the database has been downloaded.
+    
+Returned value: TRUE if the database content has already been downloaded.
     }
 
 \item{\code{isEditable()}}{:
@@ -224,6 +327,15 @@ Tests if this connector is able to edit the database (i.e.: the
     is editable, then you can call allowEditing() to enable editing.
     
 Returned value: Returns TRUE if the database is editable.
+    }
+
+\item{\code{isExtracted()}}{:
+
+Tests if the downloaded database has been extracted (in case the
+    database needs extraction).
+    
+Returned value: TRUE if the downloaded database content has been
+    extracted, FALSE otherwise.
     }
 
 \item{\code{isMassdb()}}{:
@@ -236,8 +348,7 @@ Returned value: Returns TRUE if the database is a mass database.
 
 \item{\code{isRemotedb()}}{:
 
-Tests of the connector is connected to a remote database (i.e.: the
-    connector class inherits from BiodbRemotedbConn class).
+Tests if the connector is connected to a remote database.
     
 Returned value: Returns TRUE if the database is a remote database.}
 
@@ -254,9 +365,8 @@ Returned value: Returns TRUE if the database is searchable using the
 
 \item{\code{isWritable()}}{:
 
-Tests if this connector is able to write into the database (i.e.: the
-    connector class implements the interface BiodbWritable). If this connector
-    is writable, then you can call allowWriting() to enable writing.
+Tests if this connector is able to write into the database.  If this
+    connector is writable, then you can call allowWriting() to enable writing.
     
 Returned value: Returns TRUE if the database is writable.
     }
@@ -321,11 +431,45 @@ Returned value: A character vector of entry IDs whose name matches the
     requested name.
     }
 
+\item{\code{setEditingAllowed(allow)}}{:
+
+Allow or disallow editing for this database.
+    
+allow: A logical value.
+    
+Returned value: None.
+    }
+
+\item{\code{setWritingAllowed(allow)}}{:
+
+Allows or disallows writing for this database.
+    
+allow: If set to TRUE, allows writing.
+    
+Returned value: None.
+    }
+
 \item{\code{show()}}{:
 
 Prints a description of this connector.
     
 Returned value: None.
+    }
+
+\item{\code{write()}}{:
+
+Writes into the database. All modifications made to the database since
+    the last time write() was called will be saved.
+    
+Returned value: None.
+    }
+
+\item{\code{writingIsAllowed()}}{:
+
+Tests if the connector has access right to the database.
+    
+Returned value: TRUE if writing is allowed for this database, FALSE
+    otherwise.
     }
 }}
 
@@ -351,5 +495,5 @@ mybiodb$terminate()
 }
 \seealso{
 Super class \code{\link{BiodbConnBase}}, \code{\link{BiodbFactory}},
-\code{\link{BiodbRemotedbConn}} and \code{\link{BiodbMassdbConn}}.
+\code{\link{BiodbCompoundbConn}} and \code{\link{BiodbMassdbConn}}.
 }

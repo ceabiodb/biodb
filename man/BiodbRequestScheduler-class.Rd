@@ -7,8 +7,7 @@
 \title{Class for handling requests.}
 \description{
 This class handles GET and POST requests, as well as file downloading. Each
-remote database connection instance (instance of concrete class inheriting
-from \code{BiodbRemotedbConn}, creates an instance of
+remote database connection instance creates an instance of
 \code{BiodbRequestScheduler} for handling database connection. A timer is
 used to schedule connections, and avoid sending too much requests to the
 database. This class is not meant to be used directly by the library user.
@@ -99,6 +98,6 @@ mybiodb <- NULL
 
 }
 \seealso{
-\code{\link{BiodbRemotedbConn}},
-\code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
+\code{\link{BiodbRequestSchedulerRule}},
+\code{\link{BiodbConnObserver}}.
 }

@@ -21,6 +21,7 @@ databases:
       - name
       - monoisotopic.mass
       - molecular.mass
+    remote: true
     scheduler.t: 1
     scheduler.n: 3
     urls:

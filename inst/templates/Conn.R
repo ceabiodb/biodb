@@ -10,18 +10,6 @@
 #' $$$ CASE CONNTYPE MASS $$$
 #' \code{\link{BiodbMassdbConn}}
 #' $$$ END_CASE CONNTYPE $$$
-#' $$$ SECTION REMOTE $$$
-#' \code{\link{BiodbRemotedbConn}}
-#' $$$ END_SECTION REMOTE $$$
-#' $$$ SECTION DOWNLOADABLE $$$
-#' ,\code{\link{BiodbDownloadable}}
-#' $$$ END_SECTION DOWNLOADABLE $$$
-#' $$$ SECTION EDITABLE $$$
-#' ,\code{\link{BiodbEditable}}
-#' $$$ END_SECTION EDITABLE $$$
-#' $$$ SECTION WRITABLE $$$
-#' ,\code{\link{BiodbWritable}}
-#' $$$ END_SECTION WRITABLE $$$
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -41,7 +29,7 @@
 #' @export {{connClass}}
 #' @exportClass {{connClass}}
 {{connClass}} <- methods::setRefClass("{{connClass}}",
-    contains=c(
+    contains=
 # $$$ CASE CONNTYPE PLAIN $$$
         "BiodbConn"
 # $$$ CASE CONNTYPE COMPOUND $$$
@@ -49,19 +37,7 @@
 # $$$ CASE CONNTYPE MASS $$$
         "BiodbMassdbConn"
 # $$$ END_CASE CONNTYPE $$$
-# $$$ SECTION REMOTE $$$
-        ,"BiodbRemotedbConn"
-# $$$ END_SECTION REMOTE $$$
-# $$$ SECTION DOWNLOADABLE $$$
-        ,'BiodbDownloadable'
-# $$$ END_SECTION DOWNLOADABLE $$$
-# $$$ SECTION EDITABLE $$$
-        ,'BiodbEditable'
-# $$$ END_SECTION EDITABLE $$$
-# $$$ SECTION WRITABLE $$$
-        ,'BiodbWritable'
-# $$$ END_SECTION WRITABLE $$$
-    ),
+    ,
     fields=list(
     ),
 
