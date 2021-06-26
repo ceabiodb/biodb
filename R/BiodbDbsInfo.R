@@ -17,23 +17,22 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include BiodbChildObject.R
 #' @include BiodbDbInfo.R
 #' @export BiodbDbsInfo
 #' @exportClass BiodbDbsInfo
 BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
-    contains="BiodbChildObject",
     fields=list(
-        .dbs="list"
+        .dbs="list",
+        .cfg='ANY'
     ),
 
 methods=list(
 
-initialize=function(...) {
+initialize=function(cfg) {
 
-    callSuper(...)
-
+    chk::chk_is(cfg, 'BiodbConfig')
     .self$.dbs <- list()
+    .self$.cfg <- cfg
 },
 
 define=function(def, package='biodb') {
@@ -58,8 +57,8 @@ define=function(def, package='biodb') {
 
         # Define new database connector
         else
-            .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
-                                                properties=dbdef)
+            .self$.dbs[[db]] <- BiodbDbInfo$new(db.class=db, properties=dbdef,
+                cfg=.self$.cfg)
     }
 },
 

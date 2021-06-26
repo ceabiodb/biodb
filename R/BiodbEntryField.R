@@ -57,11 +57,9 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include BiodbChildObject.R
 #' @export BiodbEntryField
 #' @exportClass BiodbEntryField
 BiodbEntryField <- methods::setRefClass("BiodbEntryField",
-    contains="BiodbChildObject",
     fields=list(
         .name='character',
         .type='character',
@@ -74,6 +72,7 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField",
         .lower.case='logical',
         .case.insensitive='logical',
         .computable.from='ANY',
+        .parent='ANY',
         dataFrameGroup='character',
         virtual='logical',
         virtualGroupByType='character'
@@ -81,7 +80,7 @@ BiodbEntryField <- methods::setRefClass("BiodbEntryField",
 
 methods=list(
 
-initialize=function(name, alias=NA_character_, type=NA_character_,
+initialize=function(parent, name, alias=NA_character_, type=NA_character_,
                     class=c('character', 'integer', 'double', 'logical',
                             'object', 'data.frame'), card=c('one', 'many'),
                     forbids.duplicates=FALSE, description=NA_character_,
@@ -90,7 +89,7 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
                     virtual=FALSE, virtual.group.by.type=NULL,
                     dataFrameGroup=NA_character_,...) {
 
-    callSuper(...)
+    .self$.parent <- parent
 
     # Set name
     if ( is.null(name) || is.na(name) || nchar(name) == '')
@@ -252,7 +251,7 @@ addAlias=function(alias) {
     if ( ! alias %in% .self$.alias) {
         
         # Check that alias does not already exist
-        if (.self$getParent()$isAlias(alias))
+        if (.self$.parent$isAlias(alias))
             error0("Alias ", alias, " already exists.")
 
         # Add alias

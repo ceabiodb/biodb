@@ -31,25 +31,26 @@
 #' mybiodb <- NULL
 #'
 #' @import methods
-#' @include BiodbChildObject.R
 #' @include BiodbConnObserver.R
 #' @export BiodbRequestScheduler
 #' @exportClass BiodbRequestScheduler
 BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler",
-    contains=c("BiodbChildObject", "BiodbConnObserver"),
+    contains="BiodbConnObserver",
     fields=list(
         .ssl.verifypeer="logical",
         .nb.max.tries="integer",
         .host2rule="list",
-        .connid2rules="list"
+        .connid2rules="list",
+        .bdb='ANY'
     ),
 
 methods=list(
 
-initialize=function(...) {
+initialize=function(bdb) {
 
-    callSuper(...)
+    chk::chk_is(bdb, 'BiodbMain')
 
+    .self$.bdb <- bdb
     .self$.connid2rules <- list()
     .self$.host2rule <- list()
     .self$.nb.max.tries <- 10L
@@ -92,8 +93,8 @@ sendRequest=function(request, cache.read=TRUE) {
     "
 
     content <- NA_character_
-    cch <- .self$getBiodb()$getPersistentCache()
-    cfg <- .self$getBiodb()$getConfig()
+    cch <- .self$.bdb$getPersistentCache()
+    cfg <- .self$.bdb$getConfig()
 
     # Get rule
     rule <- .self$.findRule(request$getUrl())
@@ -160,7 +161,7 @@ downloadFile=function(url, dest.file) {
 
     # Download
     logDebug('Downloading file "%s".', url)
-    cfg <- .self$getBiodb()$getConfig()
+    cfg <- .self$.bdb$getConfig()
     options(HTTPUserAgent=cfg$get('useragent'),
         timeout=cfg$get('dwnld.timeout'))
     utils::download.file(url=url, destfile=dest.file, mode='wb',
@@ -192,7 +193,7 @@ connSchedulerFrequencyUpdated=function(conn) {
 
 .checkOfflineMode=function() {
 
-    if (.self$getBiodb()$getConfig()$isEnabled('offline'))
+    if (.self$.bdb$getConfig()$isEnabled('offline'))
         error("Offline mode is enabled. All connections are forbidden.")
 },
 
@@ -356,7 +357,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     content <- NA_character_
     err_msg <- NULL
     retry <- FALSE
-    cfg <- .self$getBiodb()$getConfig()
+    cfg <- .self$.bdb$getConfig()
 
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))

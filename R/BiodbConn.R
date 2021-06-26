@@ -51,24 +51,36 @@ BiodbConn <- methods::setRefClass("BiodbConn",
         .entries="list",
         .cache.id='character',
         .editing.allowed='logical',
-        .writing.allowed='logical'
+        .writing.allowed='logical',
+        .bdb='ANY'
     ),
 
 methods=list(
 
-initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
+initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbConn')
+    abstractClass('BiodbConn', .self)
 
     chk::chk_character(id)
+    chk::chk_is(bdb, 'BiodbMain')
+    .self$.bdb <- bdb
     .self$.id <- id
     .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
     .self$.entries <- list()
 
     # Register with request scheduler
     if (.self$isRemotedb())
-        .self$getBiodb()$getRequestScheduler()$.registerConnector(.self)
+        .self$.bdb$getRequestScheduler()$.registerConnector(.self)
+},
+
+getBiodb=function() {
+    ":\n\nReturns the biodb main class instance to which this object is
+    attached.
+    \nReturned value: The main biodb instance.
+    "
+
+    return(.self$.bdb)
 },
 
 getId=function() {
@@ -114,7 +126,7 @@ getEntry=function(id, drop=TRUE, nulls=TRUE) {
     instead of a list.
     "
 
-    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), id=id,
+    entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), id=id,
         drop=drop)
 
     if ( ! nulls && is.list(entries))
@@ -132,7 +144,7 @@ getCacheFile=function(entry.id) {
     IDs.
     "
 
-    c <- .self$getBiodb()$getPersistentCache()
+    c <- .self$.bdb$getPersistentCache()
     fp <- c$getFilePath(.self$getCacheId(), entry.id, .self$getEntryFileExt())
 
     return(fp)
@@ -147,7 +159,7 @@ getEntryContent=function(id) {
     "
 
     content <- list()
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
     nm <- .self$getPropertyValue('name')
 
     if ( ! is.null(id) && length(id) > 0) {
@@ -202,7 +214,7 @@ getEntryContent=function(id) {
 
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)
-            cs <- .self$getBiodb()$getConfig()$get('dwnld.chunk.size')
+            cs <- .self$.bdb$getConfig()$get('dwnld.chunk.size')
             logDebug('dwnld.chunk.size=%d', cs)
             chunks.of.missing.ids <- if (is.na(cs)) list(missing.ids)
                 else split(missing.ids, ceiling(seq_along(missing.ids) / cs))
@@ -256,7 +268,7 @@ getEntryContentFromDb=function(entry.id) {
     if (.self$isRemotedb())
         return(.self$.doGetEntryContentOneByOne(entry.id))
 
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
@@ -463,7 +475,7 @@ addNewEntry=function(entry) {
         entry$setFieldValue(id.field, id)
 
     # Remove entry from non-volatile cache
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
     if (cch$isWritable(.self))
         cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
 
@@ -574,7 +586,7 @@ write=function() {
 },
 
 .doWrite=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .initWritable=function() {
@@ -592,7 +604,7 @@ isSearchableByField=function(field) {
 
     v <- FALSE
 
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- .self$.bdb$getEntryFields()
     field <- ef$getRealName(field)
     for (sf in .self$getPropertyValue('searchable.fields'))
         if (ef$getRealName(sf) == field) {
@@ -715,7 +727,7 @@ isDownloaded=function() {
     "
 
     .self$.checkIsDownloadable()
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
     dwnlded  <- cch$markerExist(.self$getCacheId(),
                     name='downloaded')
 
@@ -735,7 +747,7 @@ getDownloadPath=function() {
     "
 
     .self$.checkIsDownloadable()
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
     ext <- .self$getPropertyValue('dwnld.ext')
     path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
 
@@ -752,7 +764,7 @@ isExtracted=function() {
     "
 
     .self$.checkIsDownloadable()
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
     return(cch$markerExist(.self$getCacheId(),
         name='extracted'))
 },
@@ -763,10 +775,10 @@ download=function() {
     "
 
     .self$.checkIsDownloadable()
-    cch <- .self$getBiodb()$getPersistentCache()
+    cch <- .self$.bdb$getPersistentCache()
 
     # Download
-    cfg <- .self$getBiodb()$getConfig()
+    cfg <- .self$.bdb$getConfig()
     if (cch$isWritable(.self) && ! .self$isDownloaded()
         && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
@@ -795,11 +807,11 @@ download=function() {
 },
 
 .doDownload=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doExtractDownload=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .checkIsRemote=function() {
@@ -912,7 +924,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     ret <- data.frame(stringsAsFactors=FALSE)
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- .self$.bdb$getEntryFields()
     mass.field <- match.arg(mass.field, ef$getFieldNames('mass'))
 
     # Convert x to data frame
@@ -938,10 +950,10 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         prefix <- paste0(.self$getId(), '.')
 
     # Get proton mass
-    pm <- .self$getBiodb()$getConfig()$get('proton.mass')
+    pm <- .self$.bdb$getConfig()$get('proton.mass')
 
     # Loop on all masses
-    prg <- Progress$new(biodb=.self$getBiodb(), msg='Annotating M/Z values.',
+    prg <- Progress$new(biodb=.self$.bdb, msg='Annotating M/Z values.',
                         total=nrow(x))
     for (i in seq_len(nrow(x))) {
 
@@ -961,7 +973,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         entries <- .self$getEntry(ids, drop=FALSE)
 
         # Convert entries to data frame
-        df <- .self$getBiodb()$entriesToDataframe(entries, fields=fields,
+        df <- .self$.bdb$entriesToDataframe(entries, fields=fields,
             limit=fieldsLimit)
 
         # Add prefix
@@ -1004,7 +1016,7 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     if ( ! is.null(mass)) {
         chk::chk_number(mass)
         chk::chk_string(mass.field)
-        ef <- .self$getBiodb()$getEntryFields()
+        ef <- .self$.bdb$getEntryFields()
         mass.fields <- ef$getFieldNames(type='mass')
         chk::chk_in(mass.field, mass.fields)
     }
@@ -1033,7 +1045,7 @@ checkDb=function() {
     ids <- .self$getEntryIds()
 
     # Get entries
-    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids)
+    entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids)
 },
 
 getAllVolatileCacheEntries=function() {
@@ -1080,7 +1092,7 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
     if (deleteVolatile)
         .self$deleteAllEntriesFromVolatileCache()
     fileExt <- .self$getPropertyValue('entry.content.type')
-    .self$getBiodb()$getPersistentCache()$deleteFiles(.self$getCacheId(),
+    .self$.bdb$getPersistentCache()$deleteFiles(.self$getCacheId(),
         ext=fileExt)
     
     return(invisible(NULL))
@@ -1095,7 +1107,7 @@ deleteWholePersistentCache=function(deleteVolatile=TRUE) {
 
     if (deleteVolatile)
         .self$deleteAllEntriesFromVolatileCache()
-    .self$getBiodb()$getPersistentCache()$deleteAllFiles(.self$getCacheId())
+    .self$.bdb$getPersistentCache()$deleteAllFiles(.self$getCacheId())
 },
 
 deleteAllCacheEntries=function() { # DEPRECATED
@@ -1198,12 +1210,12 @@ getEntryPageUrl=function(entry.id) {
     "
 
     .self$.checkIsRemote()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
     .self$.checkIsRemote()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetEntryContentOneByOne=function(entry.id) {
@@ -1229,8 +1241,8 @@ getEntryPageUrl=function(entry.id) {
     }
 
     # Send requests
-    scheduler <- .self$getBiodb()$getRequestScheduler()
-    prg <- Progress$new(biodb=.self$getBiodb(),
+    scheduler <- .self$.bdb$getRequestScheduler()
+    prg <- Progress$new(biodb=.self$.bdb,
                         msg='Downloading entry contents',
                         total=length(requests))
     for (i in seq_along(requests)) {
@@ -1242,7 +1254,7 @@ getEntryPageUrl=function(entry.id) {
 },
 
 .doGetEntryIds=function(max.results=0) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .addEntriesToCache=function(ids, entries) {
@@ -1285,7 +1297,7 @@ getChromCol=function(ids=NULL) {
     "
 
     .self$.checkIsMassdb()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 getMatchingMzField=function() {
@@ -1411,7 +1423,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     "
 
     .self$.checkIsMassdb()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
@@ -1444,7 +1456,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
 
         # Get entries
         logDebug('Getting entries from spectra IDs.')
-        entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(),
+        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(),
             entry.ids, drop=FALSE)
 
         # Filter on chromatographic columns
@@ -1766,7 +1778,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Get entries
         logDebug('Getting entries from spectra IDs.')
-        entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
+        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids,
             drop=FALSE)
 
         # Cut
@@ -1788,7 +1800,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Convert to data frame
         logDebug('Converting list of entries to data frame.')
-        df <- .self$getBiodb()$entriesToDataframe(entries,
+        df <- .self$.bdb$entriesToDataframe(entries,
             only.atomic=FALSE, compute=compute, flatten=FALSE,
             limit=fieldsLimit)
         logTrace('Entries obtained %s', df2str(df))
@@ -1889,7 +1901,7 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
 
     # Get list of peak tables from spectra
     if (length(ids) > 0) {
-        entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), ids,
+        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids,
             drop=FALSE)
         fct <- function(x) {
             x$getFieldsAsDataframe(only.atomic=FALSE, flatten=FALSE,
@@ -1928,7 +1940,7 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
     cols <- mz.col
     if (rt.col %in% colnames(results.df))
         cols <- c(cols, rt.col)
-    x <- .self$getBiodb()$collapseRows(results.df, cols=cols)
+    x <- .self$.bdb$collapseRows(results.df, cols=cols)
     
     return(x)
 },
@@ -1970,11 +1982,11 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
     precursor, ms.level) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .convertRt=function(rt, units, wanted.unit) {
@@ -2120,7 +2132,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     chk::chk_null_or(min.rel.int, chk::chk_number)
     if ( ! is.null(min.rel.int))
         chk::chk_gte(min.rel.int, 0)
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- .self$.bdb$getEntryFields()
     if ( ! is.null(ms.mode)) {
         chk::chk_in(ms.mode, ef$get('ms.mode')$getAllowedValues())
         ms.mode <- ef$get('ms.mode')$correctValue(ms.mode)
@@ -2182,7 +2194,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 
     # Unregister from the request scheduler
     if (.self$isRemotedb())
-        .self$getBiodb()$getRequestScheduler()$.unregisterConnector(.self)
+        .self$.bdb$getRequestScheduler()$.unregisterConnector(.self)
 
     callSuper()
 }

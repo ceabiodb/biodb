@@ -49,25 +49,34 @@
 #'
 #' @import methods
 #' @import lifecycle
-#' @include BiodbChildObject.R
 #' @export BiodbEntry
 #' @exportClass BiodbEntry
 BiodbEntry <- methods::setRefClass("BiodbEntry",
-    contains="BiodbChildObject",
     fields=list(
         .fields='list',
-        .new='logical'
+        .new='logical',
+        .parent='ANY'
     ),
 
 methods=list(
 
-initialize=function(...) {
+initialize=function(parent) {
 
-    callSuper(...)
-    .self$.abstractClass('BiodbEntry')
+    abstractClass('BiodbEntry', .self)
 
+    .self$.setParent(parent)
     .self$.fields <- list()
     .self$.new <- FALSE
+},
+
+.setParent=function(parent) {
+
+    if ( ! (chk::vld_is(parent, 'BiodbConn')
+        || chk::vld_is(parent, 'BiodbFactory')))
+        error0("'parent' must be either a BiodbConn instance or a BiodbFactory",
+            " instance.")
+
+    .self$.parent <- parent
 },
 
 parentIsAConnector=function() {
@@ -76,7 +85,25 @@ parentIsAConnector=function() {
     otherwise.
     "
 
-    return(is(.self$getParent(), "BiodbConn"))
+    return(is(.self$.parent, "BiodbConn"))
+},
+
+getParent=function() {
+    ":\n\nReturns the parent instance (A BiodbConn or BiodbFactory object) to
+    which this object is attached.
+    \nReturned value: A BiodbConn instance or a BiodbFactory object.
+    "
+
+    return(.self$.parent)
+},
+
+getBiodb=function() {
+    ":\n\nReturns the biodb main class instance to which this object is
+    attached.
+    \nReturned value: The main biodb instance.
+    "
+
+    return(.self$.parent$getBiodb())
 },
 
 clone=function(db.class=NULL) {
@@ -464,7 +491,7 @@ parseContent=function(content) {
     # Make sure the database id field is set to the same value as the accession
     # field
     # TODO Factorize this test in a separate method.
-    dbid.field <- .self$getParent()$getEntryIdField()
+    dbid.field <- .self$.parent$getEntryIdField()
     if (.self$hasField(dbid.field) && .self$hasField('accession')) {
         if (.self$getFieldValue('accession') != .self$getFieldValue(dbid.field))
             error0('Value of accession field ("',
@@ -497,8 +524,8 @@ parseContent=function(content) {
             value <- NULL
 
             # Database is itself
-            if (db == 'self' || (methods::is(.self$getParent(), 'BiodbConn')
-                && db == .self$getParent()$getId())) {
+            if (db == 'self' || (methods::is(.self$.parent, 'BiodbConn')
+                && db == .self$.parent$getId())) {
                 # Look for field in entry
                 if ('fields' %in% names(directive))
                     for (otherField in directive$fields)
@@ -576,7 +603,7 @@ show=function() {
     \nReturned value: None.
     "
 
-    db <- .self$getParent()$getPropertyValue('name')
+    db <- .self$.parent$getPropertyValue('name')
     id <- .self$getFieldValue('accession', compute=FALSE)
     id <- if (is.na(id)) 'ID unknown' else id
     cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
@@ -588,7 +615,7 @@ getName=function() {
     the entry accession.
     "
 
-    name <- paste(.self$getParent()$getName(), .self$getFieldValue('accession'))
+    name <- paste(.self$.parent$getName(), .self$getFieldValue('accession'))
 
     return(name)
 },
@@ -639,7 +666,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 .doParseContent=function(content) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .isParsedContentCorrect=function(parsed.content) {
@@ -649,7 +676,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 .parseFieldsStep1=function(parsed.content) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .parseFieldsStep2=function(parsed.content) {
@@ -738,7 +765,7 @@ fieldHasBasicClass=function(field) {
     # Filter out unwanted fields
     ef <- .self$getBiodb()$getEntryFields()
     if ( ! own.id) {
-        ownIdField <- .self$getParent()$getEntryIdField()
+        ownIdField <- .self$.parent$getEntryIdField()
         fields <- Filter(function(f) f != ownIdField, fields)
     }
     if (only.atomic)

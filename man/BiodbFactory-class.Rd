@@ -136,6 +136,14 @@ Gets all connectors.
 Returned value: A list of all created connectors.
     }
 
+\item{\code{getBiodb()}}{:
+
+Returns the biodb main class instance to which this object is
+    attached.
+    
+Returned value: The main biodb instance.
+    }
+
 \item{\code{getConn(conn.id, class = TRUE, create = TRUE)}}{:
 
 Gets an instantiated connector instance, or create a new one.

@@ -22,4 +22,4 @@
 #' @export BiodbDbInfo
 #' @exportClass BiodbDbInfo
 BiodbDbInfo <- methods::setRefClass("BiodbDbInfo",
-                                    contains="BiodbConnBase")
+    contains="BiodbConnBase")

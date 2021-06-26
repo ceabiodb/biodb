@@ -22,27 +22,26 @@
 #'
 #' @import methods
 #' @include BiodbMain.R
-#' @include BiodbChildObject.R
 #' @include BiodbEntryField.R
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
-    contains=c("BiodbChildObject", "BiodbObserver"),
+    contains="BiodbObserver",
     fields=list( .fields="list",
         .aliasToName="character",
-        .field.name.sep='character'
+        .field.name.sep='character',
+        .parent='ANY'
     ),
     methods=list(
 
-initialize=function(...) {
+initialize=function(parent) {
 
-    callSuper(...)
-    bdb <- .self$getBiodb()
+    .self$.parent <- parent
 
     .self$.fields <- list()
     .self$.aliasToName <- character(0)
-    .self$.field.name.sep <- bdb$getConfig()$get('intra.field.name.sep')
-    bdb$addObservers(.self)
+    .self$.field.name.sep <- parent$getConfig()$get('intra.field.name.sep')
+    parent$addObservers(.self)
 },
 
 cfgKVUpdate=function(k, v) {
@@ -197,7 +196,7 @@ getDatabaseIdField=function(database) {
     accession numbers) for this database.
     "
 
-    dbs <- .self$getBiodb()$getDbsInfo()
+    dbs <- .self$.parent$getDbsInfo()
     return(.self$get(dbs$get(database)$getIdFieldName()))
 },
 

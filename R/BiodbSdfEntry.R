@@ -19,7 +19,7 @@ methods=list(
 initialize=function(...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbSdfEntry')
+    abstractClass('BiodbSdfEntry', .self)
 },
 
 .parseFieldsStep1=function(parsed.content) {

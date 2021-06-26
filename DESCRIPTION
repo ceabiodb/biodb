@@ -48,8 +48,6 @@ NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Collate:
-    'BiodbObject.R'
-    'BiodbChildObject.R'
     'BiodbPersistentCache.R'
     'BiodbBiocPersistentCache.R'
     'BiodbObserver.R'

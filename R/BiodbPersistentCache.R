@@ -36,18 +36,18 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @include BiodbChildObject.R
 #' @export BiodbPersistentCache
 #' @exportClass BiodbPersistentCache
 BiodbPersistentCache <- methods::setRefClass("BiodbPersistentCache",
-    contains='BiodbChildObject',
     fields=list(
-        cacheDir='ANY'
+        cacheDir='ANY',
+        cfg='ANY'
     ),
     methods=list(
 
-initialize=function(...) {
-    callSuper(...)
+initialize=function(cfg) {
+    chk::chk_is(cfg, 'BiodbConfig')
+    .self$cfg <- cfg
     .self$cacheDir <- NULL
 },
 
@@ -59,12 +59,10 @@ isReadable=function(conn=NULL) {
     \\code{FALSE} otherwise.
     "
 
-    cfg <- .self$getBiodb()$getConfig()
-    
-    enabled <- cfg$isEnabled('cache.system')
+    enabled <- .self$cfg$isEnabled('cache.system')
     enabled <- enabled && ! is.na(.self$getDir())
     if ( ! is.null(conn) && ! conn$isRemotedb())
-        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+        enabled <- enabled && .self$cfg$isEnabled('use.cache.for.local.db')
     
     return(enabled)
 },
@@ -77,12 +75,11 @@ isWritable=function(conn=NULL) {
     \\code{FALSE} otherwise.
     "
 
-    cfg <- .self$getBiodb()$getConfig()
-    enabled <- cfg$isEnabled('cache.system')
+    enabled <- .self$cfg$isEnabled('cache.system')
     enabled <- enabled && ! is.na(.self$getDir())
-    enabled <- enabled && ! cfg$get('cache.read.only')
+    enabled <- enabled && ! .self$cfg$get('cache.read.only')
     if ( ! is.null(conn) && ! conn$isRemotedb())
-        enabled <- enabled && cfg$isEnabled('use.cache.for.local.db')
+        enabled <- enabled && .self$cfg$isEnabled('use.cache.for.local.db')
     
     return(enabled)
 },
@@ -92,7 +89,7 @@ getDir=function() {
     if (is.null(.self$cacheDir)) {
         
         # Get configured cache
-        .self$cacheDir <- .self$getBiodb()$getConfig()$get('cache.directory')
+        .self$cacheDir <- .self$cfg$get('cache.directory')
         
         # Check old default folders
         checkDeprecatedCacheFolders()
@@ -175,7 +172,7 @@ getFilePath=function(cache.id, name, ext) {
 },
 
 .doGetFilePath=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 filesExist=function(cache.id) {
@@ -191,7 +188,7 @@ filesExist=function(cache.id) {
 },
 
 .doFilesExist=function(cache.id) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 fileExist=function(cache.id, name, ext) {
@@ -218,7 +215,7 @@ fileExists=function(cache.id, name, ext) {
 },
 
 .doFileExists=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 markerExist=function(cache.id, name) {
@@ -438,7 +435,7 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 },
 
 .doMoveFilesToCache=function(cache,id, src, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 erase=function() {
@@ -456,7 +453,7 @@ erase=function() {
 },
 
 .doErase=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteFile=function(cache.id, name, ext) {
@@ -479,7 +476,7 @@ deleteFile=function(cache.id, name, ext) {
 },
 
 .doDeleteFile=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
@@ -511,7 +508,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 },
 
 .doDeleteAllFiles=function(cache.id) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteFiles=function(cache.id, ext) {
@@ -580,7 +577,7 @@ listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
 },
 
 .doListFiles=function(cache.id, pattern, full.path) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 show=function() {
@@ -588,7 +585,7 @@ show=function() {
 
     cat("Biodb persistent cache system instance.\n")
     cat("  The used implementation is: ",
-        .self$getBiodb()$getConfig()$get('persistent.cache.impl'), ".\n",
+        .self$cfg$get('persistent.cache.impl'), ".\n",
         sep='')
     cat("  The path to the cache system is: ", .self$getDir(), ".\n", sep='')
     cat("  The cache is ", (if (.self$isReadable()) "" else "not "),
@@ -604,7 +601,7 @@ enabled=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'enabled()', "BiodbConfig::isEnabled()")
 
-    return(.self$getBiodb()$getConfig()$isEnabled('cache.system'))
+    return(.self$cfg$isEnabled('cache.system'))
 },
 
 enable=function() {
@@ -614,7 +611,7 @@ enable=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'enable()', "BiodbConfig::enable()")
 
-    .self$getBiodb()$getConfig()$enable('cache.system')
+    .self$cfg$enable('cache.system')
 },
 
 disable=function() {
@@ -624,7 +621,7 @@ disable=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'disable()', "BiodbConfig::disable()")
 
-    .self$getBiodb()$getConfig()$disable('cache.system')
+    .self$cfg$disable('cache.system')
 }
 
 ))

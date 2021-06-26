@@ -29,22 +29,31 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include BiodbChildObject.R
 #' @export BiodbFactory
 #' @exportClass BiodbFactory
 BiodbFactory <- methods::setRefClass("BiodbFactory",
-    contains='BiodbChildObject',
     fields=list(
-        .conn="list"
+        .conn="list",
+        .bdb='ANY'
     ),
 
 methods=list(
 
-initialize=function(...) {
+initialize=function(bdb) {
 
-    callSuper(...)
+    chk::chk_is(bdb, 'BiodbMain')
 
+    .self$.bdb <- bdb
     .self$.conn <- list()
+},
+
+getBiodb=function() {
+    ":\n\nReturns the biodb main class instance to which this object is
+    attached.
+    \nReturned value: The main biodb instance.
+    "
+
+    return(.self$.bdb)
 },
 
 createConn=function(db.class, url=NULL, token=NA_character_,
@@ -74,7 +83,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     "
 
     # Get database info
-    db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+    db.info <- .self$.bdb$getDbsInfo()$get(db.class)
 
     # Disabled?
     if (db.info$getPropertyValue('disabled')) {
@@ -104,7 +113,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     # Create connector instance
     prop <- if (is.na(token)) list() else list(token=token)
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
-        properties=prop, parent=.self)
+        properties=prop, bdb=.self$.bdb)
     if ( ! is.null(url) && ! is.na(url))
         conn$setPropValSlot('urls', 'base.url', url)
 
@@ -234,7 +243,7 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
 
     # Does conn.id look like a database class?
     if (class && is.null(conn) &&
-        .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+        .self$.bdb$getDbsInfo()$isDefined(conn.id)) {
 
         # Try to find connectors that are of this class
         for (c in .self$.conn)
@@ -295,7 +304,7 @@ createNewEntry=function(db.class) {
     "
 
     # Get database info
-    db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+    db.info <- .self$.bdb$getDbsInfo()$get(db.class)
 
     # Get entry class
     entry.class <- db.info$getEntryClass()
@@ -430,7 +439,7 @@ show=function() {
         # Loop on all contents
         logDebug('Parsing %d %s entries.', length(content),
             conn$getPropertyValue('name'))
-        prg <- Progress$new(biodb=.self$getBiodb(),
+        prg <- Progress$new(biodb=.self$.bdb,
                             msg='Creating entry instances from contents',
                             total=length(content))
         for (single.content in content) {

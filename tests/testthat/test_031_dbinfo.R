@@ -6,7 +6,7 @@
 test.namedProp <- function(biodb) {
     prop <- list(name='MyDb', entry.content.type='txt')
     dbinfo <- biodb::BiodbDbInfo(db.class='mydb',
-                                 parent=biodb$getDbsInfo(),
+                                 cfg=biodb$getConfig(),
                                  properties=prop)
     url <- 'http://some/url/that/points/somewhere'
     dbinfo$setPropValSlot('urls', 'myurl', url)

@@ -31,11 +31,9 @@
 #'
 #' @import methods
 #' @import yaml
-#' @include BiodbObject.R
 #' @export BiodbMain
 #' @exportClass BiodbMain
 BiodbMain <- methods::setRefClass("BiodbMain",
-    contains="BiodbObject",
     fields=list(
         .factory="ANY",
         .observers="ANY",
@@ -48,8 +46,6 @@ BiodbMain <- methods::setRefClass("BiodbMain",
 methods=list(
 
 initialize=function(autoloadExtraPkgs=NULL) {
-
-    callSuper() # Call BiodbObject constructor.
 
     .self$.observers <- list()
 
@@ -165,10 +161,11 @@ getPersistentCache=function() {
     if (is.null(.self$persistentCache)) {
         impl <- .self$getConfig()$get('persistent.cache.impl')
         if (impl == 'bioc')
-            .self$persistentCache <- BiodbBiocPersistentCache$new(parent=.self)
+            .self$persistentCache <-
+                BiodbBiocPersistentCache$new(cfg=.self$getConfig())
         else # custom
             .self$persistentCache <-
-                BiodbCustomPersistentCache$new(parent=.self)
+                BiodbCustomPersistentCache$new(cfg=.self$getConfig())
     }
 
     return(.self$persistentCache)
@@ -181,7 +178,7 @@ getDbsInfo=function() {
     "
 
     if (is.null(.self$.dbsinfo))
-        .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
+        .self$.dbsinfo <- BiodbDbsInfo$new(cfg=.self$getConfig())
 
     return(.self$.dbsinfo)
 },
@@ -205,7 +202,7 @@ getFactory=function() {
     "
 
     if (is.null(.self$.factory))
-        .self$.factory <- BiodbFactory$new(parent=.self)
+        .self$.factory <- BiodbFactory$new(bdb=.self)
 
     return(.self$.factory)
 },
@@ -218,7 +215,7 @@ getRequestScheduler=function() {
     "
 
     if (is.null(.self$.request.scheduler))
-        .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
+        .self$.request.scheduler <- BiodbRequestScheduler$new(bdb=.self)
 
     return(.self$.request.scheduler)
 },

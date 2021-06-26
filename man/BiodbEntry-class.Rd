@@ -57,6 +57,14 @@ Returned value: TRUE if at least one field was computed successfully,
     FALSE otherwise.
     }
 
+\item{\code{getBiodb()}}{:
+
+Returns the biodb main class instance to which this object is
+    attached.
+    
+Returned value: The main biodb instance.
+    }
+
 \item{\code{getDbClass()}}{:
 
 Gets the ID of the database associated with this entry.
@@ -202,6 +210,14 @@ Gets a short text describing this entry instance.
     
 Returned value: A character value concatenating the connector name with
     the entry accession.
+    }
+
+\item{\code{getParent()}}{:
+
+Returns the parent instance (A BiodbConn or BiodbFactory object) to
+    which this object is attached.
+    
+Returned value: A BiodbConn instance or a BiodbFactory object.
     }
 
 \item{\code{hasField(field)}}{:
