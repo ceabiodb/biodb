@@ -43,11 +43,9 @@
 #' mybiodb$terminate()
 #'
 #' @import methods
-#' @include BiodbChildObject.R
 #' @export BiodbConnBase
 #' @exportClass BiodbConnBase
 BiodbConnBase <- methods::setRefClass("BiodbConnBase",
-    contains="BiodbChildObject",
     fields=list(
         .db.class="character",
         .observers='list',
@@ -57,9 +55,8 @@ BiodbConnBase <- methods::setRefClass("BiodbConnBase",
 
 methods=list(
 
-initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
+initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
 
-    callSuper(...)
     abstractClass('BiodbConnBase', .self)
     .self$.run.hooks <- character()
 
@@ -89,7 +86,7 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
         properties$remote <- TRUE
     
     # Set properties
-    .self$.defineProperties(other, properties)
+    .self$.defineProperties(other, properties, cfg=cfg)
 },
 
 show=function() {
@@ -509,11 +506,11 @@ setPropValSlot=function(name, slot, value) {
     return(value)
 },
 
-.defineProperties=function(other, properties) {
+.defineProperties=function(other, properties, cfg) {
 
     # Set list of property definitions
     if (is.null(other))
-        .self$.prop.def <- .self$.getFullPropDefList()
+        .self$.prop.def <- .self$.getFullPropDefList(cfg)
     else
         .self$.prop.def <- other$.prop.def
 
@@ -542,14 +539,13 @@ setPropValSlot=function(name, slot, value) {
         .self$setPropertyValue(p, .self$.prop.def[[p]]$default)
 },
 
-.getFullPropDefList=function() {
+.getFullPropDefList=function(cfg) {
 
     # Default token
     default_token <- NA_character_
-    config <- .self$getBiodb()$getConfig()
     token.key <- paste(.self$getDbClass(), 'token', sep='.')
-    if (config$isDefined(token.key, fail=FALSE))
-        default_token <- config$get(token.key)
+    if (cfg$isDefined(token.key, fail=FALSE))
+        default_token <- cfg$get(token.key)
 
     # Define properties
     prop.def <- list(

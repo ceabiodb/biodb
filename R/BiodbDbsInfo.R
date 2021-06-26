@@ -58,8 +58,8 @@ define=function(def, package='biodb') {
 
         # Define new database connector
         else
-            .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
-                                                properties=dbdef)
+            .self$.dbs[[db]] <- BiodbDbInfo$new(db.class=db, properties=dbdef,
+                cfg=.self$getBiodb()$getConfig())
     }
 },
 
