@@ -205,7 +205,7 @@ getFactory=function() {
     "
 
     if (is.null(.self$.factory))
-        .self$.factory <- BiodbFactory$new(parent=.self)
+        .self$.factory <- BiodbFactory$new(bdb=.self)
 
     return(.self$.factory)
 },
