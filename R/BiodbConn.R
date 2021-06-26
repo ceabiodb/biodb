@@ -256,7 +256,7 @@ getEntryContentFromDb=function(entry.id) {
     if (.self$isRemotedb())
         return(.self$.doGetEntryContentOneByOne(entry.id))
 
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
@@ -574,7 +574,7 @@ write=function() {
 },
 
 .doWrite=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .initWritable=function() {
@@ -795,11 +795,11 @@ download=function() {
 },
 
 .doDownload=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doExtractDownload=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .checkIsRemote=function() {
@@ -1198,12 +1198,12 @@ getEntryPageUrl=function(entry.id) {
     "
 
     .self$.checkIsRemote()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetEntryContentRequest=function(id, concatenate=TRUE) {
     .self$.checkIsRemote()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetEntryContentOneByOne=function(entry.id) {
@@ -1242,7 +1242,7 @@ getEntryPageUrl=function(entry.id) {
 },
 
 .doGetEntryIds=function(max.results=0) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .addEntriesToCache=function(ids, entries) {
@@ -1285,7 +1285,7 @@ getChromCol=function(ids=NULL) {
     "
 
     .self$.checkIsMassdb()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 getMatchingMzField=function() {
@@ -1411,7 +1411,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     "
 
     .self$.checkIsMassdb()
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
@@ -1970,11 +1970,11 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 
 .doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
     precursor, ms.level) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .convertRt=function(rt, units, wanted.unit) {

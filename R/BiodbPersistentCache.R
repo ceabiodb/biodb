@@ -175,7 +175,7 @@ getFilePath=function(cache.id, name, ext) {
 },
 
 .doGetFilePath=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 filesExist=function(cache.id) {
@@ -191,7 +191,7 @@ filesExist=function(cache.id) {
 },
 
 .doFilesExist=function(cache.id) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 fileExist=function(cache.id, name, ext) {
@@ -218,7 +218,7 @@ fileExists=function(cache.id, name, ext) {
 },
 
 .doFileExists=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 markerExist=function(cache.id, name) {
@@ -438,7 +438,7 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 },
 
 .doMoveFilesToCache=function(cache,id, src, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 erase=function() {
@@ -456,7 +456,7 @@ erase=function() {
 },
 
 .doErase=function() {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteFile=function(cache.id, name, ext) {
@@ -479,7 +479,7 @@ deleteFile=function(cache.id, name, ext) {
 },
 
 .doDeleteFile=function(cache.id, name, ext) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
@@ -511,7 +511,7 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 },
 
 .doDeleteAllFiles=function(cache.id) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 deleteFiles=function(cache.id, ext) {
@@ -580,7 +580,7 @@ listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
 },
 
 .doListFiles=function(cache.id, pattern, full.path) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 show=function() {

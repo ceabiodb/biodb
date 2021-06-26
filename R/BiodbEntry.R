@@ -639,7 +639,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 .doParseContent=function(content) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .isParsedContentCorrect=function(parsed.content) {
@@ -649,7 +649,7 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
 },
 
 .parseFieldsStep1=function(parsed.content) {
-    .self$.abstractMethod()
+    abstractMethod(.self)
 },
 
 .parseFieldsStep2=function(parsed.content) {
