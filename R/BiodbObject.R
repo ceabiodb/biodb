@@ -17,20 +17,6 @@ help=function() {
     utils::help(class(.self), 'biodb')
 },
 
-notify=function(fct, args) {
-
-    # Get observers
-    obs <- .self$getBiodb()$getObservers()
-
-    # Build call code
-    call <- paste0('do.call(o$', fct, ', args)')
-
-    # Notify each observer
-    lapply(obs, function(o) eval(parse(text=call)) )
-
-    invisible()
-},
-
 # This method is used to declare a class as abstract.
 .abstractClass=function(class) {
 
