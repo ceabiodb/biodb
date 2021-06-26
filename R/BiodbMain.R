@@ -165,10 +165,11 @@ getPersistentCache=function() {
     if (is.null(.self$persistentCache)) {
         impl <- .self$getConfig()$get('persistent.cache.impl')
         if (impl == 'bioc')
-            .self$persistentCache <- BiodbBiocPersistentCache$new(parent=.self)
+            .self$persistentCache <-
+                BiodbBiocPersistentCache$new(cfg=.self$getConfig())
         else # custom
             .self$persistentCache <-
-                BiodbCustomPersistentCache$new(parent=.self)
+                BiodbCustomPersistentCache$new(cfg=.self$getConfig())
     }
 
     return(.self$persistentCache)
