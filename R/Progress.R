@@ -7,10 +7,6 @@
 #' This class displays progress of a process to user, and sends
 #' notifications of this progress to observers too.
 #'
-#' @import R6
-#' @import chk
-#' @import progress
-#'
 #' @examples
 #' # Create an instance
 #' prg <- biodb::Progress$new(msg='Processing data.', total=10)
@@ -21,6 +17,9 @@
 #'     prg$increment()
 #' }
 #'
+#' @import R6
+#' @import chk
+#' @import progress
 #' @export
 Progress <- R6::R6Class('Progress'
 
@@ -45,7 +44,7 @@ initialize=function(biodb=NULL, msg, total){
     private$index <- 0
     private$total <- total
     fmt <- sprintf("%s [:bar] :percent ETA: :eta", msg)
-    private$bar <- progress_bar$new(format=fmt, total=total)
+    private$bar <- progress::progress_bar$new(format=fmt, total=total)
 }
 
 #' @description

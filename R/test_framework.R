@@ -17,28 +17,25 @@
 #' @export BiodbTestMsgAck
 #' @exportClass BiodbTestMsgAck
 BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',
-    contains = 'BiodbObserver',
     fields = list(
         .last.index = 'numeric'
         ),
 
     methods=list(
 
-initialize=function(...) {
-
-    callSuper(...)
+initialize=function() {
 
     .self$.last.index <- 0
 },
 
 notifyProgress=function(what, index, total) {
     # Override super class' method
-    testthat::expect_type(what, 'character')
-    testthat::expect_true(what != '') # --> expect_not_empty_str
+#    testthat::expect_type(what, 'character')
+#    testthat::expect_true(what != '') # --> expect_not_empty_str
     #testthat::expect_is(index, 'number') # --> expect_whole_number
     #testthat::expect_is(total, 'number')
-    testthat::expect_true(index >= 0) # --> expect_positive
-    testthat::expect_true(index <= total)
+#    testthat::expect_true(index >= 0) # --> expect_positive
+    testthat::expect_lte(index, total)
     return(invisible(NULL))
 }
 ))

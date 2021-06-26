@@ -85,7 +85,7 @@ notifyObservers <- function(obs, fct, args) {
     chk::chk_list(args)
 
     # Build call code
-    call <- paste0('do.call(o$', fct, ', args)')
+    call <- sprintf("if ('%s' %%in%% names(o)) do.call(o$%s, args)", fct, fct)
 
     # Notify each observer
     lapply(obs, function(o) eval(parse(text=call)) )

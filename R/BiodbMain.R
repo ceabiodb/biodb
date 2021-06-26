@@ -234,10 +234,10 @@ addObservers=function(observers) {
         observers <- list(observers)
 
     # Check types of observers
-    is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
-        FUN.VALUE=TRUE)
-    if (any( ! is.obs))
-        error("Observers must inherit from BiodbObserver class.")
+#    is.obs <- vapply(observers, function(o) methods::is(o, "BiodbObserver"),
+#        FUN.VALUE=TRUE)
+#    if (any( ! is.obs))
+#        error("Observers must inherit from BiodbObserver class.")
 
     # Add observers to current list (insert at beginning)
     old_obs <- .self$.observers
