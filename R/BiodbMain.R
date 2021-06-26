@@ -181,7 +181,7 @@ getDbsInfo=function() {
     "
 
     if (is.null(.self$.dbsinfo))
-        .self$.dbsinfo <- BiodbDbsInfo$new(parent=.self)
+        .self$.dbsinfo <- BiodbDbsInfo$new(cfg=.self$getConfig())
 
     return(.self$.dbsinfo)
 },
