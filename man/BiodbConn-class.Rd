@@ -259,6 +259,14 @@ Get all entries stored in the memory cache (volatile cache).
 Returned value: A list of BiodbEntry instances.
     }
 
+\item{\code{getBiodb()}}{:
+
+Returns the biodb main class instance to which this object is
+    attached.
+    
+Returned value: The main biodb instance.
+    }
+
 \item{\code{getCacheFile(entry.id)}}{:
 
 Get the path to the persistent cache file.

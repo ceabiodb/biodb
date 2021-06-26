@@ -113,6 +113,13 @@ name: A character vector of names or aliases to test.
 Returned value: A logical vector, the same length as `name`, with TRUE
     for name values that corresponds to a defined field.
     }
+
+\item{\code{show()}}{:
+
+Displays information about this observer instance.
+    
+Returned valued: none.
+    }
 }}
 
 \examples{

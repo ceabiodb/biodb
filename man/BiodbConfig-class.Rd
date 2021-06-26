@@ -156,6 +156,13 @@ value: A value to associate with the key.
     
 Returned value: None.
     }
+
+\item{\code{show()}}{:
+
+Displays information about this observer instance.
+    
+Returned valued: none.
+    }
 }}
 
 \examples{

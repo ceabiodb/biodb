@@ -31,7 +31,6 @@
 #'
 #' @import methods
 #' @import yaml
-#' @include BiodbObject.R
 #' @export BiodbMain
 #' @exportClass BiodbMain
 BiodbMain <- methods::setRefClass("BiodbMain",

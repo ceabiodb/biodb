@@ -249,6 +249,14 @@ Returned value: A data frame containing in columns the requested field
 DEPRECATED method to test if a field is an atomic field. The new
     method is \code{BiodbEntryField::isVector()}.}
 
+\item{\code{getBiodb()}}{:
+
+Returns the biodb instance, which is itself in the case of the
+    \code{BiodbMain} class.
+    
+Returned value: This instance.
+    }
+
 \item{\code{getConfig()}}{:
 
 Returns the single instance of the \code{BiodbConfig} class.
