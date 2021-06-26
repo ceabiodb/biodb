@@ -5,7 +5,7 @@ test.connectorAlreadyExistsMassCsvFile <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
     # Create a connector
     conn <- biodb$getFactory()$createConn('mass.csv.file', url=MASSFILEDB.URL)
@@ -33,14 +33,14 @@ test.connectorAlreadyExistsMassCsvFile <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 }
 
 test.connectorAlreadyExistsChebiEx <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
     # Test with ChEBI
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -61,14 +61,14 @@ test.connectorAlreadyExistsChebiEx <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 }
 
 test.connectorDeletion <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
     # Load ChEBI connector definition
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -91,11 +91,11 @@ test.connectorDeletion <- function(biodb) {
 
     # Delete all connectors
     testthat::expect_true(length(biodb$getFactory()$getAllConnectors()) >= 2)
-    testthat::expect_true(length(biodb$getRequestScheduler()$.getAllRules())
+    testthat::expect_true(length(biodb$getRequestScheduler()$getAllRules())
                           >= 1)
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 }
 
 
@@ -103,7 +103,7 @@ test.connectorDefaultValues <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
     connFile <- system.file("extdata", "ChebiExConn.R", package="biodb")
@@ -122,7 +122,7 @@ test.connectorDefaultValues <- function(biodb) {
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 }
 
 # Instantiate Biodb

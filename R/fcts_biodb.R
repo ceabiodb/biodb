@@ -183,8 +183,8 @@ lst2str <- function(x, nCut=10) {
     else {
 
         # Cut
-        s <- paste(if (length(x) > nCut) c(x[seq_len(nCut)], '...') else x,
-            collapse=", ")
+        s <- paste(if (nCut > 0 && length(x) > nCut) c(x[seq_len(nCut)], '...')
+            else x, collapse=", ")
 
         # Convert to character
         if ( ! is.character(s))

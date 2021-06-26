@@ -71,6 +71,7 @@ setFrequency=function(n, t) {
     chk::chk_gte(n, 1)
     chk::chk_gt(t, 0)
 
+    logDebug("t=%f, n=%f", t, n)
     # Update last time and index
     if (length(private$last.time) >= 1) {
         ni <- private$n.index
@@ -83,6 +84,7 @@ setFrequency=function(n, t) {
     # Update frequency
     private$n <- n
     private$t <- t
+    logDebug("t=%f, n=%f", private$t, private$n)
 },
 
 #' @description
@@ -178,22 +180,30 @@ print=function() {
 #' @return Nothing.
 ,recomputeFrequency=function() {
 
-    t <- NULL
+    .t <- NULL
     n <- NULL
 
     # Loop on all connectors
     for (conn in private$conn) {
         t.conn <- conn$getPropertyValue('scheduler.t')
         n.conn <- conn$getPropertyValue('scheduler.n')
-        if (is.null(t) || ((abs(t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
-            || t.conn / n.conn > t / n)) {
-            t <- t.conn
+        logDebug("t.conn=%f, n.conn=%f", t.conn, n.conn)
+        if (is.null(.t) || is.null(n)
+# || (abs(.t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
+            || t.conn / n.conn > .t / n) {
+            .t <- t.conn
             n <- n.conn
+            logDebug("t=%f, n=%f", .t, n)
         }
+#        if (is.null(.t) || ((abs(.t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
+#            || t.conn / n.conn > .t / n)) {
+#            .t <- t.conn
+#            n <- n.conn
+#        }
     }
 
     # Set frequency
-    self$setFrequency(n=n, t=t)
+    self$setFrequency(n=n, t=.t)
 }
 
 #' @description

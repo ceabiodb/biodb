@@ -1,10 +1,11 @@
 test.schedulerRightRule <- function(biodb) {
 
-    # Delete all connectors
-    biodb$getFactory()$deleteAllConnectors()
-
     # Get scheduler
     scheduler <- biodb$getRequestScheduler()
+
+    # Delete all connectors
+    biodb$getFactory()$deleteAllConnectors()
+    testthat::expect_true(all(vapply(scheduler$getAllRules(), function(rule) length(rule$getConnectors()), FUN.VALUE=0) == 0))
 
     # Load ChEBI connector definition
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -15,10 +16,10 @@ test.schedulerRightRule <- function(biodb) {
     source(entryFile)
 
     # Get ChEBI connector
-    chebi <- biodb$getFactory()$getConn('chebi.ex')
+    chebi <- biodb$getFactory()$createConn('chebi.ex')
 
     # Get connector rule
-    rules <- scheduler$.getConnectorRules(chebi)
+    rules <- scheduler$getConnectorRules(chebi)
     testthat::expect_is(rules, 'list')
     testthat::expect_length(rules, 1)
     testthat::expect_is(rules[[1]], 'BiodbRequestSchedulerRule')
@@ -26,19 +27,25 @@ test.schedulerRightRule <- function(biodb) {
     testthat::expect_identical(rules[[1]]$getConnectors()[[1]], chebi)
     testthat::expect_equal(rules[[1]]$getN(), chebi$getSchedulerNParam())
     testthat::expect_equal(rules[[1]]$getT(), chebi$getSchedulerTParam())
+
+    # Delete connector
+    biodb$getFactory()$deleteConn(chebi)
+    testthat::expect_null(scheduler$getConnectorRules(chebi))
+    rules <- scheduler$getAllRules()
+    testthat::expect_is(rules, 'list')
+    testthat::expect_length(rules, 0)
 }
 
 test.schedulerRuleFrequency <- function(biodb) {
 
-    biodb$getFactory()$deleteAllConnectors()
-    testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
-
     # Delete all connectors
     biodb$getFactory()$deleteAllConnectors()
+    testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
 
     # Get scheduler
     scheduler <- biodb$getRequestScheduler()
+    testthat::expect_true(all(vapply(scheduler$getAllRules(),
+        function(rule) length(rule$getConnectors()), FUN.VALUE=0) == 0))
 
     # Load ChEBI connector definition
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -49,14 +56,17 @@ test.schedulerRuleFrequency <- function(biodb) {
     source(entryFile)
 
     # Get ChEBI connector
-    chebi <- biodb$getFactory()$getConn('chebi.ex')
+    chebi <- biodb$getFactory()$createConn('chebi.ex')
     chebi$setSchedulerNParam(3)
     chebi$setSchedulerTParam(1)
 
     # Get connector rule
-    rules <- scheduler$.getConnectorRules(chebi)
+    rules <- scheduler$getConnectorRules(chebi)
     testthat::expect_is(rules, 'list')
     testthat::expect_length(rules, 1)
+    biodb::logDebug('Hosts: %s', biodb::lst2str(names(scheduler$.host2rule)))
+    biodb::logDebug('Connector IDs: %s',
+        biodb::lst2str(names(scheduler$.connid2rules)))
     rule <- rules[[1]]
     testthat::expect_is(rule, 'BiodbRequestSchedulerRule')
     testthat::expect_equal(rule$getN(), chebi$getSchedulerNParam())
@@ -65,34 +75,48 @@ test.schedulerRuleFrequency <- function(biodb) {
     # Create another ChEBI connector
     chebi.2 <- biodb$getFactory()$createConn('chebi.ex',
                                              url='http://some.fake.chebi.site/')
-    rules <- scheduler$.getConnectorRules(chebi.2)
+    biodb::logDebug('Hosts: %s', biodb::lst2str(names(scheduler$.host2rule)))
+    biodb::logDebug('Connector IDs: %s',
+        biodb::lst2str(names(scheduler$.connid2rules)))
+    rules <- scheduler$getConnectorRules(chebi.2)
     testthat::expect_length(rules, 2)
     for (r in rules) { 
         testthat::expect_equal(r$getN(), chebi$getSchedulerNParam())
         testthat::expect_equal(r$getT(), chebi$getSchedulerTParam())
     }
 
-    # Change frequency of second connector
+    # Change frequency of second connector. Since the rule is in common between
+    # the two connectors for the site default site, the frequency should change
+    # only when decreasing but not when increasing.
     n <- rule$getN()
-    chebi.2$setSchedulerNParam(n + 1)
+biodb::logDebug("test.schedulerRuleFrequency 100")
+    chebi.2$setPropertyValue('scheduler.n', n + 1)
+biodb::logDebug("test.schedulerRuleFrequency 101")
     testthat::expect_equal(rule$getN(), n)
-    chebi.2$setSchedulerNParam(n - 1)
+biodb::logDebug("test.schedulerRuleFrequency 102")
+    chebi.2$setPropertyValue('scheduler.n', n - 1)
+biodb::logDebug("test.schedulerRuleFrequency 103")
     testthat::expect_equal(rule$getN(), n - 1)
-    chebi.2$setSchedulerNParam(n)
+biodb::logDebug("test.schedulerRuleFrequency 104")
+    chebi.2$setPropertyValue('scheduler.n', n)
+biodb::logDebug("test.schedulerRuleFrequency 105")
     testthat::expect_equal(rule$getN(), n)
-    t <- rule$getT()
-    chebi.2$setSchedulerTParam(t + 0.5)
-    testthat::expect_equal(rule$getT(), t + 0.5)
-    chebi.2$setSchedulerTParam(t - 0.5)
-    testthat::expect_equal(rule$getT(), t)
-    chebi.2$setSchedulerTParam(t * 2)
-    chebi.2$setSchedulerNParam(n * 2)
+biodb::logDebug("test.schedulerRuleFrequency 106")
+    .t <- rule$getT()
+    chebi.2$setPropertyValue('scheduler.t', .t + 0.5)
+    testthat::expect_equal(rule$getT(), .t + 0.5)
+    chebi.2$setPropertyValue('scheduler.t', .t - 0.5)
+    testthat::expect_equal(rule$getT(), .t)
+    chebi.2$setPropertyValue('scheduler.t', .t * 2)
+    testthat::expect_equal(rule$getT(), .t * 2)
+    chebi.2$setPropertyValue('scheduler.n', n * 2)
+    testthat::expect_equal(rule$getT(), .t)
     testthat::expect_equal(rule$getN(), n)
-    testthat::expect_equal(rule$getT(), t)
+    testthat::expect_equal(rule$getT(), .t)
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-    testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+    testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 }
 
 test.schedulerSleepTime <- function(biodb) {
@@ -120,7 +144,7 @@ test.schedulerSleepTime <- function(biodb) {
     chebi$setSchedulerTParam(t)
 
     # Get connector rule
-    rules <- scheduler$.getConnectorRules(chebi)
+    rules <- scheduler$getConnectorRules(chebi)
     testthat::expect_is(rules, 'list')
     testthat::expect_length(rules, 1)
     rule <- rules[[1]]
@@ -195,7 +219,7 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
     url$setParam('chebiId', 15440)
 
     # Check rule does not exist
-    testthat::expect_null(sched$.findRule(url, create=FALSE))
+    testthat::expect_null(sched$findRule(url, create=FALSE))
     # ==> no connector is registered with this domain
 
     # Create a request object
@@ -205,11 +229,11 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
     sched$sendRequest(request)
 }
 
-# Instantiate Biodb
-biodb <- biodb::createBiodbTestInstance()
-
 # Set context
 biodb::testContext("Test scheduler.")
+
+# Instantiate Biodb
+biodb <- biodb::createBiodbTestInstance()
 
 # Run tests
 biodb::testThat("We can create a request outside a connector.",

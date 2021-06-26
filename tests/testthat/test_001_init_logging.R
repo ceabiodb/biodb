@@ -6,6 +6,8 @@ biodb::testContext("Logger setting")
 
 # Log everything to file
 logFile <- file.path(getwd(), '..', '..', 'biodb_tests.log')
+if (file.exists(logFile))
+    unlink(logFile)
 layoutFormat <- lgr::LayoutFormat$new("%g.%L[%t][%c] %m")
 app <- lgr::AppenderFile$new(logFile, layout=layoutFormat)
 app$set_threshold('all')

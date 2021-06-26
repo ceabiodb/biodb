@@ -75,16 +75,6 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
     # Set observers
     .self$.observers <- list()
 
-    # Configure automatically as a remote database connector
-    if (('scheduler.n' %in% names(properties)
-            && ! is.na(properties$scheduler.n))
-        || ('scheduler.t' %in% names(properties)
-            && ! is.na(properties$scheduler.t))
-        || ('urls' %in% names(properties)
-            && 'base.url' %in% names(properties$url)
-            && length(grep('^http', properties$url$base.url)) > 0))
-        properties$remote <- TRUE
-    
     # Set properties
     .self$.defineProperties(other, properties, cfg=cfg)
 },
@@ -345,6 +335,8 @@ setPropertyValue=function(name, value) {
     \nReturned value: None.
     "
 
+    logDebug('Setting property "%s" to "%s".', name, value)
+
     # Check value
     value <- .self$.chkPropVal(name, value)
 
@@ -361,11 +353,16 @@ setPropertyValue=function(name, value) {
     .self$.prop[[name]] <- value
 
     # Notify observers
-    for (obs in .self$.observers)
-        if (name %in% c('scheduler.n', 'scheduler.t'))
-            obs$connSchedulerFrequencyUpdated(.self)
-        else if (name == 'urls')
-            obs$connUrlsUpdated(.self)
+    if (name %in% c('scheduler.n', 'scheduler.t')) {
+        logDebug("Notifying observers about frequency change.")
+        notifyObservers(.self$.observers, 'notifyConnSchedulerFrequencyUpdated',
+            list(conn=.self))
+    }
+    else if (name == 'urls') {
+        logDebug("Notifying observers about URLs change.")
+        notifyObservers(.self$.observers, 'notifyConnUrlsUpdated',
+            list(conn=.self))
+    }
 },
 
 setPropValSlot=function(name, slot, value) {
@@ -388,19 +385,18 @@ setPropValSlot=function(name, slot, value) {
     .self$setPropertyValue(name, curval)
 },
 
-.terminate=function() {
+#.terminate=function() {
+#
+#    # Notify observers
+#    notifyObservers(.self$.observers, 'notifyConnTerminating', list(conn=.self))
+#},
 
-    # Notify observers
-    for (obs in .self$.observers)
-        obs$connTerminating(.self)
-},
-
-.doTerminate=function() {
-},
+#.doTerminate=function() {
+#},
 
 .registerObserver=function(obs) {
 
-    chk::chk_is(obs, 'BiodbConnObserver')
+    chk::chk_not_null(obs)
 
     # Is this observer already registered?
     if (any(vapply(.self$.observers, function(x) identical(x, obs),
@@ -414,11 +410,11 @@ setPropValSlot=function(name, slot, value) {
 
 .unregisterObserver=function(obs) {
 
-    chk::chk_is(obs, 'BiodbConnObserver')
+    chk::chk_not_null(obs)
 
     # Search for observer
     found.obs <- vapply(.self$.observers, function(x) identical(x, obs),
-                        FUN.VALUE=TRUE)
+        FUN.VALUE=TRUE)
 
     # Not found
     if ( ! any(found.obs))

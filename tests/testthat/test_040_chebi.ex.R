@@ -44,7 +44,7 @@ biodb <- biodb::createBiodbTestInstance()
 # Delete existing connectors
 biodb$getFactory()$deleteAllConnectors()
 testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
 # Test with ChEBI
 defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")

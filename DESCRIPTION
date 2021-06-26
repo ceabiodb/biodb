@@ -53,7 +53,6 @@ Collate:
     'BiodbConfig.R'
     'BiodbConnBase.R'
     'BiodbConn.R'
-    'BiodbConnObserver.R'
     'BiodbEntry.R'
     'BiodbCsvEntry.R'
     'BiodbCustomPersistentCache.R'

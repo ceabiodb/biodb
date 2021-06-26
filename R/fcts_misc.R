@@ -84,11 +84,19 @@ notifyObservers <- function(obs, fct, args) {
     chk::chk_string(fct)
     chk::chk_list(args)
 
+    logDebug("Notify observers for %s.", fct)
+
     # Build call code
-    call <- sprintf("if ('%s' %%in%% names(o)) do.call(o$%s, args)", fct, fct)
+    call <- sprintf("do.call(o$%s, args)", fct)
 
     # Notify each observer
-    lapply(obs, function(o) eval(parse(text=call)) )
+    fctCall <- function(o) {
+        logDebug("Functions in observer %s: %s.", class(o), lst2str(names(o),
+            nCut=0))
+        if (fct %in% names(o))
+            eval(parse(text=call))
+    }
+    lapply(obs, fctCall)
 
     return(invisible(NULL))
 }

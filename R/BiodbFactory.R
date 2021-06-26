@@ -112,10 +112,12 @@ createConn=function(db.class, url=NULL, token=NA_character_,
 
     # Create connector instance
     prop <- if (is.na(token)) list() else list(token=token)
+    if ( ! is.null(url) && ! is.na(url)) {
+        prop[['urls']] <- db.info$getPropertyValue('urls')
+        prop[['urls']][['base.url']] <- url
+    }
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
         properties=prop, bdb=.self$.bdb)
-    if ( ! is.null(url) && ! is.na(url))
-        conn$setPropValSlot('urls', 'base.url', url)
 
     existingConn <- .self$.getExistingConn(conn)
     # Check if an identical connector already exists

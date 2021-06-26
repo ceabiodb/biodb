@@ -149,7 +149,6 @@ get=function(name, drop=TRUE) {
     biodb::logTrace('fields variable is a %s.', class(fields))
     if (drop && length(fields) == 1)
         fields <- fields[[1]]
-    biodb::logTrace('END OF BiodbEntryFields::get()')
 
     return(fields)
 },

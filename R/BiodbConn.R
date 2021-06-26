@@ -62,6 +62,7 @@ initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
     callSuper(...)
     abstractClass('BiodbConn', .self)
 
+    logDebug("Initialize connector %s.", id)
     chk::chk_character(id)
     chk::chk_is(bdb, 'BiodbMain')
     .self$.bdb <- bdb
@@ -70,8 +71,10 @@ initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
     .self$.entries <- list()
 
     # Register with request scheduler
-    if (.self$isRemotedb())
-        .self$.bdb$getRequestScheduler()$.registerConnector(.self)
+    if (.self$isRemotedb()) {
+        logDebug("Register connector %s with the request scheduler", id)
+        .self$.bdb$getRequestScheduler()$registerConnector(.self)
+    }
 },
 
 getBiodb=function() {
@@ -2193,10 +2196,11 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
 .terminate=function() {
 
     # Unregister from the request scheduler
-    if (.self$isRemotedb())
-        .self$.bdb$getRequestScheduler()$.unregisterConnector(.self)
-
-    callSuper()
+    if (.self$isRemotedb()) {
+        logDebug("Unregister connector %s from the request scheduler",
+            .self$getId())
+        .self$.bdb$getRequestScheduler()$unregisterConnector(.self)
+    }
 }
 
 ))
