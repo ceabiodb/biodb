@@ -38,7 +38,7 @@ terminate=function() {
     \nReturned value: None.
     "
 
-    invisible()
+    return(invisible(NULL))
 },
 
 show=function() {
@@ -49,6 +49,7 @@ show=function() {
     cat('Observer of class ', class(.self), ".\n", sep='')
 },
 
+# TODO Rename into notifyNewObserver
 newObserver=function(obs) {
     ":\n\nCalled by BiodbMain when a new observer is registered.
     \nobs: The observer newly registered by the BiodbMain instance.
@@ -56,6 +57,7 @@ newObserver=function(obs) {
     "
 },
 
+# TODO Rename into notifyCfgUpdate
 cfgKVUpdate=function(k, v) {
     ":\n\nThis method is called by BiodbConfig when the value of one of its keys
     is modified.

@@ -34,11 +34,9 @@
 #'
 #' @import methods
 #' @import rappdirs
-#' @include BiodbObserver.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig",
-    contains='BiodbObserver',
     fields=list(
         .values="list",
         .env="ANY",
@@ -319,11 +317,23 @@ define=function(def) {
     }
 },
 
+# Observer method
 newObserver=function(obs) {
 
     # Loop on all keys
     for(key in names(.self$.values))
-        notifyObservers(.self$.parent$getObservers(), 'cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+        notifyObservers(.self$.parent$getObservers(),
+            'cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+},
+
+terminate=function() {
+    ":\n\nTerminates the instance. This method will be called
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
+    \nReturned value: None.
+    "
+
+    return(invisible(NULL))
 },
 
 .getSvnBinaryPath=function() {
