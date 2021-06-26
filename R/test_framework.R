@@ -13,7 +13,6 @@
 #' biodb$terminate()
 #'
 #' @import methods
-#' @include BiodbObserver.R
 #' @export BiodbTestMsgAck
 #' @exportClass BiodbTestMsgAck
 BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',

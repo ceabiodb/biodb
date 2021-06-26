@@ -137,6 +137,15 @@ Returned value: A data frame containing keys, titles, types, and default
     values.
     }
 
+\item{\code{notifyNewObservers(obs)}}{:
+
+Called by BiodbMain when a new observer is registered.
+    
+obs: The new observers registered by the BiodbMain instance.
+    
+Returned valued: none.
+    }
+
 \item{\code{reset(key = NULL)}}{:
 
 Reset the value of a key.
@@ -157,11 +166,13 @@ value: A value to associate with the key.
 Returned value: None.
     }
 
-\item{\code{show()}}{:
+\item{\code{terminate()}}{:
 
-Displays information about this observer instance.
+Terminates the instance. This method will be called
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
     
-Returned valued: none.
+Returned value: None.
     }
 }}
 

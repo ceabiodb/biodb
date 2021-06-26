@@ -53,8 +53,7 @@ Adds new observers. Observers will be called each time an event
     occurs. This is the way used in biodb to get feedback about what is going
     inside biodb code.
     
-observers: Either a \code{BiodbObserver} instance or a list of
-    \code{BiodbObserver} instances.
+observers: Either an object or a list of objects.
     
 Returned value: None.
     }
@@ -368,7 +367,6 @@ mybiodb <- NULL
 }
 \seealso{
 \code{\link{BiodbFactory}}, \code{\link{BiodbPersistentCache}},
-\code{\link{BiodbConfig}}, \code{\link{BiodbObserver}},
-\code{\link{BiodbEntryFields}},
+\code{\link{BiodbConfig}}, \code{\link{BiodbEntryFields}},
 \code{\link{BiodbDbsInfo}}.
 }

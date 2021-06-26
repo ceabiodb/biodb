@@ -114,11 +114,13 @@ Returned value: A logical vector, the same length as `name`, with TRUE
     for name values that corresponds to a defined field.
     }
 
-\item{\code{show()}}{:
+\item{\code{terminate()}}{:
 
-Displays information about this observer instance.
+Terminates the instance. This method will be called
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
     
-Returned valued: none.
+Returned value: None.
     }
 }}
 

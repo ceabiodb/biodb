@@ -10,22 +10,6 @@ This observer is used to call a testthat::expect_*() method each time a
 message is received. This is used when running tests on Travis-CI, so Travis
 does not stop tests because no change is detected in output.
 }
-\section{Methods}{
-
-\describe{
-\item{\code{notifyProgress(what, index, total)}}{:
-
-Notify about the progress of an action.
-    
-what: A short description of the action.
-    
-index: A positive integer number indicating the progress.
-    
-total: The maximum for "index". When reached, the action is completed.
-    
-Returned value: None.
-    }
-}}
 
 \examples{
 # To use the acknowledger, set ack=TRUE when creating the Biodb test
