@@ -35,7 +35,6 @@
 #' @export BiodbMain
 #' @exportClass BiodbMain
 BiodbMain <- methods::setRefClass("BiodbMain",
-    contains="BiodbObject",
     fields=list(
         .factory="ANY",
         .observers="ANY",
@@ -48,8 +47,6 @@ BiodbMain <- methods::setRefClass("BiodbMain",
 methods=list(
 
 initialize=function(autoloadExtraPkgs=NULL) {
-
-    callSuper() # Call BiodbObject constructor.
 
     .self$.observers <- list()
 
