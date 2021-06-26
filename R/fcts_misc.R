@@ -77,3 +77,18 @@ compareVersions <- function(v1, v2) {
     
     return(cmp)
 }
+
+notifyObservers <- function(obs, fct, args) {
+
+    chk::chk_list(obs)
+    chk::chk_string(fct)
+    chk::chk_list(args)
+
+    # Build call code
+    call <- paste0('do.call(o$', fct, ', args)')
+
+    # Notify each observer
+    lapply(obs, function(o) eval(parse(text=call)) )
+
+    return(invisible(NULL))
+}

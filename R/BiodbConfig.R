@@ -34,30 +34,29 @@
 #'
 #' @import methods
 #' @import rappdirs
-#' @include BiodbChildObject.R
 #' @include BiodbObserver.R
 #' @export BiodbConfig
 #' @exportClass BiodbConfig
 BiodbConfig <- methods::setRefClass("BiodbConfig",
-    contains=c('BiodbChildObject', 'BiodbObserver'),
+    contains='BiodbObserver',
     fields=list(
         .values="list",
         .env="ANY",
-        .keys="list"
+        .keys="list",
+        .parent="ANY"
     ),
 
 methods=list(
 
-initialize=function(...) {
+initialize=function(parent) {
 
-    callSuper(...)
-
+    .self$.parent <- parent
     .self$.env <- Sys.getenv()
     .self$.keys <- list()
     .self$.values <- list()
 
     # Register as observer
-    .self$getBiodb()$addObservers(.self)
+    .self$.parent$addObservers(.self)
 },
 
 getKeys=function(deprecated=FALSE) {
@@ -201,7 +200,7 @@ set=function(key, value) {
     logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
-    .self$notify('cfgKVUpdate', list(k=key, v=v))
+    notifyObservers(.self$.parent$getObservers(), 'cfgKVUpdate', list(k=key, v=v))
 
     invisible(NULL)
 },
@@ -324,7 +323,7 @@ newObserver=function(obs) {
 
     # Loop on all keys
     for(key in names(.self$.values))
-        .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+        notifyObservers(.self$.parent$getObservers(), 'cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
 },
 
 .getSvnBinaryPath=function() {
