@@ -219,7 +219,7 @@ getRequestScheduler=function() {
     "
 
     if (is.null(.self$.request.scheduler))
-        .self$.request.scheduler <- BiodbRequestScheduler$new(parent=.self)
+        .self$.request.scheduler <- BiodbRequestScheduler$new(bdb=.self)
 
     return(.self$.request.scheduler)
 },
