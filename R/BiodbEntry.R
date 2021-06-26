@@ -64,7 +64,7 @@ methods=list(
 initialize=function(...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbEntry')
+    abstractClass('BiodbEntry', .self)
 
     .self$.fields <- list()
     .self$.new <- FALSE

@@ -22,7 +22,7 @@ methods=list(
 initialize=function(...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbTxtEntry')
+    abstractClass('BiodbTxtEntry', .self)
 },
 
 .doParseContent=function(content) {

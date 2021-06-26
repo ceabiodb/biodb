@@ -60,7 +60,7 @@ methods=list(
 initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbConnBase')
+    abstractClass('BiodbConnBase', .self)
     .self$.run.hooks <- character()
 
     # Take parameter values from other object instance

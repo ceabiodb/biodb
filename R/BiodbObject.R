@@ -6,7 +6,7 @@ methods=list(
 
 initialize=function() {
 
-    .self$.abstractClass('BiodbObject')
+    abstractClass('BiodbObject', .self)
 },
 
 getBiodb=function() {
@@ -15,14 +15,6 @@ getBiodb=function() {
 
 help=function() {
     utils::help(class(.self), 'biodb')
-},
-
-# This method is used to declare a class as abstract.
-.abstractClass=function(class) {
-
-    if (class == class(.self))
-        error0('Class ', class, ' is abstract and thus cannot be ',
-                    'instantiated.')
 },
 
 # This method is used to declare a method as abstract.

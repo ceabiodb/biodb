@@ -30,7 +30,7 @@ methods=list(
 initialize=function(sep=',', na.strings='NA', quotes='', ...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbCsvEntry')
+    abstractClass('BiodbCsvEntry', .self)
 
     chk::chk_string(sep)
     chk::chk_character(na.strings)

@@ -92,3 +92,22 @@ notifyObservers <- function(obs, fct, args) {
 
     return(invisible(NULL))
 }
+
+#' Forbids instantiation of an abstract class.
+#'
+#' This method must be called from within a constructor of an abstract class.
+#' It will throw an error if a direct call is made to this constructor.
+#'
+#' @param cls The name of the abstract class to check.
+#' @param obj The object being instantiated.
+#' @return Nothing.
+abstractClass <- function(cls, obj) {
+
+    chk::chk_string(cls)
+    chk::chk_not_null(obj)
+
+    if (cls == class(obj))
+        error('Class %s is abstract and thus cannot be instantiated.', cls)
+
+    return(invisible(NULL))
+}

@@ -59,7 +59,7 @@ methods=list(
 initialize=function(id=NA_character_, cache.id=NA_character_, ...) {
 
     callSuper(...)
-    .self$.abstractClass('BiodbConn')
+    abstractClass('BiodbConn', .self)
 
     chk::chk_character(id)
     .self$.id <- id
