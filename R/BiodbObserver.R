@@ -49,24 +49,6 @@ show=function() {
     cat('Observer of class ', class(.self), ".\n", sep='')
 },
 
-# TODO Rename into notifyNewObserver
-newObserver=function(obs) {
-    ":\n\nCalled by BiodbMain when a new observer is registered.
-    \nobs: The observer newly registered by the BiodbMain instance.
-    \nReturned valued: none.
-    "
-},
-
-# TODO Rename into notifyCfgUpdate
-cfgKVUpdate=function(k, v) {
-    ":\n\nThis method is called by BiodbConfig when the value of one of its keys
-    is modified.
-    \nk: The configuration key name.
-    \nv: The new value of the configuration key.
-    \nReturned value: None.
-    "
-},
-
 notifyProgress=function(what, index, total) {
     ":\n\nNotify about the progress of an action.
     \nwhat: A short description of the action.

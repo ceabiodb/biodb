@@ -26,7 +26,6 @@
 #' @export BiodbEntryFields
 #' @exportClass BiodbEntryFields
 BiodbEntryFields <- methods::setRefClass("BiodbEntryFields",
-    contains="BiodbObserver",
     fields=list( .fields="list",
         .aliasToName="character",
         .field.name.sep='character',
@@ -44,8 +43,7 @@ initialize=function(parent) {
     parent$addObservers(.self)
 },
 
-cfgKVUpdate=function(k, v) {
-    # Overrides BiodbObserver function.
+notifyCfgUpdate=function(k, v) {
     if (k == 'intra.field.name.sep')
         .self$.field.name.sep <- v
 },
@@ -222,6 +220,16 @@ define=function(def) {
         args[['name']] <- f
         do.call(.self$.defineField, args)
     }
+},
+
+terminate=function() {
+    ":\n\nTerminates the instance. This method will be called
+    automatically by the BiodbMain instance when you call
+    BiodbMain::terminate().
+    \nReturned value: None.
+    "
+
+    return(invisible(NULL))
 },
 
 .defineField=function(name, ...) {

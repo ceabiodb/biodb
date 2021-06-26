@@ -198,7 +198,7 @@ set=function(key, value) {
     logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
-    notifyObservers(.self$.parent$getObservers(), 'cfgKVUpdate', list(k=key, v=v))
+    notifyObservers(.self$.parent$getObservers(), 'notifyCfgUpdate', list(k=key, v=v))
 
     invisible(NULL)
 },
@@ -317,13 +317,16 @@ define=function(def) {
     }
 },
 
-# Observer method
-newObserver=function(obs) {
+notifyNewObservers=function(obs) {
+    ":\n\nCalled by BiodbMain when a new observer is registered.
+    \nobs: The new observers registered by the BiodbMain instance.
+    \nReturned valued: none.
+    "
 
     # Loop on all keys
     for(key in names(.self$.values))
         notifyObservers(.self$.parent$getObservers(),
-            'cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+            'notifyCfgUpdate', list(k=key, v=.self$.values[[key]]))
 },
 
 terminate=function() {
