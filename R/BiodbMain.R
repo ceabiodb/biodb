@@ -81,7 +81,7 @@ terminate=function() {
 
     # Terminate factory
     if ( ! is.null(.self$.factory))
-        .self$.factory$.terminate()
+        .self$.factory$.__enclos_env__$private$terminate()
 
     # Terminate observers
     for (obs in .self$.observers)
