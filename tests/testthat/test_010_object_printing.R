@@ -51,8 +51,8 @@ test.BiodbConn.show <- function(biodb) {
     expect_output(conn$show(), regexp="^Compound CSV File instance\\.\n  Class: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*\n  ID:.*$")
 }
 
-test.BiodbDbsInfo.show <- function(biodb) {
-    expect_output(biodb$getDbsInfo()$show(), regexp='^Biodb databases information instance\\.\nThe following databases are defined:.*$')
+test.BiodbDbsInfo.print <- function(biodb) {
+    expect_output(biodb$getDbsInfo()$print(), regexp='^Biodb databases information instance\\.\nThe following databases are defined:.*$')
 }
 
 test.BiodbEntryFields.print <- function(biodb) {
@@ -72,7 +72,7 @@ biodb::testThat("BiodbConfig print method returns correct information.", test.Bi
 biodb::testThat("BiodbFactory print method returns correct information.", test.BiodbFactory.print, biodb = biodb)
 biodb::testThat("BiodbEntry print method returns correct information.", test.BiodbEntry.show, biodb = biodb)
 biodb::testThat("BiodbConn print method returns correct information.", test.BiodbConn.show, biodb = biodb)
-biodb::testThat("BiodbDbsInfo print method returns correct information.", test.BiodbDbsInfo.show, biodb = biodb)
+biodb::testThat("BiodbDbsInfo print method returns correct information.", test.BiodbDbsInfo.print, biodb = biodb)
 biodb::testThat("BiodbEntryFields print method returns correct information.", test.BiodbEntryFields.print, biodb = biodb)
 
 # Terminate Biodb
