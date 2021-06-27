@@ -7,17 +7,21 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbJsonEntry")
+#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbJsonEntry")
 #'
 #' @include BiodbEntry.R
-#' @export BiodbJsonEntry
-#' @exportClass BiodbJsonEntry
-BiodbJsonEntry <- methods::setRefClass("BiodbJsonEntry",
-    contains='BiodbEntry',
+#' @export
+BiodbJsonEntry <- R6::R6Class("BiodbJsonEntry",
+inherit=BiodbEntry,
 
-method=list(
 
-.doParseContent=function(content) {
+public=list(
+
+
+),
+
+private=list(
+doParseContent=function(content) {
 
     # Parse JSON
     json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)
@@ -25,10 +29,10 @@ method=list(
     return(json)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
-    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     # Set fields
     for (field in names(parsing.expr)) {
@@ -47,8 +51,7 @@ method=list(
 
             # Set value
         if (found.value && length(x) == 1)
-            .self$setFieldValue(field, x)
+            self$setFieldValue(field, x)
     }
 }
-
 ))

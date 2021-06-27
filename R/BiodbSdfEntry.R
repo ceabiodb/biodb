@@ -7,25 +7,27 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbSdfEntry")
+#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbSdfEntry")
 #'
 #' @include BiodbTxtEntry.R
-#' @export BiodbSdfEntry
-#' @exportClass BiodbSdfEntry
-BiodbSdfEntry <- methods::setRefClass("BiodbSdfEntry",
-    contains='BiodbTxtEntry',
-methods=list(
+#' @export
+BiodbSdfEntry <- R6::R6Class("BiodbSdfEntry",
+inherit=BiodbTxtEntry,
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-    abstractClass('BiodbSdfEntry', .self)
-},
+    super$initialize(...)
+    abstractClass('BiodbSdfEntry', self)
+}
+),
 
-.parseFieldsStep1=function(parsed.content) {
+private=list(
+parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
-    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     chk::chk_character(parsed.content)
     chk::chk_character(parsing.expr)
@@ -65,7 +67,7 @@ initialize=function(...) {
             }
             
             # Set/append value to field
-            .self$appendFieldValue(field, line)
+            self$appendFieldValue(field, line)
         }
 
         # Reset tag
@@ -73,5 +75,4 @@ initialize=function(...) {
             tag <- NULL
     }
 }
-
 ))

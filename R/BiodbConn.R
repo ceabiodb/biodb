@@ -483,10 +483,10 @@ addNewEntry=function(entry) {
         cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
 
     # Flag entry as new
-    entry$.setAsNew(TRUE)
+    entry$setAsNew(TRUE)
 
     # Set the connector as its parent
-    entry$.setParent(.self)
+    entry$setParent(.self)
 
     # Add entry to volatile cache
     .self$.addEntriesToCache(id, list(entry))
@@ -575,7 +575,7 @@ write=function() {
 
     # Unset "new" flag for all entries
     for (e in .self$.entries)
-        e$.setAsNew(FALSE)
+        e$setAsNew(FALSE)
 },
 
 .checkWritingIsAllowed=function() {

@@ -1,22 +1,24 @@
-ChebiExEntry <- methods::setRefClass("ChebiExEntry",
-    contains="BiodbXmlEntry",
+ChebiExEntry <- R6::R6Class("ChebiExEntry",
+inherit=BiodbXmlEntry,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
-    callSuper(...)
+    super$initialize(...)
 }
+),
 
-,.isContentCorrect=function(content) {
+private=list(
+isContentCorrect=function(content) {
  
-    correct <- callSuper(content)
+    correct <- super$isContentCorrect(content)
     
     # You can do some more checks of the content here.
     
     return(correct)
 }
 
-,.parseFieldsStep2=function(parsed.content) {
+,parseFieldsStep2=function(parsed.content) {
     
     # TODO Implement your custom parsing processing here.
 }

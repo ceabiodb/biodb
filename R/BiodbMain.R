@@ -608,7 +608,7 @@ copyDb=function(conn.from, conn.to, limit=0) {
     for (entry in entries) {
 
         # Clone entry
-        clone <- entry$clone(conn.to$getDbClass())
+        clone <- entry$cloneInstance(conn.to$getDbClass())
 
         # Add new entry
         conn.to$addNewEntry(clone)

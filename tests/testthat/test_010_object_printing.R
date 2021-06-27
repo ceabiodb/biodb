@@ -16,7 +16,7 @@ test.BiodbFactory.print <- function(biodb) {
         regexp='^Biodb factory instance\\.$')
 }
 
-test.BiodbEntry.show <- function(biodb) {
+test.BiodbEntry.print <- function(biodb) {
 
     # Create database and connector
     id <- 'C1'
@@ -34,7 +34,7 @@ test.BiodbEntry.show <- function(biodb) {
 
     # Get entry
     entry <- conn$getEntry(id)
-    testthat::expect_output(entry$show(),
+    testthat::expect_output(entry$print(),
                             regexp='^Biodb .* entry instance .*\\.$')
 
     # Destroy connector
@@ -70,7 +70,7 @@ biodb::testThat("BiodbMain print method returns correct information.", test.Biod
 biodb::testThat("BiodbCache print method returns correct information.", test.BiodbCache.print, biodb = biodb)
 biodb::testThat("BiodbConfig print method returns correct information.", test.BiodbConfig.print, biodb = biodb)
 biodb::testThat("BiodbFactory print method returns correct information.", test.BiodbFactory.print, biodb = biodb)
-biodb::testThat("BiodbEntry print method returns correct information.", test.BiodbEntry.show, biodb = biodb)
+biodb::testThat("BiodbEntry print method returns correct information.", test.BiodbEntry.print, biodb = biodb)
 biodb::testThat("BiodbConn print method returns correct information.", test.BiodbConn.show, biodb = biodb)
 biodb::testThat("BiodbDbsInfo print method returns correct information.", test.BiodbDbsInfo.print, biodb = biodb)
 biodb::testThat("BiodbEntryFields print method returns correct information.", test.BiodbEntryFields.print, biodb = biodb)

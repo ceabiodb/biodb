@@ -7,28 +7,29 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from this class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry")
+#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbHtmlEntry")
 #'
 #' @include BiodbXmlEntry.R
-#' @export BiodbHtmlEntry
-#' @exportClass BiodbHtmlEntry
-BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry",
-    contains="BiodbXmlEntry",
+#' @export
+BiodbHtmlEntry <- R6::R6Class("BiodbHtmlEntry",
+inherit=BiodbXmlEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-    abstractClass('BiodbHtmlEntry', .self)
-},
+    super$initialize(...)
+    abstractClass('BiodbHtmlEntry', self)
+}
+),
 
-.doParseContent=function(content) {
+private=list(
+doParseContent=function(content) {
 
     # Parse XML
     xml <-  XML::htmlTreeParse(content, asText=TRUE, useInternalNodes=TRUE)
 
     return(xml)
 }
-
 ))

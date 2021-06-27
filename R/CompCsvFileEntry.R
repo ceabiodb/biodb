@@ -19,15 +19,18 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbCsvEntry.R
-#' @export CompCsvFileEntry
-#' @exportClass CompCsvFileEntry
-CompCsvFileEntry <- methods::setRefClass("CompCsvFileEntry",
-    contains='BiodbCsvEntry',
+#' @export
+CompCsvFileEntry <- R6::R6Class("CompCsvFileEntry",
+inherit=BiodbCsvEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(sep="\t", ...)
+    super$initialize(sep="\t", ...)
 }
+),
+
+private=list(
 ))

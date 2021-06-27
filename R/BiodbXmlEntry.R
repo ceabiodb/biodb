@@ -7,24 +7,26 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbXmlEntry")
+#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbXmlEntry")
 #'
 #' @import XML
 #' @include BiodbEntry.R
-#' @export BiodbXmlEntry
-#' @exportClass BiodbXmlEntry
-BiodbXmlEntry <- methods::setRefClass("BiodbXmlEntry",
-    contains="BiodbEntry",
+#' @export
+BiodbXmlEntry <- R6::R6Class("BiodbXmlEntry",
+inherit=BiodbEntry,
 
-methods=list(
+
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
-    abstractClass('BiodbXmlEntry', .self)
-},
+    super$initialize(...)
+    abstractClass('BiodbXmlEntry', self)
+}
+),
 
-.doParseContent=function(content) {
+private=list(
+doParseContent=function(content) {
 
     xml <- NULL
 
@@ -36,18 +38,18 @@ initialize=function(...) {
     return(xml)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
-    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     # Set namespace
-    xml.ns <- .self$getParent()$getPropertyValue('xml.ns')
+    xml.ns <- self$getParent()$getPropertyValue('xml.ns')
     ns <- if (is.null(xml.ns) || length(xml.ns) == 0 || all(is.na(xml.ns)))
         XML::xmlNamespaceDefinitions(parsed.content, simplify=TRUE) else xml.ns
 
     # Loop on all parsing expressions
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     for (field in names(parsing.expr)) {
 
         # Expression using only path
@@ -86,8 +88,7 @@ initialize=function(...) {
 
         # Set value
         if (length(value) > 0)
-            .self$setFieldValue(field, value)
+            self$setFieldValue(field, value)
     }
 }
-
 ))

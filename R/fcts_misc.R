@@ -115,7 +115,7 @@ abstractClass <- function(cls, obj) {
     chk::chk_string(cls)
     chk::chk_not_null(obj)
 
-    if (cls == class(obj))
+    if (cls == class(obj)[[1]])
         error('Class %s is abstract and thus cannot be instantiated.', cls)
 
     return(invisible(NULL))

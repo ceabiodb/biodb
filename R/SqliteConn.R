@@ -159,7 +159,7 @@ defineParsingExpressions=function() {
                 DBI::dbCommit(.self$.db)
 
                 # Unset "new" flag
-                entry$.setAsNew(FALSE)
+                entry$setAsNew(FALSE)
 
                 # Send progress message
                 prg$increment()

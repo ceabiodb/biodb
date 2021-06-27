@@ -296,7 +296,7 @@ test.db.editing = function(conn) {
     # Create other connector
     conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass())
     conn.2$allowEditing()
-    conn.2$addNewEntry(entry$clone())
+    conn.2$addNewEntry(entry$cloneInstance())
 
     # Test methods
     id = conn.2$getEntryIds()
@@ -326,7 +326,7 @@ test.db.writing.with.col.add = function(conn) {
         url=db.file)
     conn.2$allowEditing()
     conn.2$allowWriting()
-    conn.2$addNewEntry(entry$clone())
+    conn.2$addNewEntry(entry$cloneInstance())
 
     # Get data frame of all entries
     id = conn.2$getEntryIds()
@@ -351,7 +351,7 @@ test.db.writing.with.col.add = function(conn) {
     # Create a new entry having one new field that does not exist in any other
     # entry (so in the case of SQL the table will have to be altered to add new
     # columns)
-    new.entry = entries[[1]]$clone()
+    new.entry = entries[[1]]$cloneInstance()
     new.entry$setFieldValue('accession', 'anewentry')
     new.entry$setFieldValue(field$getName(), 0)
 
@@ -380,7 +380,7 @@ test.db.writing = function(conn) {
 
     # Clone entry
     testthat::expect_true(entry$parentIsAConnector())
-    entry.2 = entry$clone()
+    entry.2 <- entry$cloneInstance()
     testthat::expect_false(entry.2$parentIsAConnector())
 
     # Compare entries
