@@ -235,7 +235,7 @@ This method is run after `.parseFieldsStep1()`, which is defined inside the
 mother class (here `BiodbXmlEntry`) and executes the parsing expression defined
 inside `inst/definitions.yml`.
 
-Note: *biodb* uses the [Reference classes](http://adv-r.had.co.nz/R5.html) as
+Note: *biodb* uses [R6](https://adv-r.hadley.nz/r6.html) as
 OOP (Object Oriented Programming) model.
 Please see vignette
 ```{r, echo=FALSE, results='asis'}
@@ -534,10 +534,10 @@ When declaring the constructor for your own entry class, do not forget to call
 the mother class constructor to pass it your separator and/or the string values
 that have to be converted to `NA`:
 ```{r}
-MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
-    methods=list(
+MyEntryClass <- R6::R6Class("MyEntryClass", inherit=biodb::BiodbCsvEntry,
+    public=list(
         initialize=function() {
-            callSuper(sep=';', na.strings=c('', 'NA'))
+            super$initialize(sep=';', na.strings=c('', 'NA'))
         }
 ))
 ```
