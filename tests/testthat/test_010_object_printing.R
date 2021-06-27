@@ -7,8 +7,8 @@ test.BiodbConfig.show <- function(biodb) {
     expect_output(biodb$getConfig()$show(), regexp = '^Biodb config.* instance\\..*Values:.*$')
 }
 
-test.BiodbMain.show <- function(biodb) {
-    expect_output(biodb$show(), regexp='^BiodbMain instance, version [0-9]*\\.[0-9]*\\.[0-9]*\\..*$')
+test.BiodbMain.print <- function(biodb) {
+    expect_output(biodb$print(), regexp='^BiodbMain instance, version [0-9]*\\.[0-9]*\\.[0-9]*\\..*$')
 }
 
 test.BiodbFactory.print <- function(biodb) {
@@ -66,7 +66,7 @@ biodb <- biodb::createBiodbTestInstance()
 biodb::testContext("Test object printing.")
 
 # Run tests
-biodb::testThat("BiodbMain print method returns correct information.", test.BiodbMain.show, biodb = biodb)
+biodb::testThat("BiodbMain print method returns correct information.", test.BiodbMain.print, biodb = biodb)
 biodb::testThat("BiodbCache print method returns correct information.", test.BiodbCache.show, biodb = biodb)
 biodb::testThat("BiodbConfig print method returns correct information.", test.BiodbConfig.show, biodb = biodb)
 biodb::testThat("BiodbFactory print method returns correct information.", test.BiodbFactory.print, biodb = biodb)
