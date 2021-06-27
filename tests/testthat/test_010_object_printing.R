@@ -55,8 +55,8 @@ test.BiodbDbsInfo.show <- function(biodb) {
     expect_output(biodb$getDbsInfo()$show(), regexp='^Biodb databases information instance\\.\nThe following databases are defined:.*$')
 }
 
-test.BiodbEntryFields.show <- function(biodb) {
-    expect_output(biodb$getEntryFields()$show(), regexp = '^Biodb entry fields information instance\\.$')
+test.BiodbEntryFields.print <- function(biodb) {
+    expect_output(biodb$getEntryFields()$print(), regexp = '^Biodb entry fields information instance\\.$')
 }
 
 # Instantiate Biodb
@@ -73,7 +73,7 @@ biodb::testThat("BiodbFactory print method returns correct information.", test.B
 biodb::testThat("BiodbEntry print method returns correct information.", test.BiodbEntry.show, biodb = biodb)
 biodb::testThat("BiodbConn print method returns correct information.", test.BiodbConn.show, biodb = biodb)
 biodb::testThat("BiodbDbsInfo print method returns correct information.", test.BiodbDbsInfo.show, biodb = biodb)
-biodb::testThat("BiodbEntryFields print method returns correct information.", test.BiodbEntryFields.show, biodb = biodb)
+biodb::testThat("BiodbEntryFields print method returns correct information.", test.BiodbEntryFields.print, biodb = biodb)
 
 # Terminate Biodb
 biodb$terminate()
