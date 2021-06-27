@@ -21,94 +21,83 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbConn.R
-#' @export CsvFileConn
-#' @exportClass CsvFileConn
-CsvFileConn <- methods::setRefClass("CsvFileConn",
-    contains="BiodbConn",
-    fields=list(
-        .file.sep="character",
-        .file.quote="character",
-        .db="ANY",
-        .db.orig.colnames="character",
-        .fields="character",
-        .field2cols="list",
-        .autoSetFieldsHasBeenRun="logical",
-        .ignoreUnassignedColumns="logical"
-                ),
+#' @export
+CsvFileConn <- R6::R6Class("CsvFileConn",
+inherit=BiodbConn,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
+    super$initialize(...)
 
     # Set fields
-    .self$.db <- NULL
-    .self$.db.orig.colnames <- NA_character_
-    .self$.file.sep <- "\t"
-    .self$.file.quote <- "\""
-    .self$.fields <- character()
-    .self$.field2cols <- list()
-    .self$.autoSetFieldsHasBeenRun <- FALSE
-    .self$.ignoreUnassignedColumns <- FALSE
+    private$db <- NULL
+    private$db.orig.colnames <- NA_character_
+    private$file.sep <- "\t"
+    private$file.quote <- "\""
+    private$fields <- character()
+    private$field2cols <- list()
+    private$autoSetFieldsHasBeenRun <- FALSE
+    private$ignoreUnassignedColumns <- FALSE
 },
 
+#' @description
+#' Gets the characters used to delimit quotes in the CSV database file.
+#' @return The characters used to delimit quotes as a single
+#'     character value.
 getCsvQuote=function() {
-    ":\n\nGets the characters used to delimit quotes in the CSV database file.
-    \nReturned value: The characters used to delimit quotes as a single
-    character value.
-    "
 
-    return(.self$.file.quote)
+    return(private$file.quote)
 },
 
+#' @description
+#' Sets the characters used to delimit quotes in the CSV database file.
+#' @param quote The characters used to delimit quotes as a single character value.
+#' @param You may specify several characters. Example \"\\\"'\".
+#' @return None.
 setCsvQuote=function(quote) {
-    ":\n\nSets the characters used to delimit quotes in the CSV database file.
-    \nquote: The characters used to delimit quotes as a single character value.
-    You may specify several characters. Example: \"\\\"'\".
-    \nReturned value: None.
-    "
 
     chk::chk_string(quote)
     
-    if ( ! is.null(.self$.db))
+    if ( ! is.null(private$db))
         error0("The CSV file has already been loaded. Modification of",
             " the quote parameter is not allowed.")
     
-    .self$.file.quote <- quote
+    private$file.quote <- quote
 },
 
+#' @description
+#' Gets the current CSV separator used for the database file.
+#' @return The CSV separator as a character value. 
 getCsvSep=function() {
-    ":\n\nGets the current CSV separator used for the database file.
-    \nReturned value: The CSV separator as a character value. 
-    "
 
-    return(.self$.file.sep)
+    return(private$file.sep)
 },
 
+#' @description
+#' Sets the CSV separator to be used for the database file. If this
+#'     method is called after the loading of the database, it will throw an error.
+#' @param sep The CSV separator as a character value.
+#' @return None.
 setCsvSep=function(sep) {
-    ":\n\nSets the CSV separator to be used for the database file. If this
-    method is called after the loading of the database, it will throw an error.
-    \nsep: The CSV separator as a character value.
-    \nReturned value: None.
-    "
 
     chk::chk_string(sep)
     
-    if ( ! is.null(.self$.db))
+    if ( ! is.null(private$db))
         error0("The CSV file has already been loaded. Modification of",
             " the separator character parameter is not allowed.")
     
-    .self$.file.sep <- sep
+    private$file.sep <- sep
 },
 
+#' @description
+#' Get the list of all biodb fields handled by this database.
+#' @return A character vector of the biodb field names.
 getFieldNames=function() {
-    ":\n\nGet the list of all biodb fields handled by this database.
-    \nReturned value: A character vector of the biodb field names.
-    "
     
-    fields <- names(.self$.fields)
-    ef <- .self$getBiodb()$getEntryFields()
+    fields <- names(private$fields)
+    ef <- self$getBiodb()$getEntryFields()
     fct <- function(f) {
         return(ef$getRealName(f))
     }
@@ -117,124 +106,124 @@ getFieldNames=function() {
     return(fields)
 },
 
+#' @description
+#' Tests if a field is defined for this database instance.
+#' @param field A valid Biodb entry field name.
+#' @return TRUE of the field is defined, FALSE otherwise.
 hasField=function(field) {
-    ":\n\nTests if a field is defined for this database instance.
-    \nfield: A valid Biodb entry field name.
-    \nReturned value: TRUE of the field is defined, FALSE otherwise.
-    "
 
     if (is.null(field) || is.na(field))
         error0("No field specified.")
 
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
 
     # Load database file
-    .self$.initDb()
+    private$initDb()
 
-    return(field %in% .self$getFieldNames())
+    return(field %in% self$getFieldNames())
 },
 
 isSearchableByField=function(field) {
     # Overrides super class' method.
 
-    v <- callSuper(field)
-    v <- v && .self$hasField(field)
+    v <- super$isSearchableByField(field)
+    v <- v && self$hasField(field)
     
     return(v)
 },
 
+#' @description
+#' Adds a new field to the database. The field must not already exist.
+#'     The same single value will be set to all entries for this field.
+#'     A new column will be written in the memory data frame, containing the value
+#'     given.
+#' @param field A valid Biodb entry field name.
+#' @param value The value to set for this field.
+#' @return None.
 addField=function(field, value) {
-    ":\n\nAdds a new field to the database. The field must not already exist.
-    The same single value will be set to all entries for this field.
-    A new column will be written in the memory data frame, containing the value
-    given.
-    \nfield: A valid Biodb entry field name.
-    \nvalue: The value to set for this field.
-    \nReturned value: None.
-    "
 
     if (is.null(field) || is.na(field))
         error0("No field specified.")
 
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
 
     # Load database file
-    .self$.initDb()
+    private$initDb()
 
     # Field already defined?
-    if (field %in% .self$getFieldNames())
+    if (field %in% self$getFieldNames())
         error0("Database field \"", field, "\" is already defined.")
-    if (field %in% names(.self$.db))
+    if (field %in% names(private$db))
         error0("Database column \"", field, "\" is already defined.")
 
     # Add new field
     logDebug0('Adding new field ', field, ' with value ',
         paste(value, collapse=', '), '.')
-    .self$.db[[field]] <- value
-    .self$setField(field, field)
+    private$db[[field]] <- value
+    self$setField(field, field)
 },
 
+#' @description
+#' Get the column name corresponding to a Biodb field.
+#' @param field A valid Biodb entry field name. This field must be defined for this
+#'     database instance.
+#' @return The column name from the CSV file.
 getFieldColName=function(field) {
-    ":\n\nGet the column name corresponding to a Biodb field.
-    \nfield: A valid Biodb entry field name. This field must be defined for this
-    database instance.
-    \nReturned value: The column name from the CSV file.
-    "
 
     if (is.null(field) || is.na(field))
         error0("No field specified.")
 
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field)
 
     # Load database file
-    .self$.initDb()
+    private$initDb()
 
     # Check that this field is defined in the fields list
-    if ( ! field %in% .self$getFieldNames())
+    if ( ! field %in% self$getFieldNames())
         error0("Database field \"", field, "\" is not defined.")
 
-    return(.self$.fields[[field]])
+    return(private$fields[[field]])
 },
 
+#' @description
+#' Sets a field by making a correspondence between a Biodb field and one
+#'     or more columns of the loaded data frame.
+#' @param field A valid Biodb entry field name. This field must not be already
+#'     defined for this database instance.
+#' @param colname A character vector containing one or more column names from the
+#'     CSV file.
+#' @param ignore.if.missing Deprecated parameter.
+#' @return None.
 setField=function(field, colname, ignore.if.missing=FALSE) {
-    ":\n\nSets a field by making a correspondence between a Biodb field and one
-    or more columns of the loaded data frame.
-    \nfield: A valid Biodb entry field name. This field must not be already
-    defined for this database instance.
-    \ncolname: A character vector containing one or more column names from the
-    CSV file.
-    \nignore.if.missing: Deprecated parameter.
-    \nReturned value: None.
-    "
 
     chk::chk_string(field)
     chk::chk_character(colname)
     chk::chk_not_any_na(colname)
     chk::chk_not_empty(colname)
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     field <- ef$getRealName(field, fail=FALSE)
 
     # Load database file
-    .self$.initDb(setFields=FALSE)
+    private$initDb(setFields=FALSE)
 
     # Check that this is a correct field name
     if ( ! ef$isDefined(field))
         error0("Database field \"", field, "\" is not valid.")
 
     # Fail if column names are not found in file
-    if ( ! all(colname %in% names(.self$.db))) {
-        undefined.cols <- colname[ ! colname %in% names(.self$.db)]
+    if ( ! all(colname %in% names(private$db))) {
+        undefined.cols <- colname[ ! colname %in% names(private$db)]
         error0("Column(s) ", paste(undefined.cols, collapse=", "), "
             is/are not defined in database file.")
     }
 
     # Fail if already defined
-    if (field %in% names(.self$.fields))
+    if (field %in% names(private$fields))
         error0('Field "', field, '" is already set to "',
-            .self$.fields[[field]], '".')
+            private$fields[[field]], '".')
 
     logDebug0('Set field ', field, ' to column(s) ',
         paste(colname, collapse=', '), '.')
@@ -243,61 +232,61 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     if (length(colname) == 1) {
 
         # Check values
-        if (.self$getBiodb()$getEntryFields()$isDefined(field)) {
-            entry.field <- .self$getBiodb()$getEntryFields()$get(field)
+        if (self$getBiodb()$getEntryFields()$isDefined(field)) {
+            entry.field <- self$getBiodb()$getEntryFields()$get(field)
 
             # Check values of enumerate type
             if (entry.field$isEnumerate()) {
-                v <- .self$.db[[colname]]
+                v <- private$db[[colname]]
                 entry.field$checkValue(v)
-                .self$.db[[colname]] <- entry.field$correctValue(v)
+                private$db[[colname]] <- entry.field$correctValue(v)
             }
         }
 
 
         # Set field
-        .self$.fields[[field]] <- colname
-        .self$setPropValSlot('parsing.expr', field, colname)
+        private$fields[[field]] <- colname
+        self$setPropValSlot('parsing.expr', field, colname)
     }
 
     # Use several column to join together
     else {
-        fct <- function(i) { paste(.self$.db[i, colname], collapse='.') }
+        fct <- function(i) { paste(private$db[i, colname], collapse='.') }
         # Create new column in memory data frame
-        .self$.db[[field]] <- vapply(seq(nrow(.self$.db)), fct, FUN.VALUE='')
-        .self$.fields[[field]] <- field
+        private$db[[field]] <- vapply(seq(nrow(private$db)), fct, FUN.VALUE='')
+        private$fields[[field]] <- field
     }
     
     # Store column(s)/field association
-    .self$.field2cols[[field]] <- colname
+    private$field2cols[[field]] <- colname
 },
 
 getFieldsAndColumnsAssociation=function() {
-    .self$.initDb()
-    return(.self$.field2cols)
+    private$initDb()
+    return(private$field2cols)
 },
 
 getUnassociatedColumns=function() {
-    .self$.initDb()
-    cols <- colnames(.self$.db)
-    used_cols <- unlist(.self$.field2cols)
+    private$initDb()
+    cols <- colnames(private$db)
+    used_cols <- unlist(private$field2cols)
     unused_cols <- cols[ ! cols %in% used_cols]
     return(unused_cols)
 },
 
-show=function() {
+print=function() {
     # Overrides super class' method.
     
-    callSuper()
+    super$print()
     
     # Display defined fields
-    fields <- names(.self$.fields)
+    fields <- names(private$fields)
     if (length(fields) > 0)
         cat("The following fields have been defined: ",
             paste(fields, collapse=", "), ".\n", sep='')
 
     # Display unassociated columns
-    cols <- .self$getUnassociatedColumns()
+    cols <- self$getUnassociatedColumns()
     if (length(cols) > 0)
         cat("Unassociated columns: ", paste(cols, collapse=", "), ".\n", sep='')
 },
@@ -307,7 +296,7 @@ getNbEntries=function(count=FALSE) {
 
     n <- NA_integer_
 
-    ids <- .self$getEntryIds()
+    ids <- self$getEntryIds()
     if ( ! is.null(ids))
         n <- length(ids)
 
@@ -322,14 +311,14 @@ getEntryContentFromDb=function(entry.id) {
 
     # Get data frame
     logDebug("Entry entry.id: %s", paste(entry.id, collapse=", "))
-    df <- .self$.select(ids=entry.id, uniq=TRUE, sort=TRUE)
+    df <- private$select(ids=entry.id, uniq=TRUE, sort=TRUE)
 
     # For each id, take the sub data frame and convert it into string
     fct <- function(x) {
         if (is.na(x))
             NA_character_
         else {
-            x.df <- .self$.select(ids=x)
+            x.df <- private$select(ids=x)
             if (nrow(x.df) == 0)
                 NA_character_
             else {
@@ -349,62 +338,78 @@ getEntryContentFromDb=function(entry.id) {
     return(content)
 },
 
+#' @description
+#' Sets the database directly from a data frame. You must not have set
+#'     the database previously with the URL parameter.
+#' @param db A data frame containing your database.
+#' @return None.
 setDb=function(db) {
-    ":\n\nSets the database directly from a data frame. You must not have set
-    the database previously with the URL parameter.
-    \ndb: A data frame containing your database.
-    \nReturned value: None.
-    "
 
     # URL point to an existing file?
-    url <- .self$getPropValSlot('urls', 'base.url')
+    url <- self$getPropValSlot('urls', 'base.url')
     if ( ! is.null(url) && ! is.na(url) && file.exists(url))
         error0('Cannot set this data frame as database. A URL that',
             ' points to an existing file has already been set for the',
             ' connector.')
 
-    .self$.doSetDb(db)
+    private$doSetDb(db)
 },
 
 defineParsingExpressions=function() {
     # Overrides super class' method.
 
-    entry.fields <- .self$getBiodb()$getEntryFields()
+    entry.fields <- self$getBiodb()$getEntryFields()
 
     # Define a parsing expression for each column inside the database
-    for (field in .self$getFieldNames())
-        .self$setPropValSlot('parsing.expr', field, .self$.fields[[field]])
+    for (field in self$getFieldNames())
+        self$setPropValSlot('parsing.expr', field, private$fields[[field]])
 },
 
-.doWrite=function() {
+setIgnoreUnassignedColumns=function(ignore) {
+    chk::chk_flag(ignore)
+    private$ignoreUnassignedColumns <- ignore
+}
+),
+
+private=list(
+    file.sep=NULL,
+    file.quote=NULL,
+    db=NULL,
+    db.orig.colnames=NULL,
+    fields=NULL,
+    field2cols=NULL,
+    autoSetFieldsHasBeenRun=NULL,
+    ignoreUnassignedColumns=NULL
+,
+doWrite=function() {
 
     logInfo0('Write all entries into "',
-        .self$getPropValSlot('urls', 'base.url'), '".')
+        self$getPropValSlot('urls', 'base.url'), '".')
 
     # Make sure all entries are loaded into cache.
-    entry.ids <- .self$getEntryIds()
-    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), entry.ids)
+    entry.ids <- self$getEntryIds()
+    entries <- self$getBiodb()$getFactory()$getEntry(self$getId(), entry.ids)
 
     # Get all entries: the ones loaded from the database file and the ones
     # created in memory (and not saved).
-    entries <- .self$getAllCacheEntries()
+    entries <- self$getAllCacheEntries()
 
     # Get data frame of all entries
-    df <- .self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE)
+    df <- self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE)
 
     # Write data frame
-    write.table(df, file=.self$getPropValSlot('urls', 'base.url'),
+    write.table(df, file=self$getPropValSlot('urls', 'base.url'),
         row.names=FALSE, sep="\t", quote=FALSE)
 },
 
-.initDb=function(setFields=TRUE) {
+initDb=function(setFields=TRUE) {
 
-    if (is.null(.self$.db)) {
+    if (is.null(private$db)) {
 
         # Check file
-        file <- .self$getPropValSlot('urls', 'base.url')
+        file <- self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(file) && ! is.na(file) && ! file.exists(file)
-            && ! .self$writingIsAllowed())
+            && ! self$writingIsAllowed())
             error0("Cannot locate the file database \"", file, "\".")
 
         # No file to load, create empty database
@@ -416,39 +421,39 @@ defineParsingExpressions=function() {
         # Load database
         else {
             logInfo('Loading file database "%s".', file)
-            db <- read.table(.self$getPropValSlot('urls', 'base.url'),
-                sep=.self$.file.sep, quote=.self$.file.quote,
+            db <- read.table(self$getPropValSlot('urls', 'base.url'),
+                sep=private$file.sep, quote=private$file.quote,
                 header=TRUE, stringsAsFactors=FALSE,
                 row.names=NULL, comment.char='',
                 check.names=FALSE, fill=FALSE)
         }
 
         # Set database
-        .self$.doSetDb(db)
+        private$doSetDb(db)
     }
     
     # Auto set fields
-    if (setFields && ! .self$.autoSetFieldsHasBeenRun)
-        .self$.autoSetFields()
+    if (setFields && ! private$autoSetFieldsHasBeenRun)
+        private$autoSetFields()
 },
 
-.checkFields=function(fields, fail=TRUE) {
+checkFields=function(fields, fail=TRUE) {
 
     if (length(fields) == 0 || (length(fields) == 1 && is.na(fields)))
         return
 
     # Check if fields are known
-    fct <- function(f) .self$getBiodb()$getEntryFields()$isDefined(f)
+    fct <- function(f) self$getBiodb()$getEntryFields()$isDefined(f)
     unknown.fields <- fields[ ! vapply(fields, fct, FUN.VALUE=FALSE)]
     if (length(unknown.fields) > 0)
         error0("Field(s) ", paste(fields, collapse=", "),
             " is/are unknown.")
 
     # Init db
-    .self$.initDb()
+    private$initDb()
 
     # Check if fields are defined in file database
-    undefined.fields <- fields[ ! fields %in% .self$getFieldNames()]
+    undefined.fields <- fields[ ! fields %in% self$getFieldNames()]
     if (length(undefined.fields) > 0) {
         msg <- sprintf("Field(s) %s is/are undefined in file database.",
             paste(undefined.fields, collapse=", "))
@@ -459,35 +464,34 @@ defineParsingExpressions=function() {
     return(TRUE)
 },
 
-.selectByIds=function(db, ids) {
+selectByIds=function(db, ids) {
 
-    .self$.checkFields('accession')
-    db <- db[db[[.self$.fields[['accession']]]] %in% ids, , drop=FALSE]
+    private$checkFields('accession')
+    db <- db[db[[private$fields[['accession']]]] %in% ids, , drop=FALSE]
 
     return(db)
 },
 
-.select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE,
-    sort=FALSE, max.rows=0, ...) {
+select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE, max.rows=0, ...) {
     
     chk::chk_number(max.rows)
     chk::chk_gte(max.rows, 0)
 
     # Get database
     if (is.null(db)) {
-        .self$.initDb()
-        db <- .self$.db
+        private$initDb()
+        db <- private$db
     }
 
     # Filtering
     if ( ! is.null(ids))
-        db <- .self$.selectByIds(db, ids)
-    db <- .self$.doSelect(db, ...)
+        db <- private$selectByIds(db, ids)
+    db <- private$doSelect(db, ...)
 
     # Get subset of columns
     if ( ! is.null(cols)) {
-        .self$.checkFields(cols)
-        db <- db[, .self$.fields[cols], drop=FALSE]
+        private$checkFields(cols)
+        db <- db[, private$fields[cols], drop=FALSE]
     }
 
     # Remove duplicates
@@ -509,12 +513,12 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.selectByRange=function(db, field, minValue, maxValue) {
+selectByRange=function(db, field, minValue, maxValue) {
     
     # Get database
     if (is.null(db)) {
-        .self$.initDb()
-        db <- .self$.db
+        private$initDb()
+        db <- private$db
     }
 
     # Check range
@@ -528,8 +532,8 @@ defineParsingExpressions=function() {
             paste0('[', minValue, ', ', maxValue, ']', collapse=', '), '.')
     
     # Check field
-    .self$.checkFields(field)
-    f <- .self$.fields[[field]]
+    private$checkFields(field)
+    f <- private$fields[[field]]
     values <- db[[f]]
     logDebug('%d values to filter on field %s.', length(values), field)
 
@@ -558,17 +562,17 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.selectBySubstring=function(db, field, value) {
+selectBySubstring=function(db, field, value) {
     
     # Get database
     if (is.null(db)) {
-        .self$.initDb()
-        db <- .self$.db
+        private$initDb()
+        db <- private$db
     }
 
     # Check field
-    .self$.checkFields(field)
-    f <- .self$.fields[[field]]
+    private$checkFields(field)
+    f <- private$fields[[field]]
     values <- db[[f]]
     logDebug('%d values to filter on field %s.', length(values), field)
 
@@ -578,12 +582,12 @@ defineParsingExpressions=function() {
     return(db)
 },
 
-.checkSettingOfUrl=function(key, value) {
+checkSettingOfUrl=function(key, value) {
 
     # Setting of base URL
     if (key == 'base.url') {
-        url <- .self$getPropValSlot('urls', 'base.url')
-        if ( ! is.null(.self$.db) && ! is.null(url) && ! is.na(url)
+        url <- self$getPropValSlot('urls', 'base.url')
+        if ( ! is.null(private$db) && ! is.null(url) && ! is.na(url)
             && file.exists(url))
             error0('You cannot overwrite base URL. A URL has already',
                 ' been set ("', url, '") that points to a valid file',
@@ -591,10 +595,10 @@ defineParsingExpressions=function() {
     }
 },
 
-.doSetDb=function(db) {
+doSetDb=function(db) {
 
     # Already set?
-    if ( ! is.null(.self$.db))
+    if ( ! is.null(private$db))
         biodb::error('Database has already been set.')
 
     # Not a data frame
@@ -602,26 +606,22 @@ defineParsingExpressions=function() {
         biodb::error('The database object must be a data frame.')
 
     # Set data frame as database
-    .self$.db <- db
+    private$db <- db
 
     # Save column names
-    .self$.db.orig.colnames <- colnames(.self$.db)
+    private$db.orig.colnames <- colnames(private$db)
 },
 
-ignoreUnassignedColumns=function(ignore=TRUE) {
-    .self$.ignoreUnassignedColumns <- ignore
-},
-
-.autoSetFields=function() {
+autoSetFields=function() {
 
     # Get fields definitions
-    ef <- .self$getBiodb()$getEntryFields()
+    ef <- self$getBiodb()$getEntryFields()
     
     # Get columns already defined
-    cols <- unname(.self$.fields)
+    cols <- unname(private$fields)
 
     # Loop on all columns of database
-    for (colname in names(.self$.db)) {
+    for (colname in names(private$db)) {
         
         # Is this column already set?
         if (colname %in% cols)
@@ -629,23 +629,23 @@ ignoreUnassignedColumns=function(ignore=TRUE) {
         
         # Does this column name match a biodb field?
         else if (ef$isDefined(colname))
-            .self$setField(field=colname, colname=colname)
+            self$setField(field=colname, colname=colname)
         
         # Column is not matchable
-        else if ( ! .self$.ignoreUnassignedColumns)
+        else if ( ! private$ignoreUnassignedColumns)
             warn('Column "%s" does not match any biodb field.', colname)
     }
     
     # Mark as run
-    .self$.autoSetFieldsHasBeenRun <- TRUE
+    private$autoSetFieldsHasBeenRun <- TRUE
 },
 
-.doGetEntryIds=function(max.results=0) {
+doGetEntryIds=function(max.results=0) {
     # Overrides super class' method.
 
     ids <- NA_character_
 
-    ids <- as.character(.self$.select(cols='accession', drop=TRUE, uniq=TRUE,
+    ids <- as.character(private$select(cols='accession', drop=TRUE, uniq=TRUE,
         sort=TRUE, max.rows=max.results))
 
     return(ids)

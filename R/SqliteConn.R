@@ -19,24 +19,20 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @import RSQLite
 #' @include BiodbConn.R
-#' @export SqliteConn
-#' @exportClass SqliteConn
-SqliteConn <- methods::setRefClass("SqliteConn",
-    contains="BiodbConn",
-    fields=list(
-        .db="ANY"
-    ),
+#' @export
+SqliteConn <- R6::R6Class("SqliteConn",
+inherit=BiodbConn,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
 
-    callSuper(...)
+    super$initialize(...)
 
-    .self$.db <- NULL
+    private$db <- NULL
 },
 
 getEntryContentFromDb=function(entry.id) {
@@ -45,11 +41,11 @@ getEntryContentFromDb=function(entry.id) {
     # Initialize contents to return
     content <- rep(list(NULL), length(entry.id))
 
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
-        ef <- .self$getBiodb()$getEntryFields()
+        ef <- self$getBiodb()$getEntryFields()
 
         # Loop on all entry IDs
         i <- 0
@@ -59,13 +55,13 @@ getEntryContentFromDb=function(entry.id) {
             entry <- list()
 
             # Loop on all tables
-            for (tableName in DBI::dbListTables(.self$.db)) {
+            for (tableName in DBI::dbListTables(private$db)) {
 
                 # Get data frame
                 q <- paste0("select * from ",
-                    DBI::dbQuoteIdentifier(.self$.db, tableName), " where
+                    DBI::dbQuoteIdentifier(private$db, tableName), " where
                     accession='", accession, "';")
-                df <- DBI::dbGetQuery(.self$.db, q)
+                df <- DBI::dbGetQuery(private$db, q)
 
                 # Set value
                 if (tableName == 'entries')
@@ -88,75 +84,112 @@ getEntryContentFromDb=function(entry.id) {
 defineParsingExpressions=function() {
     # Overrides super class' method.
 
-    entry.fields <- .self$getBiodb()$getEntryFields()
+    entry.fields <- self$getBiodb()$getEntryFields()
 
     # Loop on all entry fields
     for (field in entry.fields$getFieldNames()) {
         f <- entry.fields$get(field)
         if ( ! f$isVirtual()) {
-            db_id <- if (f$hasCardOne()) field else .self$.fieldToSqlId(field)
-            .self$setPropValSlot('parsing.expr', field, db_id)
+            db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
+            self$setPropValSlot('parsing.expr', field, db_id)
         }
     }
 },
 
-.doWrite=function() {
+isSearchableByField=function(field) {
+    # Overrides super class' method.
 
-    .self$.initDb()
+    v <- super$isSearchableByField(field)
+    v <- v && self$hasField(field)
+    
+    return(v)
+},
 
-    if ( ! is.null(.self$.db)) {
+hasField=function(field) {
+    
+    b <- FALSE
+    private$initDb()
+    
+    ef <- self$getBiodb()$getEntryFields()
+    
+    # Check that a column is defined inside main table
+    if (ef$get(field)$hasCardOne())
+        b <- field %in% DBI::dbListFields(private$db, 'entries')
+
+    # Check that a table is defined for this field
+    else
+        b <- DBI::dbExistsTable(private$db, private$fieldToSqlId(field))
+    
+    return(b)
+},
+
+getQuery=function(query) {
+    query_str <- query$toString()
+    logDebug('Running query "%s".', query_str)
+    return(DBI::dbGetQuery(private$db, query_str))
+}
+),
+
+private=list(
+    db=NULL
+,
+doWrite=function() {
+
+    private$initDb()
+
+    if ( ! is.null(private$db)) {
 
         logInfo('Write all new entries into "%s".',
-            .self$getPropValSlot('urls', 'base.url'))
+            self$getPropValSlot('urls', 'base.url'))
 
         # Get new entries
-        cached.entries <- .self$getAllVolatileCacheEntries()
+        cached.entries <- self$getAllVolatileCacheEntries()
         is.new <- vapply(cached.entries, function(x) x$isNew(), FUN.VALUE=TRUE)
         new.entries <- cached.entries[is.new]
 
         if (length(new.entries) > 0) {
 
             # Loop on all new entries and write other fields to separate tables
-            prg <- Progress$new(biodb=.self$getBiodb(), msg='Writing entries.',
+            prg <- Progress$new(biodb=self$getBiodb(), msg='Writing entries.',
                 total=length(new.entries))
             for (entry in new.entries) {
 
                 acc <- entry$getFieldValue('accession')
 
                 # Start transaction
-                DBI::dbBegin(.self$.db)
+                DBI::dbBegin(private$db)
 
                 # Write into main table
-                df <- .self$getBiodb()$entriesToDataframe(list(entry),
+                df <- self$getBiodb()$entriesToDataframe(list(entry),
                     only.card.one=TRUE)
-                .self$.appendToTable(tableName='entries', values=df)
+                private$appendToTable(tableName='entries', values=df)
 
                 # Loop on all fields
                 for (field.name in entry$getFieldNames()) {
 
-                    field <- .self$getBiodb()$getEntryFields()$get(field.name)
+                    field <- self$getBiodb()$getEntryFields()$get(field.name)
 
                     # Write data frame field
                     if (field$getClass() == 'data.frame') {
                         v <- cbind(accession=acc,
                             entry$getFieldValue(field.name))
-                        .self$.appendToTable(
-                            ableName=.self$.fieldToSqlId(field.name), values=v)
+                        private$appendToTable(
+                            ableName=private$fieldToSqlId(field.name), values=v)
                     }
 
                     # Write multiple values field
                     else if (field$hasCardMany()) {
                         values <- list(accession=acc)
-                        values[[.self$.fieldToSqlId(field.name)]] <-
+                        values[[private$fieldToSqlId(field.name)]] <-
                             entry$getFieldValue(field.name)
-                        DBI::dbWriteTable(conn=.self$.db,
-                            name=.self$.fieldToSqlId(field.name),
+                        DBI::dbWriteTable(conn=private$db,
+                            name=private$fieldToSqlId(field.name),
                             value=as.data.frame(values), append=TRUE)
                     }
                 }
 
                 # Commit transaction
-                DBI::dbCommit(.self$.db)
+                DBI::dbCommit(private$db)
 
                 # Unset "new" flag
                 entry$setAsNew(FALSE)
@@ -168,92 +201,59 @@ defineParsingExpressions=function() {
     }
 },
 
-.initDb=function() {
+initDb=function() {
 
-    u <- .self$getPropValSlot('urls', 'base.url')
-    if (is.null(.self$.db) && ! is.null(u) && ! is.na(u))
-        .self$.db <-  DBI::dbConnect(RSQLite::SQLite(), dbname=u)
+    u <- self$getPropValSlot('urls', 'base.url')
+    if (is.null(private$db) && ! is.null(u) && ! is.na(u))
+        private$db <-  DBI::dbConnect(RSQLite::SQLite(), dbname=u)
 },
 
-isSearchableByField=function(field) {
-    # Overrides super class' method.
+terminate=function() {
 
-    v <- callSuper(field)
-    v <- v && .self$hasField(field)
-    
-    return(v)
-},
-
-hasField=function(field) {
-    
-    b <- FALSE
-    .self$.initDb()
-    
-    ef <- .self$getBiodb()$getEntryFields()
-    
-    # Check that a column is defined inside main table
-    if (ef$get(field)$hasCardOne())
-        b <- field %in% DBI::dbListFields(.self$.db, 'entries')
-
-    # Check that a table is defined for this field
-    else
-        b <- DBI::dbExistsTable(.self$.db, .self$.fieldToSqlId(field))
-    
-    return(b)
-},
-
-getQuery=function(query) {
-    query_str <- query$toString()
-    logDebug('Running query "%s".', query_str)
-    return(DBI::dbGetQuery(.self$.db, query_str))
-},
-
-.terminate=function() {
-
-    if ( ! is.null(.self$.db)) {
-        DBI::dbDisconnect(.self$.db)
-        .self$.db <- NULL
+    if ( ! is.null(private$db)) {
+        DBI::dbDisconnect(private$db)
+        private$db <- NULL
     }
 
-    callSuper()
+    super$terminate()
 },
 
-.appendToTable=function(tableName, values) {
+appendToTable=function(tableName, values) {
 
     # Append to existing table
-    if (tableName %in% DBI::dbListTables(.self$.db)) {
+    if (tableName %in% DBI::dbListTables(private$db)) {
 
         # Create new columns
-        current.fields <- DBI::dbListFields(.self$.db, name=tableName)
+        current.fields <- DBI::dbListFields(private$db, name=tableName)
         new.fields <- colnames(values)[ ! colnames(values) %in% current.fields]
         for (field in new.fields) {
             query <- paste0('alter table ',
-                DBI::dbQuoteIdentifier(.self$.db, tableName), ' add ',
-                DBI::dbQuoteIdentifier(.self$.db, field), ' ',
-                DBI::dbDataType(.self$.db, values[[field]]), ';')
-            result <- DBI::dbSendQuery(.self$.db, query)
+                DBI::dbQuoteIdentifier(private$db, tableName), ' add ',
+                DBI::dbQuoteIdentifier(private$db, field), ' ',
+                DBI::dbDataType(private$db, values[[field]]), ';')
+            result <- DBI::dbSendQuery(private$db, query)
             DBI::dbClearResult(result)
         }
 
         # Append to table
-        DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values,
+        DBI::dbWriteTable(conn=private$db, name=tableName, value=values,
             append=TRUE)
 
     # Create table
     } else
-        DBI::dbWriteTable(conn=.self$.db, name=tableName, value=values)
+        DBI::dbWriteTable(conn=private$db, name=tableName, value=values)
 },
 
-.doGetEntryIds=function(max.results=0) {
+doGetEntryIds=function(max.results=0) {
 
     ids <- integer()
 
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
         # List tables
-        tables <- DBI::dbListTables(.self$.db)
+        tables <- DBI::dbListTables(private$db)
 
         if ('entries' %in% tables) {
 
@@ -263,7 +263,7 @@ getQuery=function(query) {
                 query <- paste0(query, ' limit ', as.integer(max.results))
 
             # Run query
-            df <- DBI::dbGetQuery(.self$.db, query)
+            df <- DBI::dbGetQuery(private$db, query)
             ids <- df[[1]]
         }
     }
@@ -271,11 +271,10 @@ getQuery=function(query) {
     return(ids)
 },
 
-.fieldToSqlId=function(f) {
+fieldToSqlId=function(f) {
 
     f <- gsub('\\.', '_', f)
 
     return(f)
 }
-
 ))

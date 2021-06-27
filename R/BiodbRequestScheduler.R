@@ -238,7 +238,7 @@ registerConnector=function(conn) {
     # Add connector
     else {
         # Register as observer
-        conn$.registerObserver(self)
+        conn$.__enclos_env__$private$registerObserver(self)
 
         # Add connector
         private$addConnectorRules(conn)
@@ -256,7 +256,7 @@ unregisterConnector=function(conn) {
     # Unregister connector
     else {
         # Unregister as observer
-        conn$.unregisterObserver(self)
+        conn$.__enclos_env__$private$unregisterObserver(self)
 
         # Remove connector
         private$removeConnectorRules(conn)

@@ -18,22 +18,26 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @include SqliteConn.R
-CompSqliteConn <- methods::setRefClass('CompSqliteConn',
-    contains="SqliteConn",
-    fields=list(
-    ),
+#' @export
+CompSqliteConn <- R6::R6Class('CompSqliteConn',
+inherit=SqliteConn,
 
-methods=list(
 
-.doSearchForEntries=function(fields=NULL, max.results=0) {
+public=list(
+
+
+),
+
+private=list(
+doSearchForEntries=function(fields=NULL, max.results=0) {
     # Overrides super class' method.
 
     ids <- character()
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
         query <- BiodbSqlQuery$new()
         query$setTable('entries')
@@ -51,7 +55,7 @@ methods=list(
         }
         
         # Search by mass
-        ef <- .self$getBiodb()$getEntryFields()
+        ef <- self$getBiodb()$getEntryFields()
         for (field in names(fields)) {
             
             # This is a mass field
@@ -60,11 +64,11 @@ methods=list(
                 
                 # Compute range
                 if ('min' %in% names(param)) {
-                    .self$.checkMassField(mass=param$min, mass.field=field)
+                    private$checkMassField(mass=param$min, mass.field=field)
                     rng <- list(a=param$min, b=param$max)
                 }
                 else {
-                    .self$.checkMassField(mass=param$value, mass.field=field)
+                    private$checkMassField(mass=param$value, mass.field=field)
                     if ('delta' %in% names(param))
                         rng <- convertTolToRange(param$value, param$delta,
                             'delta')
@@ -90,7 +94,7 @@ methods=list(
         
         # Run query
         query$addField(table="entries", field='accession')
-        x <- .self$getQuery(query)
+        x <- self$getQuery(query)
         ids <- x[[1]]
     }
     

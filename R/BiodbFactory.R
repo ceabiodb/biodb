@@ -111,7 +111,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         prop[['urls']][['base.url']] <- url
     }
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
-        properties=prop, bdb=private$bdb)
+        properties=prop, bdb=private$bdb, db.class=db.class)
 
     existingConn <- private$getExistingConn(conn)
     # Check if an identical connector already exists
@@ -125,7 +125,7 @@ createConn=function(db.class, url=NULL, token=NA_character_,
         # Register new instance
         private$conn[[conn.id]] <- conn
     } else {
-        conn$.terminate()
+        conn$.__enclos_env__$private$terminate()
         msg <- paste0('A connector (', existingConn$getId(),
             ') already exists for database ', db.class,
             (if (is.null(url)) '' else
@@ -162,7 +162,7 @@ deleteConn=function(conn) {
             error('Connector "%s" is unknown.', conn)
 
         self$deleteAllEntriesFromVolatileCache(conn)
-        private$conn[[conn]]$.terminate()
+        private$conn[[conn]]$.__enclos_env__$private$terminate()
         private$conn[[conn]] <- NULL
         logInfo('Connector "%s" deleted.', conn)
     }
@@ -278,13 +278,13 @@ getEntry=function(conn.id, id, drop=TRUE) {
     id <- conn$correctIds(id)
 
     # What entries are missing from cache?
-    missing.ids <- conn$.getEntryMissingFromCache(id)
+    missing.ids <- conn$.__enclos_env__$private$getEntryMissingFromCache(id)
 
     if (length(missing.ids) > 0)
         new.entries <- private$loadEntries(conn$getId(), missing.ids, drop=FALSE)
 
     # Get entries
-    entries <- unname(conn$.getEntriesFromCache(id))
+    entries <- unname(conn$.__enclos_env__$private$getEntriesFromCache(id))
 
     # If the input was a single element, then output a single object
     if (drop && length(id) == 1)
@@ -384,7 +384,7 @@ loadEntries=function(conn.id, ids, drop) {
             content=content, drop=drop)
 
         # Store new entries in cache
-        conn$.addEntriesToCache(ids, new.entries)
+        conn$.__enclos_env__$private$addEntriesToCache(ids, new.entries)
     }
 
     return(new.entries)

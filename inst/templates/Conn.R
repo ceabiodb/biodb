@@ -18,18 +18,15 @@
 #' mybiodb$terminate()
 #'
 #' @import biodb
-#' @import methods
-#' @export {{connClass}}
-#' @exportClass {{connClass}}
-{{connClass}} <- methods::setRefClass("{{connClass}}",
-    contains="BiodbConn",
-    fields=list(
-    ),
+#' @import R6
+#' @export
+{{connClass}} <- R6::R6Class("{{connClass}}",
+    inherit="BiodbConn",
 
-methods=list(
+public=list(
 
 initialize=function(...) {
-    callSuper(...)
+    super$initialize(...)
 }
 
 ,getNbEntries=function(count=FALSE) {
@@ -55,27 +52,6 @@ initialize=function(...) {
 
     return(content)
 }
-
-,.doGetEntryIds=function(max.results=NA_integer_) {
-    # Overrides super class' method.
-
-    ids <- NA_character_
- 
-    # TODO Implement retrieval of accession numbers.
-    
-    return(ids)
-}
-
-,.doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
-    # Overrides super class' method.
-
-    ids <- character()
-
-    # TODO Implement search of entries by filtering on values of fields.
-    
-    return(ids)
-}
-# $$$ CASE CONNTYPE COMPOUND $$$
 # $$$ CASE CONNTYPE MASS $$$
 
 ,getChromCol=function(ids=NULL) {
@@ -83,15 +59,6 @@ initialize=function(...) {
 }
 
 ,getNbPeaks=function(mode=NULL, ids=NULL) {
-    # TODO Implement
-}
-
-,.doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
-                          precursor, ms.level) {
-    # TODO Implement
-}
-
-,.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     # TODO Implement
 }
 # $$$ END_CASE CONNTYPE $$$
@@ -167,9 +134,44 @@ initialize=function(...) {
     return(results)
 }
 # $$$ END_SECTION REMOTE $$$
+),
+
+private=list(
+
+,doGetEntryIds=function(max.results=NA_integer_) {
+    # Overrides super class' method.
+
+    ids <- NA_character_
+ 
+    # TODO Implement retrieval of accession numbers.
+    
+    return(ids)
+}
+
+,doSearchForEntries=function(fields=NULL, max.results=NA_integer_) {
+    # Overrides super class' method.
+
+    ids <- character()
+
+    # TODO Implement search of entries by filtering on values of fields.
+    
+    return(ids)
+}
+# $$$ CASE CONNTYPE COMPOUND $$$
+# $$$ CASE CONNTYPE MASS $$$
+
+,doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
+                          precursor, ms.level) {
+    # TODO Implement
+}
+
+,doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    # TODO Implement
+}
+# $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
 
-,.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+,doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
     # TODO Modify the code below to build the URLs to get the contents of the
     # entries.
@@ -185,7 +187,7 @@ initialize=function(...) {
 # $$$ END_SECTION REMOTE $$$
 # $$$ SECTION DOWNLOADABLE $$$
 
-,.doDownload=function() {
+,doDownload=function() {
 
     biodb::logInfo("Downloading {{dbTitle}}...")
 
@@ -240,7 +242,7 @@ initialize=function(...) {
 # $$$ END_SECTION DOWNLOADABLE $$$
 # $$$ SECTION WRITABLE $$$
 
-,.doWrite=function() {
+,doWrite=function() {
     # Overrides super class' method.
 
     # TODO Update database on disk by writing new entries into it.

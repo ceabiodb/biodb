@@ -262,7 +262,7 @@ biodb::testThat("We can get the remote repository name.", test_getReposName)
 biodb::testThat("We can define a new field.", test_new_field, biodb=biodb)
 biodb::testThat("We can define a new parsing expression.",
                 test_new_parsing_expr, biodb=biodb)
-biodb::testThat("show() method works correctly.", test_chebiExShow,
+biodb::testThat("print() method works correctly.", test_chebiExShow,
                 biodb=biodb)
 biodb::testThat("We can generate a skeleton for a new extension package.",
                 test_newExtPkgSkeletonGeneration)

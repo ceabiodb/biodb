@@ -39,97 +39,88 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @import openssl
 #' @include BiodbConnBase.R
-#' @export BiodbConn
-#' @exportClass BiodbConn
-BiodbConn <- methods::setRefClass("BiodbConn",
-    contains="BiodbConnBase",
-    fields=list(
-        .id="character",
-        .entries="list",
-        .cache.id='character',
-        .editing.allowed='logical',
-        .writing.allowed='logical',
-        .bdb='ANY'
-    ),
+#' @export
+BiodbConn <- R6::R6Class("BiodbConn",
+inherit=BiodbConnBase,
 
-methods=list(
+public=list(
 
 initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
 
-    callSuper(...)
-    abstractClass('BiodbConn', .self)
+    super$initialize(...)
+    abstractClass('BiodbConn', self)
 
     logDebug("Initialize connector %s.", id)
     chk::chk_character(id)
     chk::chk_is(bdb, 'BiodbMain')
-    .self$.bdb <- bdb
-    .self$.id <- id
-    .self$.cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
-    .self$.entries <- list()
+    private$bdb <- bdb
+    private$id <- id
+    private$cache.id <- if (is.null(cache.id)) NA_character_ else cache.id
+    private$entries <- list()
 
     # Register with request scheduler
-    if (.self$isRemotedb()) {
+    if (self$isRemotedb()) {
         logDebug("Register connector %s with the request scheduler", id)
-        .self$.bdb$getRequestScheduler()$registerConnector(.self)
+        private$bdb$getRequestScheduler()$registerConnector(self)
     }
 },
 
+#' @description
+#' Returns the biodb main class instance to which this object is
+#'     attached.
+#' @return The main biodb instance.
 getBiodb=function() {
-    ":\n\nReturns the biodb main class instance to which this object is
-    attached.
-    \nReturned value: The main biodb instance.
-    "
 
-    return(.self$.bdb)
+    return(private$bdb)
 },
 
+#' @description
+#' Get the identifier of this connector.
+#' @return The identifier of this connector.
 getId=function() {
-    ":\n\nGet the identifier of this connector.
-    \nReturned value: The identifier of this connector.
-    "
 
-    return(.self$.id)
+    return(private$id)
 },
 
-show=function() {
-    ":\n\nPrints a description of this connector.
-    \nReturned value: None.
-    "
+#' @description
+#' Prints a description of this connector.
+#' @return None.
+print=function() {
     
-    callSuper() 
-    cat("  ID: ", .self$.id, ".\n", sep='')
+    super$print() 
+    cat("  ID: ", private$id, ".\n", sep='')
 },
 
+#' @description
+#' Correct a vector of IDs by formatting them to the database official
+#'     format, if required and possible.
+#' @param ids A character vector of IDs.
+#' @return The vector of IDs corrected.
 correctIds=function(ids) {
-    ":\n\nCorrect a vector of IDs by formatting them to the database official
-    format, if required and possible.
-    \nids: A character vector of IDs.
-    \nReturned values: The vector of IDs corrected.
-    "
 
     return(ids)
 },
 
+#' @description
+#' Return the entry corresponding to this ID. You can pass a vector of
+#'     IDs, and you will get a list of entries.
+#' @param id A character vector containing entry identifiers.
+#' @param drop If set to TRUE and only one entry is requrested, then the returned
+#'     value will be a single BiodbEntry object, otherwise it will be a list of 
+#'     BiodbEntry objects.
+#' @param nulls If set to TRUE, NULL entries are preserved. This ensures that the
+#'     output list has the same length than the input vector `id`. Otherwise they
+#'     are removed from the final list.
+#' @return A list of BiodbEntry objects, the same size of the vector
+#'     of IDs. The list will contain NULL values for invalid IDs. If drop is set to
+#'     TRUE and only one etrny was requested then a single BiodbEntry is returned
+#'     instead of a list.
 getEntry=function(id, drop=TRUE, nulls=TRUE) {
-    ":\n\nReturn the entry corresponding to this ID. You can pass a vector of
-    IDs, and you will get a list of entries.
-    \nid: A character vector containing entry identifiers.
-    \ndrop: If set to TRUE and only one entry is requrested, then the returned
-    value will be a single BiodbEntry object, otherwise it will be a list of 
-    BiodbEntry objects.
-    \nnulls: If set to TRUE, NULL entries are preserved. This ensures that the
-    output list has the same length than the input vector `id`. Otherwise they
-    are removed from the final list.
-    \nReturned value: A list of BiodbEntry objects, the same size of the vector
-    of IDs. The list will contain NULL values for invalid IDs. If drop is set to
-    TRUE and only one etrny was requested then a single BiodbEntry is returned
-    instead of a list.
-    "
 
-    entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), id=id,
+    entries <- private$bdb$getFactory()$getEntry(self$getId(), id=id,
         drop=drop)
 
     if ( ! nulls && is.list(entries))
@@ -138,32 +129,32 @@ getEntry=function(id, drop=TRUE, nulls=TRUE) {
     return(entries)
 },
 
+#' @description
+#' Get the path to the persistent cache file.
+#' @param entry.id The identifiers (e.g.: accession numbers) as a character vector
+#'     of the database entries.
+#' @return A character vector, the same length as the vector of IDs,
+#'     containing the paths to the cache files corresponding to the requested entry
+#'     IDs.
 getCacheFile=function(entry.id) {
-    ":\n\nGet the path to the persistent cache file.
-    \nentry.id: The identifiers (e.g.: accession numbers) as a character vector
-    of the database entries.
-    \nReturned value: A character vector, the same length as the vector of IDs,
-    containing the paths to the cache files corresponding to the requested entry
-    IDs.
-    "
 
-    c <- .self$.bdb$getPersistentCache()
-    fp <- c$getFilePath(.self$getCacheId(), entry.id, .self$getEntryFileExt())
+    c <- private$bdb$getPersistentCache()
+    fp <- c$getFilePath(self$getCacheId(), entry.id, self$getEntryFileExt())
 
     return(fp)
 },
 
+#' @description
+#' Get the contents of database entries from IDs (accession numbers).
+#' @param id A character vector of entry IDs.
+#' @return A character vector containing the contents of the
+#'     requested IDs. If no content is available for an entry ID, then NA will be
+#'     used.
 getEntryContent=function(id) {
-    ":\n\nGet the contents of database entries from IDs (accession numbers).
-    \nid: A character vector of entry IDs.
-    \nReturned values: A character vector containing the contents of the
-    requested IDs. If no content is available for an entry ID, then NA will be
-    used.
-    "
 
     content <- list()
-    cch <- .self$.bdb$getPersistentCache()
-    nm <- .self$getPropertyValue('name')
+    cch <- private$bdb$getPersistentCache()
+    nm <- self$getPropertyValue('name')
 
     if ( ! is.null(id) && length(id) > 0) {
 
@@ -174,14 +165,14 @@ getEntryContent=function(id) {
             " id(s)...")
 
         # Download full database
-        if (.self$isDownloadable())
-            .self$download()
+        if (self$isDownloadable())
+            self$download()
 
         # Initialize content
-        if (cch$isReadable(.self) && ! is.null(.self$getCacheId())) {
+        if (cch$isReadable(self) && ! is.null(self$getCacheId())) {
             # Load content from cache
-            content <- cch$loadFileContent(.self$getCacheId(),
-                name=id, ext=.self$getEntryFileExt())
+            content <- cch$loadFileContent(self$getCacheId(),
+                name=id, ext=self$getEntryFileExt())
             missing.ids <- id[vapply(content, is.null, FUN.VALUE=TRUE)]
         }
         else {
@@ -199,7 +190,7 @@ getEntryContent=function(id) {
         # Debug
         if (any(is.na(id)))
             logDebug("%d %s entry ids are NA.", sum(is.na(id)), nm)
-        if (cch$isReadable(.self)) {
+        if (cch$isReadable(self)) {
             nld <- sum( ! is.na(id)) - length(missing.ids)
             logDebug("%d %s entry content(s) loaded from cache.", nld, nm)
             if (n.duplicates > 0)
@@ -209,15 +200,15 @@ getEntryContent=function(id) {
 
         # Get contents
         if (length(missing.ids) > 0
-            && ( ! .self$isDownloadable() || ! .self$isDownloaded())) {
+            && ( ! self$isDownloadable() || ! self$isDownloaded())) {
 
             logDebug0(length(missing.ids), " entry content(s) need to be ",
                 "fetched from ", nm, " database \"",
-                .self$getPropValSlot('urls', 'base.url'), "\".")
+                self$getPropValSlot('urls', 'base.url'), "\".")
 
             # Divide list of missing ids in chunks
             # (in order to save in cache regularly)
-            cs <- .self$.bdb$getConfig()$get('dwnld.chunk.size')
+            cs <- private$bdb$getConfig()$get('dwnld.chunk.size')
             logDebug('dwnld.chunk.size=%d', cs)
             chunks.of.missing.ids <- if (is.na(cs)) list(missing.ids)
                 else split(missing.ids, ceiling(seq_along(missing.ids) / cs))
@@ -228,20 +219,20 @@ getEntryContent=function(id) {
             for (ch.missing.ids in chunks.of.missing.ids) {
 
                 # Get contents of missing entries
-                ec <- .self$getEntryContentFromDb(ch.missing.ids)
+                ec <- self$getEntryContentFromDb(ch.missing.ids)
 
                 # Save to cache
                 if ( ! is.null(ec)
-                    && ! is.null(.self$getCacheId()) && cch$isWritable(.self))
+                    && ! is.null(self$getCacheId()) && cch$isWritable(self))
                     cch$saveContentToFile(ec,
-                        cache.id=.self$getCacheId(), name=ch.missing.ids,
-                        ext=.self$getEntryFileExt())
+                        cache.id=self$getCacheId(), name=ch.missing.ids,
+                        ext=self$getEntryFileExt())
 
                 # Append
                 missing.contents <- c(missing.contents, ec)
 
                 # Debug
-                if (cch$isReadable(.self)) {
+                if (cch$isReadable(self)) {
                     n <- length(missing.ids) - length(missing.contents)
                     logDebug("Now %d id(s) left to be retrieved...", n)
                 }
@@ -258,40 +249,40 @@ getEntryContent=function(id) {
     return(content)
 },
 
+#' @description
+#' Get the contents of entries directly from the database. A direct
+#'     request or an access to the database will be made in order to retrieve the
+#'     contents. No access to the biodb cache system will be made.
+#' @param entry.id A character vector with the IDs of entries to retrieve.
+#' @return A character vector, the same size of entry.id, with
+#'     contents of the requested entries. An NA value will be set for the content
+#'     of each entry for which the retrieval failed.
 getEntryContentFromDb=function(entry.id) {
-    ":\n\nGet the contents of entries directly from the database. A direct
-    request or an access to the database will be made in order to retrieve the
-    contents. No access to the biodb cache system will be made.
-    \nentry.id: A character vector with the IDs of entries to retrieve.
-    \nReturned value: A character vector, the same size of entry.id, with
-    contents of the requested entries. An NA value will be set for the content
-    of each entry for which the retrieval failed.
-    "
 
-    if (.self$isRemotedb())
-        return(.self$.doGetEntryContentOneByOne(entry.id))
+    if (self$isRemotedb())
+        return(private$doGetEntryContentOneByOne(entry.id))
 
-    abstractMethod(.self)
+    abstractMethod(self)
 },
 
+#' @description
+#' Gets the URL to use in order to get the contents of the specified
+#'     entries.
+#' @param entry.id A character vector with the IDs of entries to retrieve.
+#' @param concatenate If set to TRUE, then try to build as few URLs as
+#' possible, sending requests with several identifiers at once.
+#' @param max.length The maximum length of the URLs to return, in
+#' number of characters.
+#' @return A list of BiodbUrl objects.
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
-    ":\n\nGets the URL to use in order to get the contents of the specified
-    entries.
-    \nentry.id: A character vector with the IDs of entries to retrieve.
-    \nconcatenate: If set to TRUE, then try to build as few URLs as
-possible, sending requests with several identifiers at once.
-    \nmax.length: The maximum length of the URLs to return, in
-    number of characters.
-    \nReturned value: A list of BiodbUrl objects.
-    "
 
-    .self$.checkIsRemote()
+    private$checkIsRemote()
     urls <- character(0)
 
     if (length(entry.id) > 0) {
 
         # Get full URL
-        full.url <- .self$.doGetEntryContentRequest(entry.id,
+        full.url <- private$doGetEntryContentRequest(entry.id,
             concatenate=concatenate)
 
         # No single URL for multiple IDs
@@ -312,14 +303,14 @@ possible, sending requests with several identifiers at once.
                 b <- length(entry.id)
                 while (a < b) {
                     m <- as.integer((a + b) / 2)
-                    url <- .self$.doGetEntryContentRequest(entry.id[start:m])
+                    url <- private$doGetEntryContentRequest(entry.id[start:m])
                     if (all(nchar(url) <= max.length) && m != a)
                         a <- m
                     else
                         b <- m
                 }
                 urls <- c(urls,
-                    .self$.doGetEntryContentRequest(entry.id[start:a]))
+                    private$doGetEntryContentRequest(entry.id[start:a]))
                 start <- a + 1
             }
         }
@@ -328,16 +319,16 @@ possible, sending requests with several identifiers at once.
     return(urls)
 },
 
+#' @description
+#' Get entry identifiers from the database. More arguments can be given,
+#'     depending on implementation in specific databases. For mass databases
+#'     the ms.level argument can also be set.
+#' @param max.results The maximum of elements to return from the method.
+#' @param ... First arguments to be passed to private .doGetEntryIds() method.
+#' @return A character vector containing entry IDs from the
+#'     database. An empty vector for a remote database may mean that the database
+#'     does not support requesting for entry accessions.
 getEntryIds=function(max.results=0, ...) {
-    ":\n\nGet entry identifiers from the database. More arguments can be given,
-    depending on implementation in specific databases. For mass databases
-    the ms.level argument can also be set.
-    \nmax.results: The maximum of elements to return from the method.
-    \n...: First arguments to be passed to private .doGetEntryIds() method.
-    \nReturned value: A character vector containing entry IDs from the
-    database. An empty vector for a remote database may mean that the database
-    does not support requesting for entry accessions.
-    "
 
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
@@ -345,12 +336,12 @@ getEntryIds=function(max.results=0, ...) {
     ids <- character()
 
     # Get IDs from volatile cache
-    not.null <- ! vapply(.self$.entries, is.null, FUN.VALUE=T)
-    ids <- names(.self$.entries[not.null])
+    not.null <- ! vapply(private$entries, is.null, FUN.VALUE=T)
+    ids <- names(private$entries[not.null])
 
     # Get IDs from database
     if (max.results == 0 || length(ids) < max.results) {
-        db.ids <- .self$.doGetEntryIds(max.results=max.results, ...)
+        db.ids <- private$doGetEntryIds(max.results=max.results, ...)
         if ( ! is.null(db.ids)) {
             db.ids <- as.character(db.ids)
             ids <- c(ids, db.ids[ ! db.ids %in% ids])
@@ -364,17 +355,17 @@ getEntryIds=function(max.results=0, ...) {
     return(ids)
 },
 
+#' @description
+#' Get the number of entries contained in this database.
+#' @param count If set to TRUE and no straightforward way exists to get number of
+#'     entries, count the output of getEntryIds().
+#' @return The number of entries in the database, as an integer.
 getNbEntries=function(count=FALSE) {
-    ":\n\nGet the number of entries contained in this database.
-    \ncount: If set to TRUE and no straightforward way exists to get number of
-    entries, count the output of getEntryIds().
-    \nReturned value: The number of entries in the database, as an integer.
-    "
 
     n <- NA_integer_
 
     if (count) {
-        ids <- .self$getEntryIds()
+        ids <- self$getEntryIds()
         if ( ! is.null(ids))
             n <- length(ids)
     }
@@ -382,74 +373,68 @@ getNbEntries=function(count=FALSE) {
     return(n)
 },
 
+#' @description
+#' Tests if this connector is able to edit the database (i.e.: the
+#'     connector class implements the interface BiodbEditable). If this connector
+#'     is editable, then you can call allowEditing() to enable editing.
+#' @return Returns TRUE if the database is editable.
 isEditable=function() {
-    ":\n\nTests if this connector is able to edit the database (i.e.: the
-    connector class implements the interface BiodbEditable). If this connector
-    is editable, then you can call allowEditing() to enable editing.
-    \nReturned value: Returns TRUE if the database is editable.
-    "
 
-    return(.self$getPropertyValue('editable'))
+    return(self$getPropertyValue('editable'))
 },
 
-.checkIsEditable=function() {
-    if ( ! .self$isEditable())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not editable.")
-},
-
+#' @description
+#' Tests if editing is allowed.
+#' @return TRUE if editing is allowed for this database, FALSE
+#'     otherwise.
 editingIsAllowed=function() {
-    ":\n\nTests if editing is allowed.
-    \nReturned value: TRUE if editing is allowed for this database, FALSE
-    otherwise.
-    "
     
-    .self$.checkIsEditable()
-    .self$.initEditable()
+    private$checkIsEditable()
+    private$initEditable()
 
-    return(.self$.editing.allowed)
+    return(private$editing.allowed)
 },
 
+#' @description
+#' Allows editing for this database.
+#' @return None.
 allowEditing=function() {
-    ":\n\nAllows editing for this database.
-    \nReturned value: None.
-    "
 
-    .self$.checkIsEditable()
-    .self$setEditingAllowed(TRUE)
+    private$checkIsEditable()
+    self$setEditingAllowed(TRUE)
 },
 
+#' @description
+#' Disallows editing for this database.
+#' @return None.
 disallowEditing=function() {
-    ":\n\nDisallows editing for this database.
-    \nReturned value: None.
-    "
     
-    .self$.checkIsEditable()
-    .self$setEditingAllowed(FALSE)
+    private$checkIsEditable()
+    self$setEditingAllowed(FALSE)
 },
 
+#' @description
+#' Allow or disallow editing for this database.
+#' @param allow A logical value.
+#' @return None.
 setEditingAllowed=function(allow) {
-    ":\n\nAllow or disallow editing for this database.
-    \nallow: A logical value.
-    \nReturned value: None.
-    "
     
     chk::chk_logical(allow)
 
-    .self$.checkIsEditable()
-    .self$.editing.allowed <- allow
+    private$checkIsEditable()
+    private$editing.allowed <- allow
 },
 
+#' @description
+#' Adds a new entry to the database. The passed entry must have been
+#' @param previously created from scratch using BiodbFactory :createNewEntry() or
+#' @param cloned from an existing entry using BiodbEntry :clone().
+#' @param entry The new entry to add. It must be a valid BiodbEntry object.
+#' @return None.
 addNewEntry=function(entry) {
-    ":\n\nAdds a new entry to the database. The passed entry must have been
-    previously created from scratch using BiodbFactory::createNewEntry() or
-    cloned from an existing entry using BiodbEntry::clone().
-    \nentry: The new entry to add. It must be a valid BiodbEntry object.
-    \nReturned value: None.
-    "
 
-    .self$.checkIsEditable()
-    .self$.checkEditingIsAllowed()
+    private$checkIsEditable()
+    private$checkEditingIsAllowed()
 
     # Is already part of a connector instance?
     if (entry$parentIsAConnector())
@@ -466,150 +451,110 @@ addNewEntry=function(entry) {
             ' entry has an accession number set to NA.')
 
     # Accession number is already used?
-    e <- .self$getEntry(id)
+    e <- self$getEntry(id)
     if ( ! is.null(e))
         error0('Impossible to add entry as a new entry. The accession',
             ' number of the passed entry is already used in the',
             ' connector.')
 
     # Make sure ID field is equal to accession
-    id.field <- .self$getEntryIdField()
+    id.field <- self$getEntryIdField()
     if ( ! entry$hasField(id.field) || entry$getFieldValue(id.field) != id)
         entry$setFieldValue(id.field, id)
 
     # Remove entry from non-volatile cache
-    cch <- .self$.bdb$getPersistentCache()
-    if (cch$isWritable(.self))
-        cch$deleteFile(.self$getCacheId(), name=id, ext=.self$getEntryFileExt())
+    cch <- private$bdb$getPersistentCache()
+    if (cch$isWritable(self))
+        cch$deleteFile(self$getCacheId(), name=id, ext=self$getEntryFileExt())
 
     # Flag entry as new
     entry$setAsNew(TRUE)
 
     # Set the connector as its parent
-    entry$setParent(.self)
+    entry$setParent(self)
 
     # Add entry to volatile cache
-    .self$.addEntriesToCache(id, list(entry))
+    private$addEntriesToCache(id, list(entry))
 },
 
-.initEditable=function() {
-    if (length(.self$.editing.allowed) == 0)
-        .self$setEditingAllowed(FALSE)
-},
-
-.checkEditingIsAllowed=function() {
-
-    .self$.initEditable()
-
-    if ( ! .self$.editing.allowed)
-        error0('Editing is not enabled for this database. However this',
-            ' database type is editable. Please call allowEditing()',
-            ' method to enable editing.')
-},
-
+#' @description
+#' Tests if this connector is able to write into the database.  If this
+#'     connector is writable, then you can call allowWriting() to enable writing.
+#' @return Returns TRUE if the database is writable.
 isWritable=function() {
-    ":\n\nTests if this connector is able to write into the database.  If this
-    connector is writable, then you can call allowWriting() to enable writing.
-    \nReturned value: Returns TRUE if the database is writable.
-    "
 
-    return(.self$getPropertyValue('writable'))
+    return(self$getPropertyValue('writable'))
 },
 
-.checkIsWritable=function() {
-    if ( ! .self$isWritable())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not writable.")
-},
-
+#' @description
+#' Allows the connector to write into this database.
+#' @return None.
 allowWriting=function() {
-    ":\n\nAllows the connector to write into this database.
-    \nReturned value: None.
-    "
 
-    .self$.checkIsWritable()
-    .self$setWritingAllowed(TRUE)
+    private$checkIsWritable()
+    self$setWritingAllowed(TRUE)
 },
 
+#' @description
+#' Disallows the connector to write into this database.
+#' @return None.
 disallowWriting=function() {
-    ":\n\nDisallows the connector to write into this database.
-    \nReturned value: None.
-    "
     
-    .self$.checkIsWritable()
-    .self$setWritingAllowed(FALSE)
+    private$checkIsWritable()
+    self$setWritingAllowed(FALSE)
 },
 
+#' @description
+#' Allows or disallows writing for this database.
+#' @param allow If set to TRUE, allows writing.
+#' @return None.
 setWritingAllowed=function(allow) {
-    ":\n\nAllows or disallows writing for this database.
-    \nallow: If set to TRUE, allows writing.
-    \nReturned value: None.
-    "
     
-    .self$.checkIsWritable()
+    private$checkIsWritable()
     chk::chk_logical(allow)
-    .self$.writing.allowed <- allow
+    private$writing.allowed <- allow
 },
 
+#' @description
+#' Tests if the connector has access right to the database.
+#' @return TRUE if writing is allowed for this database, FALSE
+#'     otherwise.
 writingIsAllowed=function() {
-    ":\n\nTests if the connector has access right to the database.
-    \nReturned value: TRUE if writing is allowed for this database, FALSE
-    otherwise.
-    "
     
-    .self$.checkIsWritable()
-    .self$.initWritable()
+    private$checkIsWritable()
+    private$initWritable()
 
-    return(.self$.writing.allowed)
+    return(private$writing.allowed)
 },
 
+#' @description
+#' Writes into the database. All modifications made to the database since
+#'     the last time write() was called will be saved.
+#' @return None.
 write=function() {
-    ":\n\nWrites into the database. All modifications made to the database since
-    the last time write() was called will be saved.
-    \nReturned value: None.
-    "
 
-    .self$.checkIsWritable()
-    .self$.checkWritingIsAllowed()
-    .self$.doWrite()
+    private$checkIsWritable()
+    private$checkWritingIsAllowed()
+    private$doWrite()
 
     # Unset "new" flag for all entries
-    for (e in .self$.entries)
+    for (e in private$entries)
         e$setAsNew(FALSE)
 },
 
-.checkWritingIsAllowed=function() {
-    
-    .self$.initWritable()
-    
-    if ( ! .self$.writing.allowed)
-        error0('Writing is not enabled for this database. However this',
-            ' database type is writable. Please call allowWriting()',
-            ' method to enable writing.')
-},
-
-.doWrite=function() {
-    abstractMethod(.self)
-},
-
-.initWritable=function() {
-    if (length(.self$.writing.allowed) == 0)
-        .self$setWritingAllowed(FALSE)
-},
-
+#' @description
+#' Tests if a field can be used to search entries when using method
+#'     searchForEntries().
+#' @param field The name of the field.
+#' @return Returns TRUE if the database is searchable using the
+#'     specified field, FALSE otherwise.
 isSearchableByField=function(field) {
-    ":\n\nTests if a field can be used to search entries when using method
-    searchForEntries().
-    \nfield: The name of the field.
-    \nReturned value: Returns TRUE if the database is searchable using the
-    specified field, FALSE otherwise.
-    "
 
     v <- FALSE
 
-    ef <- .self$.bdb$getEntryFields()
+    ef <- private$bdb$getEntryFields()
     field <- ef$getRealName(field)
-    for (sf in .self$getPropertyValue('searchable.fields'))
+    for (sf in self$getPropertyValue('searchable.fields'))
         if (ef$getRealName(sf) == field) {
             v <- TRUE
             break;
@@ -618,39 +563,39 @@ isSearchableByField=function(field) {
     return(v)
 },
 
+#' @description
+#' Get the list of all searchable fields.
+#' @return A character vector containing all searchable fields for
+#'     this connector.
 getSearchableFields=function() {
-    ":\n\nGet the list of all searchable fields.
-    \nReturned value: A character vector containing all searchable fields for
-    this connector.
-    "
     
     # Get all searchable candidates
-    fields <- .self$getPropertyValue('searchable.fields')
+    fields <- self$getPropertyValue('searchable.fields')
     
     # Filter out those that are not searchable with this instance
     # This is for dynamic connectors like CsvFileConn whose list of available
     # fields may vary.
-    fields <- Filter(function(f) .self$isSearchableByField(f), fields)
+    fields <- Filter(function(f) self$isSearchableByField(f), fields)
     
     return(fields)
 },
 
+#' @description
+#' Searches the database for entries whose name matches the specified
+#'     name.  Returns a character vector of entry IDs.
+#' @param fields A list of fields on which to filter entries. To get a match, all
+#' @param fields must be matched (i.e. logical AND). The keys of the list are the
+#'     entry field names on which to filter, and the values are the filtering
+#'     parameters. For character fields, the filter parameter is a character
+#'     vector in which all strings must be found inside the field's value. For
+#'     numeric fields, the filter parameter is either a list specifying a min-max
+#'     range (`list(min=1.0, max=2.5)`) or a value with a tolerance in delta
+#'     (`list(value=2.0, delta=0.1)`) or ppm (`list(value=2.0, ppm=1.0)`).
+#' @param max.results If set, the number of returned IDs is limited to this
+#'     number.
+#' @return A character vector of entry IDs whose name matches the
+#'     requested name.
 searchForEntries=function(fields=NULL, max.results=0) {
-    ":\n\nSearches the database for entries whose name matches the specified
-    name.  Returns a character vector of entry IDs.
-    \nfields: A list of fields on which to filter entries. To get a match, all
-    fields must be matched (i.e.: logical AND). The keys of the list are the
-    entry field names on which to filter, and the values are the filtering
-    parameters. For character fields, the filter parameter is a character
-    vector in which all strings must be found inside the field's value. For
-    numeric fields, the filter parameter is either a list specifying a min-max
-    range (`list(min=1.0, max=2.5)`) or a value with a tolerance in delta
-    (`list(value=2.0, delta=0.1)`) or ppm (`list(value=2.0, ppm=1.0)`).
-    \nmax.results: If set, the number of returned IDs is limited to this
-    number.
-    \nReturned value: A character vector of entry IDs whose name matches the
-    requested name.
-    "
 
     chk::chk_null_or(fields, chk::chk_list)
     chk::chk_number(max.results)
@@ -671,7 +616,7 @@ searchForEntries=function(fields=NULL, max.results=0) {
         }
     
         # Error if field is not searchable
-        else if ( ! .self$isSearchableByField(f)) {
+        else if ( ! self$isSearchableByField(f)) {
             warn('This database is not searchable by field "%s".', f)
             fields[[f]] <- NULL
             wrong_fields <- TRUE
@@ -680,7 +625,7 @@ searchForEntries=function(fields=NULL, max.results=0) {
         
     # Call concrete method
     if (length(fields) > 0 || ! wrong_fields)
-        ids <- .self$.doSearchForEntries(fields=fields, max.results=max.results)
+        ids <- private$doSearchForEntries(fields=fields, max.results=max.results)
 
     # Convert NULL to empty list
     if (is.null(ids))
@@ -693,49 +638,38 @@ searchForEntries=function(fields=NULL, max.results=0) {
     return(ids)
 },
 
-.doSearchForEntries=function(fields=NULL, max.results=0) {
-    # To be implemented by derived class.
-    return(NULL)
-},
-
-searchByName=function(name, max.results=0) { # DEPRECATED
-    ":\n\nThis method is deprecated.
-    \nUse searchForEntries() instead.
-    "
+#' @description
+#' This method is deprecated.
+#'     \nUse searchForEntries() instead.
+searchByName=function(name, max.results=0) {
     
     lifecycle::deprecate_warn('1.0.0', 'searchByName()', "searchForEntries()")
 
-    ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+    ids <- self$searchForEntries(list(name=name), max.results=max.results)
 
     return(ids)
 },
 
+#' @description
+#' Tests if the connector can download the database.
+#' @return Returns TRUE if the database is downloadable.
 isDownloadable=function() {
-    ":\n\nTests if the connector can download the database.
-    \nReturned value: Returns TRUE if the database is downloadable.
-    "
 
-    return(.self$getPropertyValue('downloadable'))
+    return(self$getPropertyValue('downloadable'))
 },
 
-.checkIsDownloadable=function() {
-    if ( ! .self$isDownloadable())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not downloadable.")
-},
-
+#' @description
+#' Tests if the database has been downloaded.
+#' @return TRUE if the database content has already been downloaded.
 isDownloaded=function() {
-    ":\n\nTests if the database has been downloaded.
-    \nReturned value: TRUE if the database content has already been downloaded.
-    "
 
-    .self$.checkIsDownloadable()
-    cch <- .self$.bdb$getPersistentCache()
-    dwnlded  <- cch$markerExist(.self$getCacheId(),
+    private$checkIsDownloadable()
+    cch <- private$bdb$getPersistentCache()
+    dwnlded  <- cch$markerExist(self$getCacheId(),
                     name='downloaded')
 
     s <- (if (dwnlded) 'already' else 'not yet')
-    logDebug0('Database ', .self$getId(), ' has ', s, ' been downloaded.')
+    logDebug0('Database ', self$getId(), ' has ', s, ' been downloaded.')
 
     return(dwnlded)
 },
@@ -744,134 +678,112 @@ requiresDownload=function() {
     return(FALSE)
 },
 
+#' @description
+#' Gets the path where the downloaded content is written.
+#' @return The path where the downloaded database is written.
 getDownloadPath=function() {
-    ":\n\nGets the path where the downloaded content is written.
-    \nReturned value: The path where the downloaded database is written.
-    "
 
-    .self$.checkIsDownloadable()
-    cch <- .self$.bdb$getPersistentCache()
-    ext <- .self$getPropertyValue('dwnld.ext')
-    path <- cch$getFilePath(.self$getCacheId(), name='download', ext=ext)
+    private$checkIsDownloadable()
+    cch <- private$bdb$getPersistentCache()
+    ext <- self$getPropertyValue('dwnld.ext')
+    path <- cch$getFilePath(self$getCacheId(), name='download', ext=ext)
 
-    logDebug0('Download path of ', .self$getId(), ' is "', path, '".')
+    logDebug0('Download path of ', self$getId(), ' is "', path, '".')
 
     return(path)
 },
 
+#' @description
+#' Tests if the downloaded database has been extracted (in case the
+#'     database needs extraction).
+#' @return TRUE if the downloaded database content has been
+#'     extracted, FALSE otherwise.
 isExtracted=function() {
-    ":\n\nTests if the downloaded database has been extracted (in case the
-    database needs extraction).
-    \nReturned value: TRUE if the downloaded database content has been
-    extracted, FALSE otherwise.
-    "
 
-    .self$.checkIsDownloadable()
-    cch <- .self$.bdb$getPersistentCache()
-    return(cch$markerExist(.self$getCacheId(),
+    private$checkIsDownloadable()
+    cch <- private$bdb$getPersistentCache()
+    return(cch$markerExist(self$getCacheId(),
         name='extracted'))
 },
 
+#' @description
+#' Downloads the database content locally.
+#' @return None.
 download=function() {
-    ":\n\nDownloads the database content locally.
-    \nReturned value: None.
-    "
 
-    .self$.checkIsDownloadable()
-    cch <- .self$.bdb$getPersistentCache()
+    private$checkIsDownloadable()
+    cch <- private$bdb$getPersistentCache()
 
     # Download
-    cfg <- .self$.bdb$getConfig()
-    if (cch$isWritable(.self) && ! .self$isDownloaded()
-        && (cfg$isEnabled('allow.huge.downloads') || .self$requiresDownload())
+    cfg <- private$bdb$getConfig()
+    if (cch$isWritable(self) && ! self$isDownloaded()
+        && (cfg$isEnabled('allow.huge.downloads') || self$requiresDownload())
         && ! cfg$isEnabled('offline')) {
 
-        logInfo0("Downloading whole database of ", .self$getId(), ".")
-        .self$.doDownload()
-        if ( ! file.exists(.self$getDownloadPath()))
+        logInfo0("Downloading whole database of ", self$getId(), ".")
+        private$doDownload()
+        if ( ! file.exists(self$getDownloadPath()))
             error("File %s does not exists. Downloading went wrong.",
-                .self$getDownloadPath())
-        logDebug0('Downloading of ', .self$getId(), ' completed.')
+                self$getDownloadPath())
+        logDebug0('Downloading of ', self$getId(), ' completed.')
 
         # Set marker
-        cch$setMarker(.self$getCacheId(), name='downloaded')
+        cch$setMarker(self$getCacheId(), name='downloaded')
     }
 
     # Extract
-    if (.self$isDownloaded() && ! .self$isExtracted()) {
+    if (self$isDownloaded() && ! self$isExtracted()) {
 
-        logInfo0("Extract whole database of ", .self$getId(), ".")
+        logInfo0("Extract whole database of ", self$getId(), ".")
 
-        .self$.doExtractDownload()
+        private$doExtractDownload()
 
         # Set marker
-        cch$setMarker(.self$getCacheId(), name='extracted')
+        cch$setMarker(self$getCacheId(), name='extracted')
     }
 },
 
-.doDownload=function() {
-    abstractMethod(.self)
-},
-
-.doExtractDownload=function() {
-    abstractMethod(.self)
-},
-
-.checkIsRemote=function() {
-    if ( ! .self$isRemotedb())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not a remote database.")
-},
-
+#' @description
+#' Tests if the connector is connected to a remote database.
+#' @return Returns TRUE if the database is a remote database."
 isRemotedb=function() {
-    ":\n\nTests if the connector is connected to a remote database.
-    \nReturned value: Returns TRUE if the database is a remote database."
-
-    return(.self$getPropertyValue('remote'))
+    return(self$getPropertyValue('remote'))
 },
 
+#' @description
+#' Tests if the connector's database is a compound database.
+#' @return Returns TRUE if the database is a compound database.
 isCompounddb=function() {
-    ":\n\nTests if the connector's database is a compound database.
-    \nReturned value: Returns TRUE if the database is a compound database.
-    "
 
-    return(.self$getPropertyValue('compound.db'))
+    return(self$getPropertyValue('compound.db'))
 },
 
-.checkIsCompounddb=function() {
-    if ( ! .self$isCompounddb())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not a compound database.")
-},
-
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
-                        mass.tol=0.01, mass.tol.unit='plain',
-                        max.results=0) {
-    ":\n\nThis method is deprecated. Use searchForEntries() instead.
-    \n Searches for compounds by name and/or by mass. At least one of name or
-    mass must be set.
-    \nname: The name of a compound to search for.
-    \ndescription: A character vector of words or expressions to search for
-    inside description field. The words will be searched in order. A match will
-    be made only if all words are inside the description field.
-    \nmass: The searched mass.
-    \nmass.field: For searching by mass, you must indicate a mass field to use
-    ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
-    \nmass.tol: The tolerance value on the molecular mass.
-    \nmass.tol.unit: The type of mass tolerance. Either 'plain' or 'ppm'.
-    \nmax.results: The maximum number of matches to return.
-    \nReturned value: A character vector of entry IDs."
-
+#' @description
+#' This method is deprecated. Use searchForEntries() instead.
+#'     \n Searches for compounds by name and/or by mass. At least one of name or
+#'     mass must be set.
+#' @param name The name of a compound to search for.
+#' @param description A character vector of words or expressions to search for
+#'     inside description field. The words will be searched in order. A match will
+#'     be made only if all words are inside the description field.
+#' @param mass The searched mass.
+#' @param mass.field For searching by mass, you must indicate a mass field to use
+#'     ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+#' @param mass.tol The tolerance value on the molecular mass.
+#' @param mass.tol.unit The type of mass tolerance. Either 'plain' or 'ppm'.
+#' @param max.results The maximum number of matches to return.
+#' @return A character vector of entry IDs."
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=0) {
     lifecycle::deprecate_warn('1.0.0', 'searchCompound()',
         "searchForEntries()")
-    .self$.checkIsCompounddb()
-    .self$.checkMassField(mass=mass, mass.field=mass.field)
+    private$checkIsCompounddb()
+    private$checkMassField(mass=mass, mass.field=mass.field)
 
     ids <- NULL
 
     # Try searchForEntries
     if ( ! is.null(name) && is.null(mass))
-        ids <- .self$searchForEntries(list(name=name), max.results=max.results)
+        ids <- self$searchForEntries(list(name=name), max.results=max.results)
     else if ( ! is.null(mass)) {
         fields <- if (is.null(name)) list() else list(name=name)
         fields[[mass.field]] <- list(value=mass)
@@ -879,55 +791,53 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, # DEPRECATED
             fields[[mass.field]]$ppm = mass.tol
         else
             fields[[mass.field]]$delta = mass.tol
-        ids <- .self$searchForEntries(fields, max.results=max.results)
+        ids <- self$searchForEntries(fields, max.results=max.results)
     }
 
     return(ids)
 },
 
-annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
-    mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL,
-    prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
-    ":\n\nAnnotates a mass spectrum with the database. For each matching entry
-    the entry field values will be set inside columns appended to the data
-    frame. Names of these columns will use a common prefix in order to
-    distinguish them from other data from the input data frame.
-    \nx: Either a data frame or a numeric vector containing the M/Z values.
-    \nmz.col: The name of the column where to find M/Z values in case x is a
-    data frame.
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
-    \nmz.tol: The tolerance on the M/Z values. 
-    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
-    'plain'.
-    \nmass.field: The mass field to use for matching M/Z values. One of:
-    'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
-    \nfields: A character vector containing the additional entry fields you
-    would like to get for each matched entry. Each field will be output in a
-    different column.
-    \ninsert.input.values: Insert input values at the beginning of the
-    result data frame.
-    \nprefix: A prefix that will be inserted before the name of each added
-    column in the output. By default it will be set to the name of the database
-    followed by a dot.
-    \nfieldsLimit: The maximum of values to output for fields with multiple
-    values. Set it to 0 to get all values.
-    \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value. To get all the matches, set this parameter to NA_integer_.
-    Default value is 3.
-    \nReturned value: A data frame containing the input values, and annotation
-    columns appended at the end. The first annotation column contains the IDs
-    of the matched entries. The following columns contain the fields you have
-    requested through the `fields` parameter.
-    "
+#' @description
+#' Annotates a mass spectrum with the database. For each matching entry
+#'     the entry field values will be set inside columns appended to the data
+#'     frame. Names of these columns will use a common prefix in order to
+#'     distinguish them from other data from the input data frame.
+#' @param x Either a data frame or a numeric vector containing the M/Z values.
+#' @param mz.col The name of the column where to find M/Z values in case x is a
+#'     data frame.
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param mz.tol The tolerance on the M/Z values. 
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param mass.field The mass field to use for matching M/Z values. One of:
+#'     'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
+#' @param fields A character vector containing the additional entry fields you
+#'     would like to get for each matched entry. Each field will be output in a
+#'     different column.
+#' @param insert.input.values Insert input values at the beginning of the
+#'     result data frame.
+#' @param prefix A prefix that will be inserted before the name of each added
+#'     column in the output. By default it will be set to the name of the database
+#'     followed by a dot.
+#' @param fieldsLimit The maximum of values to output for fields with multiple
+#'     values. Set it to 0 to get all values.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value. To get all the matches, set this parameter to NA_integer_.
+#'     Default value is 3.
+#' @return A data frame containing the input values, and annotation
+#'     columns appended at the end. The first annotation column contains the IDs
+#'     of the matched entries. The following columns contain the fields you have
+#'     requested through the `fields` parameter.
+annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'), mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL, prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
 
-    .self$.checkIsCompounddb()
+    private$checkIsCompounddb()
     if (is.null(x))
         return(NULL)
 
     ret <- data.frame(stringsAsFactors=FALSE)
     newCols <- character()
     mz.tol.unit <- match.arg(mz.tol.unit)
-    ef <- .self$.bdb$getEntryFields()
+    ef <- private$bdb$getEntryFields()
     mass.field <- match.arg(mass.field, ef$getFieldNames('mass'))
 
     # Convert x to data frame
@@ -946,17 +856,17 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     if ( ! is.null(fields))
         ef$checkIsDefined(fields)
     if (is.null(fields))
-        fields <- .self$getEntryIdField()
+        fields <- self$getEntryIdField()
 
     # Set prefix
     if (is.null(prefix))
-        prefix <- paste0(.self$getId(), '.')
+        prefix <- paste0(self$getId(), '.')
 
     # Get proton mass
-    pm <- .self$.bdb$getConfig()$get('proton.mass')
+    pm <- private$bdb$getConfig()$get('proton.mass')
 
     # Loop on all masses
-    prg <- Progress$new(biodb=.self$.bdb, msg='Annotating M/Z values.',
+    prg <- Progress$new(biodb=private$bdb, msg='Annotating M/Z values.',
                         total=nrow(x))
     for (i in seq_len(nrow(x))) {
 
@@ -970,13 +880,13 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
         rng <- Range$new(value=m, tol=mz.tol, tolType=mz.tol.unit)
         fieldsFilter <- list()
         fieldsFilter[[mass.field]] <- rng$getTolExpr()
-        ids <- .self$searchForEntries(fieldsFilter, max.results=max.results)
+        ids <- self$searchForEntries(fieldsFilter, max.results=max.results)
 
         # Get entries
-        entries <- .self$getEntry(ids, drop=FALSE)
+        entries <- self$getEntry(ids, drop=FALSE)
 
         # Convert entries to data frame
-        df <- .self$.bdb$entriesToDataframe(entries, fields=fields,
+        df <- private$bdb$entriesToDataframe(entries, fields=fields,
             limit=fieldsLimit)
 
         # Add prefix
@@ -1014,50 +924,33 @@ annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
     return(ret)
 },
 
-.checkMassField=function(mass, mass.field) {
-
-    if ( ! is.null(mass)) {
-        chk::chk_number(mass)
-        chk::chk_string(mass.field)
-        ef <- .self$.bdb$getEntryFields()
-        mass.fields <- ef$getFieldNames(type='mass')
-        chk::chk_in(mass.field, mass.fields)
-    }
-},
-
+#' @description
+#' Tests if the connector's database is a mass spectra database.
+#' @return Returns TRUE if the database is a mass database.
 isMassdb=function() {
-    ":\n\nTests if the connector's database is a mass spectra database.
-    \nReturned value: Returns TRUE if the database is a mass database.
-    "
 
-    return(.self$getPropertyValue('mass.db'))
+    return(self$getPropertyValue('mass.db'))
 },
 
-.checkIsMassdb=function() {
-    if ( ! .self$isMassdb())
-        error0("The database associated to this connector ", .self$getId(),
-            " is not a mass spectra database.")
-},
-
+#' @description
+#' Checks that the database is correct by trying to retrieve all its
+#'     entries.
+#' @return None."
 checkDb=function() {
-    ":\n\nChecks that the database is correct by trying to retrieve all its
-    entries.
-    \nReturned values: None."
-
     # Get IDs
-    ids <- .self$getEntryIds()
+    ids <- self$getEntryIds()
 
     # Get entries
-    entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids)
+    entries <- private$bdb$getFactory()$getEntry(self$getId(), ids)
 },
 
+#' @description
+#' Get all entries stored in the memory cache (volatile cache).
+#' @return A list of BiodbEntry instances.
 getAllVolatileCacheEntries=function() {
-    ":\n\nGet all entries stored in the memory cache (volatile cache).
-    \nReturned value: A list of BiodbEntry instances.
-    "
 
     # Remove NULL entries
-    entries <- .self$.entries[ ! vapply(.self$.entries, is.null,
+    entries <- private$entries[ ! vapply(private$entries, is.null,
                                         FUN.VALUE=TRUE)]
 
     # Remove names
@@ -1066,102 +959,102 @@ getAllVolatileCacheEntries=function() {
     return(entries)
 },
 
-getAllCacheEntries=function() { # DEPRECATED
-    ":\n\nThis method is deprecated.
-    \nUse getAllVolatileCacheEntries() instead.
-    "
+#' @description
+#' This method is deprecated.
+#'     \nUse getAllVolatileCacheEntries() instead.
+getAllCacheEntries=function() {
     lifecycle::deprecate_soft('1.0.0', 'getAllCacheEntries()',
         "getAllVolatileCacheEntries()")
-    .self$getAllVolatileCacheEntries()
+    self$getAllVolatileCacheEntries()
 },
 
+#' @description
+#' Delete all entries from the volatile cache (memory cache).
+#' @return None.
 deleteAllEntriesFromVolatileCache=function() {
-    ":\n\nDelete all entries from the volatile cache (memory cache).
-    \nReturned value: None.
-    "
 
-    .self$.entries <- list()
+    private$entries <- list()
     
     return(invisible(NULL))
 },
 
+#' @description
+#' Delete all entries from the persistent cache (disk cache).
+#' @param deleteVolatile If TRUE deletes also all entries from the volatile cache
+#'     (memory cache).
+#' @return None.
 deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
-    ":\n\nDelete all entries from the persistent cache (disk cache).
-    \ndeleteVolatile: If TRUE deletes also all entries from the volatile cache
-    (memory cache).
-    \nReturned value: None.
-    "
 
     if (deleteVolatile)
-        .self$deleteAllEntriesFromVolatileCache()
-    fileExt <- .self$getPropertyValue('entry.content.type')
-    .self$.bdb$getPersistentCache()$deleteFiles(.self$getCacheId(),
+        self$deleteAllEntriesFromVolatileCache()
+    fileExt <- self$getPropertyValue('entry.content.type')
+    private$bdb$getPersistentCache()$deleteFiles(self$getCacheId(),
         ext=fileExt)
     
     return(invisible(NULL))
 },
 
+#' @description
+#' Delete all files associated with this connector from the persistent
+#' @param cache (disk cache).  \ndeleteVolatile If TRUE deletes also all entries
+#'     from the volatile cache (memory cache).
+#' @return None.
 deleteWholePersistentCache=function(deleteVolatile=TRUE) {
-    ":\n\nDelete all files associated with this connector from the persistent
-    cache (disk cache).  \ndeleteVolatile: If TRUE deletes also all entries
-    from the volatile cache (memory cache).
-    \nReturned value: None.
-    "
 
     if (deleteVolatile)
-        .self$deleteAllEntriesFromVolatileCache()
-    .self$.bdb$getPersistentCache()$deleteAllFiles(.self$getCacheId())
+        self$deleteAllEntriesFromVolatileCache()
+    private$bdb$getPersistentCache()$deleteAllFiles(self$getCacheId())
 },
 
-deleteAllCacheEntries=function() { # DEPRECATED
-    ":\n\nDelete all entries from the memory cache. This method is deprecated,
-    please use deleteAllEntriesFromVolatileCache() instead.
-    \nReturned value: None.
-    "
+#' @description
+#' Delete all entries from the memory cache. This method is deprecated,
+#'     please use deleteAllEntriesFromVolatileCache() instead.
+#' @return None.
+deleteAllCacheEntries=function() {
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
         "deleteAllEntriesFromVolatileCache()")
-    .self$deleteAllEntriesFromVolatileCache()
+    self$deleteAllEntriesFromVolatileCache()
 },
 
+#' @description
+#' Gets the ID used by this connector in the disk cache.
+#' @return The cache ID of this connector.
 getCacheId=function() {
-    ":\n\nGets the ID used by this connector in the disk cache.
-    \nReturned value: The cache ID of this connector.
-    "
 
     id <- NULL
 
-    if ( ! is.null(.self$.cache.id) && ! is.na(.self$.cache.id)) {
-        id <- .self$.cache.id
+    if ( ! is.null(private$cache.id) && ! is.na(private$cache.id)) {
+        id <- private$cache.id
 
     } else {
-        url <- .self$getPropValSlot('urls', 'base.url')
+        url <- self$getPropValSlot('urls', 'base.url')
         if ( ! is.null(url) && ! is.na(url))
-            id <- paste(.self$getDbClass(), openssl::md5(url), sep='-')
+            id <- paste(self$getDbClass(), openssl::md5(url), sep='-')
     }
 
     return(id)
 },
 
+#' @description
+#' Tests if some entry of this database makes reference to another entry
+#'     of another database.
+#' @param id A character vector of entry IDs from the connector's database.
+#' @param db Another database connector.
+#' @param oid A entry ID from database db.
+#' @param any If set to TRUE, returns a single logical value: TRUE if any entry
+#'     contains a reference to oid, FALSE otherwise.
+#' @param recurse If set to TRUE, the algorithm will follow all references to
+#'     entries from other databases, to see if it can establish an indirect link
+#'     to `oid`.
+#' @return A logical vector, the same size as `id`, with TRUE for
+#'     each entry making reference to `oid`, and FALSE otherwise.
 makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
-    ":\n\nTests if some entry of this database makes reference to another entry
-    of another database.
-    \nid: A character vector of entry IDs from the connector's database.
-    \ndb: Another database connector.
-    \noid: A entry ID from database db.
-    \nany: If set to TRUE, returns a single logical value: TRUE if any entry
-    contains a reference to oid, FALSE otherwise.
-    \nrecurse: If set to TRUE, the algorithm will follow all references to
-    entries from other databases, to see if it can establish an indirect link
-    to `oid`.
-    \nReturned value: A logical vector, the same size as `id`, with TRUE for
-    each entry making reference to `oid`, and FALSE otherwise.
-    "
 
     # Returns TRUE if any entry in id makes reference to oid
     if (any) {
         makes_ref <- FALSE
         for (i in id) {
-            e <- .self$getEntry(i)
+            e <- self$getEntry(i)
             if ( ! is.null(e)
                 && e$makesRefToEntry(db=db, oid=oid, recurse=recurse)) {
                 makes_ref <- TRUE
@@ -1172,7 +1065,7 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
 
     # Returns a vector, testing each entry in id individually
     else {
-        entries <- .self$getEntry(id, drop=FALSE)
+        entries <- self$getEntry(id, drop=FALSE)
         makes_ref <- vapply(entries,
             function(e) ! is.null(e) && e$makesRefToEntry(db=db, oid=oid,
             recurse=recurse), FUN.VALUE=TRUE)
@@ -1180,139 +1073,64 @@ makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
     return(makes_ref)
 },
 
+#' @description
+#' Makes a BiodbRequest instance using the passed parameters, and set
+#'     ifself as the associated connector.
+#' @param ... Those parameters are passed to the initializer of BiodbRequest.
+#' @return The BiodbRequest instance.
 makeRequest=function(...) {
-    ":\n\nMakes a BiodbRequest instance using the passed parameters, and set
-    ifself as the associated connector.
-    \n...: Those parameters are passed to the initializer of BiodbRequest.
-    \nReturned value: The BiodbRequest instance.
-    "
 
     req <- BiodbRequest$new(...)
 
-    req$setConn(.self)
+    req$setConn(self)
 
     return(req)
 },
 
+#' @description
+#' Gets the URL to a picture of the entry (e.g.: a picture of the
+#'     molecule in case of a compound entry).
+#' @param entry.id A character vector containing entry IDs.
+#' @return A character vector, the same length as `entry.id`,
+#'     containing for each entry ID either a URL or NA if no URL exists.
 getEntryImageUrl=function(entry.id) {
-    ":\n\nGets the URL to a picture of the entry (e.g.: a picture of the
-    molecule in case of a compound entry).
-    \nentry.id: A character vector containing entry IDs.
-    \nReturned value: A character vector, the same length as `entry.id`,
-    containing for each entry ID either a URL or NA if no URL exists.
-    "
 
-    .self$.checkIsRemote()
+    private$checkIsRemote()
     return(rep(NA_character_, length(entry.id)))
 },
 
+#' @description
+#' Gets the URL to the page of the entry on the database web site.
+#' @param entry.id A character vector with the IDs of entries to retrieve.
+#' @return A list of BiodbUrl objects, the same length as `entry.id`.
 getEntryPageUrl=function(entry.id) {
-    ":\n\nGets the URL to the page of the entry on the database web site.
-    \nentry.id: A character vector with the IDs of entries to retrieve.
-    \nReturned value: A list of BiodbUrl objects, the same length as `entry.id`.
-    "
 
-    .self$.checkIsRemote()
-    abstractMethod(.self)
+    private$checkIsRemote()
+    abstractMethod(self)
 },
 
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
-    .self$.checkIsRemote()
-    abstractMethod(.self)
-},
-
-.doGetEntryContentOneByOne=function(entry.id) {
-
-    .self$.checkIsRemote()
-
-    # Initialize return values
-    content <- rep(NA_character_, length(entry.id))
-
-    # Get requests
-    requests <- .self$getEntryContentRequest(entry.id, concatenate=FALSE)
-
-    # Get encoding
-    encoding <- .self$getPropertyValue('entry.content.encoding')
-
-    # If requests is a vector of characters, then the method is using the old
-    # scheme.
-    # We now convert the requests to the new scheme, using class BiodbRequest.
-    if (is.character(requests)) {
-        fct <- function(x) .self$makeRequest(method='get', url=BiodbUrl$new(x),
-            encoding=encoding)
-        requests <- lapply(requests, fct)
-    }
-
-    # Send requests
-    scheduler <- .self$.bdb$getRequestScheduler()
-    prg <- Progress$new(biodb=.self$.bdb,
-                        msg='Downloading entry contents',
-                        total=length(requests))
-    for (i in seq_along(requests)) {
-        prg$increment()
-        content[[i]] <- scheduler$sendRequest(requests[[i]])
-    }
-
-    return(content)
-},
-
-.doGetEntryIds=function(max.results=0) {
-    abstractMethod(.self)
-},
-
-.addEntriesToCache=function(ids, entries) {
-
-    ids <- as.character(ids)
-
-    names(entries) <- ids
-
-    # Update known entries
-    known.ids <- ids[ids %in% names(.self$.entries)] 
-    .self$.entries[known.ids] <- entries[ids %in% known.ids]
-
-    # Add new entries
-    new.ids <- ids[ ! ids %in% names(.self$.entries)]
-    .self$.entries <- c(.self$.entries, entries[ids %in% new.ids])
-},
-
-.getEntriesFromCache=function(ids) {
-
-    ids <- as.character(ids)
-
-    return(.self$.entries[ids])
-},
-
-.getEntryMissingFromCache=function(ids) {
-
-    ids <- as.character(ids)
-
-    missing.ids <- ids[ ! ids %in% names(.self$.entries)]
-
-    return(missing.ids)
-},
-
+#' @description
+#' Gets a list of chromatographic columns contained in this database.
+#' @param ids A character vector of entry identifiers (i.e.: accession numbers).
+#'     Used to restrict the set of entries on which to run the algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and
+#'     another one for the title 'title'.
 getChromCol=function(ids=NULL) {
-    ":\n\nGets a list of chromatographic columns contained in this database.
-    \nids: A character vector of entry identifiers (i.e.: accession numbers).
-    Used to restrict the set of entries on which to run the algorithm.
-    \nReturned value : A data.frame with two columns, one for the ID 'id' and
-    another one for the title 'title'.
-    "
 
-    .self$.checkIsMassdb()
-    abstractMethod(.self)
+    private$checkIsMassdb()
+    abstractMethod(self)
 },
 
+#' @description
+#' Gets the field to use for M/Z matching.
+#' @return The name of the field (one of peak.mztheo or peak.mzexp).
 getMatchingMzField=function() {
-    ":\n\nGets the field to use for M/Z matching.
-    \nReturned value: The name of the field (one of peak.mztheo or peak.mzexp).
-    "
     
-    .self$.checkIsMassdb()
+    private$checkIsMassdb()
     field <- NULL
 
     # Get value(s) defined in matching.fields property
-    fields <- .self$getPropValSlot('matching.fields', 'mz')
+    fields <- self$getPropValSlot('matching.fields', 'mz')
     
     # If it contains one value, return it
     if (length(fields) == 1)
@@ -1331,7 +1149,7 @@ getMatchingMzField=function() {
         # Get the parsing expressions and check which field is associated with
         # a parssing expression
         for (f in fields) {
-            pars.expr <- .self$getPropValSlot('parsing.expr', f)
+            pars.expr <- self$getPropValSlot('parsing.expr', f)
             if ( ! is.null(pars.expr) && ! is.na(pars.expr)) {
                 if (is.null(field))
                     field <- f
@@ -1347,9 +1165,9 @@ getMatchingMzField=function() {
         if (is.null(field) || multiple.match) {
             field.2 <- NULL
             multiple.match.2 <- FALSE
-            id <- .self$getEntryIds(max.results=1)
+            id <- self$getEntryIds(max.results=1)
             if (length(id) == 1) {
-                entry <- .self$getEntry(id)
+                entry <- self$getEntry(id)
                 for (f in fields)
                     if (entry$hasField(f)) {
                         if (is.null(field.2))
@@ -1375,7 +1193,7 @@ getMatchingMzField=function() {
         
         # Throw a warning telling which field was chosen for matching and tell
         # to use setMatchingMzField() to set another field if needed
-        .self$setMatchingMzField(field)
+        self$setMatchingMzField(field)
         if (multiple.match)
             warn0('Field "', field, '" has been automatically chosen',
                 ' among several possibilities (',
@@ -1387,79 +1205,77 @@ getMatchingMzField=function() {
     return(field)
 },
 
+#' @description
+#' Sets the field to use for M/Z matching.
+#' @param field The field to use for matching.
+#' @return None.
 setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
-    ":\n\nSets the field to use for M/Z matching.
-    \nfield: The field to use for matching.
-    \nReturned value: None.
-    "
     
-    .self$.checkIsMassdb()
+    private$checkIsMassdb()
     field <- match.arg(field)
     
-    .self$setPropValSlot('matching.fields', 'mz', field)
+    self$setPropValSlot('matching.fields', 'mz', field)
 },
 
-getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0)
-{
-    ":\n\nGets a list of M/Z values contained inside the database.
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos' to limit the output
-    to one mode.
-    \nmax.results: If set, it is used to limit the size of the output.
-    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
-    \nms.level: The MS level to which you want to restrict your search.
-    0 means that you want to search in all levels.
-    \nReturned value: A numeric vector containing M/Z values.
-    "
+#' @description
+#' Gets a list of M/Z values contained inside the database.
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos' to limit the output
+#'     to one mode.
+#' @param max.results If set, it is used to limit the size of the output.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @return A numeric vector containing M/Z values.
+getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
 
-    .self$.checkIsMassdb()
-    .self$.doGetMzValues(ms.mode=ms.mode, max.results=max.results,
+    private$checkIsMassdb()
+    private$doGetMzValues(ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level)
 },
 
+#' @description
+#' Gets the number of peaks contained in the database.
+#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the counting
+#'     to one mode.
+#' @param ids A character vector of entry identifiers (i.e.: accession numbers).
+#'     Used to restrict the set of entries on which to run the algorithm.
+#' @return The number of peaks, as an integer.
 getNbPeaks=function(mode=NULL, ids=NULL) {
-    ":\n\nGets the number of peaks contained in the database.
-    \nmode: The MS mode. Set it to either 'neg' or 'pos' to limit the counting
-    to one mode.
-    \nids: A character vector of entry identifiers (i.e.: accession numbers).
-    Used to restrict the set of entries on which to run the algorithm.
-    \nReturned value: The number of peaks, as an integer.
-    "
 
-    .self$.checkIsMassdb()
-    abstractMethod(.self)
+    private$checkIsMassdb()
+    abstractMethod(self)
 },
 
-filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
-    chrom.col.ids, match.rt) {
-    ":\n\nFilters a list of entries on retention time values.
-    \nentry.ids: A character vector of entry IDs.
-    \nrt: A vector of retention times to match. Used if input.df is not set.
-    Unit is specified by rt.unit parameter.
-    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
-    \nrt.tol: The plain tolerance (in seconds) for retention times:
-    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-    \nrt.tol.exp: A special exponent tolerance for retention times:
-    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
-    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-    input.rt ** rt.tol.exp.
-    \nchrom.col.ids: IDs of chromatographic columns on which to match the
-    retention time.
-    \nmatch.rt: If set to TRUE, filters on RT values, otherwise does not do any
-    filtering.
-    \nReturned value: A character vector containing entry IDs after filtering.
-    "
+#' @description
+#' Filters a list of entries on retention time values.
+#' @param entry.ids A character vector of entry IDs.
+#' @param rt A vector of retention times to match. Used if input.df is not set.
+#'     Unit is specified by rt.unit parameter.
+#' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
+#' @param rt.tol The plain tolerance (in seconds) for retention times:
+#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times:
+#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#'     input.rt ** rt.tol.exp.
+#' @param chrom.col.ids IDs of chromatographic columns on which to match the
+#'     retention time.
+#' @param match.rt If set to TRUE, filters on RT values, otherwise does not do any
+#'     filtering.
+#' @return A character vector containing entry IDs after filtering.
+filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, match.rt) {
 
-    .self$.checkIsMassdb()
-    .self$.checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
+    private$checkIsMassdb()
+    private$checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids, match.rt=match.rt)
 
     if (match.rt) {
 
         # Get entries
         logDebug('Getting entries from spectra IDs.')
-        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(),
+        entries <- private$bdb$getFactory()$getEntry(self$getId(),
             entry.ids, drop=FALSE)
 
         # Filter on chromatographic columns
@@ -1497,7 +1313,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
                 ', impossible to match retention times.')
 
         # Compute RT range for this input, in seconds
-        rt.range <- .self$.computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
+        rt.range <- private$computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
             rt.tol.exp=rt.tol.exp)
 
         # Loop on all entries
@@ -1505,7 +1321,7 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
         for (e in entries) {
 
             # Get RT min and max for this column, in seconds
-            col.rt.range <- .self$.computeChromColRtRange(e)
+            col.rt.range <- private$computeChromColRtRange(e)
 
             # Test and possibly keep entry
             logDebug0('Testing if RT value ', rt, ' (', rt.unit,
@@ -1528,51 +1344,48 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
     return(entry.ids)
 },
 
-searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-    mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'),
-    rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE,
-    min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
-    ":\n\nSearches for entries (i.e.: spectra) that contain a peak around the
-    given M/Z value. Entries can also be filtered on RT values. You can input
-    either a list of M/Z values through mz argument and set a tolerance with
-    mz.tol argument, or two lists of minimum and maximum M/Z values through
-    mz.min and mz.max arguments.
-    \nmz: A vector of M/Z values.
-    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
-    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
-    'plain'.
-    \nmz.min: A vector of minimum M/Z values.
-    \nmz.max: A vector of maximum M/Z values. Its length must be the same as
-    `mz.min`.
-    \nrt: A vector of retention times to match. Used if input.df is not set.
-    Unit is specified by rt.unit parameter.
-    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
-    \nrt.tol: The plain tolerance (in seconds) for retention times:
-    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-    \nrt.tol.exp: A special exponent tolerance for retention times:
-    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
-    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-    input.rt ** rt.tol.exp.
-    \nchrom.col.ids: IDs of chromatographic columns on which to match the
-    retention time.
-    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
-    \nmin.rel.int: The minimum relative intensity, in percentage (i.e.: float
-    number between 0 and 100).
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
-    \nms.level: The MS level to which you want to restrict your search.
-    0 means that you want to search in all levels.
-    \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value.
-    \nReturned value: A character vector of spectra IDs.
-    "
+#' @description
+#' Searches for entries (i.e.: spectra) that contain a peak around the
+#'     given M/Z value. Entries can also be filtered on RT values. You can input
+#'     either a list of M/Z values through mz argument and set a tolerance with
+#'     mz.tol argument, or two lists of minimum and maximum M/Z values through
+#'     mz.min and mz.max arguments.
+#' @param mz A vector of M/Z values.
+#' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param mz.min A vector of minimum M/Z values.
+#' @param mz.max A vector of maximum M/Z values. Its length must be the same as
+#'     `mz.min`.
+#' @param rt A vector of retention times to match. Used if input.df is not set.
+#'     Unit is specified by rt.unit parameter.
+#' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
+#' @param rt.tol The plain tolerance (in seconds) for retention times:
+#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times:
+#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#'     input.rt ** rt.tol.exp.
+#' @param chrom.col.ids IDs of chromatographic columns on which to match the
+#'     retention time.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
+#'     number between 0 and 100).
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @return A character vector of spectra IDs.
+searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
 
-    .self$.checkIsMassdb()
+    private$checkIsMassdb()
     # Check arguments
     rt.unit <- match.arg(rt.unit)
     mz.tol.unit <- match.arg(mz.tol.unit)
-    check.param <- .self$.checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
+    check.param <- private$checkSearchMsParam(mz.min=mz.min, mz.max=mz.max,
         mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt,
         rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
         chrom.col.ids=chrom.col.ids, min.rel.int=min.rel.int, ms.mode=ms.mode,
@@ -1591,18 +1404,18 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
 
                 # Search for this M/Z value
                 if (check.param$use.mz.min.max)
-                    mz.ids <- .self$.doSearchMzRange(mz.min=mz.min[[i]],
+                    mz.ids <- private$doSearchMzRange(mz.min=mz.min[[i]],
                         mz.max=mz.max[[i]], min.rel.int=min.rel.int,
                         ms.mode=ms.mode, max.results=0,
                         precursor=precursor, ms.level=ms.level)
                 else
-                    mz.ids <- .self$.doSearchMzTol(mz=mz[[i]], mz.tol=mz.tol,
+                    mz.ids <- private$doSearchMzTol(mz=mz[[i]], mz.tol=mz.tol,
                         mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int,
                         ms.mode=ms.mode, max.results=0,
                         precursor=precursor, ms.level=ms.level)
 
                 # Filter on RT value
-                rt.ids <- .self$filterEntriesOnRt(mz.ids, rt=rt[[i]],
+                rt.ids <- self$filterEntriesOnRt(mz.ids, rt=rt[[i]],
                     rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
                     chrom.col.ids=chrom.col.ids,
                     match.rt=check.param$use.rt.match)
@@ -1614,12 +1427,12 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
         else {
             # Search for all M/Z values
             if (check.param$use.mz.min.max)
-                ids <- .self$.doSearchMzRange(mz.min=mz.min, mz.max=mz.max,
+                ids <- private$doSearchMzRange(mz.min=mz.min, mz.max=mz.max,
                     min.rel.int=min.rel.int, ms.mode=ms.mode,
                     max.results=max.results, precursor=precursor,
                     ms.level=ms.level)
             else
-                ids <- .self$.doSearchMzTol(mz=mz, mz.tol=mz.tol,
+                ids <- private$doSearchMzTol(mz=mz, mz.tol=mz.tol,
                     mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int,
                     ms.mode=ms.mode, max.results=max.results,
                     precursor=precursor, ms.level=ms.level)
@@ -1636,82 +1449,73 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL,
     return(ids)
 },
 
-searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL,
-    mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'),
-    rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE,
-    min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) { # DEPRECATED
-    ":\n\nThis method is deprecated.
-    \nUse searchForMassSpectra() instead.
-    "
+#' @description
+#' This method is deprecated.
+#'     \nUse searchForMassSpectra() instead.
+searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMsEntries()',
         "searchForMassSpectra()")
-    return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
+    return(self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
         mz.tol=mz.tol, mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit,
         rt.tol= rt.tol, rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
         precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
         ms.level=ms.level, max.results=max.results))
 },
 
-searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
-    mz.tol.unit=c('plain', 'ppm'), min.rel.int=0, ms.mode=NULL,
-    ms.level=0, max.results=0, chrom.col.ids=NULL, rt=NULL,
-    rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL,
-    precursor=FALSE, precursor.rt.tol=NULL, insert.input.values=TRUE,
-    prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0,
-    input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
-    ":\n\nFor each M/Z value, searches for matching MS spectra and returns the
-    matching peaks.
-    \ninput.df: A data frame taken as input for searchMsPeaks(). It must
-    contain a columns 'mz', and optionaly an 'rt' column.
-    \nmz: A vector of M/Z values to match. Used if input.df is not set.
-    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
-    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
-    'plain'.
-    \nmin.rel.int: The minimum relative intensity, in percentage (i.e.: float
-    number between 0 and 100).
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
-    \nms.level: The MS level to which you want to restrict your search.
-    0 means that you want to search in all levels.
-    \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value.
-    \nchrom.col.ids: IDs of chromatographic columns on which to match the
-    retention time.
-    \nrt: A vector of retention times to match. Used if input.df is not set.
-    Unit is specified by rt.unit parameter.
-    \nrt.unit: The unit for submitted retention times. Either 's' or 'min'.
-    \nrt.tol: The plain tolerance (in seconds) for retention times:
-    input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-    \nrt.tol.exp: A special exponent tolerance for retention times:
-    input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-    rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-    rt.tol and rt.tol.exp are set, the inequality expression becomes: input.rt -
-    rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-    input.rt ** rt.tol.exp.
-    \nprecursor: If set to TRUE, then restrict the search to precursor peaks.
-    \nprecursor.rt.tol: The RT tolerance used when matching the precursor.
-    \ninsert.input.values: Insert input values at the beginning of the
-    result data frame.
-    \nprefix: Add prefix on column names of result data frame.
-    \ncompute: If set to TRUE, use the computed values when converting found
-    entries to data frame.
-    \nfields: A character vector of field names to output. The data frame output
-    will be restricted to this list of fields.
-    \nfieldsLimit: The maximum of values to output for fields with multiple
-    values. Set it to 0 to get all values.
-    \ninput.df.colnames: Names of the columns in the input data frame.
-    \nmatch.rt: If set to TRUE, match also RT values.
-    \nReturned value: A data frame with at least input MZ and RT columns, and
-    annotation columns prefixed with `prefix` if set. For each
-    matching found a row is output. Thus if n matchings are found for M/Z value
-    x, then there will be n rows for x, each for a different match. The number
-    of matching found for each M/Z value is limited to `max.results`.
-    "
+#' @description
+#' For each M/Z value, searches for matching MS spectra and returns the
+#'     matching peaks.
+#' @param input.df A data frame taken as input for searchMsPeaks(). It must
+#'     contain a columns 'mz', and optionaly an 'rt' column.
+#' @param mz A vector of M/Z values to match. Used if input.df is not set.
+#' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
+#'     number between 0 and 100).
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @param chrom.col.ids IDs of chromatographic columns on which to match the
+#'     retention time.
+#' @param rt A vector of retention times to match. Used if input.df is not set.
+#'     Unit is specified by rt.unit parameter.
+#' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
+#' @param rt.tol The plain tolerance (in seconds) for retention times:
+#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times:
+#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#'     input.rt ** rt.tol.exp.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @param precursor.rt.tol The RT tolerance used when matching the precursor.
+#' @param insert.input.values Insert input values at the beginning of the
+#'     result data frame.
+#' @param prefix Add prefix on column names of result data frame.
+#' @param compute If set to TRUE, use the computed values when converting found
+#'     entries to data frame.
+#' @param fields A character vector of field names to output. The data frame output
+#'     will be restricted to this list of fields.
+#' @param fieldsLimit The maximum of values to output for fields with multiple
+#'     values. Set it to 0 to get all values.
+#' @param input.df.colnames Names of the columns in the input data frame.
+#' @param match.rt If set to TRUE, match also RT values.
+#' @return A data frame with at least input MZ and RT columns, and
+#'     annotation columns prefixed with `prefix` if set. For each
+#'     matching found a row is output. Thus if n matchings are found for M/Z value
+#'     x, then there will be n rows for x, each for a different match. The number
+#'     of matching found for each M/Z value is limited to `max.results`.
+searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), min.rel.int=0, ms.mode=NULL, ms.level=0, max.results=0, chrom.col.ids=NULL, rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, precursor=FALSE, precursor.rt.tol=NULL, insert.input.values=TRUE, prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
 
-    .self$.checkIsMassdb()
+    private$checkIsMassdb()
     # Check arguments
     rt.unit <- match.arg(rt.unit)
     mz.tol.unit <- match.arg(mz.tol.unit)
-    check.param <- .self$.checkSearchMsParam(input.df=input.df, mz.min=NULL,
+    check.param <- private$checkSearchMsParam(input.df=input.df, mz.min=NULL,
         mz.max=NULL, mz=mz, mz.tol=mz.tol,
         mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
@@ -1728,7 +1532,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
     # Step 1 matching of entries with matched precursor
     precursor.match.ids <- NULL
     if (precursor) {
-        precursor.match.ids <- .self$searchForMassSpectra(mz.min=NULL,
+        precursor.match.ids <- self$searchForMassSpectra(mz.min=NULL,
             mz.max=NULL, mz=input.df[[input.df.colnames[['mz']]]],
             mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
             rt=input.df[[input.df.colnames[['rt']]]], rt.unit=rt.unit,
@@ -1756,7 +1560,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Search for spectra
         logDebug('Searching for spectra that contains M/Z value in ranges %s',
             paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
-        ids <- .self$searchForMassSpectra(mz.min=rng$a,
+        ids <- self$searchForMassSpectra(mz.min=rng$a,
             mz.max=rng$b, min.rel.int=min.rel.int, ms.mode=ms.mode,
             max.results=if (check.param$use.rt.match) 0 else max.results,
             ms.level=ms.level)
@@ -1774,14 +1578,14 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
         # Filter on RT value
         if  (check.param$use.rt.match) {
             rt <- input.df[i, input.df.colnames[['rt']]]
-            ids <- .self$filterEntriesOnRt(ids, rt=rt, rt.unit=rt.unit,
+            ids <- self$filterEntriesOnRt(ids, rt=rt, rt.unit=rt.unit,
                 rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
                 chrom.col.ids=chrom.col.ids, match.rt=check.param$use.rt.match)
         }
 
         # Get entries
         logDebug('Getting entries from spectra IDs.')
-        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids,
+        entries <- private$bdb$getFactory()$getEntry(self$getId(), ids,
             drop=FALSE)
 
         # Cut
@@ -1803,7 +1607,7 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
 
         # Convert to data frame
         logDebug('Converting list of entries to data frame.')
-        df <- .self$.bdb$entriesToDataframe(entries,
+        df <- private$bdb$entriesToDataframe(entries,
             only.atomic=FALSE, compute=compute, flatten=FALSE,
             limit=fieldsLimit)
         logTrace('Entries obtained %s', df2str(df))
@@ -1856,34 +1660,31 @@ searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
     return(results)
 },
 
-msmsSearch=function(spectrum, precursor.mz, mz.tol,
-    mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2,
-    dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3,
-    msms.mz.tol.min=0.005, max.results=0) {
-    ":\n\nSearches MSMS spectra matching a template spectrum. The mz.tol
-    parameter is applied on the precursor search.
-    \nspectrum: A template spectrum to match inside the database.
-    \nprecursor.mz: The M/Z value of the precursor peak of the mass spectrum.
-    \nmz.tol: The M/Z tolerance, whose unit is defined by mz.tol.unit.
-    \nmz.tol.unit: The type of the M/Z tolerance. Set it to either to 'ppm' or
-    'plain'.
-    \nms.mode: The MS mode. Set it to either 'neg' or 'pos'.
-    \nnpmin: The minimum number of peak to detect a match (2 is recommended).
-    \ndist.fun: The distance function used to compute the distance betweem two
-    mass spectra.
-    \nmsms.mz.tol: M/Z tolerance to apply while matching MSMS spectra.  In PPM.
-    \nmsms.mz.tol.min: Minimum of the M/Z tolerance (plain unit). If the M/Z
-    tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
-    `msms.mz.tol.min` will be used.
-    \nmax.results: If set, it is used to limit the number of matches found for
-    each M/Z value.
-    \nReturned value: A data frame with columns `id`, `score` and `peak.*`. Each
-    `peak.*` column corresponds to a peak in the input spectrum, in the same
-    order and gives the number of the peak that was matched with it inside the
-    matched spectrum whose ID is inside the `id` column.
-    "
+#' @description
+#' Searches MSMS spectra matching a template spectrum. The mz.tol
+#'     parameter is applied on the precursor search.
+#' @param spectrum A template spectrum to match inside the database.
+#' @param precursor.mz The M/Z value of the precursor peak of the mass spectrum.
+#' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param npmin The minimum number of peak to detect a match (2 is recommended).
+#' @param dist.fun The distance function used to compute the distance betweem two
+#'     mass spectra.
+#' @param msms.mz.tol M/Z tolerance to apply while matching MSMS spectra.  In PPM.
+#' @param msms.mz.tol.min Minimum of the M/Z tolerance (plain unit). If the M/Z
+#'     tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
+#'     `msms.mz.tol.min` will be used.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @return A data frame with columns `id`, `score` and `peak.*`. Each
+#'     `peak.*` column corresponds to a peak in the input spectrum, in the same
+#'     order and gives the number of the peak that was matched with it inside the
+#'     matched spectrum whose ID is inside the `id` column.
+msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2, dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3, msms.mz.tol.min=0.005, max.results=0) {
 
-    .self$.checkIsMassdb()
+    private$checkIsMassdb()
     peak.tables <- list()
     dist.fun <- match.arg(dist.fun)
     mz.tol.unit <- match.arg(mz.tol.unit)
@@ -1897,14 +1698,14 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
             warn0('Applying max.results =', max.results,'on call to',
                 ' searchForMassSpectra(). This may results in no matches,',
                 ' while there exist matching spectra inside the database.')
-        ids <- .self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
+        ids <- self$searchForMassSpectra(mz=precursor.mz, mz.tol=mz.tol,
             mz.tol.unit=mz.tol.unit, ms.mode=ms.mode, precursor=TRUE,
             ms.level=2, max.results=max.results)
     }
 
     # Get list of peak tables from spectra
     if (length(ids) > 0) {
-        entries <- .self$.bdb$getFactory()$getEntry(.self$getId(), ids,
+        entries <- private$bdb$getFactory()$getEntry(self$getId(), ids,
             drop=FALSE)
         fct <- function(x) {
             x$getFieldsAsDataframe(only.atomic=FALSE, flatten=FALSE,
@@ -1928,71 +1729,244 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol,
     return(res)
 },
 
-collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
-    sep='|') {
-    ":\n\nCollapse rows of a results data frame, by outputing a data frame with
-    only one row for each MZ/RT value.
-    \nresults.df: Results data frame.
-    \n mz.col: The name of the M/Z column in the results data frame.
-    \n rt.col: The name of the RT column in the results data frame.
-    \n sep: The separator used to concatenate values, when collapsing results
-    data frame.
-    \nReturned value: A data frame with rows collapsed."
-
-    .self$.checkIsMassdb()
+#' @description
+#' Collapse rows of a results data frame, by outputing a data frame with
+#'     only one row for each MZ/RT value.
+#' @param results.df Results data frame.
+#' @param  mz.col The name of the M/Z column in the results data frame.
+#' @param  rt.col The name of the RT column in the results data frame.
+#' @param  sep The separator used to concatenate values, when collapsing results
+#'     data frame.
+#' @return A data frame with rows collapsed."
+collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt', sep='|') {
+    private$checkIsMassdb()
     cols <- mz.col
     if (rt.col %in% colnames(results.df))
         cols <- c(cols, rt.col)
-    x <- .self$.bdb$collapseRows(results.df, cols=cols)
+    x <- private$bdb$collapseRows(results.df, cols=cols)
     
     return(x)
 },
 
-searchMzRange=function(mz.min, mz.max, min.rel.int=0,
-    ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
-    "Find spectra in the given M/Z range. Returns a list of spectra IDs."
-
+#' @description
+#' Find spectra in the given M/Z range. Returns a list of spectra IDs.
+searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMzRange()',
         'searchForMassSpectra()')
 
-    return(.self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max,
+    return(self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
 
-searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
-    ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
-    "Find spectra containg a peak around the given M/Z value. Returns a
-    character vector of spectra IDs."
-
+#' @description
+#' Find spectra containg a peak around the given M/Z value. Returns a
+#'     character vector of spectra IDs."
+searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0, ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMzTol()',
         'searchForMassSpectra()')
     
-    return(.self$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
+    return(self$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
         mz.tol.unit=mz.tol.unit, min.rel.int=min.rel.int, ms.mode=ms.mode,
         max.results=max.results, precursor=precursor, ms.level=ms.level))
+}
+),
+
+private=list(
+    id=NULL,
+    entries=NULL,
+    cache.id=NULL,
+    editing.allowed=NULL,
+    writing.allowed=NULL,
+    bdb=NULL
+,
+checkIsEditable=function() {
+    if ( ! self$isEditable())
+        error0("The database associated to this connector ", self$getId(),
+            " is not editable.")
 },
 
-.doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
-    max.results, precursor, ms.level) {
+initEditable=function() {
+    if (length(private$editing.allowed) == 0)
+        self$setEditingAllowed(FALSE)
+},
+
+checkEditingIsAllowed=function() {
+
+    private$initEditable()
+
+    if ( ! private$editing.allowed)
+        error0('Editing is not enabled for this database. However this',
+            ' database type is editable. Please call allowEditing()',
+            ' method to enable editing.')
+},
+
+checkIsWritable=function() {
+    if ( ! self$isWritable())
+        error0("The database associated to this connector ", self$getId(),
+            " is not writable.")
+},
+
+checkWritingIsAllowed=function() {
+    
+    private$initWritable()
+    
+    if ( ! private$writing.allowed)
+        error0('Writing is not enabled for this database. However this',
+            ' database type is writable. Please call allowWriting()',
+            ' method to enable writing.')
+},
+
+doWrite=function() {
+    abstractMethod(self)
+},
+
+initWritable=function() {
+    if (length(private$writing.allowed) == 0)
+        self$setWritingAllowed(FALSE)
+},
+
+doSearchForEntries=function(fields=NULL, max.results=0) {
+    # To be implemented by derived class.
+    return(NULL)
+},
+
+checkIsDownloadable=function() {
+    if ( ! self$isDownloadable())
+        error0("The database associated to this connector ", self$getId(),
+            " is not downloadable.")
+},
+
+doDownload=function() {
+    abstractMethod(self)
+},
+
+doExtractDownload=function() {
+    abstractMethod(self)
+},
+
+checkIsRemote=function() {
+    if ( ! self$isRemotedb())
+        error0("The database associated to this connector ", self$getId(),
+            " is not a remote database.")
+},
+
+checkIsCompounddb=function() {
+    if ( ! self$isCompounddb())
+        error0("The database associated to this connector ", self$getId(),
+            " is not a compound database.")
+},
+
+checkMassField=function(mass, mass.field) {
+
+    if ( ! is.null(mass)) {
+        chk::chk_number(mass)
+        chk::chk_string(mass.field)
+        ef <- private$bdb$getEntryFields()
+        mass.fields <- ef$getFieldNames(type='mass')
+        chk::chk_in(mass.field, mass.fields)
+    }
+},
+
+checkIsMassdb=function() {
+    if ( ! self$isMassdb())
+        error0("The database associated to this connector ", self$getId(),
+            " is not a mass spectra database.")
+},
+
+doGetEntryContentRequest=function(id, concatenate=TRUE) {
+    private$checkIsRemote()
+    abstractMethod(self)
+},
+
+doGetEntryContentOneByOne=function(entry.id) {
+
+    private$checkIsRemote()
+
+    # Initialize return values
+    content <- rep(NA_character_, length(entry.id))
+
+    # Get requests
+    requests <- self$getEntryContentRequest(entry.id, concatenate=FALSE)
+
+    # Get encoding
+    encoding <- self$getPropertyValue('entry.content.encoding')
+
+    # If requests is a vector of characters, then the method is using the old
+    # scheme.
+    # We now convert the requests to the new scheme, using class BiodbRequest.
+    if (is.character(requests)) {
+        fct <- function(x) self$makeRequest(method='get', url=BiodbUrl$new(x),
+            encoding=encoding)
+        requests <- lapply(requests, fct)
+    }
+
+    # Send requests
+    scheduler <- private$bdb$getRequestScheduler()
+    prg <- Progress$new(biodb=private$bdb,
+                        msg='Downloading entry contents',
+                        total=length(requests))
+    for (i in seq_along(requests)) {
+        prg$increment()
+        content[[i]] <- scheduler$sendRequest(requests[[i]])
+    }
+
+    return(content)
+},
+
+doGetEntryIds=function(max.results=0) {
+    abstractMethod(self)
+},
+
+addEntriesToCache=function(ids, entries) {
+
+    ids <- as.character(ids)
+
+    names(entries) <- ids
+
+    # Update known entries
+    known.ids <- ids[ids %in% names(private$entries)] 
+    private$entries[known.ids] <- entries[ids %in% known.ids]
+
+    # Add new entries
+    new.ids <- ids[ ! ids %in% names(private$entries)]
+    private$entries <- c(private$entries, entries[ids %in% new.ids])
+},
+
+getEntriesFromCache=function(ids) {
+
+    ids <- as.character(ids)
+
+    return(private$entries[ids])
+},
+
+getEntryMissingFromCache=function(ids) {
+
+    ids <- as.character(ids)
+
+    missing.ids <- ids[ ! ids %in% names(private$entries)]
+
+    return(missing.ids)
+},
+
+doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
 
     rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
-    return(.self$searchForMassSpectra(mz.min=rng$a, mz.max=rng$b,
+    return(self$searchForMassSpectra(mz.min=rng$a, mz.max=rng$b,
         min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
         precursor=precursor, ms.level=ms.level))
 },
 
-.doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
-    precursor, ms.level) {
-    abstractMethod(.self)
+doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+    abstractMethod(self)
 },
 
-.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    abstractMethod(.self)
+doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    abstractMethod(self)
 },
 
-.convertRt=function(rt, units, wanted.unit) {
+convertRt=function(rt, units, wanted.unit) {
 
     # RT values with wrong unit
     rt.wrong <- units != wanted.unit
@@ -2016,7 +1990,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(rt)
 },
 
-.checkMzMinMaxParam=function(mz.min, mz.max) {
+checkMzMinMaxParam=function(mz.min, mz.max) {
 
     use.min.max <- ! is.null(mz.min) && ! is.null(mz.max)
 
@@ -2032,7 +2006,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(use.min.max)
 },
 
-.checkMzTolParam=function(mz, mz.tol, mz.tol.unit=c('ppm', 'plain')) {
+checkMzTolParam=function(mz, mz.tol, mz.tol.unit=c('ppm', 'plain')) {
 
     use.tol <- ! is.null(mz)
 
@@ -2047,11 +2021,11 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(use.tol)
 },
 
-.checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
+checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
 
-    use.tol <- .self$.checkMzTolParam(mz=mz, mz.tol=mz.tol,
+    use.tol <- private$checkMzTolParam(mz=mz, mz.tol=mz.tol,
         mz.tol.unit=mz.tol.unit)
-    use.min.max <- .self$.checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
+    use.min.max <- private$checkMzMinMaxParam(mz.min=mz.min, mz.max=mz.max)
 
     if (use.tol && use.min.max)
         error0("You cannot set both mz and (mz.min, mz.max). Please",
@@ -2060,8 +2034,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(list(use.tol=use.tol, use.min.max=use.min.max))
 },
 
-.checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp,
-    chrom.col.ids, match.rt) {
+checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp, chrom.col.ids, match.rt) {
 
     if (match.rt) {
         chk::chk_numeric(rt)
@@ -2076,10 +2049,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     }
 },
 
-.checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz',
-    rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz,
-    mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
-    min.rel.int, ms.mode, max.results, ms.level, match.rt) {
+checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz', rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level, match.rt) {
 
     match.rt <- match.rt || ! is.null(rt)
 
@@ -2101,9 +2071,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         }
     }
 
-    mz.match <- .self$.checkMzParam(mz.min=mz.min, mz.max=mz.max, mz=mz,
+    mz.match <- private$checkMzParam(mz.min=mz.min, mz.max=mz.max, mz=mz,
         mz.tol=mz.tol, mz.tol.unit=mz.tol.unit)
-    .self$.checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
+    private$checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
         rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids, match.rt=match.rt)
     if ( ! mz.match$use.tol && ! mz.match$use.min.max)
         return(NULL)
@@ -2135,7 +2105,7 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     chk::chk_null_or(min.rel.int, chk::chk_number)
     if ( ! is.null(min.rel.int))
         chk::chk_gte(min.rel.int, 0)
-    ef <- .self$.bdb$getEntryFields()
+    ef <- private$bdb$getEntryFields()
     if ( ! is.null(ms.mode)) {
         chk::chk_in(ms.mode, ef$get('ms.mode')$getAllowedValues())
         ms.mode <- ef$get('ms.mode')$correctValue(ms.mode)
@@ -2150,19 +2120,19 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
         input.df=input.df))
 },
 
-.computeChromColRtRange=function(entry) {
+computeChromColRtRange=function(entry) {
 
     rt.col.unit <- entry$getFieldValue('chrom.rt.unit')
 
     if (entry$hasField('chrom.rt')) {
-        rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt'),
+        rt.col.min <- private$convertRt(entry$getFieldValue('chrom.rt'),
             rt.col.unit, 's')
         rt.col.max <- rt.col.min
     } else if (entry$hasField('chrom.rt.min')
         && entry$hasField('chrom.rt.max')) {
-        rt.col.min <- .self$.convertRt(entry$getFieldValue('chrom.rt.min'),
+        rt.col.min <- private$convertRt(entry$getFieldValue('chrom.rt.min'),
             rt.col.unit, 's')
-        rt.col.max <- .self$.convertRt(entry$getFieldValue('chrom.rt.max'),
+        rt.col.max <- private$convertRt(entry$getFieldValue('chrom.rt.max'),
             rt.col.unit, 's')
     } else
         error0('Impossible to match on retention time, no retention time',
@@ -2171,9 +2141,9 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(list(min=rt.col.min, max=rt.col.max))
 },
 
-.computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
+computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
 
-    rt.sec <- .self$.convertRt(rt, rt.unit, 's')
+    rt.sec <- private$convertRt(rt, rt.unit, 's')
     rt.min <- rt.sec
     rt.max <- rt.sec
     logDebug('At step 1, RT range is [%g, %g] (s).', rt.min, rt.max)
@@ -2193,14 +2163,13 @@ searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     return(list(min=rt.min, max=rt.max))
 },
 
-.terminate=function() {
+terminate=function() {
 
     # Unregister from the request scheduler
-    if (.self$isRemotedb()) {
+    if (self$isRemotedb()) {
         logDebug("Unregister connector %s from the request scheduler",
-            .self$getId())
-        .self$.bdb$getRequestScheduler()$unregisterConnector(.self)
+            self$getId())
+        private$bdb$getRequestScheduler()$unregisterConnector(self)
     }
 }
-
 ))
