@@ -12,19 +12,14 @@
 #' # Terminate the BiodbMain instance
 #' biodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @export BiodbTestMsgAck
-#' @exportClass BiodbTestMsgAck
-BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',
-    fields = list(
-        .last.index = 'numeric'
-        ),
+BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
 
-    methods=list(
+public=list(
 
 initialize=function() {
-
-    .self$.last.index <- 0
+    private$last.index <- 0
 },
 
 notifyProgress=function(what, index, total) {
@@ -37,6 +32,10 @@ notifyProgress=function(what, index, total) {
     testthat::expect_lte(index, total)
     return(invisible(NULL))
 }
+),
+
+private=list(
+    last.index=NULL
 ))
 
 #' Set a test context.
