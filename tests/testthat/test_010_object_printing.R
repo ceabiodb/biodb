@@ -1,5 +1,5 @@
-test.BiodbCache.show <- function(biodb) {
-    expect_output(biodb$getPersistentCache()$show(),
+test.BiodbCache.print <- function(biodb) {
+    expect_output(biodb$getPersistentCache()$print(),
                   regexp='^Biodb persistent cache .* instance\\..*$')
 }
 
@@ -67,7 +67,7 @@ biodb::testContext("Test object printing.")
 
 # Run tests
 biodb::testThat("BiodbMain print method returns correct information.", test.BiodbMain.print, biodb = biodb)
-biodb::testThat("BiodbCache print method returns correct information.", test.BiodbCache.show, biodb = biodb)
+biodb::testThat("BiodbCache print method returns correct information.", test.BiodbCache.print, biodb = biodb)
 biodb::testThat("BiodbConfig print method returns correct information.", test.BiodbConfig.print, biodb = biodb)
 biodb::testThat("BiodbFactory print method returns correct information.", test.BiodbFactory.print, biodb = biodb)
 biodb::testThat("BiodbEntry print method returns correct information.", test.BiodbEntry.show, biodb = biodb)
