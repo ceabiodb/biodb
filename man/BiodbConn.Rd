@@ -167,10 +167,30 @@ Super class \code{\link{BiodbConnBase}}, and
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector objects must not be created directly.
+Instead, you create new connector instances through the BiodbFactory
+instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$new(id = NA_character_, cache.id = NA_character_, bdb, ...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The ID of the connector instance.}
+
+\item{\code{cache.id}}{The Cache ID of the connector instance.}
+
+\item{\code{bdb}}{The BiodbMain instance.}
+
+\item{\code{...}}{Remaining arguments will be passed to the constructor of the
+super class.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getBiodb"></a>}}
@@ -644,9 +664,8 @@ name.  Returns a character vector of entry IDs.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fields}}{A list of fields on which to filter entries. To get a match, all}
-
-\item{\code{fields}}{must be matched (i.e. logical AND). The keys of the list are the
+\item{\code{fields}}{A list of fields on which to filter entries. To get a match, all
+fields must be matched (i.e. logical AND). The keys of the list are the
 entry field names on which to filter, and the values are the filtering
 parameters. For character fields, the filter parameter is a character
 vector in which all strings must be found inside the field's value. For
@@ -668,12 +687,25 @@ requested name.
 \if{html}{\out{<a id="method-searchByName"></a>}}
 \if{latex}{\out{\hypertarget{method-searchByName}{}}}
 \subsection{Method \code{searchByName()}}{
-This method is deprecated.
-\nUse searchForEntries() instead.
+DEPRECATED. Use searchForEntries() instead.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchByName(name, max.results = 0)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{A character value to search inside name fields.}
+
+\item{\code{max.results}}{If set, the number of returned IDs is limited to this
+number.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector of entry IDs whose name matches the
+requested name.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isDownloadable"></a>}}
@@ -705,10 +737,14 @@ TRUE if the database content has already been downloaded.
 \if{html}{\out{<a id="method-requiresDownload"></a>}}
 \if{latex}{\out{\hypertarget{method-requiresDownload}{}}}
 \subsection{Method \code{requiresDownload()}}{
+Tests if the connector requires the download of the database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$requiresDownload()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+TRUE if the connector requires download of the database.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getDownloadPath"></a>}}
@@ -980,6 +1016,7 @@ None.
 \if{latex}{\out{\hypertarget{method-deleteWholePersistentCache}{}}}
 \subsection{Method \code{deleteWholePersistentCache()}}{
 Delete all files associated with this connector from the persistent
+cache (disk cache).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$deleteWholePersistentCache(deleteVolatile = TRUE)}\if{html}{\out{</div>}}
 }
@@ -987,7 +1024,7 @@ Delete all files associated with this connector from the persistent
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cache}}{(disk cache).  \ndeleteVolatile If TRUE deletes also all entries
+\item{\code{deleteVolatile}}{If TRUE deletes also all entries
 from the volatile cache (memory cache).}
 }
 \if{html}{\out{</div>}}
@@ -1261,13 +1298,12 @@ Unit is specified by rt.unit parameter.}
 \item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
 input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
 
-\item{\code{rt.tol}}{and rt.tol.exp are set, the inequality expression becomes input.rt -
-rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
-
 \item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
 input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-rt.tol.exp. This exponent is applied on the RT value in seconds. If both}
+rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+input.rt ** rt.tol.exp.}
 
 \item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
 retention time.}
@@ -1285,13 +1321,94 @@ A character vector containing entry IDs after filtering.
 \if{html}{\out{<a id="method-searchForMassSpectra"></a>}}
 \if{latex}{\out{\hypertarget{method-searchForMassSpectra}{}}}
 \subsection{Method \code{searchForMassSpectra()}}{
-Searches for entries (i.e.: spectra) that contain a peak around the
-given M/Z value. Entries can also be filtered on RT values. You can input
-either a list of M/Z values through mz argument and set a tolerance with
-mz.tol argument, or two lists of minimum and maximum M/Z values through
-mz.min and mz.max arguments.
+Searches for entries (i.e.: spectra) that contain a peak around the given
+M/Z value. Entries can also be filtered on RT values. You can input either a
+list of M/Z values through mz argument and set a tolerance with mz.tol
+argument, or two lists of minimum and maximum M/Z values through mz.min and
+mz.max arguments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchForMassSpectra(
+  mz.min = NULL,
+  mz.max = NULL,
+  mz = NULL,
+  mz.tol = NULL,
+  mz.tol.unit = c("plain", "ppm"),
+  rt = NULL,
+  rt.unit = c("s", "min"),
+  rt.tol = NULL,
+  rt.tol.exp = NULL,
+  chrom.col.ids = NULL,
+  precursor = FALSE,
+  min.rel.int = 0,
+  ms.mode = NULL,
+  max.results = 0,
+  ms.level = 0
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{mz.min}}{A vector of minimum M/Z values.}
+
+\item{\code{mz.max}}{A vector of maximum M/Z values. Its length must be the same as
+\code{mz.min}.}
+
+\item{\code{mz}}{A vector of M/Z values.}
+
+\item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
+
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm'
+or 'plain'.}
+
+\item{\code{rt}}{A vector of retention times to match. Used if input.df is not set.
+Unit is specified by rt.unit parameter.}
+
+\item{\code{rt.unit}}{The unit for submitted retention times. Either 's' or 'min'.}
+
+\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times: input.rt
+\itemize{
+\item rt.tol <= database.rt <= input.rt + rt.tol.
+}}
+
+\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times: input.rt
+\itemize{
+\item input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+input.rt ** rt.tol.exp.
+}}
+
+\item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
+retention time.}
+
+\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
+
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
+
+\item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
+
+\item{\code{max.results}}{If set, it is used to limit the number of matches found
+for each M/Z value.}
+
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.  0
+means that you want to search in all levels.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector of spectra IDs.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-searchMsEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-searchMsEntries}{}}}
+\subsection{Method \code{searchMsEntries()}}{
+DEPRECATED. Use searchForMassSpectra() instead.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchMsEntries(
   mz.min = NULL,
   mz.max = NULL,
   mz = NULL,
@@ -1333,13 +1450,12 @@ Unit is specified by rt.unit parameter.}
 \item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
 input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
 
-\item{\code{rt.tol}}{and rt.tol.exp are set, the inequality expression becomes input.rt -
-rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
-
 \item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
 input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-rt.tol.exp. This exponent is applied on the RT value in seconds. If both}
+rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+input.rt ** rt.tol.exp.}
 
 \item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
 retention time.}
@@ -1362,33 +1478,6 @@ each M/Z value.}
 \subsection{Returns}{
 A character vector of spectra IDs.
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchMsEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-searchMsEntries}{}}}
-\subsection{Method \code{searchMsEntries()}}{
-This method is deprecated.
-\nUse searchForMassSpectra() instead.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchMsEntries(
-  mz.min = NULL,
-  mz.max = NULL,
-  mz = NULL,
-  mz.tol = NULL,
-  mz.tol.unit = c("plain", "ppm"),
-  rt = NULL,
-  rt.unit = c("s", "min"),
-  rt.tol = NULL,
-  rt.tol.exp = NULL,
-  chrom.col.ids = NULL,
-  precursor = FALSE,
-  min.rel.int = 0,
-  ms.mode = NULL,
-  max.results = 0,
-  ms.level = 0
-)}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-searchMsPeaks"></a>}}
@@ -1458,13 +1547,12 @@ Unit is specified by rt.unit parameter.}
 \item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
 input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
 
-\item{\code{rt.tol}}{and rt.tol.exp are set, the inequality expression becomes input.rt -
-rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
-
 \item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
 input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-rt.tol.exp. This exponent is applied on the RT value in seconds. If both}
+rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+input.rt ** rt.tol.exp.}
 
 \item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
 
@@ -1606,13 +1694,39 @@ Find spectra in the given M/Z range. Returns a list of spectra IDs.
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{mz.min}}{A vector of minimum M/Z values.}
+
+\item{\code{mz.max}}{A vector of maximum M/Z values. Its length must be the same as
+\code{mz.min}.}
+
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
+number between 0 and 100).}
+
+\item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
+
+\item{\code{max.results}}{If set, it is used to limit the number of matches found for
+each M/Z value.}
+
+\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
+
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.
+0 means that you want to search in all levels.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector of spectra IDs.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-searchMzTol"></a>}}
 \if{latex}{\out{\hypertarget{method-searchMzTol}{}}}
 \subsection{Method \code{searchMzTol()}}{
 Find spectra containg a peak around the given M/Z value. Returns a
-character vector of spectra IDs."
+character vector of spectra IDs.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchMzTol(
   mz,
@@ -1626,6 +1740,34 @@ character vector of spectra IDs."
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{mz}}{A vector of M/Z values.}
+
+\item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
+
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
+'plain'.}
+
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
+number between 0 and 100).}
+
+\item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
+
+\item{\code{max.results}}{If set, it is used to limit the number of matches found for
+each M/Z value.}
+
+\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
+
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.
+0 means that you want to search in all levels.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector of spectra IDs.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

@@ -43,7 +43,7 @@ Range$new(min=1.2, max=1.5)
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Range$new(
   min = NULL,
@@ -78,7 +78,7 @@ parameter.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

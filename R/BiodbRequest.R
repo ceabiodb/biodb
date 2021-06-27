@@ -30,14 +30,14 @@ BiodbRequest <- R6::R6Class("BiodbRequest",
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param url A \code{BiodbUrl} object.
 #' @param method HTTP method. Either "get" or "post".
 #' @param header The header.
 #' @param body The body.
 #' @param encoding The encoding to use.
 #' @param conn A valid BiodbConn instance for which this request is built.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(url, method=c('get', 'post'), header=character(),
     body=character(), encoding=integer(), conn=NULL) {
 

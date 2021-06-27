@@ -12,9 +12,17 @@ inherit=BiodbPersistentCache,
 
 public=list(
 
+#' @description
+#' New instance initializer. Cache objects must not be created directly.
+#' Instead, access the cache instance through the BiodbMain instance using the
+#' getPersistentCache() method.
+#' @param ... See the constructor of ExtGenerator for the parameters.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(...)
     private$cacheId2Bfc <- list()
+
+    return(invisible(NULL))
 }
 ),
 

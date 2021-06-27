@@ -81,10 +81,24 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Persistent cache objects must not be created
+directly.
+Instead, access the cache instance through the BiodbMain instance using the
+getPersistentCache() method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$new(cfg)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cfg}}{An instance of the BiodbConfig class.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isReadable"></a>}}
@@ -134,10 +148,14 @@ this particular connector.}
 \if{html}{\out{<a id="method-getDir"></a>}}
 \if{latex}{\out{\hypertarget{method-getDir}{}}}
 \subsection{Method \code{getDir()}}{
+Gets the path to the persistent cache folder.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$getDir()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The path to the cache folder as a character value.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getFolderPath"></a>}}
@@ -232,10 +250,27 @@ A single boolean value.
 \if{html}{\out{<a id="method-fileExist"></a>}}
 \if{latex}{\out{\hypertarget{method-fileExist}{}}}
 \subsection{Method \code{fileExist()}}{
+DEPRECATED. Use fileExists().
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$fileExist(cache.id, name, ext)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cache.id}}{The cache ID to use.}
+
+\item{\code{name}}{A character vector containing file names.}
+
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A logical vector, the same size as \\code{name}, with
+\\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
+otherwise.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fileExists"></a>}}
@@ -519,6 +554,7 @@ None.
 \if{html}{\out{<a id="method-listFiles"></a>}}
 \if{latex}{\out{\hypertarget{method-listFiles}{}}}
 \subsection{Method \code{listFiles()}}{
+Lists files present in the cache system.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$listFiles(
   cache.id,
@@ -528,6 +564,25 @@ None.
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cache.id}}{The cache ID to use.}
+
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+
+\item{\code{extract.name}}{If set to \\code{TRUE}, instead of returning the file paths,
+returns the list of names used to construct the file name:
+\link{cache_folder}/\link{cache.id}/\link{name}.\link{ext}.}
+
+\item{\code{full.path}}{If set to \\code{TRUE}, returns full path for files.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The files of found files, or the names of the files if
+\\code{extract.name} is set to \\code{TRUE}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}

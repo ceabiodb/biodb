@@ -8,11 +8,13 @@ inherit=BiodbSqlExpr,
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param values The values of the list.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(values) {
     private$values <- values
+
+    return(invisible(NULL))
 },
 
 #' @description

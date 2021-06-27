@@ -39,6 +39,12 @@ BiodbConfig <- R6::R6Class("BiodbConfig",
 
 public=list(
 
+#' @description
+#' New instance initializer. No BiodbConfig object must not be created directly.
+#' Instead, access the config instance through the BiodbMain instance using the
+#' getConfig() method.
+#' @param parent The BiodbMain instance.
+#' @return Nothing.
 initialize=function(parent) {
 
     private$parent <- parent
@@ -48,6 +54,8 @@ initialize=function(parent) {
 
     # Register as observer
     private$parent$addObservers(self)
+
+    return(invisible(NULL))
 },
 
 #' @description

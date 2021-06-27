@@ -48,6 +48,16 @@ inherit=BiodbConnBase,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector objects must not be created directly.
+#' Instead, you create new connector instances through the BiodbFactory
+#' instance.
+#' @param id The ID of the connector instance.
+#' @param cache.id The Cache ID of the connector instance.
+#' @param bdb The BiodbMain instance.
+#' @param ... Remaining arguments will be passed to the constructor of the
+#' super class.
+#' @return Nothing.
 initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
 
     super$initialize(...)
@@ -66,11 +76,13 @@ initialize=function(id=NA_character_, cache.id=NA_character_, bdb, ...) {
         logDebug("Register connector %s with the request scheduler", id)
         private$bdb$getRequestScheduler()$registerConnector(self)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Returns the biodb main class instance to which this object is
-#'     attached.
+#' attached.
 #' @return The main biodb instance.
 getBiodb=function() {
 
@@ -468,10 +480,10 @@ addNewEntry=function(entry) {
         cch$deleteFile(self$getCacheId(), name=id, ext=self$getEntryFileExt())
 
     # Flag entry as new
-    entry$setAsNew(TRUE)
+    entry$.__enclos_env__$private$setAsNew(TRUE)
 
     # Set the connector as its parent
-    entry$setParent(self)
+    entry$.__enclos_env__$private$setParent(self)
 
     # Add entry to volatile cache
     private$addEntriesToCache(id, list(entry))
@@ -539,7 +551,7 @@ write=function() {
 
     # Unset "new" flag for all entries
     for (e in private$entries)
-        e$setAsNew(FALSE)
+        e$.__enclos_env__$private$setAsNew(FALSE)
 },
 
 #' @description
@@ -584,7 +596,7 @@ getSearchableFields=function() {
 #' Searches the database for entries whose name matches the specified
 #'     name.  Returns a character vector of entry IDs.
 #' @param fields A list of fields on which to filter entries. To get a match, all
-#' @param fields must be matched (i.e. logical AND). The keys of the list are the
+#' fields must be matched (i.e. logical AND). The keys of the list are the
 #'     entry field names on which to filter, and the values are the filtering
 #'     parameters. For character fields, the filter parameter is a character
 #'     vector in which all strings must be found inside the field's value. For
@@ -639,8 +651,12 @@ searchForEntries=function(fields=NULL, max.results=0) {
 },
 
 #' @description
-#' This method is deprecated.
-#'     \nUse searchForEntries() instead.
+#' DEPRECATED. Use searchForEntries() instead.
+#' @param name A character value to search inside name fields.
+#' @param max.results If set, the number of returned IDs is limited to this
+#' number.
+#' @return A character vector of entry IDs whose name matches the
+#' requested name.
 searchByName=function(name, max.results=0) {
     
     lifecycle::deprecate_warn('1.0.0', 'searchByName()', "searchForEntries()")
@@ -674,6 +690,9 @@ isDownloaded=function() {
     return(dwnlded)
 },
 
+#' @description
+#' Tests if the connector requires the download of the database.
+#' @return TRUE if the connector requires download of the database.
 requiresDownload=function() {
     return(FALSE)
 },
@@ -996,8 +1015,9 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
 
 #' @description
 #' Delete all files associated with this connector from the persistent
-#' @param cache (disk cache).  \ndeleteVolatile If TRUE deletes also all entries
-#'     from the volatile cache (memory cache).
+#' cache (disk cache).
+#' @param deleteVolatile If TRUE deletes also all entries
+#' from the volatile cache (memory cache).
 #' @return None.
 deleteWholePersistentCache=function(deleteVolatile=TRUE) {
 
@@ -1008,7 +1028,7 @@ deleteWholePersistentCache=function(deleteVolatile=TRUE) {
 
 #' @description
 #' Delete all entries from the memory cache. This method is deprecated,
-#'     please use deleteAllEntriesFromVolatileCache() instead.
+#' please use deleteAllEntriesFromVolatileCache() instead.
 #' @return None.
 deleteAllCacheEntries=function() {
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
@@ -1257,7 +1277,7 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 #' @param rt.tol.exp A special exponent tolerance for retention times:
 #'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
 #'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
 #'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
 #'     input.rt ** rt.tol.exp.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the
@@ -1345,39 +1365,39 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col
 },
 
 #' @description
-#' Searches for entries (i.e.: spectra) that contain a peak around the
-#'     given M/Z value. Entries can also be filtered on RT values. You can input
-#'     either a list of M/Z values through mz argument and set a tolerance with
-#'     mz.tol argument, or two lists of minimum and maximum M/Z values through
-#'     mz.min and mz.max arguments.
+#' Searches for entries (i.e.: spectra) that contain a peak around the given
+#' M/Z value. Entries can also be filtered on RT values. You can input either a
+#' list of M/Z values through mz argument and set a tolerance with mz.tol
+#' argument, or two lists of minimum and maximum M/Z values through mz.min and
+#' mz.max arguments.
 #' @param mz A vector of M/Z values.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm'
+#' or 'plain'.
 #' @param mz.min A vector of minimum M/Z values.
 #' @param mz.max A vector of maximum M/Z values. Its length must be the same as
-#'     `mz.min`.
+#' `mz.min`.
 #' @param rt A vector of retention times to match. Used if input.df is not set.
-#'     Unit is specified by rt.unit parameter.
+#' Unit is specified by rt.unit parameter.
 #' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol The plain tolerance (in seconds) for retention times:
-#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-#' @param rt.tol.exp A special exponent tolerance for retention times:
-#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
-#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-#'     input.rt ** rt.tol.exp.
+#' @param rt.tol The plain tolerance (in seconds) for retention times: input.rt
+#' - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times: input.rt
+#' - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#' rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#' rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#' input.rt ** rt.tol.exp.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the
-#'     retention time.
+#' retention time.
 #' @param precursor If set to TRUE, then restrict the search to precursor peaks.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
-#' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
+#' @param ms.level The MS level to which you want to restrict your search.  0
+#' means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found
+#' for each M/Z value.
 #' @return A character vector of spectra IDs.
 searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
 
@@ -1450,8 +1470,36 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz
 },
 
 #' @description
-#' This method is deprecated.
-#'     \nUse searchForMassSpectra() instead.
+#' DEPRECATED. Use searchForMassSpectra() instead.
+#' @param mz.min A vector of minimum M/Z values.
+#' @param mz.max A vector of maximum M/Z values. Its length must be the same as
+#'     `mz.min`.
+#' @param mz A vector of M/Z values.
+#' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param rt A vector of retention times to match. Used if input.df is not set.
+#'     Unit is specified by rt.unit parameter.
+#' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
+#' @param rt.tol The plain tolerance (in seconds) for retention times:
+#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times:
+#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#'     input.rt ** rt.tol.exp.
+#' @param chrom.col.ids IDs of chromatographic columns on which to match the
+#'     retention time.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
+#'     number between 0 and 100).
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @return A character vector of spectra IDs.
 searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMsEntries()',
         "searchForMassSpectra()")
@@ -1488,7 +1536,7 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.
 #' @param rt.tol.exp A special exponent tolerance for retention times:
 #'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
 #'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
-#' @param rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
+#' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
 #'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
 #'     input.rt ** rt.tol.exp.
 #' @param precursor If set to TRUE, then restrict the search to precursor peaks.
@@ -1738,7 +1786,8 @@ msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain', 'ppm'
 #' @param  sep The separator used to concatenate values, when collapsing results
 #'     data frame.
 #' @return A data frame with rows collapsed."
-collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt', sep='|') {
+collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
+    sep='|') {
     private$checkIsMassdb()
     cols <- mz.col
     if (rt.col %in% colnames(results.df))
@@ -1750,7 +1799,20 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt', sep='|')
 
 #' @description
 #' Find spectra in the given M/Z range. Returns a list of spectra IDs.
-searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
+#' @param mz.min A vector of minimum M/Z values.
+#' @param mz.max A vector of maximum M/Z values. Its length must be the same as
+#'     `mz.min`.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
+#'     number between 0 and 100).
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @return A character vector of spectra IDs.
+searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL,
+    max.results=0, precursor=FALSE, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMzRange()',
         'searchForMassSpectra()')
 
@@ -1761,8 +1823,22 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL, max.results=
 
 #' @description
 #' Find spectra containg a peak around the given M/Z value. Returns a
-#'     character vector of spectra IDs."
-searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0, ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
+#'     character vector of spectra IDs.
+#' @param mz A vector of M/Z values.
+#' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
+#'     'plain'.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
+#'     number between 0 and 100).
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
+#' @param ms.level The MS level to which you want to restrict your search.
+#'     0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found for
+#'     each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' @return A character vector of spectra IDs.
+searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
+    ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMzTol()',
         'searchForMassSpectra()')
     

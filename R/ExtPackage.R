@@ -34,11 +34,13 @@ inherit=ExtGenerator,
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param ... See the constructor of ExtGenerator for the parameters.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(...)
+
+    return(invisible(NULL))
 }
 ),
 

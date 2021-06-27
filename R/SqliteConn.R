@@ -192,7 +192,7 @@ doWrite=function() {
                 DBI::dbCommit(private$db)
 
                 # Unset "new" flag
-                entry$setAsNew(FALSE)
+                entry$.__enclos_env__$private$setAsNew(FALSE)
 
                 # Send progress message
                 prg$increment()

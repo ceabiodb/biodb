@@ -40,7 +40,7 @@ biodb::ExtDefinitions$new(path=pkgFolder, dbName='foo.db',
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ExtDefinitions$new(...)}\if{html}{\out{</div>}}
 }
@@ -52,6 +52,9 @@ Constructor
 offers this possiblity.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

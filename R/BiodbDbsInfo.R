@@ -23,6 +23,7 @@ BiodbDbsInfo <- R6::R6Class("BiodbDbsInfo",
 
 public=list(
 
+#' @description
 initialize=function(cfg) {
 
     chk::chk_is(cfg, 'BiodbConfig')

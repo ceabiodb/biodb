@@ -15,7 +15,7 @@ Range <- R6::R6Class('Range',
 public=list(
             
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param min The minimum value of the range.
 #' @param max The maximum value of the range.
 #' @param value The value.
@@ -25,7 +25,7 @@ public=list(
 #'        the "tolType" parameter.
 #' @param tolType The type of the tolerance value specified by the "tol"
 #'        parameter.
-#' @return A new instance.
+#' @return Nothing.
 #' @examples
 #' # Create an instance from min and max:
 #' Range$new(min=1.2, max=1.5)
@@ -50,6 +50,8 @@ tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
         else
             private$delta <- tol
     }
+
+    return(invisible(NULL))
 }
 
 #' @description

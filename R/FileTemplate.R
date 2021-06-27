@@ -11,14 +11,16 @@ FileTemplate <- R6::R6Class('FileTemplate',
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param path  The path to the template file.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(path) {
     chk::chk_file(path)
     
     private$path <- path
     private$loadTemplate()
+
+    return(invisible(NULL))
 },
 
 #' @description

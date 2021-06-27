@@ -10,9 +10,10 @@ BiodbRequestSchedulerRule <- R6::R6Class("BiodbRequestSchedulerRule",
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param host The web host for which this rules is applicable.
 #' @param conn The connector instance that is concerned by this rule.
+#' @return Nothing.
 initialize=function(host, conn=NULL) {
 
     chk::chk_character(host)
@@ -29,6 +30,8 @@ initialize=function(host, conn=NULL) {
         private$conn <- list()
         self$setFrequency(n=3L, t=1L)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description

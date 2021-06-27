@@ -72,10 +72,23 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. No BiodbConfig object must not be created directly.
+Instead, access the config instance through the BiodbMain instance using the
+getConfig() method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConfig$new(parent)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parent}}{The BiodbMain instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getKeys"></a>}}

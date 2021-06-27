@@ -25,9 +25,9 @@ inherit=ExtGenerator,
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param ... See the constructor of ExtGenerator for the parameters.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(...)
     chk::chk_dir(private$path)
@@ -35,6 +35,8 @@ initialize=function(...) {
         template='make_file', filename='Makefile')
     private$rfrontGen <- private$createGenerator(ExtFileGenerator,
         template='R_front', filename='R_front')
+
+    return(invisible(NULL))
 }
 ),
 

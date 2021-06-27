@@ -41,10 +41,20 @@ BiodbPersistentCache <- R6::R6Class("BiodbPersistentCache",
 
 public=list(
 
+#' @description
+#' New instance initializer. Persistent cache objects must not be created
+#' directly.
+#' Instead, access the cache instance through the BiodbMain instance using the
+#' getPersistentCache() method.
+#' @param cfg An instance of the BiodbConfig class.
+#' @return Nothing.
 initialize=function(cfg) {
+
     chk::chk_is(cfg, 'BiodbConfig')
     private$cfg <- cfg
     private$cacheDir <- NULL
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -80,6 +90,9 @@ isWritable=function(conn=NULL) {
     return(enabled)
 },
 
+#' @description
+#' Gets the path to the persistent cache folder.
+#' @return The path to the cache folder as a character value.
 getDir=function() {
 
     if (is.null(private$cacheDir)) {
@@ -179,6 +192,14 @@ filesExist=function(cache.id) {
     return(private$doFilesExist(cache.id))
 },
 
+#' @description
+#' DEPRECATED. Use fileExists().
+#' @param cache.id The cache ID to use.
+#' @param name A character vector containing file names.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
+#' @return A logical vector, the same size as \\code{name}, with
+#'     \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
+#'     otherwise.
 fileExist=function(cache.id, name, ext) {
     lifecycle::deprecate_soft('1.1.0', 'fileExist()', "fileExists()")
     return(self$fileExists(cache.id, name, ext))
@@ -489,18 +510,17 @@ deleteFiles=function(cache.id, ext) {
     return(invisible(NULL))
 },
 
-listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
-    full.path=FALSE) {
-    ":\n\nLists files present in the cache system.
-    \ncache.id: The cache ID to use.
-    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
-    \nextract.name: If set to \\code{TRUE}, instead of returning the file paths,
-    returns the list of names used to construct the file name:
-    [cache_folder]/[cache.id]/[name].[ext].
-    \nfull.path: If set to \\code{TRUE}, returns full path for files.
-    \nReturned value: The files of found files, or the names of the files if
-    \\code{extract.name} is set to \\code{TRUE}.
-    "
+#' @description
+#' Lists files present in the cache system.
+#' @param cache.id The cache ID to use.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
+#' @param extract.name If set to \\code{TRUE}, instead of returning the file paths,
+#' returns the list of names used to construct the file name:
+#' [cache_folder]/[cache.id]/[name].[ext].
+#' @param full.path If set to \\code{TRUE}, returns full path for files.
+#' @return The files of found files, or the names of the files if
+#' \\code{extract.name} is set to \\code{TRUE}.
+listFiles=function(cache.id, ext=NULL, extract.name=FALSE, full.path=FALSE) {
 
     chk::chk_string(cache.id)
     chk::chk_match(cache.id, .CACHE_ID_PATTERN)

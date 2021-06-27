@@ -22,10 +22,12 @@ inherit=ExtFileGenerator,
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(template='travis.yml', filename='.travis.yml', ...)
+
+    return(invisible(NULL))
 }
 ))

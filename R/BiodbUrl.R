@@ -20,10 +20,10 @@ BiodbUrl <- R6::R6Class("BiodbUrl",
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param url The URL to access, as a character vector.
 #' @param params The list of parameters to append to this URL.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(url=character(), params=character()) {
 
     chk::chk_character(url)
@@ -44,6 +44,8 @@ initialize=function(url=character(), params=character()) {
         names(params) <- names
     }
     private$params <- params
+
+    return(invisible(NULL))
 },
 
 #' @description

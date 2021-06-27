@@ -89,8 +89,6 @@ mybiodb$terminate()
 \item \href{#method-getFieldDef}{\code{BiodbEntry$getFieldDef()}}
 \item \href{#method-getFieldCardinality}{\code{BiodbEntry$getFieldCardinality()}}
 \item \href{#method-fieldHasBasicClass}{\code{BiodbEntry$fieldHasBasicClass()}}
-\item \href{#method-setParent}{\code{BiodbEntry$setParent()}}
-\item \href{#method-setAsNew}{\code{BiodbEntry$setAsNew()}}
 \item \href{#method-clone}{\code{BiodbEntry$clone()}}
 }
 }
@@ -98,10 +96,22 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Entry objects must not be created directly.
+Instead, they are retrieved through the connector instances.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$new(parent)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parent}}{A valid BiodbConn instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-parentIsAConnector"></a>}}
@@ -113,16 +123,15 @@ Tests if the parent of this entry is a connector instance.
 }
 
 \subsection{Returns}{
-TRUE if this entry belongs to a connector, FALSE
-otherwise.
+TRUE if this entry belongs to a connector, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getParent"></a>}}
 \if{latex}{\out{\hypertarget{method-getParent}{}}}
 \subsection{Method \code{getParent()}}{
-Returns the parent instance (A BiodbConn or BiodbFactory object) to
-which this object is attached.
+Returns the parent instance (A BiodbConn or BiodbFactory object) to which
+this object is attached.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$getParent()}\if{html}{\out{</div>}}
 }
@@ -336,20 +345,22 @@ Gets the value of the specified field.
 using internal defined computing rules. If set to FALSE, let the field
 undefined.}
 
-\item{\code{flatten}}{If set to TRUE and a field's value is a vector of more than one
-element, then export the field's value as a single string composed of the
-field's value concatenated and separated by the character defined in the
+\item{\code{flatten}}{If set to TRUE and a field's value is a vector of more than
+one element, then export the field's value as a single string composed of
+the field's value concatenated and separated by the character defined in the
 'multival.field.sep' config key. If set to FALSE or the field contains only
 one value, changes nothing.}
 
 \item{\code{last}}{If set to TRUE and a field's value is a vector of more than one
 element, then export only the last value. If set to FALSE, changes nothing.}
 
-\item{\code{limit}}{The maximum number of values to get in case the field contains more
-than one value.}
+\item{\code{limit}}{The maximum number of values to get in case the field contains
+more than one value.}
 
-\item{\code{withNa}}{If set to TRUE, keep NA values. Otherwise filter out NAs values in
-vectors.}
+\item{\code{withNa}}{If set to TRUE, keep NA values. Otherwise filter out NAs
+values in vectors.}
+
+\item{\code{duplicatedValues}}{If set to TRUE, keeps duplicated values.}
 }
 \if{html}{\out{</div>}}
 }
@@ -366,8 +377,15 @@ Gets the fields of this entry that have the specified type.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$getFieldsByType(type)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{The type of fields to retrieve.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
-A character vector containing the field names."
+A character vector containing the field names.
 }
 }
 \if{html}{\out{<hr>}}
@@ -405,26 +423,26 @@ execution to this set of fields.}
 
 \item{\code{fields.type}}{If set, output all the fields of the specified type.}
 
-\item{\code{flatten}}{If set to TRUE and a field's value is a vector of more than one
-element, then export the field's value as a single string composed of the
-field's value concatenated and separated by the character defined in the
+\item{\code{flatten}}{If set to TRUE and a field's value is a vector of more than
+one element, then export the field's value as a single string composed of
+the field's value concatenated and separated by the character defined in the
 'multival.field.sep' config key. If set to FALSE or the field contains only
 one value, changes nothing.}
 
-\item{\code{limit}}{The maximum number of field values to write into new columns. Used
-for fields that can contain more than one value.}
+\item{\code{limit}}{The maximum number of field values to write into new columns.
+Used for fields that can contain more than one value.}
 
-\item{\code{only.card.one}}{If set to TRUE, only fields with a cardinality of one will
-be extracted.}
+\item{\code{only.card.one}}{If set to TRUE, only fields with a cardinality of one
+will be extracted.}
 
 \item{\code{own.id}}{If set to TRUE includes the database id field named
 \verb{<database_name>.id} whose values are the same as the \code{accession} field.}
 
-\item{\code{duplicate.rows}}{If set to TRUE and merging field values with cardinality
-greater than one, values will be duplicated.}
+\item{\code{duplicate.rows}}{If set to TRUE and merging field values with
+cardinality greater than one, values will be duplicated.}
 
-\item{\code{sort}}{If set to TRUE sort the order of columns alphabetically, otherwise
-do not sort.}
+\item{\code{sort}}{If set to TRUE sort the order of columns alphabetically,
+otherwise do not sort.}
 
 \item{\code{virtualFields}}{If set to TRUE includes also virtual fields, otherwise
 excludes them.}
@@ -551,42 +569,77 @@ Tests if this entry makes reference to another entry.
 \item{\code{oid}}{A entry ID from database db.}
 
 \item{\code{recurse}}{If set to TRUE, the algorithm will follow all references to
-entries from other databases, to see if it can establish an indirect link
-to \code{oid}.}
+entries from other databases, to see if it can establish an indirect link to
+\code{oid}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-TRUE if this entry makes reference to the entry oid from
-database db, FALSE otherwise.
+TRUE if this entry makes reference to the entry oid from database
+db, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getField"></a>}}
 \if{latex}{\out{\hypertarget{method-getField}{}}}
 \subsection{Method \code{getField()}}{
+DEPRECATED. Gets the value of a field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$getField(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The value of the field.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setField"></a>}}
 \if{latex}{\out{\hypertarget{method-setField}{}}}
 \subsection{Method \code{setField()}}{
+DEPRECATED. Sets the value of a field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$setField(field, value)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+
+\item{\code{value}}{The new value of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getFieldClass"></a>}}
 \if{latex}{\out{\hypertarget{method-getFieldClass}{}}}
 \subsection{Method \code{getFieldClass()}}{
+Gets the class of a field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$getFieldClass(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The class of the field.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getFieldDef"></a>}}
@@ -601,47 +654,52 @@ Gets the definition of an entry field.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{field}}{The name of the field.}
-
-\item{\code{return}}{A object BiodbEntryField which defines the field.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object BiodbEntryField which defines the field.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getFieldCardinality"></a>}}
 \if{latex}{\out{\hypertarget{method-getFieldCardinality}{}}}
 \subsection{Method \code{getFieldCardinality()}}{
+Gets the cardinality of the field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$getFieldCardinality(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The cardinality of the field.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fieldHasBasicClass"></a>}}
 \if{latex}{\out{\hypertarget{method-fieldHasBasicClass}{}}}
 \subsection{Method \code{fieldHasBasicClass()}}{
+DEPRECATED. Use BiodbEntryField::isVector() instead.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$fieldHasBasicClass(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setParent"></a>}}
-\if{latex}{\out{\hypertarget{method-setParent}{}}}
-\subsection{Method \code{setParent()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$setParent(parent)}\if{html}{\out{</div>}}
+\if{html}{\out{</div>}}
 }
-
+\subsection{Returns}{
+TRUE if the field as a basic type (logical, numeric, character, ...).
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setAsNew"></a>}}
-\if{latex}{\out{\hypertarget{method-setAsNew}{}}}
-\subsection{Method \code{setAsNew()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$setAsNew(isNew)}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

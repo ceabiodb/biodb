@@ -11,8 +11,8 @@ BiodbSqlQuery <- R6::R6Class("BiodbSqlQuery",
 public=list(
 
 #' @description
-#' Constructor.
-#' @return A new instance.
+#' Initializer.
+#' @return Nothing.
 initialize=function() {
     private$table <- character()
     private$fields <- list()
@@ -20,6 +20,8 @@ initialize=function() {
     private$join <- list()
     private$where <- NULL
     private$limit <- as.integer(0)
+
+    return(invisible(NULL))
 },
 
 #' @description

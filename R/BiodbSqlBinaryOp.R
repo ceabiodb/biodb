@@ -8,11 +8,11 @@ inherit=BiodbSqlExpr,
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param lexpr A BiodbSqlExpr instance for the left part.
 #' @param op The binary operator, as a string.
 #' @param rexpr A BiodbSqlExpr instance for the right part.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(lexpr, op, rexpr) {
     chk::chk_is(lexpr, 'BiodbSqlExpr')
     chk::chk_is(rexpr, 'BiodbSqlExpr')
@@ -21,6 +21,8 @@ initialize=function(lexpr, op, rexpr) {
     private$op <- op
     private$lexpr <- lexpr
     private$rexpr <- rexpr
+
+    return(invisible(NULL))
 },
 
 #' @description

@@ -14,8 +14,6 @@ BiodbCustomPersistentCache <- R6::R6Class('BiodbCustomPersistentCache',
 inherit=BiodbPersistentCache,
 
 public=list(
-
-
 ),
 
 private=list(
