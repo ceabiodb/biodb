@@ -3,7 +3,7 @@ test_entryFields <- function(biodb) {
     fields <- biodb$getEntryFields()$get(c('monoisotopic.mass', 'nominal.mass'))
     testthat::expect_type(fields, 'list')
     for (f in fields)
-        testthat::expect_s4_class(f, 'BiodbEntryField')
+        testthat::expect_is(f, 'BiodbEntryField')
 }
 
 test_newAlias <- function(biodb) {
@@ -50,10 +50,11 @@ test_updateEntryField <- function(biodb) {
     directive <- list(database='mydb')
 
     # Create new entry
-    newEf <- BiodbEntryField(parent=efs, name=ef$getName(),
-                             computable.from=list(directive))
+    newEf <- BiodbEntryField$new(parent=efs, name=ef$getName(),
+        computable.from=list(directive))
     ef$updateWithValuesFrom(newEf)
-    compFromRef <- if (is.null(compFrom)) list(directive) else c(compFrom, directive)
+    compFromRef <- if (is.null(compFrom)) list(directive) else
+        c(compFrom, directive)
     testthat::expect_equal(ef$isComputableFrom(), compFromRef)
 
     # Remove directive

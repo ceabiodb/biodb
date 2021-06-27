@@ -256,7 +256,7 @@ terminate=function() {
     }
     
     # Check
-    .self$.fields[[name]]$.check()
+    .self$.fields[[name]]$check()
 }
 
 ))
