@@ -26,9 +26,15 @@
 MassSqliteConn <- R6::R6Class('MassSqliteConn',
 inherit=SqliteConn,
 
-
 public=list(
 
+#' @description
+#' Gets a list of chromatographic columns contained in this database.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and another one
+#' for the title 'title'.
 getChromCol=function(ids=NULL) {
     # Overrides super class' method.
 

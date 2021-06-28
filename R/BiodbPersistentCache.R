@@ -41,10 +41,20 @@ BiodbPersistentCache <- R6::R6Class("BiodbPersistentCache",
 
 public=list(
 
+#' @description
+#' New instance initializer. Persistent cache objects must not be created
+#' directly.
+#' Instead, access the cache instance through the BiodbMain instance using the
+#' getPersistentCache() method.
+#' @param cfg An instance of the BiodbConfig class.
+#' @return Nothing.
 initialize=function(cfg) {
+
     chk::chk_is(cfg, 'BiodbConfig')
     private$cfg <- cfg
     private$cacheDir <- NULL
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -80,6 +90,9 @@ isWritable=function(conn=NULL) {
     return(enabled)
 },
 
+#' @description
+#' Gets the path to the persistent cache folder.
+#' @return The path to the cache folder as a character value.
 getDir=function() {
 
     if (is.null(private$cacheDir)) {
@@ -179,6 +192,14 @@ filesExist=function(cache.id) {
     return(private$doFilesExist(cache.id))
 },
 
+#' @description
+#' DEPRECATED. Use fileExists().
+#' @param cache.id The cache ID to use.
+#' @param name A character vector containing file names.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
+#' @return A logical vector, the same size as \\code{name}, with
+#'     \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
+#'     otherwise.
 fileExist=function(cache.id, name, ext) {
     lifecycle::deprecate_soft('1.1.0', 'fileExist()', "fileExists()")
     return(self$fileExists(cache.id, name, ext))
@@ -220,12 +241,14 @@ markerExist=function(cache.id, name) {
 #' Sets a marker.
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing marker names.
-#' @return None.
+#' @return Nothing.
 setMarker=function(cache.id, name) {
 
     marker.path <- self$getFilePath(cache.id, name=name, ext='marker')
 
     writeChar('', marker.path)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -339,7 +362,7 @@ function(e) NULL)
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files.
-#' @return None.
+#' @return Nothing.
 saveContentToFile=function(content, cache.id, name, ext) {
 
     chk::chkor(chk::chk_character(content), chk::chk_list(content))
@@ -382,7 +405,7 @@ saveContentToFile=function(content, cache.id, name, ext) {
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files.
-#' @return None.
+#' @return Nothing.
 moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
     chk::chk_character(src.file.paths)
@@ -409,7 +432,7 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
 #' @description
 #' Erases the whole cache.
-#' @return None.
+#' @return Nothing.
 erase=function() {
 
     # Erase whole cache
@@ -426,7 +449,7 @@ erase=function() {
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
-#' @return None.
+#' @return Nothing.
 deleteFile=function(cache.id, name, ext) {
 
     chk::chk_string(cache.id)
@@ -447,7 +470,7 @@ deleteFile=function(cache.id, name, ext) {
 #'     files whose cache.id starts with this prefix.
 #' @param fail If set to TRUE, a warning will be emitted if no cache files exist
 #'     for this cache ID.
-#' @return None.
+#' @return Nothing.
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 
     if ( ! missing(prefix))
@@ -470,11 +493,11 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 
 #' @description
 #' Deletes all files with the specific extension of the cache ID in the
-#'     cache system.
+#' cache system.
 #' @param cache.id The cache ID to use.
 #' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
-#'     Only files having this extension will be deleted.
-#' @return None.
+#' Only files having this extension will be deleted.
+#' @return Nothing.
 deleteFiles=function(cache.id, ext) {
 
     chk::chk_string(cache.id)
@@ -489,18 +512,18 @@ deleteFiles=function(cache.id, ext) {
     return(invisible(NULL))
 },
 
-listFiles=function(cache.id, ext=NULL, extract.name=FALSE,
-    full.path=FALSE) {
-    ":\n\nLists files present in the cache system.
-    \ncache.id: The cache ID to use.
-    \next: The extension of the files, without the dot (\"html\", \"xml\", etc).
-    \nextract.name: If set to \\code{TRUE}, instead of returning the file paths,
-    returns the list of names used to construct the file name:
-    [cache_folder]/[cache.id]/[name].[ext].
-    \nfull.path: If set to \\code{TRUE}, returns full path for files.
-    \nReturned value: The files of found files, or the names of the files if
-    \\code{extract.name} is set to \\code{TRUE}.
-    "
+#' @description
+#' Lists files present in the cache system.
+#' @param cache.id The cache ID to use.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\",
+#' etc).
+#' @param extract.name If set to \\code{TRUE}, instead of returning the file
+#' paths, returns the list of names used to construct the file name:
+#' \[cache_folder\]/\[cache.id\]/\[name\].\[ext\].
+#' @param full.path If set to \\code{TRUE}, returns full path for files.
+#' @return The files of found files, or the names of the files if
+#' \\code{extract.name} is set to \\code{TRUE}.
+listFiles=function(cache.id, ext=NULL, extract.name=FALSE, full.path=FALSE) {
 
     chk::chk_string(cache.id)
     chk::chk_match(cache.id, .CACHE_ID_PATTERN)
@@ -549,7 +572,7 @@ print=function() {
 
 #' @description
 #' DEPRECATED method. Use now
-#' @param \\code{BiodbConfig :isEnabled('cache.system')}.
+#' \\code{BiodbConfig :isEnabled('cache.system')}.
 enabled=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'enabled()', "BiodbConfig::isEnabled()")
@@ -559,7 +582,7 @@ enabled=function() {
 
 #' @description
 #' DEPRECATED method. Use now
-#' @param \\code{BiodbConfig :enable('cache.system')}.
+#' \\code{BiodbConfig :enable('cache.system')}.
 enable=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'enable()', "BiodbConfig::enable()")
@@ -569,7 +592,7 @@ enable=function() {
 
 #' @description
 #' DEPRECATED method. Use now
-#' @param \\code{BiodbConfig :disable('cache.system')}.
+#' \\code{BiodbConfig :disable('cache.system')}.
 disable=function() {
 
     lifecycle::deprecate_soft('1.0.0', 'disable()', "BiodbConfig::disable()")

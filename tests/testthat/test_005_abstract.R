@@ -11,7 +11,7 @@ biodb::testContext("Test abstract declaration.")
 
 # Run tests
 biodb::testThat("An abstract class cannot be instantiated.",
-                test.abstractClass.declaration, biodb=biodb)
+    test.abstractClass.declaration, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

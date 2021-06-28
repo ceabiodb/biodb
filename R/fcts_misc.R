@@ -78,25 +78,21 @@ compareVersions <- function(v1, v2) {
     return(cmp)
 }
 
-notifyObservers <- function(obs, fct, args) {
+notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
 
-    chk::chk_list(obs)
-    chk::chk_string(fct)
-    chk::chk_list(args)
+    chk::chk_list(.obsToNotify)
+    chk::chk_string(.notifyFct)
 
-    logDebug("Notify observers for %s.", fct)
-
-    # Build call code
-    call <- sprintf("do.call(o$%s, args)", fct)
+    logDebug("Notify observers for %s.", .notifyFct)
 
     # Notify each observer
     fctCall <- function(o) {
         logDebug("Functions in observer %s: %s.", class(o), lst2str(names(o),
             nCut=0))
-        if (fct %in% names(o))
-            eval(parse(text=call))
+        if (.notifyFct %in% names(o))
+            o[[.notifyFct]](...)
     }
-    lapply(obs, fctCall)
+    lapply(.obsToNotify, fctCall)
 
     return(invisible(NULL))
 }
@@ -137,4 +133,5 @@ abstractMethod <- function(obj) {
 
     error0("Method ", method, " is not implemented in ", cls, " class.")
 
+    return(invisible(NULL))
 }

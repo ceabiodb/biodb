@@ -23,7 +23,7 @@ results in an output file.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{FileTemplate$new(path)}\if{html}{\out{</div>}}
 }
@@ -36,7 +36,7 @@ Constructor
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -130,7 +130,7 @@ for each found tag.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

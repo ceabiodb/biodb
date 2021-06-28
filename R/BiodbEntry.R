@@ -54,27 +54,33 @@ BiodbEntry <- R6::R6Class("BiodbEntry",
 
 public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param parent A valid BiodbConn instance.
+#' @return Nothing.
 initialize=function(parent) {
 
     abstractClass('BiodbEntry', self)
 
-    self$setParent(parent)
+    private$setParent(parent)
     private$fields <- list()
     private$new <- FALSE
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Tests if the parent of this entry is a connector instance.
-#' @return TRUE if this entry belongs to a connector, FALSE
-#'     otherwise.
+#' @return TRUE if this entry belongs to a connector, FALSE otherwise.
 parentIsAConnector=function() {
 
     return(methods::is(private$parent, "BiodbConn"))
 },
 
 #' @description
-#' Returns the parent instance (A BiodbConn or BiodbFactory object) to
-#'     which this object is attached.
+#' Returns the parent instance (A BiodbConn or BiodbFactory object) to which
+#' this object is attached.
 #' @return A BiodbConn instance or a BiodbFactory object.
 getParent=function() {
 
@@ -160,7 +166,7 @@ getDbClass=function() {
 #'     possible fields in biodb.
 #' @param field The name of a field.
 #' @param value The value to set.
-#' @return None.
+#' @return Nothing.
 setFieldValue=function(field, value) {
 
     field.def <- self$getBiodb()$getEntryFields()$get(field)
@@ -210,6 +216,8 @@ setFieldValue=function(field, value) {
 
     # Set value
     private$fields[[field.def$getName()]] <- value
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -218,13 +226,15 @@ setFieldValue=function(field, value) {
 #'     fields with a cardinality greater than one can accept multiple values.
 #' @param field The name of a field.
 #' @param value The value to append.
-#' @return None.
+#' @return Nothing.
 appendFieldValue=function(field, value) {
 
     if (self$hasField(field))
         self$setFieldValue(field, c(self$getFieldValue(field), value))
     else
         self$setFieldValue(field, value)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -253,32 +263,36 @@ hasField=function(field) {
 #' @description
 #' Removes the specified field from this entry.
 #' @param field The name of a field.
-#' @return None.
+#' @return Nothing.
 removeField=function(field) {
 
     if (self$hasField(field))
         private$fields <- private$fields[names(private$fields) != tolower(field)]
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Gets the value of the specified field.
 #' @param field The name of a field.
 #' @param compute If set to TRUE and a field is not defined, try to compute it
-#'     using internal defined computing rules. If set to FALSE, let the field
-#'     undefined.
-#' @param flatten If set to TRUE and a field's value is a vector of more than one
-#'     element, then export the field's value as a single string composed of the
-#'     field's value concatenated and separated by the character defined in the
-#'     'multival.field.sep' config key. If set to FALSE or the field contains only
-#'     one value, changes nothing.
+#' using internal defined computing rules. If set to FALSE, let the field
+#' undefined.
+#' @param flatten If set to TRUE and a field's value is a vector of more than
+#' one element, then export the field's value as a single string composed of
+#' the field's value concatenated and separated by the character defined in the
+#' 'multival.field.sep' config key. If set to FALSE or the field contains only
+#' one value, changes nothing.
 #' @param last If set to TRUE and a field's value is a vector of more than one
-#'     element, then export only the last value. If set to FALSE, changes nothing.
-#' @param limit The maximum number of values to get in case the field contains more
-#'     than one value.
-#' @param withNa If set to TRUE, keep NA values. Otherwise filter out NAs values in
-#'     vectors.
+#' element, then export only the last value. If set to FALSE, changes nothing.
+#' @param limit The maximum number of values to get in case the field contains
+#' more than one value.
+#' @param withNa If set to TRUE, keep NA values. Otherwise filter out NAs
+#' values in vectors.
+#' @param duplicatedValues If set to TRUE, keeps duplicated values.
 #' @return The value of the field.
-getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0, withNa=TRUE, duplicatedValues=TRUE) {
+getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0,
+    withNa=TRUE, duplicatedValues=TRUE) {
 
     val <- NULL
     field <- tolower(field)
@@ -349,7 +363,8 @@ getFieldValue=function(field, compute=TRUE, flatten=FALSE, last=FALSE, limit=0, 
 
 #' @description
 #' Gets the fields of this entry that have the specified type.
-#' @return A character vector containing the field names."
+#' @param type The type of fields to retrieve.
+#' @return A character vector containing the field names.
 getFieldsByType=function(type) {
     ef <- self$getBiodb()$getEntryFields()
     fct <- function(f) { ef$get(f)$getType() == type }
@@ -363,30 +378,32 @@ getFieldsByType=function(type) {
 #' @param only.atomic If set to TRUE, only export field's values that are atomic
 #' @param (i.e. of type vector).
 #' @param compute If set to TRUE and a field is not defined, try to compute it
-#'     using internal defined computing rules. If set to FALSE, let the field
-#'     undefined.
+#' using internal defined computing rules. If set to FALSE, let the field
+#' undefined.
 #' @param fields Set to character vector of field names in order to restrict
-#'     execution to this set of fields.
+#' execution to this set of fields.
 #' @param fields.type If set, output all the fields of the specified type.
-#' @param flatten If set to TRUE and a field's value is a vector of more than one
-#'     element, then export the field's value as a single string composed of the
-#'     field's value concatenated and separated by the character defined in the
-#'     'multival.field.sep' config key. If set to FALSE or the field contains only
-#'     one value, changes nothing.
-#' @param limit The maximum number of field values to write into new columns. Used
-#'     for fields that can contain more than one value.
-#' @param only.card.one If set to TRUE, only fields with a cardinality of one will
-#'     be extracted.
+#' @param flatten If set to TRUE and a field's value is a vector of more than
+#' one element, then export the field's value as a single string composed of
+#' the field's value concatenated and separated by the character defined in the
+#' 'multival.field.sep' config key. If set to FALSE or the field contains only
+#' one value, changes nothing.
+#' @param limit The maximum number of field values to write into new columns.
+#' Used for fields that can contain more than one value.
+#' @param only.card.one If set to TRUE, only fields with a cardinality of one
+#' will be extracted.
 #' @param own.id If set to TRUE includes the database id field named
-#'     `<database_name>.id` whose values are the same as the `accession` field.
-#' @param duplicate.rows If set to TRUE and merging field values with cardinality
-#'     greater than one, values will be duplicated.
-#' @param sort If set to TRUE sort the order of columns alphabetically, otherwise
-#'     do not sort.
+#' `<database_name>.id` whose values are the same as the `accession` field.
+#' @param duplicate.rows If set to TRUE and merging field values with
+#' cardinality greater than one, values will be duplicated.
+#' @param sort If set to TRUE sort the order of columns alphabetically,
+#' otherwise do not sort.
 #' @param virtualFields If set to TRUE includes also virtual fields, otherwise
-#'     excludes them.
+#' excludes them.
 #' @return A data frame containg the values of the fields.
-getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL, fields.type=NULL, flatten=TRUE, limit=0, only.card.one=FALSE, own.id=TRUE, duplicate.rows=TRUE, sort=FALSE, virtualFields=FALSE) {
+getFieldsAsDataframe=function(only.atomic=TRUE, compute=TRUE, fields=NULL,
+    fields.type=NULL, flatten=TRUE, limit=0, only.card.one=FALSE, own.id=TRUE,
+    duplicate.rows=TRUE, sort=FALSE, virtualFields=FALSE) {
 
     if ( ! is.null(fields))
         fields <- tolower(fields)
@@ -448,7 +465,7 @@ getFieldsAsJson=function(compute=TRUE) {
 #' @param content A character string containing definition for an entry and
 #' @param obtained from a database. The format can be CSV, HTML, JSON, XML, or just
 #'     text.
-#' @return None.
+#' @return Nothing.
 parseContent=function(content) {
 
     # No connector?
@@ -487,6 +504,8 @@ parseContent=function(content) {
         else if (self$hasField('accession'))
             self$setFieldValue(dbid.field, self$getFieldValue('accession'))
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -522,13 +541,15 @@ computeFields=function(fields=NULL) {
 
 #' @description
 #' Displays short information about this instance.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     db <- private$parent$getPropertyValue('name')
     id <- self$getFieldValue('accession', compute=FALSE)
     id <- if (is.na(id)) 'ID unknown' else id
     cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -547,10 +568,10 @@ getName=function() {
 #' @param db Another database connector.
 #' @param oid A entry ID from database db.
 #' @param recurse If set to TRUE, the algorithm will follow all references to
-#'     entries from other databases, to see if it can establish an indirect link
-#'     to `oid`.
-#' @return TRUE if this entry makes reference to the entry oid from
-#'     database db, FALSE otherwise.
+#' entries from other databases, to see if it can establish an indirect link to
+#' `oid`.
+#' @return TRUE if this entry makes reference to the entry oid from database
+#' db, FALSE otherwise.
 makesRefToEntry=function(db, oid, recurse=FALSE) {
 
     makes_ref <- FALSE
@@ -569,40 +590,68 @@ makesRefToEntry=function(db, oid, recurse=FALSE) {
     return(makes_ref)
 },
 
+#' @description
+#' DEPRECATED. Gets the value of a field.
+#' @param field The name of the field.
+#' @return The value of the field.
 getField=function(field) {
     lifecycle::deprecate_soft('1.0.0', 'getField()', "getFieldValue()")
     return(self$getFieldValue(field))
 },
 
+#' @description
+#' DEPRECATED. Sets the value of a field.
+#' @param field The name of the field.
+#' @param value The new value of the field. 
+#' @return Nothing.
 setField=function(field, value) {
     lifecycle::deprecate_warn('1.0.0', 'setField()', "setFieldValue()")
     self$setFieldValue(field, value)
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the class of a field.
+#' @param field The name of the field.
+#' @return The class of the field.
 getFieldClass=function(field) {
-
     return(self$getBiodb()$getEntryFields()$get(field)$getClass())
 },
 
 #' @description
 #' Gets the definition of an entry field.
 #' @param field The name of the field.
-#' @param return A object BiodbEntryField which defines the field.
+#' @return An object BiodbEntryField which defines the field.
 getFieldDef=function(field) {
     return(self$getBiodb()$getEntryFields()$get(field))
 },
 
+#' @description
+#' Gets the cardinality of the field.
+#' @param field The name of the field.
+#' @return The cardinality of the field.
 getFieldCardinality=function(field) {
     return(self$getFieldDef(field)$getCardinality())
 },
 
+#' @description
+#' DEPRECATED. Use BiodbEntryField::isVector() instead.
+#' @param field The name of the field.
+#' @return TRUE if the field as a basic type (logical, numeric, character, ...).
 fieldHasBasicClass=function(field) {
 
     lifecycle::deprecate_warn('1.0.0', 'fieldHasBasicClass()',
         'BiodbEntryField::isVector()')
 
     return(self$getBiodb()$getEntryFields()$get(field)$isVector())
-},
+}
+
+),
+
+private=list(
+    fields=NULL,
+    new=NULL,
+    parent=NULL,
 
 setParent=function(parent) {
 
@@ -616,13 +665,7 @@ setParent=function(parent) {
 
 setAsNew=function(isNew) {
     private$new <- isNew
-}
-),
-
-private=list(
-    fields=NULL,
-    new=NULL,
-    parent=NULL,
+},
 
 computeField=function(field) {
     # Compute one single field

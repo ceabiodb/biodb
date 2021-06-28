@@ -317,6 +317,8 @@ logDebug0 <- function(...) {
 warn <- function(...) {
     getLogger()$warn(..., caller=lgr::get_caller(-9L))
     warning(sprintf(...))
+
+    return(invisible(NULL))
 }
 
 #' Throw a warning and log it too.
@@ -335,6 +337,8 @@ warn0 <- function(...) {
     msg <- paste0(...)
     getLogger()$warn(msg, caller=lgr::get_caller(-9L))
     warning(msg)
+
+    return(invisible(NULL))
 }
 
 #' Throw an error and log it too.
@@ -352,6 +356,8 @@ warn0 <- function(...) {
 error <- function(...) {
     getLogger()$error(..., caller=lgr::get_caller(-9L))
     stop(sprintf(...))
+
+    return(invisible(NULL))
 }
 
 #' Throw an error and log it too.
@@ -370,6 +376,8 @@ error0 <- function(...) {
     msg <- paste0(...)
     getLogger()$error(msg, caller=lgr::get_caller(-9L))
     stop(msg)
+
+    return(invisible(NULL))
 }
 
 #' Get default cache folder.

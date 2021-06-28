@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbXmlEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbXmlEntry)
 #'
 #' @import XML
 #' @include BiodbEntry.R
@@ -15,13 +15,19 @@
 BiodbXmlEntry <- R6::R6Class("BiodbXmlEntry",
 inherit=BiodbEntry,
 
-
 public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(...)
     abstractClass('BiodbXmlEntry', self)
+
+    return(invisible(NULL))
 }
 ),
 

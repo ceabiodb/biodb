@@ -101,10 +101,31 @@ Sub-classes \code{\link{BiodbDbInfo}} and \code{\link{BiodbConn}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector objects must not be created directly.
+Instead, you create new connector instances through the BiodbFactory
+instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$new(other = NULL, db.class = NULL, properties = NULL, cfg = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{other}}{Another BiodbConnBase instance as a model from which to
+copy property values.}
+
+\item{\code{db.class}}{The class of the connector (i.e.: "mass.csv.file").}
+
+\item{\code{properties}}{Some new values for the properties.}
+
+\item{\code{cfg}}{The BiodbConfig instance from which will be taken some
+property values.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
@@ -116,7 +137,7 @@ Prints a description of this connector.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -265,7 +286,7 @@ be the property names.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -279,7 +300,7 @@ expressions dynamically.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -412,7 +433,7 @@ Sets the value of a property.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -436,7 +457,7 @@ Set the value of the slot of a property.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -461,6 +482,16 @@ Sets the base URL.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setBaseUrl(url)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{A URL as a character value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getWsUrl"></a>}}
@@ -481,6 +512,16 @@ Sets the web sevices URL.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setWsUrl(ws.url)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ws.url}}{A URL as a character value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getToken"></a>}}
@@ -501,6 +542,16 @@ Sets the access token.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setToken(token)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{token}}{The token to use to access the database, as a character value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getName"></a>}}
@@ -541,6 +592,16 @@ Sets the N parameter for the scheduler.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setSchedulerNParam(n)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{The N parameter as a whole number.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSchedulerTParam"></a>}}
@@ -561,6 +622,16 @@ Sets the T parameter for the scheduler.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setSchedulerTParam(t)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{t}}{The T parameter as a whole number.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getUrls"></a>}}
@@ -581,16 +652,38 @@ Returns a URL.
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$getUrl(name)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the URL to retrieve.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The URL as a character value.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setUrl"></a>}}
 \if{latex}{\out{\hypertarget{method-setUrl}{}}}
 \subsection{Method \code{setUrl()}}{
-Returns a URL.
+Sets a URL.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setUrl(name, url)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the URL to set.}
+
+\item{\code{url}}{The URL value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getXmlNs"></a>}}

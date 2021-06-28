@@ -54,19 +54,44 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. No BiodbEntryFields instance must be created
+directly. Instead, call the getEntryFields() method of BiodbMain.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryFields$new(parent)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parent}}{The BiodbMain instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-notifyCfgUpdate"></a>}}
 \if{latex}{\out{\hypertarget{method-notifyCfgUpdate}{}}}
 \subsection{Method \code{notifyCfgUpdate()}}{
+Call back method called when a value is modified inside the configuration.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryFields$notifyCfgUpdate(k, v)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{k}}{The config key name.}
+
+\item{\code{v}}{The value associated with the key.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isAlias"></a>}}
@@ -149,7 +174,7 @@ does not correspond to a defined field.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -260,7 +285,7 @@ Prints information about the instance.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -281,7 +306,7 @@ main names of the fields.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -302,7 +327,7 @@ automatically by the BiodbMain instance when you call
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

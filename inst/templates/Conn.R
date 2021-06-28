@@ -21,7 +21,7 @@
 #' @import R6
 #' @export
 {{connClass}} <- R6::R6Class("{{connClass}}",
-    inherit="BiodbConn",
+inherit=biodb::BiodbConn,
 
 public=list(
 
@@ -138,7 +138,7 @@ initialize=function(...) {
 
 private=list(
 
-,doGetEntryIds=function(max.results=NA_integer_) {
+doGetEntryIds=function(max.results=NA_integer_) {
     # Overrides super class' method.
 
     ids <- NA_character_

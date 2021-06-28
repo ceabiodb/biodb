@@ -28,6 +28,11 @@ BiodbEntryFields <- R6::R6Class("BiodbEntryFields",
 
 public=list(
 
+#' @description
+#' New instance initializer. No BiodbEntryFields instance must be created
+#' directly. Instead, call the getEntryFields() method of BiodbMain.
+#' @param parent The BiodbMain instance.
+#' @return Nothing.
 initialize=function(parent) {
 
     private$parent <- parent
@@ -36,11 +41,20 @@ initialize=function(parent) {
     private$aliasToName <- character(0)
     private$field.name.sep <- parent$getConfig()$get('intra.field.name.sep')
     parent$addObservers(self)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Call back method called when a value is modified inside the configuration.
+#' @param k The config key name.
+#' @param v The value associated with the key.
+#' @return Nothing.
 notifyCfgUpdate=function(k, v) {
     if (k == 'intra.field.name.sep')
         private$field.name.sep <- v
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -84,13 +98,15 @@ isDefined=function(name) {
 #' Tests if names are valid defined fields. Throws an error if any name
 #'     does not correspond to a defined field.
 #' @param name A character vector of names or aliases to test.
-#' @return None.
+#' @return Nothing.
 checkIsDefined=function(name) {
 
     def <- self$isDefined(name)
     if (any( ! def))
         error0("Field(s) \"", paste(name[ ! def], collapse=", "),
             "\" is/are not defined.")
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -194,17 +210,19 @@ getDatabaseIdField=function(database) {
 
 #' @description
 #' Prints information about the instance.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Biodb entry fields information instance.\n")
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Defines fields.
 #' @param def A named list of field definitions. The names of the list are the
 #'     main names of the fields.
-#' @return None.
+#' @return Nothing.
 define=function(def) {
 
     # Loop on all fields
@@ -214,13 +232,15 @@ define=function(def) {
         args[['name']] <- f
         do.call(private$defineField, args)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Terminates the instance. This method will be called
 #'     automatically by the BiodbMain instance when you call
 #' @param BiodbMain :terminate().
-#' @return None.
+#' @return Nothing.
 terminate=function() {
 
     return(invisible(NULL))

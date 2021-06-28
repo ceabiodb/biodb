@@ -62,6 +62,28 @@ BiodbEntryField <- R6::R6Class("BiodbEntryField",
 
 public=list(
 
+#' @description
+#' New instance initializer. This class must not be instantiated directly.
+#' Instead, you access the instances of this class through the BiodbEntryFields
+#' instance that you get from the BiodbMain instance.
+#' @param parent The BiodbEntryFields parent instance.
+#' @param name The field name.
+#' @param alias The field aliases as a character vector.
+#' @param type The field type.
+#' @param class The field class.
+#' @param card The field cardinality.
+#' @param forbids.duplicates Set to TRUE to forbid duplicated values.
+#' @param description The field description.
+#' @param allowed.values Restrict possible values to a set of allowed values.
+#' @param lower.case All values will be converted to lower case.
+#' @param case.insensitive Comparison will be made case insensitive for this
+#' field.
+#' @param computable.from A list of databases from which to compute
+#' automatically the value of this field.
+#' @param virtual Set to TRUE if this field is virtual.
+#' @param virtual.group.by.type In case of a virtual field, set the type of fields to group together into a data frame.
+#' @param dataFrameGroup The data frame group.
+#' @return Nothing.
 initialize=function(parent, name, alias=NA_character_, type=NA_character_,
     class=c('character', 'integer', 'double', 'logical', 'object',
         'data.frame'),
@@ -148,6 +170,8 @@ initialize=function(parent, name, alias=NA_character_, type=NA_character_,
     # Set other fields
     private$forbids.duplicates <- forbids.duplicates
     private$dataFrameGroup <- dataFrameGroup
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -198,7 +222,7 @@ getAliases=function() {
 #' @description
 #' Adds an alias to the list of aliases. 
 #' @param alias The name of a valid alias.
-#' @return None.
+#' @return Nothing.
 addAlias=function(alias) {
 
     if ( ! alias %in% private$alias) {
@@ -211,16 +235,20 @@ addAlias=function(alias) {
         if ( ! alias %in% private$alias)
             private$alias <- c(private$alias, alias)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Removes an alias from the list of aliases. 
 #' @param alias The name of a valid alias.
-#' @return None.
+#' @return Nothing.
 removeAlias=function(alias) {
     
     if (alias %in% private$alias)
         private$alias <- private$alias[private$alias != alias]
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -272,7 +300,7 @@ isComputableFrom=function() {
 #' @description
 #' Adds a directive from the list of computableFrom.
 #' @param directive A valid \"computable from\" directive.
-#' @return None.
+#' @return Nothing.
 addComputableFrom=function(directive) {
 
     # Has a "database" field
@@ -290,12 +318,14 @@ addComputableFrom=function(directive) {
     # Add the new directive
     private$computable.from <- if (is.null(private$computable.from))
         list(directive) else c(private$computable.from, directive)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Removes a directive from the list of computableFrom.
 #' @param directive A valid \"computable from\" directive.
-#' @return None.
+#' @return Nothing.
 removeComputableFrom=function(directive) {
 
     # Search for directive
@@ -307,6 +337,8 @@ removeComputableFrom=function(directive) {
             break
         }
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -419,7 +451,7 @@ getAllowedValues=function(value=NULL) {
 #' @param key The key associated with the value (i.e.: the key is the main name of
 #'     an allowed value).
 #' @param value The new value to add.
-#' @return None.
+#' @return Nothing.
 addAllowedValue=function(key, value) {
 
     key <- tolower(key)
@@ -448,12 +480,14 @@ addAllowedValue=function(key, value) {
 
     # Add new value
     private$allowed.values[[key]] <- c(private$allowed.values[[key]], value)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Checks if a value is correct. Fails if `value` is incorrect.
 #' @param value The value to check.
-#' @return None.
+#' @return Nothing.
 checkValue=function(value) {
 
     if (private$lower.case)
@@ -466,6 +500,8 @@ checkValue=function(value) {
         error0('Value(s) ', bv, ' is/are not allowed for field ',
             self$getName(), '. Allowed values are: ', av, '.')
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -586,7 +622,7 @@ equals=function(other, fail=FALSE) {
 #'     vectors. The new values will only be appended. This allows to extend an
 #'     existing field inside a new connector definition.
 #' @param other Another BiodbEntryField instance.
-#' @return None.
+#' @return Nothing.
 updateWithValuesFrom=function(other) {
 
     if ( ! methods::is(other, "BiodbEntryField"))
@@ -604,7 +640,7 @@ updateWithValuesFrom=function(other) {
 
 #' @description
 #' Print informations about this entry.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Entry field \"", private$name, "\".\n", sep='')
@@ -632,12 +668,20 @@ print=function() {
     if ( ! is.null(private$allowed.values))
         cat("  Allowed values: ", paste(private$allowed.values, collapse=', '),
             ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the field's cardinality.
+#' @return The cardinality: "one" or "many".
 getCardinality=function() {
     return(private$cardinality)
 },
 
+#' @description
+#' Checks if essential values are defined.
+#' @return Nothing.
 check=function() {
     
     # Check name
@@ -648,6 +692,8 @@ check=function() {
     if (is.null(private$description) || is.na(private$description)
         || private$description == '')
         warn('Missing description for entry field "%s".', private$name)
+
+    return(invisible(NULL))
 }
 ),
 
@@ -694,5 +740,7 @@ setComputableFrom=function(computable.from) {
     }
 
     private$computable.from <- computable.from
+
+    return(invisible(NULL))
 }
 ))

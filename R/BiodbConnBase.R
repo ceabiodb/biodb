@@ -48,6 +48,17 @@ BiodbConnBase <- R6::R6Class("BiodbConnBase",
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector objects must not be created directly.
+#' Instead, you create new connector instances through the BiodbFactory
+#' instance.
+#' @param other Another BiodbConnBase instance as a model from which to
+#' copy property values.
+#' @param db.class   The class of the connector (i.e.: "mass.csv.file").
+#' @param properties Some new values for the properties.
+#' @param cfg   The BiodbConfig instance from which will be taken some
+#' property values.
+#' @return Nothing.
 initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
 
     abstractClass('BiodbConnBase', self)
@@ -70,11 +81,13 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
 
     # Set properties
     private$defineProperties(other, properties, cfg=cfg)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Prints a description of this connector.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     # Title
@@ -122,6 +135,8 @@ print=function() {
         reason <- self$getPropertyValue('disabling.reason')
         cat('This connector currently is DISABLED. ', reason, "\n")
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -204,7 +219,7 @@ getPropValSlot=function(name, slot) {
 #' Update the definition of properties.
 #' @param def A named list of property definitions. The names of the list must
 #' be the property names.
-#' @return None.
+#' @return Nothing.
 updatePropertiesDefinition=function(def) {
 
     # Loop on properties
@@ -223,13 +238,17 @@ updatePropertiesDefinition=function(def) {
         else
             self$setPropertyValue(prop, def[[prop]])
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Reimplement this method in your connector class to define parsing
 #' expressions dynamically.
-#' @return None.
+#' @return Nothing.
 defineParsingExpressions=function() {
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -329,7 +348,7 @@ getPropertyValue=function(name) {
 #' Sets the value of a property.
 #' @param name The name of the property.
 #' @param value The new value to set the property to.
-#' @return None.
+#' @return Nothing.
 setPropertyValue=function(name, value) {
 
     logDebug('Setting property "%s" to "%s".', name, value)
@@ -352,14 +371,16 @@ setPropertyValue=function(name, value) {
     # Notify observers
     if (name %in% c('scheduler.n', 'scheduler.t')) {
         logDebug("Notifying observers about frequency change.")
-        notifyObservers(private$observers, 'notifyConnSchedulerFrequencyUpdated',
-            list(conn=self))
+        notifyObservers(private$observers,
+            'notifyConnSchedulerFrequencyUpdated', conn=self)
     }
     else if (name == 'urls') {
         logDebug("Notifying observers about URLs change.")
         notifyObservers(private$observers, 'notifyConnUrlsUpdated',
-            list(conn=self))
+            conn=self)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -367,7 +388,7 @@ setPropertyValue=function(name, value) {
 #' @param name The name of the property.
 #' @param slot The name of the property's slot.
 #' @param value The new value to set the property's slot to.
-#' @return None.
+#' @return Nothing.
 setPropValSlot=function(name, slot, value) {
 
     private$checkProperty(name=name, slot=slot)
@@ -380,6 +401,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Update value
     self$setPropertyValue(name, curval)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -394,11 +417,15 @@ getBaseUrl=function() {
 
 #' @description
 #' Sets the base URL.
+#' @param url A URL as a character value.
+#' @return Nothing.
 setBaseUrl=function(url) {
 
     lifecycle::deprecate_warn('1.0.0', "setBaseUrl()", "setPropValSlot()")
 
     self$setPropValSlot('urls', 'base.url', url)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -412,11 +439,15 @@ getWsUrl=function() {
 
 #' @description
 #' Sets the web sevices URL.
+#' @param ws.url A URL as a character value.
+#' @return Nothing.
 setWsUrl=function(ws.url) {
 
     lifecycle::deprecate_warn('1.0.0', "setWsUrl()", "setPropValSlot()")
 
     self$setPropValSlot('urls', 'ws.url', ws.url)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -430,11 +461,15 @@ getToken=function() {
 
 #' @description
 #' Sets the access token.
+#' @param token The token to use to access the database, as a character value.
+#' @return Nothing.
 setToken=function(token) {
 
     lifecycle::deprecate_soft('1.0.0', "setToken()", "setPropertyValue()")
 
     self$setPropertyValue('token', token)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -468,12 +503,16 @@ getSchedulerNParam=function() {
 
 #' @description
 #' Sets the N parameter for the scheduler.
+#' @param n The N parameter as a whole number.
+#' @return Nothing.
 setSchedulerNParam=function(n) {
 
     lifecycle::deprecate_soft('1.0.0', "setSchedulerNParam()",
         "setPropertyValue()")
 
     self$setPropertyValue('scheduler.n', n)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -488,12 +527,16 @@ getSchedulerTParam=function() {
 
 #' @description
 #' Sets the T parameter for the scheduler.
+#' @param t The T parameter as a whole number.
+#' @return Nothing.
 setSchedulerTParam=function(t) {
 
     lifecycle::deprecate_soft('1.0.0', "setSchedulerTParam()",
         "setPropertyValue()")
 
     self$setPropertyValue('scheduler.t', t)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -507,6 +550,8 @@ getUrls=function() {
 
 #' @description
 #' Returns a URL.
+#' @param name The name of the URL to retrieve.
+#' @return The URL as a character value.
 getUrl=function(name) {
 
     lifecycle::deprecate_soft('1.0.0', "getUrl()", "getPropValSlot()")
@@ -515,12 +560,17 @@ getUrl=function(name) {
 },
 
 #' @description
-#' Returns a URL.
+#' Sets a URL.
+#' @param name The name of the URL to set.
+#' @param url The URL value.
+#' @return Nothing.
 setUrl=function(name, url) {
 
     lifecycle::deprecate_soft('1.0.0', "setUrl()", "setPropValSlot()")
 
     self$setPropValSlot(name='urls', slot=name, value=url)
+
+    return(invisible(NULL))
 },
 
 #' @description

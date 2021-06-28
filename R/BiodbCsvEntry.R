@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbCsvEntry",
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbCsvEntry)
 #'
 #' @include BiodbEntry.R
 #' @export
@@ -16,6 +16,17 @@ inherit=BiodbEntry,
 
 public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param sep The separator to use in CSV files.
+#' @param na.strings The strings to recognize as NA values. This is a character
+#' vector.
+#' @param quotes The characters to recognize as quotes. This is a single
+#' character value.
+#' @param ... The remaining arguments will be passed to the super class
+#' initializer.
+#' @return Nothing.
 initialize=function(sep=',', na.strings='NA', quotes='', ...) {
 
     super$initialize(...)
@@ -27,6 +38,8 @@ initialize=function(sep=',', na.strings='NA', quotes='', ...) {
     private$sep <- sep
     private$na.strings <- na.strings
     private$quotes <- quotes
+
+    return(invisible(NULL))
 }
 ),
 

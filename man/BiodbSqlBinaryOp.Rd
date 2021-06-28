@@ -29,7 +29,7 @@ This class represents an SQL binary operator.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbSqlBinaryOp$new(lexpr, op, rexpr)}\if{html}{\out{</div>}}
 }
@@ -46,7 +46,7 @@ Constructor.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

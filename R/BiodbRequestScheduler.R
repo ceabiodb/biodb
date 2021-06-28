@@ -35,6 +35,12 @@ BiodbRequestScheduler <- R6::R6Class("BiodbRequestScheduler",
 
 public=list(
 
+#' @description
+#' New instance initializer. BiodbRequestScheduler class must not be
+#' instantiated direrctly. Instead, use the getRequestScheduler() method from
+#' BiodbMain.
+#' @param bdb The BiodbMain instance.
+#' @return Nothing.
 initialize=function(bdb) {
 
     chk::chk_is(bdb, 'BiodbMain')
@@ -44,6 +50,8 @@ initialize=function(bdb) {
     private$host2rule <- list()
     private$nb.max.tries <- 10L
     private$ssl.verifypeer <- TRUE
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -131,7 +139,7 @@ sendRequest=function(request, cache.read=TRUE) {
 #'     destination file.
 #' @param url The URL to access, as a BiodbUrl object.
 #' @param dest.file A path to a destination file.
-#' @return None.
+#' @return Nothing.
 downloadFile=function(url, dest.file) {
 
     # Get rule
@@ -156,13 +164,27 @@ downloadFile=function(url, dest.file) {
     utils::download.file(url=url, destfile=dest.file, mode='wb',
         method='auto', cacheOK=FALSE, quiet=FALSE)
     # TODO Add a biodb option for "quiet"?
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Call back function called when connector URLs are changed.
+#' @param conn The connector instance for which the URLs were changed.
+#' @return Nothing.
 notifyConnUrlsUpdated=function(conn) {
+
     private$unregisterConnector(conn)
     private$registerConnector(conn)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Call back function called when connector T and N parameters (frequency) are
+#' changed.
+#' @param conn The connector instance for which the frequency were changed.
+#' @return Nothing.
 notifyConnSchedulerFrequencyUpdated=function(conn) {
 
     logDebug("Frequency changed for connector %s.", conn$getId())
@@ -175,10 +197,15 @@ notifyConnSchedulerFrequencyUpdated=function(conn) {
         for (rule in private$connid2rules[[conn$getId()]])
             rule$recomputeFrequency()
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
-#' Build a URL string, using a base URL and parameters to be passed.
+#' Builds a URL object, using a base URL and parameters to be passed.
+#' @param url A URL string.
+#' @param params A list of URL parameters.
+#' @return A BiodUrl object.
 getUrlString=function(url, params=list()) {
     lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
@@ -187,9 +214,17 @@ getUrlString=function(url, params=list()) {
     return(url)
 },
 
+#' @description
+#' Sends a request and get the result.
+#' @param url A URL string.
+#' @param params A list of URL parameters.
+#' @param method The method to use. Either 'get' or 'post'.
+#' @param header The header to send.
+#' @param body The body to send.
+#' @param encoding The encoding to use.
+#' @return The results of the request.
 getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
     body=character(), encoding=integer()) {
-    "Send a URL request, either with GET or POST method, and return result."
 
     lifecycle::deprecate_warn('1.0.0', 'getUrl()',
         "BiodbRequestScheduler::sendRequest()")
@@ -202,6 +237,11 @@ getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
     return(self$sendRequest(request))
 },
 
+#' @description
+#' Searches for a rule by host name. 
+#' @param url     The host URL.
+#' @param create  Sets to TRUE to create a rule when none exists.
+#' @return A BiodbRequestSchedulerRule object.
 findRule=function(url, create=TRUE) {
 
     chk::chk_not_null(url)
@@ -222,11 +262,19 @@ findRule=function(url, create=TRUE) {
     return(private$host2rule[[domain]])
 },
 
+#' @description
+#' Gets the rules associates with a connector.
+#' @param conn A valid connector object.
+#' @return A list of rules.
 getConnectorRules=function(conn) {
     chk::chk_is(conn, 'BiodbConn')
     return(private$connid2rules[[conn$getId()]])
 },
 
+#' @description
+#' Registers a new connector with the scheduler.
+#' @param conn A valid connector object.
+#' @return Nothing.
 registerConnector=function(conn) {
 
     logDebug('Register connector %s.', conn$getId())
@@ -247,6 +295,10 @@ registerConnector=function(conn) {
     return(invisible(NULL))
 },
 
+#' @description
+#' Unregisters a connector from this scheduler.
+#' @param conn A valid connector object.
+#' @return Nothing.
 unregisterConnector=function(conn) {
 
     # Is connector not registered?
@@ -265,6 +317,9 @@ unregisterConnector=function(conn) {
     return(invisible(NULL))
 },
 
+#' @description
+#' Gets all defined rules.
+#' @return The list of all rules.
 getAllRules=function() {
     return(private$host2rule)
 }

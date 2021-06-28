@@ -4,12 +4,17 @@
 \alias{BiodbSdfEntry}
 \title{Entry class for content in SDF format.}
 \description{
+Entry class for content in SDF format.
+
+Entry class for content in SDF format.
+}
+\details{
 This is an abstract class for handling database entries whose content is in
 SDF format.
 }
 \examples{
 # Create a concrete entry class inheriting from CSV class:
-MyEntry <- R6::R6Class("MyEntry", contains="BiodbSdfEntry")
+MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbSdfEntry)
 
 }
 \seealso{
@@ -53,10 +58,8 @@ Super class \code{\link{BiodbTxtEntry}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="parseContent">}\href{../../biodb/html/BiodbEntry.html#method-parseContent}{\code{biodb::BiodbEntry$parseContent()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="print">}\href{../../biodb/html/BiodbEntry.html#method-print}{\code{biodb::BiodbEntry$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="removeField">}\href{../../biodb/html/BiodbEntry.html#method-removeField}{\code{biodb::BiodbEntry$removeField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setAsNew">}\href{../../biodb/html/BiodbEntry.html#method-setAsNew}{\code{biodb::BiodbEntry$setAsNew()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setField">}\href{../../biodb/html/BiodbEntry.html#method-setField}{\code{biodb::BiodbEntry$setField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setFieldValue">}\href{../../biodb/html/BiodbEntry.html#method-setFieldValue}{\code{biodb::BiodbEntry$setFieldValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setParent">}\href{../../biodb/html/BiodbEntry.html#method-setParent}{\code{biodb::BiodbEntry$setParent()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -64,10 +67,22 @@ Super class \code{\link{BiodbTxtEntry}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Entry objects must not be created directly.
+Instead, they are retrieved through the connector instances.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbSdfEntry$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

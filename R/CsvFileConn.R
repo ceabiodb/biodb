@@ -27,6 +27,11 @@ inherit=BiodbConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(...)
@@ -40,6 +45,8 @@ initialize=function(...) {
     private$field2cols <- list()
     private$autoSetFieldsHasBeenRun <- FALSE
     private$ignoreUnassignedColumns <- FALSE
+    
+    return(invisible(NULL))
 },
 
 #' @description
@@ -55,7 +62,7 @@ getCsvQuote=function() {
 #' Sets the characters used to delimit quotes in the CSV database file.
 #' @param quote The characters used to delimit quotes as a single character value.
 #' @param You may specify several characters. Example \"\\\"'\".
-#' @return None.
+#' @return Nothing.
 setCsvQuote=function(quote) {
 
     chk::chk_string(quote)
@@ -65,6 +72,8 @@ setCsvQuote=function(quote) {
             " the quote parameter is not allowed.")
     
     private$file.quote <- quote
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -79,7 +88,7 @@ getCsvSep=function() {
 #' Sets the CSV separator to be used for the database file. If this
 #'     method is called after the loading of the database, it will throw an error.
 #' @param sep The CSV separator as a character value.
-#' @return None.
+#' @return Nothing.
 setCsvSep=function(sep) {
 
     chk::chk_string(sep)
@@ -89,6 +98,8 @@ setCsvSep=function(sep) {
             " the separator character parameter is not allowed.")
     
     private$file.sep <- sep
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -124,6 +135,12 @@ hasField=function(field) {
     return(field %in% self$getFieldNames())
 },
 
+#' @description
+#' Tests if a field can be used to search entries when using method
+#'     searchForEntries().
+#' @param field The name of the field.
+#' @return Returns TRUE if the database is searchable using the
+#'     specified field, FALSE otherwise.
 isSearchableByField=function(field) {
     # Overrides super class' method.
 
@@ -134,13 +151,12 @@ isSearchableByField=function(field) {
 },
 
 #' @description
-#' Adds a new field to the database. The field must not already exist.
-#'     The same single value will be set to all entries for this field.
-#'     A new column will be written in the memory data frame, containing the value
-#'     given.
+#' Adds a new field to the database. The field must not already exist.  The
+#' same single value will be set to all entries for this field.  A new column
+#' will be written in the memory data frame, containing the value given.
 #' @param field A valid Biodb entry field name.
 #' @param value The value to set for this field.
-#' @return None.
+#' @return Nothing.
 addField=function(field, value) {
 
     if (is.null(field) || is.na(field))
@@ -163,6 +179,8 @@ addField=function(field, value) {
         paste(value, collapse=', '), '.')
     private$db[[field]] <- value
     self$setField(field, field)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -196,7 +214,7 @@ getFieldColName=function(field) {
 #' @param colname A character vector containing one or more column names from the
 #'     CSV file.
 #' @param ignore.if.missing Deprecated parameter.
-#' @return None.
+#' @return Nothing.
 setField=function(field, colname, ignore.if.missing=FALSE) {
 
     chk::chk_string(field)
@@ -259,13 +277,22 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
     
     # Store column(s)/field association
     private$field2cols[[field]] <- colname
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the association between biodb field names and CSV file column names.
+#' @return A list with names being the biodb field names and values being a
+#' character vector of column names from the CSV file.
 getFieldsAndColumnsAssociation=function() {
     private$initDb()
     return(private$field2cols)
 },
 
+#' @description
+#' Gets the list of unassociated column names from the CSV file.
+#' @return A character vector containing column names.
 getUnassociatedColumns=function() {
     private$initDb()
     cols <- colnames(private$db)
@@ -274,6 +301,9 @@ getUnassociatedColumns=function() {
     return(unused_cols)
 },
 
+#' @description
+#' Prints a description of this connector.
+#' @return Nothing.
 print=function() {
     # Overrides super class' method.
     
@@ -289,8 +319,15 @@ print=function() {
     cols <- self$getUnassociatedColumns()
     if (length(cols) > 0)
         cat("Unassociated columns: ", paste(cols, collapse=", "), ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Get the number of entries contained in this database.
+#' @param count If set to TRUE and no straightforward way exists to get number of
+#'     entries, count the output of getEntryIds().
+#' @return The number of entries in the database, as an integer.
 getNbEntries=function(count=FALSE) {
     # Overrides super class' method.
 
@@ -303,6 +340,14 @@ getNbEntries=function(count=FALSE) {
     return(n)
 },
 
+#' @description
+#' Get the contents of entries directly from the database. A direct request or
+#' an access to the database will be made in order to retrieve the contents. No
+#' access to the biodb cache system will be made.
+#' @param entry.id A character vector with the IDs of entries to retrieve.
+#' @return A character vector, the same size of entry.id, with contents of the
+#' requested entries. An NA value will be set for the content of each entry for
+#' which the retrieval failed.
 getEntryContentFromDb=function(entry.id) {
     # Overrides super class' method.
 
@@ -342,7 +387,7 @@ getEntryContentFromDb=function(entry.id) {
 #' Sets the database directly from a data frame. You must not have set
 #'     the database previously with the URL parameter.
 #' @param db A data frame containing your database.
-#' @return None.
+#' @return Nothing.
 setDb=function(db) {
 
     # URL point to an existing file?
@@ -353,8 +398,13 @@ setDb=function(db) {
             ' connector.')
 
     private$doSetDb(db)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Defines automatically the parsing expressions.
+#' @return Nothing.
 defineParsingExpressions=function() {
     # Overrides super class' method.
 
@@ -363,11 +413,22 @@ defineParsingExpressions=function() {
     # Define a parsing expression for each column inside the database
     for (field in self$getFieldNames())
         self$setPropValSlot('parsing.expr', field, private$fields[[field]])
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Tells the connector to ignore or not the columns found in the CSV file for
+#' which no assignment were found.
+#' @param ignore Set to TRUE to ignore the unassigned columns, and to FALSE
+#' otherwise.
+#' @return Nothing.
 setIgnoreUnassignedColumns=function(ignore) {
+
     chk::chk_flag(ignore)
     private$ignoreUnassignedColumns <- ignore
+
+    return(invisible(NULL))
 }
 ),
 

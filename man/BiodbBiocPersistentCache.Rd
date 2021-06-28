@@ -57,10 +57,23 @@ A persistent cache implementation that uses BiocCache package.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Cache objects must not be created directly.
+Instead, access the cache instance through the BiodbMain instance using the
+getPersistentCache() method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbBiocPersistentCache$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{See the constructor of ExtGenerator for the parameters.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

@@ -8,13 +8,15 @@ inherit=BiodbSqlExpr,
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param table The table name.
 #' @param field The field name.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(table=NA_character_, field) {
     private$table <- table
     private$field <- field
+
+    return(invisible(NULL))
 },
 
 #' @description

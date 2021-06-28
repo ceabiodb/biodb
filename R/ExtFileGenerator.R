@@ -24,7 +24,7 @@ inherit=ExtGenerator,
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param filename  The name of the generated file.
 #' @param overwrite If set to TRUE, then overwrite existing destination file,
 #' even whatever the version of the template file. If set to FALSE,
@@ -38,11 +38,10 @@ public=list(
 #' version numbers). "lineAdder" only adds to the destination file the
 #' missing lines from the template file.
 #' @param ... See the constructor of ExtGenerator for the parameters.
-#' @return A new instance.
+#' @return Nothing.
 #' @export
 initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
-                    template=NULL, upgrader=c('fullReplacer', 'lineAdder'),
-                    ...) {
+    template=NULL, upgrader=c('fullReplacer', 'lineAdder'), ...) {
     super$initialize(...)
     chk::chk_dir(private$path)
     chk::chk_flag(overwrite)
@@ -57,6 +56,8 @@ initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
     private$folder <- folder
     private$filename <- filename
     private$upgrader <- upgrader
+
+    return(invisible(NULL))
 }
 ),
 

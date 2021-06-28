@@ -24,11 +24,14 @@ inherit=ExtFileGenerator,
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
 #' offers this possiblity.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(template='definitions.yml', folder='inst',
         filename='definitions.yml', ...)
+
+    return(invisible(NULL))
 }
 ))

@@ -4,6 +4,11 @@
 \alias{MassSqliteConn}
 \title{Class for handling a Mass spectrometry database in SQLite format.}
 \description{
+Class for handling a Mass spectrometry database in SQLite format.
+
+Class for handling a Mass spectrometry database in SQLite format.
+}
+\details{
 This is the connector class for a MASS SQLite database.
 }
 \examples{
@@ -145,10 +150,24 @@ Super class \code{\link{SqliteConn}}.
 \if{html}{\out{<a id="method-getChromCol"></a>}}
 \if{latex}{\out{\hypertarget{method-getChromCol}{}}}
 \subsection{Method \code{getChromCol()}}{
+Gets a list of chromatographic columns contained in this database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MassSqliteConn$getChromCol(ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
+numbers).  Used to restrict the set of entries on which to run the
+algorithm.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A data.frame with two columns, one for the ID 'id' and another one
+for the title 'title'.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

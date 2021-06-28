@@ -64,10 +64,23 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. The BiodbFactory class must not be instantiated
+directly.
+Instead, call the getFactory() method from the BiodbMain instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbFactory$new(bdb)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bdb}}{The BiodbMain instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getBiodb"></a>}}
@@ -167,12 +180,12 @@ Deletes an existing connector.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{conn.id}}{A connector instance or a connector ID.}
+\item{\code{conn}}{A connector instance or a connector ID.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -193,7 +206,7 @@ type will be deleted.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -219,7 +232,7 @@ Deletes all connectors.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -338,7 +351,7 @@ instead.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -358,7 +371,7 @@ Deletes all entries stored in the cache of the given connector.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -371,7 +384,7 @@ Prints information about this instance.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
