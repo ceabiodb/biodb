@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from this class:
-#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbHtmlEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbHtmlEntry)
 #'
 #' @include BiodbXmlEntry.R
 #' @export

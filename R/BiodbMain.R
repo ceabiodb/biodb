@@ -72,8 +72,8 @@ initialize=function(autoloadExtraPkgs=NULL) {
 },
 
 #' @description
-#' Closes \\code{BiodbMain} instance. Call this method when you are done
-#'     with your \\code{BiodbMain} instance.
+#' Closes \\code{BiodbMain} instance. Call this method when you are done with
+#' your \\code{BiodbMain} instance.
 #' @return Nothing.
 terminate=function() {
 
@@ -84,16 +84,15 @@ terminate=function() {
         private$factory$.__enclos_env__$private$terminate()
 
     # Terminate observers
-    for (obs in private$observers)
-        obs$terminate()
+    notifyObservers(private$observers, 'terminate')
 
     return(invisible(NULL))
 },
 
 #' @description
 #' Loads databases and entry fields definitions from YAML file.
-#' @param file The path to a YAML file containing definitions for \\code{BiodbMain}
-#'     (databases, fields or configuration keys).
+#' @param file The path to a YAML file containing definitions for
+#' \\code{BiodbMain} (databases, fields or configuration keys).
 #' @param package The package to which belong the new definitions.
 #' @return Nothing.
 loadDefinitions=function(file, package='biodb') {
@@ -216,7 +215,7 @@ addObservers=function(observers) {
         else c(observers, private$observers)
 
     # Notify of new observers
-    notifyObservers(old_obs, 'notifyNewObservers', list(obs=observers))
+    notifyObservers(old_obs, 'notifyNewObservers', obs=observers)
 
     return(invisible(NULL))
 },

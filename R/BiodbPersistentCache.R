@@ -519,7 +519,7 @@ deleteFiles=function(cache.id, ext) {
 #' etc).
 #' @param extract.name If set to \\code{TRUE}, instead of returning the file
 #' paths, returns the list of names used to construct the file name:
-#' [cache_folder]/[cache.id]/[name].[ext].
+#' \[cache_folder\]/\[cache.id\]/\[name\].\[ext\].
 #' @param full.path If set to \\code{TRUE}, returns full path for files.
 #' @return The files of found files, or the names of the files if
 #' \\code{extract.name} is set to \\code{TRUE}.

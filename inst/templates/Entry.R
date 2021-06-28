@@ -40,21 +40,21 @@
 {{entryClass}} <- R6::R6Class("{{entryClass}}",
     inherit=
 # $$$ CASE ENTRYTYPE PLAIN $$$
-        'BiodbEntry'
+        biodb::BiodbEntry
 # $$$ CASE ENTRYTYPE CSV $$$
-        'BiodbCsvEntry'
+        biodb::BiodbCsvEntry
 # $$$ CASE ENTRYTYPE HTML $$$
-        'BiodbHtmlEntry'
+        biodb::BiodbHtmlEntry
 # $$$ CASE ENTRYTYPE JSON $$$
-        'BiodbJsonEntry'
+        biodb::BiodbJsonEntry
 # $$$ CASE ENTRYTYPE LIST $$$
-        'BiodbListEntry'
+        biodb::BiodbListEntry
 # $$$ CASE ENTRYTYPE SDF $$$
-        'BiodbSdfEntry'
+        biodb::BiodbSdfEntry
 # $$$ CASE ENTRYTYPE TXT $$$
-        'BiodbTxtEntry'
+        biodb::BiodbTxtEntry
 # $$$ CASE ENTRYTYPE XML $$$
-        'BiodbXmlEntry'
+        biodb::BiodbXmlEntry
 # $$$ END_CASE ENTRYTYPE $$$
     ,
 

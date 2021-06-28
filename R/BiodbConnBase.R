@@ -371,13 +371,13 @@ setPropertyValue=function(name, value) {
     # Notify observers
     if (name %in% c('scheduler.n', 'scheduler.t')) {
         logDebug("Notifying observers about frequency change.")
-        notifyObservers(private$observers, 'notifyConnSchedulerFrequencyUpdated',
-            list(conn=self))
+        notifyObservers(private$observers,
+            'notifyConnSchedulerFrequencyUpdated', conn=self)
     }
     else if (name == 'urls') {
         logDebug("Notifying observers about URLs change.")
         notifyObservers(private$observers, 'notifyConnUrlsUpdated',
-            list(conn=self))
+            conn=self)
     }
 
     return(invisible(NULL))

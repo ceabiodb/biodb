@@ -98,8 +98,8 @@ Nothing.
 \if{html}{\out{<a id="method-terminate"></a>}}
 \if{latex}{\out{\hypertarget{method-terminate}{}}}
 \subsection{Method \code{terminate()}}{
-Closes \\code{BiodbMain} instance. Call this method when you are done
-with your \\code{BiodbMain} instance.
+Closes \\code{BiodbMain} instance. Call this method when you are done with
+your \\code{BiodbMain} instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$terminate()}\if{html}{\out{</div>}}
 }
@@ -120,8 +120,8 @@ Loads databases and entry fields definitions from YAML file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file}}{The path to a YAML file containing definitions for \\code{BiodbMain}
-(databases, fields or configuration keys).}
+\item{\code{file}}{The path to a YAML file containing definitions for
+\\code{BiodbMain} (databases, fields or configuration keys).}
 
 \item{\code{package}}{The package to which belong the new definitions.}
 }

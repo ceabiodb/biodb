@@ -7,13 +7,12 @@
 #' @examples
 #' # To use the acknowledger, set ack=TRUE when creating the Biodb test
 #' # instance:
-#' biodb <- createBiodbTestInstance(ack=TRUE)
+#' biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 #'
 #' # Terminate the BiodbMain instance
 #' biodb$terminate()
 #'
 #' @import R6
-#' @export BiodbTestMsgAck
 BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
 
 public=list(
@@ -189,7 +188,7 @@ createBiodbTestInstance <- function(ack=FALSE) {
 
     # Add acknowledger
     if (ack) {
-        ack <- BiodbTestMsgAck()
+        ack <- BiodbTestMsgAck$new()
         biodb$addObservers(ack)
     }
 

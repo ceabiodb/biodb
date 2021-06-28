@@ -138,7 +138,7 @@ initialize=function(...) {
 
 private=list(
 
-,doGetEntryIds=function(max.results=NA_integer_) {
+doGetEntryIds=function(max.results=NA_integer_) {
     # Overrides super class' method.
 
     ids <- NA_character_

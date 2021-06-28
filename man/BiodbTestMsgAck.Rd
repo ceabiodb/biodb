@@ -16,7 +16,7 @@ does not stop tests because no change is detected in output.
 \examples{
 # To use the acknowledger, set ack=TRUE when creating the Biodb test
 # instance:
-biodb <- createBiodbTestInstance(ack=TRUE)
+biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 
 # Terminate the BiodbMain instance
 biodb$terminate()

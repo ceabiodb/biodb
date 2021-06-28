@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- R6::R6Class("MyEntry", contains="BiodbListEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbListEntry)
 #'
 #' @include BiodbEntry.R
 #' @export

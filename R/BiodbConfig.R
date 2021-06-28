@@ -199,7 +199,8 @@ set=function(key, value) {
     logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
-    notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate', list(k=key, v=v))
+    notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate', k=key,
+        v=v)
 
     return(invisible(NULL))
 },
@@ -336,8 +337,8 @@ notifyNewObservers=function(obs) {
 
     # Loop on all keys
     for(key in names(private$values))
-        notifyObservers(private$parent$getObservers(),
-            'notifyCfgUpdate', list(k=key, v=private$values[[key]]))
+        notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate',
+            k=key, v=private$values[[key]])
 
     return(invisible(NULL))
 },

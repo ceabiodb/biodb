@@ -62,8 +62,7 @@ initialize=function(biodb=NULL, msg, total){
     # Notify biodb observers
     if ( ! is.null(private$biodb))
         notifyObservers(private$biodb$getObservers(), 'notifyProgress',
-            list(what=private$msg, index=private$index,
-                total=private$total))
+            what=private$msg, index=private$index, total=private$total)
     
     return(invisible(NULL))
 }    
