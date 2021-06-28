@@ -13,6 +13,7 @@
 #' biodb$terminate()
 #'
 #' @import R6
+#' @import methods
 BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
 
 public=list(
@@ -148,7 +149,7 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 
         # Call test function
         params <- list()
-        fctArgs <- formalArgs(fct)
+        fctArgs <- methods::formalArgs(fct)
         if ( ! is.null(fctArgs))
             for (p in fctArgs)
                 params[[p]] <- if (p == 'db') conn else get(p)

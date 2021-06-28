@@ -335,13 +335,13 @@ getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
 
 #' @description
 #' Get entry identifiers from the database. More arguments can be given,
-#'     depending on implementation in specific databases. For mass databases
-#'     the ms.level argument can also be set.
+#' depending on implementation in specific databases. For mass databases the
+#' ms.level argument can also be set.
 #' @param max.results The maximum of elements to return from the method.
 #' @param ... First arguments to be passed to private .doGetEntryIds() method.
-#' @return A character vector containing entry IDs from the
-#'     database. An empty vector for a remote database may mean that the database
-#'     does not support requesting for entry accessions.
+#' @return A character vector containing entry IDs from the database. An empty
+#' vector for a remote database may mean that the database does not support
+#' requesting for entry accessions.
 getEntryIds=function(max.results=0, ...) {
 
     chk::chk_number(max.results)
@@ -371,8 +371,8 @@ getEntryIds=function(max.results=0, ...) {
 
 #' @description
 #' Get the number of entries contained in this database.
-#' @param count If set to TRUE and no straightforward way exists to get number of
-#'     entries, count the output of getEntryIds().
+#' @param count If set to TRUE and no straightforward way exists to get number
+#' of entries, count the output of getEntryIds().
 #' @return The number of entries in the database, as an integer.
 getNbEntries=function(count=FALSE) {
 
@@ -388,9 +388,9 @@ getNbEntries=function(count=FALSE) {
 },
 
 #' @description
-#' Tests if this connector is able to edit the database (i.e.: the
-#'     connector class implements the interface BiodbEditable). If this connector
-#'     is editable, then you can call allowEditing() to enable editing.
+#' Tests if this connector is able to edit the database (i.e.: the connector
+#' class implements the interface BiodbEditable). If this connector is
+#' editable, then you can call allowEditing() to enable editing.
 #' @return Returns TRUE if the database is editable.
 isEditable=function() {
 
@@ -446,9 +446,9 @@ setEditingAllowed=function(allow) {
 },
 
 #' @description
-#' Adds a new entry to the database. The passed entry must have been
-#' @param previously created from scratch using BiodbFactory :createNewEntry() or
-#' @param cloned from an existing entry using BiodbEntry :clone().
+#' Adds a new entry to the database. The passed entry must have been previously
+#' created from scratch using BiodbFactory :createNewEntry() or cloned from an
+#' existing entry using BiodbEntry :clone().
 #' @param entry The new entry to add. It must be a valid BiodbEntry object.
 #' @return Nothing.
 addNewEntry=function(entry) {
@@ -501,7 +501,7 @@ addNewEntry=function(entry) {
 
 #' @description
 #' Tests if this connector is able to write into the database.  If this
-#'     connector is writable, then you can call allowWriting() to enable writing.
+#' connector is writable, then you can call allowWriting() to enable writing.
 #' @return Returns TRUE if the database is writable.
 isWritable=function() {
 
@@ -574,10 +574,10 @@ write=function() {
 
 #' @description
 #' Tests if a field can be used to search entries when using method
-#'     searchForEntries().
+#' searchForEntries().
 #' @param field The name of the field.
-#' @return Returns TRUE if the database is searchable using the
-#'     specified field, FALSE otherwise.
+#' @return Returns TRUE if the database is searchable using the specified
+#' field, FALSE otherwise.
 isSearchableByField=function(field) {
 
     v <- FALSE
@@ -595,8 +595,8 @@ isSearchableByField=function(field) {
 
 #' @description
 #' Get the list of all searchable fields.
-#' @return A character vector containing all searchable fields for
-#'     this connector.
+#' @return A character vector containing all searchable fields for this
+#' connector.
 getSearchableFields=function() {
     
     # Get all searchable candidates
@@ -611,20 +611,20 @@ getSearchableFields=function() {
 },
 
 #' @description
-#' Searches the database for entries whose name matches the specified
-#'     name.  Returns a character vector of entry IDs.
-#' @param fields A list of fields on which to filter entries. To get a match, all
-#' fields must be matched (i.e. logical AND). The keys of the list are the
-#'     entry field names on which to filter, and the values are the filtering
-#'     parameters. For character fields, the filter parameter is a character
-#'     vector in which all strings must be found inside the field's value. For
-#'     numeric fields, the filter parameter is either a list specifying a min-max
-#'     range (`list(min=1.0, max=2.5)`) or a value with a tolerance in delta
-#'     (`list(value=2.0, delta=0.1)`) or ppm (`list(value=2.0, ppm=1.0)`).
+#' Searches the database for entries whose name matches the specified name.
+#' Returns a character vector of entry IDs.
+#' @param fields A list of fields on which to filter entries. To get a match,
+#' all fields must be matched (i.e. logical AND). The keys of the list are the
+#' entry field names on which to filter, and the values are the filtering
+#' parameters. For character fields, the filter parameter is a character vector
+#' in which all strings must be found inside the field's value. For numeric
+#' fields, the filter parameter is either a list specifying a min-max range
+#' (`list(min=1.0, max=2.5)`) or a value with a tolerance in delta
+#' (`list(value=2.0, delta=0.1)`) or ppm (`list(value=2.0, ppm=1.0)`).
 #' @param max.results If set, the number of returned IDs is limited to this
-#'     number.
-#' @return A character vector of entry IDs whose name matches the
-#'     requested name.
+#' number.
+#' @return A character vector of entry IDs whose name matches the requested
+#' name.
 searchForEntries=function(fields=NULL, max.results=0) {
 
     chk::chk_null_or(fields, chk::chk_list)
@@ -655,7 +655,8 @@ searchForEntries=function(fields=NULL, max.results=0) {
         
     # Call concrete method
     if (length(fields) > 0 || ! wrong_fields)
-        ids <- private$doSearchForEntries(fields=fields, max.results=max.results)
+        ids <- private$doSearchForEntries(fields=fields,
+            max.results=max.results)
 
     # Convert NULL to empty list
     if (is.null(ids))
@@ -806,13 +807,15 @@ isCompounddb=function() {
 #' inside description field. The words will be searched in order. A match will
 #' be made only if all words are inside the description field.
 #' @param mass The searched mass.
-#' @param mass.field For searching by mass, you must indicate a mass field to use
-#' ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+#' @param mass.field For searching by mass, you must indicate a mass field to
+#' use ('monoisotopic.mass', 'molecular.mass', 'average.mass' or
+#' 'nominal.mass').
 #' @param mass.tol The tolerance value on the molecular mass.
 #' @param mass.tol.unit The type of mass tolerance. Either 'plain' or 'ppm'.
 #' @param max.results The maximum number of matches to return.
 #' @return A character vector of entry IDs."
-searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, mass.tol.unit='plain', max.results=0) {
+searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01,
+    mass.tol.unit='plain', max.results=0) {
     lifecycle::deprecate_warn('1.0.0', 'searchCompound()',
         "searchForEntries()")
     private$checkIsCompounddb()
@@ -837,37 +840,39 @@ searchCompound=function(name=NULL, mass=NULL, mass.field=NULL, mass.tol=0.01, ma
 },
 
 #' @description
-#' Annotates a mass spectrum with the database. For each matching entry
-#'     the entry field values will be set inside columns appended to the data
-#'     frame. Names of these columns will use a common prefix in order to
-#'     distinguish them from other data from the input data frame.
+#' Annotates a mass spectrum with the database. For each matching entry the
+#' entry field values will be set inside columns appended to the data frame.
+#' Names of these columns will use a common prefix in order to distinguish them
+#' from other data from the input data frame.
 #' @param x Either a data frame or a numeric vector containing the M/Z values.
 #' @param mz.col The name of the column where to find M/Z values in case x is a
-#'     data frame.
+#' data frame.
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param mz.tol The tolerance on the M/Z values. 
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm'
+#' or 'plain'.
 #' @param mass.field The mass field to use for matching M/Z values. One of:
-#'     'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
+#' 'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.
 #' @param fields A character vector containing the additional entry fields you
-#'     would like to get for each matched entry. Each field will be output in a
-#'     different column.
+#' would like to get for each matched entry. Each field will be output in a
+#' different column.
 #' @param insert.input.values Insert input values at the beginning of the
-#'     result data frame.
+#' result data frame.
 #' @param prefix A prefix that will be inserted before the name of each added
-#'     column in the output. By default it will be set to the name of the database
-#'     followed by a dot.
+#' column in the output. By default it will be set to the name of the database
+#' followed by a dot.
 #' @param fieldsLimit The maximum of values to output for fields with multiple
-#'     values. Set it to 0 to get all values.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value. To get all the matches, set this parameter to NA_integer_.
-#'     Default value is 3.
-#' @return A data frame containing the input values, and annotation
-#'     columns appended at the end. The first annotation column contains the IDs
-#'     of the matched entries. The following columns contain the fields you have
-#'     requested through the `fields` parameter.
-annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'), mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL, prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
+#' values. Set it to 0 to get all values.
+#' @param max.results If set, it is used to limit the number of matches found
+#' for each M/Z value. To get all the matches, set this parameter to
+#' NA_integer_.  Default value is 3.
+#' @return A data frame containing the input values, and annotation columns
+#' appended at the end. The first annotation column contains the IDs of the
+#' matched entries. The following columns contain the fields you have requested
+#' through the `fields` parameter.
+annotateMzValues=function(x, mz.tol, ms.mode, mz.tol.unit=c('plain', 'ppm'),
+    mass.field='monoisotopic.mass', max.results=3, mz.col='mz', fields=NULL,
+    prefix=NULL, insert.input.values=TRUE, fieldsLimit=0) {
 
     private$checkIsCompounddb()
     if (is.null(x))
@@ -1022,8 +1027,8 @@ deleteAllEntriesFromVolatileCache=function() {
 
 #' @description
 #' Delete all entries from the persistent cache (disk cache).
-#' @param deleteVolatile If TRUE deletes also all entries from the volatile cache
-#'     (memory cache).
+#' @param deleteVolatile If TRUE deletes also all entries from the volatile
+#' cache (memory cache).
 #' @return Nothing.
 deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
 
@@ -1083,18 +1088,18 @@ getCacheId=function() {
 },
 
 #' @description
-#' Tests if some entry of this database makes reference to another entry
-#'     of another database.
+#' Tests if some entry of this database makes reference to another entry of
+#' another database.
 #' @param id A character vector of entry IDs from the connector's database.
 #' @param db Another database connector.
 #' @param oid A entry ID from database db.
 #' @param any If set to TRUE, returns a single logical value: TRUE if any entry
-#'     contains a reference to oid, FALSE otherwise.
+#' contains a reference to oid, FALSE otherwise.
 #' @param recurse If set to TRUE, the algorithm will follow all references to
-#'     entries from other databases, to see if it can establish an indirect link
-#'     to `oid`.
-#' @return A logical vector, the same size as `id`, with TRUE for
-#'     each entry making reference to `oid`, and FALSE otherwise.
+#' entries from other databases, to see if it can establish an indirect link to
+#' `oid`.
+#' @return A logical vector, the same size as `id`, with TRUE for each entry
+#' making reference to `oid`, and FALSE otherwise.
 makesRefToEntry=function(id, db, oid, any=FALSE, recurse=FALSE) {
 
     # Returns TRUE if any entry in id makes reference to oid
@@ -1269,12 +1274,12 @@ setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
 
 #' @description
 #' Gets a list of M/Z values contained inside the database.
-#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos' to limit the output
-#'     to one mode.
+#' @param ms.mode The MS mode. Set it to either 'neg' or 'pos' to limit the
+#' output to one mode.
 #' @param max.results If set, it is used to limit the size of the output.
 #' @param precursor If set to TRUE, then restrict the search to precursor peaks.
-#' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
+#' @param ms.level The MS level to which you want to restrict your search.  0
+#' means that you want to search in all levels.
 #' @return A numeric vector containing M/Z values.
 getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
 
@@ -1301,22 +1306,23 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
 #' Filters a list of entries on retention time values.
 #' @param entry.ids A character vector of entry IDs.
 #' @param rt A vector of retention times to match. Used if input.df is not set.
-#'     Unit is specified by rt.unit parameter.
+#' Unit is specified by rt.unit parameter.
 #' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol The plain tolerance (in seconds) for retention times:
-#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-#' @param rt.tol.exp A special exponent tolerance for retention times:
-#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol The plain tolerance (in seconds) for retention times: input.rt
+#' - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times: input.rt
+#' - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#' rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 #' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
-#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-#'     input.rt ** rt.tol.exp.
+#' rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#' input.rt ** rt.tol.exp.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the
-#'     retention time.
-#' @param match.rt If set to TRUE, filters on RT values, otherwise does not do any
-#'     filtering.
+#' retention time.
+#' @param match.rt If set to TRUE, filters on RT values, otherwise does not do
+#' any filtering.
 #' @return A character vector containing entry IDs after filtering.
-filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, match.rt) {
+filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
+    chrom.col.ids, match.rt) {
 
     private$checkIsMassdb()
     private$checkRtParam(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
@@ -1364,8 +1370,8 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col
                 ', impossible to match retention times.')
 
         # Compute RT range for this input, in seconds
-        rt.range <- private$computeRtRange(rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
-            rt.tol.exp=rt.tol.exp)
+        rt.range <- private$computeRtRange(rt=rt, rt.unit=rt.unit,
+            rt.tol=rt.tol, rt.tol.exp=rt.tol.exp)
 
         # Loop on all entries
         entry.ids <- character()
@@ -1430,7 +1436,10 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col
 #' @param max.results If set, it is used to limit the number of matches found
 #' for each M/Z value.
 #' @return A character vector of spectra IDs.
-searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
+searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL,
+mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
+rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0,
+ms.mode=NULL, max.results=0, ms.level=0) {
 
     private$checkIsMassdb()
     # Check arguments
@@ -1504,34 +1513,37 @@ searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz
 #' DEPRECATED. Use searchForMassSpectra() instead.
 #' @param mz.min A vector of minimum M/Z values.
 #' @param mz.max A vector of maximum M/Z values. Its length must be the same as
-#'     `mz.min`.
+#' `mz.min`.
 #' @param mz A vector of M/Z values.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm'
+#' or 'plain'.
 #' @param rt A vector of retention times to match. Used if input.df is not set.
-#'     Unit is specified by rt.unit parameter.
+#' Unit is specified by rt.unit parameter.
 #' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol The plain tolerance (in seconds) for retention times:
-#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-#' @param rt.tol.exp A special exponent tolerance for retention times:
-#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol The plain tolerance (in seconds) for retention times: input.rt
+#' - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times: input.rt
+#' - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#' rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 #' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
-#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-#'     input.rt ** rt.tol.exp.
+#' rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#' input.rt ** rt.tol.exp.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the
-#'     retention time.
+#' retention time.
 #' @param precursor If set to TRUE, then restrict the search to precursor peaks.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
-#' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
+#' @param ms.level The MS level to which you want to restrict your search.  0
+#' means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found
+#' for each M/Z value.
 #' @return A character vector of spectra IDs.
-searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0, ms.mode=NULL, max.results=0, ms.level=0) {
+searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL,
+mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
+rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0,
+ms.mode=NULL, max.results=0, ms.level=0) {
     lifecycle::deprecate_soft('1.0.0', 'searchMsEntries()',
         "searchForMassSpectra()")
     return(self$searchForMassSpectra(mz.min=mz.min, mz.max=mz.max, mz=mz,
@@ -1543,52 +1555,57 @@ searchMsEntries=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL, mz.tol.
 
 #' @description
 #' For each M/Z value, searches for matching MS spectra and returns the
-#'     matching peaks.
+#' matching peaks.
 #' @param input.df A data frame taken as input for searchMsPeaks(). It must
-#'     contain a columns 'mz', and optionaly an 'rt' column.
+#' contain a columns 'mz', and optionaly an 'rt' column.
 #' @param mz A vector of M/Z values to match. Used if input.df is not set.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm'
+#' or 'plain'.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
-#' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
+#' @param ms.level The MS level to which you want to restrict your search.  0
+#' means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches found
+#' for each M/Z value.
 #' @param chrom.col.ids IDs of chromatographic columns on which to match the
-#'     retention time.
+#' retention time.
 #' @param rt A vector of retention times to match. Used if input.df is not set.
-#'     Unit is specified by rt.unit parameter.
+#' Unit is specified by rt.unit parameter.
 #' @param rt.unit The unit for submitted retention times. Either 's' or 'min'.
-#' @param rt.tol The plain tolerance (in seconds) for retention times:
-#'     input.rt - rt.tol <= database.rt <= input.rt + rt.tol.
-#' @param rt.tol.exp A special exponent tolerance for retention times:
-#'     input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
-#'     rt.tol.exp. This exponent is applied on the RT value in seconds. If both
+#' @param rt.tol The plain tolerance (in seconds) for retention times: input.rt
+#' - rt.tol <= database.rt <= input.rt + rt.tol.
+#' @param rt.tol.exp A special exponent tolerance for retention times: input.rt
+#' - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+#' rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 #' rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
-#'     rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-#'     input.rt ** rt.tol.exp.
+#' rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
+#' input.rt ** rt.tol.exp.
 #' @param precursor If set to TRUE, then restrict the search to precursor peaks.
 #' @param precursor.rt.tol The RT tolerance used when matching the precursor.
 #' @param insert.input.values Insert input values at the beginning of the
-#'     result data frame.
+#' result data frame.
 #' @param prefix Add prefix on column names of result data frame.
 #' @param compute If set to TRUE, use the computed values when converting found
-#'     entries to data frame.
-#' @param fields A character vector of field names to output. The data frame output
-#'     will be restricted to this list of fields.
+#' entries to data frame.
+#' @param fields A character vector of field names to output. The data frame
+#' output will be restricted to this list of fields.
 #' @param fieldsLimit The maximum of values to output for fields with multiple
-#'     values. Set it to 0 to get all values.
+#' values. Set it to 0 to get all values.
 #' @param input.df.colnames Names of the columns in the input data frame.
 #' @param match.rt If set to TRUE, match also RT values.
-#' @return A data frame with at least input MZ and RT columns, and
-#'     annotation columns prefixed with `prefix` if set. For each
-#'     matching found a row is output. Thus if n matchings are found for M/Z value
-#'     x, then there will be n rows for x, each for a different match. The number
-#'     of matching found for each M/Z value is limited to `max.results`.
-searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL, mz.tol.unit=c('plain', 'ppm'), min.rel.int=0, ms.mode=NULL, ms.level=0, max.results=0, chrom.col.ids=NULL, rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL, rt.tol.exp=NULL, precursor=FALSE, precursor.rt.tol=NULL, insert.input.values=TRUE, prefix=NULL, compute=TRUE, fields=NULL, fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
+#' @return A data frame with at least input MZ and RT columns, and annotation
+#' columns prefixed with `prefix` if set. For each matching found a row is
+#' output. Thus if n matchings are found for M/Z value x, then there will be n
+#' rows for x, each for a different match. The number of matching found for
+#' each M/Z value is limited to `max.results`.
+searchMsPeaks=function(input.df=NULL, mz=NULL, mz.tol=NULL,
+mz.tol.unit=c('plain', 'ppm'), min.rel.int=0, ms.mode=NULL, ms.level=0,
+max.results=0, chrom.col.ids=NULL, rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
+rt.tol.exp=NULL, precursor=FALSE, precursor.rt.tol=NULL,
+insert.input.values=TRUE, prefix=NULL, compute=TRUE, fields=NULL,
+fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
 
     private$checkIsMassdb()
     # Check arguments
