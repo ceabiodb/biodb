@@ -224,16 +224,27 @@ fileExists=function(cache.id, name, ext) {
 },
 
 #' @description
-#' Tests if markers exist in the cache. Markers are used, for instance,
-#'     by biodb to remember that a downloaded zip file from a database has been
-#'     extracted correctly.
+#' DEPRECATED. Use markerExists().
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing marker names.
 #' @return A logical vector, the same size as \\code{name}, with
-#'     \\code{TRUE} value if the marker file exists in the cache, or \\code{FALSE}
-#'     otherwise.
+#' \\code{TRUE} value if the marker file exists in the cache, or \\code{FALSE}
+#' otherwise.
 markerExist=function(cache.id, name) {
+    lifecycle::deprecate_soft('1.1.0', 'markerExist()', "markerExists()")
+    return(self$markerExists(cache.id=cache.id, name=name))
+},
 
+#' @description
+#' Tests if markers exist in the cache. Markers are used, for instance,
+#' by biodb to remember that a downloaded zip file from a database has been
+#' extracted correctly.
+#' @param cache.id The cache ID to use.
+#' @param name A character vector containing marker names.
+#' @return A logical vector, the same size as \\code{name}, with
+#' \\code{TRUE} value if the marker file exists in the cache, or \\code{FALSE}
+#' otherwise.
+markerExists=function(cache.id, name) {
     return(self$fileExists(cache.id=cache.id, name=name, ext='marker'))
 },
 
@@ -244,9 +255,14 @@ markerExist=function(cache.id, name) {
 #' @return Nothing.
 setMarker=function(cache.id, name) {
 
-    marker.path <- self$getFilePath(cache.id, name=name, ext='marker')
-
-    writeChar('', marker.path)
+    if ( ! self$markerExists(cache.id=cache.id, name=name)) {
+        ext <- 'marker'
+        tmpDir <- self$getTmpFolderPath()
+        emptyFile <- tempfile("marker", tmpdir=tmpDir, fileext=ext)
+        writeChar('', emptyFile)
+        self$addFilesToCache(emptyFile, cache.id=cache.id, name=name, ext=ext,
+            action='move')
+    }
 
     return(invisible(NULL))
 },
@@ -399,20 +415,23 @@ saveContentToFile=function(content, cache.id, name, ext) {
 },
 
 #' @description
-#' Moves exisiting files into the cache.
+#' Adds exisiting files into the cache.
 #' @param src.file.paths The current paths of the source files, as a character
-#'     vector.
+#' vector.
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files.
+#' @param action Specifies if files have to be moved or copied into the cache.
 #' @return Nothing.
-moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
+addFilesToCache=function(src.file.paths, cache.id, name, ext,
+    action=c('copy', 'move')) {
 
     chk::chk_character(src.file.paths)
     chk::chk_character(name)
     chk::chk_string(cache.id)
     chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_string(ext)
+    action <- match.arg(action)
 
     private$checkWritable(cache.id)
 
@@ -424,8 +443,41 @@ moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
 
     logTrace('Moving files to cache %s.', lst2str(src.file.paths))
 
-    private$doMoveFilesToCache(cache.id, src=src.file.paths, name=name, ext=ext)
-    logDebug('Done moving files.')
+    private$doAddFilesToCache(cache.id, src=src.file.paths, name=name, ext=ext,
+        action=action)
+    logDebug('Done adding files.')
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Copies exisiting files into the cache.
+#' @param src.file.paths The current paths of the source files, as a character
+#' vector.
+#' @param cache.id The cache ID to use.
+#' @param name A character vector containing file names.
+#' @param ext The extension of the files.
+#' @return Nothing.
+copyFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
+
+    self$addFilesToCache(src.file.paths, cache.id=cache.id, name=name,
+        ext=ext, action='copy')
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Moves exisiting files into the cache.
+#' @param src.file.paths The current paths of the source files, as a character
+#' vector.
+#' @param cache.id The cache ID to use.
+#' @param name A character vector containing file names.
+#' @param ext The extension of the files.
+#' @return Nothing.
+moveFilesIntoCache=function(src.file.paths, cache.id, name, ext) {
+
+    self$addFilesToCache(src.file.paths, cache.id=cache.id, name=name,
+        ext=ext, action='move')
 
     return(invisible(NULL))
 },
@@ -630,7 +682,7 @@ checkWritable=function(cache.id, create=TRUE) {
     return(invisible(NULL))
 },
 
-doMoveFilesToCache=function(cache,id, src, name, ext) {
+doAddFilesToCache=function(cache,id, src, name, ext, action) {
     abstractMethod(self)
 },
 

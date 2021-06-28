@@ -37,14 +37,17 @@ doFileExists=function(cache.id, name, ext) {
     return(file.exists(self$getFilePath(cache.id, name, ext)))
 },
 
-doMoveFilesToCache=function(cache,id, src, name, ext) {
+doAddFilesToCache=function(cache,id, src, name, ext, action) {
 
     # Get destination file paths
     dst <- self$getFilePath(cache.id, name, ext)
 
     # Move files
     logTrace('Destination files are %s.', lst2str(dst))
-    file.rename(src, dstFilePaths)
+    if (action == 'move')
+        file.rename(src, dstFilePaths)
+    else
+        file.copy(src, dstFilePaths)
 
     return(invisible(NULL))
 },

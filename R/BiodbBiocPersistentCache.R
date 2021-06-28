@@ -118,12 +118,12 @@ doFileExists=function(cache.id, name, ext) {
     return(fExists)
 },
 
-doMoveFilesToCache=function(cache,id, src, name, ext) {
+doAddFilesToCache=function(cache.id, src, name, ext, action) {
 
     bfc <- private$getBfc(cache.id, create=TRUE)
     filenames <- paste(name, ext, sep='.')
     for (i in seq_along(src))
-        BiocFileCache::bfcadd(bfc, filenames[[i]], src[[i]], action='move')
+        BiocFileCache::bfcadd(bfc, filenames[[i]], src[[i]], action=action)
 
     return(invisible(NULL))
 },

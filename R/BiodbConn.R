@@ -700,8 +700,7 @@ isDownloaded=function() {
 
     private$checkIsDownloadable()
     cch <- private$bdb$getPersistentCache()
-    dwnlded  <- cch$markerExist(self$getCacheId(),
-                    name='downloaded')
+    dwnlded  <- cch$markerExists(self$getCacheId(), name='downloaded')
 
     s <- (if (dwnlded) 'already' else 'not yet')
     logDebug0('Database ', self$getId(), ' has ', s, ' been downloaded.')
@@ -732,6 +731,30 @@ getDownloadPath=function() {
 },
 
 #' @description
+#' Set the downloaded file into the cache.
+#' @param src Path to the downloaded file.
+#' @param action Specifies if files have to be moved or copied into the cache.
+#' @return Nothing.
+setDownloadedFile=function(src, action=c('copy', 'move')) {
+
+    private$checkIsDownloadable()
+    cch <- private$bdb$getPersistentCache()
+    ext <- self$getPropertyValue('dwnld.ext')
+    name <- 'download'
+    cache.id <- self$getCacheId()
+
+    # Remove if already exists
+    if (cch$fileExists(cache.id=cache.id, name=name, ext=ext))
+        cch$deleteFile(cache.id=cache.id, name=name, ext=ext)
+
+    # Import
+    cch$addFilesToCache(src, cache.id=cache.id, name=name, ext=ext,
+        action=action)
+
+    return(invisible(NULL))
+},
+
+#' @description
 #' Tests if the downloaded database has been extracted (in case the
 #'     database needs extraction).
 #' @return TRUE if the downloaded database content has been
@@ -740,8 +763,7 @@ isExtracted=function() {
 
     private$checkIsDownloadable()
     cch <- private$bdb$getPersistentCache()
-    return(cch$markerExist(self$getCacheId(),
-        name='extracted'))
+    return(cch$markerExists(self$getCacheId(), name='extracted'))
 },
 
 #' @description
