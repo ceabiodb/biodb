@@ -1550,5 +1550,5 @@ maxShortTestRefEntries=1) {
     if (long)
         runGenericLongTests(conn=conn, opt=opt)
 
-    invisible(NULL)
+    return(invisible(NULL))
 }

@@ -63,10 +63,23 @@ mybiodb <- NULL
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. BiodbRequestScheduler class must not be
+instantiated direrctly. Instead, use the getRequestScheduler() method from
+BiodbMain.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$new(bdb)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bdb}}{The BiodbMain instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sendSoapRequest"></a>}}
@@ -146,41 +159,77 @@ destination file.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-notifyConnUrlsUpdated"></a>}}
 \if{latex}{\out{\hypertarget{method-notifyConnUrlsUpdated}{}}}
 \subsection{Method \code{notifyConnUrlsUpdated()}}{
+Call back function called when connector URLs are changed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$notifyConnUrlsUpdated(conn)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{conn}}{The connector instance for which the URLs were changed.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-notifyConnSchedulerFrequencyUpdated"></a>}}
 \if{latex}{\out{\hypertarget{method-notifyConnSchedulerFrequencyUpdated}{}}}
 \subsection{Method \code{notifyConnSchedulerFrequencyUpdated()}}{
+Call back function called when connector T and N parameters (frequency) are
+changed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$notifyConnSchedulerFrequencyUpdated(conn)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{conn}}{The connector instance for which the frequency were changed.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getUrlString"></a>}}
 \if{latex}{\out{\hypertarget{method-getUrlString}{}}}
 \subsection{Method \code{getUrlString()}}{
-Build a URL string, using a base URL and parameters to be passed.
+Builds a URL object, using a base URL and parameters to be passed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$getUrlString(url, params = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{A URL string.}
+
+\item{\code{params}}{A list of URL parameters.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A BiodUrl object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getUrl"></a>}}
 \if{latex}{\out{\hypertarget{method-getUrl}{}}}
 \subsection{Method \code{getUrl()}}{
+Sends a request and get the result.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$getUrl(
   url,
@@ -192,51 +241,121 @@ Build a URL string, using a base URL and parameters to be passed.
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{A URL string.}
+
+\item{\code{params}}{A list of URL parameters.}
+
+\item{\code{method}}{The method to use. Either 'get' or 'post'.}
+
+\item{\code{header}}{The header to send.}
+
+\item{\code{body}}{The body to send.}
+
+\item{\code{encoding}}{The encoding to use.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The results of the request.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-findRule"></a>}}
 \if{latex}{\out{\hypertarget{method-findRule}{}}}
 \subsection{Method \code{findRule()}}{
+Searches for a rule by host name.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$findRule(url, create = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{The host URL.}
+
+\item{\code{create}}{Sets to TRUE to create a rule when none exists.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A BiodbRequestSchedulerRule object.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getConnectorRules"></a>}}
 \if{latex}{\out{\hypertarget{method-getConnectorRules}{}}}
 \subsection{Method \code{getConnectorRules()}}{
+Gets the rules associates with a connector.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$getConnectorRules(conn)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{conn}}{A valid connector object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A list of rules.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-registerConnector"></a>}}
 \if{latex}{\out{\hypertarget{method-registerConnector}{}}}
 \subsection{Method \code{registerConnector()}}{
+Registers a new connector with the scheduler.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$registerConnector(conn)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{conn}}{A valid connector object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-unregisterConnector"></a>}}
 \if{latex}{\out{\hypertarget{method-unregisterConnector}{}}}
 \subsection{Method \code{unregisterConnector()}}{
+Unregisters a connector from this scheduler.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$unregisterConnector(conn)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{conn}}{A valid connector object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getAllRules"></a>}}
 \if{latex}{\out{\hypertarget{method-getAllRules}{}}}
 \subsection{Method \code{getAllRules()}}{
+Gets all defined rules.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestScheduler$getAllRules()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The list of all rules.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

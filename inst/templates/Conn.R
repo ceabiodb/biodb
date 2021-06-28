@@ -21,7 +21,7 @@
 #' @import R6
 #' @export
 {{connClass}} <- R6::R6Class("{{connClass}}",
-    inherit="BiodbConn",
+inherit=biodb::BiodbConn,
 
 public=list(
 

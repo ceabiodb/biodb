@@ -75,10 +75,24 @@ mybiodb <- NULL
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. The BiodbMain must not be instantiated directly.
+Instead use the newInst() global method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$new(autoloadExtraPkgs = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{autoloadExtraPkgs}}{Set to TRUE to allow automatic loading of extension
+packages. Set to FALSE to forbid it. If left to NULL, the default,
+autoload.extra.pkgs configuration value will be used.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-terminate"></a>}}
@@ -91,7 +105,7 @@ with your \\code{BiodbMain} instance.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -114,7 +128,7 @@ Loads databases and entry fields definitions from YAML file.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -221,7 +235,7 @@ inside biodb code.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -301,6 +315,8 @@ A vector if the field is atomic or flatten is set to
 \if{html}{\out{<a id="method-entriesToDataframe"></a>}}
 \if{latex}{\out{\hypertarget{method-entriesToDataframe}{}}}
 \subsection{Method \code{entriesToDataframe()}}{
+Converts a list of entries or a list of list of entries
+(\\code{BiodbEntry} objects) into a data frame.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$entriesToDataframe(
   entries,
@@ -318,11 +334,56 @@ A vector if the field is atomic or flatten is set to
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{entries}}{A list of \\code{BiodbEntry} instances or a list of list of
+\\code{BiodbEntry} instances.}
+
+\item{\code{only.atomic}}{If set to \\code{TRUE}, output only atomic fields, i.e.: the
+fields whose value type is one of integer, numeric, logical or character.}
+
+\item{\code{null.to.na}}{If set to \\code{TRUE}, each \\code{NULL} entry in the list is
+converted into a row of NA values.}
+
+\item{\code{compute}}{If set to \\code{TRUE}, computable fields will be output.}
+
+\item{\code{fields}}{A character vector of field names to output. The data frame output
+will be restricted to this list of fields.}
+
+\item{\code{limit}}{The maximum number of field values to write into new columns. Used
+for fields that can contain more than one value. Set it to 0 to get all
+values.}
+
+\item{\code{drop}}{If set to \\code{TRUE} and the resulting data frame has only one
+column, a vector will be output instead of data frame.}
+
+\item{\code{sort.cols}}{Sort columns in alphabetical order.}
+
+\item{\code{flatten}}{If set to \\code{TRUE}, then each field with a cardinality
+greater than one, will be converted into a vector of class character whose
+values are collapsed.}
+
+\item{\code{only.card.one}}{Output only fields whose cardinality is one.}
+
+\item{\code{own.id}}{If set to TRUE includes the database id field named
+\verb{<database_name>.id} whose values are the same as the \code{accession} field.}
+
+\item{\code{prefix}}{Insert a prefix at the start of all field names.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A data frame containing the entries. Columns are named
+according to field names.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-entryIdsToDataframe"></a>}}
 \if{latex}{\out{\hypertarget{method-entryIdsToDataframe}{}}}
 \subsection{Method \code{entryIdsToDataframe()}}{
+Construct a data frame using entry IDs and field values of the
+corresponding entries.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$entryIdsToDataframe(
   ids,
@@ -334,6 +395,31 @@ A vector if the field is atomic or flatten is set to
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{A character vector of entry IDs or a list of character vectors of
+entry IDs.}
+
+\item{\code{db}}{The biodb database name for the entry IDs, or a connector ID, as a
+sinle character value.}
+
+\item{\code{fields}}{A character vector containing entry fields to add.}
+
+\item{\code{limit}}{The maximum number of field values to write into new columns.
+Used for fields that can contain more than one value. Set it to 0 to get all
+values.}
+
+\item{\code{prefix}}{Insert a prefix at the start of all field names.}
+
+\item{\code{own.id}}{If set to TRUE includes the database id field named
+\verb{<database_name>.id} whose values are the same as the \code{accession} field.}
+
+\item{\code{A}}{data frame containing in columns the requested field
+values, with one entry per line, in the same order than in \code{ids} vector.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-addColsToDataframe"></a>}}
@@ -428,6 +514,7 @@ A data frame, with rows collapsed."
 \if{html}{\out{<a id="method-entriesToSingleFieldValues"></a>}}
 \if{latex}{\out{\hypertarget{method-entriesToSingleFieldValues}{}}}
 \subsection{Method \code{entriesToSingleFieldValues()}}{
+Extract all values of a field from a list of entries.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$entriesToSingleFieldValues(
   entries,
@@ -437,11 +524,28 @@ A data frame, with rows collapsed."
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{entries}}{A list of BiodbEntry objects.}
+
+\item{\code{field}}{The field for which to extract values.}
+
+\item{\code{sortOutput}}{Set to TRUE to sort the values.}
+
+\item{\code{uniq}}{Set to TRUE to remove duplicates.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The values of the field as a vector.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-entryIdsToSingleFieldValues"></a>}}
 \if{latex}{\out{\hypertarget{method-entryIdsToSingleFieldValues}{}}}
 \subsection{Method \code{entryIdsToSingleFieldValues()}}{
+Extract all values of a field from a list of entries.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$entryIdsToSingleFieldValues(
   ids,
@@ -452,6 +556,24 @@ A data frame, with rows collapsed."
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{A list of entry identifiers.}
+
+\item{\code{db}}{The database ID or connector ID where to find the entries.}
+
+\item{\code{field}}{The field for which to extract values.}
+
+\item{\code{sortOutput}}{Set to TRUE to sort the values.}
+
+\item{\code{uniq}}{Set to TRUE to remove duplicates.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The values of the field as a vector.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-computeFields"></a>}}
@@ -472,7 +594,7 @@ elements.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -498,7 +620,7 @@ elements.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -524,7 +646,7 @@ of the destination database must be editable.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -537,7 +659,7 @@ Prints object information.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -545,6 +667,7 @@ None.
 \if{latex}{\out{\hypertarget{method-fieldIsAtomic}{}}}
 \subsection{Method \code{fieldIsAtomic()}}{
 DEPRECATED method to test if a field is an atomic field. The new
+method is \\code{BiodbEntryField :isVector()}."
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$fieldIsAtomic(field)}\if{html}{\out{</div>}}
 }
@@ -552,9 +675,12 @@ DEPRECATED method to test if a field is an atomic field. The new
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{method}}{is \\code{BiodbEntryField :isVector()}."}
+\item{\code{field}}{The name of the field.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TRUE if the field's value is atomic.
 }
 }
 \if{html}{\out{<hr>}}
@@ -562,6 +688,7 @@ DEPRECATED method to test if a field is an atomic field. The new
 \if{latex}{\out{\hypertarget{method-getFieldClass}{}}}
 \subsection{Method \code{getFieldClass()}}{
 DEPRECATED method to get the class of a field. The new method is
+\code{BiodbMain :getEntryFields()$get(field)$getClass()}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$getFieldClass(field)}\if{html}{\out{</div>}}
 }
@@ -569,9 +696,12 @@ DEPRECATED method to get the class of a field. The new method is
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{\\code{BiodbMain}}{:getEntryFields()$get(field)$getClass()}."}
+\item{\code{field}}{The name of the field.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The class of the field.
 }
 }
 \if{html}{\out{<hr>}}

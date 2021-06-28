@@ -343,7 +343,7 @@ Sets a marker.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -433,7 +433,7 @@ files. It must have the same length as \\code{name}.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -460,7 +460,7 @@ vector.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -473,7 +473,7 @@ Erases the whole cache.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -497,7 +497,7 @@ Deletes a list of files inside the cache system.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -523,7 +523,7 @@ files whose cache.id starts with this prefix.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -547,7 +547,7 @@ Only files having this extension will be deleted.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -569,10 +569,11 @@ Lists files present in the cache system.
 \describe{
 \item{\code{cache.id}}{The cache ID to use.}
 
-\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\",
+etc).}
 
-\item{\code{extract.name}}{If set to \\code{TRUE}, instead of returning the file paths,
-returns the list of names used to construct the file name:
+\item{\code{extract.name}}{If set to \\code{TRUE}, instead of returning the file
+paths, returns the list of names used to construct the file name:
 \link{cache_folder}/\link{cache.id}/\link{name}.\link{ext}.}
 
 \item{\code{full.path}}{If set to \\code{TRUE}, returns full path for files.}
@@ -599,51 +600,33 @@ Displays information about this object.
 \if{latex}{\out{\hypertarget{method-enabled}{}}}
 \subsection{Method \code{enabled()}}{
 DEPRECATED method. Use now
+\\code{BiodbConfig :isEnabled('cache.system')}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$enabled()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{\\code{BiodbConfig}}{:isEnabled('cache.system')}.}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-enable"></a>}}
 \if{latex}{\out{\hypertarget{method-enable}{}}}
 \subsection{Method \code{enable()}}{
 DEPRECATED method. Use now
+\\code{BiodbConfig :enable('cache.system')}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$enable()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{\\code{BiodbConfig}}{:enable('cache.system')}.}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-disable"></a>}}
 \if{latex}{\out{\hypertarget{method-disable}{}}}
 \subsection{Method \code{disable()}}{
 DEPRECATED method. Use now
+\\code{BiodbConfig :disable('cache.system')}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$disable()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{\\code{BiodbConfig}}{:disable('cache.system')}.}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

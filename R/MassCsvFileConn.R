@@ -28,6 +28,11 @@ inherit=CsvFileConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(...)
@@ -35,6 +40,8 @@ initialize=function(...) {
     # Precursors
     private$precursors <- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+",
     "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
+    
+    return(invisible(NULL))
 },
 
 #' @description
@@ -57,18 +64,20 @@ isAPrecursorFormula=function(formula) {
 #' @description
 #' Sets the list precursor formulae.
 #' @param formulae A character vector containing formulae.
-#' @return None.
+#' @return Nothing.
 setPrecursorFormulae=function(formulae) {
 
     chk::chk_character(formulae)
     private$precursors <- formulae[ ! duplicated(formulae)]
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Adds new formulae to the list of formulae used to recognize
 #'     precursors.
 #' @param formulae A character vector containing formulae.
-#' @return None.
+#' @return Nothing.
 addPrecursorFormulae=function(formulae) {
 
     private$checkParsingHasBegan()
@@ -77,8 +86,17 @@ addPrecursorFormulae=function(formulae) {
         formulae <- formulae[ ! formulae %in% private$precursors]
         private$precursors <- c(private$precursors, formulae)
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets a list of chromatographic columns contained in this database.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and another one
+#' for the title 'title'.
 getChromCol=function(ids=NULL) {
     # Overrides super class' method.
 
@@ -108,6 +126,14 @@ getChromCol=function(ids=NULL) {
     return(chrom.cols)
 },
 
+#' @description
+#' Gets the number of peaks contained in the database.
+#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the
+#' counting to one mode.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return The number of peaks, as an integer.
 getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 

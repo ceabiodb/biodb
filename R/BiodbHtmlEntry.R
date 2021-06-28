@@ -14,13 +14,19 @@
 BiodbHtmlEntry <- R6::R6Class("BiodbHtmlEntry",
 inherit=BiodbXmlEntry,
 
-
 public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(...)
     abstractClass('BiodbHtmlEntry', self)
+
+    return(invisible(NULL))
 }
 ),
 

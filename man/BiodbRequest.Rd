@@ -105,7 +105,7 @@ request).
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -232,7 +232,7 @@ Displays information about this instance.
 }
 
 \subsection{Returns}{
-None.
+self as invisible.
 }
 }
 \if{html}{\out{<hr>}}

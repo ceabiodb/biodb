@@ -4,6 +4,11 @@
 \alias{SqliteConn}
 \title{SQLite connector class.}
 \description{
+SQLite connector class.
+
+SQLite connector class.
+}
+\details{
 This is the abstract connector class for all SQLite databases.
 }
 \examples{
@@ -144,55 +149,121 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getEntryContentFromDb"></a>}}
 \if{latex}{\out{\hypertarget{method-getEntryContentFromDb}{}}}
 \subsection{Method \code{getEntryContentFromDb()}}{
+Get the contents of entries directly from the database. A direct request or
+an access to the database will be made in order to retrieve the contents. No
+access to the biodb cache system will be made.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$getEntryContentFromDb(entry.id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{entry.id}}{A character vector with the IDs of entries to retrieve.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector, the same size of entry.id, with contents of the
+requested entries. An NA value will be set for the content of each entry for
+which the retrieval failed.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-defineParsingExpressions"></a>}}
 \if{latex}{\out{\hypertarget{method-defineParsingExpressions}{}}}
 \subsection{Method \code{defineParsingExpressions()}}{
+Defines automatically the parsing expressions.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$defineParsingExpressions()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isSearchableByField"></a>}}
 \if{latex}{\out{\hypertarget{method-isSearchableByField}{}}}
 \subsection{Method \code{isSearchableByField()}}{
+Tests if a field can be used to search entries when using method
+searchForEntries().
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$isSearchableByField(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Returns TRUE if the database is searchable using the
+specified field, FALSE otherwise.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-hasField"></a>}}
 \if{latex}{\out{\hypertarget{method-hasField}{}}}
 \subsection{Method \code{hasField()}}{
+Tests if a field is defined for this database instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$hasField(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{A valid Biodb entry field name.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TRUE of the field is defined, FALSE otherwise.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getQuery"></a>}}
 \if{latex}{\out{\hypertarget{method-getQuery}{}}}
 \subsection{Method \code{getQuery()}}{
+Run a query using a biodb SQL object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{SqliteConn$getQuery(query)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{query}}{A valid BiodbSqlQuery object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The result returned by DBI::dbGetQuery() call.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

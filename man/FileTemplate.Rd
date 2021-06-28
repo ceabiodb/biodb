@@ -130,7 +130,7 @@ for each found tag.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

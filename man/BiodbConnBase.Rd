@@ -137,7 +137,7 @@ Prints a description of this connector.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -286,7 +286,7 @@ be the property names.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -300,7 +300,7 @@ expressions dynamically.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -433,7 +433,7 @@ Sets the value of a property.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -457,7 +457,7 @@ Set the value of the slot of a property.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

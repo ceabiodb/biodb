@@ -28,13 +28,28 @@ inherit=BiodbConn,
 
 public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(...)
 
     private$db <- NULL
+    
+    return(invisible(NULL))
 },
 
+#' @description
+#' Get the contents of entries directly from the database. A direct request or
+#' an access to the database will be made in order to retrieve the contents. No
+#' access to the biodb cache system will be made.
+#' @param entry.id A character vector with the IDs of entries to retrieve.
+#' @return A character vector, the same size of entry.id, with contents of the
+#' requested entries. An NA value will be set for the content of each entry for
+#' which the retrieval failed.
 getEntryContentFromDb=function(entry.id) {
     # Overrides super class' method.
 
@@ -81,6 +96,9 @@ getEntryContentFromDb=function(entry.id) {
     return(content)
 },
 
+#' @description
+#' Defines automatically the parsing expressions.
+#' @return Nothing.
 defineParsingExpressions=function() {
     # Overrides super class' method.
 
@@ -94,8 +112,16 @@ defineParsingExpressions=function() {
             self$setPropValSlot('parsing.expr', field, db_id)
         }
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Tests if a field can be used to search entries when using method
+#'     searchForEntries().
+#' @param field The name of the field.
+#' @return Returns TRUE if the database is searchable using the
+#'     specified field, FALSE otherwise.
 isSearchableByField=function(field) {
     # Overrides super class' method.
 
@@ -105,6 +131,10 @@ isSearchableByField=function(field) {
     return(v)
 },
 
+#' @description
+#' Tests if a field is defined for this database instance.
+#' @param field A valid Biodb entry field name.
+#' @return TRUE of the field is defined, FALSE otherwise.
 hasField=function(field) {
     
     b <- FALSE
@@ -123,6 +153,10 @@ hasField=function(field) {
     return(b)
 },
 
+#' @description
+#' Run a query using a biodb SQL object.
+#' @param query A valid BiodbSqlQuery object.
+#' @return The result returned by DBI::dbGetQuery() call.
 getQuery=function(query) {
     query_str <- query$toString()
     logDebug('Running query "%s".', query_str)

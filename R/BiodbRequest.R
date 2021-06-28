@@ -47,13 +47,15 @@ initialize=function(url, method=c('get', 'post'), header=character(),
     private$body <- body
     private$encoding <- encoding
     private$conn <- NULL
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Sets the associated connector (usually the connector that created this
 #' request).
 #' @param conn A valid BiodbConn object.
-#' @return None.
+#' @return Nothing.
 setConn=function(conn) {
 
     if ( ! methods::is(conn, 'BiodbConn'))
@@ -61,7 +63,7 @@ setConn=function(conn) {
 
     private$conn <- conn
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
 #' @description
@@ -154,7 +156,7 @@ getBody=function() {
 
 #' @description
 #' Displays information about this instance.
-#' @return None.
+#' @return self as invisible. 
 print=function() {
     cat("Biodb request object on ", private$url$toString(), "\n", sep='')
     return(invisible(self))

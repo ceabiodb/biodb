@@ -18,18 +18,26 @@ BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
 
 public=list(
 
+#' @description
+#' New instance initializer.
+#' @return Nothing.
 initialize=function() {
+
     private$last.index <- 0
+    
+    return(invisible(NULL))
 },
 
+#' @description
+#' Call back method used to get progress advancement of a long process.
+#' @param what The reason as a character value.
+#' @param index The index number representing the progress.
+#' @param total The total number to reach for completing the process.
+#' @return Nothing.
 notifyProgress=function(what, index, total) {
-    # Override super class' method
-#    testthat::expect_type(what, 'character')
-#    testthat::expect_true(what != '') # --> expect_not_empty_str
-    #testthat::expect_is(index, 'number') # --> expect_whole_number
-    #testthat::expect_is(total, 'number')
-#    testthat::expect_true(index >= 0) # --> expect_positive
+
     testthat::expect_lte(index, total)
+
     return(invisible(NULL))
 }
 ),

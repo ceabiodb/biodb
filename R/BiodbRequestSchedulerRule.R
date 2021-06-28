@@ -66,7 +66,7 @@ getT=function() {
 #' as an integer.
 #' @param t The number of seconds during which n connections are allowed, as a
 #' numeric value.
-#' @return None.
+#' @return Nothing.
 setFrequency=function(n, t) {
 
     chk::chk_whole_number(n)
@@ -88,6 +88,8 @@ setFrequency=function(n, t) {
     private$n <- n
     private$t <- t
     logDebug("t=%f, n=%f", private$t, private$n)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -101,7 +103,7 @@ getConnectors=function() {
 #' @description
 #' Associate a connector with this rule.
 #' @param conn A BiodbConn object.
-#' @return None.
+#' @return Nothing.
 addConnector=function(conn) {
 
     chk::chk_is(conn, 'BiodbConn')
@@ -120,12 +122,14 @@ addConnector=function(conn) {
         # Update frequency
         self$recomputeFrequency()
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Disassociate a connector from this rule.
 #' @param conn A BiodbConn instance.
-#' @return None.
+#' @return Nothing.
 removeConnector=function(conn) {
 
     chk::chk_is(conn, 'BiodbConn')
@@ -144,11 +148,13 @@ removeConnector=function(conn) {
 
         private$conn <- private$conn[ ! found.conn]
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Displays information about this instance.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Biodb scheduler rule instance.\n")
@@ -158,6 +164,8 @@ print=function() {
         length(private$conn), " connector(s): ", conlst, ".\n", sep='')
     cat('  Parameters are T=', self$getT(), ' and N=', self$getN(), ".\n",
         sep='')
+
+    return(invisible(NULL))
 }
 
 #' @description
@@ -176,6 +184,8 @@ print=function() {
 
     # Store current time
     self$storeCurrentTime()
+
+    return(invisible(NULL))
 }
 
 #' @description
@@ -207,6 +217,8 @@ print=function() {
 
     # Set frequency
     self$setFrequency(n=n, t=.t)
+
+    return(invisible(NULL))
 }
 
 #' @description
@@ -254,6 +266,8 @@ print=function() {
     private$n.index <- as.integer(if (private$n.index == private$n) 1
         else private$n.index + 1)
     private$last.time[[private$n.index]] <- cur.time
+
+    return(invisible(NULL))
 }
 ),
 

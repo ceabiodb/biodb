@@ -68,7 +68,7 @@ Gets the domain.
 }
 
 \subsection{Returns}{
-None.
+The domain.
 }
 }
 \if{html}{\out{<hr>}}
@@ -88,7 +88,7 @@ Sets the base URL string.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -110,7 +110,7 @@ Sets a parameter.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -123,7 +123,7 @@ Displays information about this instance.
 }
 
 \subsection{Returns}{
-None.
+self as invisible.
 }
 }
 \if{html}{\out{<hr>}}

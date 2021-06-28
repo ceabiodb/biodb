@@ -35,6 +35,13 @@ BiodbMain <- R6::R6Class("BiodbMain",
 
 public=list(
 
+#' @description
+#' New instance initializer. The BiodbMain must not be instantiated directly.
+#' Instead use the newInst() global method.
+#' @param autoloadExtraPkgs Set to TRUE to allow automatic loading of extension
+#' packages. Set to FALSE to forbid it. If left to NULL, the default,
+#' autoload.extra.pkgs configuration value will be used.
+#' @return Nothing.
 initialize=function(autoloadExtraPkgs=NULL) {
 
     chk::chk_null_or(autoloadExtraPkgs, chk::chk_flag)
@@ -60,12 +67,14 @@ initialize=function(autoloadExtraPkgs=NULL) {
 
     logDebug('Created successfully new BiodbMain instance.')
     logDebug('This is biodb version %s.', packageVersion('biodb'))
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Closes \\code{BiodbMain} instance. Call this method when you are done
 #'     with your \\code{BiodbMain} instance.
-#' @return None.
+#' @return Nothing.
 terminate=function() {
 
     logInfo('Closing BiodbMain instance...')
@@ -77,6 +86,8 @@ terminate=function() {
     # Terminate observers
     for (obs in private$observers)
         obs$terminate()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -84,7 +95,7 @@ terminate=function() {
 #' @param file The path to a YAML file containing definitions for \\code{BiodbMain}
 #'     (databases, fields or configuration keys).
 #' @param package The package to which belong the new definitions.
-#' @return None.
+#' @return Nothing.
 loadDefinitions=function(file, package='biodb') {
     chk::chk_file(file)
     logDebug('Load definitions from file "%s".', file)
@@ -103,6 +114,8 @@ loadDefinitions=function(file, package='biodb') {
     # Define fields
     if ('fields' %in% names(def))
         self$getEntryFields()$define(def$fields)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -190,7 +203,7 @@ getRequestScheduler=function() {
 #'     occurs. This is the way used in biodb to get feedback about what is going
 #'     inside biodb code.
 #' @param observers Either an object or a list of objects.
-#' @return None.
+#' @return Nothing.
 addObservers=function(observers) {
 
     # Make sure that input is a list
@@ -204,6 +217,8 @@ addObservers=function(observers) {
 
     # Notify of new observers
     notifyObservers(old_obs, 'notifyNewObservers', list(obs=observers))
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -275,35 +290,36 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE, lim
     return(val)
 },
 
-entriesToDataframe=function(entries, only.atomic=TRUE, null.to.na=TRUE, compute=TRUE, fields=NULL, limit=0, drop=FALSE, sort.cols=FALSE, flatten=TRUE, only.card.one=FALSE, own.id=TRUE, prefix='')
-{
-    ":\n\nConverts a list of entries or a list of list of entries
-    (\\code{BiodbEntry} objects) into a data frame.
-    \nentries: A list of \\code{BiodbEntry} instances or a list of list of
-    \\code{BiodbEntry} instances.
-    \nonly.atomic: If set to \\code{TRUE}, output only atomic fields, i.e.: the
-    fields whose value type is one of integer, numeric, logical or character.
-    \nnull.to.na: If set to \\code{TRUE}, each \\code{NULL} entry in the list is
-    converted into a row of NA values.
-    \ncompute: If set to \\code{TRUE}, computable fields will be output.
-    \nfields: A character vector of field names to output. The data frame output
-    will be restricted to this list of fields.
-    \nlimit: The maximum number of field values to write into new columns. Used
-    for fields that can contain more than one value. Set it to 0 to get all
-    values.
-    \ndrop: If set to \\code{TRUE} and the resulting data frame has only one
-    column, a vector will be output instead of data frame.
-    \nsort.cols: Sort columns in alphabetical order.
-    \nflatten: If set to \\code{TRUE}, then each field with a cardinality
-    greater than one, will be converted into a vector of class character whose
-    values are collapsed.
-    \nonly.card.one: Output only fields whose cardinality is one.
-    \nown.id: If set to TRUE includes the database id field named
-    `<database_name>.id` whose values are the same as the `accession` field.
-    \nprefix: Insert a prefix at the start of all field names.
-    \nReturned value: A data frame containing the entries. Columns are named
-    according to field names.
-    "
+#' @description
+#' Converts a list of entries or a list of list of entries
+#' (\\code{BiodbEntry} objects) into a data frame.
+#' @param entries A list of \\code{BiodbEntry} instances or a list of list of
+#' \\code{BiodbEntry} instances.
+#' @param only.atomic If set to \\code{TRUE}, output only atomic fields, i.e.: the
+#' fields whose value type is one of integer, numeric, logical or character.
+#' @param null.to.na If set to \\code{TRUE}, each \\code{NULL} entry in the list is
+#' converted into a row of NA values.
+#' @param compute If set to \\code{TRUE}, computable fields will be output.
+#' @param fields A character vector of field names to output. The data frame output
+#' will be restricted to this list of fields.
+#' @param limit The maximum number of field values to write into new columns. Used
+#' for fields that can contain more than one value. Set it to 0 to get all
+#' values.
+#' @param drop If set to \\code{TRUE} and the resulting data frame has only one
+#' column, a vector will be output instead of data frame.
+#' @param sort.cols Sort columns in alphabetical order.
+#' @param flatten If set to \\code{TRUE}, then each field with a cardinality
+#' greater than one, will be converted into a vector of class character whose
+#' values are collapsed.
+#' @param only.card.one Output only fields whose cardinality is one.
+#' @param own.id If set to TRUE includes the database id field named
+#' `<database_name>.id` whose values are the same as the `accession` field.
+#' @param prefix Insert a prefix at the start of all field names.
+#' @return A data frame containing the entries. Columns are named
+#' according to field names.
+entriesToDataframe=function(entries, only.atomic=TRUE, null.to.na=TRUE,
+compute=TRUE, fields=NULL, limit=0, drop=FALSE, sort.cols=FALSE, flatten=TRUE,
+only.card.one=FALSE, own.id=TRUE, prefix='') {
 
     chk::chk_list(entries)
 
@@ -348,24 +364,24 @@ entriesToDataframe=function(entries, only.atomic=TRUE, null.to.na=TRUE, compute=
     return(entries.df)
 },
 
+#' @description
+#' Construct a data frame using entry IDs and field values of the
+#' corresponding entries.
+#' @param ids A character vector of entry IDs or a list of character vectors of
+#' entry IDs.
+#' @param db The biodb database name for the entry IDs, or a connector ID, as a
+#' sinle character value.
+#' @param fields A character vector containing entry fields to add.
+#' @param limit The maximum number of field values to write into new columns.
+#' Used for fields that can contain more than one value. Set it to 0 to get all
+#' values.
+#' @param own.id If set to TRUE includes the database id field named
+#' `<database_name>.id` whose values are the same as the `accession` field.
+#' @param prefix Insert a prefix at the start of all field names.
+#' @param A data frame containing in columns the requested field
+#' values, with one entry per line, in the same order than in `ids` vector.
 entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
     own.id=FALSE) {
-    ":\n\nConstruct a data frame using entry IDs and field values of the
-    corresponding entries.
-    \nids: A character vector of entry IDs or a list of character vectors of
-    entry IDs.
-    \ndb: The biodb database name for the entry IDs, or a connector ID, as a
-    sinle character value.
-    \nfields: A character vector containing entry fields to add.
-    \nlimit: The maximum number of field values to write into new columns. Used
-    for fields that can contain more than one value. Set it to 0 to get all
-    values.
-    \nown.id: If set to TRUE includes the database id field named
-    `<database_name>.id` whose values are the same as the `accession` field.
-    \nprefix: Insert a prefix at the start of all field names.
-    \nReturned value: A data frame containing in columns the requested field
-    values, with one entry per line, in the same order than in `ids` vector.
-    "
 
     # Get connector
     conn <- if (is.character(db)) self$getFactory()$getConn(db) else
@@ -514,7 +530,15 @@ collapseRows=function(x, sep='|', cols=1L) {
     return(y)
 },
 
-entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE) {
+#' @description
+#' Extract all values of a field from a list of entries.
+#' @param entries A list of BiodbEntry objects.
+#' @param field The field for which to extract values.
+#' @param sortOutput Set to TRUE to sort the values.
+#' @param uniq Set to TRUE to remove duplicates.
+#' @return The values of the field as a vector.
+entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE,
+    uniq=TRUE) {
 
     # Get values
     fct <- function(e) {
@@ -533,7 +557,16 @@ entriesToSingleFieldValues=function(entries, field, sortOutput=FALSE, uniq=TRUE)
     return(values)
 },
 
-entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE) {
+#' @description
+#' Extract all values of a field from a list of entries.
+#' @param ids A list of entry identifiers.
+#' @param db The database ID or connector ID where to find the entries.
+#' @param field The field for which to extract values.
+#' @param sortOutput Set to TRUE to sort the values.
+#' @param uniq Set to TRUE to remove duplicates.
+#' @return The values of the field as a vector.
+entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE,
+    uniq=TRUE) {
 
     # Get connector
     conn <- self$getFactory()$getConn(db)
@@ -542,8 +575,8 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE
     entries <- conn$getEntry(ids)
 
     # Call other method
-    self$entriesToSingleFieldValues(entries, field=field,
-        sortOutput=sortOutput, uniq=uniq)
+    return(self$entriesToSingleFieldValues(entries, field=field,
+        sortOutput=sortOutput, uniq=uniq))
 },
 
 #' @description
@@ -551,7 +584,7 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE, uniq=TRUE
 #'     comptable.
 #' @param entries A list of \\code{BiodbEntry} instances. It may contain NULL
 #'     elements.
-#' @return None.
+#' @return Nothing.
 computeFields=function(entries) {
     chk::chk_list(entries)
     chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
@@ -560,6 +593,8 @@ computeFields=function(entries) {
     for (e in entries)
         if ( ! is.null(e))
             e$computeFields()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -569,7 +604,7 @@ computeFields=function(entries) {
 #'     elements.
 #' @param files A character vector of file paths, the same length as entries list.
 #' @param compute If set to \\code{TRUE}, computable fields will be saved too.
-#' @return None.
+#' @return Nothing.
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
 
     chk::chk_list(entries)
@@ -584,6 +619,8 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
             json <- entries[[i]]$getFieldsAsJson(compute=compute)
             writeChar(json, files[[i]], eos=NULL)
         }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -593,7 +630,7 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
 #' @param conn.to The connector of the destination database.
 #' @param limit The number of entries of the source database to copy. If set to
 #'     \\code{NULL}, copy the whole database.
-#' @return None.
+#' @return Nothing.
 copyDb=function(conn.from, conn.to, limit=0) {
 
     # Get all entry IDs of "from" database
@@ -616,11 +653,13 @@ copyDb=function(conn.from, conn.to, limit=0) {
         # Progress message
         prg$increment()
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Prints object information.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     # Print version
@@ -641,11 +680,15 @@ print=function() {
         cat("The following connectors are disabled: ",
             paste(dbnames, collapse=', '), ".\n", sep='')
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' DEPRECATED method to test if a field is an atomic field. The new
-#' @param method is \\code{BiodbEntryField :isVector()}."
+#' method is \\code{BiodbEntryField :isVector()}."
+#' @param field The name of the field.
+#' @return TRUE if the field's value is atomic.
 fieldIsAtomic=function(field) {
     lifecycle::deprecate_warn('1.0.0', 'fieldIsAtomic()',
         'BiodbEntryField::isVector()')
@@ -655,7 +698,9 @@ fieldIsAtomic=function(field) {
 
 #' @description
 #' DEPRECATED method to get the class of a field. The new method is
-#' @param \\code{BiodbMain :getEntryFields()$get(field)$getClass()}."
+#' \code{BiodbMain :getEntryFields()$get(field)$getClass()}.
+#' @param field The name of the field.
+#' @return The class of the field.
 getFieldClass=function(field) {
     lifecycle::deprecate_warn('1.0.0', 'getFieldClass()',
         'BiodbEntryField::getClass()')

@@ -34,12 +34,20 @@ BiodbFactory <- R6::R6Class("BiodbFactory",
 
 public=list(
 
+#' @description
+#' New instance initializer. The BiodbFactory class must not be instantiated
+#' directly.
+#' Instead, call the getFactory() method from the BiodbMain instance.
+#' @param bdb The BiodbMain instance.
+#' @return Nothing.
 initialize=function(bdb) {
 
     chk::chk_is(bdb, 'BiodbMain')
 
     private$bdb <- bdb
     private$conn <- list()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -149,8 +157,8 @@ connExists=function(conn.id) {
 
 #' @description
 #' Deletes an existing connector.
-#' @param conn.id A connector instance or a connector ID.
-#' @return None.
+#' @param conn A connector instance or a connector ID.
+#' @return Nothing.
 deleteConn=function(conn) {
 
     if (methods::is(conn, 'BiodbConn')) {
@@ -174,7 +182,7 @@ deleteConn=function(conn) {
 #' Deletes all existing connectors from a same class.
 #' @param db.class The type of a database. All connectors of this database
 #'     type will be deleted.
-#' @return None.
+#' @return Nothing.
 deleteConnByClass=function(db.class) {
 
     chk::chk_character(db.class)
@@ -190,7 +198,7 @@ deleteConnByClass=function(db.class) {
     else
         logInfo('%d connector(s) of type "%s" deleted.', n, db.class)
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
 #' @description
@@ -203,7 +211,7 @@ getAllConnectors=function() {
 
 #' @description
 #' Deletes all connectors.
-#' @return None.
+#' @return Nothing.
 deleteAllConnectors=function() {
 
     # Get all connectors
@@ -212,6 +220,8 @@ deleteAllConnectors=function() {
     # Loop on all connectors
     for (conn in connectors)
         self$deleteConn(conn$getId())
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -330,7 +340,7 @@ getAllCacheEntries=function(conn.id) {
 #'     method is deprecated, please use deleteAllEntriesFromVolatileCache()
 #'     instead.
 #' @param conn.id A connector ID.
-#' @return None.
+#' @return Nothing.
 deleteAllEntriesFromVolatileCache=function(conn.id) {
 
     chk::chk_string(conn.id)
@@ -339,24 +349,30 @@ deleteAllEntriesFromVolatileCache=function(conn.id) {
         error('Connector "%s" is unknown.', conn.id)
 
     private$conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Deletes all entries stored in the cache of the given connector.
 #' @param conn.id A connector ID.
-#' @return None.
+#' @return Nothing.
 deleteAllCacheEntries=function(conn.id) { # DEPRECATED
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
         "deleteAllEntriesFromVolatileCache()")
     self$deleteAllCacheEntries(conn.id)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Prints information about this instance.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Biodb factory instance.\n")
+
+    return(invisible(NULL))
 }
 ),
 

@@ -229,7 +229,7 @@ Prints a description of this connector.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -467,7 +467,7 @@ Allows editing for this database.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -480,7 +480,7 @@ Disallows editing for this database.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -500,7 +500,7 @@ Allow or disallow editing for this database.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -524,7 +524,7 @@ Adds a new entry to the database. The passed entry must have been
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -551,7 +551,7 @@ Allows the connector to write into this database.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -564,7 +564,7 @@ Disallows the connector to write into this database.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -584,7 +584,7 @@ Allows or disallows writing for this database.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -612,7 +612,7 @@ the last time write() was called will be saved.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -784,7 +784,7 @@ Downloads the database content locally.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -818,7 +818,7 @@ Returns TRUE if the database is a compound database.
 \if{latex}{\out{\hypertarget{method-searchCompound}{}}}
 \subsection{Method \code{searchCompound()}}{
 This method is deprecated. Use searchForEntries() instead.
-\n Searches for compounds by name and/or by mass. At least one of name or
+Searches for compounds by name and/or by mass. At least one of name or
 mass must be set.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchCompound(
@@ -950,7 +950,7 @@ entries.
 }
 
 \subsection{Returns}{
-None."
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -971,11 +971,14 @@ A list of BiodbEntry instances.
 \if{latex}{\out{\hypertarget{method-getAllCacheEntries}{}}}
 \subsection{Method \code{getAllCacheEntries()}}{
 This method is deprecated.
-\nUse getAllVolatileCacheEntries() instead.
+Use getAllVolatileCacheEntries() instead.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$getAllCacheEntries()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+All entries cached in memory.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-deleteAllEntriesFromVolatileCache"></a>}}
@@ -987,7 +990,7 @@ Delete all entries from the volatile cache (memory cache).
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1008,7 +1011,7 @@ Delete all entries from the persistent cache (disk cache).
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1030,7 +1033,7 @@ from the volatile cache (memory cache).}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1044,7 +1047,7 @@ please use deleteAllEntriesFromVolatileCache() instead.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1168,14 +1171,15 @@ Gets a list of chromatographic columns contained in this database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession numbers).
-Used to restrict the set of entries on which to run the algorithm.}
+\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
+numbers).  Used to restrict the set of entries on which to run the
+algorithm.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A data.frame with two columns, one for the ID 'id' and
-another one for the title 'title'.
+A data.frame with two columns, one for the ID 'id' and another one
+for the title 'title'.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1208,7 +1212,7 @@ Sets the field to use for M/Z matching.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1256,11 +1260,12 @@ Gets the number of peaks contained in the database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the counting
-to one mode.}
+\item{\code{mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the
+counting to one mode.}
 
-\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession numbers).
-Used to restrict the set of entries on which to run the algorithm.}
+\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
+numbers).  Used to restrict the set of entries on which to run the
+algorithm.}
 }
 \if{html}{\out{</div>}}
 }

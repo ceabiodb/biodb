@@ -4,6 +4,11 @@
 \alias{CompCsvFileEntry}
 \title{Compound CSV File entry class.}
 \description{
+Compound CSV File entry class.
+
+Compound CSV File entry class.
+}
+\details{
 This is the entry class for Compound CSV file databases.
 }
 \examples{
@@ -71,10 +76,22 @@ Super class \code{\link{BiodbCsvEntry}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Entry objects must not be created directly.
+Instead, they are retrieved through the connector instances.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompCsvFileEntry$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

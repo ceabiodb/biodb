@@ -87,7 +87,7 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
 
 #' @description
 #' Prints a description of this connector.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     # Title
@@ -135,6 +135,8 @@ print=function() {
         reason <- self$getPropertyValue('disabling.reason')
         cat('This connector currently is DISABLED. ', reason, "\n")
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -217,7 +219,7 @@ getPropValSlot=function(name, slot) {
 #' Update the definition of properties.
 #' @param def A named list of property definitions. The names of the list must
 #' be the property names.
-#' @return None.
+#' @return Nothing.
 updatePropertiesDefinition=function(def) {
 
     # Loop on properties
@@ -236,13 +238,17 @@ updatePropertiesDefinition=function(def) {
         else
             self$setPropertyValue(prop, def[[prop]])
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Reimplement this method in your connector class to define parsing
 #' expressions dynamically.
-#' @return None.
+#' @return Nothing.
 defineParsingExpressions=function() {
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -342,7 +348,7 @@ getPropertyValue=function(name) {
 #' Sets the value of a property.
 #' @param name The name of the property.
 #' @param value The new value to set the property to.
-#' @return None.
+#' @return Nothing.
 setPropertyValue=function(name, value) {
 
     logDebug('Setting property "%s" to "%s".', name, value)
@@ -373,6 +379,8 @@ setPropertyValue=function(name, value) {
         notifyObservers(private$observers, 'notifyConnUrlsUpdated',
             list(conn=self))
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -380,7 +388,7 @@ setPropertyValue=function(name, value) {
 #' @param name The name of the property.
 #' @param slot The name of the property's slot.
 #' @param value The new value to set the property's slot to.
-#' @return None.
+#' @return Nothing.
 setPropValSlot=function(name, slot, value) {
 
     private$checkProperty(name=name, slot=slot)
@@ -393,6 +401,8 @@ setPropValSlot=function(name, slot, value) {
 
     # Update value
     self$setPropertyValue(name, curval)
+
+    return(invisible(NULL))
 },
 
 #' @description

@@ -113,6 +113,9 @@ Parent class \code{\link{BiodbEntryFields}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. This class must not be instantiated directly.
+Instead, you access the instances of this class through the BiodbEntryFields
+instance that you get from the BiodbMain instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryField$new(
   parent,
@@ -133,6 +136,46 @@ Parent class \code{\link{BiodbEntryFields}}.
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parent}}{The BiodbEntryFields parent instance.}
+
+\item{\code{name}}{The field name.}
+
+\item{\code{alias}}{The field aliases as a character vector.}
+
+\item{\code{type}}{The field type.}
+
+\item{\code{class}}{The field class.}
+
+\item{\code{card}}{The field cardinality.}
+
+\item{\code{forbids.duplicates}}{Set to TRUE to forbid duplicated values.}
+
+\item{\code{description}}{The field description.}
+
+\item{\code{allowed.values}}{Restrict possible values to a set of allowed values.}
+
+\item{\code{lower.case}}{All values will be converted to lower case.}
+
+\item{\code{case.insensitive}}{Comparison will be made case insensitive for this
+field.}
+
+\item{\code{computable.from}}{A list of databases from which to compute
+automatically the value of this field.}
+
+\item{\code{virtual}}{Set to TRUE if this field is virtual.}
+
+\item{\code{virtual.group.by.type}}{In case of a virtual field, set the type of fields to group together into a data frame.}
+
+\item{\code{dataFrameGroup}}{The data frame group.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getName"></a>}}
@@ -217,7 +260,7 @@ Adds an alias to the list of aliases.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -237,7 +280,7 @@ Removes an alias from the list of aliases.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -324,7 +367,7 @@ Adds a directive from the list of computableFrom.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -344,7 +387,7 @@ Removes a directive from the list of computableFrom.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -452,7 +495,7 @@ an allowed value).}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -472,7 +515,7 @@ Checks if a value is correct. Fails if \code{value} is incorrect.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -640,7 +683,7 @@ existing field inside a new connector definition.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -653,26 +696,34 @@ Print informations about this entry.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getCardinality"></a>}}
 \if{latex}{\out{\hypertarget{method-getCardinality}{}}}
 \subsection{Method \code{getCardinality()}}{
+Gets the field's cardinality.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryField$getCardinality()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The cardinality: "one" or "many".
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check"></a>}}
 \if{latex}{\out{\hypertarget{method-check}{}}}
 \subsection{Method \code{check()}}{
+Checks if essential values are defined.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryField$check()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

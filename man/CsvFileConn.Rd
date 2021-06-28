@@ -161,10 +161,22 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getCsvQuote"></a>}}
@@ -199,7 +211,7 @@ Sets the characters used to delimit quotes in the CSV database file.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -233,7 +245,7 @@ method is called after the loading of the database, it will throw an error.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -273,19 +285,31 @@ TRUE of the field is defined, FALSE otherwise.
 \if{html}{\out{<a id="method-isSearchableByField"></a>}}
 \if{latex}{\out{\hypertarget{method-isSearchableByField}{}}}
 \subsection{Method \code{isSearchableByField()}}{
+Tests if a field can be used to search entries when using method
+searchForEntries().
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$isSearchableByField(field)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{field}}{The name of the field.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Returns TRUE if the database is searchable using the
+specified field, FALSE otherwise.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-addField"></a>}}
 \if{latex}{\out{\hypertarget{method-addField}{}}}
 \subsection{Method \code{addField()}}{
-Adds a new field to the database. The field must not already exist.
-The same single value will be set to all entries for this field.
-A new column will be written in the memory data frame, containing the value
-given.
+Adds a new field to the database. The field must not already exist.  The
+same single value will be set to all entries for this field.  A new column
+will be written in the memory data frame, containing the value given.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$addField(field, value)}\if{html}{\out{</div>}}
 }
@@ -300,7 +324,7 @@ given.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -348,53 +372,93 @@ CSV file.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getFieldsAndColumnsAssociation"></a>}}
 \if{latex}{\out{\hypertarget{method-getFieldsAndColumnsAssociation}{}}}
 \subsection{Method \code{getFieldsAndColumnsAssociation()}}{
+Gets the association between biodb field names and CSV file column names.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getFieldsAndColumnsAssociation()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list with names being the biodb field names and values being a
+character vector of column names from the CSV file.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getUnassociatedColumns"></a>}}
 \if{latex}{\out{\hypertarget{method-getUnassociatedColumns}{}}}
 \subsection{Method \code{getUnassociatedColumns()}}{
+Gets the list of unassociated column names from the CSV file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getUnassociatedColumns()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A character vector containing column names.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
+Prints a description of this connector.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$print()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getNbEntries"></a>}}
 \if{latex}{\out{\hypertarget{method-getNbEntries}{}}}
 \subsection{Method \code{getNbEntries()}}{
+Get the number of entries contained in this database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getNbEntries(count = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{count}}{If set to TRUE and no straightforward way exists to get number of
+entries, count the output of getEntryIds().}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The number of entries in the database, as an integer.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getEntryContentFromDb"></a>}}
 \if{latex}{\out{\hypertarget{method-getEntryContentFromDb}{}}}
 \subsection{Method \code{getEntryContentFromDb()}}{
+Get the contents of entries directly from the database. A direct request or
+an access to the database will be made in order to retrieve the contents. No
+access to the biodb cache system will be made.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getEntryContentFromDb(entry.id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{entry.id}}{A character vector with the IDs of entries to retrieve.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector, the same size of entry.id, with contents of the
+requested entries. An NA value will be set for the content of each entry for
+which the retrieval failed.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setDb"></a>}}
@@ -414,26 +478,43 @@ the database previously with the URL parameter.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-defineParsingExpressions"></a>}}
 \if{latex}{\out{\hypertarget{method-defineParsingExpressions}{}}}
 \subsection{Method \code{defineParsingExpressions()}}{
+Defines automatically the parsing expressions.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$defineParsingExpressions()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setIgnoreUnassignedColumns"></a>}}
 \if{latex}{\out{\hypertarget{method-setIgnoreUnassignedColumns}{}}}
 \subsection{Method \code{setIgnoreUnassignedColumns()}}{
+Tells the connector to ignore or not the columns found in the CSV file for
+which no assignment were found.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$setIgnoreUnassignedColumns(ignore)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ignore}}{Set to TRUE to ignore the unassigned columns, and to FALSE
+otherwise.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

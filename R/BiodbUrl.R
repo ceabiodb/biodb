@@ -50,7 +50,7 @@ initialize=function(url=character(), params=character()) {
 
 #' @description
 #' Gets the domain.
-#' @return None.
+#' @return The domain.
 getDomain=function() {
 
     domain <- sub('^.+://([^/]+)(/.*)?$', '\\1', private$url[[1]], perl=TRUE)
@@ -61,25 +61,29 @@ getDomain=function() {
 #' @description
 #' Sets the base URL string.
 #' @param url The base URL string.
-#' @return None.
+#' @return Nothing.
 setUrl=function(url) {
 
     private$url <- url
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Sets a parameter.
 #' @param key The parameter name. 
 #' @param value  The value of the parameter.
-#' @return None.
+#' @return Nothing.
 setParam=function(key, value) {
 
     private$params[[key]] <- value
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Displays information about this instance.
-#' @return None.
+#' @return self as invisible. 
 print=function() {
     cat(self$toString(), "\n", sep='')
     return(invisible(self))

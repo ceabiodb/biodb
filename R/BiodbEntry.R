@@ -166,7 +166,7 @@ getDbClass=function() {
 #'     possible fields in biodb.
 #' @param field The name of a field.
 #' @param value The value to set.
-#' @return None.
+#' @return Nothing.
 setFieldValue=function(field, value) {
 
     field.def <- self$getBiodb()$getEntryFields()$get(field)
@@ -216,6 +216,8 @@ setFieldValue=function(field, value) {
 
     # Set value
     private$fields[[field.def$getName()]] <- value
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -224,13 +226,15 @@ setFieldValue=function(field, value) {
 #'     fields with a cardinality greater than one can accept multiple values.
 #' @param field The name of a field.
 #' @param value The value to append.
-#' @return None.
+#' @return Nothing.
 appendFieldValue=function(field, value) {
 
     if (self$hasField(field))
         self$setFieldValue(field, c(self$getFieldValue(field), value))
     else
         self$setFieldValue(field, value)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -259,11 +263,13 @@ hasField=function(field) {
 #' @description
 #' Removes the specified field from this entry.
 #' @param field The name of a field.
-#' @return None.
+#' @return Nothing.
 removeField=function(field) {
 
     if (self$hasField(field))
         private$fields <- private$fields[names(private$fields) != tolower(field)]
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -459,7 +465,7 @@ getFieldsAsJson=function(compute=TRUE) {
 #' @param content A character string containing definition for an entry and
 #' @param obtained from a database. The format can be CSV, HTML, JSON, XML, or just
 #'     text.
-#' @return None.
+#' @return Nothing.
 parseContent=function(content) {
 
     # No connector?
@@ -498,6 +504,8 @@ parseContent=function(content) {
         else if (self$hasField('accession'))
             self$setFieldValue(dbid.field, self$getFieldValue('accession'))
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -533,13 +541,15 @@ computeFields=function(fields=NULL) {
 
 #' @description
 #' Displays short information about this instance.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     db <- private$parent$getPropertyValue('name')
     id <- self$getFieldValue('accession', compute=FALSE)
     id <- if (is.na(id)) 'ID unknown' else id
     cat("Biodb ", db, " entry instance ", id, ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
 #' @description

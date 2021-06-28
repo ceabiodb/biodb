@@ -137,4 +137,5 @@ abstractMethod <- function(obj) {
 
     error0("Method ", method, " is not implemented in ", cls, " class.")
 
+    return(invisible(NULL))
 }

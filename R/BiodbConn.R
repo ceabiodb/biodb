@@ -99,11 +99,13 @@ getId=function() {
 
 #' @description
 #' Prints a description of this connector.
-#' @return None.
+#' @return Nothing.
 print=function() {
     
     super$print() 
     cat("  ID: ", private$id, ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -409,32 +411,38 @@ editingIsAllowed=function() {
 
 #' @description
 #' Allows editing for this database.
-#' @return None.
+#' @return Nothing.
 allowEditing=function() {
 
     private$checkIsEditable()
     self$setEditingAllowed(TRUE)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Disallows editing for this database.
-#' @return None.
+#' @return Nothing.
 disallowEditing=function() {
     
     private$checkIsEditable()
     self$setEditingAllowed(FALSE)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Allow or disallow editing for this database.
 #' @param allow A logical value.
-#' @return None.
+#' @return Nothing.
 setEditingAllowed=function(allow) {
     
     chk::chk_logical(allow)
 
     private$checkIsEditable()
     private$editing.allowed <- allow
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -442,7 +450,7 @@ setEditingAllowed=function(allow) {
 #' @param previously created from scratch using BiodbFactory :createNewEntry() or
 #' @param cloned from an existing entry using BiodbEntry :clone().
 #' @param entry The new entry to add. It must be a valid BiodbEntry object.
-#' @return None.
+#' @return Nothing.
 addNewEntry=function(entry) {
 
     private$checkIsEditable()
@@ -487,6 +495,8 @@ addNewEntry=function(entry) {
 
     # Add entry to volatile cache
     private$addEntriesToCache(id, list(entry))
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -500,31 +510,37 @@ isWritable=function() {
 
 #' @description
 #' Allows the connector to write into this database.
-#' @return None.
+#' @return Nothing.
 allowWriting=function() {
 
     private$checkIsWritable()
     self$setWritingAllowed(TRUE)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Disallows the connector to write into this database.
-#' @return None.
+#' @return Nothing.
 disallowWriting=function() {
     
     private$checkIsWritable()
     self$setWritingAllowed(FALSE)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Allows or disallows writing for this database.
 #' @param allow If set to TRUE, allows writing.
-#' @return None.
+#' @return Nothing.
 setWritingAllowed=function(allow) {
     
     private$checkIsWritable()
     chk::chk_logical(allow)
     private$writing.allowed <- allow
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -542,7 +558,7 @@ writingIsAllowed=function() {
 #' @description
 #' Writes into the database. All modifications made to the database since
 #'     the last time write() was called will be saved.
-#' @return None.
+#' @return Nothing.
 write=function() {
 
     private$checkIsWritable()
@@ -552,6 +568,8 @@ write=function() {
     # Unset "new" flag for all entries
     for (e in private$entries)
         e$.__enclos_env__$private$setAsNew(FALSE)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -727,7 +745,7 @@ isExtracted=function() {
 
 #' @description
 #' Downloads the database content locally.
-#' @return None.
+#' @return Nothing.
 download=function() {
 
     private$checkIsDownloadable()
@@ -760,6 +778,8 @@ download=function() {
         # Set marker
         cch$setMarker(self$getCacheId(), name='extracted')
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -779,15 +799,15 @@ isCompounddb=function() {
 
 #' @description
 #' This method is deprecated. Use searchForEntries() instead.
-#'     \n Searches for compounds by name and/or by mass. At least one of name or
-#'     mass must be set.
+#' Searches for compounds by name and/or by mass. At least one of name or
+#' mass must be set.
 #' @param name The name of a compound to search for.
 #' @param description A character vector of words or expressions to search for
-#'     inside description field. The words will be searched in order. A match will
-#'     be made only if all words are inside the description field.
+#' inside description field. The words will be searched in order. A match will
+#' be made only if all words are inside the description field.
 #' @param mass The searched mass.
 #' @param mass.field For searching by mass, you must indicate a mass field to use
-#'     ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
+#' ('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').
 #' @param mass.tol The tolerance value on the molecular mass.
 #' @param mass.tol.unit The type of mass tolerance. Either 'plain' or 'ppm'.
 #' @param max.results The maximum number of matches to return.
@@ -954,13 +974,15 @@ isMassdb=function() {
 #' @description
 #' Checks that the database is correct by trying to retrieve all its
 #'     entries.
-#' @return None."
+#' @return Nothing.
 checkDb=function() {
     # Get IDs
     ids <- self$getEntryIds()
 
     # Get entries
     entries <- private$bdb$getFactory()$getEntry(self$getId(), ids)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -980,16 +1002,17 @@ getAllVolatileCacheEntries=function() {
 
 #' @description
 #' This method is deprecated.
-#'     \nUse getAllVolatileCacheEntries() instead.
+#' Use getAllVolatileCacheEntries() instead.
+#' @return All entries cached in memory.
 getAllCacheEntries=function() {
     lifecycle::deprecate_soft('1.0.0', 'getAllCacheEntries()',
         "getAllVolatileCacheEntries()")
-    self$getAllVolatileCacheEntries()
+    return(self$getAllVolatileCacheEntries())
 },
 
 #' @description
 #' Delete all entries from the volatile cache (memory cache).
-#' @return None.
+#' @return Nothing.
 deleteAllEntriesFromVolatileCache=function() {
 
     private$entries <- list()
@@ -1001,7 +1024,7 @@ deleteAllEntriesFromVolatileCache=function() {
 #' Delete all entries from the persistent cache (disk cache).
 #' @param deleteVolatile If TRUE deletes also all entries from the volatile cache
 #'     (memory cache).
-#' @return None.
+#' @return Nothing.
 deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
 
     if (deleteVolatile)
@@ -1018,22 +1041,26 @@ deleteAllEntriesFromPersistentCache=function(deleteVolatile=TRUE) {
 #' cache (disk cache).
 #' @param deleteVolatile If TRUE deletes also all entries
 #' from the volatile cache (memory cache).
-#' @return None.
+#' @return Nothing.
 deleteWholePersistentCache=function(deleteVolatile=TRUE) {
 
     if (deleteVolatile)
         self$deleteAllEntriesFromVolatileCache()
     private$bdb$getPersistentCache()$deleteAllFiles(self$getCacheId())
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Delete all entries from the memory cache. This method is deprecated,
 #' please use deleteAllEntriesFromVolatileCache() instead.
-#' @return None.
+#' @return Nothing.
 deleteAllCacheEntries=function() {
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
         "deleteAllEntriesFromVolatileCache()")
     self$deleteAllEntriesFromVolatileCache()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -1131,10 +1158,11 @@ getEntryPageUrl=function(entry.id) {
 
 #' @description
 #' Gets a list of chromatographic columns contained in this database.
-#' @param ids A character vector of entry identifiers (i.e.: accession numbers).
-#'     Used to restrict the set of entries on which to run the algorithm.
-#' @return A data.frame with two columns, one for the ID 'id' and
-#'     another one for the title 'title'.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and another one
+#' for the title 'title'.
 getChromCol=function(ids=NULL) {
 
     private$checkIsMassdb()
@@ -1228,13 +1256,15 @@ getMatchingMzField=function() {
 #' @description
 #' Sets the field to use for M/Z matching.
 #' @param field The field to use for matching.
-#' @return None.
+#' @return Nothing.
 setMatchingMzField=function(field=c('peak.mztheo', 'peak.mzexp')) {
     
     private$checkIsMassdb()
     field <- match.arg(field)
     
     self$setPropValSlot('matching.fields', 'mz', field)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -1255,10 +1285,11 @@ getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
 
 #' @description
 #' Gets the number of peaks contained in the database.
-#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the counting
-#'     to one mode.
-#' @param ids A character vector of entry identifiers (i.e.: accession numbers).
-#'     Used to restrict the set of entries on which to run the algorithm.
+#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the
+#' counting to one mode.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
 #' @return The number of peaks, as an integer.
 getNbPeaks=function(mode=NULL, ids=NULL) {
 

@@ -24,6 +24,8 @@ initialize=function(op) {
 #' @return Nothing.
 addExpr=function(expr) {
     private$expr <- c(private$expr, expr)
+
+    return(invisible(NULL))
 },
 
 #' @description

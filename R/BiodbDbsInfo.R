@@ -24,11 +24,18 @@ BiodbDbsInfo <- R6::R6Class("BiodbDbsInfo",
 public=list(
 
 #' @description
+#' New instance initializer. The class must not be instantiated directly.
+#' Instead, access the BiodbDbsInfo instance through the BiodbMain instance
+#' using the getDbsInfo() method.
+#' @param cfg The BiodbConfig instance.
+#' @return Nothing.
 initialize=function(cfg) {
 
     chk::chk_is(cfg, 'BiodbConfig')
     private$dbs <- list()
     private$cfg <- cfg
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -37,7 +44,7 @@ initialize=function(cfg) {
 #' @param def A named list of database definitions. The names of the list will be 
 #'     the IDs of the databases.
 #' @param package The package to which belong the new definitions.
-#' @return None.
+#' @return Nothing.
 define=function(def, package='biodb') {
 
     # Loop on all db info
@@ -56,6 +63,8 @@ define=function(def, package='biodb') {
             private$dbs[[db]] <- BiodbDbInfo$new(db.class=db, properties=dbdef,
                 cfg=private$cfg)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -81,7 +90,7 @@ isDefined=function(db.id) {
 #' Checks if a database is defined. Throws an error if the specified id
 #'     does not correspond to a defined database.
 #' @param db.id A character vector of database IDs.
-#' @return None.
+#' @return Nothing.
 checkIsDefined=function(db.id) {
 
     notDefined <- vapply(db.id, function(x) { ! self$isDefined(x) },
@@ -89,6 +98,8 @@ checkIsDefined=function(db.id) {
     if (any(notDefined))
         error0("Database(s) \"", paste(db.id[notDefined], collapse=", "),
         "\" is(are) not defined.")
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -124,7 +135,7 @@ getAll=function() {
 #' @description
 #' Prints informations about this instance, listing also all databases
 #'     defined.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Biodb databases information instance.\n")
@@ -143,6 +154,8 @@ print=function() {
                 sep='')
         cat("\n")
     }
+
+    return(invisible(NULL))
 }
 ),
 

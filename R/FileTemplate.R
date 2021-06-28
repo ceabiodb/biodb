@@ -140,7 +140,7 @@ select=function(section, enable) {
 #' @param checkRemainingTags If set to TRUE, checks first, before writing, if
 #' there any remaining tags that have not been processed. A warning is thrown
 #' for each found tag.
-#' @return None
+#' @return Nothing.
 ,write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
 
     if (checkRemainingTags)

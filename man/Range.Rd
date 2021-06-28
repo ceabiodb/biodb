@@ -172,10 +172,14 @@ The tolerance in PPM.
 \if{html}{\out{<a id="method-getTolExpr"></a>}}
 \if{latex}{\out{\hypertarget{method-getTolExpr}{}}}
 \subsection{Method \code{getTolExpr()}}{
+Gets the tolerance expression as a list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Range$getTolExpr()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list containing the tolerance range expression.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

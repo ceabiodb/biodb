@@ -4,6 +4,11 @@
 \alias{BiodbTxtEntry}
 \title{Entry class for content in text format.}
 \description{
+Entry class for content in text format.
+
+Entry class for content in text format.
+}
+\details{
 This is an abstract class for handling database entries whose content is in
 text format.
 }
@@ -62,10 +67,22 @@ Super class \code{\link{BiodbEntry}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Entry objects must not be created directly.
+Instead, they are retrieved through the connector instances.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbTxtEntry$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

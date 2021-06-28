@@ -45,10 +45,23 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. The class must not be instantiated directly.
+Instead, access the BiodbDbsInfo instance through the BiodbMain instance
+using the getDbsInfo() method.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbDbsInfo$new(cfg)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cfg}}{The BiodbConfig instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-define"></a>}}
@@ -71,7 +84,7 @@ the IDs of the databases.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -127,7 +140,7 @@ does not correspond to a defined database.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -179,7 +192,7 @@ defined.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

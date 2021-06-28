@@ -148,6 +148,9 @@ tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
     return(private$ppm)
 }
 
+#' @description
+#' Gets the tolerance expression as a list.
+#' @return A list containing the tolerance range expression.
 ,getTolExpr=function() {
 
     expr <- NULL

@@ -187,7 +187,7 @@ get=function(key) {
 #' Set the value of a key.
 #' @param key The name of a configuration key.
 #' @param value A value to associate with the key.
-#' @return None.
+#' @return Nothing.
 set=function(key, value) {
 
     private$checkKey(key)
@@ -201,13 +201,13 @@ set=function(key, value) {
     # Notify observers
     notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate', list(k=key, v=v))
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
 #' @description
 #' Reset the value of a key.
 #' @param key The name of a configuration key. If NULL, all keys will be reset.
-#' @return None.
+#' @return Nothing.
 reset=function(key=NULL) {
 
     # Set keys to reset
@@ -221,35 +221,41 @@ reset=function(key=NULL) {
     # Loop on all keys
     for (k in keys)
         self$set(k, private$keys[[key]]$default)
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Set a boolean key to TRUE.
 #' @param key The name of a configuration key.
-#' @return None.
+#' @return Nothing.
 enable=function(key) {
 
     private$checkKey(key, type='logical')
 
     logInfo("Enable %s.", key)
     private$values[[key]] <- TRUE
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Set a boolean key to FALSE.
 #' @param key The name of a configuration key.
-#' @return None.
+#' @return Nothing.
 disable=function(key) {
 
     private$checkKey(key, type='logical')
 
     logInfo("Disable %s.", key)
     private$values[[key]] <- FALSE
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Print list of configuration keys and their values.
-#' @return None.
+#' @return Nothing.
 print=function() {
 
     cat("Biodb configuration instance.\n")
@@ -262,6 +268,8 @@ print=function() {
             if ( ! private$isDeprecated(key))
                 cat("    ", key, ": ", self$get(key), "\n")
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -285,7 +293,7 @@ listKeys=function() {
 #' Returns the environment variable associated with this configuration
 #'     key.
 #' @param key The name of a configuration key.
-#' @return None.
+#' @return The environment variable's value. 
 getAssocEnvVar=function(key) {
 
     # Check key
@@ -302,7 +310,7 @@ getAssocEnvVar=function(key) {
 #' Defines config properties from a structured object, normally loaded
 #'     from a YAML file.
 #' @param def The list of key definitions.
-#' @return None.
+#' @return Nothing.
 define=function(def) {
 
     # Get key names
@@ -316,25 +324,29 @@ define=function(def) {
         logDebug('Define config key %s.', key)
         do.call(private$newKey, v)
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Called by BiodbMain when a new observer is registered.
 #' @param obs The new observers registered by the BiodbMain instance.
-#' @return none.
+#' @return Nothing.
 notifyNewObservers=function(obs) {
 
     # Loop on all keys
     for(key in names(private$values))
         notifyObservers(private$parent$getObservers(),
             'notifyCfgUpdate', list(k=key, v=private$values[[key]]))
+
+    return(invisible(NULL))
 },
 
 #' @description
 #' Terminates the instance. This method will be called
 #'     automatically by the BiodbMain instance when you call
 #' @param BiodbMain :terminate().
-#' @return None.
+#' @return Nothing.
 terminate=function() {
 
     return(invisible(NULL))

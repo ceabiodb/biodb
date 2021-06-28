@@ -4,6 +4,11 @@
 \alias{CompCsvFileConn}
 \title{Compound CSV File connector class.}
 \description{
+Compound CSV File connector class.
+
+Compound CSV File connector class.
+}
+\details{
 This is the connector class for a Compound CSV file database.
 }
 \examples{
@@ -154,10 +159,22 @@ Super class \code{\link{CsvFileConn}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompCsvFileConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

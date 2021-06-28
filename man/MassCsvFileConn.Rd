@@ -166,10 +166,22 @@ Super class \code{\link{CsvFileConn}}.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer. Connector classes must not be instantiated
+directly. Instead, you must use the createConn() method of the factory class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MassCsvFileConn$new(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{All parameters are passed to the super class initializer.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getPrecursorFormulae"></a>}}
@@ -221,7 +233,7 @@ Sets the list precursor formulae.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -242,26 +254,56 @@ precursors.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getChromCol"></a>}}
 \if{latex}{\out{\hypertarget{method-getChromCol}{}}}
 \subsection{Method \code{getChromCol()}}{
+Gets a list of chromatographic columns contained in this database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MassCsvFileConn$getChromCol(ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
+numbers).  Used to restrict the set of entries on which to run the
+algorithm.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A data.frame with two columns, one for the ID 'id' and another one
+for the title 'title'.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getNbPeaks"></a>}}
 \if{latex}{\out{\hypertarget{method-getNbPeaks}{}}}
 \subsection{Method \code{getNbPeaks()}}{
+Gets the number of peaks contained in the database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MassCsvFileConn$getNbPeaks(mode = NULL, ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the
+counting to one mode.}
+
+\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
+numbers).  Used to restrict the set of entries on which to run the
+algorithm.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The number of peaks, as an integer.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

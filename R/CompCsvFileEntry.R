@@ -23,12 +23,18 @@
 CompCsvFileEntry <- R6::R6Class("CompCsvFileEntry",
 inherit=BiodbCsvEntry,
 
-
 public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
     super$initialize(sep="\t", ...)
+
+    return(invisible(NULL))
 }
 ),
 

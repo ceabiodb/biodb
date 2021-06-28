@@ -4,6 +4,11 @@
 \alias{BiodbTestMsgAck}
 \title{A class for acknowledging messages during tests.}
 \description{
+A class for acknowledging messages during tests.
+
+A class for acknowledging messages during tests.
+}
+\details{
 This observer is used to call a testthat::expect_*() method each time a
 message is received. This is used when running tests on Travis-CI, so Travis
 does not stop tests because no change is detected in output.
@@ -29,19 +34,38 @@ biodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+New instance initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbTestMsgAck$new()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-notifyProgress"></a>}}
 \if{latex}{\out{\hypertarget{method-notifyProgress}{}}}
 \subsection{Method \code{notifyProgress()}}{
+Call back method used to get progress advancement of a long process.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbTestMsgAck$notifyProgress(what, index, total)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{what}}{The reason as a character value.}
+
+\item{\code{index}}{The index number representing the progress.}
+
+\item{\code{total}}{The total number to reach for completing the process.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

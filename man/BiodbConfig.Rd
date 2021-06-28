@@ -276,7 +276,7 @@ Set the value of a key.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -296,7 +296,7 @@ Reset the value of a key.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -316,7 +316,7 @@ Set a boolean key to TRUE.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -336,7 +336,7 @@ Set a boolean key to FALSE.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -349,7 +349,7 @@ Print list of configuration keys and their values.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -384,7 +384,7 @@ key.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+The environment variable's value.
 }
 }
 \if{html}{\out{<hr>}}
@@ -405,7 +405,7 @@ from a YAML file.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -425,7 +425,7 @@ Called by BiodbMain when a new observer is registered.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-none.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -446,7 +446,7 @@ automatically by the BiodbMain instance when you call
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
