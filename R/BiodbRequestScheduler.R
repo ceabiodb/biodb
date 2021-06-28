@@ -174,8 +174,8 @@ downloadFile=function(url, dest.file) {
 #' @return Nothing.
 notifyConnUrlsUpdated=function(conn) {
 
-    private$unregisterConnector(conn)
-    private$registerConnector(conn)
+    self$unregisterConnector(conn)
+    self$registerConnector(conn)
 
     return(invisible(NULL))
 },

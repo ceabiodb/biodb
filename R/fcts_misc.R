@@ -87,8 +87,10 @@ notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
 
     # Notify each observer
     fctCall <- function(o) {
-        logDebug("Functions in observer %s: %s.", class(o), lst2str(names(o),
-            nCut=0))
+        logDebug("Trying to call function %s on observer %s.", .notifyFct,
+            class(o)[[1]])
+        logDebug("Functions in observer %s: %s.", class(o)[[1]],
+            lst2str(names(o), nCut=0))
         if (.notifyFct %in% names(o))
             o[[.notifyFct]](...)
     }
