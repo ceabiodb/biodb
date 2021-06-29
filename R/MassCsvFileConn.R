@@ -2,9 +2,7 @@
 #'
 #' This is the connector class for a MASS CSV file database.
 #'
-#' @seealso Super class \code{\link{CsvFileConn}} and interfaces
-#' \code{\link{BiodbMassdbConn}}, \code{\link{BiodbWritable}} and
-#' \code{\link{BiodbEditable}}.
+#' @seealso Super class \code{\link{CsvFileConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -24,76 +22,89 @@
 #' mybiodb$terminate()
 #'
 #' @include CsvFileConn.R
-#' @include BiodbMassdbConn.R
-#' @export MassCsvFileConn
-#' @exportClass MassCsvFileConn
-MassCsvFileConn <- methods::setRefClass("MassCsvFileConn",
-    contains=c("CsvFileConn", "BiodbMassdbConn"),
-    fields=list(
-        .precursors="character"
-        ),
+#' @export
+MassCsvFileConn <- R6::R6Class("MassCsvFileConn",
+inherit=CsvFileConn,
 
-methods=list(
+public=list(
 
+#' @description
+#' New instance initializer. Connector classes must not be instantiated
+#' directly. Instead, you must use the createConn() method of the factory class.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
-    callSuper(...)
+    super$initialize(...)
 
     # Precursors
-    .self$.precursors <- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+",
+    private$precursors <- c("[(M+H)]+", "[M+H]+", "[(M+Na)]+", "[M+Na]+",
     "[(M+K)]+", "[M+K]+", "[(M-H)]-", "[M-H]-", "[(M+Cl)]-", "[M+Cl]-")
+    
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the list of formulae used to recognize precursors.
+#' @return A character vector containing chemical formulae.
 getPrecursorFormulae=function() {
-    ":\n\nGets the list of formulae used to recognize precursors.
-    \nReturned value: A character vector containing chemical formulae.
-    "
 
-    return (.self$.precursors)
+    return (private$precursors)
 },
 
+#' @description
+#' Tests if a formula is a precursor formula.
+#' @param formula A chemical formula, as a character value.
+#' @return TRUE if the submitted formula is considered a precursor.
 isAPrecursorFormula=function(formula) {
-    ":\n\nTests if a formula is a precursor formula.
-    \nformula: A chemical formula, as a character value.
-    \nReturned value: TRUE if the submitted formula is considered a precursor.
-    "
 
-    return (formula %in% .self$.precursors)
+    return (formula %in% private$precursors)
 },
 
+#' @description
+#' Sets the list precursor formulae.
+#' @param formulae A character vector containing formulae.
+#' @return Nothing.
 setPrecursorFormulae=function(formulae) {
-    ":\n\nSets the list precursor formulae.
-    \nformulae: A character vector containing formulae.
-    \nReturned value: None.
-    "
 
     chk::chk_character(formulae)
-    .self$.precursors <- formulae[ ! duplicated(formulae)]
+    private$precursors <- formulae[ ! duplicated(formulae)]
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Adds new formulae to the list of formulae used to recognize
+#'     precursors.
+#' @param formulae A character vector containing formulae.
+#' @return Nothing.
 addPrecursorFormulae=function(formulae) {
-    ":\n\nAdds new formulae to the list of formulae used to recognize
-    precursors.
-    \nformulae: A character vector containing formulae.
-    \nReturned value: None.
-    "
 
-    .self$.checkParsingHasBegan()
+    private$checkParsingHasBegan()
 
-    if ( ! all(formulae %in% .self$.precursors)) {
-        formulae <- formulae[ ! formulae %in% .self$.precursors]
-        .self$.precursors <- c(.self$.precursors, formulae)
+    if ( ! all(formulae %in% private$precursors)) {
+        formulae <- formulae[ ! formulae %in% private$precursors]
+        private$precursors <- c(private$precursors, formulae)
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets a list of chromatographic columns contained in this database.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and another one
+#' for the title 'title'.
 getChromCol=function(ids=NULL) {
     # Overrides super class' method.
 
     # Extract needed columns
     fields <- c('chrom.col.id', 'chrom.col.name')
-    fields <- Filter(function(f) .self$hasField(f), fields)
+    fields <- Filter(function(f) self$hasField(f), fields)
     
-    db <- .self$.select(cols=fields, ids=ids)
+    db <- private$select(cols=fields, ids=ids)
 
     # Remove rows with NA values
     cols <- na.omit(db)
@@ -115,51 +126,63 @@ getChromCol=function(ids=NULL) {
     return(chrom.cols)
 },
 
+#' @description
+#' Gets the number of peaks contained in the database.
+#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the
+#' counting to one mode.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return The number of peaks, as an integer.
 getNbPeaks=function(mode=NULL, ids=NULL) {
     # Overrides super class' method.
 
     # Get peaks
-    mzcol <- .self$getMatchingMzField()
-    peaks <- .self$.select(cols=mzcol, mode=mode, ids=ids, drop=TRUE)
+    mzcol <- self$getMatchingMzField()
+    peaks <- private$select(cols=mzcol, mode=mode, ids=ids, drop=TRUE)
 
     return(length(peaks))
-},
+}
+),
 
-.selectByMode=function(db, mode) {
+private=list(
+    precursors=NULL
+,
+selectByMode=function(db, mode) {
 
     # Check mode value
-    msModeField <- .self$getBiodb()$getEntryFields()$get('ms.mode')
+    msModeField <- self$getBiodb()$getEntryFields()$get('ms.mode')
     msModeField$checkValue(mode)
-    .self$.checkFields('ms.mode')
+    private$checkFields('ms.mode')
 
     # Filter on mode
-    field <- .self$.fields[['ms.mode']]
+    field <- private$fields[['ms.mode']]
     modesVal <- msModeField$getAllowedValues(mode)
     db <- db[db[[field]] %in% modesVal, , drop=FALSE]
 
     return(db)
 },
 
-.selectByCompoundIds=function(db, compound.ids) {
+selectByCompoundIds=function(db, compound.ids) {
 
-    .self$.checkFields('compound.id')
-    field <- .self$.fields[['compound.id']]
+    private$checkFields('compound.id')
+    field <- private$fields[['compound.id']]
     db <- db[db[[field]] %in% compound.ids, , drop=FALSE]
 
     return(db)
 },
 
-.selectByMzValues=function(db, mz.min, mz.max) {
+selectByMzValues=function(db, mz.min, mz.max) {
 
-    mzcol <- .self$getMatchingMzField()
-    return(.self$.selectByRange(db=db, field=mzcol, minValue=mz.min,
+    mzcol <- self$getMatchingMzField()
+    return(private$selectByRange(db=db, field=mzcol, minValue=mz.min,
                                 maxValue=mz.max))
 },
 
-.selectByRelInt=function(db, min.rel.int) {
+selectByRelInt=function(db, min.rel.int) {
 
-    if (.self$.checkFields('peak.relative.intensity', fail=FALSE)) {
-        field <- .self$.fields[['peak.relative.intensity']]
+    if (private$checkFields('peak.relative.intensity', fail=FALSE)) {
+        field <- private$fields[['peak.relative.intensity']]
         db <- db[db[[field]] >= min.rel.int, , drop=FALSE]
     }
     else
@@ -168,11 +191,11 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     return(db)
 },
 
-.selectByPrecursors=function(db) {
+selectByPrecursors=function(db) {
 
-    if (.self$.checkFields('peak.attr', fail=FALSE)) {
-        field <- .self$.fields[['peak.attr']]
-        db <- db[db[[field]] %in% .self$.precursors, , drop=FALSE]
+    if (private$checkFields('peak.attr', fail=FALSE)) {
+        field <- private$fields[['peak.attr']]
+        db <- db[db[[field]] %in% private$precursors, , drop=FALSE]
     }
     else
         db <- db[integer(), , drop=FALSE]
@@ -180,51 +203,49 @@ getNbPeaks=function(mode=NULL, ids=NULL) {
     return(db)
 },
 
-.selectByMsLevel=function(db, level) {
+selectByMsLevel=function(db, level) {
 
-    if (.self$.checkFields('ms.level', fail=FALSE))
-        db <- db[db[[.self$.fields[['ms.level']]]] == level, , drop=FALSE]
+    if (private$checkFields('ms.level', fail=FALSE))
+        db <- db[db[[private$fields[['ms.level']]]] == level, , drop=FALSE]
     else
         db <- db[integer(), , drop=FALSE]
 
     return(db)
 },
 
-.doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL,
-mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
+doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL, mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
 {
 
     # Filtering
     if ( ! is.null(mode) && ! is.na(mode))
-        db <- .self$.selectByMode(db, mode)
+        db <- private$selectByMode(db, mode)
     if ( ! is.null(compound.ids))
-        db <- .self$.selectByCompoundIds(db, compound.ids)
+        db <- private$selectByCompoundIds(db, compound.ids)
     if ( ! is.null(mz.min) || ! is.null(mz.max))
-        db <- .self$.selectByMzValues(db, mz.min, mz.max)
+        db <- private$selectByMzValues(db, mz.min, mz.max)
     if (min.rel.int > 0)
-        db <- .self$.selectByRelInt(db, min.rel.int)
+        db <- private$selectByRelInt(db, min.rel.int)
     if (precursor)
-        db <- .self$.selectByPrecursors(db)
+        db <- private$selectByPrecursors(db)
     if (level > 0)
-        db <- .self$.selectByMsLevel(db, level)
+        db <- private$selectByMsLevel(db, level)
 
     return(db)
 },
 
-.doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
-precursor, ms.level) {
+doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
     # Overrides super class' method.
-    return(.self$.select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
+    return(private$select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
     mode=ms.mode, max.rows=max.results, cols='accession', drop=TRUE, uniq=TRUE,
     sort=TRUE, precursor=precursor, level=ms.level))
 },
 
-.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     # Overrides super class' method.
 
     # Get mz values
-    mzcol <- .self$getMatchingMzField()
-    mz <- .self$.select(cols=mzcol, mode=ms.mode, drop=TRUE, uniq=TRUE,
+    mzcol <- self$getMatchingMzField()
+    mz <- private$select(cols=mzcol, mode=ms.mode, drop=TRUE, uniq=TRUE,
     sort=TRUE, max.rows=max.results, precursor=precursor, level=ms.level)
 
     return(mz)

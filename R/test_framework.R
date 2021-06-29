@@ -7,40 +7,43 @@
 #' @examples
 #' # To use the acknowledger, set ack=TRUE when creating the Biodb test
 #' # instance:
-#' biodb <- createBiodbTestInstance(ack=TRUE)
+#' biodb <- biodb::createBiodbTestInstance(ack=TRUE)
 #'
 #' # Terminate the BiodbMain instance
 #' biodb$terminate()
 #'
+#' @import R6
 #' @import methods
-#' @include BiodbObserver.R
-#' @export BiodbTestMsgAck
-#' @exportClass BiodbTestMsgAck
-BiodbTestMsgAck <- methods::setRefClass('BiodbTestMsgAck',
-    contains = 'BiodbObserver',
-    fields = list(
-        .last.index = 'numeric'
-        ),
+BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
 
-    methods=list(
+public=list(
 
-initialize=function(...) {
+#' @description
+#' New instance initializer.
+#' @return Nothing.
+initialize=function() {
 
-    callSuper(...)
-
-    .self$.last.index <- 0
+    private$last.index <- 0
+    
+    return(invisible(NULL))
 },
 
+#' @description
+#' Call back method used to get progress advancement of a long process.
+#' @param what The reason as a character value.
+#' @param index The index number representing the progress.
+#' @param total The total number to reach for completing the process.
+#' @return Nothing.
 notifyProgress=function(what, index, total) {
-    # Override super class' method
-    testthat::expect_type(what, 'character')
-    testthat::expect_true(what != '') # --> expect_not_empty_str
-    #testthat::expect_is(index, 'number') # --> expect_whole_number
-    #testthat::expect_is(total, 'number')
-    testthat::expect_true(index >= 0) # --> expect_positive
-    testthat::expect_true(index <= total)
+
+    testthat::expect_lte(index, total)
+
     return(invisible(NULL))
 }
+),
+
+private=list(
+    last.index=NULL
 ))
 
 #' Set a test context.
@@ -146,7 +149,7 @@ testThat  <- function(msg, fct, biodb=NULL, conn=NULL, opt=NULL) {
 
         # Call test function
         params <- list()
-        fctArgs <- formalArgs(fct)
+        fctArgs <- methods::formalArgs(fct)
         if ( ! is.null(fctArgs))
             for (p in fctArgs)
                 params[[p]] <- if (p == 'db') conn else get(p)
@@ -186,7 +189,7 @@ createBiodbTestInstance <- function(ack=FALSE) {
 
     # Add acknowledger
     if (ack) {
-        ack <- BiodbTestMsgAck()
+        ack <- BiodbTestMsgAck$new()
         biodb$addObservers(ack)
     }
 

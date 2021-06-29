@@ -316,7 +316,7 @@ test.entriesToDataframe.noPeaksDuplication <- function(biodb) {
     fileUrl <- system.file("extdata", "massbank_extract_full.tsv",
                            package="biodb")
     conn <- biodb$getFactory()$createConn('mass.csv.file', url=fileUrl)
-    testthat::expect_s4_class(conn, 'MassCsvFileConn')
+    testthat::expect_is(conn, 'MassCsvFileConn')
     entries <- conn$getEntry(c('AU200952', 'AU200953'))
     x <- biodb$entriesToDataframe(entries, only.atomic=FALSE, compute=TRUE,
                                   flatten=FALSE, limit=0)

@@ -16,34 +16,36 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
-#' @include BiodbChildObject.R
+#' @import R6
 #' @include BiodbDbInfo.R
-#' @export BiodbDbsInfo
-#' @exportClass BiodbDbsInfo
-BiodbDbsInfo <- methods::setRefClass("BiodbDbsInfo",
-    contains="BiodbChildObject",
-    fields=list(
-        .dbs="list"
-    ),
+#' @export
+BiodbDbsInfo <- R6::R6Class("BiodbDbsInfo",
 
-methods=list(
+public=list(
 
-initialize=function(...) {
+#' @description
+#' New instance initializer. The class must not be instantiated directly.
+#' Instead, access the BiodbDbsInfo instance through the BiodbMain instance
+#' using the getDbsInfo() method.
+#' @param cfg The BiodbConfig instance.
+#' @return Nothing.
+initialize=function(cfg) {
 
-    callSuper(...)
+    chk::chk_is(cfg, 'BiodbConfig')
+    private$dbs <- list()
+    private$cfg <- cfg
 
-    .self$.dbs <- list()
+    return(invisible(NULL))
 },
 
+#' @description
+#' Define databases from a structured object, normally loaded from a YAML
+#'     file.
+#' @param def A named list of database definitions. The names of the list will be 
+#'     the IDs of the databases.
+#' @param package The package to which belong the new definitions.
+#' @return Nothing.
 define=function(def, package='biodb') {
-    ":\n\nDefine databases from a structured object, normally loaded from a YAML
-    file.
-    \ndef: A named list of database definitions. The names of the list will be 
-    the IDs of the databases.
-    \npackage: The package to which belong the new definitions.
-    \nReturned value: None.
-    "
 
     # Loop on all db info
     for (db in names(def)) {
@@ -53,64 +55,68 @@ define=function(def, package='biodb') {
         dbdef[['package']] <- package
 
         # Database connector already defined
-        if (db %in% names(.self$.dbs))
-            .self$.dbs[[db]]$updatePropertiesDefinition(dbdef)
+        if (db %in% names(private$dbs))
+            private$dbs[[db]]$updatePropertiesDefinition(dbdef)
 
         # Define new database connector
         else
-            .self$.dbs[[db]] <- BiodbDbInfo$new(parent=.self, db.class=db,
-                                                properties=dbdef)
+            private$dbs[[db]] <- BiodbDbInfo$new(db.class=db, properties=dbdef,
+                cfg=private$cfg)
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the database IDs.
+#' @return A character vector containing all the IDs of the defined
+#'     databases.
 getIds=function() {
-    ":\n\nGets the database IDs.
-    \nReturned value: A character vector containing all the IDs of the defined
-    databases.
-    "
 
-    return(names(.self$.dbs))
+    return(names(private$dbs))
 },
 
+#' @description
+#' Tests if a database is defined.
+#' @param db.id A database ID, as a character string.
+#' @return TRUE if the specified id corresponds to a defined
+#'     database, FALSE otherwise.
 isDefined=function(db.id) {
-    ":\n\nTests if a database is defined.
-    \ndb.id: A database ID, as a character string.
-    \nReturned value: TRUE if the specified id corresponds to a defined
-    database, FALSE otherwise.
-    "
 
-    return(db.id %in% names(.self$.dbs))
+    return(db.id %in% names(private$dbs))
 },
 
+#' @description
+#' Checks if a database is defined. Throws an error if the specified id
+#'     does not correspond to a defined database.
+#' @param db.id A character vector of database IDs.
+#' @return Nothing.
 checkIsDefined=function(db.id) {
-    ":\n\nChecks if a database is defined. Throws an error if the specified id
-    does not correspond to a defined database.
-    \ndb.id: A character vector of database IDs.
-    \nReturned value: None.
-    "
 
-    notDefined <- vapply(db.id, function(x) { ! .self$isDefined(x) },
+    notDefined <- vapply(db.id, function(x) { ! self$isDefined(x) },
         FUN.VALUE=TRUE)
     if (any(notDefined))
         error0("Database(s) \"", paste(db.id[notDefined], collapse=", "),
         "\" is(are) not defined.")
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets information on a database.
+#' @param db.id Database IDs, as a character vector. If set to NULL, informations
+#'     on all databases will be returned.
+#' @param drop If TRUE and only one database ID has been submitted, returns a
+#'     single BiodbDbInfo instance instead of a list.
+#' @return A list of BiodbDbInfo instances corresponding to the
+#'     specified database IDs.
 get=function(db.id=NULL, drop=TRUE) {
-    ":\n\nGets information on a database.
-    \ndb.id: Database IDs, as a character vector. If set to NULL, informations
-    on all databases will be returned.
-    \ndrop: If TRUE and only one database ID has been submitted, returns a
-    single BiodbDbInfo instance instead of a list.
-    \nReturned value: A list of BiodbDbInfo instances corresponding to the
-    specified database IDs.
-    "
 
     if (is.null(db.id))
-        db <- .self$.dbs
+        db <- private$dbs
     else {
-        .self$checkIsDefined(db.id)
-        db <- .self$.dbs[db.id]
+        self$checkIsDefined(db.id)
+        db <- private$dbs[db.id]
     }
 
     if (drop && length(db) == 1)
@@ -119,35 +125,41 @@ get=function(db.id=NULL, drop=TRUE) {
     return(db)
 },
 
+#' @description
+#' Gets informations on all databases.
+#' @return A list of all BiodbDbInfo instances."
 getAll=function() {
-    ":\n\nGets informations on all databases.
-    \nReturned value: A list of all BiodbDbInfo instances."
-
-    return(unname(.self$.dbs))
+    return(unname(private$dbs))
 },
 
-show=function() {
-    ":\n\nPrints informations about this instance, listing also all databases
-    defined.
-    \nReturned value: None.
-    "
+#' @description
+#' Prints informations about this instance, listing also all databases
+#'     defined.
+#' @return Nothing.
+print=function() {
 
     cat("Biodb databases information instance.\n")
     cat("The following databases are defined:\n")
-    for (id in names(.self$.dbs)) {
-        cc <- .self$.dbs[[id]] # connector class
+    for (id in names(private$dbs)) {
+        cc <- private$dbs[[id]] # connector class
         cat("  ", id, ": ", cc$getPropertyValue('name'),
             " connector class", sep='')
         if (cc$hasPropSlot('urls', 'base.url'))
             cat(', using URL "', cc$getPropValSlot('urls', 'base.url'),
                 '"', sep='')
         cat(".", sep='')
-        db <- .self$get(id)
+        db <- self$get(id)
         if (db$getPropertyValue('disabled'))
             cat(" DISABLED (", db$getPropertyValue('disabling.reason'),").",
                 sep='')
         cat("\n")
     }
-}
 
+    return(invisible(NULL))
+}
+),
+
+private=list(
+    dbs=NULL,
+    cfg=NULL
 ))

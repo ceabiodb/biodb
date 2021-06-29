@@ -11,14 +11,16 @@ FileTemplate <- R6::R6Class('FileTemplate',
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param path  The path to the template file.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(path) {
     chk::chk_file(path)
     
     private$path <- path
     private$loadTemplate()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -138,7 +140,7 @@ select=function(section, enable) {
 #' @param checkRemainingTags If set to TRUE, checks first, before writing, if
 #' there any remaining tags that have not been processed. A warning is thrown
 #' for each found tag.
-#' @return None
+#' @return Nothing.
 ,write=function(path, overwrite=FALSE, checkRemainingTags=TRUE) {
 
     if (checkRemainingTags)

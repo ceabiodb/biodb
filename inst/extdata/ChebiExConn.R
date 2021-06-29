@@ -1,16 +1,16 @@
-ChebiExConn <- methods::setRefClass("ChebiExConn",
-    contains=c("BiodbRemotedbConn", "BiodbCompounddbConn"),
+ChebiExConn <- R6::R6Class("ChebiExConn",
+inherit=biodb::BiodbConn,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
-    callSuper(...)
+    super$initialize(...)
 },
 
 getEntryPageUrl=function(id) {
     # Overrides super class' method
 
-    url <- c(.self$getPropValSlot('urls', 'base.url'), 'searchId.do')
+    url <- c(self$getPropValSlot('urls', 'base.url'), 'searchId.do')
 
     fct <- function(x) {
         BiodbUrl$new(url=url, params=list(chebiId=x))$toString()
@@ -24,7 +24,7 @@ getEntryPageUrl=function(id) {
 getEntryImageUrl=function(id) {
     # Overrides super class' method
 
-    url <- c(.self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
+    url <- c(self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
 
     fct <- function(x) {
         BiodbUrl$new(url=url, params=list(defaultImage='true', imageIndex=0,
@@ -42,10 +42,10 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
 
     # Check parameters
     chk::chk_string(search)
-    chk::chk_in(search.category, .self$getSearchCategories())
+    chk::chk_in(search.category, self$getSearchCategories())
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
-    chk::chk_in(stars, .self$getStarsCategories())
+    chk::chk_in(stars, self$getStarsCategories())
     retfmt <- match.arg(retfmt)
 
     # Build request
@@ -53,15 +53,15 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
                 searchCategory=search.category,
                 maximumResults=max.results,
                 starsCategory=stars)
-    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
-    request <- .self$makeRequest(method='get', url=BiodbUrl$new(url=url,
+    url <- c(self$getPropValSlot('urls', 'ws.url'), 'test/getLiteEntity')
+    request <- self$makeRequest(method='get', url=BiodbUrl$new(url=url,
                                                                 params=params),
                                  encoding='UTF-8')
     if (retfmt == 'request')
         return(request)
 
     # Send request
-    results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    results <- self$getBiodb()$getRequestScheduler()$sendRequest(request)
 
     # Parse
     if (retfmt != 'plain') {
@@ -70,19 +70,21 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
         results <-  XML::xmlInternalTreeParse(results, asText=TRUE)
 
         if (retfmt == 'ids') {
-            ns <- .self$getPropertyValue('xml.ns')
+            ns <- self$getPropertyValue('xml.ns')
             results <- XML::xpathSApply(results, "//chebi:chebiId",
                                         XML::xmlValue, namespaces=ns)
             results <- sub('CHEBI:', '', results)
             if (length(grep("^[0-9]+$", results)) != length(results))
-                .self$error("Impossible to parse XML to get entry IDs.")
+                self$error("Impossible to parse XML to get entry IDs.")
         }
     }
 
     return(results)
-},
+}
+),
 
-.doSearchForEntries=function(fields=NULL, max.results=0) {
+private=list(
+doSearchForEntries=function(fields=NULL, max.results=0) {
 
     ids <- character()
 
@@ -90,7 +92,7 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
 
         # Search by name
         if ('name' %in% names(fields))
-            ids <- .self$wsGetLiteEntity(search=fields$name,
+            ids <- self$wsGetLiteEntity(search=fields$name,
                                          search.category="ALL NAMES",
                                          max.results=0, retfmt='ids')
     }
@@ -102,9 +104,9 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
     return(ids)
 },
 
-.doGetEntryContentRequest=function(id, concatenate=TRUE) {
+doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
-    url <- c(.self$getPropValSlot('urls', 'ws.url'), 'test',
+    url <- c(self$getPropValSlot('urls', 'ws.url'), 'test',
              'getCompleteEntity')
 
     urls <- vapply(id, function(x) BiodbUrl$new(url=url,
@@ -114,7 +116,7 @@ wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
     return(urls)
 },
 
-.doGetEntryIds=function(max.results=NA_integer_) {
+doGetEntryIds=function(max.results=NA_integer_) {
     return(NULL)
 }
 ))

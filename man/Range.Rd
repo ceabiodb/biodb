@@ -35,6 +35,7 @@ Range$new(min=1.2, max=1.5)
 \item \href{#method-getMinMax}{\code{Range$getMinMax()}}
 \item \href{#method-getDelta}{\code{Range$getDelta()}}
 \item \href{#method-getPpm}{\code{Range$getPpm()}}
+\item \href{#method-getTolExpr}{\code{Range$getTolExpr()}}
 \item \href{#method-clone}{\code{Range$clone()}}
 }
 }
@@ -42,7 +43,7 @@ Range$new(min=1.2, max=1.5)
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Range$new(
   min = NULL,
@@ -77,7 +78,7 @@ parameter.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -165,6 +166,19 @@ Gets the PPM tolerance of the range.
 
 \subsection{Returns}{
 The tolerance in PPM.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getTolExpr"></a>}}
+\if{latex}{\out{\hypertarget{method-getTolExpr}{}}}
+\subsection{Method \code{getTolExpr()}}{
+Gets the tolerance expression as a list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Range$getTolExpr()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A list containing the tolerance range expression.
 }
 }
 \if{html}{\out{<hr>}}

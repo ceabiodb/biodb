@@ -296,7 +296,7 @@ test.db.editing = function(conn) {
     # Create other connector
     conn.2 = conn$getBiodb()$getFactory()$createConn(conn$getDbClass())
     conn.2$allowEditing()
-    conn.2$addNewEntry(entry$clone())
+    conn.2$addNewEntry(entry$cloneInstance())
 
     # Test methods
     id = conn.2$getEntryIds()
@@ -326,7 +326,7 @@ test.db.writing.with.col.add = function(conn) {
         url=db.file)
     conn.2$allowEditing()
     conn.2$allowWriting()
-    conn.2$addNewEntry(entry$clone())
+    conn.2$addNewEntry(entry$cloneInstance())
 
     # Get data frame of all entries
     id = conn.2$getEntryIds()
@@ -351,7 +351,7 @@ test.db.writing.with.col.add = function(conn) {
     # Create a new entry having one new field that does not exist in any other
     # entry (so in the case of SQL the table will have to be altered to add new
     # columns)
-    new.entry = entries[[1]]$clone()
+    new.entry = entries[[1]]$cloneInstance()
     new.entry$setFieldValue('accession', 'anewentry')
     new.entry$setFieldValue(field$getName(), 0)
 
@@ -380,7 +380,7 @@ test.db.writing = function(conn) {
 
     # Clone entry
     testthat::expect_true(entry$parentIsAConnector())
-    entry.2 = entry$clone()
+    entry.2 <- entry$cloneInstance()
     testthat::expect_false(entry.2$parentIsAConnector())
 
     # Compare entries
@@ -550,6 +550,7 @@ test.searchByName = function(conn, opt=NULL) {
         testthat::expect_is(ids, 'character')
         testthat::expect_length(ids, 0)
     }
+    withr::local_options(lifecycle_verbosity="error")
 }
 
 test.searchCompound <- function(db, opt=NULL) {
@@ -571,6 +572,9 @@ test.searchCompound <- function(db, opt=NULL) {
     testthat::expect_gt(length(name), 0)
     name <- name[[1]]
     testthat::expect_true( ! is.na(name))
+    lifecycle::expect_deprecated(db$searchCompound(name=name,
+        max.results=max.results))
+    withr::local_options(lifecycle_verbosity="quiet")
     ids <- db$searchCompound(name=name, max.results=max.results)
     if (db$isSearchableByField('name')) {
         msg <- paste0('While searching for entry ', id, ' by name "', name,
@@ -660,10 +664,7 @@ test.searchCompound <- function(db, opt=NULL) {
             }
         }
     }
-}
-
-test.searchCompound.no.mass.field <- function(db) {
-    testthat::expect_error(db$searchCompound(mass=45))
+    withr::local_options(lifecycle_verbosity="error")
 }
 
 test.annotateMzValues <- function(conn) {
@@ -1383,8 +1384,6 @@ runGenericShortTests <- function(conn, opt=NULL) {
     }
 
     if (conn$isCompounddb()) {
-        biodb::testThat('searchCompound() fails if no mass field is set.',
-            test.searchCompound.no.mass.field, conn=conn)
         biodb::testThat('annotateMzValues() works correctly.',
             test.annotateMzValues, conn=conn)
     }
@@ -1551,5 +1550,5 @@ maxShortTestRefEntries=1) {
     if (long)
         runGenericLongTests(conn=conn, opt=opt)
 
-    invisible(NULL)
+    return(invisible(NULL))
 }

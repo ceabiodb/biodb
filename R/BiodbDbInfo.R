@@ -17,9 +17,9 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @include BiodbConnBase.R
-#' @export BiodbDbInfo
-#' @exportClass BiodbDbInfo
-BiodbDbInfo <- methods::setRefClass("BiodbDbInfo",
-                                    contains="BiodbConnBase")
+#' @export
+BiodbDbInfo <- R6::R6Class("BiodbDbInfo",
+inherit=BiodbConnBase
+)

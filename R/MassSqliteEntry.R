@@ -21,7 +21,7 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbListEntry.R
-#' @export MassSqliteEntry
-#' @exportClass MassSqliteEntry
-MassSqliteEntry <- methods::setRefClass("MassSqliteEntry",
-    contains="BiodbListEntry")
+#' @export
+MassSqliteEntry <- R6::R6Class("MassSqliteEntry",
+inherit=BiodbListEntry
+)

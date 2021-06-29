@@ -56,69 +56,71 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
-#' @include BiodbChildObject.R
-#' @export BiodbEntryField
-#' @exportClass BiodbEntryField
-BiodbEntryField <- methods::setRefClass("BiodbEntryField",
-    contains="BiodbChildObject",
-    fields=list(
-        .name='character',
-        .type='character',
-        .class='character',
-        .cardinality='character',
-        .forbids.duplicates='logical',
-        .description='character',
-        .alias='character',
-        .allowed.values="ANY",
-        .lower.case='logical',
-        .case.insensitive='logical',
-        .computable.from='ANY',
-        dataFrameGroup='character',
-        virtual='logical',
-        virtualGroupByType='character'
-        ),
+#' @import R6
+#' @export
+BiodbEntryField <- R6::R6Class("BiodbEntryField",
 
-methods=list(
+public=list(
 
-initialize=function(name, alias=NA_character_, type=NA_character_,
-                    class=c('character', 'integer', 'double', 'logical',
-                            'object', 'data.frame'), card=c('one', 'many'),
-                    forbids.duplicates=FALSE, description=NA_character_,
-                    allowed.values=NULL, lower.case=FALSE,
-                    case.insensitive=FALSE, computable.from=NULL,
-                    virtual=FALSE, virtual.group.by.type=NULL,
-                    dataFrameGroup=NA_character_,...) {
+#' @description
+#' New instance initializer. This class must not be instantiated directly.
+#' Instead, you access the instances of this class through the BiodbEntryFields
+#' instance that you get from the BiodbMain instance.
+#' @param parent The BiodbEntryFields parent instance.
+#' @param name The field name.
+#' @param alias The field aliases as a character vector.
+#' @param type The field type.
+#' @param class The field class.
+#' @param card The field cardinality.
+#' @param forbids.duplicates Set to TRUE to forbid duplicated values.
+#' @param description The field description.
+#' @param allowed.values Restrict possible values to a set of allowed values.
+#' @param lower.case All values will be converted to lower case.
+#' @param case.insensitive Comparison will be made case insensitive for this
+#' field.
+#' @param computable.from A list of databases from which to compute
+#' automatically the value of this field.
+#' @param virtual Set to TRUE if this field is virtual.
+#' @param virtual.group.by.type In case of a virtual field, set the type of fields to group together into a data frame.
+#' @param dataFrameGroup The data frame group.
+#' @return Nothing.
+initialize=function(parent, name, alias=NA_character_, type=NA_character_,
+    class=c('character', 'integer', 'double', 'logical', 'object',
+        'data.frame'),
+    card=c('one', 'many'), forbids.duplicates=FALSE, description=NA_character_,
+    allowed.values=NULL, lower.case=FALSE, case.insensitive=FALSE,
+    computable.from=NULL, virtual=FALSE, virtual.group.by.type=NULL,
+    dataFrameGroup=NA_character_) {
 
-    callSuper(...)
+    private$parent <- parent
 
     # Set name
     if ( is.null(name) || is.na(name) || nchar(name) == '')
         error0("You cannot set an empty name for a field. Name was',
             ' empty (either NULL or NA or empty string).")
-    .self$.name <- tolower(name)
+    private$name <- tolower(name)
 
     # Set type
-    .self$.type <- type
+    private$type <- type
 
     # Set class
     class <- match.arg(class)
-    .self$.class <- class
+    private$class <- class
 
     # Set cardinality
     card <- match.arg(card)
-    if (.self$.class == 'data.frame' && card != 'one')
+    if (private$class == 'data.frame' && card != 'one')
         error0('Cardinality "', card, '" is forbidden for class "',
-                    .self$.class, '" for field "', name, '"')
-    .self$.cardinality <- card
+                    private$class, '" for field "', name, '"')
+    private$cardinality <- card
 
     # Set description
-    .self$.description <- description
+    private$description <- description
 
     # Set alias
     if (length(alias) > 1 && any(is.na(alias)))
         error0("One of the aliases of entry field \"", name, "\" is NA.")
-    .self$.alias <- alias
+    private$alias <- alias
 
     # Set allowed values
     if ( ! is.null(allowed.values)) {
@@ -139,242 +141,232 @@ initialize=function(name, alias=NA_character_, type=NA_character_,
                     ' all values must be characters.')
         }
     }
-    .self$.allowed.values <- allowed.values
+    private$allowed.values <- allowed.values
 
     # Case insensitive
     if (case.insensitive && class != 'character')
         error0('Only character fields can be case insensitive.')
-    .self$.case.insensitive <- case.insensitive
+    private$case.insensitive <- case.insensitive
 
     # Lower case
     if (lower.case && class != 'character')
         error0('Only character fields can be forced to lower case.')
-    .self$.lower.case <- lower.case
+    private$lower.case <- lower.case
 
     # Computable from
-    .self$.setComputableFrom(computable.from)
+    private$setComputableFrom(computable.from)
 
     # Virtual
-    .self$virtual <- virtual
-    .self$virtualGroupByType <- if (is.null(virtual.group.by.type)) character()
+    private$virtual <- virtual
+    private$virtualGroupByType <- if (is.null(virtual.group.by.type)) character()
         else virtual.group.by.type
-    if ( ! .self$virtual && length(.self$virtualGroupByType) > 0)
+    if ( ! private$virtual && length(private$virtualGroupByType) > 0)
         error0('virtual.group.by.type is not usable with non-virtual field "',
             name, '".')
-    if (length(.self$virtualGroupByType) > 0 && .self$.class != 'data.frame')
+    if (length(private$virtualGroupByType) > 0 && private$class != 'data.frame')
         error0('virtual.group.by.type is only usable for virtual field of',
             ' class data.frame. Error for field "', name, '".')
 
     # Set other fields
-    .self$.forbids.duplicates <- forbids.duplicates
-    .self$dataFrameGroup <- dataFrameGroup
+    private$forbids.duplicates <- forbids.duplicates
+    private$dataFrameGroup <- dataFrameGroup
+
+    return(invisible(NULL))
 },
 
-.setComputableFrom=function(computable.from) {
-
-    if ( ! is.null(computable.from)) {
-
-        # Is a list
-        if ( ! is.list(computable.from) || ! is.null(names(computable.from)))
-            error0('computable.from must be an unnamed list, for field "',
-                .self$.name, '".')
-
-        # Loop on all directives
-        for (directive in computable.from) {
-
-            # Has a "database" field
-            if ( ! 'database' %in% names(directive))
-                error0('You must specified the database for directive',
-                    ', for field "', .self$.name, '".')
-
-            # Check list of fields
-            if ('fields' %in% names(directive)
-                && ! is.character(directive$fields))
-                error0('In directive of field "', .self$.name,
-                    '", "fields" must be a list of field names.')
-        }
-    }
-
-    .self$.computable.from <- computable.from
-},
-
+#' @description
+#' Gets the name.
+#' @return The name of this field.
 getName=function() {
-    ":\n\nGets the name.
-    \nReturned value: The name of this field.
-    "
 
-    return(.self$.name)
+    return(private$name)
 },
 
+#' @description
+#' Gets field's type.
+#' @return The type of this field.
 getType=function() {
-    ":\n\nGets field's type.
-    \nReturned value: The type of this field.
-    "
 
-    return(.self$.type)
+    return(private$type)
 },
 
+#' @description
+#' Get field's description.
+#' @return The description of this field.
 getDescription=function() {
-    ":\n\nGet field's description.
-    \nReturned value: The description of this field.
-    "
 
-    return(.self$.description)
+    return(private$description)
 },
 
+#' @description
+#' Tests if this field has aliases.
+#' @return TRUE if this entry field defines aliases, FALSE otherwise.
 hasAliases=function() {
-    ":\n\nTests if this field has aliases.
-    \nReturned value: TRUE if this entry field defines aliases, FALSE otherwise.
-    "
 
-    return( ! any(is.na(.self$.alias)))
+    return( ! any(is.na(private$alias)))
 },
 
+#' @description
+#' Get aliases.
+#' @return The list of aliases if some are defined, otherwise returns
+#'     NULL."
 getAliases=function() {
-    ":\n\nGet aliases.
-    \nReturned value: The list of aliases if some are defined, otherwise returns
-    NULL."
-
     aliases <- NULL
 
-    if (.self$hasAliases())
-        aliases <- .self$.alias
+    if (self$hasAliases())
+        aliases <- private$alias
 
     return(aliases)
 },
 
+#' @description
+#' Adds an alias to the list of aliases. 
+#' @param alias The name of a valid alias.
+#' @return Nothing.
 addAlias=function(alias) {
-    ":\n\nAdds an alias to the list of aliases. 
-    \nalias: The name of a valid alias.
-    \nReturned value: None.
-    "
 
-    if ( ! alias %in% .self$.alias) {
+    if ( ! alias %in% private$alias) {
         
         # Check that alias does not already exist
-        if (.self$getParent()$isAlias(alias))
+        if (private$parent$isAlias(alias))
             error0("Alias ", alias, " already exists.")
 
         # Add alias
-        if ( ! alias %in% .self$.alias)
-            .self$.alias <- c(.self$.alias, alias)
+        if ( ! alias %in% private$alias)
+            private$alias <- c(private$alias, alias)
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Removes an alias from the list of aliases. 
+#' @param alias The name of a valid alias.
+#' @return Nothing.
 removeAlias=function(alias) {
-    ":\n\nRemoves an alias from the list of aliases. 
-    \nalias: The name of a valid alias.
-    \nReturned value: None.
-    "
     
-    if (alias %in% .self$.alias)
-        .self$.alias <- .self$.alias[.self$.alias != alias]
+    if (alias %in% private$alias)
+        private$alias <- private$alias[private$alias != alias]
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets all names.
+#' @return The list of all names (main name and aliases).
 getAllNames=function() {
-    ":\n\nGets all names.
-    \nReturned value: The list of all names (main name and aliases).
-    "
 
-    aliases <- .self$getAliases()
-    names <- .self$getName()
+    aliases <- self$getAliases()
+    names <- self$getName()
     if ( ! is.null(aliases))
         names <- c(names, aliases)
 
     return(names)
 },
 
+#' @description
+#' Tests if this field is computable from another field or another
+#'     database.
+#' @return TRUE if the field is computable, FALSE otherwise.
 isComputable=function() {
-    ":\n\nTests if this field is computable from another field or another
-    database.
-    \nReturned value: TRUE if the field is computable, FALSE otherwise.
-    "
 
-    return( ! is.null(.self$.computable.from))
+    return( ! is.null(private$computable.from))
 },
 
+#' @description
+#' Get the list of connectors that can be used to compute this field.
+#' @return A list of list objects. Each list object contains the name of the
+#' database from which the field is computable.
+getComputableFrom=function() {
+    return(private$computable.from)
+},
+
+#' @description
+#' Gets the defined data frame group, if any.
+#' @return The data frame group, as a character value.
 getDataFrameGroup=function() {
-    ":\n\nGets the defined data frame group, if any.
-    \nReturned value: The data frame group, as a character value.
-    "
 
-    return(.self$dataFrameGroup)
+    return(private$dataFrameGroup)
 },
 
+#' @description
+#' Gets the ID of the database from which this field can be computed.
+#' @return The list of databases where to find this field's value.
 isComputableFrom=function() {
-    ":\n\nGets the ID of the database from which this field can be computed.
-    \nReturned value: The list of databases where to find this field's value.
-    "
 
-    return(.self$.computable.from)
+    return(private$computable.from)
 },
 
+#' @description
+#' Adds a directive from the list of computableFrom.
+#' @param directive A valid \"computable from\" directive.
+#' @return Nothing.
 addComputableFrom=function(directive) {
-    ":\n\nAdds a directive from the list of computableFrom.
-    \ndirective: A valid \"computable from\" directive.
-    \nReturned value: None.
-    "
 
     # Has a "database" field
     if ( ! 'database' %in% names(directive))
         error0('You must specified the database for directive',
-            ', for field "', .self$.name, '".')
+            ', for field "', private$name, '".')
 
     # Search if the directive exists
-    for (d in .self$.computable.from) {
+    for (d in private$computable.from) {
         if (d$database == directive$database)
             error(paste0('A "computable from" directive already',
                 'exists for database "%s".'), d$database)
     }
 
     # Add the new directive
-    .self$.computable.from <- if (is.null(.self$.computable.from))
-        list(directive) else c(.self$.computable.from, directive)
+    private$computable.from <- if (is.null(private$computable.from))
+        list(directive) else c(private$computable.from, directive)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Removes a directive from the list of computableFrom.
+#' @param directive A valid \"computable from\" directive.
+#' @return Nothing.
 removeComputableFrom=function(directive) {
-    ":\n\nRemoves a directive from the list of computableFrom.
-    \ndirective: A valid \"computable from\" directive.
-    \nReturned value: None.
-    "
 
     # Search for directive
     n <- 0
-    for (d in .self$.computable.from) {
+    for (d in private$computable.from) {
         n <- n + 1
         if (d$database == directive$database) {
-            .self$.computable.from[n] <- NULL
+            private$computable.from[n] <- NULL
             break
         }
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Corrects a value so it is compatible with this field.
+#' @param value A value.
+#' @return The corrected value.
 correctValue=function(value) {
-    ":\n\nCorrects a value so it is compatible with this field.
-    \nvalue: A value.
-    \nReturned value: The corrected value.
-    "
 
-    if (.self$isVector() && ! is.null(value)
+    if (self$isVector() && ! is.null(value)
         && ! (length(value) == 1 && is.na(value))) {
 
         # Correct type
-        if (.self$getClass() != class(value))
-            value <- as.vector(value, mode=.self$getClass())
+        if (self$getClass() != class(value))
+            value <- as.vector(value, mode=self$getClass())
 
         # Lower case
-        if (.self$.lower.case)
+        if (private$lower.case)
             value <- tolower(value)
 
         # Enumerated type
-        if (.self$isEnumerate() && methods::is(.self$.allowed.values, 'list')) {
+        if (self$isEnumerate() && methods::is(private$allowed.values, 'list')) {
             fct <- function(v) {
-                for (a in names(.self$.allowed.values))
-                    if (v == a || v %in% .self$.allowed.values[[a]])
+                for (a in names(private$allowed.values))
+                    if (v == a || v %in% private$allowed.values[[a]])
                         return(a)
                 return(v)
             }
-            fv <- as.vector(0, mode=.self$getClass())
+            fv <- as.vector(0, mode=self$getClass())
             value <- vapply(value, fct, FUN.VALUE=fv, USE.NAMES=FALSE)
         }
     }
@@ -382,49 +374,49 @@ correctValue=function(value) {
     return(value)
 },
 
+#' @description
+#' Tests if this field is an enumerate type (i.e.: it defines allowed
+#'     values).
+#' @return TRUE if this field defines some allowed values, FALSE
+#'     otherwise.
 isEnumerate=function() {
-    ":\n\nTests if this field is an enumerate type (i.e.: it defines allowed
-    values).
-    \nReturned value: TRUE if this field defines some allowed values, FALSE
-    otherwise.
-    "
 
-    return( ! is.null(.self$.allowed.values))
+    return( ! is.null(private$allowed.values))
 },
 
+#' @description
+#' Tests if this field is a virtual field.
+#' @return TRUE if this field is virtual, FALSE
+#'     otherwise.
 isVirtual=function() {
-    ":\n\nTests if this field is a virtual field.
-    \nReturned value: TRUE if this field is virtual, FALSE
-    otherwise.
-    "
 
-    return(.self$virtual)
+    return(private$virtual)
 },
 
+#' @description
+#' Gets type for grouping field values when building a virtual data
+#'     frame.
+#' @return The type, as a character value.
 getVirtualGroupByType=function() {
-    ":\n\nGets type for grouping field values when building a virtual data
-    frame.
-    \nReturned value: The type, as a character value.
-    "
 
-    return(.self$virtualGroupByType)
+    return(private$virtualGroupByType)
 },
 
+#' @description
+#' Gets allowed values.
+#' @param value If this parameter is set to particular allowed values, then the
+#'     method returns a list of synonyms for this value (if any).
+#' @return A character vector containing all allowed values.
 getAllowedValues=function(value=NULL) {
-    ":\n\nGets allowed values.
-    \nvalue: If this parameter is set to particular allowed values, then the
-    method returns a list of synonyms for this value (if any).
-    \nReturned value: A character vector containing all allowed values.
-    "
 
     values <- NULL
-    if ( ! is.null(.self$.allowed.values)) {
+    if ( ! is.null(private$allowed.values)) {
 
         # Take all values
         if (is.null(value)) {
-            values <- unlist(.self$.allowed.values)
-            if ( ! is.null(names(.self$.allowed.values)))
-                values <- c(values, names(.self$.allowed.values))
+            values <- unlist(private$allowed.values)
+            if ( ! is.null(names(private$allowed.values)))
+                values <- c(values, names(private$allowed.values))
             names(values) <- NULL
 
         # Get all allowed values for just one specific value
@@ -432,17 +424,17 @@ getAllowedValues=function(value=NULL) {
         } else {
 
             # Find value in keys
-            if ( ! is.null(names(.self$.allowed.values))
-                && value %in% names(.self$.allowed.values))
-                values <- c(value, unlist(.self$.allowed.values[[value]]))
+            if ( ! is.null(names(private$allowed.values))
+                && value %in% names(private$allowed.values))
+                values <- c(value, unlist(private$allowed.values[[value]]))
 
             # Search value in values
             else {
-                for (i in seq_along(.self$.allowed.values))
-                    if (value %in% .self$.allowed.values[[i]]) {
-                        values <- unlist(.self$.allowed.values[[i]])
-                        if ( ! is.null(names(.self$.allowed.values)))
-                            values <- c(names(.self$.allowed.values)[[i]],
+                for (i in seq_along(private$allowed.values))
+                    if (value %in% private$allowed.values[[i]]) {
+                        values <- unlist(private$allowed.values[[i]])
+                        if ( ! is.null(names(private$allowed.values)))
+                            values <- c(names(private$allowed.values)[[i]],
                                         values)
                         break
                     }
@@ -453,145 +445,149 @@ getAllowedValues=function(value=NULL) {
     return(values)
 },
 
+#' @description
+#' Adds an allowed value, as a synonym to already an existing value. Note
+#'     that not all enumerate fields accept synonyms.
+#' @param key The key associated with the value (i.e.: the key is the main name of
+#'     an allowed value).
+#' @param value The new value to add.
+#' @return Nothing.
 addAllowedValue=function(key, value) {
-    ":\n\nAdds an allowed value, as a synonym to already an existing value. Note
-    that not all enumerate fields accept synonyms.
-    \nkey: The key associated with the value (i.e.: the key is the main name of
-    an allowed value).
-    \nvalue: The new value to add.
-    \nReturned value: None.
-    "
 
     key <- tolower(key)
-    if (.self$.lower.case)
+    if (private$lower.case)
         value <- tolower(value)
 
     # Check that key exists
-    if (is.null(names(.self$.allowed.values)))
-        error0('Field "', .self$.name,
+    if (is.null(names(private$allowed.values)))
+        error0('Field "', private$name,
             '" doesn\'t use keys for its allowed values.')
-    if ( ! key %in% names(.self$.allowed.values))
-        error0('Field "', .self$.name, '" doesn\'t use key "', key,
+    if ( ! key %in% names(private$allowed.values))
+        error0('Field "', private$name, '" doesn\'t use key "', key,
             '" for its allowed values.')
 
     # Check that value is not already used
-    if (value %in% .self$getAllowedValues()) {
-        current.key <- .self$correctValue(value)
+    if (value %in% self$getAllowedValues()) {
+        current.key <- self$correctValue(value)
         if (current.key != key)
-            error0('Field "', .self$.name, '" already uses value "', value,
+            error0('Field "', private$name, '" already uses value "', value,
                 '" for its allowed values, but with key "', current.key,
                 '" instead of key "', key, '".')
         else
-            logInfo0('Field "', .self$.name, '" already uses value "', value,
+            logInfo0('Field "', private$name, '" already uses value "', value,
                 '" for its allowed values, with key "', key, '".')
     }
 
     # Add new value
-    .self$.allowed.values[[key]] <- c(.self$.allowed.values[[key]], value)
+    private$allowed.values[[key]] <- c(private$allowed.values[[key]], value)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Checks if a value is correct. Fails if `value` is incorrect.
+#' @param value The value to check.
+#' @return Nothing.
 checkValue=function(value) {
-    ":\n\nChecks if a value is correct. Fails if `value` is incorrect.
-    \nvalue: The value to check.
-    \nReturned value: None.
-    "
 
-    if (.self$.lower.case)
+    if (private$lower.case)
         value <- tolower(value)
 
-    bad.values <- value[ ! value %in% .self$getAllowedValues()]
-    if (.self$isEnumerate() && length(bad.values) > 0) {
+    bad.values <- value[ ! value %in% self$getAllowedValues()]
+    if (self$isEnumerate() && length(bad.values) > 0) {
         bv <- paste(bad.values[ ! duplicated(bad.values)], collapse=', ')
-        av <- paste(.self$getAllowedValues(), collapse=', ')
+        av <- paste(self$getAllowedValues(), collapse=', ')
         error0('Value(s) ', bv, ' is/are not allowed for field ',
-            .self$getName(), '. Allowed values are: ', av, '.')
+            self$getName(), '. Allowed values are: ', av, '.')
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Tests if this field has a cardinality of one.
+#' @return TRUE if the cardinality of this field is one, FALSE
+#'     otherwise.
 hasCardOne=function() {
-    ":\n\nTests if this field has a cardinality of one.
-    \nReturned value: TRUE if the cardinality of this field is one, FALSE
-    otherwise.
-    "
 
-    return(.self$.cardinality == 'one')
+    return(private$cardinality == 'one')
 },
 
+#' @description
+#' Tests if this field has a cardinality greater than one.
+#' @return TRUE if the cardinality of this field is many, FALSE
+#'     otherwise.
 hasCardMany=function() {
-    ":\n\nTests if this field has a cardinality greater than one.
-    \nReturned value: TRUE if the cardinality of this field is many, FALSE
-    otherwise.
-    "
 
-    return(.self$.cardinality == 'many')
+    return(private$cardinality == 'many')
 },
 
+#' @description
+#' Tests if this field forbids duplicates.
+#' @return TRUE if this field forbids duplicated values, FALSE
+#'     otherwise.
 forbidsDuplicates=function() {
-    ":\n\nTests if this field forbids duplicates.
-    \nReturned value: TRUE if this field forbids duplicated values, FALSE
-    otherwise.
-    "
 
-    return(.self$.forbids.duplicates)
+    return(private$forbids.duplicates)
 },
 
+#' @description
+#' Tests if this field is case sensitive.
+#' @return TRUE if this field is case insensitive, FALSE otherwise.
 isCaseInsensitive=function() {
-    ":\n\nTests if this field is case sensitive.
-    \nReturned value: TRUE if this field is case insensitive, FALSE otherwise.
-    "
 
-    return(.self$.case.insensitive)
+    return(private$case.insensitive)
 },
 
+#' @description
+#' Gets the class of this field's value.
+#' @return class) of this field.
 getClass=function() {
-    ":\n\nGets the class of this field's value.
-    \nReturned value: The type (i.e.: class) of this field.
-    "
 
-    return(.self$.class)
+    return(private$class)
 },
 
+#' @description
+#' Tests if this field's type is a class.
+#' @return TRUE if field's type is a class, FALSE otherwise.
 isObject=function() {
-    ":\n\nTests if this field's type is a class.
-    \nReturned value: TRUE if field's type is a class, FALSE otherwise.
-    "
 
-    return(.self$.class == 'object')
+    return(private$class == 'object')
 },
 
+#' @description
+#' Tests if this field's type is `data.frame`.
+#' @return TRUE if field's type is data frame, FALSE otherwise."
 isDataFrame=function() {
-    ":\n\nTests if this field's type is `data.frame`.
-    \nReturned value: TRUE if field's type is data frame, FALSE otherwise."
-
-    return(.self$.class == 'data.frame')
+    return(private$class == 'data.frame')
 },
 
+#' @description
+#' Tests if this field's type is an atomic  type.
+#' @return character,
+#'     integer, double or logical), FALSE otherwise.
 isAtomic=function() {
-    ":\n\nTests if this field's type is an atomic  type.
-    \nReturned value: TRUE if the field's type is vector (i.e.: character,
-    integer, double or logical), FALSE otherwise.
-    "
 
-    return(.self$.class %in% c('character', 'integer', 'double', 'logical'))
+    return(private$class %in% c('character', 'integer', 'double', 'logical'))
 },
 
+#' @description
+#' Tests if this field's type is a basic vector type.
+#' @return character,
+#'     integer, double or logical), FALSE otherwise.
 isVector=function() {
-    ":\n\nTests if this field's type is a basic vector type.
-    \nReturned value: TRUE if the field's type is vector (i.e.: character,
-    integer, double or logical), FALSE otherwise.
-    "
 
     lifecycle::deprecate_soft('1.0.0', 'isVector()', 'isAtomic()')
 
-    return(.self$isAtomic())
+    return(self$isAtomic())
 },
 
+#' @description
+#' Compares this instance with another, and tests if they are equal.
+#' @param other Another BiodbEntryField instance.
+#' @param fail If set to TRUE, then throws error instead of returning FALSE.
+#' @return TRUE if they are equal, FALSE otherwise.
 equals=function(other, fail=FALSE) {
-    ":\n\nCompares this instance with another, and tests if they are equal.
-    \nother: Another BiodbEntryField instance.
-    \nfail: If set to TRUE, then throws error instead of returning FALSE.
-    \nReturned value: TRUE if they are equal, FALSE otherwise.
-    "
 
     if ( ! methods::is(other, "BiodbEntryField"))
         error("Parameter `other` must be an instance of BiodbEntryField.")
@@ -604,7 +600,7 @@ equals=function(other, fail=FALSE) {
 
     # Loop on all fields
     for (f in fields) {
-        a <- .self[[f]]
+        a <- self[[f]]
         b <- other[[f]]
         if ( ! ((is.na(a) && is.na(b)) || (is.null(a) && is.null(b))
             || ( ! is.na(a) && ! is.na(b) && ! is.null(a) && ! is.null(b)
@@ -620,74 +616,131 @@ equals=function(other, fail=FALSE) {
     return(eq)
 },
 
+#' @description
+#' Updates fields using values from `other` instance. The updated fields
+#' @param are 'alias' and 'computable.from'. No values will be removed from those
+#'     vectors. The new values will only be appended. This allows to extend an
+#'     existing field inside a new connector definition.
+#' @param other Another BiodbEntryField instance.
+#' @return Nothing.
 updateWithValuesFrom=function(other) {
-    ":\n\nUpdates fields using values from `other` instance. The updated fields
-    are: 'alias' and 'computable.from'. No values will be removed from those
-    vectors. The new values will only be appended. This allows to extend an
-    existing field inside a new connector definition.
-    \nother: Another BiodbEntryField instance.
-    \nReturned value: None.
-    "
 
     if ( ! methods::is(other, "BiodbEntryField"))
         error("Parameter `other` must be an instance of BiodbEntryField.")
 
     # Update fields
     for (a in other$.alias)
-        .self$addAlias(a)
-    if ( ! is.null(other$.computable.from))
-        for (directive in other$.computable.from)
-            .self$addComputableFrom(directive)
+        self$addAlias(a)
+    if ( ! is.null(other$getComputableFrom()))
+        for (directive in other$getComputableFrom())
+            self$addComputableFrom(directive)
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
-show=function() {
-    ":\n\nPrint informations about this entry.
-    \nReturned value: None.
-    "
+#' @description
+#' Print informations about this entry.
+#' @return Nothing.
+print=function() {
 
-    cat("Entry field \"", .self$.name, "\".\n", sep='')
-    cat("  Description: ", .self$.description, "\n", sep='')
-    cat("  Class: ", .self$.class, ".\n", sep='')
-    if (.self$virtual) {
+    cat("Entry field \"", private$name, "\".\n", sep='')
+    cat("  Description: ", private$description, "\n", sep='')
+    cat("  Class: ", private$class, ".\n", sep='')
+    if (private$virtual) {
         cat("Virtual.")
-        if ( ! is.null(.self$virtualGroupByType))
-            cat('Grouped by type "', .self$virtualGroupByType, '".')
+        if ( ! is.null(private$virtualGroupByType))
+            cat('Grouped by type "', private$virtualGroupByType, '".')
         cat("\n")
     }
-    if (.self$.class == 'character') {
-        case <-  if (.self$.case.insensitive) 'insensitive' else 'sensitive'
-        lower <- if (.self$.lower.case) ' Value will be forced to lower case.'
+    if (private$class == 'character') {
+        case <-  if (private$case.insensitive) 'insensitive' else 'sensitive'
+        lower <- if (private$lower.case) ' Value will be forced to lower case.'
             else ''
         cat("  Case: ", case, '.', lower, "\n", sep='')
     }
-    if ( ! is.na(.self$.type))
-        cat("  Type: ", .self$.type, ".\n", sep='')
-    cat("  Cardinality: ", .self$.cardinality, ".\n", sep='')
-    if (.self$.cardinality == 'many')
-        cat("  Duplicates: ", if (.self$.forbids.duplicates) 'forbidden' else
+    if ( ! is.na(private$type))
+        cat("  Type: ", private$type, ".\n", sep='')
+    cat("  Cardinality: ", private$cardinality, ".\n", sep='')
+    if (private$cardinality == 'many')
+        cat("  Duplicates: ", if (private$forbids.duplicates) 'forbidden' else
             'allowed', ".\n", sep='')
-    cat("  Aliases: ", paste(.self$.alias, collapse=', '), ".\n", sep='')
-    if ( ! is.null(.self$.allowed.values))
-        cat("  Allowed values: ", paste(.self$.allowed.values, collapse=', '),
+    cat("  Aliases: ", paste(private$alias, collapse=', '), ".\n", sep='')
+    if ( ! is.null(private$allowed.values))
+        cat("  Allowed values: ", paste(private$allowed.values, collapse=', '),
             ".\n", sep='')
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets the field's cardinality.
+#' @return The cardinality: "one" or "many".
 getCardinality=function() {
-    return(.self$.cardinality)
+    return(private$cardinality)
 },
 
-.check=function() {
+#' @description
+#' Checks if essential values are defined.
+#' @return Nothing.
+check=function() {
     
     # Check name
-    if (is.null(.self$.name) || is.na(.self$.name) || .self$.name == '')
+    if (is.null(private$name) || is.na(private$name) || private$name == '')
         warn("Missing name for entry field.")
     
     # Check description
-    if (is.null(.self$.description) || is.na(.self$.description)
-        || .self$.description == '')
-        warn('Missing description for entry field "%s".', .self$.name)
-}
+    if (is.null(private$description) || is.na(private$description)
+        || private$description == '')
+        warn('Missing description for entry field "%s".', private$name)
 
+    return(invisible(NULL))
+}
+),
+
+private=list(
+    name=NULL,
+    type=NULL,
+    class=NULL,
+    cardinality=NULL,
+    description=NULL,
+    alias=NULL,
+    parent=NULL,
+    dataFrameGroup=NULL,
+    virtual=NULL,
+    virtualGroupByType=NULL,
+    allowed.values=NULL,
+    case.insensitive=NULL,
+    lower.case=NULL,
+    computable.from=NULL,
+    forbids.duplicates=NULL,
+
+setComputableFrom=function(computable.from) {
+
+    if ( ! is.null(computable.from)) {
+
+        # Is a list
+        if ( ! is.list(computable.from) || ! is.null(names(computable.from)))
+            error0('computable.from must be an unnamed list, for field "',
+                private$name, '".')
+
+        # Loop on all directives
+        for (directive in computable.from) {
+
+            # Has a "database" field
+            if ( ! 'database' %in% names(directive))
+                error0('You must specified the database for directive',
+                    ', for field "', private$name, '".')
+
+            # Check list of fields
+            if ('fields' %in% names(directive)
+                && ! is.character(directive$fields))
+                error0('In directive of field "', private$name,
+                    '", "fields" must be a list of field names.')
+        }
+    }
+
+    private$computable.from <- computable.from
+
+    return(invisible(NULL))
+}
 ))

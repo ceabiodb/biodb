@@ -7,17 +7,21 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbListEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbListEntry)
 #'
 #' @include BiodbEntry.R
-#' @export BiodbListEntry
-#' @exportClass BiodbListEntry
-BiodbListEntry <- methods::setRefClass("BiodbListEntry",
-    contains='BiodbEntry',
+#' @export
+BiodbListEntry <- R6::R6Class("BiodbListEntry",
+inherit=BiodbEntry,
 
-methods=list(
 
-.doParseContent=function(content) {
+public=list(
+
+
+),
+
+private=list(
+doParseContent=function(content) {
 
     # Content may come from a cached file, hence as a string in JSON format, or
     # directly from memory as a list object.
@@ -27,16 +31,16 @@ methods=list(
     return(content)
 },
 
-.isParsedContentCorrect=function(parsed.content) {
+isParsedContentCorrect=function(parsed.content) {
     return(is.list(parsed.content) && length(parsed.content) > 0
         && ! is.null(names(parsed.content))
         && length(names(parsed.content)) > 0)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
-    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     # Loop on all field names
     for (field.name in names(parsing.expr)) {
@@ -52,9 +56,8 @@ methods=list(
                 next
 
             # Set value
-            .self$setFieldValue(field.name, value)
+            self$setFieldValue(field.name, value)
         }
     }
 }
-
 ))

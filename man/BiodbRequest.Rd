@@ -54,7 +54,7 @@ mybiodb$terminate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequest$new(
   url,
@@ -84,7 +84,7 @@ Constructor.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -105,7 +105,7 @@ request).
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -232,7 +232,7 @@ Displays information about this instance.
 }
 
 \subsection{Returns}{
-None.
+self as invisible.
 }
 }
 \if{html}{\out{<hr>}}

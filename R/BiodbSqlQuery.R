@@ -11,15 +11,18 @@ BiodbSqlQuery <- R6::R6Class("BiodbSqlQuery",
 public=list(
 
 #' @description
-#' Constructor.
-#' @return A new instance.
+#' Initializer.
+#' @return Nothing.
 initialize=function() {
+
     private$table <- character()
     private$fields <- list()
     private$distinct <- FALSE
     private$join <- list()
     private$where <- NULL
     private$limit <- as.integer(0)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -27,7 +30,10 @@ initialize=function() {
 #' @param table The table name.
 #' @return Nothing.
 setTable=function(table) {
+
     private$table <- table
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -37,6 +43,8 @@ setTable=function(table) {
 #' @return Nothing.
 addField=function(table=NULL, field) {
     private$fields <- c(private$fields, list(list(table=table, field=field)))
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -47,6 +55,8 @@ addField=function(table=NULL, field) {
 setDistinct=function(distinct) {
     chk::chk_flag(distinct)
     private$distinct <- as.logical(distinct)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -56,6 +66,8 @@ setDistinct=function(distinct) {
 setLimit=function(limit) {
     chk::chk_whole_number(limit)
     private$limit <- as.integer(limit)
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -78,6 +90,8 @@ addJoin=function(table1, field1, table2, field2) {
         lst <- list(table1=table1, field1=field1, table2=table2, field2=field2)
         private$join <- c(private$join, list(lst))
     }
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -86,6 +100,8 @@ addJoin=function(table1, field1, table2, field2) {
 #' @return Nothing.
 setWhere=function(expr) {
     private$where <- expr
+
+    return(invisible(NULL))
 },
 
 #' @description

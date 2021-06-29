@@ -7,28 +7,35 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from this class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbHtmlEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbHtmlEntry)
 #'
 #' @include BiodbXmlEntry.R
-#' @export BiodbHtmlEntry
-#' @exportClass BiodbHtmlEntry
-BiodbHtmlEntry <- methods::setRefClass("BiodbHtmlEntry",
-    contains="BiodbXmlEntry",
+#' @export
+BiodbHtmlEntry <- R6::R6Class("BiodbHtmlEntry",
+inherit=BiodbXmlEntry,
 
-methods=list(
+public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
-    callSuper(...)
-    .self$.abstractClass('BiodbHtmlEntry')
-},
+    super$initialize(...)
+    abstractClass('BiodbHtmlEntry', self)
 
-.doParseContent=function(content) {
+    return(invisible(NULL))
+}
+),
+
+private=list(
+doParseContent=function(content) {
 
     # Parse XML
     xml <-  XML::htmlTreeParse(content, asText=TRUE, useInternalNodes=TRUE)
 
     return(xml)
 }
-
 ))

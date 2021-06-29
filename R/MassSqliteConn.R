@@ -2,8 +2,7 @@
 #'
 #' This is the connector class for a MASS SQLite database.
 #'
-#' @seealso Super classes \code{\link{BiodbMassdbConn}} and
-#' \code{\link{SqliteConn}}.
+#' @seealso Super class \code{\link{SqliteConn}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -21,29 +20,35 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
-#' @include BiodbMassdbConn.R
+#' @import R6
 #' @include SqliteConn.R
-MassSqliteConn <- methods::setRefClass('MassSqliteConn',
-    contains=c("SqliteConn", "BiodbMassdbConn"),
-    fields=list(),
+#' @export
+MassSqliteConn <- R6::R6Class('MassSqliteConn',
+inherit=SqliteConn,
 
-methods=list(
+public=list(
 
+#' @description
+#' Gets a list of chromatographic columns contained in this database.
+#' @param ids A character vector of entry identifiers (i.e.: accession
+#' numbers).  Used to restrict the set of entries on which to run the
+#' algorithm.
+#' @return A data.frame with two columns, one for the ID 'id' and another one
+#' for the title 'title'.
 getChromCol=function(ids=NULL) {
     # Overrides super class' method.
 
     chrom.cols <- data.frame(id=character(0), title=character(0))
 
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
-        tables <- DBI::dbListTables(.self$.db)
+        tables <- DBI::dbListTables(private$db)
 
         if ('entries' %in% tables) {
 
-            fields <- DBI::dbListFields(.self$.db, 'entries')
+            fields <- DBI::dbListFields(private$db, 'entries')
             fields.to.get <- c('chrom.col.id', 'chrom.col.name')
 
             if (all(fields.to.get %in% fields)) {
@@ -62,32 +67,34 @@ getChromCol=function(ids=NULL) {
                 }
 
                 # Run query
-                chrom.cols <- .self$getQuery(query)
+                chrom.cols <- self$getQuery(query)
                 names(chrom.cols) <- c('id', 'title')
             }
         }
     }
 
     return(chrom.cols)
-},
+}
+),
 
-.doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    # Inherited from BiodbMassdbConn.
+private=list(
+doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
+    # Overwrites super class' method
 
     mz <- numeric()
 
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
         # Get M/Z field name
-        mzfield <- .self$getMatchingMzField()
+        mzfield <- self$getMatchingMzField()
 
         if ( ! is.null(mzfield)) {
-            mzfield <- .self$.fieldToSqlId(mzfield)
+            mzfield <- private$fieldToSqlId(mzfield)
 
             # Build query
-            query <- .self$.createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
+            query <- private$createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
                 ms.level=ms.level, precursor=precursor)
             query$addField(field=mzfield)
             if (max.results > 0)
@@ -95,7 +102,7 @@ getChromCol=function(ids=NULL) {
             logDebug('Run query "%s".', query$toString())
 
             # Run query
-            df <- .self$getQuery(query)
+            df <- self$getQuery(query)
             mz <- df[[1]]
         }
     }
@@ -103,7 +110,7 @@ getChromCol=function(ids=NULL) {
     return(mz)
 },
 
-.createMsQuery=function(mzfield, ms.mode=NULL, ms.level=0, precursor=FALSE) {
+createMsQuery=function(mzfield, ms.mode=NULL, ms.level=0, precursor=FALSE) {
 
     query <- BiodbSqlQuery$new()
     query$setTable(mzfield)
@@ -137,24 +144,24 @@ getChromCol=function(ids=NULL) {
     return(query)
 },
 
-.doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
+doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
 precursor, ms.level) {
 
     ids <- character()
 
-    .self$.initDb()
+    private$initDb()
 
-    if ( ! is.null(.self$.db)) {
+    if ( ! is.null(private$db)) {
 
         # Get M/Z field name
-        mzfield <- .self$getMatchingMzField()
+        mzfield <- self$getMatchingMzField()
 
         if ( ! is.null(mzfield)) {
-            mzfield <- .self$.fieldToSqlId(mzfield)
-            mzfield <- DBI::dbQuoteIdentifier(.self$.db, mzfield)
+            mzfield <- private$fieldToSqlId(mzfield)
+            mzfield <- DBI::dbQuoteIdentifier(private$db, mzfield)
 
             # Build query
-            query <- .self$.createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
+            query <- private$createMsQuery(mzfield=mzfield, ms.mode=ms.mode,
                 ms.level=ms.level, precursor=precursor)
             query$addField(table=mzfield, field='accession')
             mz.range.or=BiodbSqlLogicalOp$new('or')
@@ -177,7 +184,7 @@ precursor, ms.level) {
                 mz.range.or$addExpr(and)
             }
             query$getWhere()$addExpr(mz.range.or)
-            if ('peak.relative.intensity' %in% DBI::dbListTables(.self$.db)
+            if ('peak.relative.intensity' %in% DBI::dbListTables(private$db)
                 && ! is.null(min.rel.int) && ! is.na(min.rel.int)
                 && (is.numeric(min.rel.int) || is.integer(min.rel.int))) {
                 query$addJoin(table1=mzfield, field1='accession',
@@ -194,12 +201,11 @@ precursor, ms.level) {
             logDebug('Run query "%s".', query$toString())
 
             # Run query
-            df <- .self$getQuery(query)
+            df <- self$getQuery(query)
             ids <- df[[1]]
         }
     }
 
     return(ids)
 }
-
 ))

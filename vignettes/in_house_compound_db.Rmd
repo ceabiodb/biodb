@@ -276,7 +276,7 @@ In case of a data frame the column containing the M/Z values must be named `mz`
 or you have to specify its name using the `mz.col` parameter.
 
 The `mz.tol` and `mz.tol.unit` parameters are used to set the tolerance, see
-the manual of the class `BiodbCompounddbConn`.
+the manual of the class `BiodbConn`.
 You can set the mass field to use in the database with the `mass.field`
 parameter (default is `monoisotopic.mass`).
 
@@ -291,7 +291,7 @@ for each entry.
 By setting the parameter to `1` we select only the first name for each entry.
 
 You will find a complete description of this method and other compound methods
-by running `?biodb::BiodbCompounddbConn`.
+by running `?biodb::BiodbConn`.
 
 ```{r annotTable, echo=FALSE, results='asis'}
 knitr::kable(annotDf, "pipe", caption="The annotated mass spectrum. Columns prefixed with \"mydb.\" come from the compound database.")

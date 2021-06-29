@@ -7,25 +7,33 @@
 #'
 #' @examples
 #' # Create a concrete entry class inheriting from CSV class:
-#' MyEntry <- methods::setRefClass("MyEntry", contains="BiodbTxtEntry")
+#' MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbTxtEntry)
 #'
-#' @import methods
+#' @import R6
 #' @import stringr
 #' @include BiodbEntry.R
-#' @export BiodbTxtEntry
-#' @exportClass BiodbTxtEntry
-BiodbTxtEntry <- methods::setRefClass("BiodbTxtEntry",
-    contains='BiodbEntry',
+#' @export
+BiodbTxtEntry <- R6::R6Class("BiodbTxtEntry",
+inherit=BiodbEntry,
 
-methods=list(
+public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
-    callSuper(...)
-    .self$.abstractClass('BiodbTxtEntry')
-},
+    super$initialize(...)
+    abstractClass('BiodbTxtEntry', self)
 
-.doParseContent=function(content) {
+    return(invisible(NULL))
+}
+),
+
+private=list(
+doParseContent=function(content) {
 
     # Get lines of content
     lines <- strsplit(content, "\r?\n")[[1]]
@@ -33,10 +41,10 @@ initialize=function(...) {
     return(lines)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+parseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
-    parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
+    parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     chk::chk_character(parsed.content)
     chk::chk_list(parsing.expr)
@@ -53,8 +61,7 @@ initialize=function(...) {
 
         # Any match ?
         if (nrow(results) > 0)
-            .self$setFieldValue(field, results[, 2])
+            self$setFieldValue(field, results[, 2])
     }
 }
-
 ))

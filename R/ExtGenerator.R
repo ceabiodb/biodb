@@ -22,7 +22,7 @@ ExtGenerator <- R6::R6Class('ExtGenerator',
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param path      The path to the package folder.
 #' @param loadCfg   Set to FALSE to disable loading of tag values from config
 #' file "biodb_ext.yml".
@@ -56,19 +56,17 @@ public=list(
 #' @param vignetteName Set to the name of the default/main vignette.
 #' @param githubRepos Set to the name of the associated GitHub repository.
 #' Example: myaccount/myrepos.
-#' @return A new instance.
+#' @return Nothing.
 #' @export
 initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
-                    email='author@e.mail', dbName='foo.db',
-                    dbTitle='Foo database',
-                    pkgLicense=getLicenses(), firstname='Firstname of author',
-                    lastname='Lastname of author', newPkg=FALSE,
-                    connType=getConnTypes(), entryType=getEntryTypes() ,
-                    editable=FALSE, writable=FALSE, remote=FALSE,
-                    downloadable=FALSE, makefile=FALSE, travis=FALSE,
-                    rcpp=FALSE, vignetteName='intro',
-                    githubRepos=getReposName(path, default='myaccount/myrepos')
-                    ) {
+    email='author@e.mail', dbName='foo.db', dbTitle='Foo database',
+    pkgLicense=getLicenses(), firstname='Firstname of author',
+    lastname='Lastname of author', newPkg=FALSE, connType=getConnTypes(),
+    entryType=getEntryTypes() , editable=FALSE, writable=FALSE, remote=FALSE,
+    downloadable=FALSE, makefile=FALSE, travis=FALSE, rcpp=FALSE,
+    vignetteName='intro',
+    githubRepos=getReposName(path, default='myaccount/myrepos')) {
+
     allParams <- as.list(environment())
     explicitParams <- as.list(match.call())
     chk::chk_string(path) # Path may not exist yet
@@ -100,6 +98,8 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
     # Save tags into config file
     if (saveCfg)
         private$saveConfig()
+
+    return(invisible(NULL))
 }
 
 #' @description

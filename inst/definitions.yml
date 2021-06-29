@@ -75,7 +75,7 @@ config:
   factory.cache:
     title: Enable factory cache.
     type: logical
-    description: Set the factory cache system ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the RefClass OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.
+    description: Set the factory cache system ON. The factory cache system stores entry instances already created. When the factory cache is enabled and an entry already created is requested, the factory returns that same instance. This is possible, because biodb uses the R6 OOP system, which uses references instead of object copy. Thus, if you modify an entry and ask the factory for the same entry, it will be the same exact object that will be given to you and it will include your modifications. On the contrary, if the factory cache is OFF, a new entry instance will be returned to you each time. The factory cache enables to speed up entry retrieval when the same entries are requested several times, avoiding the parsing process.
     default: FALSE
     deprecated: The cache is now always enabled. Thus all entries returned are referenced inside the cache and will be returned when needed.
 
@@ -182,6 +182,9 @@ databases:
     name: Compound CSV File
     description: A connector to handle a compound database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields.
     entry.content.type: tsv
+    compound.db: true
+    editable: true
+    writable: true
     searchable.fields:
       - name
       - monoisotopic.mass
@@ -195,6 +198,9 @@ databases:
     name: Compound SQLite
     description: A connector to handle a compound database stored inside an SQLite file.
     entry.content.type: list
+    compound.db: true
+    editable: true
+    writable: true
     searchable.fields:
       - name
       - monoisotopic.mass
@@ -207,13 +213,20 @@ databases:
   mass.csv.file:
     name: Mass spectra CSV File
     description: A connector to handle a mass spectra database stored inside a CSV file. It is possible to choose the separator for the CSV file, as well as match the column names with the biodb entry fields..
+    mass.db: true
     entry.content.type: tsv
+    editable: true
+    writable: true
 
 # Mass SQLite {{{2
 ################################################################################
   mass.sqlite:
     name: Mass spectra SQLite
+    description: A connector to handle a mass spectra database stored inside an SQLite file.
+    mass.db: true
     entry.content.type: list
+    editable: true
+    writable: true
 
 # FIELDS {{{1
 ################################################################################

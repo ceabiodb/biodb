@@ -33,7 +33,7 @@ for (i in seq_len(10)) {
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Progress$new(biodb = NULL, msg, total)}\if{html}{\out{</div>}}
 }
@@ -51,7 +51,7 @@ progress.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

@@ -8,12 +8,14 @@ inherit=BiodbSqlExpr,
 public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param op The logical operator, as a string.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(op) {
     private$op <- op
     private$expr <- list()
+
+    return(invisible(NULL))
 },
 
 #' @description
@@ -22,6 +24,8 @@ initialize=function(op) {
 #' @return Nothing.
 addExpr=function(expr) {
     private$expr <- c(private$expr, expr)
+
+    return(invisible(NULL))
 },
 
 #' @description

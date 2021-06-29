@@ -37,14 +37,14 @@ test_unmapped_col <- function(biodb) {
     testthat::expect_true(length(conn$getFieldsAndColumnsAssociation()) > 0)
     msg <- paste0("^.*The following fields have been defined:.*",
                   "Unassociated columns: elecCharge\\..*$")
-    testthat::expect_output(conn$show(), msg)
+    testthat::expect_output(conn$print(), msg)
 
     # Re-create connector
     biodb$getFactory()$deleteConn(conn)
     conn <- biodb$getFactory()$createConn('comp.csv.file',
                                           url=CHEBI_FILE_UNKNOWN_COL)
     
-    conn$ignoreUnassignedColumns()
+    conn$setIgnoreUnassignedColumns(TRUE)
     conn$getEntryIds()
 
     # Re-create connector

@@ -28,53 +28,64 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
-#' @include BiodbChildObject.R
-#' @export BiodbFactory
-#' @exportClass BiodbFactory
-BiodbFactory <- methods::setRefClass("BiodbFactory",
-    contains='BiodbChildObject',
-    fields=list(
-        .conn="list"
-    ),
+#' @import R6
+#' @export
+BiodbFactory <- R6::R6Class("BiodbFactory",
 
-methods=list(
+public=list(
 
-initialize=function(...) {
+#' @description
+#' New instance initializer. The BiodbFactory class must not be instantiated
+#' directly.
+#' Instead, call the getFactory() method from the BiodbMain instance.
+#' @param bdb The BiodbMain instance.
+#' @return Nothing.
+initialize=function(bdb) {
 
-    callSuper(...)
+    chk::chk_is(bdb, 'BiodbMain')
 
-    .self$.conn <- list()
+    private$bdb <- bdb
+    private$conn <- list()
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Returns the biodb main class instance to which this object is
+#'     attached.
+#' @return The main biodb instance.
+getBiodb=function() {
+
+    return(private$bdb)
+},
+
+#' @description
+#' Creates a connector to a database.
+#' @param db.class The type of a database. The list of types can be obtained from
+#'     the class BiodbDbsInfo.
+#' @param url An URL to the database for which to create a connection.  Each
+#'     database connector is configured with a default URL, but some allow you to
+#'     change it.
+#' @param token A security access token for the database. Some database require
+#'     such a token for all or some of their webservices. Usually you obtain the
+#'     token through your account on the database website.
+#' @param fail.if.exists If set to TRUE, the method will fail if a connector for
+#' @param get.existing.conn This argument will be used only if fail.if.exists is
+#'     set to FALSE and an identical connector already exists. If it set to TRUE,
+#'     the existing connector instance will be returned, otherwise NULL will be
+#'     returned.
+#' @param conn.id If set, this identifier will be used for the new connector. An
+#'     error will be raised in case another connector already exists with this
+#'     identifier.
+#' @param cache.id If set, this ID will be used as the cache ID for the new
+#'     connector. An error will be raised in case another connector already exists
+#'     with this cache identifier.
+#' @return An instance of the requested connector class.
 createConn=function(db.class, url=NULL, token=NA_character_,
-                    fail.if.exists=TRUE, get.existing.conn=TRUE,
-                    conn.id=NULL, cache.id=NULL) {
-    ":\n\nCreates a connector to a database.
-    \ndb.class: The type of a database. The list of types can be obtained from
-    the class BiodbDbsInfo.
-    \nurl: An URL to the database for which to create a connection.  Each
-    database connector is configured with a default URL, but some allow you to
-    change it.
-    \ntoken: A security access token for the database. Some database require
-    such a token for all or some of their webservices. Usually you obtain the
-    token through your account on the database website.
-    \nfail.if.exists: If set to TRUE, the method will fail if a connector for
-    \nget.existing.conn: This argument will be used only if fail.if.exists is
-    set to FALSE and an identical connector already exists. If it set to TRUE,
-    the existing connector instance will be returned, otherwise NULL will be
-    returned.
-    \nconn.id: If set, this identifier will be used for the new connector. An
-    error will be raised in case another connector already exists with this
-    identifier.
-    \ncache.id: If set, this ID will be used as the cache ID for the new
-    connector. An error will be raised in case another connector already exists
-    with this cache identifier.
-    \nReturned value: An instance of the requested connector class.
-    "
+    fail.if.exists=TRUE, get.existing.conn=TRUE, conn.id=NULL, cache.id=NULL) {
 
     # Get database info
-    db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+    db.info <- private$bdb$getDbsInfo()$get(db.class)
 
     # Disabled?
     if (db.info$getPropertyValue('disabled')) {
@@ -88,14 +99,14 @@ createConn=function(db.class, url=NULL, token=NA_character_,
 
     # Set connector ID
     if ( ! is.null(conn.id)) {
-        if (conn.id %in% names(.self$.conn))
+        if (conn.id %in% names(private$conn))
             error('Connector ID "%s" is already used.', conn.id)
     }
     else {
         # Create a connector ID
         conn.id <- db.class
         i <- 0
-        while (conn.id %in% names(.self$.conn)) {
+        while (conn.id %in% names(private$conn)) {
             i <- i + 1
             conn.id <- paste(db.class, i, sep='.')
         }
@@ -103,12 +114,14 @@ createConn=function(db.class, url=NULL, token=NA_character_,
 
     # Create connector instance
     prop <- if (is.na(token)) list() else list(token=token)
+    if ( ! is.null(url) && ! is.na(url)) {
+        prop[['urls']] <- db.info$getPropertyValue('urls')
+        prop[['urls']][['base.url']] <- url
+    }
     conn <- conn.class$new(id=conn.id, cache.id=cache.id, other=db.info,
-        properties=prop, parent=.self)
-    if ( ! is.null(url) && ! is.na(url))
-        conn$setPropValSlot('urls', 'base.url', url)
+        properties=prop, bdb=private$bdb, db.class=db.class)
 
-    existingConn <- .self$.getExistingConn(conn)
+    existingConn <- private$getExistingConn(conn)
     # Check if an identical connector already exists
     if (is.null(existingConn)) {
         # Debug message
@@ -118,9 +131,9 @@ createConn=function(db.class, url=NULL, token=NA_character_,
             conn.id, db.class, surl)
         
         # Register new instance
-        .self$.conn[[conn.id]] <- conn
+        private$conn[[conn.id]] <- conn
     } else {
-        conn$.terminate()
+        conn$.__enclos_env__$private$terminate()
         msg <- paste0('A connector (', existingConn$getId(),
             ') already exists for database ', db.class,
             (if (is.null(url)) '' else
@@ -133,51 +146,51 @@ createConn=function(db.class, url=NULL, token=NA_character_,
     return (conn)
 },
 
+#' @description
+#' Tests if a connector exists.
+#' @param conn.id A connector ID.
+#' @return TRUE if a connector with this ID exists, FALSE otherwise.
 connExists=function(conn.id) {
-    ":\n\nTests if a connector exists.
-    \nconn.id: A connector ID.
-    \nReturned value: TRUE if a connector with this ID exists, FALSE otherwise.
-    "
 
-    return(conn.id %in% names(.self$.conn))
+    return(conn.id %in% names(private$conn))
 },
 
+#' @description
+#' Deletes an existing connector.
+#' @param conn A connector instance or a connector ID.
+#' @return Nothing.
 deleteConn=function(conn) {
-    ":\n\nDeletes an existing connector.
-    \nconn.id: A connector instance or a connector ID.
-    \nReturned value: None.
-    "
 
     if (methods::is(conn, 'BiodbConn')) {
-        .self$deleteConn(conn$getId())
+        self$deleteConn(conn$getId())
     } else {
         chk::chk_character(conn)
 
-        if ( ! conn %in% names(.self$.conn))
+        if ( ! conn %in% names(private$conn))
             error('Connector "%s" is unknown.', conn)
 
-        .self$deleteAllEntriesFromVolatileCache(conn)
-        .self$.conn[[conn]]$.terminate()
-        .self$.conn[[conn]] <- NULL
+        self$deleteAllEntriesFromVolatileCache(conn)
+        private$conn[[conn]]$.__enclos_env__$private$terminate()
+        private$conn[[conn]] <- NULL
         logInfo('Connector "%s" deleted.', conn)
     }
 
     return(invisible(NULL))
 },
 
+#' @description
+#' Deletes all existing connectors from a same class.
+#' @param db.class The type of a database. All connectors of this database
+#'     type will be deleted.
+#' @return Nothing.
 deleteConnByClass=function(db.class) {
-    ":\n\nDeletes all existing connectors from a same class.
-    \ndb.class: The type of a database. All connectors of this database
-    type will be deleted.
-    \nReturned value: None.
-    "
 
     chk::chk_character(db.class)
 
     n <- 0
-    for (c in .self$.conn)
+    for (c in private$conn)
         if (c$getDbClass() == db.class) {
-            .self$deleteConn(c$getId())
+            self$deleteConn(c$getId())
             n <- n + 1
         }
     if (n == 0)
@@ -185,42 +198,44 @@ deleteConnByClass=function(db.class) {
     else
         logInfo('%d connector(s) of type "%s" deleted.', n, db.class)
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets all connectors.
+#' @return A list of all created connectors.
 getAllConnectors=function() {
-    ":\n\nGets all connectors.
-    \nReturned value: A list of all created connectors.
-    "
 
-    return(.self$.conn)
+    return(private$conn)
 },
 
+#' @description
+#' Deletes all connectors.
+#' @return Nothing.
 deleteAllConnectors=function() {
-    ":\n\nDeletes all connectors.
-    \nReturned value: None.
-    "
 
     # Get all connectors
-    connectors <- .self$.conn
+    connectors <- private$conn
 
     # Loop on all connectors
     for (conn in connectors)
-        .self$deleteConn(conn$getId())
+        self$deleteConn(conn$getId())
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Gets an instantiated connector instance, or create a new one.
+#' @param conn.id An existing connector ID.
+#' @param class If set to TRUE, and \"conn.id\" does not correspond to any
+#'     instantiated connector, then interpret \"conn.id\" as a database class and
+#'     looks for the first instantiated connector of that class.
+#' @param create If set to TRUE, and \"class\" is also set to TRUE, and no suitable
+#'     instantiated connector was found, then creates a new connector instance of
+#'     the class specified by \"conn.id\".
+#' @return The connector instance corresponding to the connector ID
+#'     or to the database ID submitted (if class \"parameter\" is set to TRUE).
 getConn=function(conn.id, class=TRUE, create=TRUE) {
-    ":\n\nGets an instantiated connector instance, or create a new one.
-    \nconn.id: An existing connector ID.
-    \nclass: If set to TRUE, and \"conn.id\" does not correspond to any
-    instantiated connector, then interpret \"conn.id\" as a database class and
-    looks for the first instantiated connector of that class.
-    \ncreate: If set to TRUE, and \"class\" is also set to TRUE, and no suitable
-    instantiated connector was found, then creates a new connector instance of
-    the class specified by \"conn.id\".
-    \nReturned value: The connector instance corresponding to the connector ID
-    or to the database ID submitted (if class \"parameter\" is set to TRUE).
-    "
 
     chk::chk_string(conn.id)
     chk::chk_flag(class)
@@ -229,21 +244,21 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
     conn <- NULL
 
     # Get connector from ID
-    if (conn.id %in% names(.self$.conn))
-        conn <- .self$.conn[[conn.id]]
+    if (conn.id %in% names(private$conn))
+        conn <- private$conn[[conn.id]]
 
     # Does conn.id look like a database class?
     if (class && is.null(conn) &&
-        .self$getBiodb()$getDbsInfo()$isDefined(conn.id)) {
+        private$bdb$getDbsInfo()$isDefined(conn.id)) {
 
         # Try to find connectors that are of this class
-        for (c in .self$.conn)
+        for (c in private$conn)
             if (c$getDbClass() == conn.id)
                 conn <- c(conn, c)
 
         # Create connector
         if  (is.null(conn) && create)
-            conn <- .self$createConn(db.class=conn.id)
+            conn <- self$createConn(db.class=conn.id)
     }
 
     if (is.null(conn))
@@ -252,34 +267,34 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
     return(conn)
 },
 
+#' @description
+#' Retrieves database entry objects from IDs (accession numbers), for the
+#'     specified connector.
+#' @param conn.id An existing connector ID.
+#' @param id A character vector containing database entry IDs (accession numbers).
+#' @param drop If set to TRUE and the list of entries contains only one element,
+#'     then returns this element instead of the list. If set to FALSE, then returns
+#'     always a list.
+#' @return A list of BiodbEntry objects, the same length as `id`. A
+#'     NULL value is put into the list for each invalid ID of `id`.
 getEntry=function(conn.id, id, drop=TRUE) {
-    ":\n\nRetrieves database entry objects from IDs (accession numbers), for the
-    specified connector.
-    \nconn.id: An existing connector ID.
-    \nid: A character vector containing database entry IDs (accession numbers).
-    \ndrop: If set to TRUE and the list of entries contains only one element,
-    then returns this element instead of the list. If set to FALSE, then returns
-    always a list.
-    \nReturned value: A list of BiodbEntry objects, the same length as `id`. A
-    NULL value is put into the list for each invalid ID of `id`.
-    "
 
     id <- as.character(id)
 
     # Get connector
-    conn <- .self$getConn(conn.id, class=FALSE, create=FALSE)
+    conn <- self$getConn(conn.id, class=FALSE, create=FALSE)
 
     # Correct IDs
     id <- conn$correctIds(id)
 
     # What entries are missing from cache?
-    missing.ids <- conn$.getEntryMissingFromCache(id)
+    missing.ids <- conn$.__enclos_env__$private$getEntryMissingFromCache(id)
 
     if (length(missing.ids) > 0)
-        new.entries <- .self$.loadEntries(conn$getId(), missing.ids, drop=FALSE)
+        new.entries <- private$loadEntries(conn$getId(), missing.ids, drop=FALSE)
 
     # Get entries
-    entries <- unname(conn$.getEntriesFromCache(id))
+    entries <- unname(conn$.__enclos_env__$private$getEntriesFromCache(id))
 
     # If the input was a single element, then output a single object
     if (drop && length(id) == 1)
@@ -288,80 +303,91 @@ getEntry=function(conn.id, id, drop=TRUE) {
     return(entries)
 },
 
+#' @description
+#' Creates a new entry from scratch. This entry is not stored in cache.
+#' @param db.class A database ID.
+#' @return A new BiodbEntry object.
 createNewEntry=function(db.class) {
-    ":\n\nCreates a new entry from scratch. This entry is not stored in cache.
-    \ndb.class: A database ID.
-    \nReturned value: A new BiodbEntry object.
-    "
 
     # Get database info
-    db.info <- .self$getBiodb()$getDbsInfo()$get(db.class)
+    db.info <- private$bdb$getDbsInfo()$get(db.class)
 
     # Get entry class
     entry.class <- db.info$getEntryClass()
 
     # Create entry instance
-    entry <- entry.class$new(parent=.self)
+    entry <- entry.class$new(parent=self)
 
     return(entry)
 },
 
+#' @description
+#' For a connector, gets all entries stored in the cache.
+#' @param conn.id A connector ID.
+#' @return A list of BiodbEntry objects.
 getAllCacheEntries=function(conn.id) {
-    ":\n\nFor a connector, gets all entries stored in the cache.
-    \nconn.id: A connector ID.
-    \nReturned values: A list of BiodbEntry objects.
-    "
 
     chk::chk_string(conn.id)
 
-    if ( ! conn.id %in% names(.self$.conn))
+    if ( ! conn.id %in% names(private$conn))
         error('Connector "%s" is unknown.', conn.id)
 
-    return(.self$.conn[[conn.id]]$getAllCacheEntries())
+    return(private$conn[[conn.id]]$getAllCacheEntries())
 },
 
+#' @description
+#' Deletes all entries stored in the cache of the given connector. This
+#'     method is deprecated, please use deleteAllEntriesFromVolatileCache()
+#'     instead.
+#' @param conn.id A connector ID.
+#' @return Nothing.
 deleteAllEntriesFromVolatileCache=function(conn.id) {
-    ":\n\nDeletes all entries stored in the cache of the given connector. This
-    method is deprecated, please use deleteAllEntriesFromVolatileCache()
-    instead.
-    \nconn.id: A connector ID.
-    \nReturned values: None.
-    "
 
     chk::chk_string(conn.id)
 
-    if ( ! conn.id %in% names(.self$.conn))
+    if ( ! conn.id %in% names(private$conn))
         error('Connector "%s" is unknown.', conn.id)
 
-    .self$.conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
+    private$conn[[conn.id]]$deleteAllEntriesFromVolatileCache()
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Deletes all entries stored in the cache of the given connector.
+#' @param conn.id A connector ID.
+#' @return Nothing.
 deleteAllCacheEntries=function(conn.id) { # DEPRECATED
-    ":\n\nDeletes all entries stored in the cache of the given connector.
-    \nconn.id: A connector ID.
-    \nReturned values: None.
-    "
     lifecycle::deprecate_soft('1.0.0', 'deleteAllCacheEntries()',
         "deleteAllEntriesFromVolatileCache()")
-    .self$deleteAllCacheEntries(conn.id)
+    self$deleteAllCacheEntries(conn.id)
+
+    return(invisible(NULL))
 },
 
-show=function() {
-    ":\n\nPrints information about this instance.
-    \nReturned values: None.
-    "
+#' @description
+#' Prints information about this instance.
+#' @return Nothing.
+print=function() {
 
     cat("Biodb factory instance.\n")
-},
 
-.loadEntries=function(conn.id, ids, drop) {
+    return(invisible(NULL))
+}
+),
+
+private=list(
+    conn=NULL,
+    bdb=NULL,
+
+loadEntries=function(conn.id, ids, drop) {
 
     new.entries <- list()
 
     if (length(ids) > 0) {
 
         # Get connector
-        conn <- .self$getConn(conn.id)
+        conn <- self$getConn(conn.id)
 
         # Debug
         biodb::logDebug("Creating entries from ids %s.", lst2str(ids))
@@ -370,22 +396,22 @@ show=function() {
         content <- conn$getEntryContent(ids)
 
         # Create entries
-        new.entries <- .self$.createEntryFromContent(conn$getId(),
+        new.entries <- private$createEntryFromContent(conn$getId(),
             content=content, drop=drop)
 
         # Store new entries in cache
-        conn$.addEntriesToCache(ids, new.entries)
+        conn$.__enclos_env__$private$addEntriesToCache(ids, new.entries)
     }
 
     return(new.entries)
 },
 
-.getExistingConn=function(new.conn) {
+getExistingConn=function(new.conn) {
 
     existingConn <- NULL
 
     # Loop on all connectors
-    for (conn in .self$.conn)
+    for (conn in private$conn)
         if (conn$getDbClass() == new.conn$getDbClass()) {
 
             # Compare base URLs
@@ -408,18 +434,18 @@ show=function() {
     return(existingConn)
 },
 
-.terminate=function() {
-    .self$deleteAllConnectors()
+terminate=function() {
+    self$deleteAllConnectors()
 },
 
-.createEntryFromContent=function(conn.id, content, drop=TRUE) {
+createEntryFromContent=function(conn.id, content, drop=TRUE) {
 
     entries <- list()
 
     if (length(content) > 0) {
 
         # Get connector
-        conn <- .self$getConn(conn.id)
+        conn <- self$getConn(conn.id)
 
         logDebug('Creating %s entries from %d content(s).',
             conn$getPropertyValue('name'), length(content))
@@ -430,7 +456,7 @@ show=function() {
         # Loop on all contents
         logDebug('Parsing %d %s entries.', length(content),
             conn$getPropertyValue('name'))
-        prg <- Progress$new(biodb=.self$getBiodb(),
+        prg <- Progress$new(biodb=private$bdb,
                             msg='Creating entry instances from contents',
                             total=length(content))
         for (single.content in content) {
@@ -468,6 +494,4 @@ show=function() {
 
     return(entries)
 }
-
 ))
-

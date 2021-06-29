@@ -1,15 +1,13 @@
 #' Class for handling requests.
 #'
 #' This class handles GET and POST requests, as well as file downloading. Each
-#' remote database connection instance (instance of concrete class inheriting
-#' from \code{BiodbRemotedbConn}, creates an instance of
+#' remote database connection instance creates an instance of
 #' \code{BiodbRequestScheduler} for handling database connection. A timer is
 #' used to schedule connections, and avoid sending too much requests to the
 #' database. This class is not meant to be used directly by the library user.
 #' See section Fields for a list of the constructor's parameters.
 #'
-#' @seealso \code{\link{BiodbRemotedbConn}},
-#' \code{\link{BiodbRequestSchedulerRule}}, \code{\link{BiodbConnObserver}}.
+#' @seealso \code{\link{BiodbRequestSchedulerRule}}.
 #'
 #' @examples
 #' # Create an instance with default settings:
@@ -31,42 +29,41 @@
 #' mybiodb$terminate()
 #' mybiodb <- NULL
 #'
-#' @import methods
-#' @include BiodbChildObject.R
-#' @include BiodbConnObserver.R
-#' @export BiodbRequestScheduler
-#' @exportClass BiodbRequestScheduler
-BiodbRequestScheduler <- methods::setRefClass("BiodbRequestScheduler",
-    contains=c("BiodbChildObject", "BiodbConnObserver"),
-    fields=list(
-        .ssl.verifypeer="logical",
-        .nb.max.tries="integer",
-        .host2rule="list",
-        .connid2rules="list"
-    ),
+#' @import R6
+#' @export
+BiodbRequestScheduler <- R6::R6Class("BiodbRequestScheduler",
 
-methods=list(
+public=list(
 
-initialize=function(...) {
+#' @description
+#' New instance initializer. BiodbRequestScheduler class must not be
+#' instantiated direrctly. Instead, use the getRequestScheduler() method from
+#' BiodbMain.
+#' @param bdb The BiodbMain instance.
+#' @return Nothing.
+initialize=function(bdb) {
 
-    callSuper(...)
+    chk::chk_is(bdb, 'BiodbMain')
 
-    .self$.connid2rules <- list()
-    .self$.host2rule <- list()
-    .self$.nb.max.tries <- 10L
-    .self$.ssl.verifypeer <- TRUE
+    private$bdb <- bdb
+    private$connid2rules <- list()
+    private$host2rule <- list()
+    private$nb.max.tries <- 10L
+    private$ssl.verifypeer <- TRUE
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Sends a SOAP request to a URL. Returns the string result.
+#' @param url The URL to access, as a character string.
+#' @param soap.request The XML SOAP request to send, as a character string. 
+#' @param soap.action The SOAP action to contact, as a character string.
+#' @param encoding The encoding to use.
+#' @return The results returned by the contacted server, as a single
+#'     string value.
 sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
     encoding=integer()) {
-    ":\n\nSends a SOAP request to a URL. Returns the string result.
-    \nurl: The URL to access, as a character string.
-    \nsoap.request: The XML SOAP request to send, as a character string. 
-    \nsoap.action: The SOAP action to contact, as a character string.
-    \nencoding: The encoding to use.
-    \nReturned value: The results returned by the contacted server, as a single
-    string value.
-    "
 
     # Prepare request
     header <- c(Accept="text/xml", Accept="multipart/*",
@@ -75,29 +72,29 @@ sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
         header <- c(header, SOAPAction=soap.action)
 
     # Send request
-    results <- .self$getUrl(url, method='post', header=header,
+    results <- self$getUrl(url, method='post', header=header,
         body=soap.request, encoding=encoding)
 
     return(results)
 },
 
+#' @description
+#' Sends a request, and returns content result.
+#' @param request A BiodbRequest instance.
+#' @param cache.read If set to TRUE, the cache system will be used. In case the
+#'     same request has already been already run and its results saved into the
+#'     cache, then the request is not run again, the targeted server not contacted,
+#'     and the results are directly loaded from the cache system.
+#' @return The results returned by the contacted server, as a single
+#'     string value.
 sendRequest=function(request, cache.read=TRUE) {
-    ":\n\nSends a request, and returns content result.
-    \nrequest: A BiodbRequest instance.
-    \ncache.read: If set to TRUE, the cache system will be used. In case the
-    same request has already been already run and its results saved into the
-    cache, then the request is not run again, the targeted server not contacted,
-    and the results are directly loaded from the cache system.
-    \nReturned value: The results returned by the contacted server, as a single
-    string value.
-    "
 
     content <- NA_character_
-    cch <- .self$getBiodb()$getPersistentCache()
-    cfg <- .self$getBiodb()$getConfig()
+    cch <- private$bdb$getPersistentCache()
+    cfg <- private$bdb$getConfig()
 
     # Get rule
-    rule <- .self$.findRule(request$getUrl())
+    rule <- self$findRule(request$getUrl())
 
     # Log URL
     logDebug0("Getting content of ", request$getMethod(), " URL request \"",
@@ -118,9 +115,9 @@ sendRequest=function(request, cache.read=TRUE) {
     if (is.na(content)) {
 
         # Check if in offline mode
-        .self$.checkOfflineMode()
+        private$checkOfflineMode()
 
-        content <- .self$.doSendRequestLoop(request=request, rule=rule)
+        content <- private$doSendRequestLoop(request=request, rule=rule)
 
         # Save content to cache
         if ( ! is.na(content) && cfg$isEnabled('cache.system')
@@ -137,16 +134,16 @@ sendRequest=function(request, cache.read=TRUE) {
     return(content)
 },
 
+#' @description
+#' Downloads the content of a URL and save it into the specified
+#'     destination file.
+#' @param url The URL to access, as a BiodbUrl object.
+#' @param dest.file A path to a destination file.
+#' @return Nothing.
 downloadFile=function(url, dest.file) {
-    ":\n\nDownloads the content of a URL and save it into the specified
-    destination file.
-    \nurl: The URL to access, as a BiodbUrl object.
-    \ndest.file: A path to a destination file.
-    \nReturned value: None.
-    "
 
     # Get rule
-    rule <- .self$.findRule(url)
+    rule <- self$findRule(url)
 
     # Wait required time between two requests
     rule$waitAsNeeded()
@@ -161,80 +158,91 @@ downloadFile=function(url, dest.file) {
 
     # Download
     logDebug('Downloading file "%s".', url)
-    cfg <- .self$getBiodb()$getConfig()
+    cfg <- private$bdb$getConfig()
     options(HTTPUserAgent=cfg$get('useragent'),
         timeout=cfg$get('dwnld.timeout'))
     utils::download.file(url=url, destfile=dest.file, mode='wb',
         method='auto', cacheOK=FALSE, quiet=FALSE)
     # TODO Add a biodb option for "quiet"?
+
+    return(invisible(NULL))
 },
 
-connTerminating=function(conn) {
-    .self$.unregisterConnector(conn)
+#' @description
+#' Call back function called when connector URLs are changed.
+#' @param conn The connector instance for which the URLs were changed.
+#' @return Nothing.
+notifyConnUrlsUpdated=function(conn) {
+
+    self$unregisterConnector(conn)
+    self$registerConnector(conn)
+
+    return(invisible(NULL))
 },
 
-connUrlsUpdated=function(conn) {
-    .self$.unregisterConnector(conn)
-    .self$.registerConnector(conn)
-},
+#' @description
+#' Call back function called when connector T and N parameters (frequency) are
+#' changed.
+#' @param conn The connector instance for which the frequency were changed.
+#' @return Nothing.
+notifyConnSchedulerFrequencyUpdated=function(conn) {
 
-connSchedulerFrequencyUpdated=function(conn) {
-
+    logDebug("Frequency changed for connector %s.", conn$getId())
     # Is connector not registered?
-    if ( ! conn$getId() %in% names(.self$.connid2rules))
+    if ( ! conn$getId() %in% names(private$connid2rules))
         warn('Connector "%s" has never been registered.', conn$getId())
 
     # Update frequency
     else {
-        for (rule in .self$.connid2rules[[conn$getId()]])
+        for (rule in private$connid2rules[[conn$getId()]])
             rule$recomputeFrequency()
     }
-},
 
-.checkOfflineMode=function() {
-
-    if (.self$getBiodb()$getConfig()$isEnabled('offline'))
-        error("Offline mode is enabled. All connections are forbidden.")
-},
-
-
-.registerConnector=function(conn) {
-
-    # Is connector already registered?
-    if (conn$getId() %in% names(.self$.connid2rules))
-        warn('Connector "%s" has already been registered.', conn$getId())
-
-    # Add connector
-    else {
-        # Register as observer
-        conn$.registerObserver(.self)
-
-        # Add connector
-        .self$.addConnectorRules(conn)
-    }
-    
     return(invisible(NULL))
 },
 
-.unregisterConnector=function(conn) {
+#' @description
+#' Builds a URL object, using a base URL and parameters to be passed.
+#' @param url A URL string.
+#' @param params A list of URL parameters.
+#' @return A BiodUrl object.
+getUrlString=function(url, params=list()) {
+    lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
 
-    # Is connector not registered?
-    if ( ! conn$getId() %in% names(.self$.connid2rules))
-        warn('Connector "%s" has never been registered.', conn$getId())
+    url <- BiodbUrl$new(url=url, params=params)$toString(encode=FALSE)
 
-    # Unregister connector
-    else {
-        # Unregister as observer
-        conn$.unregisterObserver(.self)
-
-        # Remove connector
-        .self$.removeConnectorRules(conn)
-    }
-    
-    return(invisible(NULL))
+    return(url)
 },
 
-.findRule=function(url, create=TRUE) {
+#' @description
+#' Sends a request and get the result.
+#' @param url A URL string.
+#' @param params A list of URL parameters.
+#' @param method The method to use. Either 'get' or 'post'.
+#' @param header The header to send.
+#' @param body The body to send.
+#' @param encoding The encoding to use.
+#' @return The results of the request.
+getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
+    body=character(), encoding=integer()) {
+
+    lifecycle::deprecate_warn('1.0.0', 'getUrl()',
+        "BiodbRequestScheduler::sendRequest()")
+
+    method <- match.arg(method)
+
+    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params),
+        method=method, header=header, body=body, encoding=encoding)
+
+    return(self$sendRequest(request))
+},
+
+#' @description
+#' Searches for a rule by host name. 
+#' @param url     The host URL.
+#' @param create  Sets to TRUE to create a rule when none exists.
+#' @return A BiodbRequestSchedulerRule object.
+findRule=function(url, create=TRUE) {
 
     chk::chk_not_null(url)
     if ( ! is(url, 'BiodbUrl')) {
@@ -244,25 +252,101 @@ connSchedulerFrequencyUpdated=function(conn) {
     domain <- url$getDomain()
 
     # Rule does not exist
-    if (create && ! domain %in% names(.self$.host2rule)) {
+    if (create && ! domain %in% names(private$host2rule)) {
         logInfo0('No rule exists for domain "', domain,
             '". Creating a default one.')
         rule <- BiodbRequestSchedulerRule$new(host=domain, conn=NULL)
-        .self$.host2rule[[domain]] <- rule
+        private$host2rule[[domain]] <- rule
     }
 
-    return(.self$.host2rule[[domain]])
+    return(private$host2rule[[domain]])
 },
 
-.addConnectorRules=function(conn) {
+#' @description
+#' Gets the rules associates with a connector.
+#' @param conn A valid connector object.
+#' @return A list of rules.
+getConnectorRules=function(conn) {
+    chk::chk_is(conn, 'BiodbConn')
+    return(private$connid2rules[[conn$getId()]])
+},
 
-    .self$.connid2rules[[conn$getId()]] <- list()
+#' @description
+#' Registers a new connector with the scheduler.
+#' @param conn A valid connector object.
+#' @return Nothing.
+registerConnector=function(conn) {
+
+    logDebug('Register connector %s.', conn$getId())
+
+    # Is connector already registered?
+    if (conn$getId() %in% names(private$connid2rules))
+        warn('Connector "%s" has already been registered.', conn$getId())
+
+    # Add connector
+    else {
+        # Register as observer
+        conn$.__enclos_env__$private$registerObserver(self)
+
+        # Add connector
+        private$addConnectorRules(conn)
+    }
+    
+    return(invisible(NULL))
+},
+
+#' @description
+#' Unregisters a connector from this scheduler.
+#' @param conn A valid connector object.
+#' @return Nothing.
+unregisterConnector=function(conn) {
+
+    # Is connector not registered?
+    if ( ! conn$getId() %in% names(private$connid2rules))
+        warn('Connector "%s" has never been registered.', conn$getId())
+
+    # Unregister connector
+    else {
+        # Unregister as observer
+        conn$.__enclos_env__$private$unregisterObserver(self)
+
+        # Remove connector
+        private$removeConnectorRules(conn)
+    }
+    
+    return(invisible(NULL))
+},
+
+#' @description
+#' Gets all defined rules.
+#' @return The list of all rules.
+getAllRules=function() {
+    return(private$host2rule)
+}
+),
+
+private=list(
+    host2rule=NULL,
+    connid2rules=NULL,
+    bdb=NULL,
+    nb.max.tries=NULL,
+    ssl.verifypeer=NULL,
+
+checkOfflineMode=function() {
+
+    if (private$bdb$getConfig()$isEnabled('offline'))
+        error("Offline mode is enabled. All connections are forbidden.")
+},
+
+addConnectorRules=function(conn) {
+
+    private$connid2rules[[conn$getId()]] <- list()
 
     # Loop on all connector URLs
     for (url in conn$getPropertyValue('urls')) {
 
         # Check if a rule already exists
-        rule <- .self$.findRule(url, create=FALSE)
+        rule <- self$findRule(url, create=FALSE)
 
         # No rule exists => create new one
         if (is.null(rule)) {
@@ -270,7 +354,7 @@ connSchedulerFrequencyUpdated=function(conn) {
             logDebug0('Create new rule for URL "', host,'" of connector "',
                 conn$getId(), '".')
             rule <- BiodbRequestSchedulerRule$new(host=host, conn=conn)
-            .self$.host2rule[[rule$getHost()]] <- rule
+            private$host2rule[[rule$getHost()]] <- rule
         }
 
         # A rule with the same host already exists, add connector to it
@@ -278,41 +362,34 @@ connSchedulerFrequencyUpdated=function(conn) {
             rule$addConnector(conn)
 
         # Add rule
-        rules <- .self$.connid2rules[[conn$getId()]]
+        rules <- private$connid2rules[[conn$getId()]]
         fct <- function(x) identical(rule, x)
         if ( ! any(vapply(rules, fct, FUN.VALUE=TRUE)))
-            .self$.connid2rules[[conn$getId()]] <- c(rules, rule)
+            private$connid2rules[[conn$getId()]] <- c(rules, rule)
     }
+
+    return(invisible(NULL))
 },
 
-.getAllRules=function() {
-    return(.self$.host2rule)
-},
-
-.getConnectorRules=function(conn) {
-    chk::chk_is(conn, 'BiodbConn')
-    return(.self$.connid2rules[[conn$getId()]])
-},
-
-.removeConnectorRules=function(conn) {
+removeConnectorRules=function(conn) {
 
     # Get rules
-    rules <- .self$.connid2rules[[conn$getId()]]
+    rules <- private$connid2rules[[conn$getId()]]
 
     # Loop on connector rules
     for (rule in rules) {
 
-        if (length(rule$getConnectors()) == 1)
-            .self$.host2rule[[rule$getHost()]] <- NULL
+        if (length(rule$getConnectors()) <= 1)
+            private$host2rule[[rule$getHost()]] <- NULL
         else
             rule$removeConnector(conn)
     }
     
     # Remove connector
-    .self$.connid2rules[[conn$getId()]] <- NULL
+    private$connid2rules[[conn$getId()]] <- NULL
 },
 
-.processRequestErrors=function(content, hdr, err_msg, retry) {
+processRequestErrors=function(content, hdr, err_msg, retry) {
 
     # Recoverable HTTP errors
     lst <- c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT,
@@ -352,12 +429,12 @@ connSchedulerFrequencyUpdated=function(conn) {
     return(list(retry=retry, err_msg=err_msg))
 },
 
-.doSendRequestOnce=function(request) {
+doSendRequestOnce=function(request) {
 
     content <- NA_character_
     err_msg <- NULL
     retry <- FALSE
-    cfg <- .self$getBiodb()$getConfig()
+    cfg <- private$bdb$getConfig()
 
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
@@ -371,7 +448,7 @@ connSchedulerFrequencyUpdated=function(conn) {
     content <- tryCatch(expr={
             if (request$getMethod() == 'get')
                 RCurl::getURL(request$getUrl()$toString(), .opts=opts,
-                    ssl.verifypeer=.self$.ssl.verifypeer,
+                    ssl.verifypeer=private$ssl.verifypeer,
                     .encoding=request$getEncoding(),
                     headerfunction=header$update)
             else
@@ -381,7 +458,7 @@ connSchedulerFrequencyUpdated=function(conn) {
             },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
-        error <- function(err) { retry=FALSE ; curl.error=err })
+        error <-function(err) { retry=FALSE ; curl.error=err })
 
     # RCurl error
     if ( ! is.null(curl.error))
@@ -413,20 +490,20 @@ connSchedulerFrequencyUpdated=function(conn) {
         }
     }
 
-    res <- .self$.processRequestErrors(content=content, hdr=hdr,
+    res <- private$processRequestErrors(content=content, hdr=hdr,
         err_msg=err_msg, retry=retry)
 
     return(list(content=content, err_msg=res$err_msg, retry=res$retry))
 },
 
-.doSendRequestLoop=function(request, rule) {
+doSendRequestLoop=function(request, rule) {
 
     content <- NA_character_
 
     # Enter query loop
     i <- 0
     retry <- TRUE
-    while (retry && i < .self$.nb.max.tries) {
+    while (retry && i < private$nb.max.tries) {
 
         # Increment try number
         i <- i + 1
@@ -440,7 +517,7 @@ connSchedulerFrequencyUpdated=function(conn) {
         rule$waitAsNeeded()
 
         # Send request
-        res <- .self$.doSendRequestOnce(request=request)
+        res <- private$doSendRequestOnce(request=request)
         retry <- res$retry
 
         # Print connection error message
@@ -458,31 +535,5 @@ connSchedulerFrequencyUpdated=function(conn) {
     }
 
     return(content)
-},
-
-getUrlString=function(url, params=list()) {
-    "Build a URL string, using a base URL and parameters to be passed."
-
-    lifecycle::deprecate_soft('1.0.0', 'getUrlString()', "BiodbUrl::toString()")
-
-    url <- BiodbUrl$new(url=url, params=params)$toString(encode=FALSE)
-
-    return(url)
-},
-
-getUrl=function(url, params=list(), method=c('get', 'post'), header=character(),
-    body=character(), encoding=integer()) {
-    "Send a URL request, either with GET or POST method, and return result."
-
-    lifecycle::deprecate_warn('1.0.0', 'getUrl()',
-        "BiodbRequestScheduler::sendRequest()")
-
-    method <- match.arg(method)
-
-    request <- BiodbRequest$new(url=BiodbUrl$new(url=url, params=params),
-        method=method, header=header, body=body, encoding=encoding)
-
-    return(.self$sendRequest(request))
 }
-
 ))

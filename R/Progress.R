@@ -7,10 +7,6 @@
 #' This class displays progress of a process to user, and sends
 #' notifications of this progress to observers too.
 #'
-#' @import R6
-#' @import chk
-#' @import progress
-#'
 #' @examples
 #' # Create an instance
 #' prg <- biodb::Progress$new(msg='Processing data.', total=10)
@@ -21,18 +17,21 @@
 #'     prg$increment()
 #' }
 #'
+#' @import R6
+#' @import chk
+#' @import progress
 #' @export
 Progress <- R6::R6Class('Progress'
 
 ,public=list(
 
 #' @description
-#' Constructor.
+#' Initializer.
 #' @param biodb A BiodbMain instance that will be used to notify observers of
 #' progress.
 #' @param msg The message to display to the user.
 #' @param total The total number of elements to process.             
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(biodb=NULL, msg, total){
     if ( ! is.null(biodb))
         chk::chk_is(biodb, "BiodbMain")
@@ -45,7 +44,9 @@ initialize=function(biodb=NULL, msg, total){
     private$index <- 0
     private$total <- total
     fmt <- sprintf("%s [:bar] :percent ETA: :eta", msg)
-    private$bar <- progress_bar$new(format=fmt, total=total)
+    private$bar <- progress::progress_bar$new(format=fmt, total=total)
+
+    return(invisible(NULL))
 }
 
 #' @description
@@ -60,8 +61,8 @@ initialize=function(biodb=NULL, msg, total){
     
     # Notify biodb observers
     if ( ! is.null(private$biodb))
-        private$biodb$notify('notifyProgress', list(what=private$msg,
-            index=private$index, total=private$total))
+        notifyObservers(private$biodb$getObservers(), 'notifyProgress',
+            what=private$msg, index=private$index, total=private$total)
     
     return(invisible(NULL))
 }    

@@ -235,7 +235,7 @@ This method is run after `.parseFieldsStep1()`, which is defined inside the
 mother class (here `BiodbXmlEntry`) and executes the parsing expression defined
 inside `inst/definitions.yml`.
 
-Note: *biodb* uses the [Reference classes](http://adv-r.had.co.nz/R5.html) as
+Note: *biodb* uses [R6](https://adv-r.hadley.nz/r6.html) as
 OOP (Object Oriented Programming) model.
 Please see vignette
 ```{r, echo=FALSE, results='asis'}
@@ -257,10 +257,7 @@ Here the generated skeleton:
 ### Inheritance
 
 The connector class is responsible for the connection to the database.
-In our case, the database is a remote database, thus our connector class must
-inherit from the `BiodbRemotedbConn` class.
-But it is also a compound database, so it must also inherit from
-`BiodbCompounddbConn`.
+In our case, the database is a compound database.
 
 ### Methods to implement
 
@@ -273,12 +270,12 @@ Method                        | Description
 `.doSearchForEntries()`  | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
 : (\#tab:chebiExMethods) Methods to implement inside the chebi.ex connector.
 
-See the help inside R about `BiodbRemotedbConn` and `BiodbConn` for details
+See the help inside R about `BiodbConn` for details
 about the parameters of those functions.
 
-### BiodbRemotedbConn methods
+### Remote connection methods
 
-The implemented `BiodbRemotedbConn`'s methods are used for three different goals.
+The remote methods are used for three different goals.
 First to build URLs that access the web site, to get the URL of an entry page
 (`getEntryPageUrl()`) or to get the URL of an entry picture
 (`getEntryImageUrl()`) like a molecule representation.
@@ -431,8 +428,6 @@ can also be used to generate skeleton for all the types described here.
 ### Connector for a local database
 
 With *biodb* we can also write a connector for a local database.
-In that case, our class has to inherit directly from `BiodbConn`, not from
-`BiodbRemotedbConn`.
 As a matter of fact, all the connectors included in *biodb* base package are
 local connectors only: `mass.csv.file`, `comp.csv.file` and `mass.sqlite`.
 See \@ref(tab:connMethods) for a list of methods to implement when writing a local connector.
@@ -450,8 +445,6 @@ Method                       | Description
 
 In the example above, we have implemented a compound database.
 Another type of database is a mass spectra database.
-*biodb* defines the abstract mass database connector `BiodbMassdbConn` that
-proposes a generic API for all mass spectra databases.
 The following connectors included in *biodb* package are mass spectra database
 connectors: `mass.csv.file` and `mass.sqlite`.
 See \@ref(tab:massdbConnMethods) for a list of methods to implement when
@@ -464,7 +457,7 @@ Method                       | Description
 `.doGetMzValues()`           | Returns a list of M/Z values contained inside the database, with the possibility of filtering on MS mode, MS level, and some other variables.
 `.doSearchMzRange()`         | Searches for spectra using an M/Z range and optional filtering on some other variables.
 
-: (\#tab:massdbConnMethods) `BiodbMassdbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbMassdbConn` class.
+: (\#tab:massdbConnMethods) Methods to implement when defining a connector to a mass spectra database.
 
 ### Connector for a downloadable database
 
@@ -472,10 +465,10 @@ Some database servers do not propose web services, or other connection to the
 database, but propose to download the whole database for local processing.
 
 *biodb* offers the possibility to handle the connection to such database
-servers, by implementing the `BiodbDownloadable` interface into your connector
-class, which already inherits from `BiodbRemotedbConn`.
+servers, by setting `downloadable` to `TRUE` inside the definition of the
+database connector.
 
-See \@ref(tab:downloadableMethods) for a list of methods to implement when writing downloadable database connector.
+See \@ref(tab:downloadableMethods) for a list of methods to implement inside your connector when writing a downloadable database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
@@ -483,7 +476,7 @@ Method                       | Description
 `.doDownload()`              | This method must implement the download of the database file.
 `.doExtractDownload()`       | This method must implement the extraction of the database files (e.g.: from a zip).
 
-: (\#tab:downloadableMethods) `BiodbDownloadable` methods to implement. The list of methods to override when implementing the `BiodbDownloadable`interface. 
+: (\#tab:downloadableMethods) Methods to implement when defining a downloadable connector class.
 
 ### How to implement other types of entry classes
 
@@ -541,10 +534,10 @@ When declaring the constructor for your own entry class, do not forget to call
 the mother class constructor to pass it your separator and/or the string values
 that have to be converted to `NA`:
 ```{r}
-MyEntryClass <- methods::setRefClass("MyEntryClass", contains="BiodbCsvEntry",
-    methods=list(
+MyEntryClass <- R6::R6Class("MyEntryClass", inherit=biodb::BiodbCsvEntry,
+    public=list(
         initialize=function() {
-            callSuper(sep=';', na.strings=c('', 'NA'))
+            super$initialize(sep=';', na.strings=c('', 'NA'))
         }
 ))
 ```

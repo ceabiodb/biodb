@@ -37,7 +37,7 @@ This class represents a rule for the request scheduler.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor.
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbRequestSchedulerRule$new(host, conn = NULL)}\if{html}{\out{</div>}}
 }
@@ -50,6 +50,9 @@ Constructor.
 \item{\code{conn}}{The connector instance that is concerned by this rule.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -114,7 +117,7 @@ numeric value.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -147,7 +150,7 @@ Associate a connector with this rule.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -167,7 +170,7 @@ Disassociate a connector from this rule.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -180,7 +183,7 @@ Displays information about this instance.
 }
 
 \subsection{Returns}{
-None.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

@@ -8,9 +8,9 @@ A class for generating a new connector class.
 }
 \details{
 This class generates a new connector class from given parameters.
-The new class can inherit directly from \code{BiodbConn} or
-\code{BiodbCompounddbConn} or \code{BiodbMassdbConn}.
-It can also be editable and/or writable.
+The new class inherits from \code{BiodbConn}.
+It can be defined as a compound or mass database connector, and made
+downloadable, editable and/or writable.
 }
 \examples{
 # Generate a new connector class inside R folder:
@@ -43,7 +43,7 @@ biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ExtConnClass$new(...)}\if{html}{\out{</div>}}
 }
@@ -56,7 +56,7 @@ Constructor
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

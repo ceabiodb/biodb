@@ -42,26 +42,27 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
-#' @include BiodbChildObject.R
-#' @export BiodbConnBase
-#' @exportClass BiodbConnBase
-BiodbConnBase <- methods::setRefClass("BiodbConnBase",
-    contains="BiodbChildObject",
-    fields=list(
-        .db.class="character",
-        .observers='list',
-        .prop.def='list',
-        .prop='list',
-        .run.hooks='character'),
+#' @import R6
+#' @export
+BiodbConnBase <- R6::R6Class("BiodbConnBase",
 
-methods=list(
+public=list(
 
-initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
+#' @description
+#' New instance initializer. Connector objects must not be created directly.
+#' Instead, you create new connector instances through the BiodbFactory
+#' instance.
+#' @param other Another BiodbConnBase instance as a model from which to
+#' copy property values.
+#' @param db.class   The class of the connector (i.e.: "mass.csv.file").
+#' @param properties Some new values for the properties.
+#' @param cfg   The BiodbConfig instance from which will be taken some
+#' property values.
+#' @return Nothing.
+initialize=function(other=NULL, db.class=NULL, properties=NULL, cfg=NULL) {
 
-    callSuper(...)
-    .self$.abstractClass('BiodbConnBase')
-    .self$.run.hooks <- character()
+    abstractClass('BiodbConnBase', self)
+    private$runHooks <- character()
 
     # Take parameter values from other object instance
     if ( ! is.null(other)) {
@@ -73,359 +74,547 @@ initialize=function(other=NULL, db.class=NULL, properties=NULL, ...) {
 
     # Set database class
     chk::chk_string(db.class)
-    .self$.db.class <- db.class
+    private$dbClass <- db.class
 
     # Set observers
-    .self$.observers <- list()
+    private$observers <- list()
 
-    # Set if it is a remote database connector
-    if (methods::extends(.self$getConnClassName(), "BiodbRemotedbConn")
-        || ('scheduler.n' %in% names(properties)
-            && ! is.na(properties$scheduler.n))
-        || ('scheduler.t' %in% names(properties)
-            && ! is.na(properties$scheduler.t))
-        || ('urls' %in% names(properties)
-            && 'base.url' %in% names(properties$url)
-            && length(grep('^http', properties$url$base.url)) > 0))
-        properties$remotedb <- TRUE
-    
     # Set properties
-    .self$.defineProperties(other, properties)
+    private$defineProperties(other, properties, cfg=cfg)
+
+    return(invisible(NULL))
 },
 
-show=function() {
-    ":\n\nPrints a description of this connector.
-    \nReturned value: None.
-    "
+#' @description
+#' Prints a description of this connector.
+#' @return Nothing.
+print=function() {
 
     # Title
-    type <- if (class(.self) %in% c('BiodbConnBase', 'BiodbDbInfo')) "class"
+    type <- if (class(self)[[1]] %in% c('BiodbConnBase', 'BiodbDbInfo')) "class"
         else "instance"
-    cat(.self$getPropertyValue('name'), ' ', type, ".\n", sep='')
+    cat(self$getPropertyValue('name'), ' ', type, ".\n", sep='')
     
     # Name / ID
-    cat("  Class: ", .self$.db.class, ".\n", sep='')
+    cat("  Class: ", private$dbClass, ".\n", sep='')
 
     # Package
-    cat('  Package: ', .self$getPropertyValue('package'), ".\n", sep='')
+    cat('  Package: ', self$getPropertyValue('package'), ".\n", sep='')
 
     # Description
-    if (.self$hasProp('description')
-        && ! is.na(.self$getPropertyValue('description')))
-        cat("  Description: ", .self$getPropertyValue('description'), ".\n",
+    if (self$hasProp('description')
+        && ! is.na(self$getPropertyValue('description')))
+        cat("  Description: ", self$getPropertyValue('description'), ".\n",
             sep='')
 
     # Entry content type
-    cat('  Entry content type: ', .self$getPropertyValue('entry.content.type'),
+    cat('  Entry content type: ', self$getPropertyValue('entry.content.type'),
         ".\n", sep='')
     
     # URL
-    if (.self$hasProp('urls')) {
+    if (self$hasProp('urls')) {
         i <- 0
-        for (slot in .self$getPropSlots('urls')) {
+        for (slot in self$getPropSlots('urls')) {
             cat(if (i == 0) '  URLs: ' else '        ')
-            cat(slot, ': ', .self$getPropValSlot('urls', slot), ".\n", sep='')
+            cat(slot, ': ', self$getPropValSlot('urls', slot), ".\n", sep='')
             i <- i + 1
         }
     }
 
     # Scheduler parameters
-    if (.self$getPropertyValue('remotedb')) {
-        st <- .self$getPropertyValue('scheduler.t')
-        sn <- .self$getPropertyValue('scheduler.n')
+    if (self$getPropertyValue('remote')) {
+        st <- self$getPropertyValue('scheduler.t')
+        sn <- self$getPropertyValue('scheduler.n')
         if ( ! is.na(st) && ! is.na(sn))
             cat('  Request maximum rate: ', sn, ' request(s) every ',
                 st, ' second(s)', ".\n", sep='')
     }
 
     # Disabled
-    if (.self$getPropertyValue('disabled')) {
-        reason <- .self$getPropertyValue('disabling.reason')
+    if (self$getPropertyValue('disabled')) {
+        reason <- self$getPropertyValue('disabling.reason')
         cat('This connector currently is DISABLED. ', reason, "\n")
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Tests if this connector has a property.
+#' @param name The name of the property to check.
+#' @return Returns true if the property `name` exists.
 hasProp=function(name) {
-    ":\n\nTests if this connector has a property.
-    \nname: The name of the property to check.
-    \nReturned value: Returns true if the property `name` exists.
-    "
 
-    .self$.checkProperty(name)
+    private$checkProperty(name)
 
-    return (name %in% names(.self$.prop))
+    return (name %in% names(private$prop))
 },
 
+#' @description
+#' Gets the slot fields of a property.
+#' @param name The name of a property.
+#' @return Returns a character vector containing all slot names
+#' defined.
 getPropSlots=function(name) {
-    ":\n\nGets the slot fields of a property.
-    \nname: The name of a property.
-    \nReturned value: Returns a character vector containing all slot names
-    defined."
 
-    .self$.checkProperty(name, slot=TRUE)
+    private$checkProperty(name, slot=TRUE)
 
-    return (names(.self$.prop[[name]]))
+    return (names(private$prop[[name]]))
 },
 
+#' @description
+#' Tests if a slot property has a specific slot.
+#' @param name The name of a property.
+#' @param slot The slot name to check.
+#' @return Returns TRUE if the property `name` exists and has the
+#' slot `slot` defined, and FALSE otherwise."
 hasPropSlot=function(name, slot) {
-    ":\n\nTests if a slot property has a specific slot.
-    \nname: The name of a property.
-    \nslot: The slot name to check.
-    \nReturned value: Returns TRUE if the property `name` exists and has the
-    slot `slot` defined, and FALSE otherwise."
 
-    .self$.checkProperty(name, slot=slot)
+    private$checkProperty(name, slot=slot)
 
-    return (.self$hasProp(name) && slot %in% names(.self$.prop[[name]]))
+    return (self$hasProp(name) && slot %in% names(private$prop[[name]]))
 },
 
+#' @description
+#' Checks if property exists.
+#' @param name The name of a property.
+#' @return Returns TRUE if the property `name` exists, and FALSE
+#' otherwise.
 propExists=function(name) {
-    ":\n\nChecks if property exists.
-    \nname: The name of a property.
-    \nReturned value: Returns TRUE if the property `name` exists, and FALSE
-    otherwise."
 
-    return(.self$.checkProperty(name, fail=FALSE))
+    return(private$checkProperty(name, fail=FALSE))
 },
 
+#' @description
+#' Tests if a property is a slot property.
+#' @param name The name of a property.
+#' @return Returns TRUE if the property is a slot propert, FALSE
+#' otherwise.
 isSlotProp=function(name) {
-    ":\n\nTests if a property is a slot property.
-    \nname: The name of a property.
-    \nReturned value: Returns TRUE if the property is a slot propert, FALSE
-    otherwise."
 
-    return(.self$.checkProperty(name, slot=TRUE, fail=FALSE))
+    return(private$checkProperty(name, slot=TRUE, fail=FALSE))
 },
 
+#' @description
+#' Retrieve the value of a slot of a property.
+#' @param name The name of a property.
+#' @param slot The slot name inside the property.
+#' @return The value of the slot `slot` of the property `name`.
 getPropValSlot=function(name, slot) {
-    ":\n\nRetrieve the value of a slot of a property.
-    \nname: The name of a property.
-    \nslot: The slot name inside the property.
-    \nReturned value: The value of the slot `slot` of the property `name`.
-    "
 
-    value <- .self$getPropertyValue(name)
-    .self$.checkProperty(name=name, slot=slot)
+    value <- self$getPropertyValue(name)
+    private$checkProperty(name=name, slot=slot)
 
     if (slot %in% names(value))
         value <- value[[slot]]
     else {
-        pdef <- .self$.prop.def[[name]]
+        pdef <- private$propDef[[name]]
         value <- as.vector(NA, mode=pdef$class)
     }
 
     return(value)
 },
 
+#' @description
+#' Update the definition of properties.
+#' @param def A named list of property definitions. The names of the list must
+#' be the property names.
+#' @return Nothing.
 updatePropertiesDefinition=function(def) {
-    ":\n\nUpdate the definition of properties.
-    \ndef: A named list of property definitions. The names of the list must be
-    the property names.
-    \nReturned value: None.
-    "
 
     # Loop on properties
     for (prop in names(def)) {
 
         # Set value to an unset property
-        if ( ! prop %in% names(.self$.prop))
-            .self$setPropertyValue(prop, def[[prop]])
+        if ( ! prop %in% names(private$prop))
+            self$setPropertyValue(prop, def[[prop]])
 
         # Update value of a slot property
-        else if (.self$isSlotProp(prop))
+        else if (self$isSlotProp(prop))
             for (slot in names(def[[prop]]))
-                .self$setPropValSlot(prop, slot, def[[prop]][[slot]])
+                self$setPropValSlot(prop, slot, def[[prop]][[slot]])
 
         # Update a single value
         else
-            .self$setPropertyValue(prop, def[[prop]])
+            self$setPropertyValue(prop, def[[prop]])
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Reimplement this method in your connector class to define parsing
+#' expressions dynamically.
+#' @return Nothing.
 defineParsingExpressions=function() {
-    ":\n\nReimplement this method in your connector class to define parsing
-    expressions dynamically.
-    \nReturned value: None.
-    "
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Returns the entry file extension used by this connector.
+#' @return A character value containing the file extension.
 getEntryFileExt=function() {
-    ":\n\nReturns the entry file extension used by this connector.
-    \nReturned value: A character value containing the file extension.
-    "
 
-    if (.self$getPropertyValue('entry.content.type') == 'list')
+    if (self$getPropertyValue('entry.content.type') == 'list')
         ext <- 'json'
     else
-        ext <- .self$getPropertyValue('entry.content.type')
+        ext <- self$getPropertyValue('entry.content.type')
 
     return(ext)
 },
 
+#' @description
+#' Gets the Biodb name of the database associated with this connector.
+#' @return A character value containing the Biodb database name.
 getDbClass=function() {
-    ":\n\nGets the Biodb name of the database associated with this connector.
-    \nReturned value: A character value containing the Biodb database name.
-    "
 
-    return(.self$.db.class)
+    return(private$dbClass)
 },
 
+#' @description
+#' Gets the name of the associated connector OOP class.
+#' @return Returns the connector OOP class name.
 getConnClassName=function() {
-    ":\n\nGets the name of the associated connector OOP class.
-    \nReturned value: Returns the connector OOP class name.
-    "
 
-    return(biodb:::getConnClassName(.self$.db.class))
+    return(biodb:::getConnClassName(private$dbClass))
 },
 
+#' @description
+#' Gets the associated connector OOP class.
+#' @return Returns the connector OOP class.
 getConnClass=function() {
-    ":\n\nGets the associated connector OOP class.
-    \nReturned value: Returns the connector OOP class.
-    "
 
     # Load associated package
-    pkg <- .self$getPropertyValue('package')
+    pkg <- self$getPropertyValue('package')
     require(pkg, character.only=TRUE)
 
-    return(get(.self$getConnClassName()))
+    return(get(self$getConnClassName()))
 },
 
+#' @description
+#' Gets the name of the associated entry class.
+#' @return Returns the name of the associated entry class.
 getEntryClassName=function() {
-    ":\n\nGets the name of the associated entry class.
-    \nReturned value: Returns the name of the associated entry class.
-    "
 
-    return(biodb:::getEntryClassName(.self$.db.class))
+    return(biodb:::getEntryClassName(private$dbClass))
 },
 
+#' @description
+#' Gets the associated entry class.
+#' @return Returns the associated entry class.
 getEntryClass=function() {
-    ":\n\nGets the associated entry class.
-    \nReturned value: Returns the associated entry class.
-    "
 
     # Load associated package
-    pkg <- .self$getPropertyValue('package')
+    pkg <- self$getPropertyValue('package')
     require(pkg, character.only=TRUE)
 
-    return(get(.self$getEntryClassName()))
+    return(get(self$getEntryClassName()))
 },
 
+#' @description
+#' Gets the name of the corresponding database ID field in entries.
+#' @return Returns the name of the database ID field.
 getEntryIdField=function() {
-    ":\n\nGets the name of the corresponding database ID field in entries.
-    \nReturned value: Returns the name of the database ID field.
-    "
 
-    return(paste(.self$.db.class, 'id', sep='.'))
+    return(paste(private$dbClass, 'id', sep='.'))
 },
 
+#' @description
+#' Gets a property value.
+#' @param name The name of the property.
+#' @return The value of the property.
 getPropertyValue=function(name) {
-    ":\n\nGets a property value.
-    \nname: The name of the property.
-    \nReturned value: The value of the property.
-    "
 
-    .self$.checkProperty(name)
-    pdef <- .self$.prop.def[[name]]
+    private$checkProperty(name)
+    pdef <- private$propDef[[name]]
 
     # Run hook
-    if ('hook' %in% names(pdef) && ! pdef$hook %in% .self$.run.hooks) {
-        .self$.run.hooks <- c(.self$.run.hooks, pdef$hook)
-        eval(parse(text=paste0('.self$', pdef$hook, '()')))
+    if ('hook' %in% names(pdef) && ! pdef$hook %in% private$runHooks) {
+        private$runHooks <- c(private$runHooks, pdef$hook)
+        eval(parse(text=paste0('self$', pdef$hook, '()')))
     }
 
     # Get value
-    if (name %in% names(.self$.prop))
-        value <- .self$.prop[[name]]
+    if (name %in% names(private$prop))
+        value <- private$prop[[name]]
     else
         value <- pdef$default
 
     return(value)
 },
 
+#' @description
+#' Sets the value of a property.
+#' @param name The name of the property.
+#' @param value The new value to set the property to.
+#' @return Nothing.
 setPropertyValue=function(name, value) {
-    ":\n\nSets the value of a property.
-    \nname: The name of the property.
-    \nvalue: The new value to set the property to.
-    \nReturned value: None.
-    "
+
+    logDebug('Setting property "%s" to "%s".', name, value)
 
     # Check value
-    value <- .self$.chkPropVal(name, value)
+    value <- private$chkPropVal(name, value)
 
     # Is this property already set and not modifiable?
-    if (name %in% names(.self$.prop)
-        && 'modifiable' %in% names(.self$.prop.def[[name]])
-        && ! .self$.prop.def[[name]]$modifiable
-        && ! identical(.self$.prop[[name]], value))
-        error0('Property "', name, '" of database "', .self$getDbClass(),
-            '" is not modifiable. Current value is "', .self$.prop[[name]],
+    if (name %in% names(private$prop)
+        && 'modifiable' %in% names(private$propDef[[name]])
+        && ! private$propDef[[name]]$modifiable
+        && ! identical(private$prop[[name]], value))
+        error0('Property "', name, '" of database "', self$getDbClass(),
+            '" is not modifiable. Current value is "', private$prop[[name]],
             '". New desired value was "', value, '".')
 
     # Set value
-    .self$.prop[[name]] <- value
+    private$prop[[name]] <- value
 
     # Notify observers
-    for (obs in .self$.observers)
-        if (name %in% c('scheduler.n', 'scheduler.t'))
-            obs$connSchedulerFrequencyUpdated(.self)
-        else if (name == 'urls')
-            obs$connUrlsUpdated(.self)
+    if (name %in% c('scheduler.n', 'scheduler.t')) {
+        logDebug("Notifying observers about frequency change.")
+        notifyObservers(private$observers,
+            'notifyConnSchedulerFrequencyUpdated', conn=self)
+    }
+    else if (name == 'urls') {
+        logDebug("Notifying observers about URLs change.")
+        notifyObservers(private$observers, 'notifyConnUrlsUpdated',
+            conn=self)
+    }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Set the value of the slot of a property.
+#' @param name The name of the property.
+#' @param slot The name of the property's slot.
+#' @param value The new value to set the property's slot to.
+#' @return Nothing.
 setPropValSlot=function(name, slot, value) {
-    ":\n\nSet the value of the slot of a property.
-    \nname: The name of the property.
-    \nslot: The name of the property's slot.
-    \nvalue: The new value to set the property's slot to.
-    \nReturned value: None.
-    "
 
-    .self$.checkProperty(name=name, slot=slot)
+    private$checkProperty(name=name, slot=slot)
 
     # Get current value
-    curval <- .self$getPropertyValue(name)
+    curval <- self$getPropertyValue(name)
 
     # Add/set new value
     curval[[slot]] <- value
 
     # Update value
-    .self$setPropertyValue(name, curval)
+    self$setPropertyValue(name, curval)
+
+    return(invisible(NULL))
 },
 
-.terminate=function() {
+#' @description
+#' Returns the base URL.
+#' @return THe baae URL.
+getBaseUrl=function() {
 
-    # Notify observers
-    for (obs in .self$.observers)
-        obs$connTerminating(.self)
+    lifecycle::deprecate_warn('1.0.0', "getBaseUrl()", "getPropValSlot()")
 
-    # Do terminate (do specific job for the connector)
-    .self$.doTerminate()
+    return(self$getPropValSlot('urls', 'base.url'))
 },
 
-.doTerminate=function() {
+#' @description
+#' Sets the base URL.
+#' @param url A URL as a character value.
+#' @return Nothing.
+setBaseUrl=function(url) {
+
+    lifecycle::deprecate_warn('1.0.0', "setBaseUrl()", "setPropValSlot()")
+
+    self$setPropValSlot('urls', 'base.url', url)
+
+    return(invisible(NULL))
 },
 
-.registerObserver=function(obs) {
+#' @description
+#' Returns the web sevices URL.
+getWsUrl=function() {
 
-    chk::chk_is(obs, 'BiodbConnObserver')
+    lifecycle::deprecate_warn('1.0.0', "getWsUrl()", "getPropValSlot()")
+
+    return(self$getPropValSlot('urls', 'ws.url'))
+},
+
+#' @description
+#' Sets the web sevices URL.
+#' @param ws.url A URL as a character value.
+#' @return Nothing.
+setWsUrl=function(ws.url) {
+
+    lifecycle::deprecate_warn('1.0.0', "setWsUrl()", "setPropValSlot()")
+
+    self$setPropValSlot('urls', 'ws.url', ws.url)
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Returns the access token.
+getToken=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getToken()", "getPropertyValue()")
+
+    return(self$getPropertyValue('token'))
+},
+
+#' @description
+#' Sets the access token.
+#' @param token The token to use to access the database, as a character value.
+#' @return Nothing.
+setToken=function(token) {
+
+    lifecycle::deprecate_soft('1.0.0', "setToken()", "setPropertyValue()")
+
+    self$setPropertyValue('token', token)
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Returns the full database name.
+getName=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getName()", "getPropertyValue()")
+
+    return(self$getPropertyValue('name'))
+},
+
+#' @description
+#' Returns the entry content type.
+getEntryContentType=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getEntryContentType()",
+        "setPropertyValue()")
+
+    return(self$getPropertyValue('entry.content.type'))
+},
+
+#' @description
+#' Returns the N parameter for the scheduler.
+getSchedulerNParam=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getSchedulerNParam()",
+        "getPropertyValue()")
+
+    return(self$getPropertyValue('scheduler.n'))
+},
+
+#' @description
+#' Sets the N parameter for the scheduler.
+#' @param n The N parameter as a whole number.
+#' @return Nothing.
+setSchedulerNParam=function(n) {
+
+    lifecycle::deprecate_soft('1.0.0', "setSchedulerNParam()",
+        "setPropertyValue()")
+
+    self$setPropertyValue('scheduler.n', n)
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Returns the T parameter for the scheduler.
+getSchedulerTParam=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getSchedulerTParam()",
+        "getPropertyValue()")
+
+    return(self$getPropertyValue('scheduler.t'))
+},
+
+#' @description
+#' Sets the T parameter for the scheduler.
+#' @param t The T parameter as a whole number.
+#' @return Nothing.
+setSchedulerTParam=function(t) {
+
+    lifecycle::deprecate_soft('1.0.0', "setSchedulerTParam()",
+        "setPropertyValue()")
+
+    self$setPropertyValue('scheduler.t', t)
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Returns the URLs.
+getUrls=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getUrls()", "getPropertyValue()")
+
+    return(self$getPropertyValue('urls'))
+},
+
+#' @description
+#' Returns a URL.
+#' @param name The name of the URL to retrieve.
+#' @return The URL as a character value.
+getUrl=function(name) {
+
+    lifecycle::deprecate_soft('1.0.0', "getUrl()", "getPropValSlot()")
+
+    return(self$getPropValSlot(name='urls', slot=name))
+},
+
+#' @description
+#' Sets a URL.
+#' @param name The name of the URL to set.
+#' @param url The URL value.
+#' @return Nothing.
+setUrl=function(name, url) {
+
+    lifecycle::deprecate_soft('1.0.0', "setUrl()", "setPropValSlot()")
+
+    self$setPropValSlot(name='urls', slot=name, value=url)
+
+    return(invisible(NULL))
+},
+
+#' @description
+#' Returns the XML namespace.
+getXmlNs=function() {
+
+    lifecycle::deprecate_soft('1.0.0', "getXmlNs()", "getPropertyValue()")
+
+    return(self$getPropertyValue('xml.ns'))
+}
+
+),
+private=list(
+    dbClass="character"
+    ,observers='list'
+    ,propDef='list'
+    ,prop='list'
+    ,runHooks='character'
+
+,checkSettingOfUrl=function(key, value) {
+    # Accept setting by default
+}
+
+,registerObserver=function(obs) {
+
+    chk::chk_not_null(obs)
 
     # Is this observer already registered?
-    if (any(vapply(.self$.observers, function(x) identical(x, obs),
+    if (any(vapply(private$observers, function(x) identical(x, obs),
         FUN.VALUE=TRUE)))
         biodb::warn("Observer is already registered.")
 
     # Register this new observer
     else
-        .self$.observers <- c(.self$.observers, obs)
-},
+        private$observers <- c(private$observers, obs)
+}
 
-.unregisterObserver=function(obs) {
+,unregisterObserver=function(obs) {
 
-    chk::chk_is(obs, 'BiodbConnObserver')
+    chk::chk_not_null(obs)
 
     # Search for observer
-    found.obs <- vapply(.self$.observers, function(x) identical(x, obs),
-                        FUN.VALUE=TRUE)
+    found.obs <- vapply(private$observers, function(x) identical(x, obs),
+        FUN.VALUE=TRUE)
 
     # Not found
     if ( ! any(found.obs))
@@ -433,28 +622,28 @@ setPropValSlot=function(name, slot, value) {
 
     # Unregister observer
     else
-        .self$.observers <- .self$.observers[ ! found.obs ]
-},
+        private$observers <- private$observers[ ! found.obs ]
+}
 
-.checkProperty=function(name, slot=NULL, fail=TRUE) {
+,checkProperty=function(name, slot=NULL, fail=TRUE) {
 
     # Check that property exists
-    if ( ! name %in% names(.self$.prop.def)) {
+    if ( ! name %in% names(private$propDef)) {
         if (fail)
             error0('Unknown property "', name, '" for database ',
-            .self$getDbClass(), '.')
+            self$getDbClass(), '.')
         else
             return(FALSE)
     }
 
     # Get property definition
-    pdef <- .self$.prop.def[[name]]
+    pdef <- private$propDef[[name]]
 
     # Check that it is a property slot
     if (is.logical(slot) && slot && ! 'named' %in% names(pdef)) {
         if (fail)
             error0('Property "', name, '" of database "',
-            .self$getDbClass(), '" is not a slot property.')
+            self$getDbClass(), '" is not a slot property.')
         else
             return(FALSE)
     }
@@ -464,34 +653,34 @@ setPropValSlot=function(name, slot, value) {
         if (fail)
             error0('Unauthorized use of slot "', slot,
                 '" with unnamed property "', name, '" of database "',
-                .self$getDbClass(), '".')
+                self$getDbClass(), '".')
         else
             return(FALSE)
     }
 
     return(if (fail) invisible() else TRUE)
-},
+}
 
-.chkPropVal=function(name, value) {
+,chkPropVal=function(name, value) {
 
-    .self$.checkProperty(name)
+    private$checkProperty(name)
 
-    pdef <- .self$.prop.def[[name]]
+    pdef <- private$propDef[[name]]
 
     # Check cardinality
     if ( ( ! 'mult' %in% names(pdef) || ! pdef$mult) && length(value) > 1)
         error0('Multiple values are forbidden for property "', name,
-            '" of database "', .self$getDbClass(), '".')
+            '" of database "', self$getDbClass(), '".')
 
     # Check names
     if ('named' %in% names(pdef) && ! is.null(value) && length(value) > 0) {
         if (is.null(names(value)) || any(nchar(names(value)) == 0))
             error0('Value vector for property "', name, '"of database "',
-                .self$getDbClass(), '" must be named. Values are: ',
+                self$getDbClass(), '" must be named. Values are: ',
                 paste(paste(names(value), value, sep='='), collapse=', '))
         if (any(duplicated(names(value))))
             error0('Value vector for property "', name, '"of database "',
-                .self$getDbClass(), '" contains duplicated names.')
+                self$getDbClass(), '" contains duplicated names.')
     }
 
     # Convert value
@@ -503,65 +692,70 @@ setPropValSlot=function(name, slot, value) {
     if (length(value) == 1) {
         if (is.na(value) && 'na.allowed' %in% names(pdef) && ! pdef$na.allowed)
             error0('NA value is not allowed for property "', name,
-                '" of database "', .self$getDbClass(), '".')
+                '" of database "', self$getDbClass(), '".')
         if ( ! is.na(value) && 'allowed' %in% names(pdef)
             && ! value %in% pdef$allowed)
             error0('Value "', value, '" is not allowed for property "',
-                name, '" of database "', .self$getDbClass(), '".')
+                name, '" of database "', self$getDbClass(), '".')
     }
 
     return(value)
-},
+}
 
-.defineProperties=function(other, properties) {
+,defineProperties=function(other, properties, cfg) {
 
     # Set list of property definitions
     if (is.null(other))
-        .self$.prop.def <- .self$.getFullPropDefList()
+        private$propDef <- private$getFullPropDefList(cfg)
     else
-        .self$.prop.def <- other$.prop.def
+        private$propDef <- other$.__enclos_env__$private$propDef
 
     # Reset default values
     if ( ! is.null(properties))
         for (p in names(properties))
-            .self$.prop.def[[p]]$default <- .self$.chkPropVal(p,
+            private$propDef[[p]]$default <- private$chkPropVal(p,
                 properties[[p]])
 
     # Set property values
     if (is.null(other))
-        .self$.resetPropertyValues()
+        private$resetPropertyValues()
     else
-        .self$.prop <- other$.prop
+        private$prop <- other$.__enclos_env__$private$prop
 
     # Set chosen values from properties
     if ( ! is.null(properties))
         for (p in names(properties))
-            .self$.prop[[p]] <- .self$.chkPropVal(p, properties[[p]])
-},
+            private$prop[[p]] <- private$chkPropVal(p, properties[[p]])
+}
 
-.resetPropertyValues=function() {
+,resetPropertyValues=function() {
 
-    .self$.prop <- list()
-    for (p in names(.self$.prop.def))
-        .self$setPropertyValue(p, .self$.prop.def[[p]]$default)
-},
+    private$prop <- list()
+    for (p in names(private$propDef))
+        self$setPropertyValue(p, private$propDef[[p]]$default)
+}
 
-.getFullPropDefList=function() {
+,getFullPropDefList=function(cfg) {
 
     # Default token
     default_token <- NA_character_
-    config <- .self$getBiodb()$getConfig()
-    token.key <- paste(.self$getDbClass(), 'token', sep='.')
-    if (config$isDefined(token.key, fail=FALSE))
-        default_token <- config$get(token.key)
+    token.key <- paste(self$getDbClass(), 'token', sep='.')
+    if (cfg$isDefined(token.key, fail=FALSE))
+        default_token <- cfg$get(token.key)
 
     # Define properties
     prop.def <- list(
+        compound.db=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         description=list(class='character', default=NA_character_,
                     na.allowed=TRUE, modifiable=FALSE),
         disabled=list(class='logical', default=FALSE, modifiable=TRUE),
         disabling.reason=list(class='character', default=''),
+        downloadable=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         dwnld.ext=list(class='character', default=NA_character_,
+            modifiable=FALSE),
+        editable=list(class='logical', default=FALSE, na.allowed=FALSE,
             modifiable=FALSE),
         entry.content.encoding=list(class='character',
             default=NA_character_, na.allowed=TRUE),
@@ -573,6 +767,8 @@ setPropValSlot=function(name, slot, value) {
             default=list(mz=c('peak.mztheo', 'peak.mzexp')),
             named=TRUE, mult=TRUE, na.allowed=FALSE,
             allowed_item_types='character'),
+        mass.db=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         name=list(class='character', default=NA_character_,
             na.allowed=FALSE, modifiable=FALSE),
         package=list(class='character', default='biodb', na.allowed=FALSE,
@@ -580,7 +776,7 @@ setPropValSlot=function(name, slot, value) {
         parsing.expr=list(class='list', default=NULL, named=TRUE,
             mult=TRUE, allowed_item_types='character',
             na.allowed=FALSE, hook='defineParsingExpressions'),
-        remotedb=list(class='logical', default=FALSE, na.allowed=FALSE,
+        remote=list(class='logical', default=FALSE, na.allowed=FALSE,
             modifiable=FALSE),
         searchable.fields=list(class='character', default=character(),
             na.allowed=FALSE, modifiable=FALSE, mult=TRUE),
@@ -590,149 +786,12 @@ setPropValSlot=function(name, slot, value) {
             na.allowed=TRUE),
         urls=list(class='character', default=character(), named=TRUE,
             mult=TRUE),
+        writable=list(class='logical', default=FALSE, na.allowed=FALSE,
+            modifiable=FALSE),
         xml.ns=list(class='character', default=character(), named=TRUE,
             mult=TRUE)
     )
 
     return(prop.def)
-},
-
-.checkSettingOfUrl=function(key, value) {
-    # Accept setting by default
-},
-
-getBaseUrl=function() {
-    "Returns the base URL."
-
-    lifecycle::deprecate_warn('1.0.0', "getBaseUrl()", "getPropValSlot()")
-
-    return(.self$getPropValSlot('urls', 'base.url'))
-},
-
-setBaseUrl=function(url) {
-    "Sets the base URL."
-
-    lifecycle::deprecate_warn('1.0.0', "setBaseUrl()", "setPropValSlot()")
-
-    .self$setPropValSlot('urls', 'base.url', url)
-},
-
-getWsUrl=function() {
-    "Returns the web sevices URL."
-
-    lifecycle::deprecate_warn('1.0.0', "getWsUrl()", "getPropValSlot()")
-
-    return(.self$getPropValSlot('urls', 'ws.url'))
-},
-
-setWsUrl=function(ws.url) {
-    "Sets the web sevices URL."
-
-    lifecycle::deprecate_warn('1.0.0', "setWsUrl()", "setPropValSlot()")
-
-    .self$setPropValSlot('urls', 'ws.url', ws.url)
-},
-
-getToken=function() {
-    "Returns the access token."
-
-    lifecycle::deprecate_soft('1.0.0', "getToken()", "getPropertyValue()")
-
-    return(.self$getPropertyValue('token'))
-},
-
-setToken=function(token) {
-    "Sets the access token."
-
-    lifecycle::deprecate_soft('1.0.0', "setToken()", "setPropertyValue()")
-
-    .self$setPropertyValue('token', token)
-},
-
-getName=function() {
-    "Returns the full database name."
-
-    lifecycle::deprecate_soft('1.0.0', "getName()", "getPropertyValue()")
-
-    return(.self$getPropertyValue('name'))
-},
-
-getEntryContentType=function() {
-    "Returns the entry content type."
-
-    lifecycle::deprecate_soft('1.0.0', "getEntryContentType()",
-        "setPropertyValue()")
-
-    return(.self$getPropertyValue('entry.content.type'))
-},
-
-getSchedulerNParam=function() {
-    "Returns the N parameter for the scheduler."
-
-    lifecycle::deprecate_soft('1.0.0', "getSchedulerNParam()",
-        "getPropertyValue()")
-
-    return(.self$getPropertyValue('scheduler.n'))
-},
-
-setSchedulerNParam=function(n) {
-    "Sets the N parameter for the scheduler."
-
-    lifecycle::deprecate_soft('1.0.0', "setSchedulerNParam()",
-        "setPropertyValue()")
-
-    .self$setPropertyValue('scheduler.n', n)
-},
-
-getSchedulerTParam=function() {
-    "Returns the T parameter for the scheduler."
-
-
-    lifecycle::deprecate_soft('1.0.0', "getSchedulerTParam()",
-        "getPropertyValue()")
-
-    return(.self$getPropertyValue('scheduler.t'))
-},
-
-setSchedulerTParam=function(t) {
-    "Sets the T parameter for the scheduler."
-
-    lifecycle::deprecate_soft('1.0.0', "setSchedulerTParam()",
-        "setPropertyValue()")
-
-    .self$setPropertyValue('scheduler.t', t)
-},
-
-getUrls=function() {
-    "Returns the URLs."
-
-    lifecycle::deprecate_soft('1.0.0', "getUrls()", "getPropertyValue()")
-
-    return(.self$getPropertyValue('urls'))
-},
-
-getUrl=function(name) {
-    "Returns a URL."
-
-    lifecycle::deprecate_soft('1.0.0', "getUrl()", "getPropValSlot()")
-
-    return(.self$getPropValSlot(name='urls', slot=name))
-},
-
-setUrl=function(name, url) {
-    "Returns a URL."
-
-    lifecycle::deprecate_soft('1.0.0', "setUrl()", "setPropValSlot()")
-
-    .self$setPropValSlot(name='urls', slot=name, value=url)
-},
-
-getXmlNs=function() {
-    "Returns the XML namespace."
-
-    lifecycle::deprecate_soft('1.0.0', "getXmlNs()", "getPropertyValue()")
-
-    return(.self$getPropertyValue('xml.ns'))
 }
-
 ))

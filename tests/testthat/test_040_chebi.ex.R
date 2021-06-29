@@ -35,6 +35,14 @@ test_getEntry <- function(conn) {
     }
 }
 
+test_urlChange <- function(conn) {
+    key <- 'my.new.url'
+    value <- '/some/path/to/local/file'
+    conn$setPropValSlot('urls', key, value)
+    v <- conn$getPropValSlot('urls', key)
+    testthat::expect_equal(value, v)
+}
+
 # Set context
 biodb::testContext("Test chebi.ex connector.")
 
@@ -44,7 +52,7 @@ biodb <- biodb::createBiodbTestInstance()
 # Delete existing connectors
 biodb$getFactory()$deleteAllConnectors()
 testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)
-testthat::expect_length(biodb$getRequestScheduler()$.getAllRules(), 0)
+testthat::expect_length(biodb$getRequestScheduler()$getAllRules(), 0)
 
 # Test with ChEBI
 defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -62,6 +70,7 @@ biodb::testThat("getEntryPageUrl() works.", test_chebiex_getEntryPageUrl,
 biodb::testThat("getEntryImageUrl() works.", test_chebiex_getEntryImageUrl,
     conn=conn)
 biodb::testThat("We can retrieve entries.", test_getEntry, conn=conn)
+biodb::testThat("We can add or change URLs.", test_urlChange, conn=conn)
 
 # Terminate Biodb
 biodb$terminate()

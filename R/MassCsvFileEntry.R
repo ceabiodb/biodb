@@ -22,50 +22,58 @@
 #' mybiodb$terminate()
 #'
 #' @include BiodbCsvEntry.R
-#' @export MassCsvFileEntry
-#' @exportClass MassCsvFileEntry
-MassCsvFileEntry <- methods::setRefClass("MassCsvFileEntry",
-    contains='BiodbCsvEntry',
+#' @export
+MassCsvFileEntry <- R6::R6Class("MassCsvFileEntry",
+inherit=BiodbCsvEntry,
 
-methods=list(
+public=list(
 
+#' @description
+#' New instance initializer. Entry objects must not be created directly.
+#' Instead, they are retrieved through the connector instances.
+#' @param ... All parameters are passed to the super class initializer.
+#' @return Nothing.
 initialize=function(...) {
 
-    callSuper(sep="\t", ...)
+    super$initialize(sep="\t", ...)
+
+    return(invisible(NULL))
+}
+),
+
+private=list(
+parseChromatoCols=function() {
+
+    if (self$hasField('chrom.col.name') && ! self$hasField('chrom.col.id'))
+        self$setFieldValue('chrom.col.id',
+            self$getFieldValue('chrom.col.name'))
+
+    if ( ! self$hasField('chrom.col.name') && self$hasField('chrom.col.id'))
+        self$setFieldValue('chrom.col.name',
+            self$getFieldValue('chrom.col.id'))
 },
 
-.parseChromatoCols=function() {
+parsePrecursor=function() {
 
-    if (.self$hasField('chrom.col.name') && ! .self$hasField('chrom.col.id'))
-        .self$setFieldValue('chrom.col.id',
-            .self$getFieldValue('chrom.col.name'))
-
-    if ( ! .self$hasField('chrom.col.name') && .self$hasField('chrom.col.id'))
-        .self$setFieldValue('chrom.col.name',
-            .self$getFieldValue('chrom.col.id'))
-},
-
-.parsePrecursor=function() {
-
-    if ( ! .self$hasField('msprecmz') && .self$hasField('peak.attr')) {
-        pkmz <- .self$getFieldValue('peak.mz')
-        pkattr <- .self$getFieldValue('peak.attr')
-        precursors.attr <- .self$getParent()$getPrecursorFormulae()
+    if ( ! self$hasField('msprecmz') && self$hasField('peak.attr')) {
+        pkmz <- self$getFieldValue('peak.mz')
+        pkattr <- self$getFieldValue('peak.attr')
+        precursors.attr <- self$getParent()$getPrecursorFormulae()
         precursors <- pkattr %in% precursors.attr
         # Select the unique precursor found
         if (sum(precursors) == 1)
-            .self$setFieldValue('msprecmz', pkmz[precursors])
+            self$setFieldValue('msprecmz', pkmz[precursors])
 
         # Select peak with highest intensity for precursor
         else if (sum(precursors) > 1) {
             warn0("Found more than one precursor inside entry ",
-                .self$getFieldValue('accession', compute=FALSE),
+                self$getFieldValue('accession', compute=FALSE),
                 ': ', paste(pkattr[precursors], collapse=", "),
                 ". Trying to take the one with highest intensity.")
             strongest.precursor.mz <- NULL
             for (int.col in c('peak.intensity', 'peak.relative.intensity'))
-                if (.self$hasField(int.col)) {
-                    int <- .self$getFieldValue(int.col)
+                if (self$hasField(int.col)) {
+                    int <- self$getFieldValue(int.col)
                     s <- which(order(int[precursors], decreasing=TRUE) == 1)
                     strongest.precursor.mz <- pkmz[precursors][[s]]
                 }
@@ -75,33 +83,32 @@ initialize=function(...) {
             else {
                 logInfo('Found strongest precursor: %g.',
                     strongest.precursor.mz)
-                .self$setFieldValue('msprecmz', strongest.precursor.mz)
+                self$setFieldValue('msprecmz', strongest.precursor.mz)
             }
         }
     }
 },
 
-.parseFieldsStep2=function(parsed.content) {
+parseFieldsStep2=function(parsed.content) {
 
     # Check peaks table
-    mz <- .self$getFieldValue('peak.mz')
-    peaks <- .self$getFieldValue('peaks')
+    mz <- self$getFieldValue('peak.mz')
+    peaks <- self$getFieldValue('peaks')
     if ( ! is.null(mz)) {
         if (is.null(peaks))
             error0('No peaks table while a peak.mz field exists for entry ',
-                .self$getFieldValue('accession'), ' .')
+                self$getFieldValue('accession'), ' .')
         if (nrow(peaks) != length(mz))
             error0('Peaks table (nrow=', nrow(peaks), ') does not have ',
                 'the same number of elements as peak.mz field (',
-                length(mz), ') for entry ', .self$getFieldValue('accession'),
+                length(mz), ') for entry ', self$getFieldValue('accession'),
                 '.')
     }
 
     # Chromatographic column id and name
-    .self$.parseChromatoCols()
+    private$parseChromatoCols()
 
     # Set precursor
-    .self$.parsePrecursor()
+    private$parsePrecursor()
 }
-
 ))

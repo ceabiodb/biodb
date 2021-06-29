@@ -77,3 +77,64 @@ compareVersions <- function(v1, v2) {
     
     return(cmp)
 }
+
+notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
+
+    chk::chk_list(.obsToNotify)
+    chk::chk_string(.notifyFct)
+
+    logDebug("Notify observers for %s.", .notifyFct)
+
+    # Notify each observer
+    fctCall <- function(o) {
+        logDebug("Trying to call function %s on observer %s.", .notifyFct,
+            class(o)[[1]])
+        logDebug("Functions in observer %s: %s.", class(o)[[1]],
+            lst2str(names(o), nCut=0))
+        if (.notifyFct %in% names(o))
+            o[[.notifyFct]](...)
+    }
+    lapply(.obsToNotify, fctCall)
+
+    return(invisible(NULL))
+}
+
+#' Declares a class as abstract.
+#'
+#' Forbids instantiation of an abstract class.
+#' This method must be called from within a constructor of an abstract class.
+#' It will throw an error if a direct call is made to this constructor.
+#'
+#' @param cls The name of the abstract class to check.
+#' @param obj The object being instantiated.
+#' @return Nothing.
+#' @export
+abstractClass <- function(cls, obj) {
+
+    chk::chk_string(cls)
+    chk::chk_not_null(obj)
+
+    if (cls == class(obj)[[1]])
+        error('Class %s is abstract and thus cannot be instantiated.', cls)
+
+    return(invisible(NULL))
+}
+
+#' Declares a method as abstract
+#'
+#' This method must be called from within the abstract method.
+#'
+#' @param obj The object on which the abstract method is called.
+#' @return Nothing.
+abstractMethod <- function(obj) {
+
+    cls <- class(obj)
+    method <- sys.calls()[[length(sys.calls()) - 1]]
+    method <- as.character(method)
+    method <- method[[1]]
+    method <- sub('^[^$]*\\$([^(]*)(\\(.*)?$', '\\1()', method)
+
+    error0("Method ", method, " is not implemented in ", cls, " class.")
+
+    return(invisible(NULL))
+}

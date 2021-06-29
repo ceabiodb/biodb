@@ -39,7 +39,7 @@ biodb::ExtPackage$new(pkgFolder)$generate()
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor
+Initializer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ExtGenerator$new(
   path,
@@ -128,7 +128,7 @@ Example: myaccount/myrepos.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new instance.
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

@@ -35,41 +35,40 @@
 #' mybiodb$terminate()
 #'
 #' @import biodb
-#' @import methods
-#' @export {{entryClass}}
-#' @exportClass {{entryClass}}
-{{entryClass}} <- methods::setRefClass("{{entryClass}}",
-    contains=c(
+#' @import R6
+#' @export
+{{entryClass}} <- R6::R6Class("{{entryClass}}",
+    inherit=
 # $$$ CASE ENTRYTYPE PLAIN $$$
-        'BiodbEntry'
+        biodb::BiodbEntry
 # $$$ CASE ENTRYTYPE CSV $$$
-        'BiodbCsvEntry'
+        biodb::BiodbCsvEntry
 # $$$ CASE ENTRYTYPE HTML $$$
-        'BiodbHtmlEntry'
+        biodb::BiodbHtmlEntry
 # $$$ CASE ENTRYTYPE JSON $$$
-        'BiodbJsonEntry'
+        biodb::BiodbJsonEntry
 # $$$ CASE ENTRYTYPE LIST $$$
-        'BiodbListEntry'
+        biodb::BiodbListEntry
 # $$$ CASE ENTRYTYPE SDF $$$
-        'BiodbSdfEntry'
+        biodb::BiodbSdfEntry
 # $$$ CASE ENTRYTYPE TXT $$$
-        'BiodbTxtEntry'
+        biodb::BiodbTxtEntry
 # $$$ CASE ENTRYTYPE XML $$$
-        'BiodbXmlEntry'
+        biodb::BiodbXmlEntry
 # $$$ END_CASE ENTRYTYPE $$$
-    ),
+    ,
 
-methods=list(
+public=list(
 
 initialize=function(...) {
 # $$$ CASE ENTRYTYPE CSV $$$
-    callSuper(sep="\t", ...)
+    super$initialize(sep="\t", ...)
 # $$$ CASE ENTRYTYPE DEFAULT $$$
-    callSuper(...)
+    super$initialize(...)
 # $$$ END_CASE ENTRYTYPE $$$
 }
 
-,.isContentCorrect=function(content) {
+,isContentCorrect=function(content) {
  
     correct <- callSuper(content)
     
@@ -78,7 +77,7 @@ initialize=function(...) {
     return(correct)
 }
 
-,.parseFieldsStep2=function(parsed.content) {
+,parseFieldsStep2=function(parsed.content) {
     
     # TODO Implement your custom parsing processing here.
 }

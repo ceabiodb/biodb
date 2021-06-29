@@ -32,92 +32,90 @@
 #' # Terminate instance.
 #' mybiodb$terminate()
 #'
-#' @import methods
+#' @import R6
 #' @import rappdirs
-#' @include BiodbChildObject.R
-#' @include BiodbObserver.R
-#' @export BiodbConfig
-#' @exportClass BiodbConfig
-BiodbConfig <- methods::setRefClass("BiodbConfig",
-    contains=c('BiodbChildObject', 'BiodbObserver'),
-    fields=list(
-        .values="list",
-        .env="ANY",
-        .keys="list"
-    ),
+#' @export
+BiodbConfig <- R6::R6Class("BiodbConfig",
 
-methods=list(
+public=list(
 
-initialize=function(...) {
+#' @description
+#' New instance initializer. No BiodbConfig object must not be created directly.
+#' Instead, access the config instance through the BiodbMain instance using the
+#' getConfig() method.
+#' @param parent The BiodbMain instance.
+#' @return Nothing.
+initialize=function(parent) {
 
-    callSuper(...)
-
-    .self$.env <- Sys.getenv()
-    .self$.keys <- list()
-    .self$.values <- list()
+    private$parent <- parent
+    private$env <- Sys.getenv()
+    private$keys <- list()
+    private$values <- list()
 
     # Register as observer
-    .self$getBiodb()$addObservers(.self)
+    private$parent$addObservers(self)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Get the list of available keys.
+#' @param deprecated If set to TRUE returns also the deprecated keys.
+#' @return A character vector containing the config key names.
 getKeys=function(deprecated=FALSE) {
-    ":\n\nGet the list of available keys.
-    \ndeprecated: If set to TRUE returns also the deprecated keys.
-    \nReturned value: A character vector containing the config key names.
-    "
 
-    keys <- Filter(function(k) { ! .self$.isDeprecated(k) }, names(.self$.keys))
+    keys <- Filter(function(k) { ! private$isDeprecated(k) }, names(private$keys))
 
     return(keys)
 },
 
+#' @description
+#' Get the title of a key.
+#' @param key The name of a configuration key.
+#' @return The title of the key as a character value.
 getTitle=function(key) {
-    ":\n\nGet the title of a key.
-    \nkey: The name of a configuration key.
-    \nReturned value: The title of the key as a character value.
-    "
 
     title <- ''
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
-    if ('title' %in% names(.self$.keys[[key]]) &&
-        length(.self$.keys[[key]][['title']]) > 0)
-        title <- .self$.keys[[key]][['title']]
+    if ('title' %in% names(private$keys[[key]]) &&
+        length(private$keys[[key]][['title']]) > 0)
+        title <- private$keys[[key]][['title']]
 
     return(title)
 },
 
+#' @description
+#' Get the description of a key.
+#' @param key The name of a configuration key.
+#' @return The description of the key as a character value.
 getDescription=function(key) {
-    ":\n\nGet the description of a key.
-    \nkey: The name of a configuration key.
-    \nReturned value: The description of the key as a character value.
-    "
 
     description <- ''
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
-    if ('description' %in% names(.self$.keys[[key]]))
-        description <- .self$.keys[[key]][['description']]
+    if ('description' %in% names(private$keys[[key]]))
+        description <- private$keys[[key]][['description']]
 
     return(description)
 },
 
+#' @description
+#' Get the default value of a key.
+#' @param key The name of a configuration key.
+#' @param as.chr If set to TRUE, returns the value as character.
+#' @return The default value for that key.
 getDefaultValue=function(key, as.chr=FALSE) {
-    ":\n\nGet the default value of a key.
-    \nkey: The name of a configuration key.
-    \nas.chr: If set to TRUE, returns the value as character.
-    \nReturned value: The default value for that key.
-    "
 
     default <- NULL
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
     # Get default value
-    if ('default' %in% names(.self$.keys[[key]]))
-        default <- .self$.keys[[key]][['default']]
+    if ('default' %in% names(private$keys[[key]]))
+        default <- private$keys[[key]][['default']]
 
     if (as.chr)
         default <- if (is.null(default)) NA_character_ else
@@ -126,172 +124,181 @@ getDefaultValue=function(key, as.chr=FALSE) {
     return(default)
 },
 
+#' @description
+#' Test if a key exists.
+#' @param key The name of a configuration key.
+#' @return TRUE if a key with this name exists, FALSE otherwise.
 hasKey=function(key) {
-    ":\n\nTest if a key exists.
-    \nkey: The name of a configuration key.
-    \nReturned value: TRUE if a key with this name exists, FALSE otherwise.
-    "
 
-    return(.self$.checkKey(key, fail=FALSE))
+    return(private$checkKey(key, fail=FALSE))
 },
 
+#' @description
+#' Test if a key is defined (i.e.: if a value exists for this key).
+#' @param key The name of a configuration key.
+#' @param fail If set to TRUE and the configuration key does not exist, then an
+#'     error will be raised.
+#' @return TRUE if the key has a value, FALSE otherwise.
 isDefined=function(key, fail=TRUE) {
-    ":\n\nTest if a key is defined (i.e.: if a value exists for this key).
-    \nkey: The name of a configuration key.
-    \nfail: If set to TRUE and the configuration key does not exist, then an
-    error will be raised.
-    \nReturned value: TRUE if the key has a value, FALSE otherwise.
-    "
 
-    if (.self$.checkKey(key, fail=fail))
-        return(key %in% names(.self$.values))
+    if (private$checkKey(key, fail=fail))
+        return(key %in% names(private$values))
 
     return(FALSE)
 },
 
+#' @description
+#' Test if a boolean key is set to TRUE. This method will raise an error
+#'     if the key is not a boolean key.
+#' @param key The name of a configuration key.
+#' @return TRUE if the boolean key has a value set to TRUE, FALSE
+#'     otherwise.
 isEnabled=function(key) {
-    ":\n\nTest if a boolean key is set to TRUE. This method will raise an error
-    if the key is not a boolean key.
-    \nkey: The name of a configuration key.
-    \nReturned value: TRUE if the boolean key has a value set to TRUE, FALSE
-    otherwise.
-    "
 
-    .self$.checkKey(key, type='logical')
+    private$checkKey(key, type='logical')
 
     value <- FALSE
 
     # Defined ?
-    if (isDefined(key))
-        value <- .self$.values[[key]]
+    if (self$isDefined(key))
+        value <- private$values[[key]]
 
     return(value)
 },
 
+#' @description
+#' Get the value of a key.
+#' @param key The name of a configuration key.
+#' @return The value associated with the key.
 get=function(key) {
-    ":\n\nGet the value of a key.
-    \nkey: The name of a configuration key.
-    \nReturned value: The value associated with the key.
-    "
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
     # Is value defined ?
-    if (.self$isDefined(key))
-        value <- .self$.values[[key]]
+    if (self$isDefined(key))
+        value <- private$values[[key]]
     else
-        value <- as.vector(NA, mode=.self$.getType(key))
+        value <- as.vector(NA, mode=private$getType(key))
 
     return(value)
 },
 
+#' @description
+#' Set the value of a key.
+#' @param key The name of a configuration key.
+#' @param value A value to associate with the key.
+#' @return Nothing.
 set=function(key, value) {
-    ":\n\nSet the value of a key.
-    \nkey: The name of a configuration key.
-    \nvalue: A value to associate with the key.
-    \nReturned value: None.
-    "
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
-    v <- as.vector(value, mode=.self$.getType(key))
-    .self$.values[[key]] <- v
+    v <- as.vector(value, mode=private$getType(key))
+    private$values[[key]] <- v
     displayed.value <- if (is.character(value)) paste0('"', value, '"')
         else value
     logDebug("Set key %s to %s.", key, displayed.value)
 
     # Notify observers
-    .self$notify('cfgKVUpdate', list(k=key, v=v))
+    notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate', k=key,
+        v=v)
 
-    invisible(NULL)
+    return(invisible(NULL))
 },
 
+#' @description
+#' Reset the value of a key.
+#' @param key The name of a configuration key. If NULL, all keys will be reset.
+#' @return Nothing.
 reset=function(key=NULL) {
-    ":\n\nReset the value of a key.
-    \nkey: The name of a configuration key. If NULL, all keys will be reset.
-    \nReturned value: None.
-    "
 
     # Set keys to reset
     if (is.null(key))
-        keys <- names(.self$.keys)
+        keys <- names(private$keys)
     else {
-        .self$.checkKey(key)
+        private$checkKey(key)
         keys <- key
     }
 
     # Loop on all keys
     for (k in keys)
-        .self$set(k, .self$.keys[[key]]$default)
+        self$set(k, private$keys[[key]]$default)
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Set a boolean key to TRUE.
+#' @param key The name of a configuration key.
+#' @return Nothing.
 enable=function(key) {
-    ":\n\nSet a boolean key to TRUE.
-    \nkey: The name of a configuration key.
-    \nReturned value: None.
-    "
 
-    .self$.checkKey(key, type='logical')
+    private$checkKey(key, type='logical')
 
     logInfo("Enable %s.", key)
-    .self$.values[[key]] <- TRUE
+    private$values[[key]] <- TRUE
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Set a boolean key to FALSE.
+#' @param key The name of a configuration key.
+#' @return Nothing.
 disable=function(key) {
-    ":\n\nSet a boolean key to FALSE.
-    \nkey: The name of a configuration key.
-    \nReturned value: None.
-    "
 
-    .self$.checkKey(key, type='logical')
+    private$checkKey(key, type='logical')
 
     logInfo("Disable %s.", key)
-    .self$.values[[key]] <- FALSE
+    private$values[[key]] <- FALSE
+
+    return(invisible(NULL))
 },
 
-show=function() {
-    ":\n\nPrint list of configuration keys and their values.
-    \nReturned value: None.
-    "
+#' @description
+#' Print list of configuration keys and their values.
+#' @return Nothing.
+print=function() {
 
     cat("Biodb configuration instance.\n")
 
     # Loop on all keys
-    keys <- sort(.self$getKeys())
+    keys <- sort(self$getKeys())
     if (length(keys) > 0) {
         cat("  Values:\n")
         for (key in keys)
-            if ( ! .self$.isDeprecated(key))
-                cat("    ", key, ": ", .self$get(key), "\n")
+            if ( ! private$isDeprecated(key))
+                cat("    ", key, ": ", self$get(key), "\n")
     }
+
+    return(invisible(NULL))
 },
 
+#' @description
+#' Get the full list of keys as a data frame.
+#' @return A data frame containing keys, titles, types, and default
+#'     values.
 listKeys=function() {
-    ":\n\nGet the full list of keys as a data frame.
-    \nReturned value: A data frame containing keys, titles, types, and default
-    values.
-    "
 
-    keys <- .self$getKeys()
+    keys <- self$getKeys()
     x <- data.frame(key=keys, stringsAsFactors=FALSE)
-    x$title <- vapply(keys, function(k) .self$getTitle(k), FUN.VALUE='')
-    x$type <- vapply(keys, function(k) .self$.getType(k), FUN.VALUE='')
+    x$title <- vapply(keys, function(k) self$getTitle(k), FUN.VALUE='')
+    x$type <- vapply(keys, function(k) private$getType(k), FUN.VALUE='')
     x$default <- vapply(keys,
-                        function(k) .self$getDefaultValue(k, as.chr=TRUE),
+                        function(k) self$getDefaultValue(k, as.chr=TRUE),
                         FUN.VALUE='')
 
     return(x)
 },
 
+#' @description
+#' Returns the environment variable associated with this configuration
+#'     key.
+#' @param key The name of a configuration key.
+#' @return The environment variable's value. 
 getAssocEnvVar=function(key) {
-    ":\n\nReturns the environment variable associated with this configuration
-    key.
-    \nkey: The name of a configuration key.
-    \nReturned value: None.
-    "
 
     # Check key
-    .self$.checkKey(key)
+    private$checkKey(key)
 
     # Build env var
     env.var <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
@@ -300,12 +307,12 @@ getAssocEnvVar=function(key) {
     return(env.var)
 },
 
+#' @description
+#' Defines config properties from a structured object, normally loaded
+#'     from a YAML file.
+#' @param def The list of key definitions.
+#' @return Nothing.
 define=function(def) {
-    "\n\nDefines config properties from a structured object, normally loaded
-    from a YAML file.
-    \ndef: The list of key definitions.
-    \nReturned value: None.
-    "
 
     # Get key names
     keys <- names(def)
@@ -316,18 +323,44 @@ define=function(def) {
         v <- def[[key]]
         v$key <- key
         logDebug('Define config key %s.', key)
-        do.call(.self$.newKey, v)
+        do.call(private$newKey, v)
     }
+
+    return(invisible(NULL))
 },
 
-newObserver=function(obs) {
+#' @description
+#' Called by BiodbMain when a new observer is registered.
+#' @param obs The new observers registered by the BiodbMain instance.
+#' @return Nothing.
+notifyNewObservers=function(obs) {
 
     # Loop on all keys
-    for(key in names(.self$.values))
-        .self$notify('cfgKVUpdate', list(k=key, v=.self$.values[[key]]))
+    for(key in names(private$values))
+        notifyObservers(private$parent$getObservers(), 'notifyCfgUpdate',
+            k=key, v=private$values[[key]])
+
+    return(invisible(NULL))
 },
 
-.getSvnBinaryPath=function() {
+#' @description
+#' Terminates the instance. This method will be called
+#'     automatically by the BiodbMain instance when you call
+#' @param BiodbMain :terminate().
+#' @return Nothing.
+terminate=function() {
+
+    return(invisible(NULL))
+}
+),
+
+private=list(
+    values=NULL,
+    env=NULL,
+    keys=NULL,
+    parent=NULL,
+
+getSvnBinaryPath=function() {
 
     svn.path <- ''
 
@@ -347,15 +380,15 @@ newObserver=function(obs) {
     return(svn.path)
 },
 
-.getFromEnv=function(key) {
+getFromEnv=function(key) {
 
     value <- NULL
 
     # Look into ENV
     envvar <- paste(c('BIODB', toupper(gsub('.', '_', key, fixed=TRUE))),
                     collapse='_')
-    if (envvar %in% names(.self$.env)) {
-        value <- .self$.env[[envvar]]
+    if (envvar %in% names(private$env)) {
+        value <- private$env[[envvar]]
         logDebug0("Found env var ", envvar, ', value "', value,
             '", defining default value for config key ', key, '.')
     }
@@ -363,43 +396,42 @@ newObserver=function(obs) {
     return(value)
 },
 
-.newKey=function(key, title, type, default=NULL, description=NA_character_,
-    deprecated=NULL) {
+newKey=function(key, title, type, default=NULL, description=NA_character_, deprecated=NULL) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
         error("Key is NULL, NA or not character type.")
 
     # Check duplicated key
-    if (key %in% names(.self$.keys))
+    if (key %in% names(private$keys))
         # TODO If key is the same, does not raise error.
         error("Key %s has already been defined in configuration.", key)
 
     # Overwrite default value by env var, if defined
-    env.var.value <- .self$.getFromEnv(key)
+    env.var.value <- private$getFromEnv(key)
     if ( ! is.null(env.var.value))
         default <- env.var.value
     if (is.null(default)) {
-        if (key == 'useragent' && 'EMAIL' %in% names(.self$.env))
-            default <- paste('Biodb user', .self$.env[['EMAIL']], sep=' ; ')
+        if (key == 'useragent' && 'EMAIL' %in% names(private$env))
+            default <- paste('Biodb user', private$env[['EMAIL']], sep=' ; ')
         if (key == 'svn.binary.path')
-            default <- .self$.getSvnBinaryPath()
+            default <- private$getSvnBinaryPath()
     }
 
     # Define new key
-    .self$.keys[[key]] <- list(title=title, type=type, default=default,
+    private$keys[[key]] <- list(title=title, type=type, default=default,
         description=description)
 
     # Set as deprecated
     if ( ! is.null(deprecated))
-        .self$.keys[[key]][['deprecated']] <- deprecated
+        private$keys[[key]][['deprecated']] <- deprecated
 
     # Initialize value
     if (is.null(deprecated) && ! is.null(default))
-        .self$set(key, default)
+        self$set(key, default)
 },
 
-.checkKey=function(key, type=NA_character_, fail=TRUE) {
+checkKey=function(key, type=NA_character_, fail=TRUE) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key)) {
@@ -410,7 +442,7 @@ newObserver=function(obs) {
     }
 
     # Fail if invalid key
-    if ( ! key %in% names(.self$.keys)) {
+    if ( ! key %in% names(private$keys)) {
         if (fail)
             error("Unknown key %s.", key)
         else
@@ -418,13 +450,13 @@ newObserver=function(obs) {
     }
 
     # Fail if deprecated
-    if (.self$.isDeprecated(key))
+    if (private$isDeprecated(key))
         warn("Key %s is deprecated. %s", key,
-            .self$.keys[[key]][['deprecated']])
+            private$keys[[key]][['deprecated']])
 
     # Test type
     if ( ! is.null(type) && ! is.na(type)
-        && .self$.keys[[key]][['type']] != type) {
+        && private$keys[[key]][['type']] != type) {
         if (fail)
             error0("Key ", key, " is not of type ", type,
                 " but of type ", key.type, ".")
@@ -435,14 +467,14 @@ newObserver=function(obs) {
     return(TRUE)
 },
 
-.getType=function(key) {
+getType=function(key) {
 
-    .self$.checkKey(key)
+    private$checkKey(key)
 
-    return(.self$.keys[[key]][['type']])
+    return(private$keys[[key]][['type']])
 },
 
-.isDeprecated=function(key) {
-    return('deprecated' %in% names(.self$.keys[[key]]))
+isDeprecated=function(key) {
+    return('deprecated' %in% names(private$keys[[key]]))
 }
 ))

@@ -23,11 +23,13 @@ inherit=ExtFileGenerator,
 public=list(
 
 #' @description
-#' Constructor
+#' Initializer.
 #' @param ... See the constructor of ExtFileGenerator for the parameters.
-#' @return A new instance.
+#' @return Nothing.
 initialize=function(...) {
     super$initialize(filename='LICENSE', ...)
     private$template <- paste0(private$tags$pkgLicense, '.txt')
+
+    return(invisible(NULL))
 }
 ))
