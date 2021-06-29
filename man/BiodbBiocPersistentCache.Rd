@@ -25,6 +25,8 @@ A persistent cache implementation that uses BiocCache package.
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="addFilesToCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-addFilesToCache}{\code{biodb::BiodbPersistentCache$addFilesToCache()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="copyFilesIntoCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-copyFilesIntoCache}{\code{biodb::BiodbPersistentCache$copyFilesIntoCache()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteAllFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteAllFiles}{\code{biodb::BiodbPersistentCache$deleteAllFiles()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFile">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteFile}{\code{biodb::BiodbPersistentCache$deleteFile()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteFiles}{\code{biodb::BiodbPersistentCache$deleteFiles()}}\out{</span>}
@@ -46,6 +48,7 @@ A persistent cache implementation that uses BiocCache package.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="listFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-listFiles}{\code{biodb::BiodbPersistentCache$listFiles()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="loadFileContent">}\href{../../biodb/html/BiodbPersistentCache.html#method-loadFileContent}{\code{biodb::BiodbPersistentCache$loadFileContent()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExist">}\href{../../biodb/html/BiodbPersistentCache.html#method-markerExist}{\code{biodb::BiodbPersistentCache$markerExist()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExists">}\href{../../biodb/html/BiodbPersistentCache.html#method-markerExists}{\code{biodb::BiodbPersistentCache$markerExists()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="moveFilesIntoCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-moveFilesIntoCache}{\code{biodb::BiodbPersistentCache$moveFilesIntoCache()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="print">}\href{../../biodb/html/BiodbPersistentCache.html#method-print}{\code{biodb::BiodbPersistentCache$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="saveContentToFile">}\href{../../biodb/html/BiodbPersistentCache.html#method-saveContentToFile}{\code{biodb::BiodbPersistentCache$saveContentToFile()}}\out{</span>}

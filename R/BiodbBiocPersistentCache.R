@@ -57,7 +57,7 @@ getBfc=function(cache.id, create=FALSE) {
         if ( ! is.null(cachedFiles) && length(cachedFiles) > 0) {
             msg <- sprintf('Converting cache folder of %s into BiocFileCache',
                 cache.id)
-            prg <- Progress$new(biodb=self$getBiodb(), msg=msg,
+            prg <- Progress$new(biodb=private$bdb, msg=msg,
                 total=length(cachedFiles))
             for (f in cachedFiles) {
                 BiocFileCache::bfcadd(bfc, basename(f), f, action='move')

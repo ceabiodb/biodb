@@ -358,8 +358,8 @@ private=list(
     values=NULL,
     env=NULL,
     keys=NULL,
-    parent=NULL
-,
+    parent=NULL,
+
 getSvnBinaryPath=function() {
 
     svn.path <- ''

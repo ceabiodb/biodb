@@ -108,6 +108,7 @@ notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
 #' @param cls The name of the abstract class to check.
 #' @param obj The object being instantiated.
 #' @return Nothing.
+#' @export
 abstractClass <- function(cls, obj) {
 
     chk::chk_string(cls)

@@ -88,6 +88,7 @@ Super class \code{\link{BiodbConnBase}}, and
 \item \href{#method-isDownloaded}{\code{BiodbConn$isDownloaded()}}
 \item \href{#method-requiresDownload}{\code{BiodbConn$requiresDownload()}}
 \item \href{#method-getDownloadPath}{\code{BiodbConn$getDownloadPath()}}
+\item \href{#method-setDownloadedFile}{\code{BiodbConn$setDownloadedFile()}}
 \item \href{#method-isExtracted}{\code{BiodbConn$isExtracted()}}
 \item \href{#method-download}{\code{BiodbConn$download()}}
 \item \href{#method-isRemotedb}{\code{BiodbConn$isRemotedb()}}
@@ -386,8 +387,8 @@ A list of BiodbUrl objects.
 \if{latex}{\out{\hypertarget{method-getEntryIds}{}}}
 \subsection{Method \code{getEntryIds()}}{
 Get entry identifiers from the database. More arguments can be given,
-depending on implementation in specific databases. For mass databases
-the ms.level argument can also be set.
+depending on implementation in specific databases. For mass databases the
+ms.level argument can also be set.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$getEntryIds(max.results = 0, ...)}\if{html}{\out{</div>}}
 }
@@ -402,9 +403,9 @@ the ms.level argument can also be set.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector containing entry IDs from the
-database. An empty vector for a remote database may mean that the database
-does not support requesting for entry accessions.
+A character vector containing entry IDs from the database. An empty
+vector for a remote database may mean that the database does not support
+requesting for entry accessions.
 }
 }
 \if{html}{\out{<hr>}}
@@ -419,8 +420,8 @@ Get the number of entries contained in this database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{count}}{If set to TRUE and no straightforward way exists to get number of
-entries, count the output of getEntryIds().}
+\item{\code{count}}{If set to TRUE and no straightforward way exists to get number
+of entries, count the output of getEntryIds().}
 }
 \if{html}{\out{</div>}}
 }
@@ -432,9 +433,9 @@ The number of entries in the database, as an integer.
 \if{html}{\out{<a id="method-isEditable"></a>}}
 \if{latex}{\out{\hypertarget{method-isEditable}{}}}
 \subsection{Method \code{isEditable()}}{
-Tests if this connector is able to edit the database (i.e.: the
-connector class implements the interface BiodbEditable). If this connector
-is editable, then you can call allowEditing() to enable editing.
+Tests if this connector is able to edit the database (i.e.: the connector
+class implements the interface BiodbEditable). If this connector is
+editable, then you can call allowEditing() to enable editing.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$isEditable()}\if{html}{\out{</div>}}
 }
@@ -507,7 +508,9 @@ Nothing.
 \if{html}{\out{<a id="method-addNewEntry"></a>}}
 \if{latex}{\out{\hypertarget{method-addNewEntry}{}}}
 \subsection{Method \code{addNewEntry()}}{
-Adds a new entry to the database. The passed entry must have been
+Adds a new entry to the database. The passed entry must have been previously
+created from scratch using BiodbFactory :createNewEntry() or cloned from an
+existing entry using BiodbEntry :clone().
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$addNewEntry(entry)}\if{html}{\out{</div>}}
 }
@@ -516,10 +519,6 @@ Adds a new entry to the database. The passed entry must have been
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{entry}}{The new entry to add. It must be a valid BiodbEntry object.}
-
-\item{\code{previously}}{created from scratch using BiodbFactory :createNewEntry() or}
-
-\item{\code{cloned}}{from an existing entry using BiodbEntry :clone().}
 }
 \if{html}{\out{</div>}}
 }
@@ -633,8 +632,8 @@ searchForEntries().
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Returns TRUE if the database is searchable using the
-specified field, FALSE otherwise.
+Returns TRUE if the database is searchable using the specified
+field, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
@@ -647,16 +646,16 @@ Get the list of all searchable fields.
 }
 
 \subsection{Returns}{
-A character vector containing all searchable fields for
-this connector.
+A character vector containing all searchable fields for this
+connector.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-searchForEntries"></a>}}
 \if{latex}{\out{\hypertarget{method-searchForEntries}{}}}
 \subsection{Method \code{searchForEntries()}}{
-Searches the database for entries whose name matches the specified
-name.  Returns a character vector of entry IDs.
+Searches the database for entries whose name matches the specified name.
+Returns a character vector of entry IDs.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$searchForEntries(fields = NULL, max.results = 0)}\if{html}{\out{</div>}}
 }
@@ -664,13 +663,13 @@ name.  Returns a character vector of entry IDs.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{fields}}{A list of fields on which to filter entries. To get a match, all
-fields must be matched (i.e. logical AND). The keys of the list are the
+\item{\code{fields}}{A list of fields on which to filter entries. To get a match,
+all fields must be matched (i.e. logical AND). The keys of the list are the
 entry field names on which to filter, and the values are the filtering
-parameters. For character fields, the filter parameter is a character
-vector in which all strings must be found inside the field's value. For
-numeric fields, the filter parameter is either a list specifying a min-max
-range (\code{list(min=1.0, max=2.5)}) or a value with a tolerance in delta
+parameters. For character fields, the filter parameter is a character vector
+in which all strings must be found inside the field's value. For numeric
+fields, the filter parameter is either a list specifying a min-max range
+(\code{list(min=1.0, max=2.5)}) or a value with a tolerance in delta
 (\code{list(value=2.0, delta=0.1)}) or ppm (\code{list(value=2.0, ppm=1.0)}).}
 
 \item{\code{max.results}}{If set, the number of returned IDs is limited to this
@@ -679,8 +678,8 @@ number.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector of entry IDs whose name matches the
-requested name.
+A character vector of entry IDs whose name matches the requested
+name.
 }
 }
 \if{html}{\out{<hr>}}
@@ -757,6 +756,28 @@ Gets the path where the downloaded content is written.
 
 \subsection{Returns}{
 The path where the downloaded database is written.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setDownloadedFile"></a>}}
+\if{latex}{\out{\hypertarget{method-setDownloadedFile}{}}}
+\subsection{Method \code{setDownloadedFile()}}{
+Set the downloaded file into the cache.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConn$setDownloadedFile(src, action = c("copy", "move"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{src}}{Path to the downloaded file.}
+
+\item{\code{action}}{Specifies if files have to be moved or copied into the cache.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}
@@ -838,8 +859,9 @@ mass must be set.
 
 \item{\code{mass}}{The searched mass.}
 
-\item{\code{mass.field}}{For searching by mass, you must indicate a mass field to use
-('monoisotopic.mass', 'molecular.mass', 'average.mass' or 'nominal.mass').}
+\item{\code{mass.field}}{For searching by mass, you must indicate a mass field to
+use ('monoisotopic.mass', 'molecular.mass', 'average.mass' or
+'nominal.mass').}
 
 \item{\code{mass.tol}}{The tolerance value on the molecular mass.}
 
@@ -861,10 +883,10 @@ A character vector of entry IDs."
 \if{html}{\out{<a id="method-annotateMzValues"></a>}}
 \if{latex}{\out{\hypertarget{method-annotateMzValues}{}}}
 \subsection{Method \code{annotateMzValues()}}{
-Annotates a mass spectrum with the database. For each matching entry
-the entry field values will be set inside columns appended to the data
-frame. Names of these columns will use a common prefix in order to
-distinguish them from other data from the input data frame.
+Annotates a mass spectrum with the database. For each matching entry the
+entry field values will be set inside columns appended to the data frame.
+Names of these columns will use a common prefix in order to distinguish them
+from other data from the input data frame.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$annotateMzValues(
   x,
@@ -890,15 +912,15 @@ distinguish them from other data from the input data frame.
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
-\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
-'plain'.}
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm'
+or 'plain'.}
 
 \item{\code{mass.field}}{The mass field to use for matching M/Z values. One of:
 'monoisotopic.mass', 'molecular.mass', 'average.mass', 'nominal.mass'.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value. To get all the matches, set this parameter to NA_integer_.
-Default value is 3.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches found
+for each M/Z value. To get all the matches, set this parameter to
+NA_integer_.  Default value is 3.}
 
 \item{\code{mz.col}}{The name of the column where to find M/Z values in case x is a
 data frame.}
@@ -920,10 +942,10 @@ values. Set it to 0 to get all values.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A data frame containing the input values, and annotation
-columns appended at the end. The first annotation column contains the IDs
-of the matched entries. The following columns contain the fields you have
-requested through the \code{fields} parameter.
+A data frame containing the input values, and annotation columns
+appended at the end. The first annotation column contains the IDs of the
+matched entries. The following columns contain the fields you have requested
+through the \code{fields} parameter.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1005,8 +1027,8 @@ Delete all entries from the persistent cache (disk cache).
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{deleteVolatile}}{If TRUE deletes also all entries from the volatile cache
-(memory cache).}
+\item{\code{deleteVolatile}}{If TRUE deletes also all entries from the volatile
+cache (memory cache).}
 }
 \if{html}{\out{</div>}}
 }
@@ -1067,8 +1089,8 @@ The cache ID of this connector.
 \if{html}{\out{<a id="method-makesRefToEntry"></a>}}
 \if{latex}{\out{\hypertarget{method-makesRefToEntry}{}}}
 \subsection{Method \code{makesRefToEntry()}}{
-Tests if some entry of this database makes reference to another entry
-of another database.
+Tests if some entry of this database makes reference to another entry of
+another database.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbConn$makesRefToEntry(id, db, oid, any = FALSE, recurse = FALSE)}\if{html}{\out{</div>}}
 }
@@ -1086,14 +1108,14 @@ of another database.
 contains a reference to oid, FALSE otherwise.}
 
 \item{\code{recurse}}{If set to TRUE, the algorithm will follow all references to
-entries from other databases, to see if it can establish an indirect link
-to \code{oid}.}
+entries from other databases, to see if it can establish an indirect link to
+\code{oid}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A logical vector, the same size as \code{id}, with TRUE for
-each entry making reference to \code{oid}, and FALSE otherwise.
+A logical vector, the same size as \code{id}, with TRUE for each entry
+making reference to \code{oid}, and FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1232,15 +1254,15 @@ Gets a list of M/Z values contained inside the database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the output
-to one mode.}
+\item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the
+output to one mode.}
 
 \item{\code{max.results}}{If set, it is used to limit the size of the output.}
 
 \item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
 
-\item{\code{ms.level}}{The MS level to which you want to restrict your search.
-0 means that you want to search in all levels.}
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.  0
+means that you want to search in all levels.}
 }
 \if{html}{\out{</div>}}
 }
@@ -1300,21 +1322,25 @@ Unit is specified by rt.unit parameter.}
 
 \item{\code{rt.unit}}{The unit for submitted retention times. Either 's' or 'min'.}
 
-\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
-input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
+\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times: input.rt
+\itemize{
+\item rt.tol <= database.rt <= input.rt + rt.tol.
+}}
 
-\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
-input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times: input.rt
+\itemize{
+\item input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
 rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
 rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
+input.rt ** rt.tol.exp.
+}}
 
 \item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
 retention time.}
 
-\item{\code{match.rt}}{If set to TRUE, filters on RT values, otherwise does not do any
-filtering.}
+\item{\code{match.rt}}{If set to TRUE, filters on RT values, otherwise does not do
+any filtering.}
 }
 \if{html}{\out{</div>}}
 }
@@ -1444,39 +1470,43 @@ DEPRECATED. Use searchForMassSpectra() instead.
 
 \item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
 
-\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
-'plain'.}
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm'
+or 'plain'.}
 
 \item{\code{rt}}{A vector of retention times to match. Used if input.df is not set.
 Unit is specified by rt.unit parameter.}
 
 \item{\code{rt.unit}}{The unit for submitted retention times. Either 's' or 'min'.}
 
-\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
-input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
+\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times: input.rt
+\itemize{
+\item rt.tol <= database.rt <= input.rt + rt.tol.
+}}
 
-\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
-input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times: input.rt
+\itemize{
+\item input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
 rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
 rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
+input.rt ** rt.tol.exp.
+}}
 
 \item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
 retention time.}
 
 \item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
 
-\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
-number between 0 and 100).}
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches found
+for each M/Z value.}
 
-\item{\code{ms.level}}{The MS level to which you want to restrict your search.
-0 means that you want to search in all levels.}
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.  0
+means that you want to search in all levels.}
 }
 \if{html}{\out{</div>}}
 }
@@ -1527,19 +1557,19 @@ contain a columns 'mz', and optionaly an 'rt' column.}
 
 \item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
 
-\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
-'plain'.}
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm'
+or 'plain'.}
 
-\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
-number between 0 and 100).}
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
-\item{\code{ms.level}}{The MS level to which you want to restrict your search.
-0 means that you want to search in all levels.}
+\item{\code{ms.level}}{The MS level to which you want to restrict your search.  0
+means that you want to search in all levels.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches found
+for each M/Z value.}
 
 \item{\code{chrom.col.ids}}{IDs of chromatographic columns on which to match the
 retention time.}
@@ -1549,15 +1579,19 @@ Unit is specified by rt.unit parameter.}
 
 \item{\code{rt.unit}}{The unit for submitted retention times. Either 's' or 'min'.}
 
-\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times:
-input.rt - rt.tol <= database.rt <= input.rt + rt.tol.}
+\item{\code{rt.tol}}{The plain tolerance (in seconds) for retention times: input.rt
+\itemize{
+\item rt.tol <= database.rt <= input.rt + rt.tol.
+}}
 
-\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times:
-input.rt - input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
+\item{\code{rt.tol.exp}}{A special exponent tolerance for retention times: input.rt
+\itemize{
+\item input.rt ** rt.tol.exp <= database.rt <= input.rt + input.rt **
 rt.tol.exp. This exponent is applied on the RT value in seconds. If both
 rt.tol and rt.tol.exp are set, the inequality expression becomes input.rt -
 rt.tol - input.rt ** rt.tol.exp <= database.rt <= input.rt + rt.tol +
-input.rt ** rt.tol.exp.}
+input.rt ** rt.tol.exp.
+}}
 
 \item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
 
@@ -1571,8 +1605,8 @@ result data frame.}
 \item{\code{compute}}{If set to TRUE, use the computed values when converting found
 entries to data frame.}
 
-\item{\code{fields}}{A character vector of field names to output. The data frame output
-will be restricted to this list of fields.}
+\item{\code{fields}}{A character vector of field names to output. The data frame
+output will be restricted to this list of fields.}
 
 \item{\code{fieldsLimit}}{The maximum of values to output for fields with multiple
 values. Set it to 0 to get all values.}
@@ -1584,11 +1618,11 @@ values. Set it to 0 to get all values.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A data frame with at least input MZ and RT columns, and
-annotation columns prefixed with \code{prefix} if set. For each
-matching found a row is output. Thus if n matchings are found for M/Z value
-x, then there will be n rows for x, each for a different match. The number
-of matching found for each M/Z value is limited to \code{max.results}.
+A data frame with at least input MZ and RT columns, and annotation
+columns prefixed with \code{prefix} if set. For each matching found a row is
+output. Thus if n matchings are found for M/Z value x, then there will be n
+rows for x, each for a different match. The number of matching found for
+each M/Z value is limited to \code{max.results}.
 }
 }
 \if{html}{\out{<hr>}}

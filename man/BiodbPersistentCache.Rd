@@ -59,11 +59,14 @@ mybiodb$terminate()
 \item \href{#method-fileExist}{\code{BiodbPersistentCache$fileExist()}}
 \item \href{#method-fileExists}{\code{BiodbPersistentCache$fileExists()}}
 \item \href{#method-markerExist}{\code{BiodbPersistentCache$markerExist()}}
+\item \href{#method-markerExists}{\code{BiodbPersistentCache$markerExists()}}
 \item \href{#method-setMarker}{\code{BiodbPersistentCache$setMarker()}}
 \item \href{#method-getTmpFolderPath}{\code{BiodbPersistentCache$getTmpFolderPath()}}
 \item \href{#method-getUsedCacheIds}{\code{BiodbPersistentCache$getUsedCacheIds()}}
 \item \href{#method-loadFileContent}{\code{BiodbPersistentCache$loadFileContent()}}
 \item \href{#method-saveContentToFile}{\code{BiodbPersistentCache$saveContentToFile()}}
+\item \href{#method-addFilesToCache}{\code{BiodbPersistentCache$addFilesToCache()}}
+\item \href{#method-copyFilesIntoCache}{\code{BiodbPersistentCache$copyFilesIntoCache()}}
 \item \href{#method-moveFilesIntoCache}{\code{BiodbPersistentCache$moveFilesIntoCache()}}
 \item \href{#method-erase}{\code{BiodbPersistentCache$erase()}}
 \item \href{#method-deleteFile}{\code{BiodbPersistentCache$deleteFile()}}
@@ -302,11 +305,35 @@ otherwise.
 \if{html}{\out{<a id="method-markerExist"></a>}}
 \if{latex}{\out{\hypertarget{method-markerExist}{}}}
 \subsection{Method \code{markerExist()}}{
+DEPRECATED. Use markerExists().
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$markerExist(cache.id, name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cache.id}}{The cache ID to use.}
+
+\item{\code{name}}{A character vector containing marker names.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A logical vector, the same size as \\code{name}, with
+\\code{TRUE} value if the marker file exists in the cache, or \\code{FALSE}
+otherwise.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-markerExists"></a>}}
+\if{latex}{\out{\hypertarget{method-markerExists}{}}}
+\subsection{Method \code{markerExists()}}{
 Tests if markers exist in the cache. Markers are used, for instance,
 by biodb to remember that a downloaded zip file from a database has been
 extracted correctly.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$markerExist(cache.id, name)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$markerExists(cache.id, name)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -423,6 +450,68 @@ Saves content to files into the cache.
 \describe{
 \item{\code{content}}{A list or a character vector containing the contents of the
 files. It must have the same length as \\code{name}.}
+
+\item{\code{cache.id}}{The cache ID to use.}
+
+\item{\code{name}}{A character vector containing file names.}
+
+\item{\code{ext}}{The extension of the files.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-addFilesToCache"></a>}}
+\if{latex}{\out{\hypertarget{method-addFilesToCache}{}}}
+\subsection{Method \code{addFilesToCache()}}{
+Adds exisiting files into the cache.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$addFilesToCache(
+  src.file.paths,
+  cache.id,
+  name,
+  ext,
+  action = c("copy", "move")
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{src.file.paths}}{The current paths of the source files, as a character
+vector.}
+
+\item{\code{cache.id}}{The cache ID to use.}
+
+\item{\code{name}}{A character vector containing file names.}
+
+\item{\code{ext}}{The extension of the files.}
+
+\item{\code{action}}{Specifies if files have to be moved or copied into the cache.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-copyFilesIntoCache"></a>}}
+\if{latex}{\out{\hypertarget{method-copyFilesIntoCache}{}}}
+\subsection{Method \code{copyFilesIntoCache()}}{
+Copies exisiting files into the cache.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$copyFilesIntoCache(src.file.paths, cache.id, name, ext)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{src.file.paths}}{The current paths of the source files, as a character
+vector.}
 
 \item{\code{cache.id}}{The cache ID to use.}
 

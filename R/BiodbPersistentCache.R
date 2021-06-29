@@ -48,9 +48,10 @@ public=list(
 #' getPersistentCache() method.
 #' @param cfg An instance of the BiodbConfig class.
 #' @return Nothing.
-initialize=function(cfg) {
+initialize=function(cfg, bdb=NULL) {
 
     chk::chk_is(cfg, 'BiodbConfig')
+    private$bdb <- bdb
     private$cfg <- cfg
     private$cacheDir <- NULL
 
@@ -656,6 +657,7 @@ disable=function() {
 private=list(
     cacheDir=NULL,
     cfg=NULL,
+    bdb=NULL,
 
 doGetFilePath=function(cache.id, name, ext) {
     abstractMethod(self)
