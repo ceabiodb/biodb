@@ -89,7 +89,7 @@ directly.
 Instead, access the cache instance through the BiodbMain instance using the
 getPersistentCache() method.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$new(cfg)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbPersistentCache$new(cfg, bdb = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
