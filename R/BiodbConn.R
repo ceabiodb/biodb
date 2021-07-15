@@ -1170,7 +1170,7 @@ makeRequest=function(...) {
 getEntryImageUrl=function(entry.id) {
 
     private$checkIsRemote()
-    return(rep(NA_character_, length(entry.id)))
+    return(private$doGetEntryImageUrl(entry.id))
 },
 
 #' @description
@@ -1180,7 +1180,7 @@ getEntryImageUrl=function(entry.id) {
 getEntryPageUrl=function(entry.id) {
 
     private$checkIsRemote()
-    abstractMethod(self)
+    return(private$doGetEntryPageUrl(entry.id))
 },
 
 #' @description
@@ -1926,6 +1926,15 @@ private=list(
     writing.allowed=NULL,
     bdb=NULL
 ,
+
+doGetEntryPageUrl=function(id) {
+    abstractMethod(self)
+},
+
+doGetEntryImageUrl=function(id) {
+    return(rep(NA_character_, length(entry.id)))
+},
+
 checkIsEditable=function() {
     if ( ! self$isEditable())
         error0("The database associated to this connector ", self$getId(),

@@ -64,35 +64,6 @@ initialize=function(...) {
 # $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
 
-,getEntryPageUrl=function(id) {
-    # Overrides super class' method.
-
-    # TODO Modify this code to build the individual URLs to the entry web pages
-    fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries', x)
-        BiodbUrl(url=u)$toString()
-    }
-
-    return(vapply(id, fct, FUN.VALUE=''))
-}
-# $$$ END_SECTION REMOTE $$$
-# $$$ SECTION REMOTE $$$
-
-,getEntryImageUrl=function(id) {
-    # Overrides super class' method.
-
-    # TODO Modify this code to build the individual URLs to the entry images 
-    fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'base.url'), 'images', x,
-               'image.png')
-        BiodbUrl(url=u)$toString()
-    }
-
-    return(vapply(id, fct, FUN.VALUE=''))
-}
-# $$$ END_SECTION REMOTE $$$
-# $$$ SECTION REMOTE $$$
-
 ,wsFind=function(name="", retfmt=c('plain', 'parsed', 'ids', 'request')) {
     # This is the implementation of a fictive web service called "find" that
     # search for entries by name.
@@ -183,6 +154,29 @@ doGetEntryIds=function(max.results=NA_integer_) {
     url <- BiodbUrl(url=u)$toString()
 
     return(url)
+}
+
+,doGetEntryPageUrl=function(id) {
+
+    # TODO Modify this code to build the individual URLs to the entry web pages
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries', x)
+        BiodbUrl(url=u)$toString()
+    }
+
+    return(vapply(id, fct, FUN.VALUE=''))
+}
+
+,doGetEntryImageUrl=function(id) {
+
+    # TODO Modify this code to build the individual URLs to the entry images 
+    fct <- function(x) {
+        u <- c(.self$getPropValSlot('urls', 'base.url'), 'images', x,
+               'image.png')
+        BiodbUrl(url=u)$toString()
+    }
+
+    return(vapply(id, fct, FUN.VALUE=''))
 }
 # $$$ END_SECTION REMOTE $$$
 # $$$ SECTION DOWNLOADABLE $$$

@@ -263,11 +263,11 @@ In our case, the database is a compound database.
 
 Method                        | Description
 ----------------------------- | --------------------------------
-`getEntryPageUrl()`           | This public method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
-`getEntryImageUrl()`          | This public method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
-`.doGetEntryContentRequest()` | This method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
-`.doGetEntryIds()`            | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
-`.doSearchForEntries()`  | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
+`doGetEntryPageUrl()`         | This method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`doGetEntryImageUrl()`        | This method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`doGetEntryContentRequest()`  | This method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
+`doGetEntryIds()`             | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
+`doSearchForEntries()`        | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
 : (\#tab:chebiExMethods) Methods to implement inside the chebi.ex connector.
 
 See the help inside R about `BiodbConn` for details
@@ -277,13 +277,13 @@ about the parameters of those functions.
 
 The remote methods are used for three different goals.
 First to build URLs that access the web site, to get the URL of an entry page
-(`getEntryPageUrl()`) or to get the URL of an entry picture
-(`getEntryImageUrl()`) like a molecule representation.
-Second to get a list of database entry identifiers (`.doGetEntryIds()`).
-Third to Get the content of an entry (`.doGetEntryContentRequest()`).
+(`doGetEntryPageUrl()`) or to get the URL of an entry picture
+(`doGetEntryImageUrl()`) like a molecule representation.
+Second to get a list of database entry identifiers (`doGetEntryIds()`).
+Third to Get the content of an entry (`doGetEntryContentRequest()`).
 
-In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and
-`.doGetEntryContentRequest()` (see below), you may notice the use of the
+In our implementations of `doGetEntryPageUrl()`, `doGetEntryImageUrl()` and
+`doGetEntryContentRequest()` (see below), you may notice the use of the
 `getPropValSlot()` method to get some base URLs (`"base.url"`, `"ws.url"`).
 These values are defined inside the connector YAML definition file that we will
 detail below.
@@ -293,7 +293,7 @@ of special characters.
 
 ### Method for searching for entries
 
-The implemented method (`.doSearchForEntries()`) is a generic method used to
+The implemented method (`doSearchForEntries()`) is a generic method used to
 search for entries inside the database by name, mass, or any other field.
 For our example we have decided to implement only the search by name in order
 to keep the code as simple and short as possible.
