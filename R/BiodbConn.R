@@ -110,12 +110,11 @@ print=function() {
 
 #' @description
 #' Correct a vector of IDs by formatting them to the database official
-#'     format, if required and possible.
+#' format, if required and possible.
 #' @param ids A character vector of IDs.
 #' @return The vector of IDs corrected.
 correctIds=function(ids) {
-
-    return(ids)
+    return(private$doCorrectIds(ids))
 },
 
 #' @description
@@ -1914,6 +1913,10 @@ private=list(
 
 ,doesRequireDownload=function() {
     return(FALSE)
+}
+
+,doCorrectIds=function(ids) {
+    return(ids)
 }
 
 ,doGetNbEntries=function(count=FALSE) {
