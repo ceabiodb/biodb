@@ -28,40 +28,6 @@ public=list(
 initialize=function(...) {
     super$initialize(...)
 }
-
-,getNbEntries=function(count=FALSE) {
-    # Overrides super class' method.
-
-    # Replace the call below if you have a direct way (specific web service for
-    # a remote database, provided method or information for a local database)
-    # to count entries for your database.
-    return(callSuper(count=count))
-}
-
-,getEntryContentFromDb=function(entry.id) {
-    # Overrides super class' method.
-
-    # Initialize return values
-    content <- rep(NA_character_, length(entry.id))
-
-    # TODO Implement retrieval of entry contents.
-
-    # Some debug message
-    if (length(content) > 0)
-        .self$message('debug', paste("Content of first entry:", content[[1]]))
-
-    return(content)
-}
-# $$$ CASE CONNTYPE MASS $$$
-
-,getChromCol=function(ids=NULL) {
-    # TODO Implement
-}
-
-,getNbPeaks=function(mode=NULL, ids=NULL) {
-    # TODO Implement
-}
-# $$$ END_CASE CONNTYPE $$$
 # $$$ SECTION REMOTE $$$
 
 ,wsFind=function(name="", retfmt=c('plain', 'parsed', 'ids', 'request')) {
@@ -109,7 +75,29 @@ initialize=function(...) {
 
 private=list(
 
-doGetEntryIds=function(max.results=NA_integer_) {
+doGetNbEntries=function(count=FALSE) {
+
+    # Replace the call below if you have a direct way (specific web service for
+    # a remote database, provided method or information for a local database)
+    # to count entries for your database.
+    return(callSuper(count=count))
+}
+
+,doGetEntryContentFromDb=function(id) {
+
+    # Initialize return values
+    content <- rep(NA_character_, length(id))
+
+    # TODO Implement retrieval of entry contents.
+
+    # Some debug message
+    if (length(content) > 0)
+        .self$message('debug', paste("Content of first entry:", content[[1]]))
+
+    return(content)
+}
+
+,doGetEntryIds=function(max.results=NA_integer_) {
     # Overrides super class' method.
 
     ids <- NA_character_
@@ -130,6 +118,14 @@ doGetEntryIds=function(max.results=NA_integer_) {
 }
 # $$$ CASE CONNTYPE COMPOUND $$$
 # $$$ CASE CONNTYPE MASS $$$
+
+,doGetChromCol=function(ids=NULL) {
+    # TODO Implement
+}
+
+,doGetNbPeaks=function(mode=NULL, ids=NULL) {
+    # TODO Implement
+}
 
 ,doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
                           precursor, ms.level) {

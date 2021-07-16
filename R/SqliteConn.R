@@ -43,80 +43,6 @@ initialize=function(...) {
 },
 
 #' @description
-#' Get the contents of entries directly from the database. A direct request or
-#' an access to the database will be made in order to retrieve the contents. No
-#' access to the biodb cache system will be made.
-#' @param entry.id A character vector with the IDs of entries to retrieve.
-#' @return A character vector, the same size of entry.id, with contents of the
-#' requested entries. An NA value will be set for the content of each entry for
-#' which the retrieval failed.
-getEntryContentFromDb=function(entry.id) {
-    # Overrides super class' method.
-
-    # Initialize contents to return
-    content <- rep(list(NULL), length(entry.id))
-
-    private$initDb()
-
-    if ( ! is.null(private$db)) {
-
-        ef <- self$getBiodb()$getEntryFields()
-
-        # Loop on all entry IDs
-        i <- 0
-        for (accession in entry.id) {
-
-            i <- i + 1
-            entry <- list()
-
-            # Loop on all tables
-            for (tableName in DBI::dbListTables(private$db)) {
-
-                # Get data frame
-                q <- paste0("select * from ",
-                    DBI::dbQuoteIdentifier(private$db, tableName), " where
-                    accession='", accession, "';")
-                df <- DBI::dbGetQuery(private$db, q)
-
-                # Set value
-                if (tableName == 'entries')
-                    entry <- c(entry, as.list(df))
-                else {
-                    cols <- colnames(df)[colnames(df) != 'accession']
-                    dropFlag <- ef$get(tableName)$hasCardMany()
-                    entry[[tableName]] <- df[, cols, drop=dropFlag]
-                }
-            }
-
-            # Set content
-            content[[i]] <- entry
-        }
-    }
-
-    return(content)
-},
-
-#' @description
-#' Defines automatically the parsing expressions.
-#' @return Nothing.
-defineParsingExpressions=function() {
-    # Overrides super class' method.
-
-    entry.fields <- self$getBiodb()$getEntryFields()
-
-    # Loop on all entry fields
-    for (field in entry.fields$getFieldNames()) {
-        f <- entry.fields$get(field)
-        if ( ! f$isVirtual()) {
-            db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
-            self$setPropValSlot('parsing.expr', field, db_id)
-        }
-    }
-
-    return(invisible(NULL))
-},
-
-#' @description
 #' Tests if a field can be used to search entries when using method
 #'     searchForEntries().
 #' @param field The name of the field.
@@ -166,8 +92,24 @@ getQuery=function(query) {
 
 private=list(
     db=NULL
-,
-doWrite=function() {
+
+,doDefineParsingExpressions=function() {
+
+    entry.fields <- self$getBiodb()$getEntryFields()
+
+    # Loop on all entry fields
+    for (field in entry.fields$getFieldNames()) {
+        f <- entry.fields$get(field)
+        if ( ! f$isVirtual()) {
+            db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
+            self$setPropValSlot('parsing.expr', field, db_id)
+        }
+    }
+
+    return(invisible(NULL))
+}
+
+,doWrite=function() {
 
     private$initDb()
 
@@ -303,6 +245,51 @@ doGetEntryIds=function(max.results=0) {
     }
 
     return(ids)
+},
+
+doGetEntryContentFromDb=function(id) {
+
+    # Initialize contents to return
+    content <- rep(list(NULL), length(id))
+
+    private$initDb()
+
+    if ( ! is.null(private$db)) {
+
+        ef <- self$getBiodb()$getEntryFields()
+
+        # Loop on all entry IDs
+        i <- 0
+        for (accession in id) {
+
+            i <- i + 1
+            entry <- list()
+
+            # Loop on all tables
+            for (tableName in DBI::dbListTables(private$db)) {
+
+                # Get data frame
+                q <- paste0("select * from ",
+                    DBI::dbQuoteIdentifier(private$db, tableName), " where
+                    accession='", accession, "';")
+                df <- DBI::dbGetQuery(private$db, q)
+
+                # Set value
+                if (tableName == 'entries')
+                    entry <- c(entry, as.list(df))
+                else {
+                    cols <- colnames(df)[colnames(df) != 'accession']
+                    dropFlag <- ef$get(tableName)$hasCardMany()
+                    entry[[tableName]] <- df[, cols, drop=dropFlag]
+                }
+            }
+
+            # Set content
+            content[[i]] <- entry
+        }
+    }
+
+    return(content)
 },
 
 fieldToSqlId=function(f) {

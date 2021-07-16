@@ -27,57 +27,10 @@ MassSqliteConn <- R6::R6Class('MassSqliteConn',
 inherit=SqliteConn,
 
 public=list(
-
-#' @description
-#' Gets a list of chromatographic columns contained in this database.
-#' @param ids A character vector of entry identifiers (i.e.: accession
-#' numbers).  Used to restrict the set of entries on which to run the
-#' algorithm.
-#' @return A data.frame with two columns, one for the ID 'id' and another one
-#' for the title 'title'.
-getChromCol=function(ids=NULL) {
-    # Overrides super class' method.
-
-    chrom.cols <- data.frame(id=character(0), title=character(0))
-
-    private$initDb()
-
-    if ( ! is.null(private$db)) {
-
-        tables <- DBI::dbListTables(private$db)
-
-        if ('entries' %in% tables) {
-
-            fields <- DBI::dbListFields(private$db, 'entries')
-            fields.to.get <- c('chrom.col.id', 'chrom.col.name')
-
-            if (all(fields.to.get %in% fields)) {
-                query <- BiodbSqlQuery$new()
-                query$setTable('entries')
-                query$setDistinct(TRUE)
-                for (field in fields.to.get)
-                    query$addField(field=field)
-
-                # Filter on spectra IDs
-                if ( ! is.null(ids)) {
-                    f <- BiodbSqlField$new(field='accession')
-                    w <- BiodbSqlBinaryOp$new(op='in',
-                        lexpr=f, rexpr=BiodbSqlList$new(ids))
-                    query$setWhere(w)
-                }
-
-                # Run query
-                chrom.cols <- self$getQuery(query)
-                names(chrom.cols) <- c('id', 'title')
-            }
-        }
-    }
-
-    return(chrom.cols)
-}
 ),
 
 private=list(
+
 doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     # Overwrites super class' method
 
@@ -207,5 +160,45 @@ precursor, ms.level) {
     }
 
     return(ids)
+}
+
+,doGetChromCol=function(ids=NULL) {
+
+    chrom.cols <- data.frame(id=character(0), title=character(0))
+
+    private$initDb()
+
+    if ( ! is.null(private$db)) {
+
+        tables <- DBI::dbListTables(private$db)
+
+        if ('entries' %in% tables) {
+
+            fields <- DBI::dbListFields(private$db, 'entries')
+            fields.to.get <- c('chrom.col.id', 'chrom.col.name')
+
+            if (all(fields.to.get %in% fields)) {
+                query <- BiodbSqlQuery$new()
+                query$setTable('entries')
+                query$setDistinct(TRUE)
+                for (field in fields.to.get)
+                    query$addField(field=field)
+
+                # Filter on spectra IDs
+                if ( ! is.null(ids)) {
+                    f <- BiodbSqlField$new(field='accession')
+                    w <- BiodbSqlBinaryOp$new(op='in',
+                        lexpr=f, rexpr=BiodbSqlList$new(ids))
+                    query$setWhere(w)
+                }
+
+                # Run query
+                chrom.cols <- self$getQuery(query)
+                names(chrom.cols) <- c('id', 'title')
+            }
+        }
+    }
+
+    return(chrom.cols)
 }
 ))

@@ -51,10 +51,7 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \item \href{#method-getFieldsAndColumnsAssociation}{\code{CsvFileConn$getFieldsAndColumnsAssociation()}}
 \item \href{#method-getUnassociatedColumns}{\code{CsvFileConn$getUnassociatedColumns()}}
 \item \href{#method-print}{\code{CsvFileConn$print()}}
-\item \href{#method-getNbEntries}{\code{CsvFileConn$getNbEntries()}}
-\item \href{#method-getEntryContentFromDb}{\code{CsvFileConn$getEntryContentFromDb()}}
 \item \href{#method-setDb}{\code{CsvFileConn$setDb()}}
-\item \href{#method-defineParsingExpressions}{\code{CsvFileConn$defineParsingExpressions()}}
 \item \href{#method-setIgnoreUnassignedColumns}{\code{CsvFileConn$setIgnoreUnassignedColumns()}}
 \item \href{#method-clone}{\code{CsvFileConn$clone()}}
 }
@@ -120,6 +117,7 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath">}\href{../../biodb/html/BiodbConn.html#method-getDownloadPath}{\code{biodb::BiodbConn$getDownloadPath()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry">}\href{../../biodb/html/BiodbConn.html#method-getEntry}{\code{biodb::BiodbConn$getEntry()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent">}\href{../../biodb/html/BiodbConn.html#method-getEntryContent}{\code{biodb::BiodbConn$getEntryContent()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
@@ -127,6 +125,7 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbEntries">}\href{../../biodb/html/BiodbConn.html#method-getNbEntries}{\code{biodb::BiodbConn$getNbEntries()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbPeaks">}\href{../../biodb/html/BiodbConn.html#method-getNbPeaks}{\code{biodb::BiodbConn$getNbPeaks()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getSearchableFields">}\href{../../biodb/html/BiodbConn.html#method-getSearchableFields}{\code{biodb::BiodbConn$getSearchableFields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isCompounddb">}\href{../../biodb/html/BiodbConn.html#method-isCompounddb}{\code{biodb::BiodbConn$isCompounddb()}}\out{</span>}
@@ -417,51 +416,6 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNbEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getNbEntries}{}}}
-\subsection{Method \code{getNbEntries()}}{
-Get the number of entries contained in this database.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getNbEntries(count = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{count}}{If set to TRUE and no straightforward way exists to get number of
-entries, count the output of getEntryIds().}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The number of entries in the database, as an integer.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContentFromDb"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContentFromDb}{}}}
-\subsection{Method \code{getEntryContentFromDb()}}{
-Get the contents of entries directly from the database. A direct request or
-an access to the database will be made in order to retrieve the contents. No
-access to the biodb cache system will be made.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$getEntryContentFromDb(entry.id)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{entry.id}}{A character vector with the IDs of entries to retrieve.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A character vector, the same size of entry.id, with contents of the
-requested entries. An NA value will be set for the content of each entry for
-which the retrieval failed.
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setDb"></a>}}
 \if{latex}{\out{\hypertarget{method-setDb}{}}}
 \subsection{Method \code{setDb()}}{
@@ -478,19 +432,6 @@ the database previously with the URL parameter.
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-Nothing.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-defineParsingExpressions"></a>}}
-\if{latex}{\out{\hypertarget{method-defineParsingExpressions}{}}}
-\subsection{Method \code{defineParsingExpressions()}}{
-Defines automatically the parsing expressions.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$defineParsingExpressions()}\if{html}{\out{</div>}}
-}
-
 \subsection{Returns}{
 Nothing.
 }

@@ -323,65 +323,6 @@ print=function() {
     return(invisible(NULL))
 },
 
-#' @description
-#' Get the number of entries contained in this database.
-#' @param count If set to TRUE and no straightforward way exists to get number of
-#'     entries, count the output of getEntryIds().
-#' @return The number of entries in the database, as an integer.
-getNbEntries=function(count=FALSE) {
-    # Overrides super class' method.
-
-    n <- NA_integer_
-
-    ids <- self$getEntryIds()
-    if ( ! is.null(ids))
-        n <- length(ids)
-
-    return(n)
-},
-
-#' @description
-#' Get the contents of entries directly from the database. A direct request or
-#' an access to the database will be made in order to retrieve the contents. No
-#' access to the biodb cache system will be made.
-#' @param entry.id A character vector with the IDs of entries to retrieve.
-#' @return A character vector, the same size of entry.id, with contents of the
-#' requested entries. An NA value will be set for the content of each entry for
-#' which the retrieval failed.
-getEntryContentFromDb=function(entry.id) {
-    # Overrides super class' method.
-
-    # Initialize return values
-    content <- rep(NA_character_, length(entry.id))
-
-    # Get data frame
-    logDebug("Entry entry.id: %s", paste(entry.id, collapse=", "))
-    df <- private$select(ids=entry.id, uniq=TRUE, sort=TRUE)
-
-    # For each id, take the sub data frame and convert it into string
-    fct <- function(x) {
-        if (is.na(x))
-            NA_character_
-        else {
-            x.df <- private$select(ids=x)
-            if (nrow(x.df) == 0)
-                NA_character_
-            else {
-                str.conn <- textConnection("str", "w", local=TRUE)
-                write.table(x.df, file=str.conn, row.names=FALSE, quote=FALSE,
-                            sep="\t")
-                close(str.conn)
-                paste(str, collapse="\n")
-            }
-        }
-    }
-    content <- vapply(entry.id, fct, FUN.VALUE='')
-
-    if (length(content) > 0)
-        logDebug("Content of first entry: %s", content[[1]])
-
-    return(content)
-},
 
 #' @description
 #' Sets the database directly from a data frame. You must not have set
@@ -398,21 +339,6 @@ setDb=function(db) {
             ' connector.')
 
     private$doSetDb(db)
-
-    return(invisible(NULL))
-},
-
-#' @description
-#' Defines automatically the parsing expressions.
-#' @return Nothing.
-defineParsingExpressions=function() {
-    # Overrides super class' method.
-
-    entry.fields <- self$getBiodb()$getEntryFields()
-
-    # Define a parsing expression for each column inside the database
-    for (field in self$getFieldNames())
-        self$setPropValSlot('parsing.expr', field, private$fields[[field]])
 
     return(invisible(NULL))
 },
@@ -441,8 +367,19 @@ private=list(
     field2cols=NULL,
     autoSetFieldsHasBeenRun=NULL,
     ignoreUnassignedColumns=NULL
-,
-doWrite=function() {
+
+,doDefineParsingExpressions=function() {
+
+    entry.fields <- self$getBiodb()$getEntryFields()
+
+    # Define a parsing expression for each column inside the database
+    for (field in self$getFieldNames())
+        self$setPropValSlot('parsing.expr', field, private$fields[[field]])
+
+    return(invisible(NULL))
+}
+
+,doWrite=function() {
 
     logInfo0('Write all entries into "',
         self$getPropValSlot('urls', 'base.url'), '".')
@@ -702,7 +639,6 @@ autoSetFields=function() {
 },
 
 doGetEntryIds=function(max.results=0) {
-    # Overrides super class' method.
 
     ids <- NA_character_
 
@@ -710,5 +646,50 @@ doGetEntryIds=function(max.results=0) {
         sort=TRUE, max.rows=max.results))
 
     return(ids)
+}
+
+,doGetEntryContentFromDb=function(id) {
+
+    # Initialize return values
+    content <- rep(NA_character_, length(id))
+
+    # Get data frame
+    logDebug("Entry id: %s", paste(id, collapse=", "))
+    df <- private$select(ids=id, uniq=TRUE, sort=TRUE)
+
+    # For each id, take the sub data frame and convert it into string
+    fct <- function(x) {
+        if (is.na(x))
+            NA_character_
+        else {
+            x.df <- private$select(ids=x)
+            if (nrow(x.df) == 0)
+                NA_character_
+            else {
+                str.conn <- textConnection("str", "w", local=TRUE)
+                write.table(x.df, file=str.conn, row.names=FALSE, quote=FALSE,
+                            sep="\t")
+                close(str.conn)
+                paste(str, collapse="\n")
+            }
+        }
+    }
+    content <- vapply(id, fct, FUN.VALUE='')
+
+    if (length(content) > 0)
+        logDebug("Content of first entry: %s", content[[1]])
+
+    return(content)
+}
+
+,doGetNbEntries=function(count=FALSE) {
+
+    n <- NA_integer_
+
+    ids <- self$getEntryIds()
+    if ( ! is.null(ids))
+        n <- length(ids)
+
+    return(n)
 }
 ))
