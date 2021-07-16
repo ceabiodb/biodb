@@ -77,11 +77,11 @@ doParseContent=function(content) {
     return(df)
 },
 
-isParsedContentCorrect=function(parsed.content) {
+doCheckParsedContent=function(parsed.content) {
     return(nrow(parsed.content) > 0)
-},
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doParseFieldsStep1=function(parsed.content) {
 
     cfg <- self$getBiodb()$getConfig()
 

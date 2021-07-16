@@ -39,9 +39,9 @@ doParseContent=function(content) {
     lines <- strsplit(content, "\r?\n")[[1]]
 
     return(lines)
-},
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')

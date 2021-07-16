@@ -227,11 +227,11 @@ Entry class      | Content type handled
 : (\#tab:entryClasses) Provided abstract entry classes. These are the entry classes already defined inside *biodb* package that facilitates the parsing of the corresponding content type.
 
 Two methods are defined that can be used to enhance our implementation.
-The method `.isContentCorrect()` can be used to further check the parsed
+The method `doCheckContent()` can be used to further check the parsed
 content of an entry, for instance for some incoherence between fields.
-The method `.parseFieldsStep2()` allows to run some custom code for complex
+The method `doParseFieldsStep2()` allows to run some custom code for complex
 parsing of the entry's content.
-This method is run after `.parseFieldsStep1()`, which is defined inside the
+This method is run after `doParseFieldsStep1()`, which is defined inside the
 mother class (here `BiodbXmlEntry`) and executes the parsing expression defined
 inside `inst/definitions.yml`.
 
@@ -577,7 +577,7 @@ If none of the predefined formats fits your needs, your class have to inherit di
 
 Two methods have to be implemented in this case.
 The first is `doParseContent()`, which parses a string into the acceptable
-format for the second function, `.parseFieldsStep1()`.
+format for the second function, `doParseFieldsStep1()`.
 
 Look for instance at the code of `BiodbTxtEntry` class for a good example.
 Here is an excerpt:
@@ -590,7 +590,7 @@ doParseContent=function(content) {
     return(lines)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
@@ -621,15 +621,15 @@ doParseContent=function(content) {
 
 When inheriting from one of the abstract class listed above (`BiodbTxtEntry`,
 `BiodbJsonEntry`, `BiodbXmlEntry`, ...), you also have the opportunity to write
-some custom parsing code by implementing `.parseFieldsStep2()`.
+some custom parsing code by implementing `doParseFieldsStep2()`.
 
-This method will be called just after `.parseFieldsStep1()`, which is
+This method will be called just after `doParseFieldsStep1()`, which is
 implemented by the abstract class.
 
 See `HmdbMetabolitesEntry` class inside [biodbHmdb](https://github.com/pkrog/biodbHmdb) extension package for an example.
 Here is an extract:
 ```{r, eval=FALSE}
-.parseFieldsStep2=function(parsed.content) {
+doParseFieldsStep2=function(parsed.content) {
 
     # Remove fields with empty string
     for (f in .self$getFieldNames()) {

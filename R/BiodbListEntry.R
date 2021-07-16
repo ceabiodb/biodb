@@ -31,13 +31,13 @@ doParseContent=function(content) {
     return(content)
 },
 
-isParsedContentCorrect=function(parsed.content) {
+doCheckParsedContent=function(parsed.content) {
     return(is.list(parsed.content) && length(parsed.content) > 0
         && ! is.null(names(parsed.content))
         && length(names(parsed.content)) > 0)
-},
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')

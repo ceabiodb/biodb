@@ -481,9 +481,9 @@ parseContent=function(content) {
 
         if (private$isParsedContentCorrect(parsed.content)) {
 
-            private$parseFieldsStep1(parsed.content)
+            private$doParseFieldsStep1(parsed.content)
 
-            private$parseFieldsStep2(parsed.content)
+            private$doParseFieldsStep2(parsed.content)
         }
     }
 
@@ -738,24 +738,34 @@ isContentCorrect=function(content) {
     # NOTE `nchar(content)` may give "invalid multibyte string, element 1" on
     # some strings.
 
-    return(correct)
-},
+    return(correct && private$doCheckContent(content))
+}
 
-doParseContent=function(content) {
+,doCheckContent=function(content) {
+    return(TRUE)
+}
+
+,doParseContent=function(content) {
     abstractMethod(self)
-},
+}
 
-isParsedContentCorrect=function(parsed.content) {
+,isParsedContentCorrect=function(parsed.content) {
     return( ! is.null(parsed.content)
         && ( ! is.vector(parsed.content) || length(parsed.content) > 1
-        || ! is.na(parsed.content)))
-},
+        || ! is.na(parsed.content))
+        && private$doCheckParsedContent(parsed.content)
+        )
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doCheckParsedContent=function(parsed.content) {
+    return(TRUE)
+}
+
+,doParseFieldsStep1=function(parsed.content) {
     abstractMethod(self)
-},
+}
 
-parseFieldsStep2=function(parsed.content) {
+,doParseFieldsStep2=function(parsed.content) {
 },
 
 checkDbIdField=function() {

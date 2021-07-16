@@ -68,16 +68,14 @@ initialize=function(...) {
 # $$$ END_CASE ENTRYTYPE $$$
 }
 
-,isContentCorrect=function(content) {
- 
-    correct <- callSuper(content)
+,doCheckContent=function(content) {
     
     # You can do some more checks of the content here.
     
-    return(correct)
+    return(TRUE)
 }
 
-,parseFieldsStep2=function(parsed.content) {
+,doParseFieldsStep2=function(parsed.content) {
     
     # TODO Implement your custom parsing processing here.
 }
