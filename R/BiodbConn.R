@@ -1937,7 +1937,7 @@ doGetEntryPageUrl=function(id) {
 },
 
 doGetEntryImageUrl=function(id) {
-    return(rep(NA_character_, length(entry.id)))
+    return(rep(NA_character_, length(id)))
 },
 
 checkIsEditable=function() {
