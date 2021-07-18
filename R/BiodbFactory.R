@@ -282,7 +282,7 @@ getEntry=function(conn.id, id, drop=TRUE) {
     id <- as.character(id)
 
     # Get connector
-    conn <- self$getConn(conn.id, class=FALSE, create=FALSE)
+    conn <- self$getConn(conn.id)
 
     # Correct IDs
     id <- conn$correctIds(id)
