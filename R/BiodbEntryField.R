@@ -64,8 +64,8 @@ public=list(
 
 #' @description
 #' New instance initializer. This class must not be instantiated directly.
-#' Instead, you access the instances of this class through the BiodbEntryFields
-#' instance that you get from the BiodbMain instance.
+#' Instead, you access the instances of this class through the
+#' BiodbEntryFields instance that you get from the BiodbMain instance.
 #' @param parent The BiodbEntryFields parent instance.
 #' @param name The field name.
 #' @param alias The field aliases as a character vector.
@@ -74,14 +74,16 @@ public=list(
 #' @param card The field cardinality.
 #' @param forbids.duplicates Set to TRUE to forbid duplicated values.
 #' @param description The field description.
-#' @param allowed.values Restrict possible values to a set of allowed values.
+#' @param allowed.values Restrict possible values to a set of allowed
+#' values.
 #' @param lower.case All values will be converted to lower case.
-#' @param case.insensitive Comparison will be made case insensitive for this
-#' field.
+#' @param case.insensitive Comparison will be made case insensitive for
+#' this field.
 #' @param computable.from A list of databases from which to compute
 #' automatically the value of this field.
 #' @param virtual Set to TRUE if this field is virtual.
-#' @param virtual.group.by.type In case of a virtual field, set the type of fields to group together into a data frame.
+#' @param virtual.group.by.type In case of a virtual field, set the type
+#' of fields to group together into a data frame.
 #' @param dataFrameGroup The data frame group.
 #' @return Nothing.
 initialize=function(parent, name, alias=NA_character_, type=NA_character_,
@@ -158,8 +160,8 @@ initialize=function(parent, name, alias=NA_character_, type=NA_character_,
 
     # Virtual
     private$virtual <- virtual
-    private$virtualGroupByType <- if (is.null(virtual.group.by.type)) character()
-        else virtual.group.by.type
+    private$virtualGroupByType <- if (is.null(virtual.group.by.type))
+        character() else virtual.group.by.type
     if ( ! private$virtual && length(private$virtualGroupByType) > 0)
         error0('virtual.group.by.type is not usable with non-virtual field "',
             name, '".')
@@ -447,9 +449,9 @@ getAllowedValues=function(value=NULL) {
 
 #' @description
 #' Adds an allowed value, as a synonym to already an existing value. Note
-#'     that not all enumerate fields accept synonyms.
-#' @param key The key associated with the value (i.e.: the key is the main name of
-#'     an allowed value).
+#' that not all enumerate fields accept synonyms.
+#' @param key The key associated with the value (i.e.: the key is the
+#' main name of an allowed value).
 #' @param value The new value to add.
 #' @return Nothing.
 addAllowedValue=function(key, value) {
@@ -618,9 +620,9 @@ equals=function(other, fail=FALSE) {
 
 #' @description
 #' Updates fields using values from `other` instance. The updated fields
-#' @param are 'alias' and 'computable.from'. No values will be removed from those
-#'     vectors. The new values will only be appended. This allows to extend an
-#'     existing field inside a new connector definition.
+#' @param are 'alias' and 'computable.from'. No values will be removed
+#' from those vectors. The new values will only be appended. This allows
+#' to extend an existing field inside a new connector definition.
 #' @param other Another BiodbEntryField instance.
 #' @return Nothing.
 updateWithValuesFrom=function(other) {

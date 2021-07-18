@@ -96,6 +96,8 @@ getPersistentCache() method.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{cfg}}{An instance of the BiodbConfig class.}
+
+\item{\code{bdb}}{An instance of the BiodbMain class.}
 }
 \if{html}{\out{</div>}}
 }
@@ -265,14 +267,14 @@ DEPRECATED. Use fileExists().
 
 \item{\code{name}}{A character vector containing file names.}
 
-\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\",
+etc).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A logical vector, the same size as \\code{name}, with
-\\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
-otherwise.
+A logical vector, the same size as \\code{name}, with \\code{TRUE}
+value if the file exists in the cache, or \\code{FALSE} otherwise.
 }
 }
 \if{html}{\out{<hr>}}
@@ -291,14 +293,14 @@ Tests if a particular file exist in the cache.
 
 \item{\code{name}}{A character vector containing file names.}
 
-\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\",
+etc).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A logical vector, the same size as \\code{name}, with
-\\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
-otherwise.
+A logical vector, the same size as \\code{name}, with \\code{TRUE}
+value if the file exists in the cache, or \\code{FALSE} otherwise.
 }
 }
 \if{html}{\out{<hr>}}
@@ -423,9 +425,9 @@ Loads content of files from the cache.
 
 \item{\code{ext}}{The extension of the files.}
 
-\item{\code{output.vector}}{If set to \\code{TRUE}, force output to be a \\code{vector}
-instead of a \\code{list}. Where the list contains a \\code{NULL}, the
-\\code{vector} will contain an \\code{NA} value.}
+\item{\code{output.vector}}{If set to \\code{TRUE}, force output to be a
+\\code{vector} instead of a \\code{list}. Where the list contains a
+\\code{NULL}, the \\code{vector} will contain an \\code{NA} value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -581,7 +583,8 @@ Deletes a list of files inside the cache system.
 
 \item{\code{name}}{A character vector containing file names.}
 
-\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).}
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\",
+etc).}
 }
 \if{html}{\out{</div>}}
 }
@@ -603,11 +606,11 @@ Deletes, in the cache system, all files associated with this cache ID.
 \describe{
 \item{\code{cache.id}}{The cache ID to use.}
 
-\item{\code{fail}}{If set to TRUE, a warning will be emitted if no cache files exist
-for this cache ID.}
+\item{\code{fail}}{If set to TRUE, a warning will be emitted if no cache files
+exist for this cache ID.}
 
-\item{\code{prefix}}{DEPRECATED If set to TRUE, use cache.id as a prefix, deleting all
-files whose cache.id starts with this prefix.}
+\item{\code{prefix}}{DEPRECATED If set to TRUE, use cache.id as a prefix, deleting
+all files whose cache.id starts with this prefix.}
 }
 \if{html}{\out{</div>}}
 }
@@ -630,8 +633,8 @@ cache system.
 \describe{
 \item{\code{cache.id}}{The cache ID to use.}
 
-\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\", etc).
-Only files having this extension will be deleted.}
+\item{\code{ext}}{The extension of the files, without the dot (\"html\", \"xml\",
+etc).  Only files having this extension will be deleted.}
 }
 \if{html}{\out{</div>}}
 }

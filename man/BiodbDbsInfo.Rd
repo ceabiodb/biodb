@@ -76,8 +76,8 @@ file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{def}}{A named list of database definitions. The names of the list will be
-the IDs of the databases.}
+\item{\code{def}}{A named list of database definitions. The names of the list
+will be the IDs of the databases.}
 
 \item{\code{package}}{The package to which belong the new definitions.}
 }
@@ -155,17 +155,17 @@ Gets information on a database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db.id}}{Database IDs, as a character vector. If set to NULL, informations
-on all databases will be returned.}
+\item{\code{db.id}}{Database IDs, as a character vector. If set to NULL,
+informations on all databases will be returned.}
 
-\item{\code{drop}}{If TRUE and only one database ID has been submitted, returns a
-single BiodbDbInfo instance instead of a list.}
+\item{\code{drop}}{If TRUE and only one database ID has been submitted,
+returns a single BiodbDbInfo instance instead of a list.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list of BiodbDbInfo instances corresponding to the
-specified database IDs.
+A list of BiodbDbInfo instances corresponding to the specified
+database IDs.
 }
 }
 \if{html}{\out{<hr>}}

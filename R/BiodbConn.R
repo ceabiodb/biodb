@@ -119,18 +119,18 @@ correctIds=function(ids) {
 
 #' @description
 #' Return the entry corresponding to this ID. You can pass a vector of
-#'     IDs, and you will get a list of entries.
+#' IDs, and you will get a list of entries.
 #' @param id A character vector containing entry identifiers.
-#' @param drop If set to TRUE and only one entry is requrested, then the returned
-#'     value will be a single BiodbEntry object, otherwise it will be a list of 
-#'     BiodbEntry objects.
-#' @param nulls If set to TRUE, NULL entries are preserved. This ensures that the
-#'     output list has the same length than the input vector `id`. Otherwise they
-#'     are removed from the final list.
-#' @return A list of BiodbEntry objects, the same size of the vector
-#'     of IDs. The list will contain NULL values for invalid IDs. If drop is set to
-#'     TRUE and only one etrny was requested then a single BiodbEntry is returned
-#'     instead of a list.
+#' @param drop If set to TRUE and only one entry is requrested, then the
+#' returned value will be a single BiodbEntry object, otherwise it will be
+#' a list of BiodbEntry objects.
+#' @param nulls If set to TRUE, NULL entries are preserved. This ensures
+#' that the output list has the same length than the input vector `id`.
+#' Otherwise they are removed from the final list.
+#' @return A list of BiodbEntry objects, the same size of the vector of
+#' IDs. The list will contain NULL values for invalid IDs. If drop is set
+#' to TRUE and only one etrny was requested then a single BiodbEntry is
+#' returned instead of a list.
 getEntry=function(id, drop=TRUE, nulls=TRUE) {
 
     entries <- private$bdb$getFactory()$getEntry(self$getId(), id=id,
@@ -144,11 +144,11 @@ getEntry=function(id, drop=TRUE, nulls=TRUE) {
 
 #' @description
 #' Get the path to the persistent cache file.
-#' @param entry.id The identifiers (e.g.: accession numbers) as a character vector
-#'     of the database entries.
+#' @param entry.id The identifiers (e.g.: accession numbers) as a
+#' character vector of the database entries.
 #' @return A character vector, the same length as the vector of IDs,
-#'     containing the paths to the cache files corresponding to the requested entry
-#'     IDs.
+#' containing the paths to the cache files corresponding to the requested
+#' entry IDs.
 getCacheFile=function(entry.id) {
 
     c <- private$bdb$getPersistentCache()
@@ -160,9 +160,8 @@ getCacheFile=function(entry.id) {
 #' @description
 #' Get the contents of database entries from IDs (accession numbers).
 #' @param id A character vector of entry IDs.
-#' @return A character vector containing the contents of the
-#'     requested IDs. If no content is available for an entry ID, then NA will be
-#'     used.
+#' @return A character vector containing the contents of the requested
+#' IDs. If no content is available for an entry ID, then NA will be used.
 getEntryContent=function(id) {
 
     content <- list()
@@ -1662,23 +1661,26 @@ fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
 #' @param spectrum A template spectrum to match inside the database.
 #' @param precursor.mz The M/Z value of the precursor peak of the mass spectrum.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to
+#' 'ppm' or 'plain'.
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param npmin The minimum number of peak to detect a match (2 is recommended).
-#' @param dist.fun The distance function used to compute the distance betweem two
-#'     mass spectra.
-#' @param msms.mz.tol M/Z tolerance to apply while matching MSMS spectra.  In PPM.
-#' @param msms.mz.tol.min Minimum of the M/Z tolerance (plain unit). If the M/Z
-#'     tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
-#'     `msms.mz.tol.min` will be used.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
+#' @param dist.fun The distance function used to compute the distance
+#' betweem two mass spectra.
+#' @param msms.mz.tol M/Z tolerance to apply while matching MSMS spectra.
+#' In PPM.
+#' @param msms.mz.tol.min Minimum of the M/Z tolerance (plain unit). If
+#' the M/Z tolerance computed with `msms.mz.tol` is lower than
+#' `msms.mz.tol.min`, then `msms.mz.tol.min` will be used.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
 #' @return A data frame with columns `id`, `score` and `peak.*`. Each
-#'     `peak.*` column corresponds to a peak in the input spectrum, in the same
-#'     order and gives the number of the peak that was matched with it inside the
-#'     matched spectrum whose ID is inside the `id` column.
-msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2, dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3, msms.mz.tol.min=0.005, max.results=0) {
+#' `peak.*` column corresponds to a peak in the input spectrum, in the
+#' same order and gives the number of the peak that was matched with it
+#' inside the matched spectrum whose ID is inside the `id` column.
+msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain',
+    'ppm'), ms.mode, npmin=2, dist.fun=c('wcosine', 'cosine', 'pkernel',
+    'pbachtttarya'), msms.mz.tol=3, msms.mz.tol.min=0.005, max.results=0) {
 
     private$checkIsMassdb()
     peak.tables <- list()
@@ -1748,16 +1750,17 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
 #' @description
 #' Find spectra in the given M/Z range. Returns a list of spectra IDs.
 #' @param mz.min A vector of minimum M/Z values.
-#' @param mz.max A vector of maximum M/Z values. Its length must be the same as
-#'     `mz.min`.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param mz.max A vector of maximum M/Z values. Its length must be the
+#' same as `mz.min`.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
-#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' 0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor
+#' peaks.
 #' @return A character vector of spectra IDs.
 searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL,
     max.results=0, precursor=FALSE, ms.level=0) {
@@ -1771,19 +1774,20 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL,
 
 #' @description
 #' Find spectra containg a peak around the given M/Z value. Returns a
-#'     character vector of spectra IDs.
+#' character vector of spectra IDs.
 #' @param mz A vector of M/Z values.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to
+#' 'ppm' or 'plain'.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
-#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' 0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor
+#' peaks.
 #' @return A character vector of spectra IDs.
 searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
@@ -2019,7 +2023,8 @@ getEntryMissingFromCache=function(ids) {
     return(missing.ids)
 },
 
-doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
+    max.results, precursor, ms.level) {
 
     rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
@@ -2028,7 +2033,8 @@ doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.result
         precursor=precursor, ms.level=ms.level))
 },
 
-doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode,
+    max.results, precursor, ms.level) {
     abstractMethod(self)
 },
 

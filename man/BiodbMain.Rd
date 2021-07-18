@@ -292,17 +292,18 @@ vector or a list depending on the type of the field.
 
 \item{\code{field}}{The name of a field.}
 
-\item{\code{flatten}}{If set to \\code{TRUE} and the field has a cardinality greater
-than one, then values be converted into a vector of class character in which
-each entry values are collapsed.}
+\item{\code{flatten}}{If set to \\code{TRUE} and the field has a cardinality
+greater than one, then values be converted into a vector of class
+character in which each entry values are collapsed.}
 
-\item{\code{compute}}{If set to \\code{TRUE}, computable fields will be output.}
+\item{\code{compute}}{If set to \\code{TRUE}, computable fields will be
+output.}
 
-\item{\code{limit}}{The maximum number of values to retrieve for each entry. Set to 0
-to get all values.}
+\item{\code{limit}}{The maximum number of values to retrieve for each entry.
+Set to 0 to get all values.}
 
-\item{\code{withNa}}{If set to TRUE, keep NA values. Otherwise filter out NAs values in
-vectors.}
+\item{\code{withNa}}{If set to TRUE, keep NA values. Otherwise filter out NAs
+values in vectors.}
 }
 \if{html}{\out{</div>}}
 }
@@ -340,19 +341,20 @@ Converts a list of entries or a list of list of entries
 \item{\code{entries}}{A list of \\code{BiodbEntry} instances or a list of list of
 \\code{BiodbEntry} instances.}
 
-\item{\code{only.atomic}}{If set to \\code{TRUE}, output only atomic fields, i.e.: the
-fields whose value type is one of integer, numeric, logical or character.}
+\item{\code{only.atomic}}{If set to \\code{TRUE}, output only atomic fields, i.e.:
+the fields whose value type is one of integer, numeric, logical or
+character.}
 
-\item{\code{null.to.na}}{If set to \\code{TRUE}, each \\code{NULL} entry in the list is
-converted into a row of NA values.}
+\item{\code{null.to.na}}{If set to \\code{TRUE}, each \\code{NULL} entry in the
+list is converted into a row of NA values.}
 
 \item{\code{compute}}{If set to \\code{TRUE}, computable fields will be output.}
 
-\item{\code{fields}}{A character vector of field names to output. The data frame output
-will be restricted to this list of fields.}
+\item{\code{fields}}{A character vector of field names to output. The data frame
+output will be restricted to this list of fields.}
 
-\item{\code{limit}}{The maximum number of field values to write into new columns. Used
-for fields that can contain more than one value. Set it to 0 to get all
+\item{\code{limit}}{The maximum number of field values to write into new columns.
+Used for fields that can contain more than one value. Set it to 0 to get all
 values.}
 
 \item{\code{drop}}{If set to \\code{TRUE} and the resulting data frame has only one
@@ -425,7 +427,8 @@ values, with one entry per line, in the same order than in \code{ids} vector.}
 \if{html}{\out{<a id="method-addColsToDataframe"></a>}}
 \if{latex}{\out{\hypertarget{method-addColsToDataframe}{}}}
 \subsection{Method \code{addColsToDataframe()}}{
-Using
+Add values from a database to an existing data frame using a column
+containing entry identifiers.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$addColsToDataframe(x, id.col, db, fields, limit = 3, prefix = "")}\if{html}{\out{</div>}}
 }
@@ -436,15 +439,16 @@ Using
 \item{\code{x}}{A data frame containing at least one column with Biodb entry IDs
 identified by the parameter \code{id.col}.}
 
-\item{\code{id.col}}{The name of the column containing IDs inside the input data frame.}
+\item{\code{id.col}}{The name of the column containing IDs inside the input data
+frame.}
 
 \item{\code{db}}{The biodb database name for the entry IDs, or a connector ID, as a
-sinle character value.}
+single character value.}
 
 \item{\code{fields}}{A character vector containing entry fields to add.}
 
-\item{\code{limit}}{The maximum number of field values to write into new columns. Used
-for fields that can contain more than one value. Set it to 0 to get all
+\item{\code{limit}}{The maximum number of field values to write into new columns.
+Used for fields that can contain more than one value. Set it to 0 to get all
 values.}
 
 \item{\code{prefix}}{Insert a prefix at the start of all field names.}
@@ -452,16 +456,16 @@ values.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A data frame containing \code{x} and new columns appended for
-the fields requested.
+A data frame containing \code{x} and new columns appended for the fields
+requested.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-entriesToJson"></a>}}
 \if{latex}{\out{\hypertarget{method-entriesToJson}{}}}
 \subsection{Method \code{entriesToJson()}}{
-Converts a list of \\code{BiodbEntry} objects into JSON. Returns a
-vector of characters.
+Converts a list of \\code{BiodbEntry} objects into JSON. Returns a vector of
+characters.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$entriesToJson(entries, compute = TRUE)}\if{html}{\out{</div>}}
 }
@@ -472,7 +476,8 @@ vector of characters.
 \item{\code{entries}}{A list of \\code{BiodbEntry} instances. It may contain NULL
 elements.}
 
-\item{\code{compute}}{If set to \\code{TRUE}, computable fields will added to JSON too.}
+\item{\code{compute}}{If set to \\code{TRUE}, computable fields will added to JSON
+too.}
 }
 \if{html}{\out{</div>}}
 }
@@ -484,13 +489,12 @@ A list of JSON strings, the same length as entries list.
 \if{html}{\out{<a id="method-collapseRows"></a>}}
 \if{latex}{\out{\hypertarget{method-collapseRows}{}}}
 \subsection{Method \code{collapseRows()}}{
-Collapses rows of a data frame, by looking for duplicated values in
-the reference columns (parameter \code{cols}). The values contained in the
-reference columns are supposed to be ordered inside the data frame, in the
-sens that all duplicated values are supposed to directly follow the
-original values.  For all rows containing duplicated values, we look at
-values in all other columns and concatenate values in each column
-containing different values.
+Collapses rows of a data frame, by looking for duplicated values in the
+reference columns (parameter \code{cols}). The values contained in the reference
+columns are supposed to be ordered inside the data frame, in the sens that
+all duplicated values are supposed to directly follow the original values.
+For all rows containing duplicated values, we look at values in all other
+columns and concatenate values in each column containing different values.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$collapseRows(x, sep = "|", cols = 1L)}\if{html}{\out{</div>}}
 }
@@ -613,7 +617,8 @@ separate file.
 \item{\code{entries}}{A list of \\code{BiodbEntry} instances. It may contain NULL
 elements.}
 
-\item{\code{files}}{A character vector of file paths, the same length as entries list.}
+\item{\code{files}}{A character vector of file paths, the same length as entries
+list.}
 
 \item{\code{compute}}{If set to \\code{TRUE}, computable fields will be saved too.}
 }
@@ -627,8 +632,8 @@ Nothing.
 \if{html}{\out{<a id="method-copyDb"></a>}}
 \if{latex}{\out{\hypertarget{method-copyDb}{}}}
 \subsection{Method \code{copyDb()}}{
-Copies all entries of a database into another database. The connector
-of the destination database must be editable.
+Copies all entries of a database into another database. The connector of the
+destination database must be editable.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbMain$copyDb(conn.from, conn.to, limit = 0)}\if{html}{\out{</div>}}
 }

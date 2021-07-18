@@ -98,10 +98,11 @@ getBiodb=function() {
 
 #' @description
 #' Clones this entry.
-#' @param db.class The database class (the Biodb database ID) of the clone. By
-#'     setting this parameter, you can specify a different database for the clone,
-#'     so you may clone an entry into another database if you wish. By
-#'     default the class of the clone will be the same as the original entry.
+#' @param db.class The database class (the Biodb database ID) of the
+#' clone. By setting this parameter, you can specify a different database
+#' for the clone, so you may clone an entry into another database if you
+#' wish. By default the class of the clone will be the same as the
+#' original entry.
 #' @return The clone, as a new BiodbEntry instance.
 cloneInstance=function(db.class=NULL) {
 # TODO IMPORTANT See if we can use reserved R6 clone() method instead.
@@ -267,7 +268,8 @@ hasField=function(field) {
 removeField=function(field) {
 
     if (self$hasField(field))
-        private$fields <- private$fields[names(private$fields) != tolower(field)]
+        private$fields <- private$fields[names(private$fields)
+            != tolower(field)]
 
     return(invisible(NULL))
 },
@@ -460,11 +462,11 @@ getFieldsAsJson=function(compute=TRUE) {
 
 #' @description
 #' Parses content string and set values accordingly for this entry's
-#'     fields.  This method is called automatically and should be run directly by
-#'     users.
+#' fields.  This method is called automatically and should be run directly
+#' by users.
 #' @param content A character string containing definition for an entry and
-#' @param obtained from a database. The format can be CSV, HTML, JSON, XML, or just
-#'     text.
+#' @param obtained from a database. The format can be CSV, HTML, JSON,
+#' XML, or just text.
 #' @return Nothing.
 parseContent=function(content) {
 

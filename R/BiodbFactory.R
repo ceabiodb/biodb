@@ -61,25 +61,26 @@ getBiodb=function() {
 
 #' @description
 #' Creates a connector to a database.
-#' @param db.class The type of a database. The list of types can be obtained from
-#'     the class BiodbDbsInfo.
-#' @param url An URL to the database for which to create a connection.  Each
-#'     database connector is configured with a default URL, but some allow you to
-#'     change it.
-#' @param token A security access token for the database. Some database require
-#'     such a token for all or some of their webservices. Usually you obtain the
-#'     token through your account on the database website.
-#' @param fail.if.exists If set to TRUE, the method will fail if a connector for
-#' @param get.existing.conn This argument will be used only if fail.if.exists is
-#'     set to FALSE and an identical connector already exists. If it set to TRUE,
-#'     the existing connector instance will be returned, otherwise NULL will be
-#'     returned.
-#' @param conn.id If set, this identifier will be used for the new connector. An
-#'     error will be raised in case another connector already exists with this
-#'     identifier.
-#' @param cache.id If set, this ID will be used as the cache ID for the new
-#'     connector. An error will be raised in case another connector already exists
-#'     with this cache identifier.
+#' @param db.class The type of a database. The list of types can be
+#' obtained from the class BiodbDbsInfo.
+#' @param url An URL to the database for which to create a connection.
+#' Each database connector is configured with a default URL, but some
+#' allow you to change it.
+#' @param token A security access token for the database. Some database
+#' require such a token for all or some of their webservices. Usually you
+#' obtain the token through your account on the database website.
+#' @param fail.if.exists If set to TRUE, the method will fail if a
+#' connector for
+#' @param get.existing.conn This argument will be used only if
+#' fail.if.exists is set to FALSE and an identical connector already
+#' exists. If it set to TRUE, the existing connector instance will be
+#' returned, otherwise NULL will be returned.
+#' @param conn.id If set, this identifier will be used for the new
+#' connector. An error will be raised in case another connector already
+#' exists with this identifier.
+#' @param cache.id If set, this ID will be used as the cache ID for the
+#' new connector. An error will be raised in case another connector
+#' already exists with this cache identifier.
 #' @return An instance of the requested connector class.
 createConn=function(db.class, url=NULL, token=NA_character_,
     fail.if.exists=TRUE, get.existing.conn=TRUE, conn.id=NULL, cache.id=NULL) {
@@ -180,8 +181,8 @@ deleteConn=function(conn) {
 
 #' @description
 #' Deletes all existing connectors from a same class.
-#' @param db.class The type of a database. All connectors of this database
-#'     type will be deleted.
+#' @param db.class The type of a database. All connectors of this
+#' database type will be deleted.
 #' @return Nothing.
 deleteConnByClass=function(db.class) {
 
@@ -227,14 +228,14 @@ deleteAllConnectors=function() {
 #' @description
 #' Gets an instantiated connector instance, or create a new one.
 #' @param conn.id An existing connector ID.
-#' @param class If set to TRUE, and \"conn.id\" does not correspond to any
-#'     instantiated connector, then interpret \"conn.id\" as a database class and
-#'     looks for the first instantiated connector of that class.
-#' @param create If set to TRUE, and \"class\" is also set to TRUE, and no suitable
-#'     instantiated connector was found, then creates a new connector instance of
-#'     the class specified by \"conn.id\".
-#' @return The connector instance corresponding to the connector ID
-#'     or to the database ID submitted (if class \"parameter\" is set to TRUE).
+#' @param class If set to TRUE, and \"conn.id\" does not correspond to
+#' any instantiated connector, then interpret \"conn.id\" as a database
+#' class and looks for the first instantiated connector of that class.
+#' @param create If set to TRUE, and \"class\" is also set to TRUE, and
+#' no suitable instantiated connector was found, then creates a new
+#' connector instance of the class specified by \"conn.id\".
+#' @return The connector instance corresponding to the connector ID or to
+#' the database ID submitted (if class \"parameter\" is set to TRUE).
 getConn=function(conn.id, class=TRUE, create=TRUE) {
 
     chk::chk_string(conn.id)
@@ -271,12 +272,14 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
 #' Retrieves database entry objects from IDs (accession numbers), for the
 #' specified connector.
 #' @param conn.id An existing connector ID.
-#' @param id A character vector containing database entry IDs (accession numbers).
-#' @param drop If set to TRUE and the list of entries contains only one element,
-#' then returns this element instead of the list. If set to FALSE, then returns
-#' always a list.
+#' @param id A character vector containing database entry IDs (accession
+#' numbers).
+#' @param drop If set to TRUE and the list of entries contains only one
+#' element, then returns this element instead of the list. If set to
+#' FALSE, then returns always a list.
 #' @param no.null Set to TRUE to remove NULL entries.
-#' @param limit Set to a positive value to limit the number of entries returned.
+#' @param limit Set to a positive value to limit the number of entries
+#' returned.
 #' @return A list of BiodbEntry objects, the same length as `id`. A
 #' NULL value is put into the list for each invalid ID of `id`.
 getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
@@ -293,7 +296,8 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
     missing.ids <- conn$.__enclos_env__$private$getEntryMissingFromCache(id)
 
     if (length(missing.ids) > 0)
-        new.entries <- private$loadEntries(conn$getId(), missing.ids, drop=FALSE)
+        new.entries <- private$loadEntries(conn$getId(), missing.ids,
+            drop=FALSE)
 
     # Get entries
     entries <- unname(conn$.__enclos_env__$private$getEntriesFromCache(id))
@@ -349,8 +353,8 @@ getAllCacheEntries=function(conn.id) {
 
 #' @description
 #' Deletes all entries stored in the cache of the given connector. This
-#'     method is deprecated, please use deleteAllEntriesFromVolatileCache()
-#'     instead.
+#' method is deprecated, please use deleteAllEntriesFromVolatileCache()
+#' instead.
 #' @param conn.id A connector ID.
 #' @return Nothing.
 deleteAllEntriesFromVolatileCache=function(conn.id) {

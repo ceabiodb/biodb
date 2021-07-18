@@ -60,7 +60,8 @@ getCsvQuote=function() {
 
 #' @description
 #' Sets the characters used to delimit quotes in the CSV database file.
-#' @param quote The characters used to delimit quotes as a single character value.
+#' @param quote The characters used to delimit quotes as a single character
+#' value.
 #' @param You may specify several characters. Example \"\\\"'\".
 #' @return Nothing.
 setCsvQuote=function(quote) {
@@ -85,8 +86,8 @@ getCsvSep=function() {
 },
 
 #' @description
-#' Sets the CSV separator to be used for the database file. If this
-#'     method is called after the loading of the database, it will throw an error.
+#' Sets the CSV separator to be used for the database file. If this method is
+#' called after the loading of the database, it will throw an error.
 #' @param sep The CSV separator as a character value.
 #' @return Nothing.
 setCsvSep=function(sep) {
@@ -137,10 +138,10 @@ hasField=function(field) {
 
 #' @description
 #' Tests if a field can be used to search entries when using method
-#'     searchForEntries().
+#' searchForEntries().
 #' @param field The name of the field.
-#' @return Returns TRUE if the database is searchable using the
-#'     specified field, FALSE otherwise.
+#' @return Returns TRUE if the database is searchable using the specified
+#' field, FALSE otherwise.
 isSearchableByField=function(field) {
     # Overrides super class' method.
 
@@ -185,8 +186,8 @@ addField=function(field, value) {
 
 #' @description
 #' Get the column name corresponding to a Biodb field.
-#' @param field A valid Biodb entry field name. This field must be defined for this
-#'     database instance.
+#' @param field A valid Biodb entry field name. This field must be defined for
+#' this database instance.
 #' @return The column name from the CSV file.
 getFieldColName=function(field) {
 
@@ -207,12 +208,12 @@ getFieldColName=function(field) {
 },
 
 #' @description
-#' Sets a field by making a correspondence between a Biodb field and one
-#'     or more columns of the loaded data frame.
+#' Sets a field by making a correspondence between a Biodb field and one or
+#' more columns of the loaded data frame.
 #' @param field A valid Biodb entry field name. This field must not be already
-#'     defined for this database instance.
-#' @param colname A character vector containing one or more column names from the
-#'     CSV file.
+#' defined for this database instance.
+#' @param colname A character vector containing one or more column names from
+#' the CSV file.
 #' @param ignore.if.missing Deprecated parameter.
 #' @return Nothing.
 setField=function(field, colname, ignore.if.missing=FALSE) {
@@ -470,7 +471,8 @@ selectByIds=function(db, ids) {
     return(db)
 },
 
-select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE, sort=FALSE, max.rows=0, ...) {
+select=function(db=NULL, ids=NULL, cols=NULL, drop=FALSE, uniq=FALSE,
+    sort=FALSE, max.rows=0, ...) {
     
     chk::chk_number(max.rows)
     chk::chk_gte(max.rows, 0)

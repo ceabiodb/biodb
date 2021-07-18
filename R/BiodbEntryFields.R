@@ -110,13 +110,13 @@ checkIsDefined=function(name) {
 },
 
 #' @description
-#' Gets the real names (main names) of fields. If some name is not
-#'     found neither in aliases nor in real names, an error is thrown.
+#' Gets the real names (main names) of fields. If some name is not found
+#' neither in aliases nor in real names, an error is thrown.
 #' @param name A character vector of names or aliases.
 #' @param fail Fails if name is unknown.
-#' @return A character vector, the same length as `name`, with the
-#' @param real field name for each name given (i.e. each alias is replaced with the
-#'     real name).
+#' @return A character vector, the same length as `name`, with the real
+#' field name for each name given (i.e. each alias is replaced with the
+#' real name).
 getRealName=function(name, fail=TRUE) {
     chk::chk_character(name)
     chk::chk_flag(fail)
@@ -143,11 +143,11 @@ getRealName=function(name, fail=TRUE) {
 #' @description
 #' Gets a BiodbEntryField instance.
 #' @param name A character vector of names or aliases.
-#' @param drop If TRUE and only one name has been submitted, returns a single
-#'     BiodbEntryField instance instead of a list.
-#' @return A named list of BiodbEntryField instances. The names of
-#'     the list are the real names of the entry fields, thus they may be different
-#'     from the one provided inside the name argument.
+#' @param drop If TRUE and only one name has been submitted, returns a
+#' single BiodbEntryField instance instead of a list.
+#' @return A named list of BiodbEntryField instances. The names of the
+#' list are the real names of the entry fields, thus they may be
+#' different from the one provided inside the name argument.
 get=function(name, drop=TRUE) {
     chk::chk_character(name)
     chk::chk_flag(drop)
@@ -167,11 +167,11 @@ get=function(name, drop=TRUE) {
 #' @description
 #' Gets the main names of all fields.
 #' @param type Set this parameter to a character vector in order to
-#'     return only the names of the fields corresponding to the types
-#'     specified.
-#' @param computable If set to TRUE, returns only the names of
-#'     computable fields. If set to FALSE, returns only the names of
-#'     fields that are not computable.
+#' return only the names of the fields corresponding to the types
+#' specified.
+#' @param computable If set to TRUE, returns only the names of computable
+#' fields. If set to FALSE, returns only the names of fields that are not
+#' computable.
 #' @return A character vector containing all selected field names.
 getFieldNames=function(type=NULL, computable=NULL) {
 

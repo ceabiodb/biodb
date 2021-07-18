@@ -248,17 +248,19 @@ convertEntryIdFieldToDbClass=function(entry.id.field) {
 #'     vector or a list depending on the type of the field.
 #' @param entries A list of \\code{BiodbEntry} instances. 
 #' @param field The name of a field.
-#' @param flatten If set to \\code{TRUE} and the field has a cardinality greater
-#'     than one, then values be converted into a vector of class character in which
-#'     each entry values are collapsed.
-#' @param compute If set to \\code{TRUE}, computable fields will be output.
-#' @param limit The maximum number of values to retrieve for each entry. Set to 0
-#'     to get all values.
-#' @param withNa If set to TRUE, keep NA values. Otherwise filter out NAs values in
-#'     vectors.
+#' @param flatten If set to \\code{TRUE} and the field has a cardinality
+#' greater than one, then values be converted into a vector of class
+#' character in which each entry values are collapsed.
+#' @param compute If set to \\code{TRUE}, computable fields will be
+#' output.
+#' @param limit The maximum number of values to retrieve for each entry.
+#' Set to 0 to get all values.
+#' @param withNa If set to TRUE, keep NA values. Otherwise filter out NAs
+#' values in vectors.
 #' @return A vector if the field is atomic or flatten is set to
-#'     \\code{TRUE}, otherwise a list.
-entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE, limit=0, withNa=TRUE) {
+#' \\code{TRUE}, otherwise a list.
+entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE,
+    limit=0, withNa=TRUE) {
 
     val <- NULL
 
@@ -294,15 +296,16 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE, lim
 #' (\\code{BiodbEntry} objects) into a data frame.
 #' @param entries A list of \\code{BiodbEntry} instances or a list of list of
 #' \\code{BiodbEntry} instances.
-#' @param only.atomic If set to \\code{TRUE}, output only atomic fields, i.e.: the
-#' fields whose value type is one of integer, numeric, logical or character.
-#' @param null.to.na If set to \\code{TRUE}, each \\code{NULL} entry in the list is
-#' converted into a row of NA values.
+#' @param only.atomic If set to \\code{TRUE}, output only atomic fields, i.e.:
+#' the fields whose value type is one of integer, numeric, logical or
+#' character.
+#' @param null.to.na If set to \\code{TRUE}, each \\code{NULL} entry in the
+#' list is converted into a row of NA values.
 #' @param compute If set to \\code{TRUE}, computable fields will be output.
-#' @param fields A character vector of field names to output. The data frame output
-#' will be restricted to this list of fields.
-#' @param limit The maximum number of field values to write into new columns. Used
-#' for fields that can contain more than one value. Set it to 0 to get all
+#' @param fields A character vector of field names to output. The data frame
+#' output will be restricted to this list of fields.
+#' @param limit The maximum number of field values to write into new columns.
+#' Used for fields that can contain more than one value. Set it to 0 to get all
 #' values.
 #' @param drop If set to \\code{TRUE} and the resulting data frame has only one
 #' column, a vector will be output instead of data frame.
@@ -317,8 +320,8 @@ entriesFieldToVctOrLst=function(entries, field, flatten=FALSE, compute=TRUE, lim
 #' @return A data frame containing the entries. Columns are named
 #' according to field names.
 entriesToDataframe=function(entries, only.atomic=TRUE, null.to.na=TRUE,
-compute=TRUE, fields=NULL, limit=0, drop=FALSE, sort.cols=FALSE, flatten=TRUE,
-only.card.one=FALSE, own.id=TRUE, prefix='') {
+    compute=TRUE, fields=NULL, limit=0, drop=FALSE, sort.cols=FALSE,
+    flatten=TRUE, only.card.one=FALSE, own.id=TRUE, prefix='') {
 
     chk::chk_list(entries)
 
@@ -408,19 +411,21 @@ entryIdsToDataframe=function(ids, db, fields=NULL, limit=3, prefix='',
 },
 
 #' @description
-#' Using 
+#' Add values from a database to an existing data frame using a column
+#' containing entry identifiers.
 #' @param x A data frame containing at least one column with Biodb entry IDs
-#'     identified by the parameter `id.col`.
-#' @param id.col The name of the column containing IDs inside the input data frame.
+#' identified by the parameter `id.col`.
+#' @param id.col The name of the column containing IDs inside the input data
+#' frame.
 #' @param db The biodb database name for the entry IDs, or a connector ID, as a
-#'     sinle character value.
+#' single character value.
 #' @param fields A character vector containing entry fields to add.
-#' @param limit The maximum number of field values to write into new columns. Used
-#'     for fields that can contain more than one value. Set it to 0 to get all
-#'     values.
+#' @param limit The maximum number of field values to write into new columns.
+#' Used for fields that can contain more than one value. Set it to 0 to get all
+#' values.
 #' @param prefix Insert a prefix at the start of all field names.
-#' @return A data frame containing `x` and new columns appended for
-#'     the fields requested.
+#' @return A data frame containing `x` and new columns appended for the fields
+#' requested.
 addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
     
     chk::chk_is(x, 'data.frame')
@@ -446,11 +451,12 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
 },
 
 #' @description
-#' Converts a list of \\code{BiodbEntry} objects into JSON. Returns a
-#'     vector of characters.
+#' Converts a list of \\code{BiodbEntry} objects into JSON. Returns a vector of
+#' characters.
 #' @param entries A list of \\code{BiodbEntry} instances. It may contain NULL
-#'     elements.
-#' @param compute If set to \\code{TRUE}, computable fields will added to JSON too.
+#' elements.
+#' @param compute If set to \\code{TRUE}, computable fields will added to JSON
+#' too.
 #' @return A list of JSON strings, the same length as entries list.
 entriesToJson=function(entries, compute=TRUE) {
 
@@ -470,13 +476,12 @@ entriesToJson=function(entries, compute=TRUE) {
 },
 
 #' @description
-#' Collapses rows of a data frame, by looking for duplicated values in
-#'     the reference columns (parameter `cols`). The values contained in the
-#'     reference columns are supposed to be ordered inside the data frame, in the
-#'     sens that all duplicated values are supposed to directly follow the
-#'     original values.  For all rows containing duplicated values, we look at
-#'     values in all other columns and concatenate values in each column
-#'     containing different values.
+#' Collapses rows of a data frame, by looking for duplicated values in the
+#' reference columns (parameter `cols`). The values contained in the reference
+#' columns are supposed to be ordered inside the data frame, in the sens that
+#' all duplicated values are supposed to directly follow the original values.
+#' For all rows containing duplicated values, we look at values in all other
+#' columns and concatenate values in each column containing different values.
 #' @param x A data frame.
 #' @param cols The indices or the names of the columns used as reference.
 #' @param sep The separator to use when concatenating values in collapsed rows.
@@ -598,10 +603,11 @@ computeFields=function(entries) {
 
 #' @description
 #' Saves a list of entries in JSON format. Each entry will be saved in a
-#'     separate file.
+#' separate file.
 #' @param entries A list of \\code{BiodbEntry} instances. It may contain NULL
-#'     elements.
-#' @param files A character vector of file paths, the same length as entries list.
+#' elements.
+#' @param files A character vector of file paths, the same length as entries
+#' list.
 #' @param compute If set to \\code{TRUE}, computable fields will be saved too.
 #' @return Nothing.
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
@@ -623,12 +629,12 @@ saveEntriesAsJson=function(entries, files, compute=TRUE) {
 },
 
 #' @description
-#' Copies all entries of a database into another database. The connector
-#'     of the destination database must be editable.
+#' Copies all entries of a database into another database. The connector of the
+#' destination database must be editable.
 #' @param conn.from The connector of the source datababase to copy.
 #' @param conn.to The connector of the destination database.
 #' @param limit The number of entries of the source database to copy. If set to
-#'     \\code{NULL}, copy the whole database.
+#' \\code{NULL}, copy the whole database.
 #' @return Nothing.
 copyDb=function(conn.from, conn.to, limit=0) {
 
@@ -768,7 +774,8 @@ checkLocale=function() {
     }
 },
 
-entriesToListOfDataframes=function(entries, only.atomic, compute, fields, flatten, limit, only.card.one, own.id, null.to.na, progress=TRUE) {
+entriesToListOfDataframes=function(entries, only.atomic, compute, fields,
+    flatten, limit, only.card.one, own.id, null.to.na, progress=TRUE) {
 
     df.list <- list()
 

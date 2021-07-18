@@ -159,8 +159,8 @@ selectByMsLevel=function(db, level) {
     return(db)
 },
 
-doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL, mz.max=NULL, min.rel.int=0, precursor=FALSE, level=0)
-{
+doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL, mz.max=NULL,
+    min.rel.int=0, precursor=FALSE, level=0) {
 
     # Filtering
     if ( ! is.null(mode) && ! is.na(mode))
@@ -179,7 +179,8 @@ doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL, mz.max=NULL, mi
     return(db)
 }
 
-,doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+,doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results,
+    precursor, ms.level) {
     return(private$select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
     mode=ms.mode, max.rows=max.results, cols='accession', drop=TRUE, uniq=TRUE,
     sort=TRUE, precursor=precursor, level=ms.level))

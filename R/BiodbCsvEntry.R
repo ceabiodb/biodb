@@ -50,12 +50,12 @@ private=list(
 ,
 doParseContent=function(content) {
 
-    # Read all CSV file, including header line, into a data frame. The header
-    # line will then be the first line. This is to avoid first column to be
-    # interpreted as row names by read.table in case the header line contains
-    # one less field than the second line.
-    df <- read.table(text=content, header=FALSE, row.names=NULL, sep=private$sep,
-        quote=private$quotes, stringsAsFactors=FALSE,
+    # Read all CSV file, including header line, into a data frame. The
+    # header line will then be the first line. This is to avoid first
+    # column to be interpreted as row names by read.table in case the
+    # header line contains one less field than the second line.
+    df <- read.table(text=content, header=FALSE, row.names=NULL,
+        sep=private$sep, quote=private$quotes, stringsAsFactors=FALSE,
         na.strings=private$na.strings, fill=TRUE, check.names=FALSE,
         comment.char='')
 
@@ -101,7 +101,8 @@ doCheckParsedContent=function(parsed.content) {
             v <- parsed.content[[parsing.expr[[field]]]]
 
             # Is value considered NA?
-            if ( ! is.null(private$na.strings) && length(private$na.strings >= 1)
+            if ( ! is.null(private$na.strings)
+                && length(private$na.strings >= 1)
                 && ! all(is.na(private$na.strings)))
                 v[v %in% private$na.strings] <- NA
 
