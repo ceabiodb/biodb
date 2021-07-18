@@ -37,8 +37,6 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{SqliteConn$new()}}
-\item \href{#method-getEntryContentFromDb}{\code{SqliteConn$getEntryContentFromDb()}}
-\item \href{#method-defineParsingExpressions}{\code{SqliteConn$defineParsingExpressions()}}
 \item \href{#method-isSearchableByField}{\code{SqliteConn$isSearchableByField()}}
 \item \href{#method-hasField}{\code{SqliteConn$hasField()}}
 \item \href{#method-getQuery}{\code{SqliteConn$getQuery()}}
@@ -106,6 +104,7 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath">}\href{../../biodb/html/BiodbConn.html#method-getDownloadPath}{\code{biodb::BiodbConn$getDownloadPath()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry">}\href{../../biodb/html/BiodbConn.html#method-getEntry}{\code{biodb::BiodbConn$getEntry()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent">}\href{../../biodb/html/BiodbConn.html#method-getEntryContent}{\code{biodb::BiodbConn$getEntryContent()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
@@ -163,43 +162,6 @@ directly. Instead, you must use the createConn() method of the factory class.
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-Nothing.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContentFromDb"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContentFromDb}{}}}
-\subsection{Method \code{getEntryContentFromDb()}}{
-Get the contents of entries directly from the database. A direct request or
-an access to the database will be made in order to retrieve the contents. No
-access to the biodb cache system will be made.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SqliteConn$getEntryContentFromDb(entry.id)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{entry.id}}{A character vector with the IDs of entries to retrieve.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A character vector, the same size of entry.id, with contents of the
-requested entries. An NA value will be set for the content of each entry for
-which the retrieval failed.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-defineParsingExpressions"></a>}}
-\if{latex}{\out{\hypertarget{method-defineParsingExpressions}{}}}
-\subsection{Method \code{defineParsingExpressions()}}{
-Defines automatically the parsing expressions.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SqliteConn$defineParsingExpressions()}\if{html}{\out{</div>}}
-}
-
 \subsection{Returns}{
 Nothing.
 }

@@ -43,8 +43,6 @@ Super class \code{\link{CsvFileConn}}.
 \item \href{#method-isAPrecursorFormula}{\code{MassCsvFileConn$isAPrecursorFormula()}}
 \item \href{#method-setPrecursorFormulae}{\code{MassCsvFileConn$setPrecursorFormulae()}}
 \item \href{#method-addPrecursorFormulae}{\code{MassCsvFileConn$addPrecursorFormulae()}}
-\item \href{#method-getChromCol}{\code{MassCsvFileConn$getChromCol()}}
-\item \href{#method-getNbPeaks}{\code{MassCsvFileConn$getNbPeaks()}}
 \item \href{#method-clone}{\code{MassCsvFileConn$clone()}}
 }
 }
@@ -105,9 +103,11 @@ Super class \code{\link{CsvFileConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getBiodb">}\href{../../biodb/html/BiodbConn.html#method-getBiodb}{\code{biodb::BiodbConn$getBiodb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheFile">}\href{../../biodb/html/BiodbConn.html#method-getCacheFile}{\code{biodb::BiodbConn$getCacheFile()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheId">}\href{../../biodb/html/BiodbConn.html#method-getCacheId}{\code{biodb::BiodbConn$getCacheId()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getChromCol">}\href{../../biodb/html/BiodbConn.html#method-getChromCol}{\code{biodb::BiodbConn$getChromCol()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath">}\href{../../biodb/html/BiodbConn.html#method-getDownloadPath}{\code{biodb::BiodbConn$getDownloadPath()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry">}\href{../../biodb/html/BiodbConn.html#method-getEntry}{\code{biodb::BiodbConn$getEntry()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent">}\href{../../biodb/html/BiodbConn.html#method-getEntryContent}{\code{biodb::BiodbConn$getEntryContent()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
@@ -115,6 +115,8 @@ Super class \code{\link{CsvFileConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbEntries">}\href{../../biodb/html/BiodbConn.html#method-getNbEntries}{\code{biodb::BiodbConn$getNbEntries()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbPeaks">}\href{../../biodb/html/BiodbConn.html#method-getNbPeaks}{\code{biodb::BiodbConn$getNbPeaks()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getSearchableFields">}\href{../../biodb/html/BiodbConn.html#method-getSearchableFields}{\code{biodb::BiodbConn$getSearchableFields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isCompounddb">}\href{../../biodb/html/BiodbConn.html#method-isCompounddb}{\code{biodb::BiodbConn$isCompounddb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isDownloadable">}\href{../../biodb/html/BiodbConn.html#method-isDownloadable}{\code{biodb::BiodbConn$isDownloadable()}}\out{</span>}
@@ -143,14 +145,11 @@ Super class \code{\link{CsvFileConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="addField">}\href{../../biodb/html/CsvFileConn.html#method-addField}{\code{biodb::CsvFileConn$addField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="defineParsingExpressions">}\href{../../biodb/html/CsvFileConn.html#method-defineParsingExpressions}{\code{biodb::CsvFileConn$defineParsingExpressions()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getCsvQuote">}\href{../../biodb/html/CsvFileConn.html#method-getCsvQuote}{\code{biodb::CsvFileConn$getCsvQuote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getCsvSep">}\href{../../biodb/html/CsvFileConn.html#method-getCsvSep}{\code{biodb::CsvFileConn$getCsvSep()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/CsvFileConn.html#method-getEntryContentFromDb}{\code{biodb::CsvFileConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getFieldColName">}\href{../../biodb/html/CsvFileConn.html#method-getFieldColName}{\code{biodb::CsvFileConn$getFieldColName()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getFieldNames">}\href{../../biodb/html/CsvFileConn.html#method-getFieldNames}{\code{biodb::CsvFileConn$getFieldNames()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getFieldsAndColumnsAssociation">}\href{../../biodb/html/CsvFileConn.html#method-getFieldsAndColumnsAssociation}{\code{biodb::CsvFileConn$getFieldsAndColumnsAssociation()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getNbEntries">}\href{../../biodb/html/CsvFileConn.html#method-getNbEntries}{\code{biodb::CsvFileConn$getNbEntries()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getUnassociatedColumns">}\href{../../biodb/html/CsvFileConn.html#method-getUnassociatedColumns}{\code{biodb::CsvFileConn$getUnassociatedColumns()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="hasField">}\href{../../biodb/html/CsvFileConn.html#method-hasField}{\code{biodb::CsvFileConn$hasField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="isSearchableByField">}\href{../../biodb/html/CsvFileConn.html#method-isSearchableByField}{\code{biodb::CsvFileConn$isSearchableByField()}}\out{</span>}
@@ -256,54 +255,6 @@ precursors.
 }
 \subsection{Returns}{
 Nothing.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getChromCol"></a>}}
-\if{latex}{\out{\hypertarget{method-getChromCol}{}}}
-\subsection{Method \code{getChromCol()}}{
-Gets a list of chromatographic columns contained in this database.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{MassCsvFileConn$getChromCol(ids = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
-numbers).  Used to restrict the set of entries on which to run the
-algorithm.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A data.frame with two columns, one for the ID 'id' and another one
-for the title 'title'.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNbPeaks"></a>}}
-\if{latex}{\out{\hypertarget{method-getNbPeaks}{}}}
-\subsection{Method \code{getNbPeaks()}}{
-Gets the number of peaks contained in the database.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{MassCsvFileConn$getNbPeaks(mode = NULL, ids = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The MS mode. Set it to either 'neg' or 'pos' to limit the
-counting to one mode.}
-
-\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
-numbers).  Used to restrict the set of entries on which to run the
-algorithm.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The number of peaks, as an integer.
 }
 }
 \if{html}{\out{<hr>}}

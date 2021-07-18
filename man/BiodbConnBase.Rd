@@ -67,7 +67,6 @@ Sub-classes \code{\link{BiodbDbInfo}} and \code{\link{BiodbConn}}.
 \item \href{#method-isSlotProp}{\code{BiodbConnBase$isSlotProp()}}
 \item \href{#method-getPropValSlot}{\code{BiodbConnBase$getPropValSlot()}}
 \item \href{#method-updatePropertiesDefinition}{\code{BiodbConnBase$updatePropertiesDefinition()}}
-\item \href{#method-defineParsingExpressions}{\code{BiodbConnBase$defineParsingExpressions()}}
 \item \href{#method-getEntryFileExt}{\code{BiodbConnBase$getEntryFileExt()}}
 \item \href{#method-getDbClass}{\code{BiodbConnBase$getDbClass()}}
 \item \href{#method-getConnClassName}{\code{BiodbConnBase$getConnClassName()}}
@@ -285,20 +284,6 @@ be the property names.}
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Returns}{
-Nothing.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-defineParsingExpressions"></a>}}
-\if{latex}{\out{\hypertarget{method-defineParsingExpressions}{}}}
-\subsection{Method \code{defineParsingExpressions()}}{
-Reimplement this method in your connector class to define parsing
-expressions dynamically.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$defineParsingExpressions()}\if{html}{\out{</div>}}
-}
-
 \subsection{Returns}{
 Nothing.
 }

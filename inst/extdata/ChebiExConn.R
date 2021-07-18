@@ -7,35 +7,6 @@ initialize=function(...) {
     super$initialize(...)
 },
 
-getEntryPageUrl=function(id) {
-    # Overrides super class' method
-
-    url <- c(self$getPropValSlot('urls', 'base.url'), 'searchId.do')
-
-    fct <- function(x) {
-        BiodbUrl$new(url=url, params=list(chebiId=x))$toString()
-    }
-    
-    urls <- vapply(id, fct, FUN.VALUE='')
-
-    return(urls)
-},
-
-getEntryImageUrl=function(id) {
-    # Overrides super class' method
-
-    url <- c(self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
-
-    fct <- function(x) {
-        BiodbUrl$new(url=url, params=list(defaultImage='true', imageIndex=0,
-                                      chebiId=x, dimensions=400))$toString()
-    }
-    
-    urls <- vapply(id, fct, FUN.VALUE='')
-
-    return(urls)
-},
-
 wsGetLiteEntity=function(search=NULL, search.category='ALL', stars='ALL',
                          max.results=10,
                          retfmt=c('plain', 'parsed', 'request', 'ids')) {
@@ -118,5 +89,34 @@ doGetEntryContentRequest=function(id, concatenate=TRUE) {
 
 doGetEntryIds=function(max.results=NA_integer_) {
     return(NULL)
+},
+
+doGetEntryPageUrl=function(id) {
+    # Overrides super class' method
+
+    url <- c(self$getPropValSlot('urls', 'base.url'), 'searchId.do')
+
+    fct <- function(x) {
+        BiodbUrl$new(url=url, params=list(chebiId=x))$toString()
+    }
+    
+    urls <- vapply(id, fct, FUN.VALUE='')
+
+    return(urls)
+},
+
+doGetEntryImageUrl=function(id) {
+    # Overrides super class' method
+
+    url <- c(self$getPropValSlot('urls', 'base.url'), 'displayImage.do')
+
+    fct <- function(x) {
+        BiodbUrl$new(url=url, params=list(defaultImage='true', imageIndex=0,
+                                      chebiId=x, dimensions=400))$toString()
+    }
+    
+    urls <- vapply(id, fct, FUN.VALUE='')
+
+    return(urls)
 }
 ))

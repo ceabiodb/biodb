@@ -27,9 +27,9 @@ doParseContent=function(content) {
     json <- jsonlite::fromJSON(content, simplifyDataFrame=FALSE)
 
     return(json)
-},
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')

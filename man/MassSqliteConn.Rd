@@ -4,11 +4,6 @@
 \alias{MassSqliteConn}
 \title{Class for handling a Mass spectrometry database in SQLite format.}
 \description{
-Class for handling a Mass spectrometry database in SQLite format.
-
-Class for handling a Mass spectrometry database in SQLite format.
-}
-\details{
 This is the connector class for a MASS SQLite database.
 }
 \examples{
@@ -37,7 +32,6 @@ Super class \code{\link{SqliteConn}}.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-getChromCol}{\code{MassSqliteConn$getChromCol()}}
 \item \href{#method-clone}{\code{MassSqliteConn$clone()}}
 }
 }
@@ -98,9 +92,11 @@ Super class \code{\link{SqliteConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getBiodb">}\href{../../biodb/html/BiodbConn.html#method-getBiodb}{\code{biodb::BiodbConn$getBiodb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheFile">}\href{../../biodb/html/BiodbConn.html#method-getCacheFile}{\code{biodb::BiodbConn$getCacheFile()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheId">}\href{../../biodb/html/BiodbConn.html#method-getCacheId}{\code{biodb::BiodbConn$getCacheId()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getChromCol">}\href{../../biodb/html/BiodbConn.html#method-getChromCol}{\code{biodb::BiodbConn$getChromCol()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath">}\href{../../biodb/html/BiodbConn.html#method-getDownloadPath}{\code{biodb::BiodbConn$getDownloadPath()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry">}\href{../../biodb/html/BiodbConn.html#method-getEntry}{\code{biodb::BiodbConn$getEntry()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent">}\href{../../biodb/html/BiodbConn.html#method-getEntryContent}{\code{biodb::BiodbConn$getEntryContent()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
@@ -138,37 +134,12 @@ Super class \code{\link{SqliteConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setWritingAllowed}{\code{biodb::BiodbConn$setWritingAllowed()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="defineParsingExpressions">}\href{../../biodb/html/SqliteConn.html#method-defineParsingExpressions}{\code{biodb::SqliteConn$defineParsingExpressions()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/SqliteConn.html#method-getEntryContentFromDb}{\code{biodb::SqliteConn$getEntryContentFromDb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="getQuery">}\href{../../biodb/html/SqliteConn.html#method-getQuery}{\code{biodb::SqliteConn$getQuery()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="hasField">}\href{../../biodb/html/SqliteConn.html#method-hasField}{\code{biodb::SqliteConn$hasField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="initialize">}\href{../../biodb/html/SqliteConn.html#method-initialize}{\code{biodb::SqliteConn$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="isSearchableByField">}\href{../../biodb/html/SqliteConn.html#method-isSearchableByField}{\code{biodb::SqliteConn$isSearchableByField()}}\out{</span>}
 }
 \out{</details>}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getChromCol"></a>}}
-\if{latex}{\out{\hypertarget{method-getChromCol}{}}}
-\subsection{Method \code{getChromCol()}}{
-Gets a list of chromatographic columns contained in this database.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{MassSqliteConn$getChromCol(ids = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ids}}{A character vector of entry identifiers (i.e.: accession
-numbers).  Used to restrict the set of entries on which to run the
-algorithm.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A data.frame with two columns, one for the ID 'id' and another one
-for the title 'title'.
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

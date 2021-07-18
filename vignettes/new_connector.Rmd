@@ -227,11 +227,11 @@ Entry class      | Content type handled
 : (\#tab:entryClasses) Provided abstract entry classes. These are the entry classes already defined inside *biodb* package that facilitates the parsing of the corresponding content type.
 
 Two methods are defined that can be used to enhance our implementation.
-The method `.isContentCorrect()` can be used to further check the parsed
+The method `doCheckContent()` can be used to further check the parsed
 content of an entry, for instance for some incoherence between fields.
-The method `.parseFieldsStep2()` allows to run some custom code for complex
+The method `doParseFieldsStep2()` allows to run some custom code for complex
 parsing of the entry's content.
-This method is run after `.parseFieldsStep1()`, which is defined inside the
+This method is run after `doParseFieldsStep1()`, which is defined inside the
 mother class (here `BiodbXmlEntry`) and executes the parsing expression defined
 inside `inst/definitions.yml`.
 
@@ -263,11 +263,11 @@ In our case, the database is a compound database.
 
 Method                        | Description
 ----------------------------- | --------------------------------
-`getEntryPageUrl()`           | This public method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
-`getEntryImageUrl()`          | This public method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
-`.doGetEntryContentRequest()` | This method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
-`.doGetEntryIds()`            | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
-`.doSearchForEntries()`  | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
+`doGetEntryPageUrl()`         | This method returns the official URL of the entry page on the database website, for each each accession number passed. The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`doGetEntryImageUrl()`        | This method returns the official URL of the entry picture on the database website, for each each accession number passed. The picture returned must be visual representation of the entry (a molecule 3D model, a mass spectrum, ...). The return type is thus a list. If no entry pages are available for the database, the method must return a list of `NULL` values, the same length as the input vector.
+`doGetEntryContentRequest()`  | This method is called by `getEntryContentRequest()`, and must return a list of URLs used to retrieve entry contents. If `concatenate` parameter is `FALSE`, the list returned must be the same length as the vector `id` and each URL must point to one entry content only. If `concatenate` parameter is `TRUE`, then it is permitted (but not compulsory) to return URLs that get more than one entry at a time.
+`doGetEntryIds()`             | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
+`doSearchForEntries()`        | This method implements the search of entries by filtering on some field values. For our example, we have kept it simple by implementing only the search by name (field `"name"`), because a full implementation with mass search would require much more code with complex calls to *ChEBI* API. You can however see a real implementation inside [biodbChebi](https://github.com/pkrog/biodbChebi), the package that implements the *ChEBI* connector.
 : (\#tab:chebiExMethods) Methods to implement inside the chebi.ex connector.
 
 See the help inside R about `BiodbConn` for details
@@ -277,13 +277,13 @@ about the parameters of those functions.
 
 The remote methods are used for three different goals.
 First to build URLs that access the web site, to get the URL of an entry page
-(`getEntryPageUrl()`) or to get the URL of an entry picture
-(`getEntryImageUrl()`) like a molecule representation.
-Second to get a list of database entry identifiers (`.doGetEntryIds()`).
-Third to Get the content of an entry (`.doGetEntryContentRequest()`).
+(`doGetEntryPageUrl()`) or to get the URL of an entry picture
+(`doGetEntryImageUrl()`) like a molecule representation.
+Second to get a list of database entry identifiers (`doGetEntryIds()`).
+Third to Get the content of an entry (`doGetEntryContentRequest()`).
 
-In our implementations of `getEntryPageUrl()`, `getEntryImageUrl()` and
-`.doGetEntryContentRequest()` (see below), you may notice the use of the
+In our implementations of `doGetEntryPageUrl()`, `doGetEntryImageUrl()` and
+`doGetEntryContentRequest()` (see below), you may notice the use of the
 `getPropValSlot()` method to get some base URLs (`"base.url"`, `"ws.url"`).
 These values are defined inside the connector YAML definition file that we will
 detail below.
@@ -293,7 +293,7 @@ of special characters.
 
 ### Method for searching for entries
 
-The implemented method (`.doSearchForEntries()`) is a generic method used to
+The implemented method (`doSearchForEntries()`) is a generic method used to
 search for entries inside the database by name, mass, or any other field.
 For our example we have decided to implement only the search by name in order
 to keep the code as simple and short as possible.
@@ -434,10 +434,10 @@ See \@ref(tab:connMethods) for a list of methods to implement when writing a loc
 
 Method                       | Description
 ---------------------------- | --------------------------------
-`getNbEntries()`             | Must return the number of entries contained in the database.
-`getEntryContentFromDb()`    | Return the content(s), as strings, of one or more entries from the database.
-`defineParsingExpressions()` | May be overriden in order to define parsing expressions dynamically (see `CsvFileConn` class for an example).
-`.doGetEntryIds()`           | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
+`doGetNbEntries()`             | Must return the number of entries contained in the database.
+`doGetEntryContentFromDb()`    | Return the content(s), as strings, of one or more entries from the database.
+`doDefineParsingExpressions()` | May be overriden in order to define parsing expressions dynamically (see `CsvFileConn` class for an example).
+`doGetEntryIds()`           | This method, called by `getEntryIds()`, should return the full list of accession numbers of the entries contained in the database, or a subset if `max.results` is set. This method is used for testing, in order to get a sample of existing entries, but may also be useful for users when developing.
 
 : (\#tab:connMethods) `BiodbConn` methods to implement. The list of methods to implement when inheriting from the `BiodbConn` class.
 
@@ -452,10 +452,10 @@ writing a mass spectra database connector.
 
 Method                       | Description
 ---------------------------- | --------------------------------
-`getChromCol()`              | Returns a data frame containing the description of the chromatographic columns.
-`getNbPeaks()`               | Returns the total number of MS peaks contained in the database.
-`.doGetMzValues()`           | Returns a list of M/Z values contained inside the database, with the possibility of filtering on MS mode, MS level, and some other variables.
-`.doSearchMzRange()`         | Searches for spectra using an M/Z range and optional filtering on some other variables.
+`doGetChromCol()`              | Returns a data frame containing the description of the chromatographic columns.
+`doGetNbPeaks()`               | Returns the total number of MS peaks contained in the database.
+`doGetMzValues()`           | Returns a list of M/Z values contained inside the database, with the possibility of filtering on MS mode, MS level, and some other variables.
+`doSearchMzRange()`         | Searches for spectra using an M/Z range and optional filtering on some other variables.
 
 : (\#tab:massdbConnMethods) Methods to implement when defining a connector to a mass spectra database.
 
@@ -472,9 +472,9 @@ See \@ref(tab:downloadableMethods) for a list of methods to implement inside you
 
 Method                       | Description
 ---------------------------- | --------------------------------
-`requiresDownload()`         | This method must return TRUE if the connector requires to download files locally with the `BiodbDownloadable` interface.
-`.doDownload()`              | This method must implement the download of the database file.
-`.doExtractDownload()`       | This method must implement the extraction of the database files (e.g.: from a zip).
+`doesRequireDownload()`      | This method must return TRUE if the connector requires to download files locally with the `BiodbDownloadable` interface.
+`doDownload()`               | This method must implement the download of the database file.
+`doExtractDownload()`        | This method must implement the extraction of the database files (e.g.: from a zip).
 
 : (\#tab:downloadableMethods) Methods to implement when defining a downloadable connector class.
 
@@ -576,13 +576,13 @@ formula: ^FORMULA\s+(\S+)$
 If none of the predefined formats fits your needs, your class have to inherit directly from `BiodbEntry`.
 
 Two methods have to be implemented in this case.
-The first is `.doParseContent()`, which parses a string into the acceptable
-format for the second function, `.parseFieldsStep1()`.
+The first is `doParseContent()`, which parses a string into the acceptable
+format for the second function, `doParseFieldsStep1()`.
 
 Look for instance at the code of `BiodbTxtEntry` class for a good example.
 Here is an excerpt:
 ```{r, eval=FALSE}
-.doParseContent=function(content) {
+doParseContent=function(content) {
 
     # Get lines of content
     lines <- strsplit(content, "\r?\n")[[1]]
@@ -590,7 +590,7 @@ Here is an excerpt:
     return(lines)
 },
 
-.parseFieldsStep1=function(parsed.content) {
+doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- .self$getParent()$getPropertyValue('parsing.expr')
@@ -621,15 +621,15 @@ Here is an excerpt:
 
 When inheriting from one of the abstract class listed above (`BiodbTxtEntry`,
 `BiodbJsonEntry`, `BiodbXmlEntry`, ...), you also have the opportunity to write
-some custom parsing code by implementing `.parseFieldsStep2()`.
+some custom parsing code by implementing `doParseFieldsStep2()`.
 
-This method will be called just after `.parseFieldsStep1()`, which is
+This method will be called just after `doParseFieldsStep1()`, which is
 implemented by the abstract class.
 
 See `HmdbMetabolitesEntry` class inside [biodbHmdb](https://github.com/pkrog/biodbHmdb) extension package for an example.
 Here is an extract:
 ```{r, eval=FALSE}
-.parseFieldsStep2=function(parsed.content) {
+doParseFieldsStep2=function(parsed.content) {
 
     # Remove fields with empty string
     for (f in .self$getFieldNames()) {

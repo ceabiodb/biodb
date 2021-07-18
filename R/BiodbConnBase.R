@@ -243,15 +243,6 @@ updatePropertiesDefinition=function(def) {
 },
 
 #' @description
-#' Reimplement this method in your connector class to define parsing
-#' expressions dynamically.
-#' @return Nothing.
-defineParsingExpressions=function() {
-
-    return(invisible(NULL))
-},
-
-#' @description
 #' Returns the entry file extension used by this connector.
 #' @return A character value containing the file extension.
 getEntryFileExt=function() {
@@ -332,7 +323,7 @@ getPropertyValue=function(name) {
     # Run hook
     if ('hook' %in% names(pdef) && ! pdef$hook %in% private$runHooks) {
         private$runHooks <- c(private$runHooks, pdef$hook)
-        eval(parse(text=paste0('self$', pdef$hook, '()')))
+        eval(parse(text=paste0('private$', pdef$hook, '()')))
     }
 
     # Get value
@@ -735,6 +726,11 @@ private=list(
         self$setPropertyValue(p, private$propDef[[p]]$default)
 }
 
+,doDefineParsingExpressions=function() {
+
+    return(invisible(NULL))
+}
+
 ,getFullPropDefList=function(cfg) {
 
     # Default token
@@ -775,7 +771,7 @@ private=list(
             modifiable=FALSE),
         parsing.expr=list(class='list', default=NULL, named=TRUE,
             mult=TRUE, allowed_item_types='character',
-            na.allowed=FALSE, hook='defineParsingExpressions'),
+            na.allowed=FALSE, hook='doDefineParsingExpressions'),
         remote=list(class='logical', default=FALSE, na.allowed=FALSE,
             modifiable=FALSE),
         searchable.fields=list(class='character', default=character(),

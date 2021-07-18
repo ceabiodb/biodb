@@ -42,9 +42,9 @@ doParseContent=function(content) {
         xml <-  XML::xmlInternalTreeParse(content, asText=TRUE)
 
     return(xml)
-},
+}
 
-parseFieldsStep1=function(parsed.content) {
+,doParseFieldsStep1=function(parsed.content) {
 
     # Get parsing expressions
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')

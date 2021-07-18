@@ -110,12 +110,11 @@ print=function() {
 
 #' @description
 #' Correct a vector of IDs by formatting them to the database official
-#'     format, if required and possible.
+#' format, if required and possible.
 #' @param ids A character vector of IDs.
 #' @return The vector of IDs corrected.
 correctIds=function(ids) {
-
-    return(ids)
+    return(private$doCorrectIds(ids))
 },
 
 #' @description
@@ -265,18 +264,14 @@ getEntryContent=function(id) {
 
 #' @description
 #' Get the contents of entries directly from the database. A direct
-#'     request or an access to the database will be made in order to retrieve the
-#'     contents. No access to the biodb cache system will be made.
+#' request or an access to the database will be made in order to retrieve the
+#' contents. No access to the biodb cache system will be made.
 #' @param entry.id A character vector with the IDs of entries to retrieve.
 #' @return A character vector, the same size of entry.id, with
-#'     contents of the requested entries. An NA value will be set for the content
-#'     of each entry for which the retrieval failed.
+#' contents of the requested entries. An NA value will be set for the content
+#' of each entry for which the retrieval failed.
 getEntryContentFromDb=function(entry.id) {
-
-    if (self$isRemotedb())
-        return(private$doGetEntryContentOneByOne(entry.id))
-
-    abstractMethod(self)
+    return(private$doGetEntryContentFromDb(entry.id))
 },
 
 #' @description
@@ -375,16 +370,7 @@ getEntryIds=function(max.results=0, ...) {
 #' of entries, count the output of getEntryIds().
 #' @return The number of entries in the database, as an integer.
 getNbEntries=function(count=FALSE) {
-
-    n <- NA_integer_
-
-    if (count) {
-        ids <- self$getEntryIds()
-        if ( ! is.null(ids))
-            n <- length(ids)
-    }
-
-    return(n)
+    return(private$doGetNbEntries(count=count))
 },
 
 #' @description
@@ -712,7 +698,8 @@ isDownloaded=function() {
 #' Tests if the connector requires the download of the database.
 #' @return TRUE if the connector requires download of the database.
 requiresDownload=function() {
-    return(FALSE)
+    private$checkIsDownloadable()
+    return(private$doesRequireDownload())
 },
 
 #' @description
@@ -1170,7 +1157,7 @@ makeRequest=function(...) {
 getEntryImageUrl=function(entry.id) {
 
     private$checkIsRemote()
-    return(rep(NA_character_, length(entry.id)))
+    return(private$doGetEntryImageUrl(entry.id))
 },
 
 #' @description
@@ -1180,7 +1167,7 @@ getEntryImageUrl=function(entry.id) {
 getEntryPageUrl=function(entry.id) {
 
     private$checkIsRemote()
-    abstractMethod(self)
+    return(private$doGetEntryPageUrl(entry.id))
 },
 
 #' @description
@@ -1191,9 +1178,8 @@ getEntryPageUrl=function(entry.id) {
 #' @return A data.frame with two columns, one for the ID 'id' and another one
 #' for the title 'title'.
 getChromCol=function(ids=NULL) {
-
     private$checkIsMassdb()
-    abstractMethod(self)
+    return(private$doGetChromCol(ids))
 },
 
 #' @description
@@ -1319,9 +1305,8 @@ getMzValues=function(ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
 #' algorithm.
 #' @return The number of peaks, as an integer.
 getNbPeaks=function(mode=NULL, ids=NULL) {
-
     private$checkIsMassdb()
-    abstractMethod(self)
+    return(private$doGetNbPeaks(mode=mode, ids=ids))
 },
 
 #' @description
@@ -1925,7 +1910,36 @@ private=list(
     editing.allowed=NULL,
     writing.allowed=NULL,
     bdb=NULL
-,
+
+,doesRequireDownload=function() {
+    return(FALSE)
+}
+
+,doCorrectIds=function(ids) {
+    return(ids)
+}
+
+,doGetNbEntries=function(count=FALSE) {
+
+    n <- NA_integer_
+
+    if (count) {
+        ids <- self$getEntryIds()
+        if ( ! is.null(ids))
+            n <- length(ids)
+    }
+
+    return(n)
+},
+
+doGetEntryPageUrl=function(id) {
+    abstractMethod(self)
+},
+
+doGetEntryImageUrl=function(id) {
+    return(rep(NA_character_, length(id)))
+},
+
 checkIsEditable=function() {
     if ( ! self$isEditable())
         error0("The database associated to this connector ", self$getId(),
@@ -2061,6 +2075,23 @@ doGetEntryContentOneByOne=function(entry.id) {
 },
 
 doGetEntryIds=function(max.results=0) {
+    abstractMethod(self)
+},
+
+
+doGetEntryContentFromDb=function(id) {
+
+    if (self$isRemotedb())
+        return(private$doGetEntryContentOneByOne(id))
+
+    abstractMethod(self)
+},
+
+doGetChromCol=function(ids=NULL) {
+    abstractMethod(self)
+},
+
+doGetNbPeaks=function(mode=NULL, ids=NULL) {
     abstractMethod(self)
 },
 

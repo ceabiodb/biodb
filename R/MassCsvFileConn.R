@@ -88,60 +88,6 @@ addPrecursorFormulae=function(formulae) {
     }
 
     return(invisible(NULL))
-},
-
-#' @description
-#' Gets a list of chromatographic columns contained in this database.
-#' @param ids A character vector of entry identifiers (i.e.: accession
-#' numbers).  Used to restrict the set of entries on which to run the
-#' algorithm.
-#' @return A data.frame with two columns, one for the ID 'id' and another one
-#' for the title 'title'.
-getChromCol=function(ids=NULL) {
-    # Overrides super class' method.
-
-    # Extract needed columns
-    fields <- c('chrom.col.id', 'chrom.col.name')
-    fields <- Filter(function(f) self$hasField(f), fields)
-    
-    db <- private$select(cols=fields, ids=ids)
-
-    # Remove rows with NA values
-    cols <- na.omit(db)
-
-    # Remove duplicates
-    cols <- cols[ ! duplicated(cols), , drop=FALSE]
-
-    # Rename columns
-    if (ncol(cols) == 0) {
-        id <- ttl <- character()
-    } else {
-        id <- if ('chrom.col.id' %in% names(cols)) cols[['chrom.col.id']] else
-            cols[['chrom.col.name']]
-        ttl <- if ('chrom.col.name' %in% names(cols))
-            cols[['chrom.col.name']] else cols[['chrom.col.id']]
-    }
-    chrom.cols <- data.frame(id=id, title=ttl)
-
-    return(chrom.cols)
-},
-
-#' @description
-#' Gets the number of peaks contained in the database.
-#' @param mode The MS mode. Set it to either 'neg' or 'pos' to limit the
-#' counting to one mode.
-#' @param ids A character vector of entry identifiers (i.e.: accession
-#' numbers).  Used to restrict the set of entries on which to run the
-#' algorithm.
-#' @return The number of peaks, as an integer.
-getNbPeaks=function(mode=NULL, ids=NULL) {
-    # Overrides super class' method.
-
-    # Get peaks
-    mzcol <- self$getMatchingMzField()
-    peaks <- private$select(cols=mzcol, mode=mode, ids=ids, drop=TRUE)
-
-    return(length(peaks))
 }
 ),
 
@@ -231,17 +177,15 @@ doSelect=function(db, mode=NULL, compound.ids=NULL, mz.min=NULL, mz.max=NULL, mi
         db <- private$selectByMsLevel(db, level)
 
     return(db)
-},
+}
 
-doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
-    # Overrides super class' method.
+,doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
     return(private$select(mz.min=mz.min, mz.max=mz.max, min.rel.int=min.rel.int,
     mode=ms.mode, max.rows=max.results, cols='accession', drop=TRUE, uniq=TRUE,
     sort=TRUE, precursor=precursor, level=ms.level))
-},
+}
 
-doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
-    # Overrides super class' method.
+,doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
 
     # Get mz values
     mzcol <- self$getMatchingMzField()
@@ -249,5 +193,42 @@ doGetMzValues=function(ms.mode, max.results, precursor, ms.level) {
     sort=TRUE, max.rows=max.results, precursor=precursor, level=ms.level)
 
     return(mz)
+}
+
+,doGetNbPeaks=function(mode=NULL, ids=NULL) {
+
+    # Get peaks
+    mzcol <- self$getMatchingMzField()
+    peaks <- private$select(cols=mzcol, mode=mode, ids=ids, drop=TRUE)
+
+    return(length(peaks))
+}
+
+,doGetChromCol=function(ids=NULL) {
+
+    # Extract needed columns
+    fields <- c('chrom.col.id', 'chrom.col.name')
+    fields <- Filter(function(f) self$hasField(f), fields)
+    
+    db <- private$select(cols=fields, ids=ids)
+
+    # Remove rows with NA values
+    cols <- na.omit(db)
+
+    # Remove duplicates
+    cols <- cols[ ! duplicated(cols), , drop=FALSE]
+
+    # Rename columns
+    if (ncol(cols) == 0) {
+        id <- ttl <- character()
+    } else {
+        id <- if ('chrom.col.id' %in% names(cols)) cols[['chrom.col.id']] else
+            cols[['chrom.col.name']]
+        ttl <- if ('chrom.col.name' %in% names(cols))
+            cols[['chrom.col.name']] else cols[['chrom.col.id']]
+    }
+    chrom.cols <- data.frame(id=id, title=ttl)
+
+    return(chrom.cols)
 }
 ))

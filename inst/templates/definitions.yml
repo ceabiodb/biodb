@@ -54,7 +54,7 @@ databases:
 # $$$ END_CASE ENTRYTYPE $$$
 # $$$ CASE CONNTYPE MASS $$$
       # NOTE For mass spectra, the peak table cannot be parsed with expressions.
-      # Specific code must be written inside the entry class for this, in the `.parseFieldsStep2()` method.
+      # Specific code must be written inside the entry class for this, in the `doParseFieldsStep2()` method.
 # $$$ CASE ENTRYTYPE JSON $$$
       chrom.col.id:
       - liquidChromatography

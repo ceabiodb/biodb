@@ -57,10 +57,11 @@ Changes in version 1.0.4 (2021-06-09)
 + Bug fix: correct call to logger in BiodbPersitentCache class.
 
 Changes in version 1.1.1 (2021-06-10)
-+ Allow skiping of some fields when testing searchForEntries().
++ Allow skipping of some fields when testing searchForEntries().
 + Move test reference entries folder from tests/testthat/res to inst/testref.
 + Move long tests folder from tests/long to longtests and enable Bioconductor long tests.
 
 Changes in version 1.1.2 (2021-XX-XX)
 + Use BiocFileCache for the persistent cache system.
 + Switch to R6.
++ Define do...() private methods to be redefined in subclasses, instead of redefining public methods defined inside super class.

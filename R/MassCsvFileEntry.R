@@ -87,9 +87,9 @@ parsePrecursor=function() {
             }
         }
     }
-},
+}
 
-parseFieldsStep2=function(parsed.content) {
+,doParseFieldsStep2=function(parsed.content) {
 
     # Check peaks table
     mz <- self$getFieldValue('peak.mz')

@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // closeMatchPpm
 Rcpp::List closeMatchPpm(Rcpp::NumericVector x, Rcpp::NumericVector y, Rcpp::IntegerVector xidx, Rcpp::IntegerVector yidx, int xolength, double dppm, double dmz);
 RcppExport SEXP _biodb_closeMatchPpm(SEXP xSEXP, SEXP ySEXP, SEXP xidxSEXP, SEXP yidxSEXP, SEXP xolengthSEXP, SEXP dppmSEXP, SEXP dmzSEXP) {
