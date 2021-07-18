@@ -269,15 +269,17 @@ getConn=function(conn.id, class=TRUE, create=TRUE) {
 
 #' @description
 #' Retrieves database entry objects from IDs (accession numbers), for the
-#'     specified connector.
+#' specified connector.
 #' @param conn.id An existing connector ID.
 #' @param id A character vector containing database entry IDs (accession numbers).
 #' @param drop If set to TRUE and the list of entries contains only one element,
-#'     then returns this element instead of the list. If set to FALSE, then returns
-#'     always a list.
+#' then returns this element instead of the list. If set to FALSE, then returns
+#' always a list.
+#' @param no.null Set to TRUE to remove NULL entries.
+#' @param limit Set to a positive value to limit the number of entries returned.
 #' @return A list of BiodbEntry objects, the same length as `id`. A
-#'     NULL value is put into the list for each invalid ID of `id`.
-getEntry=function(conn.id, id, drop=TRUE) {
+#' NULL value is put into the list for each invalid ID of `id`.
+getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
 
     id <- as.character(id)
 
@@ -299,6 +301,16 @@ getEntry=function(conn.id, id, drop=TRUE) {
     # If the input was a single element, then output a single object
     if (drop && length(id) == 1)
         entries <- entries[[1]]
+
+    # Remove NULL entries
+    if (no.null) {
+        null.entries <- vapply(entries, is.null, FUN.VALUE=TRUE)
+        entries <- entries[ ! null.entries]
+    }
+
+    # Cut
+    if (limit > 0)
+        entries <- entries[seq_len(limit)]
 
     return(entries)
 },

@@ -47,6 +47,7 @@ public=list(
 #' Instead, access the cache instance through the BiodbMain instance using the
 #' getPersistentCache() method.
 #' @param cfg An instance of the BiodbConfig class.
+#' @param bdb An instance of the BiodbMain class.
 #' @return Nothing.
 initialize=function(cfg, bdb=NULL) {
 
