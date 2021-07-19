@@ -42,7 +42,7 @@ initialize=function(db.class, pkgName=NULL) {
     chk::chk_gte(limit, 0)
 
     # Get test ref folder
-    testRef <- getTestRefFolder(pkgName=private$pkgName)
+    testRef <- private$getFolder()
 
     # List JSON files
     files <- Sys.glob(file.path(testRef, paste('entry', private$db.class,
@@ -94,6 +94,35 @@ initialize=function(db.class, pkgName=NULL) {
 }
 
 #' @description
+#' Retrieves the content of a single reference entry.
+#' @param id The identifier of the reference entry to retrieve.
+#' @return The content of the reference entry as a list.
+,getRefEntry=function(id) {
+
+    # Replace forbidden characters
+    id = utils::URLencode(id, reserved=TRUE)
+
+    # Entry file
+    file <- file.path(private$getFolder(),
+        paste('entry-', private$db.class, '-', id, '.json', sep=''))
+    testthat::expect_true(file.exists(file),
+        info=paste0('Cannot find file "', file, '" for ', private$db.class,
+        ' reference entry', id, '.'))
+
+    # Load JSON
+    json <- jsonlite::fromJSON(file)
+
+    # Set NA values
+    for (n in names(json))
+        if (length(json[[n]]) == 1) {
+            if (json[[n]] == 'NA_character_')
+                json[[n]] <- NA_character_
+        }
+
+    return(json)
+}
+
+#' @description
 #' Load all reference entries.
 #' @return A data frame containing all the reference entries with their values.
 ,getAllRefEntriesDf=function() {
@@ -101,8 +130,7 @@ initialize=function(db.class, pkgName=NULL) {
     entries.desc <- NULL
 
     # List JSON files
-    entry.json.files <- Sys.glob(file.path(getTestRefFolder(
-        pkgName=private$pkgName),
+    entry.json.files <- Sys.glob(file.path(private$getFolder(),
         paste('entry', private$db.class, '*.json', sep='-')))
 
     # Loop on all JSON files
@@ -127,4 +155,34 @@ initialize=function(db.class, pkgName=NULL) {
 private=list(
     db.class=NULL,
     pkgName=NULL
+
+,getFolder=function() {
+
+    testRef <- NULL
+
+    if ( ! is.null(private$pkgName)) {
+        testRef <- system.file('testref', package=private$pkgName)
+        if ( ! dir.exists(testRef))
+            error("No folder %s has been defined for package %s.", testRef,
+                private$pkgName)
+    }
+    else {
+        # Look for testref folder in ../../inst or in ../../<pkg_name>
+        # (<pkg>.Rcheck folder)
+        testRef <- Sys.glob(file.path(getwd(), '..', '..', '*', 'testref'))[[1]]
+        
+        # No folder
+        if ( ! dir.exists(testRef)) {
+
+            oldTestRef <- file.path(getwd(), '..', 'testthat', 'res')
+            if (dir.exists(oldTestRef))
+                warn0("The location of reference entry files for tests has",
+                    ' changed. Please move folder "', oldTestRef, '" to "', 
+                    testRef, '".')
+            error("No folder %s has been defined.", testRef)
+        }
+    }
+
+    return(testRef)
+}
 ))
