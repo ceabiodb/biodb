@@ -141,7 +141,8 @@ doDeleteFile=function(cache.id, name, ext) {
         filenames <- paste(name, ext, sep='.')
         rids <- character()
         for (filename in filenames) {
-            result <- BiocFileCache::bfcquery(bfc, filename, field='rname', exact=TRUE)
+            result <- BiocFileCache::bfcquery(bfc, filename, field='rname',
+                exact=TRUE)
             rids <- c(rids, result$rid)
         }
         BiocFileCache::bfcremove(bfc, rids)

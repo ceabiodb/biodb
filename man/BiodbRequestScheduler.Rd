@@ -135,8 +135,8 @@ and the results are directly loaded from the cache system.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The results returned by the contacted server, as a single
-string value.
+The results returned by the contacted server, as a single string
+value.
 }
 }
 \if{html}{\out{<hr>}}

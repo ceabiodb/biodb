@@ -114,8 +114,8 @@ Parent class \code{\link{BiodbEntryFields}}.
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. This class must not be instantiated directly.
-Instead, you access the instances of this class through the BiodbEntryFields
-instance that you get from the BiodbMain instance.
+Instead, you access the instances of this class through the
+BiodbEntryFields instance that you get from the BiodbMain instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryField$new(
   parent,
@@ -155,19 +155,21 @@ instance that you get from the BiodbMain instance.
 
 \item{\code{description}}{The field description.}
 
-\item{\code{allowed.values}}{Restrict possible values to a set of allowed values.}
+\item{\code{allowed.values}}{Restrict possible values to a set of allowed
+values.}
 
 \item{\code{lower.case}}{All values will be converted to lower case.}
 
-\item{\code{case.insensitive}}{Comparison will be made case insensitive for this
-field.}
+\item{\code{case.insensitive}}{Comparison will be made case insensitive for
+this field.}
 
 \item{\code{computable.from}}{A list of databases from which to compute
 automatically the value of this field.}
 
 \item{\code{virtual}}{Set to TRUE if this field is virtual.}
 
-\item{\code{virtual.group.by.type}}{In case of a virtual field, set the type of fields to group together into a data frame.}
+\item{\code{virtual.group.by.type}}{In case of a virtual field, set the type
+of fields to group together into a data frame.}
 
 \item{\code{dataFrameGroup}}{The data frame group.}
 }
@@ -487,8 +489,8 @@ that not all enumerate fields accept synonyms.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{key}}{The key associated with the value (i.e.: the key is the main name of
-an allowed value).}
+\item{\code{key}}{The key associated with the value (i.e.: the key is the
+main name of an allowed value).}
 
 \item{\code{value}}{The new value to add.}
 }
@@ -676,9 +678,9 @@ Updates fields using values from \code{other} instance. The updated fields
 \describe{
 \item{\code{other}}{Another BiodbEntryField instance.}
 
-\item{\code{are}}{'alias' and 'computable.from'. No values will be removed from those
-vectors. The new values will only be appended. This allows to extend an
-existing field inside a new connector definition.}
+\item{\code{are}}{'alias' and 'computable.from'. No values will be removed
+from those vectors. The new values will only be appended. This allows
+to extend an existing field inside a new connector definition.}
 }
 \if{html}{\out{</div>}}
 }

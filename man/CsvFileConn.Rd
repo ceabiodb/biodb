@@ -204,7 +204,8 @@ Sets the characters used to delimit quotes in the CSV database file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{quote}}{The characters used to delimit quotes as a single character value.}
+\item{\code{quote}}{The characters used to delimit quotes as a single character
+value.}
 
 \item{\code{You}}{may specify several characters. Example \"\\\"'\".}
 }
@@ -231,8 +232,8 @@ The CSV separator as a character value.
 \if{html}{\out{<a id="method-setCsvSep"></a>}}
 \if{latex}{\out{\hypertarget{method-setCsvSep}{}}}
 \subsection{Method \code{setCsvSep()}}{
-Sets the CSV separator to be used for the database file. If this
-method is called after the loading of the database, it will throw an error.
+Sets the CSV separator to be used for the database file. If this method is
+called after the loading of the database, it will throw an error.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$setCsvSep(sep)}\if{html}{\out{</div>}}
 }
@@ -299,8 +300,8 @@ searchForEntries().
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Returns TRUE if the database is searchable using the
-specified field, FALSE otherwise.
+Returns TRUE if the database is searchable using the specified
+field, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
@@ -339,8 +340,8 @@ Get the column name corresponding to a Biodb field.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{field}}{A valid Biodb entry field name. This field must be defined for this
-database instance.}
+\item{\code{field}}{A valid Biodb entry field name. This field must be defined for
+this database instance.}
 }
 \if{html}{\out{</div>}}
 }
@@ -352,8 +353,8 @@ The column name from the CSV file.
 \if{html}{\out{<a id="method-setField"></a>}}
 \if{latex}{\out{\hypertarget{method-setField}{}}}
 \subsection{Method \code{setField()}}{
-Sets a field by making a correspondence between a Biodb field and one
-or more columns of the loaded data frame.
+Sets a field by making a correspondence between a Biodb field and one or
+more columns of the loaded data frame.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$setField(field, colname, ignore.if.missing = FALSE)}\if{html}{\out{</div>}}
 }
@@ -364,8 +365,8 @@ or more columns of the loaded data frame.
 \item{\code{field}}{A valid Biodb entry field name. This field must not be already
 defined for this database instance.}
 
-\item{\code{colname}}{A character vector containing one or more column names from the
-CSV file.}
+\item{\code{colname}}{A character vector containing one or more column names from
+the CSV file.}
 
 \item{\code{ignore.if.missing}}{Deprecated parameter.}
 }

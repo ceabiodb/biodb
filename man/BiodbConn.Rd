@@ -268,21 +268,21 @@ IDs, and you will get a list of entries.
 \describe{
 \item{\code{id}}{A character vector containing entry identifiers.}
 
-\item{\code{drop}}{If set to TRUE and only one entry is requrested, then the returned
-value will be a single BiodbEntry object, otherwise it will be a list of
-BiodbEntry objects.}
+\item{\code{drop}}{If set to TRUE and only one entry is requrested, then the
+returned value will be a single BiodbEntry object, otherwise it will be
+a list of BiodbEntry objects.}
 
-\item{\code{nulls}}{If set to TRUE, NULL entries are preserved. This ensures that the
-output list has the same length than the input vector \code{id}. Otherwise they
-are removed from the final list.}
+\item{\code{nulls}}{If set to TRUE, NULL entries are preserved. This ensures
+that the output list has the same length than the input vector \code{id}.
+Otherwise they are removed from the final list.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list of BiodbEntry objects, the same size of the vector
-of IDs. The list will contain NULL values for invalid IDs. If drop is set to
-TRUE and only one etrny was requested then a single BiodbEntry is returned
-instead of a list.
+A list of BiodbEntry objects, the same size of the vector of
+IDs. The list will contain NULL values for invalid IDs. If drop is set
+to TRUE and only one etrny was requested then a single BiodbEntry is
+returned instead of a list.
 }
 }
 \if{html}{\out{<hr>}}
@@ -297,15 +297,15 @@ Get the path to the persistent cache file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{entry.id}}{The identifiers (e.g.: accession numbers) as a character vector
-of the database entries.}
+\item{\code{entry.id}}{The identifiers (e.g.: accession numbers) as a
+character vector of the database entries.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A character vector, the same length as the vector of IDs,
-containing the paths to the cache files corresponding to the requested entry
-IDs.
+containing the paths to the cache files corresponding to the requested
+entry IDs.
 }
 }
 \if{html}{\out{<hr>}}
@@ -325,9 +325,8 @@ Get the contents of database entries from IDs (accession numbers).
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector containing the contents of the
-requested IDs. If no content is available for an entry ID, then NA will be
-used.
+A character vector containing the contents of the requested
+IDs. If no content is available for an entry ID, then NA will be used.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1372,7 +1371,8 @@ mz.max arguments.
   min.rel.int = 0,
   ms.mode = NULL,
   max.results = 0,
-  ms.level = 0
+  ms.level = 0,
+  include.ids = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -1425,6 +1425,9 @@ for each M/Z value.}
 
 \item{\code{ms.level}}{The MS level to which you want to restrict your search.  0
 means that you want to search in all levels.}
+
+\item{\code{include.ids}}{A list of IDs to which to restrict the final results. All
+IDs that are not in this list will be excluded.}
 }
 \if{html}{\out{</div>}}
 }
@@ -1654,32 +1657,33 @@ parameter is applied on the precursor search.
 
 \item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
 
-\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
-'plain'.}
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to
+'ppm' or 'plain'.}
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
 \item{\code{npmin}}{The minimum number of peak to detect a match (2 is recommended).}
 
-\item{\code{dist.fun}}{The distance function used to compute the distance betweem two
-mass spectra.}
+\item{\code{dist.fun}}{The distance function used to compute the distance
+betweem two mass spectra.}
 
-\item{\code{msms.mz.tol}}{M/Z tolerance to apply while matching MSMS spectra.  In PPM.}
+\item{\code{msms.mz.tol}}{M/Z tolerance to apply while matching MSMS spectra.
+In PPM.}
 
-\item{\code{msms.mz.tol.min}}{Minimum of the M/Z tolerance (plain unit). If the M/Z
-tolerance computed with \code{msms.mz.tol} is lower than \code{msms.mz.tol.min}, then
-\code{msms.mz.tol.min} will be used.}
+\item{\code{msms.mz.tol.min}}{Minimum of the M/Z tolerance (plain unit). If
+the M/Z tolerance computed with \code{msms.mz.tol} is lower than
+\code{msms.mz.tol.min}, then \code{msms.mz.tol.min} will be used.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches
+found for each M/Z value.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 A data frame with columns \code{id}, \code{score} and \verb{peak.*}. Each
-\verb{peak.*} column corresponds to a peak in the input spectrum, in the same
-order and gives the number of the peak that was matched with it inside the
-matched spectrum whose ID is inside the \code{id} column.
+\verb{peak.*} column corresponds to a peak in the input spectrum, in the
+same order and gives the number of the peak that was matched with it
+inside the matched spectrum whose ID is inside the \code{id} column.
 }
 }
 \if{html}{\out{<hr>}}
@@ -1737,18 +1741,19 @@ Find spectra in the given M/Z range. Returns a list of spectra IDs.
 \describe{
 \item{\code{mz.min}}{A vector of minimum M/Z values.}
 
-\item{\code{mz.max}}{A vector of maximum M/Z values. Its length must be the same as
-\code{mz.min}.}
+\item{\code{mz.max}}{A vector of maximum M/Z values. Its length must be the
+same as \code{mz.min}.}
 
-\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
-number between 0 and 100).}
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches
+found for each M/Z value.}
 
-\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
+\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor
+peaks.}
 
 \item{\code{ms.level}}{The MS level to which you want to restrict your search.
 0 means that you want to search in all levels.}
@@ -1785,18 +1790,19 @@ character vector of spectra IDs.
 
 \item{\code{mz.tol}}{The M/Z tolerance, whose unit is defined by mz.tol.unit.}
 
-\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to 'ppm' or
-'plain'.}
+\item{\code{mz.tol.unit}}{The type of the M/Z tolerance. Set it to either to
+'ppm' or 'plain'.}
 
-\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.: float
-number between 0 and 100).}
+\item{\code{min.rel.int}}{The minimum relative intensity, in percentage (i.e.:
+float number between 0 and 100).}
 
 \item{\code{ms.mode}}{The MS mode. Set it to either 'neg' or 'pos'.}
 
-\item{\code{max.results}}{If set, it is used to limit the number of matches found for
-each M/Z value.}
+\item{\code{max.results}}{If set, it is used to limit the number of matches
+found for each M/Z value.}
 
-\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor peaks.}
+\item{\code{precursor}}{If set to TRUE, then restrict the search to precursor
+peaks.}
 
 \item{\code{ms.level}}{The MS level to which you want to restrict your search.
 0 means that you want to search in all levels.}

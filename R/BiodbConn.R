@@ -119,18 +119,18 @@ correctIds=function(ids) {
 
 #' @description
 #' Return the entry corresponding to this ID. You can pass a vector of
-#'     IDs, and you will get a list of entries.
+#' IDs, and you will get a list of entries.
 #' @param id A character vector containing entry identifiers.
-#' @param drop If set to TRUE and only one entry is requrested, then the returned
-#'     value will be a single BiodbEntry object, otherwise it will be a list of 
-#'     BiodbEntry objects.
-#' @param nulls If set to TRUE, NULL entries are preserved. This ensures that the
-#'     output list has the same length than the input vector `id`. Otherwise they
-#'     are removed from the final list.
-#' @return A list of BiodbEntry objects, the same size of the vector
-#'     of IDs. The list will contain NULL values for invalid IDs. If drop is set to
-#'     TRUE and only one etrny was requested then a single BiodbEntry is returned
-#'     instead of a list.
+#' @param drop If set to TRUE and only one entry is requrested, then the
+#' returned value will be a single BiodbEntry object, otherwise it will be
+#' a list of BiodbEntry objects.
+#' @param nulls If set to TRUE, NULL entries are preserved. This ensures
+#' that the output list has the same length than the input vector `id`.
+#' Otherwise they are removed from the final list.
+#' @return A list of BiodbEntry objects, the same size of the vector of
+#' IDs. The list will contain NULL values for invalid IDs. If drop is set
+#' to TRUE and only one etrny was requested then a single BiodbEntry is
+#' returned instead of a list.
 getEntry=function(id, drop=TRUE, nulls=TRUE) {
 
     entries <- private$bdb$getFactory()$getEntry(self$getId(), id=id,
@@ -144,11 +144,11 @@ getEntry=function(id, drop=TRUE, nulls=TRUE) {
 
 #' @description
 #' Get the path to the persistent cache file.
-#' @param entry.id The identifiers (e.g.: accession numbers) as a character vector
-#'     of the database entries.
+#' @param entry.id The identifiers (e.g.: accession numbers) as a
+#' character vector of the database entries.
 #' @return A character vector, the same length as the vector of IDs,
-#'     containing the paths to the cache files corresponding to the requested entry
-#'     IDs.
+#' containing the paths to the cache files corresponding to the requested
+#' entry IDs.
 getCacheFile=function(entry.id) {
 
     c <- private$bdb$getPersistentCache()
@@ -160,9 +160,8 @@ getCacheFile=function(entry.id) {
 #' @description
 #' Get the contents of database entries from IDs (accession numbers).
 #' @param id A character vector of entry IDs.
-#' @return A character vector containing the contents of the
-#'     requested IDs. If no content is available for an entry ID, then NA will be
-#'     used.
+#' @return A character vector containing the contents of the requested
+#' IDs. If no content is available for an entry ID, then NA will be used.
 getEntryContent=function(id) {
 
     content <- list()
@@ -1442,11 +1441,13 @@ filterEntriesOnRt=function(entry.ids, rt, rt.unit, rt.tol, rt.tol.exp,
 #' means that you want to search in all levels.
 #' @param max.results If set, it is used to limit the number of matches found
 #' for each M/Z value.
+#' @param include.ids A list of IDs to which to restrict the final results. All
+#' IDs that are not in this list will be excluded.
 #' @return A character vector of spectra IDs.
 searchForMassSpectra=function(mz.min=NULL, mz.max=NULL, mz=NULL, mz.tol=NULL,
 mz.tol.unit=c('plain', 'ppm'), rt=NULL, rt.unit=c('s', 'min'), rt.tol=NULL,
 rt.tol.exp=NULL, chrom.col.ids=NULL, precursor=FALSE, min.rel.int=0,
-ms.mode=NULL, max.results=0, ms.level=0) {
+ms.mode=NULL, max.results=0, ms.level=0, include.ids=NULL) {
 
     private$checkIsMassdb()
     # Check arguments
@@ -1509,10 +1510,15 @@ ms.mode=NULL, max.results=0, ms.level=0) {
     # Remove duplicates
     ids <- ids[ ! duplicated(ids)]
 
+    # Exclude IDs
+    if ( ! is.null(include.ids))
+        ids <- ids[ids %in% include.ids]
+
     # Cut
     if (max.results >0)
         ids <- ids[seq_len(max.results)]
 
+    logDebug('Found %d spectra: %s', length(ids), lst2str(ids))
     return(ids)
 },
 
@@ -1614,27 +1620,19 @@ rt.tol.exp=NULL, precursor=FALSE, precursor.rt.tol=NULL,
 insert.input.values=TRUE, prefix=NULL, compute=TRUE, fields=NULL,
 fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
 
+    # Checks
     private$checkIsMassdb()
-    # Check arguments
     rt.unit <- match.arg(rt.unit)
     mz.tol.unit <- match.arg(mz.tol.unit)
-    check.param <- private$checkSearchMsParam(input.df=input.df, mz.min=NULL,
-        mz.max=NULL, mz=mz, mz.tol=mz.tol,
-        mz.tol.unit=mz.tol.unit, rt=rt, rt.unit=rt.unit, rt.tol=rt.tol,
-        rt.tol.exp=rt.tol.exp, chrom.col.ids=chrom.col.ids,
-        min.rel.int=min.rel.int, ms.mode=ms.mode, max.results=max.results,
-        ms.level=ms.level, input.df.colnames=input.df.colnames,
-        match.rt=match.rt)
+    check.param <- do.call(private$checkSearchMsParam, as.list(environment()))
     if (is.null(check.param))
         return(NULL)
     input.df <- check.param$input.df
 
-    results <- NULL
-    result.columns <- character()
-
-    # Step 1 matching of entries with matched precursor
     precursor.match.ids <- NULL
-    if (precursor) {
+
+    # Step 1 - search for spectra with specified precursor
+    if (precursor)
         precursor.match.ids <- self$searchForMassSpectra(mz.min=NULL,
             mz.max=NULL, mz=input.df[[input.df.colnames[['mz']]]],
             mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
@@ -1642,123 +1640,17 @@ fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
             rt.tol=precursor.rt.tol, chrom.col.ids=chrom.col.ids,
             precursor=precursor, min.rel.int=min.rel.int, ms.mode=ms.mode,
             ms.level=ms.level)
-        logDebug0('Found ', length(precursor.match.ids),
-            ' spectra with matched precursor: ',
-            paste((if (length(precursor.match.ids) <= 10)
-            precursor.match.ids else
-            precursor.match.ids[seq_len(10)]), collapse=', '),
-            '.')
-    }
 
-    # Loop on the list of M/Z values
-    logDebug('Looping on all M/Z values.')
-    logTrace('M/Z values to process %s',
-        lst2str(input.df[[input.df.colnames[['mz']]]]))
-    for (i in seq_along(input.df[[input.df.colnames[['mz']]]])) {
-
-        # Compute M/Z range
-        mz <- input.df[i, input.df.colnames[['mz']]]
-        rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
-
-        # Search for spectra
-        logDebug('Searching for spectra that contains M/Z value in ranges %s',
-            paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
-        ids <- self$searchForMassSpectra(mz.min=rng$a,
-            mz.max=rng$b, min.rel.int=min.rel.int, ms.mode=ms.mode,
-            max.results=if (check.param$use.rt.match) 0 else max.results,
-            ms.level=ms.level)
-        logTrace('Found spectra %s', lst2str(ids))
-
-        # Filter out IDs that were not found in step 1.
-        if ( ! is.null(precursor.match.ids)) {
-            ids <- ids[ids %in% precursor.match.ids]
-            logDebug0('After filtering on IDs with precursor match, we have ',
-                length(ids), ' spectra: ',
-                paste((if (length(ids) <= 10) ids
-                else ids[seq_len(10)]), collapse=', '), '.')
-        }
-
-        # Filter on RT value
-        if  (check.param$use.rt.match) {
-            rt <- input.df[i, input.df.colnames[['rt']]]
-            ids <- self$filterEntriesOnRt(ids, rt=rt, rt.unit=rt.unit,
-                rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
-                chrom.col.ids=chrom.col.ids, match.rt=check.param$use.rt.match)
-        }
-
-        # Get entries
-        logDebug('Getting entries from spectra IDs.')
-        entries <- private$bdb$getFactory()$getEntry(self$getId(), ids,
-            drop=FALSE)
-
-        # Cut
-        if (max.results > 0) {
-            logDebug('Cutting data frame %d rows.', max.results)
-            entries <- entries[seq_len(max.results)]
-        }
-
-        # Remove NULL entries
-        null.entries <- vapply(entries, is.null, FUN.VALUE=TRUE)
-        if (any(null.entries))
-            logDebug('One of the entries is NULL.')
-        entries <- entries[ ! null.entries]
-
-        # Display first entry
-        if (length(entries) > 0)
-            logDebug0('Field names of entry:',
-                paste(entries[[1]]$getFieldNames(), collapse=', '))
-
-        # Convert to data frame
-        logDebug('Converting list of entries to data frame.')
-        df <- private$bdb$entriesToDataframe(entries,
-            only.atomic=FALSE, compute=compute, flatten=FALSE,
-            limit=fieldsLimit)
-        logTrace('Entries obtained %s', df2str(df))
-
-        # Select lines with right M/Z values
-        mz <- input.df[i, input.df.colnames[['mz']]]
-        rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
-        logDebug0("Filtering entries data frame on M/Z ranges ",
-            paste(paste0('[', rng$a, ',', rng$b, ']'), collapse=", "))
-        df <- df[(df$peak.mz >= rng$a) & (df$peak.mz <= rng$b), ]
-        logTrace('After filtering on M/Z range %s', df2str(df))
-
-        # Select fields
-        if ( ! is.null(fields))
-            df <- df[fields[fields %in% colnames(df)]]
-
-        # Add prefix on column names
-        if ( ! is.null(df) && ncol(df) > 0 && ! is.null(prefix)
-            && ! is.na(prefix))
-            colnames(df) <- paste0(prefix, colnames(df))
-
-        # Register result columns
-        if ( ! is.null(df)) {
-            newCols <- colnames(df)[ ! colnames(df) %in% result.columns]
-            result.columns <- c(result.columns, newCols)
-        }
-
-        # Inserting input values at the beginning of the data frame
-        if (insert.input.values) {
-            df <- if (is.null(df) || nrow(df) == 0) input.df[i, , drop=FALSE]
-                else cbind(input.df[i, , drop=FALSE], df, row.names=NULL,
-                stringsAsFactors=FALSE)
-        }
-
-        # Appending to main results data frame
-        logDebug('Merging data frame of matchings into results data frame.')
-        results <- plyr::rbind.fill(results, df)
-        logDebug('Total results data frame contains %d rows.', nrow(results))
-    }
-
-    # Sort result columns. We sort at the end of the processing, because result
-    # data frames may contain different number of column, depending on the
-    # presence of NA values.
-    if ( ! is.null(results)) {
-        isAnInputCol <- ! colnames(results) %in% result.columns
-        inputCols <- colnames(results)[isAnInputCol]
-        results <- results[, c(inputCols, sort(result.columns)), drop=FALSE]
-    }
+    # Step 2 - search for matching spectra for each M/Z value
+    results <- private$matchingMzWithSpectra(input.df=input.df,
+        input.df.colnames=input.df.colnames, min.rel.int=min.rel.int,
+        ms.mode=ms.mode, ms.level=ms.level, max.results=max.results,
+        mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
+        rt=rt, rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
+        chrom.col.ids=chrom.col.ids, match.rt=check.param$use.rt.match,
+        fields=fields, compute=compute, prefix=prefix, fieldsLimit=fieldsLimit,
+        insert.input.values=insert.input.values,
+        precursor.match.ids=precursor.match.ids)
 
     return(results)
 },
@@ -1769,23 +1661,26 @@ fieldsLimit=0, input.df.colnames=c(mz='mz', rt='rt'), match.rt=FALSE) {
 #' @param spectrum A template spectrum to match inside the database.
 #' @param precursor.mz The M/Z value of the precursor peak of the mass spectrum.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to
+#' 'ppm' or 'plain'.
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param npmin The minimum number of peak to detect a match (2 is recommended).
-#' @param dist.fun The distance function used to compute the distance betweem two
-#'     mass spectra.
-#' @param msms.mz.tol M/Z tolerance to apply while matching MSMS spectra.  In PPM.
-#' @param msms.mz.tol.min Minimum of the M/Z tolerance (plain unit). If the M/Z
-#'     tolerance computed with `msms.mz.tol` is lower than `msms.mz.tol.min`, then
-#'     `msms.mz.tol.min` will be used.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
+#' @param dist.fun The distance function used to compute the distance
+#' betweem two mass spectra.
+#' @param msms.mz.tol M/Z tolerance to apply while matching MSMS spectra.
+#' In PPM.
+#' @param msms.mz.tol.min Minimum of the M/Z tolerance (plain unit). If
+#' the M/Z tolerance computed with `msms.mz.tol` is lower than
+#' `msms.mz.tol.min`, then `msms.mz.tol.min` will be used.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
 #' @return A data frame with columns `id`, `score` and `peak.*`. Each
-#'     `peak.*` column corresponds to a peak in the input spectrum, in the same
-#'     order and gives the number of the peak that was matched with it inside the
-#'     matched spectrum whose ID is inside the `id` column.
-msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain', 'ppm'), ms.mode, npmin=2, dist.fun=c('wcosine', 'cosine', 'pkernel', 'pbachtttarya'), msms.mz.tol=3, msms.mz.tol.min=0.005, max.results=0) {
+#' `peak.*` column corresponds to a peak in the input spectrum, in the
+#' same order and gives the number of the peak that was matched with it
+#' inside the matched spectrum whose ID is inside the `id` column.
+msmsSearch=function(spectrum, precursor.mz, mz.tol, mz.tol.unit=c('plain',
+    'ppm'), ms.mode, npmin=2, dist.fun=c('wcosine', 'cosine', 'pkernel',
+    'pbachtttarya'), msms.mz.tol=3, msms.mz.tol.min=0.005, max.results=0) {
 
     private$checkIsMassdb()
     peak.tables <- list()
@@ -1855,16 +1750,17 @@ collapseResultsDataFrame=function(results.df, mz.col='mz', rt.col='rt',
 #' @description
 #' Find spectra in the given M/Z range. Returns a list of spectra IDs.
 #' @param mz.min A vector of minimum M/Z values.
-#' @param mz.max A vector of maximum M/Z values. Its length must be the same as
-#'     `mz.min`.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param mz.max A vector of maximum M/Z values. Its length must be the
+#' same as `mz.min`.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
-#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' 0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor
+#' peaks.
 #' @return A character vector of spectra IDs.
 searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL,
     max.results=0, precursor=FALSE, ms.level=0) {
@@ -1878,19 +1774,20 @@ searchMzRange=function(mz.min, mz.max, min.rel.int=0, ms.mode=NULL,
 
 #' @description
 #' Find spectra containg a peak around the given M/Z value. Returns a
-#'     character vector of spectra IDs.
+#' character vector of spectra IDs.
 #' @param mz A vector of M/Z values.
 #' @param mz.tol The M/Z tolerance, whose unit is defined by mz.tol.unit.
-#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to 'ppm' or
-#'     'plain'.
-#' @param min.rel.int The minimum relative intensity, in percentage (i.e.: float
-#'     number between 0 and 100).
+#' @param mz.tol.unit The type of the M/Z tolerance. Set it to either to
+#' 'ppm' or 'plain'.
+#' @param min.rel.int The minimum relative intensity, in percentage (i.e.:
+#' float number between 0 and 100).
 #' @param ms.mode The MS mode. Set it to either 'neg' or 'pos'.
 #' @param ms.level The MS level to which you want to restrict your search.
-#'     0 means that you want to search in all levels.
-#' @param max.results If set, it is used to limit the number of matches found for
-#'     each M/Z value.
-#' @param precursor If set to TRUE, then restrict the search to precursor peaks.
+#' 0 means that you want to search in all levels.
+#' @param max.results If set, it is used to limit the number of matches
+#' found for each M/Z value.
+#' @param precursor If set to TRUE, then restrict the search to precursor
+#' peaks.
 #' @return A character vector of spectra IDs.
 searchMzTol=function(mz, mz.tol, mz.tol.unit='plain', min.rel.int=0,
     ms.mode=NULL, max.results=0, precursor=FALSE, ms.level=0) {
@@ -2126,7 +2023,8 @@ getEntryMissingFromCache=function(ids) {
     return(missing.ids)
 },
 
-doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode,
+    max.results, precursor, ms.level) {
 
     rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
 
@@ -2135,7 +2033,8 @@ doSearchMzTol=function(mz, mz.tol, mz.tol.unit, min.rel.int, ms.mode, max.result
         precursor=precursor, ms.level=ms.level))
 },
 
-doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode, max.results, precursor, ms.level) {
+doSearchMzRange=function(mz.min, mz.max, min.rel.int, ms.mode,
+    max.results, precursor, ms.level) {
     abstractMethod(self)
 },
 
@@ -2209,9 +2108,10 @@ checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
             " choose one of those these two schemes to input M/Z values.")
 
     return(list(use.tol=use.tol, use.min.max=use.min.max))
-},
+}
 
-checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp, chrom.col.ids, match.rt) {
+,checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp,
+    chrom.col.ids, match.rt) {
 
     if (match.rt) {
         chk::chk_numeric(rt)
@@ -2224,9 +2124,12 @@ checkRtParam=function(rt, rt.unit=c('s', 'min'), rt.tol, rt.tol.exp, chrom.col.i
         chk::chk_null_or(chrom.col.ids, chk::chk_not_any_na)
         rt.unit <- match.arg(rt.unit)
     }
-},
+}
 
-checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz', rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min, mz.max, mz, mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, min.rel.int, ms.mode, max.results, ms.level, match.rt) {
+,checkSearchMsParam=function(input.df=NULL, input.df.colnames=c(mz='mz',
+    rt='rt', mz.min='mz.min', mz.max='mz.max'), mz.min=NULL, mz.max=NULL, mz,
+    mz.tol, mz.tol.unit, rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids,
+    min.rel.int, ms.mode, max.results, ms.level, match.rt, ...) {
 
     match.rt <- match.rt || ! is.null(rt)
 
@@ -2316,9 +2219,9 @@ computeChromColRtRange=function(entry) {
             ' fields (chrom.rt or chrom.rt.min and chrom.rt.max) were found.')
 
     return(list(min=rt.col.min, max=rt.col.max))
-},
+}
 
-computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
+,computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
 
     rt.sec <- private$convertRt(rt, rt.unit, 's')
     rt.min <- rt.sec
@@ -2338,9 +2241,111 @@ computeRtRange=function(rt, rt.unit, rt.tol, rt.tol.exp) {
     logDebug('At step 3, RT range is [%g, %g] (s).', rt.min, rt.max)
 
     return(list(min=rt.min, max=rt.max))
-},
+}
 
-terminate=function() {
+,matchingMzWithSpectra=function(input.df, input.df.colnames, min.rel.int,
+    ms.mode, ms.level, max.results, mz.tol, mz.tol.unit,
+    rt, rt.unit, rt.tol, rt.tol.exp, chrom.col.ids, match.rt,
+    fields, compute, prefix, fieldsLimit, insert.input.values,
+    precursor.match.ids) {
+
+    results <- NULL
+    result.columns <- character()
+
+    logDebug('M/Z values to process %s',
+        lst2str(input.df[[input.df.colnames[['mz']]]]))
+    for (i in seq_along(input.df[[input.df.colnames[['mz']]]])) {
+
+        # Compute M/Z range
+        mz <- input.df[i, input.df.colnames[['mz']]]
+        rng <- convertTolToRange(mz, tol=mz.tol, type=mz.tol.unit)
+
+        # Search for spectra
+        prm <- list(mz.min=rng$a, mz.max=rng$b,
+            min.rel.int=min.rel.int, ms.mode=ms.mode, ms.level=ms.level,
+            max.results=if (match.rt) 0 else max.results,
+            include.ids=precursor.match.ids)
+        if  (match.rt)
+            prm <- c(prm, list(rt=input.df[i, input.df.colnames[['rt']]],
+                rt.unit=rt.unit, rt.tol=rt.tol, rt.tol.exp=rt.tol.exp,
+                chrom.col.ids=chrom.col.ids))
+        ids <- do.call(self$searchForMassSpectra, prm)
+
+        # Get entries & data frame
+        entries <- private$bdb$getFactory()$getEntry(self$getId(), ids,
+            drop=FALSE, no.null=TRUE, limit=max.results)
+        x <- private$convertEntriesIntoDataframe(entries=entries,
+            compute=compute, fieldsLimit=fieldsLimit, mz.tol=mz.tol,
+            mz.tol.unit=mz.tol.unit, rng=rng, fields=fields, prefix=prefix)
+
+        # Register result columns
+        if ( ! is.null(x)) {
+            newCols <- colnames(x)[ ! colnames(x) %in% result.columns]
+            result.columns <- c(result.columns, newCols)
+        }
+
+        results <- private$appendDataframeToResults(x=x, results=results,
+            insert.input.values=insert.input.values,
+            input.row=input.df[i, , drop=FALSE])
+    }
+
+    results <- private$sortResultCols(results=results,
+        result.columns=result.columns)
+    return(results)
+}
+
+,convertEntriesIntoDataframe=function(entries, compute, fieldsLimit,
+    mz.tol, mz.tol.unit, fields, prefix, rng) {
+
+    # Convert to data frame
+    x <- private$bdb$entriesToDataframe(entries,
+        only.atomic=FALSE, compute=compute, flatten=FALSE,
+        limit=fieldsLimit)
+
+    # Select lines with right M/Z values
+    x <- x[(x$peak.mz >= rng$a) & (x$peak.mz <= rng$b), ]
+
+    # Select fields
+    if ( ! is.null(fields))
+        x <- x[fields[fields %in% colnames(x)]]
+
+    # Add prefix on column names
+    if ( ! is.null(x) && ncol(x) > 0 && ! is.null(prefix)
+        && ! is.na(prefix))
+        colnames(x) <- paste0(prefix, colnames(x))
+
+    return(x)
+}
+
+,appendDataframeToResults=function(x, results, insert.input.values, input.row) {
+
+    # Inserting input values at the beginning of the data frame
+    if (insert.input.values) {
+        x <- if (is.null(x) || nrow(x) == 0) input.row
+            else cbind(input.row, x, row.names=NULL, stringsAsFactors=FALSE)
+    }
+
+    # Appending to main results data frame
+    results <- plyr::rbind.fill(results, x)
+
+    return(results)
+}
+
+,sortResultCols=function(results, result.columns) {
+    # Sort result columns. We sort at the end of the processing, because result
+    # data frames may contain different number of column, depending on the
+    # presence of NA values.
+    # Sort cols at the end because of possible presence of NA values.
+    if ( ! is.null(results)) {
+        isAnInputCol <- ! colnames(results) %in% result.columns
+        inputCols <- colnames(results)[isAnInputCol]
+        results <- results[, c(inputCols, sort(result.columns)), drop=FALSE]
+    }
+
+    return(results)
+}
+
+,terminate=function() {
 
     # Unregister from the request scheduler
     if (self$isRemotedb()) {

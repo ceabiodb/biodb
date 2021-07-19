@@ -166,10 +166,11 @@ Clones this entry.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db.class}}{The database class (the Biodb database ID) of the clone. By
-setting this parameter, you can specify a different database for the clone,
-so you may clone an entry into another database if you wish. By
-default the class of the clone will be the same as the original entry.}
+\item{\code{db.class}}{The database class (the Biodb database ID) of the
+clone. By setting this parameter, you can specify a different database
+for the clone, so you may clone an entry into another database if you
+wish. By default the class of the clone will be the same as the
+original entry.}
 }
 \if{html}{\out{</div>}}
 }
@@ -482,8 +483,8 @@ A JSON object from jsonlite package.
 \if{latex}{\out{\hypertarget{method-parseContent}{}}}
 \subsection{Method \code{parseContent()}}{
 Parses content string and set values accordingly for this entry's
-fields.  This method is called automatically and should be run directly by
-users.
+fields.  This method is called automatically and should be run directly
+by users.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntry$parseContent(content)}\if{html}{\out{</div>}}
 }
@@ -493,8 +494,8 @@ users.
 \describe{
 \item{\code{content}}{A character string containing definition for an entry and}
 
-\item{\code{obtained}}{from a database. The format can be CSV, HTML, JSON, XML, or just
-text.}
+\item{\code{obtained}}{from a database. The format can be CSV, HTML, JSON,
+XML, or just text.}
 }
 \if{html}{\out{</div>}}
 }

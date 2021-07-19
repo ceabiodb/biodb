@@ -116,31 +116,32 @@ Creates a connector to a database.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db.class}}{The type of a database. The list of types can be obtained from
-the class BiodbDbsInfo.}
+\item{\code{db.class}}{The type of a database. The list of types can be
+obtained from the class BiodbDbsInfo.}
 
-\item{\code{url}}{An URL to the database for which to create a connection.  Each
-database connector is configured with a default URL, but some allow you to
-change it.}
+\item{\code{url}}{An URL to the database for which to create a connection.
+Each database connector is configured with a default URL, but some
+allow you to change it.}
 
-\item{\code{token}}{A security access token for the database. Some database require
-such a token for all or some of their webservices. Usually you obtain the
-token through your account on the database website.}
+\item{\code{token}}{A security access token for the database. Some database
+require such a token for all or some of their webservices. Usually you
+obtain the token through your account on the database website.}
 
-\item{\code{fail.if.exists}}{If set to TRUE, the method will fail if a connector for}
+\item{\code{fail.if.exists}}{If set to TRUE, the method will fail if a
+connector for}
 
-\item{\code{get.existing.conn}}{This argument will be used only if fail.if.exists is
-set to FALSE and an identical connector already exists. If it set to TRUE,
-the existing connector instance will be returned, otherwise NULL will be
-returned.}
+\item{\code{get.existing.conn}}{This argument will be used only if
+fail.if.exists is set to FALSE and an identical connector already
+exists. If it set to TRUE, the existing connector instance will be
+returned, otherwise NULL will be returned.}
 
-\item{\code{conn.id}}{If set, this identifier will be used for the new connector. An
-error will be raised in case another connector already exists with this
-identifier.}
+\item{\code{conn.id}}{If set, this identifier will be used for the new
+connector. An error will be raised in case another connector already
+exists with this identifier.}
 
-\item{\code{cache.id}}{If set, this ID will be used as the cache ID for the new
-connector. An error will be raised in case another connector already exists
-with this cache identifier.}
+\item{\code{cache.id}}{If set, this ID will be used as the cache ID for the
+new connector. An error will be raised in case another connector
+already exists with this cache identifier.}
 }
 \if{html}{\out{</div>}}
 }
@@ -200,8 +201,8 @@ Deletes all existing connectors from a same class.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db.class}}{The type of a database. All connectors of this database
-type will be deleted.}
+\item{\code{db.class}}{The type of a database. All connectors of this
+database type will be deleted.}
 }
 \if{html}{\out{</div>}}
 }
@@ -249,19 +250,19 @@ Gets an instantiated connector instance, or create a new one.
 \describe{
 \item{\code{conn.id}}{An existing connector ID.}
 
-\item{\code{class}}{If set to TRUE, and \"conn.id\" does not correspond to any
-instantiated connector, then interpret \"conn.id\" as a database class and
-looks for the first instantiated connector of that class.}
+\item{\code{class}}{If set to TRUE, and \"conn.id\" does not correspond to
+any instantiated connector, then interpret \"conn.id\" as a database
+class and looks for the first instantiated connector of that class.}
 
-\item{\code{create}}{If set to TRUE, and \"class\" is also set to TRUE, and no suitable
-instantiated connector was found, then creates a new connector instance of
-the class specified by \"conn.id\".}
+\item{\code{create}}{If set to TRUE, and \"class\" is also set to TRUE, and
+no suitable instantiated connector was found, then creates a new
+connector instance of the class specified by \"conn.id\".}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The connector instance corresponding to the connector ID
-or to the database ID submitted (if class \"parameter\" is set to TRUE).
+The connector instance corresponding to the connector ID or to
+the database ID submitted (if class \"parameter\" is set to TRUE).
 }
 }
 \if{html}{\out{<hr>}}
@@ -271,7 +272,7 @@ or to the database ID submitted (if class \"parameter\" is set to TRUE).
 Retrieves database entry objects from IDs (accession numbers), for the
 specified connector.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbFactory$getEntry(conn.id, id, drop = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbFactory$getEntry(conn.id, id, drop = TRUE, no.null = FALSE, limit = 0)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -279,11 +280,17 @@ specified connector.
 \describe{
 \item{\code{conn.id}}{An existing connector ID.}
 
-\item{\code{id}}{A character vector containing database entry IDs (accession numbers).}
+\item{\code{id}}{A character vector containing database entry IDs (accession
+numbers).}
 
-\item{\code{drop}}{If set to TRUE and the list of entries contains only one element,
-then returns this element instead of the list. If set to FALSE, then returns
-always a list.}
+\item{\code{drop}}{If set to TRUE and the list of entries contains only one
+element, then returns this element instead of the list. If set to
+FALSE, then returns always a list.}
+
+\item{\code{no.null}}{Set to TRUE to remove NULL entries.}
+
+\item{\code{limit}}{Set to a positive value to limit the number of entries
+returned.}
 }
 \if{html}{\out{</div>}}
 }

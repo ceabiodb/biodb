@@ -40,9 +40,9 @@ initialize=function(cfg) {
 
 #' @description
 #' Define databases from a structured object, normally loaded from a YAML
-#'     file.
-#' @param def A named list of database definitions. The names of the list will be 
-#'     the IDs of the databases.
+#' file.
+#' @param def A named list of database definitions. The names of the list
+#' will be the IDs of the databases.
 #' @param package The package to which belong the new definitions.
 #' @return Nothing.
 define=function(def, package='biodb') {
@@ -104,12 +104,12 @@ checkIsDefined=function(db.id) {
 
 #' @description
 #' Gets information on a database.
-#' @param db.id Database IDs, as a character vector. If set to NULL, informations
-#'     on all databases will be returned.
-#' @param drop If TRUE and only one database ID has been submitted, returns a
-#'     single BiodbDbInfo instance instead of a list.
-#' @return A list of BiodbDbInfo instances corresponding to the
-#'     specified database IDs.
+#' @param db.id Database IDs, as a character vector. If set to NULL,
+#' informations on all databases will be returned.
+#' @param drop If TRUE and only one database ID has been submitted,
+#' returns a single BiodbDbInfo instance instead of a list.
+#' @return A list of BiodbDbInfo instances corresponding to the specified
+#' database IDs.
 get=function(db.id=NULL, drop=TRUE) {
 
     if (is.null(db.id))

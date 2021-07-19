@@ -181,8 +181,8 @@ Nothing.
 \if{html}{\out{<a id="method-getRealName"></a>}}
 \if{latex}{\out{\hypertarget{method-getRealName}{}}}
 \subsection{Method \code{getRealName()}}{
-Gets the real names (main names) of fields. If some name is not
-found neither in aliases nor in real names, an error is thrown.
+Gets the real names (main names) of fields. If some name is not found
+neither in aliases nor in real names, an error is thrown.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbEntryFields$getRealName(name, fail = TRUE)}\if{html}{\out{</div>}}
 }
@@ -193,14 +193,13 @@ found neither in aliases nor in real names, an error is thrown.
 \item{\code{name}}{A character vector of names or aliases.}
 
 \item{\code{fail}}{Fails if name is unknown.}
-
-\item{\code{real}}{field name for each name given (i.e. each alias is replaced with the
-real name).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector, the same length as \code{name}, with the
+A character vector, the same length as \code{name}, with the real
+field name for each name given (i.e. each alias is replaced with the
+real name).
 }
 }
 \if{html}{\out{<hr>}}
@@ -217,15 +216,15 @@ Gets a BiodbEntryField instance.
 \describe{
 \item{\code{name}}{A character vector of names or aliases.}
 
-\item{\code{drop}}{If TRUE and only one name has been submitted, returns a single
-BiodbEntryField instance instead of a list.}
+\item{\code{drop}}{If TRUE and only one name has been submitted, returns a
+single BiodbEntryField instance instead of a list.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A named list of BiodbEntryField instances. The names of
-the list are the real names of the entry fields, thus they may be different
-from the one provided inside the name argument.
+A named list of BiodbEntryField instances. The names of the
+list are the real names of the entry fields, thus they may be
+different from the one provided inside the name argument.
 }
 }
 \if{html}{\out{<hr>}}
@@ -244,9 +243,9 @@ Gets the main names of all fields.
 return only the names of the fields corresponding to the types
 specified.}
 
-\item{\code{computable}}{If set to TRUE, returns only the names of
-computable fields. If set to FALSE, returns only the names of
-fields that are not computable.}
+\item{\code{computable}}{If set to TRUE, returns only the names of computable
+fields. If set to FALSE, returns only the names of fields that are not
+computable.}
 }
 \if{html}{\out{</div>}}
 }

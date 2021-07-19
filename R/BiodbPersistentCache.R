@@ -47,6 +47,7 @@ public=list(
 #' Instead, access the cache instance through the BiodbMain instance using the
 #' getPersistentCache() method.
 #' @param cfg An instance of the BiodbConfig class.
+#' @param bdb An instance of the BiodbMain class.
 #' @return Nothing.
 initialize=function(cfg, bdb=NULL) {
 
@@ -197,10 +198,10 @@ filesExist=function(cache.id) {
 #' DEPRECATED. Use fileExists().
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
-#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
-#' @return A logical vector, the same size as \\code{name}, with
-#'     \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
-#'     otherwise.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\",
+#' etc).
+#' @return A logical vector, the same size as \\code{name}, with \\code{TRUE}
+#' value if the file exists in the cache, or \\code{FALSE} otherwise.
 fileExist=function(cache.id, name, ext) {
     lifecycle::deprecate_soft('1.1.0', 'fileExist()', "fileExists()")
     return(self$fileExists(cache.id, name, ext))
@@ -210,10 +211,10 @@ fileExist=function(cache.id, name, ext) {
 #' Tests if a particular file exist in the cache.
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
-#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
-#' @return A logical vector, the same size as \\code{name}, with
-#'     \\code{TRUE} value if the file exists in the cache, or \\code{FALSE}
-#'     otherwise.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\",
+#' etc).
+#' @return A logical vector, the same size as \\code{name}, with \\code{TRUE}
+#' value if the file exists in the cache, or \\code{FALSE} otherwise.
 fileExists=function(cache.id, name, ext) {
 
     chk::chk_string(cache.id)
@@ -307,13 +308,13 @@ getUsedCacheIds=function() {
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files.
-#' @param output.vector If set to \\code{TRUE}, force output to be a \\code{vector}
-#'     instead of a \\code{list}. Where the list contains a \\code{NULL}, the
-#'     \\code{vector} will contain an \\code{NA} value.
+#' @param output.vector If set to \\code{TRUE}, force output to be a
+#' \\code{vector} instead of a \\code{list}. Where the list contains a
+#' \\code{NULL}, the \\code{vector} will contain an \\code{NA} value.
 #' @return A list (or a vector if \\code{output.vector} is set to
-#'     \\code{TRUE}), the same size as \\code{name}, containing the contents of the
-#'     files. If some file does not exist, a \\code{NULL} value is inserted inside
-#'     the list.
+#' \\code{TRUE}), the same size as \\code{name}, containing the contents of the
+#' files. If some file does not exist, a \\code{NULL} value is inserted inside
+#' the list.
 loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
 
     chk::chk_string(cache.id)
@@ -375,7 +376,7 @@ function(e) NULL)
 #' @description
 #' Saves content to files into the cache.
 #' @param content A list or a character vector containing the contents of the
-#'     files. It must have the same length as \\code{name}.
+#' files. It must have the same length as \\code{name}.
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
 #' @param ext The extension of the files.
@@ -501,7 +502,8 @@ erase=function() {
 #' Deletes a list of files inside the cache system.
 #' @param cache.id The cache ID to use.
 #' @param name A character vector containing file names.
-#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\",
+#' etc).
 #' @return Nothing.
 deleteFile=function(cache.id, name, ext) {
 
@@ -519,10 +521,10 @@ deleteFile=function(cache.id, name, ext) {
 #' @description
 #' Deletes, in the cache system, all files associated with this cache ID.
 #' @param cache.id The cache ID to use.
-#' @param prefix DEPRECATED If set to TRUE, use cache.id as a prefix, deleting all
-#'     files whose cache.id starts with this prefix.
-#' @param fail If set to TRUE, a warning will be emitted if no cache files exist
-#'     for this cache ID.
+#' @param prefix DEPRECATED If set to TRUE, use cache.id as a prefix, deleting
+#' all files whose cache.id starts with this prefix.
+#' @param fail If set to TRUE, a warning will be emitted if no cache files
+#' exist for this cache ID.
 #' @return Nothing.
 deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 
@@ -548,8 +550,8 @@ deleteAllFiles=function(cache.id, fail=FALSE, prefix=FALSE) {
 #' Deletes all files with the specific extension of the cache ID in the
 #' cache system.
 #' @param cache.id The cache ID to use.
-#' @param ext The extension of the files, without the dot (\"html\", \"xml\", etc).
-#' Only files having this extension will be deleted.
+#' @param ext The extension of the files, without the dot (\"html\", \"xml\",
+#' etc).  Only files having this extension will be deleted.
 #' @return Nothing.
 deleteFiles=function(cache.id, ext) {
 

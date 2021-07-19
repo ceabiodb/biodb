@@ -202,17 +202,11 @@ print=function() {
         n.conn <- conn$getPropertyValue('scheduler.n')
         logDebug("t.conn=%f, n.conn=%f", t.conn, n.conn)
         if (is.null(.t) || is.null(n)
-# || (abs(.t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
             || t.conn / n.conn > .t / n) {
             .t <- t.conn
             n <- n.conn
             logDebug("t=%f, n=%f", .t, n)
         }
-#        if (is.null(.t) || ((abs(.t / n - t.conn / n.conn) < 1e-6 && n.conn < n)
-#            || t.conn / n.conn > .t / n)) {
-#            .t <- t.conn
-#            n <- n.conn
-#        }
     }
 
     # Set frequency

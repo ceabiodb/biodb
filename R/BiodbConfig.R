@@ -64,7 +64,8 @@ initialize=function(parent) {
 #' @return A character vector containing the config key names.
 getKeys=function(deprecated=FALSE) {
 
-    keys <- Filter(function(k) { ! private$isDeprecated(k) }, names(private$keys))
+    keys <- Filter(function(k) { ! private$isDeprecated(k) },
+        names(private$keys))
 
     return(keys)
 },
@@ -396,7 +397,8 @@ getFromEnv=function(key) {
     return(value)
 },
 
-newKey=function(key, title, type, default=NULL, description=NA_character_, deprecated=NULL) {
+newKey=function(key, title, type, default=NULL, description=NA_character_,
+    deprecated=NULL) {
 
     # Check key
     if (is.null(key) || is.na(key) || ! is.character(key))
