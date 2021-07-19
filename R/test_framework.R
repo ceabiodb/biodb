@@ -1,51 +1,3 @@
-#' A class for acknowledging messages during tests.
-#'
-#' This observer is used to call a testthat::expect_*() method each time a
-#' message is received. This is used when running tests on Travis-CI, so Travis
-#' does not stop tests because no change is detected in output.
-#'
-#' @examples
-#' # To use the acknowledger, set ack=TRUE when creating the Biodb test
-#' # instance:
-#' biodb <- biodb::createBiodbTestInstance(ack=TRUE)
-#'
-#' # Terminate the BiodbMain instance
-#' biodb$terminate()
-#'
-#' @import R6
-#' @import methods
-BiodbTestMsgAck <- R6::R6Class('BiodbTestMsgAck',
-
-public=list(
-
-#' @description
-#' New instance initializer.
-#' @return Nothing.
-initialize=function() {
-
-    private$last.index <- 0
-    
-    return(invisible(NULL))
-},
-
-#' @description
-#' Call back method used to get progress advancement of a long process.
-#' @param what The reason as a character value.
-#' @param index The index number representing the progress.
-#' @param total The total number to reach for completing the process.
-#' @return Nothing.
-notifyProgress=function(what, index, total) {
-
-    testthat::expect_lte(index, total)
-
-    return(invisible(NULL))
-}
-),
-
-private=list(
-    last.index=NULL
-))
-
 #' Set a test context.
 #'
 #' Define a context for tests using testthat framework.
@@ -244,28 +196,10 @@ getTestRefFolder <- function(pkgName=NULL) {
 #'
 #' @export
 listTestRefEntries <- function(conn.id, limit=0, pkgName=NULL) {
-
-    chk::chk_string(conn.id)
-    chk::chk_whole_number(limit)
-    chk::chk_gte(limit, 0)
-
-    # Get test ref folder
-    testRef <- getTestRefFolder(pkgName=pkgName)
-
-    # List json files
-    files <- Sys.glob(file.path(testRef, paste('entry', conn.id, '*.json',
-        sep='-')))
-    if (limit > 0 && length(files) > limit)
-        files <- files[seq_len(limit)]
-
-    # Extract ids
-    ids <- sub(paste('^.*/entry', conn.id, '(.+)\\.json$', sep='-'), '\\1',
-        files, perl=TRUE)
-
-    # Replace encoded special characters
-    ids = vapply(ids, utils::URLdecode, FUN.VALUE='')
-
-    return(ids)
+    lifecycle::deprecate_soft('1.1.0', "listTestRefEntries()",
+        "TestRefEntries::getAllIds()")
+    return(TestRefEntries$new(conn.id,
+        pkgName=pkgName)$getAllIds(limit=limit))
 }
 
 loadTestRefEntry <- function(db, id, pkgName=NULL) {
@@ -294,30 +228,10 @@ loadTestRefEntry <- function(db, id, pkgName=NULL) {
 }
 
 loadTestRefEntries <- function(db, pkgName=NULL) {
-
-    entries.desc <- NULL
-
-    # List JSON files
-    entry.json.files <- Sys.glob(file.path(getTestRefFolder(pkgName=pkgName),
-        paste('entry', db, '*.json', sep='-')))
-
-    # Loop on all JSON files
-    for (f in entry.json.files) {
-
-        # Load entry from JSON
-        entry <- jsonlite::read_json(f)
-
-        # Replace NULL values by NA
-        entry <- lapply(entry, function(x) if (is.null(x)) NA else x)
-
-        # Convert to data frame
-        entry.df <- as.data.frame(entry, stringsAsFactors = FALSE)
-
-        # Append entry to main data frame
-        entries.desc <- plyr::rbind.fill(entries.desc, entry.df)
-    }
-
-    return(entries.desc)
+    lifecycle::deprecate_soft('1.1.0', "loadTestRefEntries()",
+        "TestRefEntries::getAllRefEntriesDf()")
+    return(TestRefEntries$new(db,
+        pkgName=pkgName)$getAllRefEntriesDf())
 }
 
 #' Get the test output directory.

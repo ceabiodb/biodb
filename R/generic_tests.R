@@ -7,22 +7,8 @@ test.entry.fields <- function(conn, opt) {
     # Get IDs of reference entries
     ref.ids <- listTestRefEntries(db.name, limit=opt$maxRefEntries)
 
-    # Create entries
-    entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-    testthat::expect_equal(length(entries), length(ref.ids),
-        info=paste0("Error while retrieving entries. ",
-        length(entries), " entrie(s) obtained instead of ", length(ref.ids),
-        "."))
-
-    # Compute fields
-    biodb$computeFields(entries)
-
-    # Save downloaded entries as JSON
-    filenames <- paste('entry-', db.name, '-', ref.ids, '.json', sep = '')
-    filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
-        reserved=TRUE)
-    json.files <- file.path(getTestOutputDir(), filenames)
-    biodb$saveEntriesAsJson(entries, json.files)
+    refEntries <- TestRefEntries$new(conn$getId())
+    entries <- refEntries$getRealEntries(biodb)
 
     # Loop on all entries
     entry.fields <- character(0)
@@ -34,9 +20,6 @@ test.entry.fields <- function(conn, opt) {
 
         # Get entry
         e <- entries[[i]]
-        testthat::expect_false(is.null(e),
-            info=paste0('Entry ', id, ' of database ', db.name,
-            ' could not be loaded for testing.'))
 
         # Check IDs
         testthat::expect_true(e$hasField('accession'),
