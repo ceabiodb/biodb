@@ -1,103 +1,90 @@
+checkEntryIds <- function(e, db.name, id, db.id.field) {
+
+    chk::chk_is(e, 'BiodbEntry')
+
+    # Check IDs
+    testthat::expect_true(e$hasField('accession'),
+        info=paste0(db.name, ' entry ', id, ' has no accession number.'))
+    testthat::expect_true(e$hasField(db.id.field),
+        info=paste0(db.name, ' entry ', id, ' has no field ',
+        db.id.field, '.'))
+    testthat::expect_equal(id, e$getFieldValue('accession'),
+        info=paste0(db.name, ' entry ', id, ' has an accession number (',
+        e$getFieldValue('accession'), ') different from the ID.'))
+    testthat::expect_equal(e$getFieldValue('accession'),
+        e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id,
+        ' has a value (', e$getFieldValue(db.id.field),
+        ') of database id field (', db.id.field,
+        ') different from the accession number (',
+        e$getFieldValue('accession'), ').'))
+}
+
+checkEntryFields <- function(e, ref.entry, id, db.name, ef, db.id.field) {
+
+    # Loop on all reference fields
+    for (f in names(ref.entry)) {
+        v <- ref.entry[[f]]
+        w <- e$getFieldValue(f)
+        if (is.data.frame(v))
+            v <- as.data.frame(v, stringsAsFactors=FALSE)
+
+        # Check that field exists
+        testthat::expect_true(ef$get(f)$isVirtual() ||
+            e$hasField(f), info=paste0('Field "', f,
+            '" cannot be found inside ', db.name, ' entry ', id, '.'))
+
+        # Check field type
+        testthat::expect_equal(typeof(w), typeof(v),
+            info=paste0('Type of field "', f, '" for database ', db.name,
+            ' entry ', id, ' (', typeof(w),
+            ') is different in reference entry (', typeof(v), ').'))
+
+        # Check length
+        testthat::expect_equal(length(w), length(v),
+            info=paste0('Length of field "', f, '" for database ', db.name,
+            ' entry ', id, ' (', length(w),
+            ') is different in reference entry (', length(v), ').'))
+        if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
+            testthat::expect_identical(w, v, info=paste0('Value of field "',
+            f, '" for database ', db.name, ' entry ', id,
+            ' (', lst2str(w),
+            ') is different in reference entry (',
+            lst2str(v), ').'))
+        else
+            testthat::expect_identical(w, v, info=paste0('Value of field "',
+            f, '" for database ', db.name, ' entry ', id,
+            ' is different in reference entry. Non equal values are: ',
+            paste(vapply(which(v != w), function(i) paste(w[[i]], '!=',
+            v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
+    }
+
+    # Loop on all fields of loaded entry
+    for (f in e$getFieldNames())
+        if ( ! f %in% c(db.id.field, 'peaks'))
+            testthat::expect_true(any(ef$get(f)$getAllNames() %in%
+            names(ref.entry)), info=paste0('Field ', f, ' of ', db.name,
+            ' entry ', id, ' has not been tested. Its value is: ',
+            paste(e$getFieldValue(f), collapse=', '), '.'))
+}
+
 test.entry.fields <- function(conn, opt) {
 
     biodb <- conn$getBiodb()
     db.name <- conn$getId()
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
-    # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db.name, limit=opt$maxRefEntries)
-
+    # Get reference entries
     refEntries <- TestRefEntries$new(conn$getId())
-    entries <- refEntries$getRealEntries(biodb)
+    ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Loop on all entries
-    entry.fields <- character(0)
-    ref.entry.fields <- character(0)
-    for (i in seq_along(ref.ids)) {
-
-        # Get ID
-        id <- ref.ids[[i]]
-
-        # Get entry
-        e <- entries[[i]]
-
-        # Check IDs
-        testthat::expect_true(e$hasField('accession'),
-            info=paste0(db.name, ' entry ', id, ' has no accession number.'))
-        testthat::expect_true(e$hasField(db.id.field),
-            info=paste0(db.name, ' entry ', id, ' has no field ',
-            db.id.field, '.'))
-        testthat::expect_equal(id, e$getFieldValue('accession'),
-            info=paste0(db.name, ' entry ', id, ' has an accession number (',
-            e$getFieldValue('accession'), ') different from the ID.'))
-        testthat::expect_equal(e$getFieldValue('accession'),
-            e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id,
-            ' has a value (', e$getFieldValue(db.id.field),
-            ') of database id field (', db.id.field,
-            ') different from the accession number (',
-            e$getFieldValue('accession'), ').'))
-
-        # Load reference entry
-        ref.entry <- loadTestRefEntry(db.name, id)
-        ef <- biodb$getEntryFields()
-
-        # Loop on all reference fields
-        for (f in names(ref.entry)) {
-            v <- ref.entry[[f]]
-            w <- e$getFieldValue(f)
-            if (is.data.frame(v))
-                v <- as.data.frame(v, stringsAsFactors=FALSE)
-
-            # Check that field exists
-            testthat::expect_true(ef$get(f)$isVirtual() ||
-                e$hasField(f), info=paste0('Field "', f,
-                '" cannot be found inside ', db.name, ' entry ', id, '.'))
-
-            # Check field type
-            testthat::expect_equal(typeof(w), typeof(v),
-                info=paste0('Type of field "', f, '" for database ', db.name,
-                ' entry ', id, ' (', typeof(w),
-                ') is different in reference entry (', typeof(v), ').'))
-
-            # Check length
-            testthat::expect_equal(length(w), length(v),
-                info=paste0('Length of field "', f, '" for database ', db.name,
-                ' entry ', id, ' (', length(w),
-                ') is different in reference entry (', length(v), ').'))
-            if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
-                testthat::expect_identical(w, v, info=paste0('Value of field "',
-                f, '" for database ', db.name, ' entry ', id,
-                ' (', lst2str(w),
-                ') is different in reference entry (',
-                lst2str(v), ').'))
-            else
-                testthat::expect_identical(w, v, info=paste0('Value of field "',
-                f, '" for database ', db.name, ' entry ', id,
-                ' is different in reference entry. Non equal values are: ',
-                paste(vapply(which(v != w), function(i) paste(w[[i]], '!=',
-                v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
-        }
-
-        # Loop on all fields of loaded entry
-        for (f in e$getFieldNames())
-            if ( ! f %in% c(db.id.field, 'peaks'))
-                testthat::expect_true(any(ef$get(f)$getAllNames() %in%
-                names(ref.entry)), info=paste0('Field ', f, ' of ', db.name,
-                ' entry ', id, ' has not been tested. Its value is: ',
-                paste(e$getFieldValue(f), collapse=', '), '.'))
-
-        # Store all encountered fields
-        entry.fields <- c(entry.fields, e$getFieldNames())
-        ref.entry.fields <- c(ref.entry.fields, names(ref.entry))
+    for (id in ref.ids) {
+        e <- refEntries$getRealEntry(biodb, id=id)
+        ref.entry <- refEntries$getRefEntry(id)
+        checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
+        checkEntryFields(e, ref.entry=ref.entry, id=id, db.name=db.name,
+            ef=biodb$getEntryFields(), db.id.field=db.id.field)
     }
-
-    # Search for untested fields and send a Biodb WARNING message
-    not.tested.fields <- entry.fields[ ! entry.fields %in%
-        c(ref.entry.fields, db.id.field)]
-    not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
-    for (f in not.tested.fields)
-        biodb::warn0("Field \"", f, "\" of database ", db.name,
-            " is never tested.")
 }
 
 test.wrong.entry <- function(conn) {

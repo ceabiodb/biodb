@@ -29,6 +29,8 @@ refEntries$getAllRefEntriesDf()
 \item \href{#method-new}{\code{TestRefEntries$new()}}
 \item \href{#method-getAllIds}{\code{TestRefEntries$getAllIds()}}
 \item \href{#method-getRealEntries}{\code{TestRefEntries$getRealEntries()}}
+\item \href{#method-getRealEntry}{\code{TestRefEntries$getRealEntry()}}
+\item \href{#method-getRefEntry}{\code{TestRefEntries$getRefEntry()}}
 \item \href{#method-getAllRefEntriesDf}{\code{TestRefEntries$getAllRefEntriesDf()}}
 \item \href{#method-clone}{\code{TestRefEntries$clone()}}
 }
@@ -83,18 +85,63 @@ A character vector containing the IDs.
 Retrieve all real entries from database corresponding to the reference
 entries.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntries(bdb)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntries(bdb, ids = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{bdb}}{A valid BiodbMain instance.}
+
+\item{\code{ids}}{A character vector of entry identifiers.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list containing Entry instances.
+A list containing BiodbEntry instances.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getRealEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-getRealEntry}{}}}
+\subsection{Method \code{getRealEntry()}}{
+Retrieves one real entry from database corresponding to one reference
+entry.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntry(bdb, id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bdb}}{A valid BiodbMain instance.}
+
+\item{\code{id}}{The identifier of the entry.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A BiodbEntry instance.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getRefEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-getRefEntry}{}}}
+\subsection{Method \code{getRefEntry()}}{
+Retrieves the content of a single reference entry.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRefEntry(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The identifier of the reference entry to retrieve.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The content of the reference entry as a list.
 }
 }
 \if{html}{\out{<hr>}}

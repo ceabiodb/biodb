@@ -114,6 +114,7 @@ Collate:
     'TestRefEntries.R'
     'catch-routine-registration.R'
     'fcts_biodb.R'
+    'fcts_deprecated.R'
     'fcts_ext.R'
     'fcts_mass.R'
     'fcts_misc.R'

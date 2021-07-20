@@ -64,18 +64,23 @@ initialize=function(db.class, pkgName=NULL) {
 #' Retrieve all real entries from database corresponding to the reference
 #' entries.
 #' @param bdb A valid BiodbMain instance.
-#' @return A list containing Entry instances.
-,getRealEntries=function(bdb) {
+#' @param ids A character vector of entry identifiers.
+#' @return A list containing BiodbEntry instances.
+,getRealEntries=function(bdb, ids=NULL) {
     chk::chk_is(bdb, 'BiodbMain')
-
+    chk::chk_null_or(ids, chk::chk_character)
     ref.ids <- self$getAllIds()
+    if (is.null(ids))
+        ids <- ref.ids
+    else
+        chk::chk_subset(ids, ref.ids)
 
     # Create entries
-    entries <- bdb$getFactory()$getEntry(private$db.class, id=ref.ids,
+    entries <- bdb$getFactory()$getEntry(private$db.class, id=ids,
         drop=FALSE)
-    testthat::expect_equal(length(entries), length(ref.ids),
+    testthat::expect_equal(length(entries), length(ids),
         info=paste0("Error while retrieving entries. ", length(entries),
-        " entrie(s) obtained instead of ", length(ref.ids),
+        " entrie(s) obtained instead of ", length(ids),
         "."))
     testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=TRUE)))
 
@@ -83,7 +88,7 @@ initialize=function(db.class, pkgName=NULL) {
     bdb$computeFields(entries)
 
     # Save downloaded entries as JSON
-    filenames <- paste('entry-', private$db.class, '-', ref.ids, '.json',
+    filenames <- paste('entry-', private$db.class, '-', ids, '.json',
         sep='')
     filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
         reserved=TRUE)
@@ -94,10 +99,21 @@ initialize=function(db.class, pkgName=NULL) {
 }
 
 #' @description
+#' Retrieves one real entry from database corresponding to one reference
+#' entry.
+#' @param bdb A valid BiodbMain instance.
+#' @param id The identifier of the entry.
+#' @return A BiodbEntry instance.
+,getRealEntry=function(bdb, id) {
+    return(self$getRealEntries(bdb=bdb, ids=id)[[1]])
+}
+
+#' @description
 #' Retrieves the content of a single reference entry.
 #' @param id The identifier of the reference entry to retrieve.
 #' @return The content of the reference entry as a list.
 ,getRefEntry=function(id) {
+    chk::chk_string(id)
 
     # Replace forbidden characters
     id = utils::URLencode(id, reserved=TRUE)
