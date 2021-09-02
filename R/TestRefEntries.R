@@ -24,12 +24,15 @@ public=list(
 #' @param db.class Identifier of the database.
 #' @param pkgName Name of the package in which are stored the reference
 #' entry files.
+#' @param bdb A valid BiodbMain instance or NULL.
 #' @return Nothing.
-initialize=function(db.class, pkgName=NULL) {
+initialize=function(db.class, pkgName=NULL, bdb=NULL) {
     chk::chk_string(db.class)
     chk::chk_null_or(pkgName, chk::chk_string)
+    chk::chk_null_or(bdb, chk::chk_is, 'BiodbMain')
     private$db.class <- db.class
     private$pkgName <- pkgName
+    private$bdb <- bdb
     return(invisible(NULL))
 }
 
@@ -47,6 +50,11 @@ initialize=function(db.class, pkgName=NULL) {
     # List JSON files
     files <- Sys.glob(file.path(testRef, paste('entry', private$db.class,
         '*.json', sep='-')))
+
+    # Remove content files
+    files <- grep('-content.json$', files, value=TRUE, invert=TRUE)
+
+    # Limit number of files
     if (limit > 0 && length(files) > limit)
         files <- files[seq_len(limit)]
 
@@ -74,10 +82,13 @@ initialize=function(db.class, pkgName=NULL) {
         pattern <- file.path(testRef,
             paste0('entry-', private$db.class, '-', id, '-content.*'))
         files <- Sys.glob(pattern)
-        if (length(files) == 0)
-            error(paste('Missing content file for reference entry %s.',
-                'Searching pattern was %s.'), id, pattern)
-        else (length(files) > 1)
+        if (length(files) == 0) {
+            # Entry content file is missing in test ref dir.
+            warn(paste("Content file is missing for test ref entry %s.",
+                "A content will now be retrieved from the connector",
+                "and saved into test ref folder %s"), id, testRef)
+            files <- private$downloadEntryContent(id)
+        } else if (length(files) > 1)
             error("Found more than one file for pattern %s: %s.", pattern,
                 paste(files, collapse=', '))
         return(files) # Got one single file
@@ -92,13 +103,14 @@ initialize=function(db.class, pkgName=NULL) {
 
 #' @description
 #' Retrieve all real entries from database corresponding to the reference
-#' entries.
-#' @param bdb A valid BiodbMain instance.
+#' entris.
 #' @param ids A character vector of entry identifiers.
 #' @return A list containing BiodbEntry instances.
-,getRealEntries=function(bdb, ids=NULL) {
-    chk::chk_is(bdb, 'BiodbMain')
+,getRealEntries=function(ids=NULL) {
     chk::chk_null_or(ids, chk::chk_character)
+    if (is.null(private$bdb))
+        error(paste("A valid BiodbMain instance is needed inside the",
+            "TestRefEntries instance to retrieve real entries."))
     ref.ids <- self$getAllIds()
     if (is.null(ids))
         ids <- ref.ids
@@ -106,7 +118,7 @@ initialize=function(db.class, pkgName=NULL) {
         chk::chk_subset(ids, ref.ids)
 
     # Create entries
-    entries <- bdb$getFactory()$getEntry(private$db.class, id=ids,
+    entries <- private$bdb$getFactory()$getEntry(private$db.class, id=ids,
         drop=FALSE)
     testthat::expect_equal(length(entries), length(ids),
         info=paste0("Error while retrieving entries. ", length(entries),
@@ -115,7 +127,7 @@ initialize=function(db.class, pkgName=NULL) {
     testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=TRUE)))
 
     # Compute fields
-    bdb$computeFields(entries)
+    private$bdb$computeFields(entries)
 
     # Save downloaded entries as JSON
     filenames <- paste('entry-', private$db.class, '-', ids, '.json',
@@ -123,7 +135,7 @@ initialize=function(db.class, pkgName=NULL) {
     filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
         reserved=TRUE)
     json.files <- file.path(getTestOutputDir(), filenames)
-    bdb$saveEntriesAsJson(entries, json.files)
+    private$bdb$saveEntriesAsJson(entries, json.files)
 
     return(entries)
 }
@@ -131,11 +143,10 @@ initialize=function(db.class, pkgName=NULL) {
 #' @description
 #' Retrieves one real entry from database corresponding to one reference
 #' entry.
-#' @param bdb A valid BiodbMain instance.
 #' @param id The identifier of the entry.
 #' @return A BiodbEntry instance.
-,getRealEntry=function(bdb, id) {
-    return(self$getRealEntries(bdb=bdb, ids=id)[[1]])
+,getRealEntry=function(id) {
+    return(self$getRealEntries(ids=id)[[1]])
 }
 
 #' @description
@@ -200,7 +211,8 @@ initialize=function(db.class, pkgName=NULL) {
 ),
 private=list(
     db.class=NULL,
-    pkgName=NULL
+    pkgName=NULL,
+    bdb=NULL
 
 ,getFolder=function() {
 
@@ -230,5 +242,29 @@ private=list(
     }
 
     return(testRef)
+}
+
+,downloadEntryContent=function(id) {
+
+    testRef <- private$getFolder()
+    if (is.null(private$bdb))
+        error(paste("A valid BiodbMain instance is needed inside the",
+            "TestRefEntries instance to retrieve the content of entry %s and",
+            "save it inside the test ref folder %s."), id, testRef)
+
+    # Get content
+    conn <- private$bdb$getFactory()$getConn(private$db.class)
+    content <- conn$getEntryContent(id)
+    if (is.null(content))
+        error("Unable to retrieve content of entry %s from connector %s.", id,
+            private$db.class)
+
+    # Save content to file
+    ext <- conn$getEntryFileExt()
+    f <- file.path(testRef,
+        paste0('entry-', private$db.class, '-', id, '-content.', ext))
+    saveContentsToFiles(f, content, prepareContents=TRUE)
+
+    return(f)
 }
 ))

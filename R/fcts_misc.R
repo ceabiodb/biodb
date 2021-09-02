@@ -99,6 +99,46 @@ notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
     return(invisible(NULL))
 }
 
+#' Prepares file contents for saving.
+#'
+#' @param contents File contents, as a list or a character vector.
+#' @return File contents.
+prepareFileContents <- function(contents) {
+
+    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+
+    # Replace NA values with 'NA' string
+    contents[is.na(contents)] <- 'NA'
+
+    # Encode non character contents into JSON
+    chars <- vapply(contents, is.character, FUN.VALUE=TRUE)
+    contents[ ! chars] <- vapply(contents[ ! chars], jsonlite::toJSON,
+        FUN.VALUE='', pretty=TRUE, digits=NA_integer_)
+
+    return(contents)
+}
+
+#' Saves contents to files.
+#'
+#' @param files The file paths to use for saving contents.
+#' @param contents The contents to save, as a list or a character vector.
+#' @return Nothing.
+saveContentsToFiles <- function(files, contents, prepareContents=FALSE) {
+
+    chk::chk_character(files)
+    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+    chk::chk_flag(prepareContents)
+
+    if (prepareContents)
+        contents <- prepareFileContents(contents)
+
+    # Use cat instead of writeChar, because writeChar is not
+    # working with some unicode string (wrong string length).
+    mapply(function(cnt, f) cat(cnt, file=f), contents, files)
+
+    return(invisible(NULL))
+}
+
 #' Loads the contents of files in memory.
 #'
 #' This function loads the contents of a list of files and returns the contents

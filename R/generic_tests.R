@@ -1,8 +1,8 @@
 test_cache_for_local_db <- function(conn) {
     bdb <- conn$getBiodb()
     bdb$getConfig()$set('use.cache.for.local.db', TRUE)
-    refEntries <- TestRefEntries$new(conn$getId())
-    entries <- refEntries$getRealEntries(bdb)
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=bdb)
+    entries <- refEntries$getRealEntries()
     testthat::expect_is(entries, 'list')
     testthat::expect_true(length(entries) > 0)
     testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=FALSE)))
@@ -85,7 +85,7 @@ test.entry.fields <- function(conn, opt) {
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
     # Get reference entries
-    refEntries <- TestRefEntries$new(conn$getId())
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=biodb)
     ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Get contents
@@ -94,7 +94,7 @@ test.entry.fields <- function(conn, opt) {
 
     # Loop on all entries
     for (id in ref.ids) {
-        e <- refEntries$getRealEntry(biodb, id=id)
+        e <- refEntries$getRealEntry(id)
         ref.entry <- refEntries$getRefEntry(id)
         checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
         checkEntryFields(e, ref.entry=ref.entry, id=id, db.name=db.name,

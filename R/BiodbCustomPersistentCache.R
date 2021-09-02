@@ -84,9 +84,7 @@ doSaveContentToFile=function(cache.id, content, name, ext) {
 
     # Write content to files
     logTrace('Saving to cache %s', lst2str(file.paths))
-    # Use cat instead of writeChar, because writeChar is not
-    # working with some unicode string (wrong string length).
-    mapply(function(cnt, f) cat(cnt, file=f), content, file.paths)
+    saveContentsToFiles(file.paths, content)
 
     return(invisible(NULL))
 }

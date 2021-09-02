@@ -1,0 +1,12 @@
+{
+  "comp_csv_file_id": ["1018"],
+  "comp_sqlite_id": ["1018"],
+  "accession": ["1018"],
+  "formula": ["C2H8AsNO3"],
+  "monoisotopic.mass": [168.97201],
+  "molecular.mass": [169.012],
+  "smiles": ["NCC[As](O)(O)=O"],
+  "description": [""],
+  "kegg_compound_id": ["C07279"],
+  "name": ["2-Aminoethylarsonate"]
+}

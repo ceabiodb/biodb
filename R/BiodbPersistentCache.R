@@ -369,13 +369,7 @@ saveContentToFile=function(content, cache.id, name, ext) {
     content <- content[ ! nulls]
     name <- name[ ! nulls]
 
-    # Replace NA values with 'NA' string
-    content[is.na(content)] <- 'NA'
-
-    # Encode non character contents into JSON
-    chars <- vapply(content, is.character, FUN.VALUE=TRUE)
-    content[ ! chars] <- vapply(content[ ! chars], jsonlite::toJSON,
-        FUN.VALUE='', pretty=TRUE, digits=NA_integer_)
+    content <- prepareFileContents(content)
 
     # Save content
     private$doSaveContentToFile(cache.id, content=content, name=name, ext=ext)
@@ -670,6 +664,10 @@ doDeleteAllFiles=function(cache.id) {
 },
 
 doListFiles=function(cache.id, pattern, full.path) {
+    abstractMethod(self)
+},
+
+doSaveContentToFile=function(cache.id, content, name, ext) {
     abstractMethod(self)
 }
 ))
