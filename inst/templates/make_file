@@ -176,7 +176,7 @@ $(RENVIRON_BIOC):
 
 longtests: BIODB_CACHE_DIRECTORY=$(LONG_CACHE)
 tests longtests: $(COMPILE)
-	$(R) $(RFLAGS) -e "devtools::test('$(CURDIR)/$@', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'))" $(ERROR_MSG_FILTER)
+	$(R) $(RFLAGS) -e "testthat::test_dir('$(CURDIR)/$@/testthat', filter=$(TEST_FILE), reporter=c('$(TESTTHAT_REPORTER)', 'fail'), package='$(PKG_NAME)', load_package='source')" $(ERROR_MSG_FILTER)
 	
 # Run testthat tests
 test: tests
