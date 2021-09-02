@@ -1,3 +1,14 @@
+test_cache_for_local_db <- function(conn) {
+    bdb <- conn$getBiodb()
+    bdb$getConfig()$set('use.cache.for.local.db', TRUE)
+    refEntries <- TestRefEntries$new(conn$getId())
+    entries <- refEntries$getRealEntries(bdb)
+    testthat::expect_is(entries, 'list')
+    testthat::expect_true(length(entries) > 0)
+    testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=FALSE)))
+    bdb$getConfig()$set('use.cache.for.local.db', FALSE)
+}
+
 checkEntryIds <- function(e, db.name, id, db.id.field) {
 
     chk::chk_is(e, 'BiodbEntry')
@@ -1403,6 +1414,13 @@ runGenericShortTests <- function(conn, opt=NULL) {
 # Run tests whose duration is adjustable using options (i.e.: maxRefEntries)
 runGenericAdjustableTests <- function(conn, opt=NULL) {
 
+    # Local dbs
+    if ( ! conn$isRemotedb()) {
+        biodb::testThat("We can use the cache system for a local database.",
+            test_cache_for_local_db, conn=conn)
+    }
+
+    # General tests
     biodb::testThat("Entry fields have a correct value", test.entry.fields,
         conn=conn, opt=opt)
     biodb::testThat("RT unit is defined when there is an RT value.",
@@ -1412,7 +1430,7 @@ runGenericAdjustableTests <- function(conn, opt=NULL) {
     biodb::testThat("We can search for an entry by name.", test.searchByName,
         conn=conn, opt=opt)
     
-    # Remote tests
+    # Remote dbs
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.",
             test.entry.page.url, conn=conn, opt=opt)
