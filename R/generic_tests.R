@@ -88,22 +88,24 @@ test.entry.fields <- function(conn, opt) {
     refEntries <- TestRefEntries$new(conn$getId(), bdb=biodb)
     ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
 
-    # Get contents
-    contents <- refEntries$getContents(ref.ids)
-# TODO Do not load entries anymore but use content files
-
     # Loop on all entries
     for (id in ref.ids) {
-        e <- refEntries$getRealEntry(id)
-        ref.entry <- refEntries$getRefEntry(id)
+        content <- refEntries$getContents(id)
+        e <- biodb$getFactory()$createEntryFromContent(conn$getId(),
+            content=content)
         checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
-        checkEntryFields(e, ref.entry=ref.entry, id=id, db.name=db.name,
-            ef=biodb$getEntryFields(), db.id.field=db.id.field)
+        checkEntryFields(e, ref.entry=refEntries$getRefEntry(id), id=id,
+            db.name=db.name, ef=biodb$getEntryFields(),
+            db.id.field=db.id.field)
     }
 }
 
 testEntryLoading <- function(conn) {
-# TODO Test the loading of only 1 entry.
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=conn$getBiodb())
+    id <- refEntries$getAllIds(limit=1)
+    testthat::expect_is(id, 'character')
+    e <- refEntries$getRealEntry(id)
+    testthat::expect_is(e, 'BiodbEntry')
 }
 
 test.wrong.entry <- function(conn) {
@@ -1429,6 +1431,8 @@ runGenericAdjustableTests <- function(conn, opt=NULL) {
         test.searchForEntries, conn=conn, opt=opt)
     biodb::testThat("We can search for an entry by name.", test.searchByName,
         conn=conn, opt=opt)
+    biodb::testThat("We can load an entry from the database.", testEntryLoading,
+        conn=conn)
     
     # Remote dbs
     if (conn$isRemotedb()) {

@@ -340,6 +340,74 @@ createNewEntry=function(db.class) {
 },
 
 #' @description
+#' Creates an entry instance from a content.
+#' @param conn A valid BiodbConn instance.
+#' @param content A list or character vector of contents to parse to create the
+#' entries.
+#' @param drop If set to TRUE
+#' @return A list of new BiodbEntry objects.
+createEntryFromContent=function(conn.id, content, drop=TRUE) {
+
+    chk::chk_string(conn.id)
+    chk::chkor(chk::chk_character(content), chk::chk_list(content))
+    chk::chk_flag(drop)
+
+    entries <- list()
+
+    if (length(content) > 0) {
+
+        # Get connector
+        conn <- self$getConn(conn.id)
+
+        logDebug('Creating %s entries from %d content(s).',
+            conn$getPropertyValue('name'), length(content))
+
+        # Get entry class
+        entry.class <- conn$getEntryClass()
+
+        # Loop on all contents
+        logDebug('Parsing %d %s entries.', length(content),
+            conn$getPropertyValue('name'))
+        prg <- Progress$new(biodb=private$bdb,
+                            msg='Creating entry instances from contents',
+                            total=length(content))
+        for (single.content in content) {
+
+            # Progress
+            prg$increment()
+
+            # Create empty entry instance
+            entry <- entry.class$new(parent=conn)
+
+            # Parse content
+            entry$parseContent(single.content)
+
+            entries <- c(entries, entry)
+        }
+
+        # Replace elements with no accession id by NULL
+        accessions <- vapply(entries, function(x) x$getFieldValue('accession'),
+            FUN.VALUE='')
+        fct <- function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0)
+        entries.without.accession <- vapply(accessions, fct, FUN.VALUE=TRUE)
+        strIds <- paste(accessions, collapse=', ')
+        logDebug('Accession numbers: %s.', strIds)
+        if (any(entries.without.accession)) {
+            n <- sum(entries.without.accession)
+            logDebug0('Found %d entry/ies without an accession',
+                ' number. Set it/them to NULL.', n)
+            entries[entries.without.accession] <- list(NULL)
+        }
+
+        # If the input was a single element, then output a single object
+        if (drop && length(content) == 1)
+            entries <- entries[[1]]
+    }
+
+    return(entries)
+},
+
+#' @description
 #' For a connector, gets all entries stored in the cache.
 #' @param conn.id A connector ID.
 #' @return A list of BiodbEntry objects.
@@ -414,7 +482,7 @@ loadEntries=function(conn.id, ids, drop) {
         content <- conn$getEntryContent(ids)
 
         # Create entries
-        new.entries <- private$createEntryFromContent(conn$getId(),
+        new.entries <- self$createEntryFromContent(conn$getId(),
             content=content, drop=drop)
 
         # Store new entries in cache
@@ -454,62 +522,6 @@ getExistingConn=function(new.conn) {
 
 terminate=function() {
     self$deleteAllConnectors()
-},
-
-createEntryFromContent=function(conn.id, content, drop=TRUE) {
-
-    entries <- list()
-
-    if (length(content) > 0) {
-
-        # Get connector
-        conn <- self$getConn(conn.id)
-
-        logDebug('Creating %s entries from %d content(s).',
-            conn$getPropertyValue('name'), length(content))
-
-        # Get entry class
-        entry.class <- conn$getEntryClass()
-
-        # Loop on all contents
-        logDebug('Parsing %d %s entries.', length(content),
-            conn$getPropertyValue('name'))
-        prg <- Progress$new(biodb=private$bdb,
-                            msg='Creating entry instances from contents',
-                            total=length(content))
-        for (single.content in content) {
-
-            # Progress
-            prg$increment()
-
-            # Create empty entry instance
-            entry <- entry.class$new(parent=conn)
-
-            # Parse content
-            entry$parseContent(single.content)
-
-            entries <- c(entries, entry)
-        }
-
-        # Replace elements with no accession id by NULL
-        accessions <- vapply(entries, function(x) x$getFieldValue('accession'),
-            FUN.VALUE='')
-        fct <- function(a) (is.na(a) || length(grep('^\\s*$', a)) > 0)
-        entries.without.accession <- vapply(accessions, fct, FUN.VALUE=TRUE)
-        strIds <- paste(accessions, collapse=', ')
-        logDebug('Accession numbers: %s.', strIds)
-        if (any(entries.without.accession)) {
-            n <- sum(entries.without.accession)
-            logDebug0('Found %d entry/ies without an accession',
-                ' number. Set it/them to NULL.', n)
-            entries[entries.without.accession] <- list(NULL)
-        }
-
-        # If the input was a single element, then output a single object
-        if (drop && length(content) == 1)
-            entries <- entries[[1]]
-    }
-
-    return(entries)
 }
+
 ))
