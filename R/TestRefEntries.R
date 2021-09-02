@@ -44,12 +44,8 @@ initialize=function(db.class, pkgName=NULL, bdb=NULL) {
     chk::chk_whole_number(limit)
     chk::chk_gte(limit, 0)
 
-    # Get test ref folder
-    testRef <- private$getFolder()
-
     # List JSON files
-    files <- Sys.glob(file.path(testRef, paste('entry', private$db.class,
-        '*.json', sep='-')))
+    files <-  private$getRefEntryJsonFiles()
 
     # Remove content files
     files <- grep('-content.json$', files, value=TRUE, invert=TRUE)
@@ -187,8 +183,7 @@ initialize=function(db.class, pkgName=NULL, bdb=NULL) {
     entries.desc <- NULL
 
     # List JSON files
-    entry.json.files <- Sys.glob(file.path(private$getFolder(),
-        paste('entry', private$db.class, '*.json', sep='-')))
+    entry.json.files <- private$getRefEntryJsonFiles()
 
     # Loop on all JSON files
     for (f in entry.json.files) {
@@ -242,6 +237,18 @@ private=list(
     }
 
     return(testRef)
+}
+
+,getRefEntryJsonFiles=function() {
+
+    # List JSON files
+    files <- Sys.glob(file.path(private$getFolder(),
+        paste('entry', private$db.class, '*.json', sep='-')))
+
+    # Remove content files
+    files <- grep('-content.json$', files, value=TRUE, invert=TRUE)
+
+    return(files)
 }
 
 ,downloadEntryContent=function(id) {
