@@ -334,41 +334,8 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     logTrace('file.exist = %s.', lst2str(file.exist))
     content[is.na(name)] <- NA_character_
     content[name == ""] <- NA_character_
-    fct <- if (ext == 'RData') function(f) { load(f) ; c } else
-        function(f) readChar(f, file.info(f)$size, useBytes=TRUE)
     file.paths <- self$getFilePath(cache.id, name[file.exist], ext)
-    content[file.exist] <- lapply(file.paths, fct)
-    logTrace('Loaded %d files from cache: %s.', length(file.paths),
-        lst2str(file.paths))
-
-    # Check that the read content is not conflicting with the current locale
-    for (i in seq(content)) {
-        n <- tryCatch(nchar(content[[i]]), error=
-function(e) NULL)
-        if (is.null(n)) {
-            warn0('Error when reading content of file "',
-                file.paths[[i]], '". The function `nchar` returned',
-                ' an error on the content. The file may be written', 
-                ' in a unexpected encoding. Trying latin-1...')
-            # The encoding may be wrong, try another one. Maybe LATIN-1
-            content[[i]] <- iconv(content[[i]], "iso8859-1")
-            n <- tryCatch(nchar(content[[i]]), error=
-function(e) NULL)
-            if (is.null(n))
-                error0('Impossible to handle correctly the content of', 
-                    ' file "', file.paths[[i]], '". The encoding of', 
-                    ' this file is unknown.')
-        }
-    }
-
-    # Set to NA
-    content[content == 'NA' | content == "NA\n"] <- NA_character_
-
-    # Vector ?
-    if (output.vector) {
-        null_to_na <- function(x) { if (is.null(x)) NA_character_ else x }
-        content <- vapply(content, null_to_na, FUN.VALUE='')
-    }
+    content[file.exist] <- loadFileContents(file.paths, outVect=output.vector)
 
     return(content)
 },

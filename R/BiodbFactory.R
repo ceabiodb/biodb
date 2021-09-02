@@ -320,7 +320,9 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
 },
 
 #' @description
-#' Creates a new entry from scratch. This entry is not stored in cache.
+#' Creates a new empty entry object from scratch. This entry is not stored in
+#' cache, and is directly attached to the factory instance instead of a
+#' particular connector.
 #' @param db.class A database ID.
 #' @return A new BiodbEntry object.
 createNewEntry=function(db.class) {

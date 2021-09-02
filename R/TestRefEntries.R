@@ -27,7 +27,7 @@ public=list(
 #' @return Nothing.
 initialize=function(db.class, pkgName=NULL) {
     chk::chk_string(db.class)
-    chk::chk_null_or(db.class, chk::chk_string)
+    chk::chk_null_or(pkgName, chk::chk_string)
     private$db.class <- db.class
     private$pkgName <- pkgName
     return(invisible(NULL))
@@ -58,6 +58,36 @@ initialize=function(db.class, pkgName=NULL) {
     ids = vapply(ids, utils::URLdecode, FUN.VALUE='')
 
     return(ids)
+}
+
+#' @description
+#' Get the reference contents for the specfied IDs.
+#' @param ids The reference IDs for which to get the contents.
+#' @return A character vector.
+,getContents=function(ids) {
+
+    chk::chk_character(ids)
+
+    # Get file names
+    testRef <- private$getFolder()
+    getFilename <- function(id) {
+        pattern <- file.path(testRef,
+            paste0('entry-', private$db.class, '-', id, '-content.*'))
+        files <- Sys.glob(pattern)
+        if (length(files) == 0)
+            error(paste('Missing content file for reference entry %s.',
+                'Searching pattern was %s.'), id, pattern)
+        else (length(files) > 1)
+            error("Found more than one file for pattern %s: %s.", pattern,
+                paste(files, collapse=', '))
+        return(files) # Got one single file
+    }
+    filenames <- vapply(ids, getFilename, FUN.VALUE='')
+
+    # Load contents
+    contents <- loadFileContents(filenames, outVect=TRUE)
+
+    return(contents)
 }
 
 #' @description

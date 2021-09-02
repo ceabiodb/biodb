@@ -77,6 +77,10 @@ test.entry.fields <- function(conn, opt) {
     refEntries <- TestRefEntries$new(conn$getId())
     ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
 
+    # Get contents
+    contents <- refEntries$getContents(ref.ids)
+# TODO Do not load entries anymore but use content files
+
     # Loop on all entries
     for (id in ref.ids) {
         e <- refEntries$getRealEntry(biodb, id=id)
@@ -85,6 +89,10 @@ test.entry.fields <- function(conn, opt) {
         checkEntryFields(e, ref.entry=ref.entry, id=id, db.name=db.name,
             ef=biodb$getEntryFields(), db.id.field=db.id.field)
     }
+}
+
+testEntryLoading <- function(conn) {
+# TODO Test the loading of only 1 entry.
 }
 
 test.wrong.entry <- function(conn) {
@@ -250,13 +258,13 @@ test.entry.image.url.download <- function(conn, opt) {
     }
 }
 
-test.create.conn.with.same.url = function(conn) {
+test.create.conn.with.same.url <- function(conn) {
     testthat::expect_error(
         conn$getBiodb()$getFactory()$createConn(conn$getDbClass(),
         url=conn$getUrl('base.url')))
 }
 
-test.db.editing = function(conn) {
+test.db.editing <- function(conn) {
 
     # Get one entry from connector
     id = conn$getEntryIds(1)
@@ -277,7 +285,7 @@ test.db.editing = function(conn) {
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.db.writing.with.col.add = function(conn) {
+test.db.writing.with.col.add <- function(conn) {
 
     # Set database file
     db.file <- file.path(getTestOutputDir(),
@@ -331,7 +339,7 @@ test.db.writing.with.col.add = function(conn) {
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.db.writing = function(conn) {
+test.db.writing <- function(conn) {
 
     biodb = conn$getBiodb()
 
@@ -480,7 +488,7 @@ test.searchForEntries <- function(conn, opt=NULL) {
     }
 }
 
-test.searchByName = function(conn, opt=NULL) {
+test.searchByName <- function(conn, opt=NULL) {
     
     # Allow running of deprecated methods while testing
     withr::local_options(lifecycle_verbosity="quiet")
