@@ -122,6 +122,8 @@ prepareFileContents <- function(contents) {
 #'
 #' @param files The file paths to use for saving contents.
 #' @param contents The contents to save, as a list or a character vector.
+#' @param prepareContents If set to TRUE, then calls prepareFileContents() on
+#' the contents before saving them.
 #' @return Nothing.
 saveContentsToFiles <- function(files, contents, prepareContents=FALSE) {
 

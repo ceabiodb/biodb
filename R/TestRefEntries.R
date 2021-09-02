@@ -14,6 +14,7 @@
 #' refEntries$getAllRefEntriesDf()
 #'
 #' @import R6
+#' @import plyr
 #' @export
 TestRefEntries <- R6::R6Class('TestRefEntries',
 

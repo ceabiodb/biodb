@@ -41,6 +41,7 @@
 #'
 #' @import R6
 #' @import openssl
+#' @import plyr
 #' @include BiodbConnBase.R
 #' @export
 BiodbConn <- R6::R6Class("BiodbConn",

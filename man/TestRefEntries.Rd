@@ -28,6 +28,7 @@ refEntries$getAllRefEntriesDf()
 \itemize{
 \item \href{#method-new}{\code{TestRefEntries$new()}}
 \item \href{#method-getAllIds}{\code{TestRefEntries$getAllIds()}}
+\item \href{#method-getContents}{\code{TestRefEntries$getContents()}}
 \item \href{#method-getRealEntries}{\code{TestRefEntries$getRealEntries()}}
 \item \href{#method-getRealEntry}{\code{TestRefEntries$getRealEntry()}}
 \item \href{#method-getRefEntry}{\code{TestRefEntries$getRefEntry()}}
@@ -41,7 +42,7 @@ refEntries$getAllRefEntriesDf()
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName = NULL, bdb = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -51,6 +52,8 @@ New instance initializer.
 
 \item{\code{pkgName}}{Name of the package in which are stored the reference
 entry files.}
+
+\item{\code{bdb}}{A valid BiodbMain instance or NULL.}
 }
 \if{html}{\out{</div>}}
 }
@@ -79,20 +82,38 @@ A character vector containing the IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRealEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getRealEntries}{}}}
-\subsection{Method \code{getRealEntries()}}{
-Retrieve all real entries from database corresponding to the reference
-entries.
+\if{html}{\out{<a id="method-getContents"></a>}}
+\if{latex}{\out{\hypertarget{method-getContents}{}}}
+\subsection{Method \code{getContents()}}{
+Get the reference contents for the specfied IDs.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntries(bdb, ids = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getContents(ids)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{bdb}}{A valid BiodbMain instance.}
+\item{\code{ids}}{The reference IDs for which to get the contents.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A character vector.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getRealEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-getRealEntries}{}}}
+\subsection{Method \code{getRealEntries()}}{
+Retrieve all real entries from database corresponding to the reference
+entris.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntries(ids = NULL)}\if{html}{\out{</div>}}
+}
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
 \item{\code{ids}}{A character vector of entry identifiers.}
 }
 \if{html}{\out{</div>}}
@@ -108,14 +129,12 @@ A list containing BiodbEntry instances.
 Retrieves one real entry from database corresponding to one reference
 entry.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntry(bdb, id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$getRealEntry(id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{bdb}}{A valid BiodbMain instance.}
-
 \item{\code{id}}{The identifier of the entry.}
 }
 \if{html}{\out{</div>}}

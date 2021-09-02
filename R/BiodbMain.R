@@ -30,6 +30,7 @@
 #'
 #' @import R6
 #' @import yaml
+#' @import plyr
 #' @export
 BiodbMain <- R6::R6Class("BiodbMain",
 
