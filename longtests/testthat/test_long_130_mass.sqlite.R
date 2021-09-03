@@ -1,4 +1,4 @@
-source(file.path(getwd(), '..', 'testthat', 'db_creation.R'))
+source(file.path(getwd(), '..', '..', 'tests', 'testthat', 'db_creation.R'))
 
 # Set context
 biodb::testContext("MassSqlite long generic tests")
