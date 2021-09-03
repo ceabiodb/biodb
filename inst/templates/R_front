@@ -152,7 +152,7 @@ function download_versions_file {
 	if [[ -f "$VERSIONS_FILE" ]] ; then
 		curl -o "$VERSIONS_FILE" -z "$VERSIONS_FILE" "$MIRROR/src/base/$VERSIONS_INFO_FILENAME"
 	else
-		curl -o "$VERSIONS_FILE" "$MIRROR/src/base/$versions_info"
+		curl -o "$VERSIONS_FILE" "$MIRROR/src/base/$VERSIONS_INFO_FILENAME"
 	fi
 }
 
