@@ -105,14 +105,20 @@ initialize=function(db.class, pkgName=NULL, bdb=NULL) {
 #' @return A list containing BiodbEntry instances.
 ,getRealEntries=function(ids=NULL) {
     chk::chk_null_or(ids, chk::chk_character)
+print("================================ TestRefEntries.R::getRealEntries() 1")
+print(ids)
     if (is.null(private$bdb))
         error(paste("A valid BiodbMain instance is needed inside the",
             "TestRefEntries instance to retrieve real entries."))
     ref.ids <- self$getAllIds()
+print("================================ TestRefEntries.R::getRealEntries() 2")
+print(ref.ids)
     if (is.null(ids))
         ids <- ref.ids
     else
         chk::chk_subset(ids, ref.ids)
+print("================================ TestRefEntries.R::getRealEntries() 9")
+print(ids)
 
     # Create entries
     entries <- private$bdb$getFactory()$getEntry(private$db.class, id=ids,
@@ -121,6 +127,11 @@ initialize=function(db.class, pkgName=NULL, bdb=NULL) {
         info=paste0("Error while retrieving entries. ", length(entries),
         " entrie(s) obtained instead of ", length(ids),
         "."))
+print("================================ TestRefEntries.R::getRealEntries() 10")
+print(entries)
+print("================================ TestRefEntries.R::getRealEntries() 11")
+print(vapply(entries, is.null, FUN.VALUE=TRUE))
+print("================================ TestRefEntries.R::getRealEntries() 12")
     testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=TRUE)))
 
     # Compute fields
