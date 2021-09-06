@@ -291,16 +291,25 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
 
     # Correct IDs
     id <- conn$correctIds(id)
+print("================================ BiodbFactory.R::getEntry() 9")
+print(id)
 
     # What entries are missing from cache?
     missing.ids <- conn$.__enclos_env__$private$getEntryMissingFromCache(id)
+print("================================ BiodbFactory.R::getEntry() 10")
+print(missing.ids)
 
-    if (length(missing.ids) > 0)
+    if (length(missing.ids) > 0) {
         new.entries <- private$loadEntries(conn$getId(), missing.ids,
             drop=FALSE)
+print("================================ BiodbFactory.R::getEntry() 11")
+print(new.entries)
+}
 
     # Get entries
     entries <- unname(conn$.__enclos_env__$private$getEntriesFromCache(id))
+print("================================ BiodbFactory.R::getEntry() 12")
+print(entries)
 
     # If the input was a single element, then output a single object
     if (drop && length(id) == 1)
@@ -315,6 +324,8 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
     # Cut
     if (limit > 0)
         entries <- entries[seq_len(limit)]
+print("================================ BiodbFactory.R::getEntry() 20")
+print(entries)
 
     return(entries)
 },
@@ -373,17 +384,27 @@ createEntryFromContent=function(conn.id, content, drop=TRUE) {
                             total=length(content))
         for (single.content in content) {
 
+print("================================ BiodbFactory.R::createEntryFromContent() 20")
+print(single.content)
             # Progress
             prg$increment()
 
             # Create empty entry instance
             entry <- entry.class$new(parent=conn)
+print("================================ BiodbFactory.R::createEntryFromContent() 22")
+print(entry)
 
             # Parse content
             entry$parseContent(single.content)
+print("================================ BiodbFactory.R::createEntryFromContent() 23")
+print(entry)
 
             entries <- c(entries, entry)
+print("================================ BiodbFactory.R::createEntryFromContent() 24")
+print(entries)
         }
+print("================================ BiodbFactory.R::createEntryFromContent() 30")
+print(entries)
 
         # Replace elements with no accession id by NULL
         accessions <- vapply(entries, function(x) x$getFieldValue('accession'),
@@ -398,11 +419,15 @@ createEntryFromContent=function(conn.id, content, drop=TRUE) {
                 ' number. Set it/them to NULL.', n)
             entries[entries.without.accession] <- list(NULL)
         }
+print("================================ BiodbFactory.R::createEntryFromContent() 40")
+print(entries)
 
         # If the input was a single element, then output a single object
         if (drop && length(content) == 1)
             entries <- entries[[1]]
     }
+print("================================ BiodbFactory.R::createEntryFromContent() 50")
+print(entries)
 
     return(entries)
 },
@@ -480,10 +505,14 @@ loadEntries=function(conn.id, ids, drop) {
 
         # Get contents
         content <- conn$getEntryContent(ids)
+print("================================ BiodbFactory.R::loadEntries() 10")
+print(content)
 
         # Create entries
         new.entries <- self$createEntryFromContent(conn$getId(),
             content=content, drop=drop)
+print("================================ BiodbFactory.R::loadEntries() 11")
+print(new.entries)
 
         # Store new entries in cache
         conn$.__enclos_env__$private$addEntriesToCache(ids, new.entries)

@@ -44,11 +44,11 @@ initialize=function(sep=',', na.strings='NA', quotes='', ...) {
 ),
 
 private=list(
-    sep=NULL,
-    na.strings=NULL,
-    quotes=NULL
-,
-doParseContent=function(content) {
+    sep=NULL
+    ,na.strings=NULL
+    ,quotes=NULL
+
+,doParseContent=function(content) {
 
     # Read all CSV file, including header line, into a data frame. The
     # header line will then be the first line. This is to avoid first
@@ -58,6 +58,8 @@ doParseContent=function(content) {
         sep=private$sep, quote=private$quotes, stringsAsFactors=FALSE,
         na.strings=private$na.strings, fill=TRUE, check.names=FALSE,
         comment.char='')
+print("================================ BiodbCsvEntry.R::doParseContent 10")
+print(df)
 
     # Now name the columns
     if (nrow(df) >= 1) {
@@ -74,6 +76,8 @@ doParseContent=function(content) {
         }
     }
 
+print("================================ BiodbCsvEntry.R::doParseContent 20")
+print(df)
     return(df)
 },
 
@@ -84,13 +88,19 @@ doCheckParsedContent=function(parsed.content) {
 ,doParseFieldsStep1=function(parsed.content) {
 
     cfg <- self$getBiodb()$getConfig()
+print("================================ BiodbCsvEntry.R::doParseFieldsStep1() 1")
 
     # Get parsing expressions
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
+print("================================ BiodbCsvEntry.R::doParseFieldsStep1() 2")
+print(parsing.expr)
 
     # Loop on all expressions
     for (field in names(parsing.expr)) {
 
+print("================================ BiodbCsvEntry.R::doParseFieldsStep1() 10")
+print(field)
+print(parsing.expr[[field]])
         # Is field in columns?
         if (parsing.expr[[field]] %in% colnames(parsed.content)) {
 
