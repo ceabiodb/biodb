@@ -108,6 +108,7 @@ setCsvSep=function(sep) {
 #' @return A character vector of the biodb field names.
 getFieldNames=function() {
     
+    #private$initDb()
     fields <- names(private$fields)
     ef <- self$getBiodb()$getEntryFields()
     fct <- function(f) {
@@ -265,7 +266,7 @@ setField=function(field, colname, ignore.if.missing=FALSE) {
 
         # Set field
         private$fields[[field]] <- colname
-        self$setPropValSlot('parsing.expr', field, colname)
+        self$setPropValSlot('parsing.expr', field, colname, hook=FALSE)
     }
 
     # Use several column to join together
@@ -308,6 +309,7 @@ getUnassociatedColumns=function() {
 print=function() {
     # Overrides super class' method.
     
+    private$initDb()
     super$print()
     
     # Display defined fields
@@ -367,15 +369,21 @@ private=list(
     fields=NULL,
     field2cols=NULL,
     autoSetFieldsHasBeenRun=NULL,
-    ignoreUnassignedColumns=NULL
+    ignoreUnassignedColumns=NULL,
+    parsingExprDefined=FALSE
 
 ,doDefineParsingExpressions=function() {
 
-    entry.fields <- self$getBiodb()$getEntryFields()
+    if ( ! private$parsingExprDefined) {
 
-    # Define a parsing expression for each column inside the database
-    for (field in self$getFieldNames())
-        self$setPropValSlot('parsing.expr', field, private$fields[[field]])
+        private$initDb()
+
+        # Define a parsing expression for each column inside the database
+        for (field in self$getFieldNames())
+            self$setPropValSlot('parsing.expr', field, private$fields[[field]], hook=FALSE)
+
+        private$parsingExprDefined <- TRUE
+    }
 
     return(invisible(NULL))
 }
@@ -420,11 +428,9 @@ initDb=function(setFields=TRUE) {
         # Load database
         else {
             logInfo('Loading file database "%s".', file)
-            db <- read.table(self$getPropValSlot('urls', 'base.url'),
-                sep=private$file.sep, quote=private$file.quote,
-                header=TRUE, stringsAsFactors=FALSE,
-                row.names=NULL, comment.char='',
-                check.names=FALSE, fill=FALSE)
+            db <- read.table(file, sep=private$file.sep,
+                quote=private$file.quote, header=TRUE, stringsAsFactors=FALSE,
+                row.names=NULL, comment.char='', check.names=FALSE, fill=FALSE)
         }
 
         # Set database

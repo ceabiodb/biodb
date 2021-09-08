@@ -92,18 +92,24 @@ getQuery=function(query) {
 
 private=list(
     db=NULL
+    ,parsingExprDefined=FALSE
 
 ,doDefineParsingExpressions=function() {
 
-    entry.fields <- self$getBiodb()$getEntryFields()
+    if ( ! private$parsingExprDefined) {
 
-    # Loop on all entry fields
-    for (field in entry.fields$getFieldNames()) {
-        f <- entry.fields$get(field)
-        if ( ! f$isVirtual()) {
-            db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
-            self$setPropValSlot('parsing.expr', field, db_id)
+        entry.fields <- self$getBiodb()$getEntryFields()
+
+        # Loop on all entry fields
+        for (field in entry.fields$getFieldNames()) {
+            f <- entry.fields$get(field)
+            if ( ! f$isVirtual()) {
+                db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
+                self$setPropValSlot('parsing.expr', field, db_id, hook=FALSE)
+            }
         }
+
+        private$parsingExprDefined <- TRUE
     }
 
     return(invisible(NULL))
