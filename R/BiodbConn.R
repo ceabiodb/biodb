@@ -1516,7 +1516,7 @@ ms.mode=NULL, max.results=0, ms.level=0, include.ids=NULL) {
         ids <- ids[ids %in% include.ids]
 
     # Cut
-    if (max.results >0)
+    if (max.results > 0 && length(ids) > max.results)
         ids <- ids[seq_len(max.results)]
 
     logDebug('Found %d spectra: %s', length(ids), lst2str(ids))

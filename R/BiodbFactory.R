@@ -303,10 +303,6 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
     # Get entries
     entries <- unname(conn$.__enclos_env__$private$getEntriesFromCache(id))
 
-    # If the input was a single element, then output a single object
-    if (drop && length(id) == 1)
-        entries <- entries[[1]]
-
     # Remove NULL entries
     if (no.null) {
         null.entries <- vapply(entries, is.null, FUN.VALUE=TRUE)
@@ -314,8 +310,12 @@ getEntry=function(conn.id, id, drop=TRUE, no.null=FALSE, limit=0) {
     }
 
     # Cut
-    if (limit > 0)
+    if (limit > 0 && length(entries) > limit)
         entries <- entries[seq_len(limit)]
+
+    # If the input was a single element, then output a single object
+    if (drop && length(id) == 1)
+        entries <- entries[[1]]
 
     return(entries)
 },
