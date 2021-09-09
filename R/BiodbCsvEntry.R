@@ -44,11 +44,11 @@ initialize=function(sep=',', na.strings='NA', quotes='', ...) {
 ),
 
 private=list(
-    sep=NULL,
-    na.strings=NULL,
-    quotes=NULL
-,
-doParseContent=function(content) {
+    sep=NULL
+    ,na.strings=NULL
+    ,quotes=NULL
+
+,doParseContent=function(content) {
 
     # Read all CSV file, including header line, into a data frame. The
     # header line will then be the first line. This is to avoid first

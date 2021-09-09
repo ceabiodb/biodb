@@ -184,10 +184,7 @@ doSaveContentToFile=function(cache.id, content, name, ext) {
             file.paths <- self$getFilePath(cache.id, name[existsInCache], ext)
             logTrace('Overwriting contents of cache files %s',
                 lst2str(file.paths))
-            # Use cat instead of writeChar, because writeChar is not
-            # working with some unicode string (wrong string length).
-            mapply(function(cnt, f) cat(cnt, file=f), content[existsInCache],
-                file.paths)
+            saveContentsToFiles(file.paths, content[existsInCache])
         }
 
         # Add non-existing files

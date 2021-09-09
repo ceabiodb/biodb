@@ -199,10 +199,13 @@ isSlotProp=function(name) {
 #' Retrieve the value of a slot of a property.
 #' @param name The name of a property.
 #' @param slot The slot name inside the property.
+#' @param hook If set to TRUE, enables the calls to hook methods
+#' associated with the property. Otherwise, all calls to hook
+#' methods are disabled.
 #' @return The value of the slot `slot` of the property `name`.
-getPropValSlot=function(name, slot) {
+getPropValSlot=function(name, slot, hook=TRUE) {
 
-    value <- self$getPropertyValue(name)
+    value <- self$getPropertyValue(name, hook=hook)
     private$checkProperty(name=name, slot=slot)
 
     if (slot %in% names(value))
@@ -314,16 +317,19 @@ getEntryIdField=function() {
 #' @description
 #' Gets a property value.
 #' @param name The name of the property.
+#' @param hook If set to TRUE, enables the calls to hook methods
+#' associated with the property. Otherwise, all calls to hook
+#' methods are disabled.
 #' @return The value of the property.
-getPropertyValue=function(name) {
+getPropertyValue=function(name, hook=TRUE) {
 
     private$checkProperty(name)
     pdef <- private$propDef[[name]]
 
     # Run hook
-    if ('hook' %in% names(pdef) && ! pdef$hook %in% private$runHooks) {
-        private$runHooks <- c(private$runHooks, pdef$hook)
-        eval(parse(text=paste0('private$', pdef$hook, '()')))
+    if (hook && 'hook' %in% names(pdef)) {
+        code <- paste0('private$', pdef$hook, '()')
+        eval(parse(text=code))
     }
 
     # Get value
@@ -379,13 +385,16 @@ setPropertyValue=function(name, value) {
 #' @param name The name of the property.
 #' @param slot The name of the property's slot.
 #' @param value The new value to set the property's slot to.
+#' @param hook If set to TRUE, enables the calls to hook methods
+#' associated with the property. Otherwise, all calls to hook
+#' methods are disabled.
 #' @return Nothing.
-setPropValSlot=function(name, slot, value) {
+setPropValSlot=function(name, slot, value, hook=TRUE) {
 
     private$checkProperty(name=name, slot=slot)
 
     # Get current value
-    curval <- self$getPropertyValue(name)
+    curval <- self$getPropertyValue(name, hook=hook)
 
     # Add/set new value
     curval[[slot]] <- value

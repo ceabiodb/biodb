@@ -21,3 +21,4 @@ vignettes/*.R
 vignettes/*.html
 check.Renviron
 Renviron.bioc
+testthat-problems.rds

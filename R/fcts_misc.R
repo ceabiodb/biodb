@@ -99,6 +99,118 @@ notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
     return(invisible(NULL))
 }
 
+#' Prepares file contents for saving.
+#'
+#' @param contents File contents, as a list or a character vector.
+#' @return File contents.
+prepareFileContents <- function(contents) {
+
+    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+
+    # Replace NA values with 'NA' string
+    contents[is.na(contents)] <- 'NA'
+
+    # Encode non character contents into JSON
+    chars <- vapply(contents, is.character, FUN.VALUE=TRUE)
+    contents[ ! chars] <- vapply(contents[ ! chars], jsonlite::toJSON,
+        FUN.VALUE='', pretty=TRUE, digits=NA_integer_)
+
+    return(contents)
+}
+
+#' Saves contents to files.
+#'
+#' @param files The file paths to use for saving contents.
+#' @param contents The contents to save, as a list or a character vector.
+#' @param prepareContents If set to TRUE, then calls prepareFileContents() on
+#' the contents before saving them.
+#' @return Nothing.
+saveContentsToFiles <- function(files, contents, prepareContents=FALSE) {
+
+    chk::chk_character(files)
+    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+    chk::chk_flag(prepareContents)
+
+    if (prepareContents)
+        contents <- prepareFileContents(contents)
+
+    # Use cat instead of writeChar, because writeChar is not
+    # working with some unicode string (wrong string length).
+    mapply(function(cnt, f) cat(cnt, file=f), contents, files)
+
+    return(invisible(NULL))
+}
+
+#' Loads the contents of files in memory.
+#'
+#' This function loads the contents of a list of files and returns the contents
+#' as a list, each element being the content of a single file, in the same
+#' order. If a file could not be opened, a NULL value is used as the content.
+#' NA values are interpreted by default, but this behaviour can be turned off.
+#'
+#' @param x A character vector containing the paths of the files.
+#' @param naValues A character vector listing the content values to convert
+#' into NA value. Set to NULL to disable the interpretation of NA values.
+#' set to a different set of values to be interpreted.
+#' @param outVect If set to TRUE outputs a character vector (converting any
+#' NULL value into NA), otherwise outputs a list.
+#' @return A list with the contents of the files.
+loadFileContents <- function(x, naValues='NA', outVect=FALSE) {
+
+    chk::chk_character(x)
+    chk::chk_character(naValues)
+    contents <- rep(list(NULL), length(x))
+
+    # Load all contents
+    fct <- function(f) {
+
+        content <- NULL
+        if (file.exists(f)) {
+
+            # Load content
+            ext <- sub('\\.([^.]+)$', '\\1', f, perl=TRUE)
+            if (ext == 'RData') {
+                load(f) # Content is in variable "c".
+                content <- c
+            } else
+                content <- readChar(f, file.info(f)$size, useBytes=TRUE)
+
+            # Check that the content is not conflicting with the current locale
+            n <- tryCatch(nchar(content), error=function(e) NULL)
+            if (is.null(n)) {
+                warn0('Error when reading content of file "',
+                    f, '". The function `nchar` returned',
+                    ' an error on the content. The file may be written', 
+                    ' in a unexpected encoding. Trying latin-1...')
+                # The encoding may be wrong, try another one. Maybe LATIN-1
+                content <- iconv(content, "iso8859-1")
+                n <- tryCatch(nchar(content), error=function(e) NULL)
+                if (is.null(n))
+                    error0('Impossible to handle correctly the content of', 
+                        ' file "', f, '". The encoding of', 
+                        ' this file is unknown.')
+            }
+
+            # Set to NA
+            if ( ! is.null(naValues) && (content %in% naValues
+                || content %in% paste0(naValues, "\n")))
+                content <- NA_character_
+        }
+
+        return(content)
+    } 
+    contents <- lapply(x, fct)
+    logTrace('Loaded %d files from cache: %s.', length(x), lst2str(x))
+
+    # Vector ?
+    if (outVect) {
+        null_to_na <- function(x) { if (is.null(x)) NA_character_ else x }
+        contents <- vapply(contents, null_to_na, FUN.VALUE='')
+    }
+
+    return(contents)
+}
+
 #' Declares a class as abstract.
 #'
 #' Forbids instantiation of an abstract class.

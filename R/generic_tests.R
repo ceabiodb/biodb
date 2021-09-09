@@ -1,120 +1,111 @@
+test_cache_for_local_db <- function(conn) {
+    bdb <- conn$getBiodb()
+    bdb$getConfig()$set('use.cache.for.local.db', TRUE)
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=bdb)
+    entries <- refEntries$getRealEntries()
+    testthat::expect_is(entries, 'list')
+    testthat::expect_true(length(entries) > 0)
+    testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=FALSE)))
+    bdb$getConfig()$set('use.cache.for.local.db', FALSE)
+}
+
+checkEntryIds <- function(e, db.name, id, db.id.field) {
+
+    chk::chk_is(e, 'BiodbEntry')
+
+    # Check IDs
+    testthat::expect_true(e$hasField('accession'),
+        info=paste0(db.name, ' entry ', id, ' has no accession number.'))
+    testthat::expect_true(e$hasField(db.id.field),
+        info=paste0(db.name, ' entry ', id, ' has no field ',
+        db.id.field, '.'))
+    testthat::expect_equal(id, e$getFieldValue('accession'),
+        info=paste0(db.name, ' entry ', id, ' has an accession number (',
+        e$getFieldValue('accession'), ') different from the ID.'))
+    testthat::expect_equal(e$getFieldValue('accession'),
+        e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id,
+        ' has a value (', e$getFieldValue(db.id.field),
+        ') of database id field (', db.id.field,
+        ') different from the accession number (',
+        e$getFieldValue('accession'), ').'))
+}
+
+checkEntryFields <- function(e, ref.entry, id, db.name, ef, db.id.field) {
+
+    # Loop on all reference fields
+    for (f in names(ref.entry)) {
+        v <- ref.entry[[f]]
+        w <- e$getFieldValue(f)
+        if (is.data.frame(v))
+            v <- as.data.frame(v, stringsAsFactors=FALSE)
+
+        # Check that field exists
+        testthat::expect_true(ef$get(f)$isVirtual() ||
+            e$hasField(f), info=paste0('Field "', f,
+            '" cannot be found inside ', db.name, ' entry ', id, '.'))
+
+        # Check field type
+        testthat::expect_equal(typeof(w), typeof(v),
+            info=paste0('Type of field "', f, '" for database ', db.name,
+            ' entry ', id, ' (', typeof(w),
+            ') is different in reference entry (', typeof(v), ').'))
+
+        # Check length
+        testthat::expect_equal(length(w), length(v),
+            info=paste0('Length of field "', f, '" for database ', db.name,
+            ' entry ', id, ' (', length(w),
+            ') is different in reference entry (', length(v), ').'))
+        if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
+            testthat::expect_identical(w, v, info=paste0('Value of field "',
+            f, '" for database ', db.name, ' entry ', id,
+            ' (', lst2str(w),
+            ') is different in reference entry (',
+            lst2str(v), ').'))
+        else
+            testthat::expect_identical(w, v, info=paste0('Value of field "',
+            f, '" for database ', db.name, ' entry ', id,
+            ' is different in reference entry. Non equal values are: ',
+            paste(vapply(which(v != w), function(i) paste(w[[i]], '!=',
+            v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
+    }
+
+    # Loop on all fields of loaded entry
+    for (f in e$getFieldNames())
+        if ( ! f %in% c(db.id.field, 'peaks'))
+            testthat::expect_true(any(ef$get(f)$getAllNames() %in%
+            names(ref.entry)), info=paste0('Field ', f, ' of ', db.name,
+            ' entry ', id, ' has not been tested. Its value is: ',
+            paste(e$getFieldValue(f), collapse=', '), '.'))
+}
+
 test.entry.fields <- function(conn, opt) {
 
     biodb <- conn$getBiodb()
     db.name <- conn$getId()
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
-    # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(db.name, limit=opt$maxRefEntries)
-
-    # Create entries
-    entries <- biodb$getFactory()$getEntry(db.name, id = ref.ids, drop = FALSE)
-    testthat::expect_equal(length(entries), length(ref.ids),
-        info=paste0("Error while retrieving entries. ",
-        length(entries), " entrie(s) obtained instead of ", length(ref.ids),
-        "."))
-
-    # Compute fields
-    biodb$computeFields(entries)
-
-    # Save downloaded entries as JSON
-    filenames <- paste('entry-', db.name, '-', ref.ids, '.json', sep = '')
-    filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
-        reserved=TRUE)
-    json.files <- file.path(getTestOutputDir(), filenames)
-    biodb$saveEntriesAsJson(entries, json.files)
+    # Get reference entries
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=biodb)
+    ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Loop on all entries
-    entry.fields <- character(0)
-    ref.entry.fields <- character(0)
-    for (i in seq_along(ref.ids)) {
-
-        # Get ID
-        id <- ref.ids[[i]]
-
-        # Get entry
-        e <- entries[[i]]
-        testthat::expect_false(is.null(e),
-            info=paste0('Entry ', id, ' of database ', db.name,
-            ' could not be loaded for testing.'))
-
-        # Check IDs
-        testthat::expect_true(e$hasField('accession'),
-            info=paste0(db.name, ' entry ', id, ' has no accession number.'))
-        testthat::expect_true(e$hasField(db.id.field),
-            info=paste0(db.name, ' entry ', id, ' has no field ',
-            db.id.field, '.'))
-        testthat::expect_equal(id, e$getFieldValue('accession'),
-            info=paste0(db.name, ' entry ', id, ' has an accession number (',
-            e$getFieldValue('accession'), ') different from the ID.'))
-        testthat::expect_equal(e$getFieldValue('accession'),
-            e$getFieldValue(db.id.field), info=paste0(db.name, ' entry ', id,
-            ' has a value (', e$getFieldValue(db.id.field),
-            ') of database id field (', db.id.field,
-            ') different from the accession number (',
-            e$getFieldValue('accession'), ').'))
-
-        # Load reference entry
-        ref.entry <- loadTestRefEntry(db.name, id)
-        ef <- biodb$getEntryFields()
-
-        # Loop on all reference fields
-        for (f in names(ref.entry)) {
-            v <- ref.entry[[f]]
-            w <- e$getFieldValue(f)
-            if (is.data.frame(v))
-                v <- as.data.frame(v, stringsAsFactors=FALSE)
-
-            # Check that field exists
-            testthat::expect_true(ef$get(f)$isVirtual() ||
-                e$hasField(f), info=paste0('Field "', f,
-                '" cannot be found inside ', db.name, ' entry ', id, '.'))
-
-            # Check field type
-            testthat::expect_equal(typeof(w), typeof(v),
-                info=paste0('Type of field "', f, '" for database ', db.name,
-                ' entry ', id, ' (', typeof(w),
-                ') is different in reference entry (', typeof(v), ').'))
-
-            # Check length
-            testthat::expect_equal(length(w), length(v),
-                info=paste0('Length of field "', f, '" for database ', db.name,
-                ' entry ', id, ' (', length(w),
-                ') is different in reference entry (', length(v), ').'))
-            if ( ! is.vector(v) || length(v) < 20 || length(v) != length(w))
-                testthat::expect_identical(w, v, info=paste0('Value of field "',
-                f, '" for database ', db.name, ' entry ', id,
-                ' (', lst2str(w),
-                ') is different in reference entry (',
-                lst2str(v), ').'))
-            else
-                testthat::expect_identical(w, v, info=paste0('Value of field "',
-                f, '" for database ', db.name, ' entry ', id,
-                ' is different in reference entry. Non equal values are: ',
-                paste(vapply(which(v != w), function(i) paste(w[[i]], '!=',
-                v[[i]]), FUN.VALUE=''), collapse=', '), '.'))
-        }
-
-        # Loop on all fields of loaded entry
-        for (f in e$getFieldNames())
-            if ( ! f %in% c(db.id.field, 'peaks'))
-                testthat::expect_true(any(ef$get(f)$getAllNames() %in%
-                names(ref.entry)), info=paste0('Field ', f, ' of ', db.name,
-                ' entry ', id, ' has not been tested. Its value is: ',
-                paste(e$getFieldValue(f), collapse=', '), '.'))
-
-        # Store all encountered fields
-        entry.fields <- c(entry.fields, e$getFieldNames())
-        ref.entry.fields <- c(ref.entry.fields, names(ref.entry))
+    for (id in ref.ids) {
+        content <- refEntries$getContents(id)
+        e <- biodb$getFactory()$createEntryFromContent(conn$getId(),
+            content=content)
+        checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
+        checkEntryFields(e, ref.entry=refEntries$getRefEntry(id), id=id,
+            db.name=db.name, ef=biodb$getEntryFields(),
+            db.id.field=db.id.field)
     }
+}
 
-    # Search for untested fields and send a Biodb WARNING message
-    not.tested.fields <- entry.fields[ ! entry.fields %in%
-        c(ref.entry.fields, db.id.field)]
-    not.tested.fields <- not.tested.fields[ ! duplicated(not.tested.fields)]
-    for (f in not.tested.fields)
-        biodb::warn0("Field \"", f, "\" of database ", db.name,
-            " is never tested.")
+testEntryLoading <- function(conn) {
+    refEntries <- TestRefEntries$new(conn$getId(), bdb=conn$getBiodb())
+    id <- refEntries$getAllIds(limit=1)
+    testthat::expect_is(id, 'character')
+    e <- refEntries$getRealEntry(id)
+    testthat::expect_is(e, 'BiodbEntry')
 }
 
 test.wrong.entry <- function(conn) {
@@ -280,13 +271,13 @@ test.entry.image.url.download <- function(conn, opt) {
     }
 }
 
-test.create.conn.with.same.url = function(conn) {
+test.create.conn.with.same.url <- function(conn) {
     testthat::expect_error(
         conn$getBiodb()$getFactory()$createConn(conn$getDbClass(),
         url=conn$getUrl('base.url')))
 }
 
-test.db.editing = function(conn) {
+test.db.editing <- function(conn) {
 
     # Get one entry from connector
     id = conn$getEntryIds(1)
@@ -307,7 +298,7 @@ test.db.editing = function(conn) {
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.db.writing.with.col.add = function(conn) {
+test.db.writing.with.col.add <- function(conn) {
 
     # Set database file
     db.file <- file.path(getTestOutputDir(),
@@ -361,7 +352,7 @@ test.db.writing.with.col.add = function(conn) {
     conn.2$getBiodb()$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.db.writing = function(conn) {
+test.db.writing <- function(conn) {
 
     biodb = conn$getBiodb()
 
@@ -510,7 +501,7 @@ test.searchForEntries <- function(conn, opt=NULL) {
     }
 }
 
-test.searchByName = function(conn, opt=NULL) {
+test.searchByName <- function(conn, opt=NULL) {
     
     # Allow running of deprecated methods while testing
     withr::local_options(lifecycle_verbosity="quiet")
@@ -1089,7 +1080,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
     testthat::expect_equal(colnames(peaks), 'mz')
     testthat::expect_true(is.na(peaks[['mz']]))
 
-    # With one N/A value and one real value
+    # With one N/A value and three real values
     mode <- 'neg'
     tol <- 0
     mzs <- db$getMzValues(ms.mode=mode, max.results=3)
@@ -1100,7 +1091,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
     testthat::expect_true(nrow(peaks) >= length(mzs))
     testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
     testthat::expect_true(ncol(peaks) > 1)
-    testthat::expect_true(! all(is.na(peaks[seq(nrow(peaks) - 1), ])))
+    testthat::expect_false(any(is.na(peaks[seq(nrow(peaks) - 1), c('mz', 'accession')])))
     testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
 
@@ -1425,6 +1416,13 @@ runGenericShortTests <- function(conn, opt=NULL) {
 # Run tests whose duration is adjustable using options (i.e.: maxRefEntries)
 runGenericAdjustableTests <- function(conn, opt=NULL) {
 
+    # Local dbs
+    if ( ! conn$isRemotedb()) {
+        biodb::testThat("We can use the cache system for a local database.",
+            test_cache_for_local_db, conn=conn)
+    }
+
+    # General tests
     biodb::testThat("Entry fields have a correct value", test.entry.fields,
         conn=conn, opt=opt)
     biodb::testThat("RT unit is defined when there is an RT value.",
@@ -1433,8 +1431,10 @@ runGenericAdjustableTests <- function(conn, opt=NULL) {
         test.searchForEntries, conn=conn, opt=opt)
     biodb::testThat("We can search for an entry by name.", test.searchByName,
         conn=conn, opt=opt)
+    biodb::testThat("We can load an entry from the database.", testEntryLoading,
+        conn=conn)
     
-    # Remote tests
+    # Remote dbs
     if (conn$isRemotedb()) {
         biodb::testThat("We can get a URL pointing to the entry page.",
             test.entry.page.url, conn=conn, opt=opt)

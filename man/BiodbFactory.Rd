@@ -53,6 +53,7 @@ mybiodb$terminate()
 \item \href{#method-getConn}{\code{BiodbFactory$getConn()}}
 \item \href{#method-getEntry}{\code{BiodbFactory$getEntry()}}
 \item \href{#method-createNewEntry}{\code{BiodbFactory$createNewEntry()}}
+\item \href{#method-createEntryFromContent}{\code{BiodbFactory$createEntryFromContent()}}
 \item \href{#method-getAllCacheEntries}{\code{BiodbFactory$getAllCacheEntries()}}
 \item \href{#method-deleteAllEntriesFromVolatileCache}{\code{BiodbFactory$deleteAllEntriesFromVolatileCache()}}
 \item \href{#method-deleteAllCacheEntries}{\code{BiodbFactory$deleteAllCacheEntries()}}
@@ -303,7 +304,9 @@ NULL value is put into the list for each invalid ID of \code{id}.
 \if{html}{\out{<a id="method-createNewEntry"></a>}}
 \if{latex}{\out{\hypertarget{method-createNewEntry}{}}}
 \subsection{Method \code{createNewEntry()}}{
-Creates a new entry from scratch. This entry is not stored in cache.
+Creates a new empty entry object from scratch. This entry is not stored in
+cache, and is directly attached to the factory instance instead of a
+particular connector.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{BiodbFactory$createNewEntry(db.class)}\if{html}{\out{</div>}}
 }
@@ -317,6 +320,31 @@ Creates a new entry from scratch. This entry is not stored in cache.
 }
 \subsection{Returns}{
 A new BiodbEntry object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-createEntryFromContent"></a>}}
+\if{latex}{\out{\hypertarget{method-createEntryFromContent}{}}}
+\subsection{Method \code{createEntryFromContent()}}{
+Creates an entry instance from a content.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbFactory$createEntryFromContent(conn.id, content, drop = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content}}{A list or character vector of contents to parse to create the
+entries.}
+
+\item{\code{drop}}{If set to TRUE}
+
+\item{\code{conn}}{A valid BiodbConn instance.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A list of new BiodbEntry objects.
 }
 }
 \if{html}{\out{<hr>}}

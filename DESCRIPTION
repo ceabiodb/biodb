@@ -21,7 +21,7 @@ Suggests:
     xml2,
     git2r
 Imports:
-	BiocFileCache,
+    BiocFileCache,
     R6,
     RCurl,
     RSQLite,
@@ -46,7 +46,7 @@ LinkingTo:
     testthat
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate:
     'BiodbPersistentCache.R'
     'BiodbBiocPersistentCache.R'
@@ -79,6 +79,7 @@ Collate:
     'BiodbSqlLogicalOp.R'
     'BiodbSqlQuery.R'
     'BiodbSqlValue.R'
+    'BiodbTestMsgAck.R'
     'CsvFileConn.R'
     'CompCsvFileConn.R'
     'CompCsvFileEntry.R'
@@ -110,8 +111,10 @@ Collate:
     'Progress.R'
     'Range.R'
     'RcppExports.R'
+    'TestRefEntries.R'
     'catch-routine-registration.R'
     'fcts_biodb.R'
+    'fcts_deprecated.R'
     'fcts_ext.R'
     'fcts_mass.R'
     'fcts_misc.R'
