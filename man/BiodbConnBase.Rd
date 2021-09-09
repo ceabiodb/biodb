@@ -251,7 +251,7 @@ otherwise.
 \subsection{Method \code{getPropValSlot()}}{
 Retrieve the value of a slot of a property.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$getPropValSlot(name, slot)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$getPropValSlot(name, slot, hook = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -260,6 +260,10 @@ Retrieve the value of a slot of a property.
 \item{\code{name}}{The name of a property.}
 
 \item{\code{slot}}{The slot name inside the property.}
+
+\item{\code{hook}}{If set to TRUE, enables the calls to hook methods
+associated with the property. Otherwise, all calls to hook
+methods are disabled.}
 }
 \if{html}{\out{</div>}}
 }
@@ -385,13 +389,17 @@ Returns the name of the database ID field.
 \subsection{Method \code{getPropertyValue()}}{
 Gets a property value.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$getPropertyValue(name)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$getPropertyValue(name, hook = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{name}}{The name of the property.}
+
+\item{\code{hook}}{If set to TRUE, enables the calls to hook methods
+associated with the property. Otherwise, all calls to hook
+methods are disabled.}
 }
 \if{html}{\out{</div>}}
 }
@@ -427,7 +435,7 @@ Nothing.
 \subsection{Method \code{setPropValSlot()}}{
 Set the value of the slot of a property.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setPropValSlot(name, slot, value)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConnBase$setPropValSlot(name, slot, value, hook = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -438,6 +446,10 @@ Set the value of the slot of a property.
 \item{\code{slot}}{The name of the property's slot.}
 
 \item{\code{value}}{The new value to set the property's slot to.}
+
+\item{\code{hook}}{If set to TRUE, enables the calls to hook methods
+associated with the property. Otherwise, all calls to hook
+methods are disabled.}
 }
 \if{html}{\out{</div>}}
 }

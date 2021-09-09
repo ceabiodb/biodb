@@ -20,3 +20,4 @@
 ^tests/.*/output$
 ^check.Renviron$
 ^.BBSoptions$
+^.*rds$
