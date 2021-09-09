@@ -22,3 +22,4 @@
 ^check.Renviron$
 ^R_front$
 ^.BBSoptions$
+^.*rds$
