@@ -647,7 +647,7 @@ checkWritable=function(cache.id, create=TRUE) {
     return(invisible(NULL))
 },
 
-doAddFilesToCache=function(cache,id, src, name, ext, action) {
+doAddFilesToCache=function(cache.id, src, name, ext, action) {
     abstractMethod(self)
 },
 

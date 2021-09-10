@@ -1922,7 +1922,7 @@ checkMassField=function(mass, mass.field) {
         chk::chk_string(mass.field)
         ef <- private$bdb$getEntryFields()
         mass.fields <- ef$getFieldNames(type='mass')
-        chk::chk_in(mass.field, mass.fields)
+        chk::chk_subset(mass.field, mass.fields)
     }
 },
 
@@ -2188,7 +2188,7 @@ checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
         chk::chk_gte(min.rel.int, 0)
     ef <- private$bdb$getEntryFields()
     if ( ! is.null(ms.mode)) {
-        chk::chk_in(ms.mode, ef$get('ms.mode')$getAllowedValues())
+        chk::chk_subset(ms.mode, ef$get('ms.mode')$getAllowedValues())
         ms.mode <- ef$get('ms.mode')$correctValue(ms.mode)
     }
     chk::chk_number(max.results)

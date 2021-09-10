@@ -37,7 +37,7 @@ doFileExists=function(cache.id, name, ext) {
     return(file.exists(self$getFilePath(cache.id, name, ext)))
 },
 
-doAddFilesToCache=function(cache,id, src, name, ext, action) {
+doAddFilesToCache=function(cache.id, src, name, ext, action) {
 
     # Get destination file paths
     dst <- self$getFilePath(cache.id, name, ext)
