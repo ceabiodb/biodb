@@ -45,9 +45,9 @@ doAddFilesToCache=function(cache.id, src, name, ext, action) {
     # Move files
     logTrace('Destination files are %s.', lst2str(dst))
     if (action == 'move')
-        file.rename(src, dstFilePaths)
+        file.rename(src, dst)
     else
-        file.copy(src, dstFilePaths)
+        file.copy(src, dst)
 
     return(invisible(NULL))
 },
