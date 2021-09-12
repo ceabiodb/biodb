@@ -1,31 +1,42 @@
+Changes in version 1.1.4 (2021-09-12)
++ Allow to set the test reference folder directly into runGenericTests(). This
+  is now necessary for running generic tests in extension packages.
+
 Changes in version 1.1.3 (2021-09-12)
-+ Set package name when calling runGenericTests() in order to find test ref files the correct way, by calling system.file().
++ Set package name when calling runGenericTests() in order to find test ref
+  files the correct way, by calling system.file().
 
 Changes in version 1.1.2 (2021-09-09)
 + Use BiocFileCache for the persistent cache system.
 + Switch to R6.
-+ Define do...() private methods to be redefined in subclasses, instead of redefining public methods defined inside super class.
++ Define do...() private methods to be redefined in subclasses, instead of
+  redefining public methods defined inside super class.
 + Use now local entry files for testing parsing of entry fields.
 
 Changes in version 1.1.1 (2021-06-10)
 + Allow skipping of some fields when testing searchForEntries().
 + Move test reference entries folder from tests/testthat/res to inst/testref.
-+ Move long tests folder from tests/long to longtests and enable Bioconductor long tests.
++ Move long tests folder from tests/long to longtests and enable Bioconductor
+  long tests.
 
 Changes in version 1.0.4 (2021-06-09)
 + Bug fix: correct call to logger in BiodbPersitentCache class.
 
 Changes in version 1.0.3 (2021-05-26)
-+ Bug fix: correct generic test of searchForEntries(), allowing testing with NA value.
++ Bug fix: correct generic test of searchForEntries(), allowing testing with NA
+  value.
 
 Changes in version 1.0.2 (2021-05-23)
-+ Bug fix: correct return type of searchForEntries(), which now returns always a character vector and never NULL.
++ Bug fix: correct return type of searchForEntries(), which now returns always
+  a character vector and never NULL.
 
 Changes in version 1.0.1 (2021-05-20)
 + Bug fix: correct some calls to logging functions that raised a warning.
 
 Changes in version 0.99.11 (2021-05-17)
-+ Change example inside BiodbConfig to avoid misinterpretation of `set('cache.directory', '~/my.biodb.cache')`, leading to believe that some files are written inside USER HOME folder when running the example.
++ Change example inside BiodbConfig to avoid misinterpretation of
+  `set('cache.directory', '~/my.biodb.cache')`, leading to believe that some
+  files are written inside USER HOME folder when running the example.
 
 Changes in version 0.99.10 (2021-05-07)
 + Correct documentation of C++ function.
@@ -35,7 +46,8 @@ Changes in version 0.99.9 (2021-05-07)
 + Correct example in Progress class.
 
 Changes in version 0.99.8 (2021-05-06)
-+ Correct template travis.yml for extensions: missing deps install, run all checks.
++ Correct template travis.yml for extensions: missing deps install, run all
+  checks.
 + Improve template Makefile for extensions.
 + Add missing test-cpp.R template file for running C++ tests from testthat.
 + Limit by default the entries to test to one entry inside generic tests.
@@ -43,7 +55,8 @@ Changes in version 0.99.8 (2021-05-06)
 + Rename default vignette into "biodb.Rmd".
 
 Changes in version 0.99.7 (2021-04-27)
-+ Renamed Biodb class into BiodbMain in order to avoid "Rd warning: Previous alias or file overwritten by alias: biodb" on Windows platform.
++ Renamed Biodb class into BiodbMain in order to avoid "Rd warning: Previous
+  alias or file overwritten by alias: biodb" on Windows platform.
 + Implement newInst() global function for creating new BiodbMain instance.
 
 Changes in version 0.99.6 (2021-04-27)
@@ -56,7 +69,8 @@ Changes in version 0.99.4 (2021-04-27)
 + Move long tests to separate directory "long".
 
 Changes in version 0.99.3 (2021-04-27)
-+ Added "biodb" as watched tag on my profile on support site https://support.bioconductor.org/.
++ Added "biodb" as watched tag on my profile on support site
+  https://support.bioconductor.org/.
 
 Changes in version 0.99.2 (2021-04-27)
 + Switch to MassBank extract for testing MassCsvFile and MassSqlite connectors.

@@ -1503,6 +1503,7 @@ runGenericLongTests <- function(conn, opt) {
 #'
 #' @param conn A valid biodb connector.
 #' @param pkgName The name of your package.
+#' @param testRefFolder The folder where to find test reference files.
 #' @param opt A set of options to pass to the test functions.
 #' @param short Run short tests.
 #' @param long Run long tests.
@@ -1527,8 +1528,8 @@ runGenericLongTests <- function(conn, opt) {
 #' biodb$terminate()
 #'
 #' @export
-runGenericTests <- function(conn, pkgName, opt=NULL, short=TRUE, long=FALSE,
-maxShortTestRefEntries=1) {
+runGenericTests <- function(conn, pkgName, testRefFolder=NULL, opt=NULL,
+    short=TRUE, long=FALSE, maxShortTestRefEntries=1) {
 
     # Checks
     chk::chk_flag(short)
@@ -1536,10 +1537,11 @@ maxShortTestRefEntries=1) {
     chk::chk_whole_number(maxShortTestRefEntries)
     testthat::expect_is(conn, 'BiodbConn')
     chk::chk_string(pkgName)
+    chk::chk_null_or(testRefFolder, chk::chk_dir)
 
     # Create ref entries instance
     opt$refEntries <- TestRefEntries$new(conn$getId(), pkgName=pkgName,
-        bdb=conn$getBiodb())
+        folder=testRefFolder, bdb=conn$getBiodb())
 
     # Delete cache entries
     conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())

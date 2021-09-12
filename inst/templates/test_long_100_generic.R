@@ -31,10 +31,11 @@ conn <- biodb$getFactory()$createConn('{{dbName}}')
 # inside your JSON files, you can copy correct values from files in
 # "tests/testthat/output" or even copy whole files to "tests/testthat/res".
 #
-# IMPORTANT Once you are done with the JSON files, uncomment the following line
+# IMPORTANT Once you are done with the JSON files, uncomment the following lines
 # in order to enable generic tests to run:
+testRefFolder <- system.file("testref", package='{{pkgName}}')
 #biodb::runGenericTests(conn, pkgName="{{pkgName}}", short=FALSE, long=TRUE,
-#    opt=list(max.results=1))
+#    testRefFolder=testRefFolder, opt=list(max.results=1))
 
 # Terminate Biodb
 biodb$terminate()

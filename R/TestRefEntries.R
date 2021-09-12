@@ -25,15 +25,19 @@ public=list(
 #' @param db.class Identifier of the database.
 #' @param pkgName Name of the package in which are stored the reference
 #' entry files.
+#' @param folder The folder where to find test reference files for the package.
+#' Usually it is "inst/testref".
 #' @param bdb A valid BiodbMain instance or NULL.
 #' @return Nothing.
-initialize=function(db.class, pkgName, bdb=NULL) {
+initialize=function(db.class, pkgName, folder=NULL, bdb=NULL) {
     chk::chk_string(db.class)
     chk::chk_string(pkgName)
     chk::chk_null_or(bdb, chk::chk_is, 'BiodbMain')
+    chk::chk_null_or(folder, chk::chk_dir)
     private$db.class <- db.class
     private$pkgName <- pkgName
     private$bdb <- bdb
+    private$folder <- folder
     return(invisible(NULL))
 }
 
@@ -208,36 +212,19 @@ initialize=function(db.class, pkgName, bdb=NULL) {
 private=list(
     db.class=NULL,
     pkgName=NULL,
-    bdb=NULL
+    bdb=NULL,
+    folder=NULL
 
 ,getFolder=function() {
 
-    testRef <- NULL
-
-    if ( ! is.null(private$pkgName)) {
-        testRef <- system.file('testref', package=private$pkgName)
-        if ( ! dir.exists(testRef))
-            error("No folder %s has been defined for package %s.", testRef,
-                private$pkgName)
-    }
-    else {
-        # Look for testref folder in ../../inst or in ../../<pkg_name>
-        # (<pkg>.Rcheck folder)
-        testRef <- Sys.glob(file.path(getwd(), '..', '..', '*', 'testref'))[[1]]
-        
-        # No folder
-        if ( ! dir.exists(testRef)) {
-
-            oldTestRef <- file.path(getwd(), '..', 'testthat', 'res')
-            if (dir.exists(oldTestRef))
-                warn0("The location of reference entry files for tests has",
-                    ' changed. Please move folder "', oldTestRef, '" to "', 
-                    testRef, '".')
-            error("No folder %s has been defined.", testRef)
-        }
+    if (is.null(private$folder)) {
+        private$folder <- system.file('testref', package=private$pkgName)
+        if ( ! dir.exists(private$folder))
+            error('No folder "%s" has been defined for package "%s".',
+                private$folder, private$pkgName)
     }
 
-    return(testRef)
+    return(private$folder)
 }
 
 ,getRefEntryJsonFiles=function() {
