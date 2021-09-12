@@ -78,7 +78,7 @@ biodb <- biodb::createBiodbTestInstance()
 conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 
 # Run generic tests
-biodb::runGenericTests(conn)
+biodb::runGenericTests(conn, pkgName='biodb')
 
 # Run specific tests
 biodb::testContext("CompCsvFile specific tests")

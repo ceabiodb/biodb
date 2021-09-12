@@ -10,7 +10,7 @@ biodb <- biodb::createBiodbTestInstance()
 conn <- biodb$getFactory()$createConn('comp.csv.file', url=CHEBI_FILE)
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE)
+biodb::runGenericTests(conn, pkgName='biodb', short=FALSE, long=TRUE)
 
 # Terminate Biodb
 biodb$terminate()

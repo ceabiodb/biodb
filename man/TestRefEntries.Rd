@@ -42,7 +42,7 @@ refEntries$getAllRefEntriesDf()
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName = NULL, bdb = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName, bdb = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

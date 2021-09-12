@@ -4,14 +4,14 @@
 \alias{listTestRefEntries}
 \title{List test reference entries.}
 \usage{
-listTestRefEntries(conn.id, limit = 0, pkgName = NULL)
+listTestRefEntries(conn.id, pkgName, limit = 0)
 }
 \arguments{
 \item{conn.id}{A valid Biodb connector ID.}
 
-\item{limit}{The maximum number of entries to retrieve.}
-
 \item{pkgName}{The name of the}
+
+\item{limit}{The maximum number of entries to retrieve.}
 }
 \value{
 A list of entry IDs.

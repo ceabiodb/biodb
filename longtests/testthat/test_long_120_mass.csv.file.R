@@ -155,7 +155,7 @@ conn <- biodb$getFactory()$createConn('mass.csv.file', url=MASSFILEDB.URL)
 biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 
 # Run generic tests
-biodb::runGenericTests(conn, short=FALSE, long=TRUE)
+biodb::runGenericTests(conn, pkgName='biodb', short=FALSE, long=TRUE)
 
 # Set context
 biodb::testContext("MassCsvFile long specific tests")

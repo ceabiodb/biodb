@@ -27,9 +27,9 @@ public=list(
 #' entry files.
 #' @param bdb A valid BiodbMain instance or NULL.
 #' @return Nothing.
-initialize=function(db.class, pkgName=NULL, bdb=NULL) {
+initialize=function(db.class, pkgName, bdb=NULL) {
     chk::chk_string(db.class)
-    chk::chk_null_or(pkgName, chk::chk_string)
+    chk::chk_string(pkgName)
     chk::chk_null_or(bdb, chk::chk_is, 'BiodbMain')
     private$db.class <- db.class
     private$pkgName <- pkgName

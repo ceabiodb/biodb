@@ -17,28 +17,28 @@
 #' biodb::listTestRefEntries('comp.csv.file', pkgName='biodb')
 #'
 #' @export
-listTestRefEntries <- function(conn.id, limit=0, pkgName=NULL) {
-    lifecycle::deprecate_soft('1.1.0', "listTestRefEntries()",
+listTestRefEntries <- function(conn.id, pkgName, limit=0) {
+    lifecycle::deprecate_warn('1.1.0', "listTestRefEntries()",
         "TestRefEntries::getAllIds()")
     return(TestRefEntries$new(conn.id,
         pkgName=pkgName)$getAllIds(limit=limit))
 }
 
-loadTestRefEntries <- function(db, pkgName=NULL) {
-    lifecycle::deprecate_soft('1.1.0', "loadTestRefEntries()",
+loadTestRefEntries <- function(db, pkgName) {
+    lifecycle::deprecate_warn('1.1.0', "loadTestRefEntries()",
         "TestRefEntries::getAllRefEntriesDf()")
     return(TestRefEntries$new(db,
         pkgName=pkgName)$getAllRefEntriesDf())
 }
 
-loadTestRefEntry <- function(db, id, pkgName=NULL) {
-    lifecycle::deprecate_soft('1.1.0', "loadTestRefEntry()",
+loadTestRefEntry <- function(db, id, pkgName) {
+    lifecycle::deprecate_warn('1.1.0', "loadTestRefEntry()",
         "TestRefEntries::getRefEntry()")
     return(TestRefEntries$new(db.class=db, pkgName=pkgName)$getRefEntry(id))
 }
 
-getTestRefFolder <- function(pkgName=NULL) {
-    lifecycle::deprecate_soft('1.1.0', "getTestRefFolder()",
+getTestRefFolder <- function(pkgName) {
+    lifecycle::deprecate_warn('1.1.0', "getTestRefFolder()",
         "TestRefEntries::getFolder()")
     return(TestRefEntries$new(db.class='some.fake.class', pkgName=pkgName)$getFolder())
 }

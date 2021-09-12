@@ -16,7 +16,7 @@ conn <- biodb$getFactory()$createConn('comp.sqlite', url=COMP.SQLITE.URL)
 
 # Run generic tests only if DB file has been created.
 if (file.exists(COMP.SQLITE.URL))
-    biodb::runGenericTests(conn)
+    biodb::runGenericTests(conn, pkgName='biodb')
 
 # Terminate Biodb
 biodb$terminate()

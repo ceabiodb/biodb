@@ -33,7 +33,7 @@ conn <- biodb$getFactory()$createConn('{{dbName}}')
 #
 # IMPORTANT Once you are done with the JSON files, uncomment the following line
 # in order to enable generic tests to run:
-#biodb::runGenericTests(conn, list(max.results=1))
+#biodb::runGenericTests(conn, pkgName="{{pkgName}}", opt=list(max.results=1))
 
 # Terminate Biodb
 biodb$terminate()

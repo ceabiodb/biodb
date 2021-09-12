@@ -481,7 +481,7 @@ conn$setUrl('base.url', MASSFILEDB.URL)
 biodb$getPersistentCache()$deleteAllFiles(conn$getCacheId(), fail=FALSE)
 
 # Run generic tests
-biodb::runGenericTests(conn)
+biodb::runGenericTests(conn, pkgName='biodb')
 
 # Run specific tests
 biodb::testContext("MassCsvFile specific tests")

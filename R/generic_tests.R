@@ -1,8 +1,7 @@
-test_cache_for_local_db <- function(conn) {
+test_cache_for_local_db <- function(conn, opt) {
     bdb <- conn$getBiodb()
     bdb$getConfig()$set('use.cache.for.local.db', TRUE)
-    refEntries <- TestRefEntries$new(conn$getId(), bdb=bdb)
-    entries <- refEntries$getRealEntries()
+    entries <- opt$refEntries$getRealEntries()
     testthat::expect_is(entries, 'list')
     testthat::expect_true(length(entries) > 0)
     testthat::expect_false(any(vapply(entries, is.null, FUN.VALUE=FALSE)))
@@ -85,26 +84,24 @@ test.entry.fields <- function(conn, opt) {
     db.id.field <- biodb$getDbsInfo()$get(db.name)$getEntryIdField()
 
     # Get reference entries
-    refEntries <- TestRefEntries$new(conn$getId(), bdb=biodb)
-    ref.ids <- refEntries$getAllIds(limit=opt$maxRefEntries)
+    ref.ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Loop on all entries
     for (id in ref.ids) {
-        content <- refEntries$getContents(id)
+        content <- opt$refEntries$getContents(id)
         e <- biodb$getFactory()$createEntryFromContent(conn$getId(),
             content=content)
         checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
-        checkEntryFields(e, ref.entry=refEntries$getRefEntry(id), id=id,
+        checkEntryFields(e, ref.entry=opt$refEntries$getRefEntry(id), id=id,
             db.name=db.name, ef=biodb$getEntryFields(),
             db.id.field=db.id.field)
     }
 }
 
-testEntryLoading <- function(conn) {
-    refEntries <- TestRefEntries$new(conn$getId(), bdb=conn$getBiodb())
-    id <- refEntries$getAllIds(limit=1)
+testEntryLoading <- function(conn, opt) {
+    id <- opt$refEntries$getAllIds(limit=1)
     testthat::expect_is(id, 'character')
-    e <- refEntries$getRealEntry(id)
+    e <- opt$refEntries$getRealEntry(id)
     testthat::expect_is(e, 'BiodbEntry')
 }
 
@@ -118,13 +115,13 @@ test.wrong.entry <- function(conn) {
     testthat::expect_null(wrong.entry)
 }
 
-test.wrong.entry.among.good.ones <- function(conn) {
+test.wrong.entry.among.good.ones <- function(conn, opt) {
 
     biodb <- conn$getBiodb()
     db.name <- conn$getId()
 
     # Load reference entries
-    entries.desc <- loadTestRefEntries(db.name)
+    entries.desc <- opt$refEntries$getAllRefEntriesDf()
 
     # Test a wrong accession number
     ids <- c('WRONGB', entries.desc[['accession']])
@@ -139,13 +136,13 @@ test.wrong.entry.among.good.ones <- function(conn) {
         FUN.VALUE=TRUE)))
 }
 
-test.peak.table <- function(conn) {
+test.peak.table <- function(conn, opt) {
 
     biodb <- conn$getBiodb()
     db.name <- conn$getId()
 
     # Load reference entries
-    entries.desc <- loadTestRefEntries(db.name)
+    entries.desc <- opt$refEntries$getAllRefEntriesDf()
 
     # Create entries
     entries <- biodb$getFactory()$getEntry(db.name,
@@ -195,7 +192,7 @@ test.entry.ids <- function(conn) {
 test.rt.unit <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ref.ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Get entries
     entries <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), id=ref.ids,
@@ -213,7 +210,7 @@ test.rt.unit <- function(conn, opt) {
 test.entry.page.url <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ref.ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Get URLs
     urls <- conn$getEntryPageUrl(ref.ids)
@@ -226,7 +223,7 @@ test.entry.page.url <- function(conn, opt) {
 test.entry.image.url <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ref.ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Get URLs
     urls <- conn$getEntryImageUrl(ref.ids)
@@ -239,7 +236,7 @@ test.entry.image.url <- function(conn, opt) {
 test.entry.page.url.download <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId())
+    ref.ids <- opt$refEntries$getAllIds()
 
     # Get URL
     url <- conn$getEntryPageUrl(ref.ids[[1]])
@@ -258,7 +255,7 @@ test.entry.page.url.download <- function(conn, opt) {
 test.entry.image.url.download <- function(conn, opt) {
 
     # Get IDs of reference entries
-    ref.ids <- listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ref.ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
 
     # Get URL
     url <- conn$getEntryImageUrl(ref.ids[[1]])
@@ -445,7 +442,7 @@ test.db.copy <- function(conn) {
     biodb$getFactory()$deleteConn(conn.2$getId())
 }
 
-test.searchForEntries <- function(conn, opt=NULL) {
+test.searchForEntries <- function(conn, opt) {
     
     max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
@@ -463,7 +460,7 @@ test.searchForEntries <- function(conn, opt=NULL) {
         if (ef$get(f)$getClass() == 'character') {
             
             # Get an entry
-            id <- listTestRefEntries(conn$getId(), limit=1)
+            id <- opt$refEntries$getAllIds(limit=1)
             biodb::logDebug(
                 'Testing searchForEntries() with entry "%s" and field "%s".',
                 id, f)
@@ -501,7 +498,7 @@ test.searchForEntries <- function(conn, opt=NULL) {
     }
 }
 
-test.searchByName <- function(conn, opt=NULL) {
+test.searchByName <- function(conn, opt) {
     
     # Allow running of deprecated methods while testing
     withr::local_options(lifecycle_verbosity="quiet")
@@ -513,7 +510,7 @@ test.searchByName <- function(conn, opt=NULL) {
     if (conn$isSearchableByField('name')) {
 
         # Get an entry
-        id <- listTestRefEntries(conn$getId(), limit=1)
+        id <- opt$refEntries$getAllIds(limit=1)
         testthat::expect_true( ! is.null(id))
         testthat::expect_length(id, 1)
         entry <- conn$getEntry(id, drop=TRUE)
@@ -544,14 +541,14 @@ test.searchByName <- function(conn, opt=NULL) {
     withr::local_options(lifecycle_verbosity="error")
 }
 
-test.searchCompound <- function(db, opt=NULL) {
+test.searchCompound <- function(db, opt) {
     
     max.results <- 0
     if ( ! is.null(opt) && 'max.results' %in% names(opt))
         max.results <- opt[['max.results']]
 
     # Get an entry
-    id <- biodb::listTestRefEntries(db$getId(), limit=1)
+    id <- opt$refEntries$getAllIds(limit=1)
     testthat::expect_true( ! is.null(id))
     testthat::expect_length(id, 1)
     entry <- db$getEntry(id, drop = TRUE)
@@ -691,7 +688,7 @@ test.annotateMzValues_real_values <- function(conn, opt) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -752,7 +749,7 @@ test_annotateMzValues_input_vector <- function(conn, opt) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -795,7 +792,7 @@ test_annotateMzValues_additional_fields <- function(conn, opt) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -858,7 +855,7 @@ test_annotateMzValues_ppm_tol <- function(conn, opt) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -902,7 +899,7 @@ test_annotateMzValues_input_dataframe_untouched <- function(conn, opt) {
     mass.fields <- conn$getBiodb()$getEntryFields()$getFieldNames('mass')
 
     # Get entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entries <- conn$getEntry(ids, drop = FALSE)
 
     # Loop on mass fields
@@ -1191,7 +1188,7 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
 }
 
 test.getChromCol <- function(conn, opt) {
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     chrom.col <- conn$getChromCol(ids=ids)
     testthat::expect_is(chrom.col, 'data.frame')
     testthat::expect_identical(names(chrom.col), c('id', 'title'))
@@ -1291,7 +1288,7 @@ test.collapseResultsDataFrame <- function(db) {
 test.searchMsPeaks.rt <- function(conn, opt) {
 
     # Get reference entries
-    ids <- biodb::listTestRefEntries(conn$getId(), limit=opt$maxRefEntries)
+    ids <- opt$refEntries$getAllIds(limit=opt$maxRefEntries)
     entry <- conn$getBiodb()$getFactory()$getEntry(conn$getId(), ids[[1]])
 
     # Set retention time info
@@ -1349,14 +1346,15 @@ test.msmsSearch.no.ids <- function(conn) {
 }
 
 # Running quick tests
-runGenericShortTests <- function(conn, opt=NULL) {
+runGenericShortTests <- function(conn, opt) {
     
     runGenericAdjustableTests(conn=conn, opt=opt)
 
     biodb::testThat("Wrong entry gives NULL", test.wrong.entry, conn=conn)
     biodb::testThat("One wrong entry does not block the retrieval of good ones",
-        test.wrong.entry.among.good.ones, conn=conn)
-    biodb::testThat("The peak table is correct.", test.peak.table, conn=conn)
+        test.wrong.entry.among.good.ones, conn=conn, opt=opt)
+    biodb::testThat("The peak table is correct.", test.peak.table, conn=conn,
+        opt=opt)
     biodb::testThat("Nb entries is positive.", test.nb.entries, conn=conn)
     biodb::testThat("We can get a list of entry ids.", test.entry.ids,
         conn=conn)
@@ -1414,12 +1412,12 @@ runGenericShortTests <- function(conn, opt=NULL) {
 }
 
 # Run tests whose duration is adjustable using options (i.e.: maxRefEntries)
-runGenericAdjustableTests <- function(conn, opt=NULL) {
+runGenericAdjustableTests <- function(conn, opt) {
 
     # Local dbs
     if ( ! conn$isRemotedb()) {
         biodb::testThat("We can use the cache system for a local database.",
-            test_cache_for_local_db, conn=conn)
+            test_cache_for_local_db, conn=conn, opt=opt)
     }
 
     # General tests
@@ -1432,7 +1430,7 @@ runGenericAdjustableTests <- function(conn, opt=NULL) {
     biodb::testThat("We can search for an entry by name.", test.searchByName,
         conn=conn, opt=opt)
     biodb::testThat("We can load an entry from the database.", testEntryLoading,
-        conn=conn)
+        conn=conn, opt=opt)
     
     # Remote dbs
     if (conn$isRemotedb()) {
@@ -1469,7 +1467,7 @@ runGenericAdjustableTests <- function(conn, opt=NULL) {
 }
 
 # Running tests that take long time
-runGenericLongTests <- function(conn, opt=NULL) {
+runGenericLongTests <- function(conn, opt) {
     
     opt$maxRefEntries <- 0
     runGenericAdjustableTests(conn=conn, opt=opt)
@@ -1504,6 +1502,7 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #' specific tests.
 #'
 #' @param conn A valid biodb connector.
+#' @param pkgName The name of your package.
 #' @param opt A set of options to pass to the test functions.
 #' @param short Run short tests.
 #' @param long Run long tests.
@@ -1528,7 +1527,7 @@ runGenericLongTests <- function(conn, opt=NULL) {
 #' biodb$terminate()
 #'
 #' @export
-runGenericTests <- function(conn, opt=NULL, short=TRUE, long=FALSE,
+runGenericTests <- function(conn, pkgName, opt=NULL, short=TRUE, long=FALSE,
 maxShortTestRefEntries=1) {
 
     # Checks
@@ -1536,6 +1535,11 @@ maxShortTestRefEntries=1) {
     chk::chk_flag(long)
     chk::chk_whole_number(maxShortTestRefEntries)
     testthat::expect_is(conn, 'BiodbConn')
+    chk::chk_string(pkgName)
+
+    # Create ref entries instance
+    opt$refEntries <- TestRefEntries$new(conn$getId(), pkgName=pkgName,
+        bdb=conn$getBiodb())
 
     # Delete cache entries
     conn$getBiodb()$getFactory()$deleteAllEntriesFromVolatileCache(conn$getId())

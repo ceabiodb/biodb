@@ -6,6 +6,7 @@
 \usage{
 runGenericTests(
   conn,
+  pkgName,
   opt = NULL,
   short = TRUE,
   long = FALSE,
@@ -14,6 +15,8 @@ runGenericTests(
 }
 \arguments{
 \item{conn}{A valid biodb connector.}
+
+\item{pkgName}{The name of your package.}
 
 \item{opt}{A set of options to pass to the test functions.}
 
