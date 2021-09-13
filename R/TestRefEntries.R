@@ -267,9 +267,9 @@ private=list(
 
     # Save content to file
     ext <- conn$getEntryFileExt()
-    f <- file.path(testRef,
-        paste0('entry-', private$db.class, '-', id, '-content.', ext))
-    f <- vapply(f, utils::URLencode, FUN.VALUE='', reserved=TRUE)
+    f <- paste0('entry-', private$db.class, '-', id, '-content.', ext)
+    f <- utils::URLencode(f, reserved=TRUE)
+    f <- file.path(testRef, f)
     saveContentsToFiles(f, content, prepareContents=TRUE)
 
     return(f)
