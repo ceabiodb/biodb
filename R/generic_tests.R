@@ -493,7 +493,7 @@ test.searchForEntries <- function(conn, opt) {
             else {
                 testthat::expect_true( ! is.null(ids))
                 testthat::expect_true(length(ids) > 0)
-                testthat::expect_true(id %in% ids)
+                testthat::expect_true(!!id %in% !!ids)
             }
         }
     }
