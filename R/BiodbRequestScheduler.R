@@ -82,9 +82,9 @@ sendSoapRequest=function(url, soap.request, soap.action=NA_character_,
 #' Sends a request, and returns content result.
 #' @param request A BiodbRequest instance.
 #' @param cache.read If set to TRUE, the cache system will be used. In case the
-#' same request has already been already run and its results saved into the
-#' cache, then the request is not run again, the targeted server not contacted,
-#' and the results are directly loaded from the cache system.
+#' same request has already been run and its results saved into the cache, then
+#' the request is not run again, the targeted server not contacted, and the
+#' results are directly loaded from the cache system.
 #' @return The results returned by the contacted server, as a single string
 #' value.
 sendRequest=function(request, cache.read=TRUE) {

@@ -335,7 +335,13 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
     content[is.na(name)] <- NA_character_
     content[name == ""] <- NA_character_
     file.paths <- self$getFilePath(cache.id, name[file.exist], ext)
-    content[file.exist] <- loadFileContents(file.paths, outVect=output.vector)
+    content[file.exist] <- loadFileContents(file.paths)
+
+    # Convert list to vector
+    if (output.vector) {
+        content[vapply(content, is.null, FUN.VALUE=TRUE)] <- NA_character_
+        content <- unlist(content)
+    }
 
     return(content)
 },
