@@ -80,8 +80,8 @@ initialize=function(db.class, pkgName, folder=NULL, bdb=NULL) {
     # Get file names
     testRef <- private$getFolder()
     getFilename <- function(id) {
-        pattern <- file.path(testRef,
-            paste0('entry-', private$db.class, '-', id, '-content.*'))
+        pattern <- file.path(testRef, paste0('entry-', private$db.class, '-',
+            utils::URLencode(id, reserved=TRUE), '-content.*'))
         files <- Sys.glob(pattern)
         if (length(files) == 0) {
             # Entry content file is missing in test ref dir.
@@ -269,6 +269,7 @@ private=list(
     ext <- conn$getEntryFileExt()
     f <- file.path(testRef,
         paste0('entry-', private$db.class, '-', id, '-content.', ext))
+    f <- vapply(f, utils::URLencode, FUN.VALUE='', reserved=TRUE)
     saveContentsToFiles(f, content, prepareContents=TRUE)
 
     return(f)
