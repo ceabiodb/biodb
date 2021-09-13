@@ -131,14 +131,25 @@ initialize=function(db.class, pkgName, folder=NULL, bdb=NULL) {
     private$bdb$computeFields(entries)
 
     # Save downloaded entries as JSON
+    self$saveEntriesAsJson(ids, entries)
+
+    return(entries)
+}
+
+#' @description
+#' Saves a list of entries into separate JSON files, inside the test output
+#' folder.
+#' @param ids The IDs of the entries.
+#' @param entries A list of entries. It can contain NULL values.
+#' @return Nothing.
+,saveEntriesAsJson=function(ids, entries) {
+
     filenames <- paste('entry-', private$db.class, '-', ids, '.json',
         sep='')
     filenames <- vapply(filenames, utils::URLencode, FUN.VALUE='',
         reserved=TRUE)
     json.files <- file.path(getTestOutputDir(), filenames)
     private$bdb$saveEntriesAsJson(entries, json.files)
-
-    return(entries)
 }
 
 #' @description

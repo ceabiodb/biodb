@@ -91,6 +91,7 @@ test.entry.fields <- function(conn, opt) {
         content <- opt$refEntries$getContents(id)
         e <- biodb$getFactory()$createEntryFromContent(conn$getId(),
             content=content)
+        opt$refEntries$saveEntriesAsJson(id, list(e))
         checkEntryIds(e, db.name=db.name, id=id, db.id.field=db.id.field)
         checkEntryFields(e, ref.entry=opt$refEntries$getRefEntry(id), id=id,
             db.name=db.name, ef=biodb$getEntryFields(),
