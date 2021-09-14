@@ -1,3 +1,6 @@
+Changes in version 1.1.6 (2021-09-14)
++ Update documentation.
+
 Changes in version 1.1.5 (2021-09-13)
 + Correct bug in return type of BiodbRequestScheduler::sendRequest().
 + Correct encoding of test reference filenames.

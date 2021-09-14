@@ -30,6 +30,7 @@ refEntries$getAllRefEntriesDf()
 \item \href{#method-getAllIds}{\code{TestRefEntries$getAllIds()}}
 \item \href{#method-getContents}{\code{TestRefEntries$getContents()}}
 \item \href{#method-getRealEntries}{\code{TestRefEntries$getRealEntries()}}
+\item \href{#method-saveEntriesAsJson}{\code{TestRefEntries$saveEntriesAsJson()}}
 \item \href{#method-getRealEntry}{\code{TestRefEntries$getRealEntry()}}
 \item \href{#method-getRefEntry}{\code{TestRefEntries$getRefEntry()}}
 \item \href{#method-getAllRefEntriesDf}{\code{TestRefEntries$getAllRefEntriesDf()}}
@@ -42,7 +43,7 @@ refEntries$getAllRefEntriesDf()
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName, bdb = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$new(db.class, pkgName, folder = NULL, bdb = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -52,6 +53,9 @@ New instance initializer.
 
 \item{\code{pkgName}}{Name of the package in which are stored the reference
 entry files.}
+
+\item{\code{folder}}{The folder where to find test reference files for the package.
+Usually it is "inst/testref".}
 
 \item{\code{bdb}}{A valid BiodbMain instance or NULL.}
 }
@@ -120,6 +124,29 @@ entris.
 }
 \subsection{Returns}{
 A list containing BiodbEntry instances.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-saveEntriesAsJson"></a>}}
+\if{latex}{\out{\hypertarget{method-saveEntriesAsJson}{}}}
+\subsection{Method \code{saveEntriesAsJson()}}{
+Saves a list of entries into separate JSON files, inside the test output
+folder.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TestRefEntries$saveEntriesAsJson(ids, entries)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{The IDs of the entries.}
+
+\item{\code{entries}}{A list of entries. It can contain NULL values.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing.
 }
 }
 \if{html}{\out{<hr>}}

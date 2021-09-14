@@ -128,9 +128,9 @@ Sends a request, and returns content result.
 \item{\code{request}}{A BiodbRequest instance.}
 
 \item{\code{cache.read}}{If set to TRUE, the cache system will be used. In case the
-same request has already been already run and its results saved into the
-cache, then the request is not run again, the targeted server not contacted,
-and the results are directly loaded from the cache system.}
+same request has already been run and its results saved into the cache, then
+the request is not run again, the targeted server not contacted, and the
+results are directly loaded from the cache system.}
 }
 \if{html}{\out{</div>}}
 }

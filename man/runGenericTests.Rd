@@ -7,6 +7,7 @@
 runGenericTests(
   conn,
   pkgName,
+  testRefFolder = NULL,
   opt = NULL,
   short = TRUE,
   long = FALSE,
@@ -17,6 +18,8 @@ runGenericTests(
 \item{conn}{A valid biodb connector.}
 
 \item{pkgName}{The name of your package.}
+
+\item{testRefFolder}{The folder where to find test reference files.}
 
 \item{opt}{A set of options to pass to the test functions.}
 
