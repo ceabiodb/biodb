@@ -393,14 +393,16 @@ processRequestErrors=function(content, hdr, err_msg, retry) {
 
     # Recoverable HTTP errors
     lst <- c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT,
-        .HTTP.STATUS.INTERNAL.SERVER.ERROR,
+        .HTTP.STATUS.INTERNAL.SERVER.ERROR, .HTTP.STATUS.FOUND,
         .HTTP.STATUS.SERVICE.UNAVAILABLE) 
     if ( ! is.null(hdr) && hdr$status %in% lst) {
         err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage,
             "\").")
         if ('Retry-After' %in% names(hdr))
-            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
+            err_msg <- paste(err_msg, "Retry after", hdr[['Retry-After']],
                 ".")
+        if ("location" %in% names(hdr))
+            err_msg <- paste(err_msg, "Redirect location to", hdr[["location"]])
         retry <- TRUE
     }
 

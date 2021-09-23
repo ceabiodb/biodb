@@ -5,7 +5,8 @@ test.schedulerRightRule <- function(biodb) {
 
     # Delete all connectors
     biodb$getFactory()$deleteAllConnectors()
-    testthat::expect_true(all(vapply(scheduler$getAllRules(), function(rule) length(rule$getConnectors()), FUN.VALUE=0) == 0))
+    testthat::expect_true(all(vapply(scheduler$getAllRules(),
+        function(rule) length(rule$getConnectors()), FUN.VALUE=0) == 0))
 
     # Load ChEBI connector definition
     defFile <- system.file("extdata", "chebi_ex.yml", package="biodb")
@@ -164,50 +165,10 @@ test.schedulerSleepTime <- function(biodb) {
     testthat::expect_true(abs(rule$computeSleepTime(cur.time + t) - t / 10) < 1e-6)
 }
 
-test.BiodbUrl <- function(biodb) {
+test_directRequestToChebi <- function(biodb) {
 
-    # Simple URL
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr')
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/')
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
-    url <- BiodbUrl$new(url = c('https://www.somesite.fr', ''))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
-
-    # URL in multiple parts
-    url <- BiodbUrl$new(url = c('https://www.somesite.fr/', 'some', 'page'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
-    url <- BiodbUrl$new(url = c('https://www.somesite.fr//', 'some', '/page/'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
-
-    # With an unnamed parameter in a character vector
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?rerun')
-
-    # With a parameter in a character vector
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
-
-    # With a parameter in a numeric vector
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(limit = 2))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?limit=2')
-
-    # With two parameters in a character vector
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt', limit = '2'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
-
-    # With a parameter in a list
-    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt'))
-    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
-
-    # With two parameters in a list
-    url <- BiodbUrl$new(url='https://www.somesite.fr/somepage',
-                    params=list(format = 'txt', limit=2))
-    refUrl <-  'https://www.somesite.fr/somepage?format=txt&limit=2'
-    testthat::expect_equal(url$toString(), refUrl)
-}
-
-test_schedulerRequestOutsideConnector <- function(biodb) {
+    # Delete all connectors
+    biodb$getFactory()$deleteAllConnectors()
 
     # Get the scheduler
     sched <- biodb$getRequestScheduler()
@@ -215,8 +176,7 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
 
     # Create URL object
     u <- 'https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity'
-    url <- BiodbUrl$new(url=u)
-    url$setParam('chebiId', 15440)
+    url <- BiodbUrl$new(url=u, params=list(chebiId=15440))
 
     # Check rule does not exist
     testthat::expect_null(sched$findRule(url, create=FALSE))
@@ -226,7 +186,38 @@ test_schedulerRequestOutsideConnector <- function(biodb) {
     request <- BiodbRequest$new(method='get', url=url)
 
     # Send request
-    sched$sendRequest(request)
+    result <- sched$sendRequest(request)
+    testthat::expect_is(result, 'character')
+    testthat::expect_length(result, 1)
+    testthat::expect_false(is.na(result))
+}
+
+test_directRequestToUniprot <- function(biodb) {
+
+    # Delete all connectors
+    biodb$getFactory()$deleteAllConnectors()
+
+    # Get the scheduler
+    sched <- biodb$getRequestScheduler()
+    testthat::expect_is(sched, "BiodbRequestScheduler")
+
+    # Create URL object
+    u <- 'https://www.uniprot.org/uniprot/'
+    p <- list(query='', columns='id', format='tab', limit=2)
+    url <- BiodbUrl$new(url=u, params=p, chompExtraSlashes=FALSE)
+
+    # Check rule does not exist
+    testthat::expect_null(sched$findRule(url, create=FALSE))
+    # ==> no connector is registered with this domain
+
+    # Create a request object
+    request <- BiodbRequest$new(method='get', url=url)
+
+    # Send request
+    result <- sched$sendRequest(request)
+    testthat::expect_is(result, 'character')
+    testthat::expect_length(result, 1)
+    testthat::expect_false(is.na(result))
 }
 
 # Set context
@@ -236,14 +227,15 @@ biodb::testContext("Test scheduler.")
 biodb <- biodb::createBiodbTestInstance()
 
 # Run tests
-biodb::testThat("We can create a request outside a connector.",
-                test_schedulerRequestOutsideConnector, biodb=biodb)
-biodb::testThat("BiodbUrl works fine.", test.BiodbUrl, biodb=biodb)
 biodb::testThat("Right rule is created.", test.schedulerRightRule, biodb=biodb)
 biodb::testThat("Frequency is updated correctly.", test.schedulerRuleFrequency,
                 biodb=biodb)
 biodb::testThat("Sleep time is computed correctly.", test.schedulerSleepTime,
                 biodb=biodb)
+biodb::testThat("We can send a direct request to ChEBI.",
+                test_directRequestToChebi, biodb=biodb)
+biodb::testThat("We can send a direct request to UniProt.",
+                test_directRequestToUniprot, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

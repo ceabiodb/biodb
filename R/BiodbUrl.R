@@ -23,17 +23,22 @@ public=list(
 #' Initializer.
 #' @param url The URL to access, as a character vector.
 #' @param params The list of parameters to append to this URL.
+#' @param chompExtraSlashes If set to TRUE, then slashes at the end and the
+#' beginning of each element of the url vector parameter will be removed before
+#' proper concatenation.
 #' @return Nothing.
-initialize=function(url=character(), params=character()) {
+initialize=function(url=character(), params=character(),
+    chompExtraSlashes=TRUE) {
 
     chk::chk_character(url)
     chk::chk_not_any_na(url)
+    chk::chk_flag(chompExtraSlashes)
     # params is not necessarily named, and may contain strings as well as
     # numbers. TODO How to test its content?
     #chk::chk_named(params)
 
-    # Set URL
     private$url <- url
+    private$chompExtraSlashes <- chompExtraSlashes
 
     # Set parameters
     if (is.list(params))
@@ -95,8 +100,11 @@ print=function() {
 #' @return The URL as a string, with all parameters and values set.
 toString=function(encode=TRUE) {
 
+    u <- private$url
+
     # Remove '/' at start and end of each element of the URL
-    u <- gsub('^/*([^/].*[^/])/*$', '\\1', private$url)
+    if (private$chompExtraSlashes)
+        u <- gsub('^/*([^/].*[^/])/*$', '\\1', u)
 
     # Concatenate URL elements together
     u <- paste(u, collapse='/')
@@ -131,5 +139,6 @@ toString=function(encode=TRUE) {
 
 private=list(
     url=NULL,
-    params=NULL
+    params=NULL,
+    chompExtraSlashes=NULL
 ))
