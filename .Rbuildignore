@@ -1,12 +1,12 @@
 ^Meta$
 ^doc$
 ^ext$
+^build$
 ^.*\.log$
 ^examples$
 ^\.travis\.yml$
 ^scripts$
 ^Makefile$
-^tests/dockerfiles$
 ^dockers$
 ^.*\.dockerfile$
 ^travis-tests$
@@ -14,10 +14,10 @@
 ^biodb_.*\.tar\.gz$
 ^biodb\.Rcheck$
 ^biodb\.check\.cache$
-^cache$
+^cache.*$
 ^codecov\.yml$
-^tests/testthat/_snaps$
-^tests/.*/output$
+^.*tests/testthat/_snaps$
+^.*tests/testthat/output$
 ^check.Renviron$
 ^.BBSoptions$
 ^.*rds$
