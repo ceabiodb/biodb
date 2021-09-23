@@ -342,7 +342,7 @@ createNewEntry=function(db.class) {
 
 #' @description
 #' Creates an entry instance from a content.
-#' @param conn A valid BiodbConn instance.
+#' @param conn.id A valid BiodbConn identifier. 
 #' @param content A list or character vector of contents to parse to create the
 #' entries.
 #' @param drop If set to TRUE
