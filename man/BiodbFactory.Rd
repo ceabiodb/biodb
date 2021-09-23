@@ -334,12 +334,12 @@ Creates an entry instance from a content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{conn.id}}{A valid BiodbConn identifier.}
+
 \item{\code{content}}{A list or character vector of contents to parse to create the
 entries.}
 
 \item{\code{drop}}{If set to TRUE}
-
-\item{\code{conn}}{A valid BiodbConn instance.}
 }
 \if{html}{\out{</div>}}
 }
