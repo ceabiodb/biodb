@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.8
+# Makefile for biodb extensions packages, version 1.4.9
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -34,6 +34,10 @@ endif
 ifeq (,$(R_VERSION))
 R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
 endif
+
+# Use system tar instead of R built-in tar in order to avoid the following warning:
+# Warning: invalid uid value replaced by that for user 'nobody'
+export R_BUILD_TAR=tar
 
 # Bioconductor check flags
 BIOC_CHECK_FLAGS=quit-with-status
