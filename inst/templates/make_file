@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.7
+# Makefile for biodb extensions packages, version 1.4.9
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -35,6 +35,10 @@ ifeq (,$(R_VERSION))
 R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
 endif
 
+# Use system tar instead of R built-in tar in order to avoid the following warning:
+# Warning: invalid uid value replaced by that for user 'nobody'
+export R_BUILD_TAR=tar
+
 # Bioconductor check flags
 BIOC_CHECK_FLAGS=quit-with-status
 ifeq (true,$(NEWPKG))
@@ -43,7 +47,7 @@ endif
 CHECK_RENVIRON=check.Renviron
 export R_CHECK_ENVIRON=$(shell realpath $(CHECK_RENVIRON))
 RENVIRON_BIOC=Renviron.bioc
-export RENVIRON_USER=$(shell realpath $(RENVIRON_BIOC))
+export R_ENVIRON_USER=$(shell realpath $(RENVIRON_BIOC))
 RENVIRON_FILES=$(CHECK_RENVIRON) $(RENVIRON_BIOC)
 
 # Check files
@@ -125,6 +129,8 @@ $(info CODECOV_$(PKG_NAME_CAPS)_TOKEN=$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN))
 $(info RFLAGS=$(RFLAGS))
 $(info TEST_FILE=$(TEST_FILE))
 $(info BIODB_TEST_FUNCTIONS=$(BIODB_TEST_FUNCTIONS))
+$(info R_CHECK_ENVIRON=$(R_CHECK_ENVIRON))
+$(info R_ENVIRON_USER=$(R_ENVIRON_USER))
 
 # Default target
 all:
