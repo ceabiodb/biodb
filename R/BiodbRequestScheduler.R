@@ -460,7 +460,7 @@ doSendRequestOnce=function(request) {
             },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
-        error <-function(err) { retry=FALSE ; curl.error=err })
+        error=function(err) { retry=FALSE ; curl.error=err })
 
     # RCurl error
     if ( ! is.null(curl.error))
@@ -469,8 +469,11 @@ doSendRequestOnce=function(request) {
     # Get header information sent by server
     hdr <- NULL
     if (is.null(err_msg)) {
-        # We want to catch "<simpleWarning in max(i): no non-missing arguments
-        # to max; returning -Inf>".
+        # We want to catch the RCurl error "
+        # <simpleWarning in max(i):
+        #     no non-missing arguments to max; returning -Inf>".
+        # This error happens on Windows when downloading from UniProt:
+        # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
         hdr <- tryCatch(expr=as.list(header$value()),
             warning=function(w) w,
             error=function(e) e)
