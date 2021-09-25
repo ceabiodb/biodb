@@ -448,16 +448,45 @@ doSendRequestOnce=function(request) {
     curl.error <- NULL
     header$reset()
     content <- tryCatch(expr={
-            if (request$getMethod() == 'get')
+                            
+        # GET                            
+        # Tests first if URL exists, since it may occur that RCurl does not
+        # see a valid URL as in the case of UniProt server on Windows.
+        # We want to catch the following error:
+        # <simpleWarning in max(i): no non-missing arguments to max;
+        #     returning -Inf>
+        #    
+        # This error happens on Windows when downloading from UniProt using
+        # RCurl:
+        # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
+        #
+        # More precisely the original error is:
+        # Error in function (type, msg, asError = TRUE)  : 
+        #error:14077102:SSL routines:SSL23_GET_SERVER_HELLO:unsupported protocol
+        # which leads to the "simpleWarning" error.
+        #
+        # The error does not appear if we use base::url() instead of
+        # RCurl::getUrl().
+        if (request$getMethod() == 'get') {
+            
+            if (RCurl::url.exists(request$getUrl()$toString(), .opts=opts))
                 RCurl::getURL(request$getUrl()$toString(), .opts=opts,
                     ssl.verifypeer=private$ssl.verifypeer,
                     .encoding=request$getEncoding(),
                     headerfunction=header$update)
-            else
-                RCurl::postForm(request$getUrl()$toString(), .opts=opts,
-                    .encoding=request$getEncoding(),
-                    headerfunction=header$update)
-            },
+            else {
+                u <- url(request$getUrl()$toString())
+                result <- paste(readLines(u), sep="\n")
+                close(u)
+                result
+            }
+            
+        # POST
+        } else
+            RCurl::postForm(request$getUrl()$toString(), .opts=opts,
+                .encoding=request$getEncoding(),
+                headerfunction=header$update)
+        },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
         error=function(err) { retry=FALSE ; curl.error=err })
@@ -469,11 +498,6 @@ doSendRequestOnce=function(request) {
     # Get header information sent by server
     hdr <- NULL
     if (is.null(err_msg)) {
-        # We want to catch the RCurl error "
-        # <simpleWarning in max(i):
-        #     no non-missing arguments to max; returning -Inf>".
-        # This error happens on Windows when downloading from UniProt:
-        # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
         hdr <- tryCatch(expr=as.list(header$value()),
             warning=function(w) w,
             error=function(e) e)
