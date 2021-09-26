@@ -438,9 +438,10 @@ doSendRequestOnce=function(request) {
     retry <- FALSE
     cfg <- private$bdb$getConfig()
 
+    logTrace('Sent URL is "%s".', request$getUrl()$toString())
+
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
-    logTrace('Sent URL is "%s".', request$getUrl()$toString())
 
     # Create HTTP header object (to receive HTTP information from server).
     header <- RCurl::basicHeaderGatherer()
@@ -474,12 +475,8 @@ doSendRequestOnce=function(request) {
                     ssl.verifypeer=private$ssl.verifypeer,
                     .encoding=request$getEncoding(),
                     headerfunction=header$update)
-            else {
-                u <- url(request$getUrl()$toString())
-                result <- paste(readLines(u), sep="\n")
-                close(u)
-                result
-            }
+            else
+                getBaseUrlContent(request$getUrl()$toString())
             
         # POST
         } else
