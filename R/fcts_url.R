@@ -98,7 +98,7 @@ getBaseUrlContent <- function(u) {
     ud <- url(u)
 
     # Get content
-    content <- paste(readLines(ud), sep="\n")
+    content <- paste(readLines(ud), collapse="\n")
 
     # Close URL descriptor
     close(ud)
