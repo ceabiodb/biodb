@@ -432,7 +432,7 @@ doSendRequestOnce=function(request) {
         err <- if (is.null(content)) 'Error when retrieving URL content' else
             NULL
         status <- if (is.null(content)) .HTTP.STATUS.NOT.FOUND else
-            .HTTP.STATUS.FOUND
+            .HTTP.STATUS.OK
         res <- RequestResult$new(content=content, retry=FALSE, errMsg=err,
             status=status)
     }
