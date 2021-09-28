@@ -45,30 +45,51 @@ initialize=function(content=NULL, retry=FALSE, errMsg=NULL, status=0,
     private$location <- location
 }
 
+#' @description
+#' Get content.
+#' @return The content as a character value or NULL.
 ,getContent=function() {
     return(private$content)
 }
 
+#' @description
+#' Get the retry flag.
+#' @return TRUE if the URL request should be sent again, FALSE otherwise.
 ,getRetry=function() {
     return(private$retry)
 }
 
+#' @description
+#' Get the error message.
+#' @return The error message as a character value or NULL.
 ,getErrMsg=function() {
     return(private$errMsg)
 }
 
+#' @description
+#' Get the HTTP status of the response.
+#' @return The status as an integer.
 ,getStatus=function() {
     return(private$status)
 }
 
+#' @description
+#' Get the time to wait before retrying.
+#' @return The time.
 ,getRetryAfter=function() {
     return(private$retryAfter)
 }
 
+#' @description
+#' Get the redirect location.
+#' @return The redirect location as a character value or NULL.
 ,getLocation=function() {
     return(private$location)
 }
 
+#' @description
+#' Process possible HTTP error.
+#' @return Nothing.
 ,processRequestErrors=function() {
 
     # Recoverable HTTP errors

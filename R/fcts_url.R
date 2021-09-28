@@ -98,10 +98,40 @@ getBaseUrlContent <- function(u) {
     ud <- url(u)
 
     # Get content
-    content <- paste(readLines(ud), collapse="\n")
+    content <- tryCatch(expr=paste(readLines(ud), collapse="\n"),
+        warning=function(w) NULL,
+        error=function(e) NULL)
 
     # Close URL descriptor
     close(ud)
 
     return(content)
+}
+
+#' Get URL request result using base::url().
+#'
+#' @param request A BiodbRequest object.
+#' @return A RequestResult object.
+getBaseUrlRequestResult <- function(request) {
+    chk::chk_is(request, 'BiodbRequest')
+
+    if (request$getMethod() != 'get')
+        error('Request method "%s" is not hanlded by base::url().',
+            request$getMethod())
+
+    content <- getBaseUrlContent(request$getUrl()$toString())
+
+    if (! is.null(content) && ( ! is.character(content) || content == ''))
+        content <- NULL
+
+    err <- if (is.null(content)) 'Error when retrieving URL content' else
+        NULL
+
+    status <- if (is.null(content)) .HTTP.STATUS.NOT.FOUND else
+        .HTTP.STATUS.OK
+
+    res <- RequestResult$new(content=content, retry=FALSE, errMsg=err,
+        status=status)
+
+    return(res)
 }

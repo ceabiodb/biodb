@@ -1,3 +1,6 @@
+Changes in version 1.1.9 (2021-09-28)
++ Correct handling of wrong URL with base::url().
+
 Changes in version 1.1.8 (2021-09-28)
 + Correct bug of UniProt request on Windows.
 

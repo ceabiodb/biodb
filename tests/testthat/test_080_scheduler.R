@@ -220,6 +220,26 @@ test_directRequestToUniprot <- function(biodb) {
     testthat::expect_false(is.na(result))
 }
 
+test_wrongURL <- function(biodb) {
+
+    # Get the scheduler
+    sched <- biodb$getRequestScheduler()
+    testthat::expect_is(sched, "BiodbRequestScheduler")
+
+    # Create URL object
+    u <- 'http://rest.kegg.jp/get/mmu00627'
+    url <- BiodbUrl$new(url=u)
+
+    # Create a request object
+    request <- BiodbRequest$new(method='get', url=url)
+
+    # Send request
+    result <- sched$sendRequest(request)
+    testthat::expect_is(result, 'character')
+    testthat::expect_length(result, 1)
+    testthat::expect_true(is.na(result))
+}
+
 # Set context
 biodb::testContext("Test scheduler.")
 
@@ -229,13 +249,15 @@ biodb <- biodb::createBiodbTestInstance()
 # Run tests
 biodb::testThat("Right rule is created.", test.schedulerRightRule, biodb=biodb)
 biodb::testThat("Frequency is updated correctly.", test.schedulerRuleFrequency,
-                biodb=biodb)
+    biodb=biodb)
 biodb::testThat("Sleep time is computed correctly.", test.schedulerSleepTime,
-                biodb=biodb)
+    biodb=biodb)
 biodb::testThat("We can send a direct request to ChEBI.",
-                test_directRequestToChebi, biodb=biodb)
+    test_directRequestToChebi, biodb=biodb)
 biodb::testThat("We can send a direct request to UniProt.",
-                test_directRequestToUniprot, biodb=biodb)
+    test_directRequestToUniprot, biodb=biodb)
+biodb::testThat("We can handle correctly a wrong URL.", test_wrongURL,
+    biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()

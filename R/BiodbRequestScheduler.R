@@ -423,18 +423,7 @@ doSendRequestOnce=function(request) {
         logDebug(paste('URL "%s" does not exist according to RCurl.',
             'That may happen with some protocol misunderstanding.',
             'Trying with base::url().'), sUrl)
-        if (request$getMethod() != 'get')
-            error('Request method "%s" is not hanlded by base::url().',
-                request$getMethod())
-        content <- getBaseUrlContent(sUrl)
-        if (! is.null(content) && ( ! is.character(content) || content == ''))
-            content <- NULL
-        err <- if (is.null(content)) 'Error when retrieving URL content' else
-            NULL
-        status <- if (is.null(content)) .HTTP.STATUS.NOT.FOUND else
-            .HTTP.STATUS.OK
-        res <- RequestResult$new(content=content, retry=FALSE, errMsg=err,
-            status=status)
+        res <- getBaseUrlRequestResult(request)
     }
 
     res$processRequestErrors()

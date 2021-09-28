@@ -19,7 +19,8 @@ output:
 bibliography: references.bib
 ---
 
-```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```{r, echo=FALSE}
+source(system.file('vignettes_inc.R', package='biodb'))
 ```
 
 # Introduction

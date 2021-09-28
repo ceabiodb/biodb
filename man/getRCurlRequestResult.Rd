@@ -10,6 +10,8 @@ getRCurlRequestResult(request, opts, ssl.verifypeer = TRUE)
 \item{request}{A BiodbRequest object.}
 
 \item{opts}{A valid RCurl options object.}
+
+\item{ssl.verifypeer}{Set to TRUE to enable SSL verify peer.}
 }
 \value{
 A RequestResult object.

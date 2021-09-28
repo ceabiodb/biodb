@@ -19,7 +19,8 @@ output:
 bibliography: references.bib
 ---
 
-```{r, code=readLines(system.file('vignettes_inc.R', package='biodb')), echo=FALSE}
+```{r, echo=FALSE}
+source(system.file('vignettes_inc.R', package='biodb'))
 ```
 
 # Introduction
@@ -202,7 +203,7 @@ downloaded content.
 The entry class of our example extension package has been generated inside
 `R/ChebiExEntry.R`.
 Here is its content:
-```{r, eval=TRUE, highlight=TRUE, code=readLines('biodbChebiEx/R/ChebiExEntry.R')}
+```{r, eval=FALSE, highlight=TRUE, code=readLines('biodbChebiEx/R/ChebiExEntry.R')}
 ```
 
 The class inherits from `BiodbXmlEntry` since we have set the `entryType`
@@ -250,8 +251,8 @@ inheritance part, as well as the declaration of the required methods.
 See \@ref(tab:chebiExMethods) for a description of these methods.
 What is left to us is the implementation of those methods.
 
-Here the generated skeleton:
-```{r, eval=TRUE, highlight=TRUE, code=readLines('biodbChebiEx/R/ChebiExConn.R')}
+Here is the generated skeleton:
+```{r, eval=FALSE, highlight=TRUE, code=readLines('biodbChebiEx/R/ChebiExConn.R')}
 ```
 
 ### Inheritance
@@ -376,10 +377,17 @@ Package                                               | Official database site
 
 ```{r, echo=FALSE, results='hide'}
 connClass <- system.file("extdata", "ChebiExConn.R", package='biodb')
+entryClass <- system.file("extdata", "ChebiExEntry.R", package='biodb')
+source(connClass)
+source(entryClass)
 ```
 
 Here is our implementation of the connector class:
 ```{r, code=readLines(connClass)}
+```
+
+Here is our implementation of the entry class:
+```{r, code=readLines(entryClass)}
 ```
 
 ## Using the new connector

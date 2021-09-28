@@ -69,64 +69,92 @@ Nothing.
 \if{html}{\out{<a id="method-getContent"></a>}}
 \if{latex}{\out{\hypertarget{method-getContent}{}}}
 \subsection{Method \code{getContent()}}{
+Get content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getContent()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The content as a character value or NULL.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getRetry"></a>}}
 \if{latex}{\out{\hypertarget{method-getRetry}{}}}
 \subsection{Method \code{getRetry()}}{
+Get the retry flag.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getRetry()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+TRUE if the URL request should be sent again, FALSE otherwise.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getErrMsg"></a>}}
 \if{latex}{\out{\hypertarget{method-getErrMsg}{}}}
 \subsection{Method \code{getErrMsg()}}{
+Get the error message.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getErrMsg()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The error message as a character value or NULL.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getStatus"></a>}}
 \if{latex}{\out{\hypertarget{method-getStatus}{}}}
 \subsection{Method \code{getStatus()}}{
+Get the HTTP status of the response.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getStatus()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The status as an integer.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getRetryAfter"></a>}}
 \if{latex}{\out{\hypertarget{method-getRetryAfter}{}}}
 \subsection{Method \code{getRetryAfter()}}{
+Get the time to wait before retrying.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getRetryAfter()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The time.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getLocation"></a>}}
 \if{latex}{\out{\hypertarget{method-getLocation}{}}}
 \subsection{Method \code{getLocation()}}{
+Get the redirect location.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$getLocation()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The redirect location as a character value or NULL.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-processRequestErrors"></a>}}
 \if{latex}{\out{\hypertarget{method-processRequestErrors}{}}}
 \subsection{Method \code{processRequestErrors()}}{
+Process possible HTTP error.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RequestResult$processRequestErrors()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Nothing.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
