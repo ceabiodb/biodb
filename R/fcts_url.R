@@ -12,6 +12,7 @@ getRCurlContent <- function(u, useragent=NULL) {
 #'
 #' @param request A BiodbRequest object.
 #' @param opts A valid RCurl options object.
+#' @param ssl.verifypeer Set to TRUE to enable SSL verify peer.
 #' @return A RequestResult object.
 getRCurlRequestResult <- function(request, opts, ssl.verifypeer=TRUE) {
     chk::chk_is(request, 'BiodbRequest')
