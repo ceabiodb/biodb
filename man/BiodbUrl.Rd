@@ -42,7 +42,7 @@ url$toString()
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbUrl$new(url = character(), params = character())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbUrl$new(url = character(), params = character(), chompExtraSlashes = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -51,6 +51,10 @@ Initializer.
 \item{\code{url}}{The URL to access, as a character vector.}
 
 \item{\code{params}}{The list of parameters to append to this URL.}
+
+\item{\code{chompExtraSlashes}}{If set to TRUE, then slashes at the end and the
+beginning of each element of the url vector parameter will be removed before
+proper concatenation.}
 }
 \if{html}{\out{</div>}}
 }

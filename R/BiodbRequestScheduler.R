@@ -389,111 +389,58 @@ removeConnectorRules=function(conn) {
     private$connid2rules[[conn$getId()]] <- NULL
 },
 
-processRequestErrors=function(content, hdr, err_msg, retry) {
-
-    # Recoverable HTTP errors
-    lst <- c(.HTTP.STATUS.NOT.FOUND, .HTTP.STATUS.REQUEST.TIMEOUT,
-        .HTTP.STATUS.INTERNAL.SERVER.ERROR,
-        .HTTP.STATUS.SERVICE.UNAVAILABLE) 
-    if ( ! is.null(hdr) && hdr$status %in% lst) {
-        err_msg <- paste0("HTTP error ", hdr$status," (\"", hdr$statusMessage,
-            "\").")
-        if ('Retry-After' %in% names(hdr))
-            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
-                ".")
-        retry <- TRUE
-    }
-
-    # Other HTTP errors
-    if (is.null(err_msg) && ! is.null(hdr) && hdr$status != .HTTP.STATUS.OK) {
-        err_msg <- paste0("Unrecoverable HTTP error ", hdr$status," (\"",
-            hdr$statusMessage, "\").")
-        if ('Retry-After' %in% names(hdr))
-            err_msg <- paste0(err_msg, " Retry after ", hdr[['Retry-After']],
-                ".")
-        content <- NA_character_
-        retry <- FALSE
-    }
-
-    # Proxy server error
-    # This happens sometime with NCBI CCDS server.
-    if (is.null(err_msg) && ! is.null(content) && ! is.na(content)
-        && length(grep('The proxy server could not handle the request',
-        unname(content))) > 0) {
-        logDebug('Found proxy error message in content.')
-        err_msg <- "Error between the proxy and the main server."
-        content <- NA_character_
-        retry <- FALSE
-    }
-
-    return(list(retry=retry, err_msg=err_msg))
-},
-
 doSendRequestOnce=function(request) {
 
-    content <- NA_character_
-    err_msg <- NULL
-    retry <- FALSE
     cfg <- private$bdb$getConfig()
+
+    sUrl <- request$getUrl()$toString()
+    logTrace('Sent URL is "%s".', sUrl)
 
     # Build options
     opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
-    logTrace('Sent URL is "%s".', request$getUrl()$toString())
 
-    # Create HTTP header object (to receive HTTP information from server).
-    header <- RCurl::basicHeaderGatherer()
-
-    curl.error <- NULL
-    header$reset()
-    content <- tryCatch(expr={
-            if (request$getMethod() == 'get')
-                RCurl::getURL(request$getUrl()$toString(), .opts=opts,
-                    ssl.verifypeer=private$ssl.verifypeer,
-                    .encoding=request$getEncoding(),
-                    headerfunction=header$update)
-            else
-                RCurl::postForm(request$getUrl()$toString(), .opts=opts,
-                    .encoding=request$getEncoding(),
-                    headerfunction=header$update)
-            },
-        PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err },
-        GenericCurlError=function(err) { retry=TRUE ; curl.error=err },
-        error <-function(err) { retry=FALSE ; curl.error=err })
-
-    # RCurl error
-    if ( ! is.null(curl.error))
-        err_msg <- paste0("RCurl error: ", curl.error)
-
-    # Get header information sent by server
-    hdr <- NULL
-    if (is.null(err_msg)) {
-        # We want to catch "<simpleWarning in max(i): no non-missing arguments
-        # to max; returning -Inf>".
-        hdr <- tryCatch(expr=as.list(header$value()),
-            warning=function(w) w,
-            error=function(e) e)
-
-        if (methods::is(hdr, 'simpleError')
-            || methods::is(hdr, 'simpleWarning')) {
-            err_msg <- paste0('Error while retrieving HTTP header: ', hdr, '.')
-            hdr <- NULL
-            retry <- TRUE
-        }
-
-        if ( ! is.null(hdr)) {
-            hdr$status <- as.integer(hdr$status)
-            if (hdr$status == 0) {
-                hdr <- NULL
-                err_msg <- "Cannot find status info in HTTP header."
-                retry <- TRUE
-            }
-        }
+    # Tests first if URL exists, since it may occur that RCurl does not
+    # see a valid URL as in the case of UniProt server on Windows.
+    # We want to catch the following error:
+    # <simpleWarning in max(i): no non-missing arguments to max;
+    #     returning -Inf>
+    #    
+    # This error happens on Windows when downloading from UniProt using
+    # RCurl:
+    # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
+    #
+    # More precisely the original error is:
+    # Error in function (type, msg, asError = TRUE)  : 
+    #error:14077102:SSL routines:SSL23_GET_SERVER_HELLO:unsupported protocol
+    # which leads to the "simpleWarning" error.
+    #
+    # The error does not appear if we use base::url() instead of
+    # RCurl::getUrl().
+    if (RCurl::url.exists(sUrl, .opts=opts)) {
+        res <- getRCurlRequestResult(request, opts=opts,
+            ssl.verifypeer=private$ssl.verifypeer)
+    } else {
+        logDebug(paste('URL "%s" does not exist according to RCurl.',
+            'That may happen with some protocol misunderstanding.',
+            'Trying with base::url().'), sUrl)
+        if (request$getMethod() != 'get')
+            error('Request method "%s" is not hanlded by base::url().',
+                request$getMethod())
+        content <- getBaseUrlContent(sUrl)
+        if (! is.null(content) && ( ! is.character(content) || content == ''))
+            content <- NULL
+        err <- if (is.null(content)) 'Error when retrieving URL content' else
+            NULL
+        status <- if (is.null(content)) .HTTP.STATUS.NOT.FOUND else
+            .HTTP.STATUS.OK
+        res <- RequestResult$new(content=content, retry=FALSE, errMsg=err,
+            status=status)
     }
 
-    res <- private$processRequestErrors(content=content, hdr=hdr,
-        err_msg=err_msg, retry=retry)
+    res$processRequestErrors()
 
-    return(list(content=content, err_msg=res$err_msg, retry=res$retry))
+    return(list(content=res$getContent(), err_msg=res$getErrMsg(),
+        retry=res$getRetry()))
 },
 
 doSendRequestLoop=function(request, rule) {

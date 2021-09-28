@@ -1,3 +1,46 @@
+test_BiodbUrl <- function() {
+
+    # Simple URL
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr')
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/')
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr')
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr', ''))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/')
+
+    # URL in multiple parts
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr/', 'some', 'page'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
+    url <- BiodbUrl$new(url = c('https://www.somesite.fr//', 'some', '/page/'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/some/page')
+
+    # With an unnamed parameter in a character vector
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c('rerun'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?rerun')
+
+    # With a parameter in a character vector
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
+
+    # With a parameter in a numeric vector
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(limit = 2))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?limit=2')
+
+    # With two parameters in a character vector
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = c(format = 'txt', limit = '2'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt&limit=2')
+
+    # With a parameter in a list
+    url <- BiodbUrl$new(url = 'https://www.somesite.fr/somepage', params = list(format = 'txt'))
+    testthat::expect_equal(url$toString(), 'https://www.somesite.fr/somepage?format=txt')
+
+    # With two parameters in a list
+    url <- BiodbUrl$new(url='https://www.somesite.fr/somepage',
+                    params=list(format = 'txt', limit=2))
+    refUrl <-  'https://www.somesite.fr/somepage?format=txt&limit=2'
+    testthat::expect_equal(url$toString(), refUrl)
+}
+
 test_biodburl_encoding <- function() {
 
     testthat::expect_equal(BiodbUrl$new("my.site.com")$toString(), 'my.site.com')
@@ -23,4 +66,5 @@ test_biodburl_encoding <- function() {
 biodb::testContext("Testing BiodbUrl.")
 
 # Run tests
+biodb::testThat("BiodbUrl works fine.", test_BiodbUrl)
 biodb::testThat("BiodbUrl encoding works correctly.", test_biodburl_encoding)
