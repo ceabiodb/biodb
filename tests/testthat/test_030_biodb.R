@@ -1,29 +1,46 @@
 test.convertEntryIdFieldToDbClass <- function(biodb) {
 
-	# Check all databases
-	for (db in biodb$getDbsInfo()$getAll())
-		testthat::expect_equal(biodb$convertEntryIdFieldToDbClass(db$getEntryIdField()), db$getDbClass())
+    # Check all databases
+    for (db in biodb$getDbsInfo()$getAll())
+        testthat::expect_equal(biodb$convertEntryIdFieldToDbClass(db$getEntryIdField()), db$getDbClass())
 
-	# Check a wrong database name
-	testthat::expect_null(biodb$convertEntryIdFieldToDbClass('chebi'))
-	testthat::expect_null(biodb$convertEntryIdFieldToDbClass('blabla.id'))
+    # Check a wrong database name
+    testthat::expect_null(biodb$convertEntryIdFieldToDbClass('chebi'))
+    testthat::expect_null(biodb$convertEntryIdFieldToDbClass('blabla.id'))
 }
 
 test.collapseRows <- function(biodb) {
 
-	# Basic tests
-	testthat::expect_null(biodb$collapseRows(NULL))
-	testthat::expect_identical(data.frame(), biodb$collapseRows(data.frame()))
-	testthat::expect_identical(data.frame(a=1), biodb$collapseRows(data.frame(a=1)))
-	testthat::expect_identical(data.frame(a=c(1,2)), biodb$collapseRows(data.frame(a=c(1,2))))
-	testthat::expect_identical(data.frame(a=c(1,2)), biodb$collapseRows(data.frame(a=c(1,2,2))))
-	testthat::expect_identical(data.frame(a=c(1,2),b=c('5','5|7'), stringsAsFactors=FALSE), biodb$collapseRows(data.frame(a=c(1,2,2),b=c(5,5,7))))
+    # Basic tests
+    testthat::expect_null(biodb$collapseRows(NULL))
+    testthat::expect_identical(data.frame(), biodb$collapseRows(data.frame()))
+    testthat::expect_identical(data.frame(a=1), biodb$collapseRows(data.frame(a=1)))
+    testthat::expect_identical(data.frame(a=c(1,2)), biodb$collapseRows(data.frame(a=c(1,2))))
+    testthat::expect_identical(data.frame(a=c(1,2)), biodb$collapseRows(data.frame(a=c(1,2,2))))
+    testthat::expect_identical(data.frame(a=c(1,2),b=c('5','5|7'), stringsAsFactors=FALSE), biodb$collapseRows(data.frame(a=c(1,2,2),b=c(5,5,7))))
 
-	# Test with a different separator
-	testthat::expect_identical(data.frame(a=c(1,2),b=c('5','5;7'), stringsAsFactors=FALSE), biodb$collapseRows(data.frame(a=c(1,2,2),b=c(5,5,7)), sep=';'))
+    # Test with a different separator
+    # Decompose test because of the following error on Bioconductor:
+    # Error in `name %in% base || grepl("^%.*%$", name)`: 'length(x) = 3 > 1'
+    # in coercion to 'logical(1)'
+    #   Backtrace:
+    #       █
+    #    1. ├─base::do.call(fct, params)
+    #    2. └─(function (biodb) ...
+    #    3.   └─testthat::expect_identical(...) test_030_biodb.R:23:8
+    #    4.     └─testthat::quasi_label(enquo(expected), expected.label, arg =
+    #               "expected")
+    #    5.       ├─label %||% expr_label(expr)
+    #    6.       └─testthat:::expr_label(expr)
+    #    7.         └─testthat:::is_call_infix(x)
+    x <- data.frame(a=c(1,2),b=c('5','5;7'), stringsAsFactors=FALSE)
+    y <- biodb$collapseRows(data.frame(a=c(1,2,2),b=c(5,5,7)), sep=';')
+    testthat::expect_identical(x, y)
 
-	# Test with NA values
-	testthat::expect_identical(data.frame(a=c(1,NA,NA,2),b=c('5',NA,6,'5|7'), stringsAsFactors=FALSE), biodb$collapseRows(data.frame(a=c(1,NA,NA,2,2),b=c(5,NA,6,5,7))))
+    # Test with NA values
+    x <- data.frame(a=c(1,NA,NA,2),b=c('5',NA,6,'5|7'), stringsAsFactors=FALSE)
+    y <- biodb$collapseRows(data.frame(a=c(1,NA,NA,2,2),b=c(5,NA,6,5,7)))
+    testthat::expect_identical(x, y)
 }
 
 test.entriesToDataframe <- function(biodb) {

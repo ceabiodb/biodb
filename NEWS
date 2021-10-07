@@ -1,3 +1,6 @@
+Changes in version 1.1.11 (2021-10-07)
++ Decompose test test.collapseRows() because of error on Bioconductor not reproduced on local computer.
+
 Changes in version 1.1.10 (2021-09-30)
 + Disable UniProt request test: it fails (result is NA) for reason unknown only on Bioconductor Linux server during "R CMD check". Works fine on local computer.
 
