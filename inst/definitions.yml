@@ -141,7 +141,7 @@ config:
     title: The implementation to use for the persistent cache.
     type: character
     description: 'Choose either "custom" or "bioc".'
-    default: bioc
+    default: custom
 
   proton.mass:
     title: The mass of one proton.

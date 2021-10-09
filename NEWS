@@ -1,3 +1,6 @@
+Changes in version 1.1.12 (2021-10-09)
++ Switch back to custom implementation of persistent cache, following errors with BiocFileCache on Windows and also slowness with HMDB.
+
 Changes in version 1.1.11 (2021-10-07)
 + Decompose test test.collapseRows() because of error on Bioconductor not reproduced on local computer.
 
