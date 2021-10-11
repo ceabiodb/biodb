@@ -12,7 +12,7 @@ Description: The biodb package provides access to standard remote chemical and
     separate published packages.
 biocViews: Software, Infrastructure, DataImport, KEGG
 Depends:
-    R (>= 4.1)
+    R (>= 4.1.1)
 License: AGPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr

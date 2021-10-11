@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.9
+# Makefile for biodb extensions packages, version 1.4.10
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -32,7 +32,7 @@ ifeq (0,$(PKG_MAJOR))
 	NEW_PKG=true
 endif
 ifeq (,$(R_VERSION))
-R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*\([0-9]\.[0-9]\).*$$/\1/')
+R_VERSION=$(shell grep '^ *R ' DESCRIPTION | sed 's/^.*[ =]\([0-9]\.[0-9]\(\.[0-9]\)\?\).*$$/\1/')
 endif
 
 # Use system tar instead of R built-in tar in order to avoid the following warning:
