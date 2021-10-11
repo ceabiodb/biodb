@@ -50,10 +50,13 @@ extractVersion <- function(filepath) {
 splitVersion <- function(version) {
     chk::chk_match(version, regexp="^[0-9]+\\.[0-9]+(\\.[0-9]+)?$")
     
-    m <- stringr::str_match(version, "([0-9]+).([0-9]+)(.([0-9]+))?")
-    
-    return(list(major=m[1, 2], minor=m[1, 3],
-        patch=(if (is.na(m[1, 4])) 0 else m[1, 5]) ))
+    m <- stringr::str_match(version, "^([0-9]+)\\.([0-9]+)(\\.([0-9]+))?$")
+    major <- as.integer(m[1, 2])
+    minor <- as.integer(m[1, 3])
+    patch <- if (is.na(m[1, 4])) 0L else as.integer(m[1, 5])
+    v <- list(major=major, minor=minor, patch=patch)
+
+    return(v)
 }
 
 compareVersions <- function(v1, v2) {
