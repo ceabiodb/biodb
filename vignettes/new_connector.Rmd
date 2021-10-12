@@ -658,3 +658,9 @@ doParseFieldsStep2=function(parsed.content) {
         .self$appendFieldValue('name', synonyms)
 }
 ```
+
+# Session information
+
+```{r}
+sessionInfo()
+```

@@ -379,4 +379,10 @@ Do not forget to terminate your biodb instance once you are done with it:
 mybiodb$terminate()
 ```
 
+# Session information
+
+```{r}
+sessionInfo()
+```
+
 # References
