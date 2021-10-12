@@ -345,7 +345,7 @@ getEntryIds=function(max.results=0, ...) {
     ids <- character()
 
     # Get IDs from volatile cache
-    not.null <- ! vapply(private$entries, is.null, FUN.VALUE=T)
+    not.null <- ! vapply(private$entries, is.null, FUN.VALUE=TRUE)
     ids <- names(private$entries[not.null])
 
     # Get IDs from database
