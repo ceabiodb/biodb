@@ -1,3 +1,10 @@
+Changes in version 1.1.13 (2021-10-12)
++ Make custom persistent the cache the default, following slowness with BiocFileCache in biodbHmdb.
++ Remove useless bib refs in vignettes/references.bib.
++ Add session info in vignettes.
++ Add ORCID, URL and BugReports.
++ Add an install section in main vignette.
+
 Changes in version 1.1.12 (2021-10-09)
 + Switch back to custom implementation of persistent cache, following errors with BiocFileCache on Windows and also slowness with HMDB.
 
