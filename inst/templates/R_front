@@ -1,6 +1,6 @@
 #!/bin/bash
 # vi: se fdm=marker
-# R front script for biodb extensions packages, version 1.1.1
+# R front script for biodb extensions packages, version 1.1.2
 
 SCRIPT_FILE=$(basename $0)
 SCRIPT_DIR=$(dirname $0)
