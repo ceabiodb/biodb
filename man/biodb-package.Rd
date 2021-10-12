@@ -18,7 +18,7 @@ see the "biodb" vignette.\preformatted{vignette('biodb', package='biodb')
 \link{BiodbPersistentCache}, \link{BiodbDbsInfo}, \link{BiodbEntryFields}.
 }
 \author{
-\strong{Maintainer}: Pierrick Roger \email{pierrick.roger@cea.fr}
+\strong{Maintainer}: Pierrick Roger \email{pierrick.roger@cea.fr} (\href{https://orcid.org/0000-0001-8177-4873}{ORCID})
 
 Other contributors:
 \itemize{
