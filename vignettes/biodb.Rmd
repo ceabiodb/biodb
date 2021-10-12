@@ -23,7 +23,7 @@ bibliography: references.bib
 source(system.file('vignettes_inc.R', package='biodb'))
 ```
 
-# Purpose
+# Introduction
 
 <!-- What offers biodb. -->
 *biodb* provides access to **chemical**, **biological** and **mass spectra**
@@ -90,6 +90,15 @@ For a complete list of featuresSee vignette
 make_vignette_ref('details')
 ```
 for a more more information of *biodb* with other packages.
+
+# Installation
+
+Install using Bioconductor:
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install('biodb')
+```
 
 # Initialization
 
