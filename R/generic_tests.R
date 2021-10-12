@@ -1089,7 +1089,8 @@ test.searchMsPeaks.with.NA.value <- function(db) {
     testthat::expect_true(nrow(peaks) >= length(mzs))
     testthat::expect_true(nrow(peaks) <= 2 * length(mzs))
     testthat::expect_true(ncol(peaks) > 1)
-    testthat::expect_false(any(is.na(peaks[seq(nrow(peaks) - 1), c('mz', 'accession')])))
+    testthat::expect_false(any(is.na(peaks[seq(nrow(peaks) - 1),
+        c('mz', 'accession')])))
     testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
 

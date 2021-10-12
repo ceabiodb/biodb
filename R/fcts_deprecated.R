@@ -40,5 +40,6 @@ loadTestRefEntry <- function(db, id, pkgName) {
 getTestRefFolder <- function(pkgName) {
     lifecycle::deprecate_warn('1.1.0', "getTestRefFolder()",
         "TestRefEntries::getFolder()")
-    return(TestRefEntries$new(db.class='some.fake.class', pkgName=pkgName)$getFolder())
+    return(TestRefEntries$new(db.class='some.fake.class',
+        pkgName=pkgName)$getFolder())
 }

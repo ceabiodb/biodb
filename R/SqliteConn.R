@@ -104,7 +104,8 @@ private=list(
         for (field in entry.fields$getFieldNames()) {
             f <- entry.fields$get(field)
             if ( ! f$isVirtual()) {
-                db_id <- if (f$hasCardOne()) field else private$fieldToSqlId(field)
+                db_id <- if (f$hasCardOne()) field else
+                    private$fieldToSqlId(field)
                 self$setPropValSlot('parsing.expr', field, db_id, hook=FALSE)
             }
         }

@@ -380,7 +380,8 @@ private=list(
 
         # Define a parsing expression for each column inside the database
         for (field in self$getFieldNames())
-            self$setPropValSlot('parsing.expr', field, private$fields[[field]], hook=FALSE)
+            self$setPropValSlot('parsing.expr', field, private$fields[[field]],
+                hook=FALSE)
 
         private$parsingExprDefined <- TRUE
     }
