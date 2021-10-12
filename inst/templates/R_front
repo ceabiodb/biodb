@@ -323,8 +323,8 @@ function install_r {
 		rm -r "$tmp"
 
 		# Build
-		cd "$R_FOLDER" && ./configure --prefix="$HOME/.local"
-		make -C "$R_FOLDER"
+		cd "$R_FOLDER" && ./configure --prefix="$HOME/.local" >&2
+		make -C "$R_FOLDER" >&2
 	fi
 }
 
