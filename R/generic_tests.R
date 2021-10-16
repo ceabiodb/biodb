@@ -246,7 +246,7 @@ test.entry.page.url.download <- function(conn, opt) {
     # Try downloading
     if ( ! is.na(url)) {
         biodb::logDebug('Trying to download "%s".', url)
-        content <- RCurl::getURL(url)
+        content <- biodb::getUrlContent(url)
         testthat::expect_true( ! is.na(content))
         testthat::expect_true(nchar(content) > 0)
         testthat::expect_length(grep('<title>.*Not Found</title>', content), 0)
@@ -264,7 +264,7 @@ test.entry.image.url.download <- function(conn, opt) {
 
     # Try downloading
     if ( ! is.na(url)) {
-        content <- RCurl::getBinaryURL(url)
+        content <- biodb::getUrlContent(url, binary=TRUE)
         testthat::expect_is(content, 'raw')
     }
 }

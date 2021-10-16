@@ -1,11 +1,113 @@
+getUrlContent <- function(u, binary=FALSE) {
+    chk::chk_string(u)
+    chk::chk_flag(binary)
+
+    opts <- makeRCurlOptions()
+    if (RCurl::url.exists(u, .opts=opts))
+        content <- getRCurlContent(u, opts=opts)
+    else
+        content <- getBaseUrlContent(u)
+
+    return(content)
+}
+
+getUrlRequestResult <- function(request, useragent=NULL, ssl.verifypeer=TRUE) {
+    chk::chk_is(request, 'BiodbRequest')
+    chk::chk_null_or(useragent, chk::chk_string)
+    chk::chk_flag(ssl.verifypeer)
+
+    # Tests first if URL exists, since it may occur that RCurl does not
+    # see a valid URL as in the case of UniProt server on Windows.
+    # We want to catch the following error:
+    # <simpleWarning in max(i): no non-missing arguments to max;
+    #     returning -Inf>
+    #    
+    # This error happens on Windows when downloading from UniProt using
+    # RCurl:
+    # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
+    #
+    # More precisely the original error is:
+    # Error in function (type, msg, asError = TRUE)  : 
+    #error:14077102:SSL routines:SSL23_GET_SERVER_HELLO:unsupported protocol
+    # which leads to the "simpleWarning" error.
+    #
+    # The error does not appear if we use base::url() instead of
+    # RCurl::getUrl().
+    if (doesRCurlRequestUrlExist(request, useragent=useragent)) {
+        res <- getRCurlRequestResult(request, useragent=useragent,
+            ssl.verifypeer=ssl.verifypeer)
+    } else {
+        sUrl <- request$getUrl()$toString()
+        logDebug(paste('URL "%s" does not exist according to RCurl.',
+            'That may happen with some protocol misunderstanding.',
+            'Trying with base::url().'), sUrl)
+        res <- getBaseUrlRequestResult(request)
+    }
+
+    return(res)
+}
+
+makeRCurlOptions <- function(useragent=NULL, httpheader=NULL, postfields=NULL,
+    timeout.ms=60000, verbose=FALSE) {
+    chk::chk_null_or(useragent, chk::chk_string)
+    chk::chk_null_or(httpheader, chk::chk_character)
+    chk::chk_null_or(postfields, chk::chk_character)
+    chk::chk_whole_number(timeout.ms)
+    chk::chk_flag(verbose)
+
+    opts <- list()
+
+    if ( ! is.null(httpheader) && length(httpheader) > 0)
+        opts$httpheader <- httpheader
+
+    if ( ! is.null(postfields) && length(postfields) > 0)
+        opts$postfields <- postfields
+
+    opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=timeout.ms,
+        verbose=verbose, .opts=opts)
+
+    return(opts)
+}
+
+doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
+    chk::chk_is(request, 'BiodbRequest')
+    chk::chk_null_or(useragent, chk::chk_string)
+    opts <- request$getCurlOptions(useragent=useragent)
+    sUrl <- request$getUrl()$toString()
+    return(RCurl::url.exists(sUrl, .opts=opts))
+}
+
 #' Get URL content using RCurl::getURL().
 #'
 #' @param u The URL as a character value.
 #' @param useragent The user agent identification.
 #' @return The URL content as a character single value.
-getRCurlContent <- function(u, useragent=NULL) {
+getRCurlContent <- function(u, opts, enc=integer(), header.fct=NULL,
+    ssl.verifypeer=TRUE, method=c('get', 'post'), binary=FALSE) {
     chk::chk_string(u)
-    chk::chk_null_or(u, chk::chk_string)
+    chk::chk_is(opts, 'CURLOptions')
+    # TODO Test "enc" param.
+    chk::chk_null_or(header.fct, chk::chk_is, 'function')
+    chk::chk_flag(ssl.verifypeer)
+    chk::chk_flag(binary)
+    method <- match.arg(method)
+
+    # GET                            
+    if (method == 'get') {
+        if (binary)
+            content <- RCurl::getBinaryURL(sUrl, .opts=opts, .encoding=enc,
+                ssl.verifypeer=ssl.verifypeer, headerfunction=header$update)
+        else
+            content <- RCurl::getURL(sUrl, .opts=opts, .encoding=enc,
+                ssl.verifypeer=ssl.verifypeer, headerfunction=header$update)
+        
+    # POST
+    } else {
+        content <- RCurl::postForm(sUrl, .opts=opts, .encoding=enc,
+            headerfunction=header$update)
+    }
+
+    return(content)
 }
 
 #' Get URL request result using RCurcl::getURL().
@@ -14,13 +116,17 @@ getRCurlContent <- function(u, useragent=NULL) {
 #' @param opts A valid RCurl options object.
 #' @param ssl.verifypeer Set to TRUE to enable SSL verify peer.
 #' @return A RequestResult object.
-getRCurlRequestResult <- function(request, opts, ssl.verifypeer=TRUE) {
+getRCurlRequestResult <- function(request, useragent=NULL,
+    ssl.verifypeer=TRUE) {
     chk::chk_is(request, 'BiodbRequest')
-    chk::chk_is(opts, 'CURLOptions')
+    chk::chk_null_or(useragent, chk::chk_string)
     chk::chk_flag(ssl.verifypeer)
     content <- NA_character_
     err_msg <- NULL
     retry <- FALSE
+
+    # Build options
+    opts <- request$getCurlOptions(useragent=useragent)
 
     # Create HTTP header object (to receive HTTP information from server).
     header <- RCurl::basicHeaderGatherer()
@@ -29,18 +135,9 @@ getRCurlRequestResult <- function(request, opts, ssl.verifypeer=TRUE) {
     header$reset()
     sUrl <- request$getUrl()$toString()
     enc <- request$getEncoding()
-    content <- tryCatch(expr={
-                            
-        # GET                            
-        if (request$getMethod() == 'get')
-            RCurl::getURL(sUrl, .opts=opts, ssl.verifypeer=ssl.verifypeer,
-                .encoding=enc, headerfunction=header$update)
-            
-        # POST
-        else
-            RCurl::postForm(sUrl, .opts=opts, .encoding=enc,
-                headerfunction=header$update)
-        },
+    content <- tryCatch(expr={ getRCurlContent(sUrl, opts=opts, enc=enc,
+        header.fct=header$update, ssl.verifypeer=ssl.verifypeer,
+        method=request$getMethod()) },
         PEER_FAILED_VERIFICATION=function(err) { retry=TRUE ; curl.error=err ;
             NULL },
         GenericCurlError=function(err) { retry=TRUE ; curl.error=err ; NULL },
