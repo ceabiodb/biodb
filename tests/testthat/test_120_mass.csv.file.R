@@ -126,9 +126,10 @@ test.undefined.fields <- function(biodb) {
 
 test.wrong.nb.cols <- function(biodb) {
     conn <- biodb$getFactory()$createConn('mass.csv.file',
-                                          url=MASSFILEDB.WRONG.NB.COLS.URL)
+        url=MASSFILEDB.WRONG.NB.COLS.URL)
     expect_error(ids <- conn$getEntryIds(),
-                 regexp='^line 1 did not have 12 elements$')
+        regexp='^.* 1 .* 12 .*$')
+        # Error message in English: line 1 did not have 12 elements
     biodb$getFactory()$deleteConn(conn$getId())
 }
 
