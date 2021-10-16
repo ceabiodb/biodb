@@ -95,10 +95,10 @@ getBaseUrlContent <- function(u) {
     chk::chk_string(u)
 
     # Open URL and get URL descriptor
-    ud <- url(u)
+    ud <- base::url(u)
 
     # Get content
-    content <- tryCatch(expr=paste(readLines(ud), collapse="\n"),
+    content <- tryCatch(expr=paste(readLines(ud, warn=FALSE), collapse="\n"),
         warning=function(w) NULL,
         error=function(e) NULL)
 
