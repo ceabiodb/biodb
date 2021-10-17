@@ -391,40 +391,15 @@ removeConnectorRules=function(conn) {
 
 doSendRequestOnce=function(request) {
 
-    cfg <- private$bdb$getConfig()
-
     sUrl <- request$getUrl()$toString()
     logTrace('Sent URL is "%s".', sUrl)
 
-    # Build options
-    opts <- request$getCurlOptions(useragent=cfg$get('useragent'))
-
-    # Tests first if URL exists, since it may occur that RCurl does not
-    # see a valid URL as in the case of UniProt server on Windows.
-    # We want to catch the following error:
-    # <simpleWarning in max(i): no non-missing arguments to max;
-    #     returning -Inf>
-    #    
-    # This error happens on Windows when downloading from UniProt using
-    # RCurl:
-    # https://www.uniprot.org/uniprot/?query=&columns=id&format=tab&limit=2
-    #
-    # More precisely the original error is:
-    # Error in function (type, msg, asError = TRUE)  : 
-    #error:14077102:SSL routines:SSL23_GET_SERVER_HELLO:unsupported protocol
-    # which leads to the "simpleWarning" error.
-    #
-    # The error does not appear if we use base::url() instead of
-    # RCurl::getUrl().
-    if (RCurl::url.exists(sUrl, .opts=opts)) {
-        res <- getRCurlRequestResult(request, opts=opts,
-            ssl.verifypeer=private$ssl.verifypeer)
-    } else {
-        logDebug(paste('URL "%s" does not exist according to RCurl.',
-            'That may happen with some protocol misunderstanding.',
-            'Trying with base::url().'), sUrl)
-        res <- getBaseUrlRequestResult(request)
-    }
+    # Send request and get result
+    cfg <- private$bdb$getConfig()
+    ua <- cfg$get('useragent')
+    ua <- if (is.na(ua)) NULL else ua
+    res <- getUrlRequestResult(request, useragent=ua,
+        ssl.verifypeer=private$ssl.verifypeer)
 
     res$processRequestErrors()
 

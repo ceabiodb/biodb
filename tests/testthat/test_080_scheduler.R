@@ -254,8 +254,8 @@ biodb::testThat("Sleep time is computed correctly.", test.schedulerSleepTime,
     biodb=biodb)
 biodb::testThat("We can send a direct request to ChEBI.",
     test_directRequestToChebi, biodb=biodb)
-#biodb::testThat("We can send a direct request to UniProt.",
-#    test_directRequestToUniprot, biodb=biodb)
+biodb::testThat("We can send a direct request to UniProt.",
+    test_directRequestToUniprot, biodb=biodb)
 biodb::testThat("We can handle correctly a wrong URL.", test_wrongURL,
     biodb=biodb)
 

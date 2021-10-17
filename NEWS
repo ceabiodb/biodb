@@ -1,3 +1,9 @@
+Changes in version 1.1.14 (2021-10-17)
++ Factorize RCurl calls into global functions.
++ Disable warnings in calls to readLines() when using base::url().
++ Catch errors when trying to set locale.
++ Correct some tests.
+
 Changes in version 1.1.13 (2021-10-12)
 + Make custom persistent the cache the default, following slowness with BiocFileCache in biodbHmdb.
 + Remove useless bib refs in vignettes/references.bib.

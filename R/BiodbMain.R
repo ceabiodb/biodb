@@ -767,7 +767,8 @@ checkLocale=function() {
     # Check LC_CTYPE
     if (length(grep('\\.utf-8$', tolower(LC_CTYPE))) == 0) {
         if (private$config$isEnabled('force.locale'))
-            Sys.setlocale(locale='en_US.UTF-8') # Force locale
+            tryCatch(expr={Sys.setlocale(locale='en_US.UTF-8')}, # Force locale
+                warning=function(w) { NULL })
         else
             warn0("LC_CTYPE field of locale is set to ", LC_CTYPE,
                 ". It must be set to a UTF-8 locale like",

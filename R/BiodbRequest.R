@@ -104,18 +104,8 @@ getEncoding=function() {
 #' @param useragent The user agent as a character value.
 #' @return An RCurl options object.
 getCurlOptions=function(useragent) {
-
-
-    opts <- list()
-    if (length(private$header) > 0)
-        opts$httpheader <- private$header
-    if (length(private$body) > 0)
-        opts$postfields <- private$body
-
-    opts <- RCurl::curlOptions(useragent=useragent, timeout.ms=60000,
-        verbose=FALSE, .opts=opts)
-
-    return(opts)
+    return(makeRCurlOptions(useragent=useragent, httpheader=private$header,
+        postfields=private$body))
 },
 
 #' @description
