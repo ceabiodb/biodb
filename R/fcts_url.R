@@ -48,6 +48,7 @@ getUrlRequestResult <- function(request, useragent=NULL, ssl.verifypeer=TRUE) {
         res <- getRCurlRequestResult(request, useragent=useragent,
             ssl.verifypeer=ssl.verifypeer)
     } else {
+        logTrace('Using base::url() for sending request.')
         sUrl <- request$getUrl()$toString()
         logDebug(paste('URL "%s" does not exist according to RCurl.',
             'That may happen with some protocol misunderstanding.',
@@ -96,9 +97,14 @@ makeRCurlOptions <- function(useragent=NULL, httpheader=NULL, postfields=NULL,
 doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
     chk::chk_is(request, 'BiodbRequest')
     chk::chk_null_or(useragent, chk::chk_string)
+
     opts <- request$getCurlOptions(useragent=useragent)
     sUrl <- request$getUrl()$toString()
-    return(RCurl::url.exists(sUrl, .opts=opts))
+    exists <- RCurl::url.exists(sUrl, .opts=opts)
+    if ( ! exists)
+        logTrace('According to RCurl, URL %s does not exist.', sUrl)
+
+    return(exists)
 }
 
 #' Get URL content using RCurl::getURL().
@@ -106,29 +112,31 @@ doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
 #' @param u The URL as a character value.
 #' @param useragent The user agent identification.
 #' @return The URL content as a character single value.
-getRCurlContent <- function(u, opts, enc=integer(), header.fct=NULL,
+getRCurlContent <- function(u, opts=NULL, enc=integer(), header.fct=NULL,
     ssl.verifypeer=TRUE, method=c('get', 'post'), binary=FALSE) {
     chk::chk_string(u)
-    chk::chk_is(opts, 'CURLOptions')
+    chk::chk_null_or(opts, chk::chk_is, 'CURLOptions')
     # TODO Test "enc" param.
     chk::chk_null_or(header.fct, chk::chk_is, 'function')
     chk::chk_flag(ssl.verifypeer)
     chk::chk_flag(binary)
     method <- match.arg(method)
+    if (is.null(opts))
+        opts <- list()
 
     # GET                            
     if (method == 'get') {
         if (binary)
-            content <- RCurl::getBinaryURL(sUrl, .opts=opts, .encoding=enc,
-                ssl.verifypeer=ssl.verifypeer, headerfunction=header$update)
+            content <- RCurl::getBinaryURL(u, .opts=opts, .encoding=enc,
+                ssl.verifypeer=ssl.verifypeer, headerfunction=header.fct)
         else
-            content <- RCurl::getURL(sUrl, .opts=opts, .encoding=enc,
-                ssl.verifypeer=ssl.verifypeer, headerfunction=header$update)
+            content <- RCurl::getURL(u, .opts=opts, .encoding=enc,
+                ssl.verifypeer=ssl.verifypeer, headerfunction=header.fct)
         
     # POST
     } else {
-        content <- RCurl::postForm(sUrl, .opts=opts, .encoding=enc,
-            headerfunction=header$update)
+        content <- RCurl::postForm(u, .opts=opts, .encoding=enc,
+            headerfunction=header.fct)
     }
 
     return(content)
@@ -148,6 +156,8 @@ getRCurlRequestResult <- function(request, useragent=NULL,
     content <- NA_character_
     err_msg <- NULL
     retry <- FALSE
+    sUrl <- request$getUrl()$toString()
+    logTrace('Using RCurl package for sending request (%s).', sUrl)
 
     # Build options
     opts <- request$getCurlOptions(useragent=useragent)
@@ -157,7 +167,6 @@ getRCurlRequestResult <- function(request, useragent=NULL,
 
     curl.error <- NULL
     header$reset()
-    sUrl <- request$getUrl()$toString()
     enc <- request$getEncoding()
     content <- tryCatch(expr={ getRCurlContent(sUrl, opts=opts, enc=enc,
         header.fct=header$update, ssl.verifypeer=ssl.verifypeer,
@@ -235,12 +244,14 @@ getBaseUrlContent <- function(u) {
 #' @return A RequestResult object.
 getBaseUrlRequestResult <- function(request) {
     chk::chk_is(request, 'BiodbRequest')
+    sUrl <- request$getUrl()$toString()
+    logTrace('Using base::url() for sending request (%s).', sUrl)
 
     if (request$getMethod() != 'get')
         error('Request method "%s" is not hanlded by base::url().',
             request$getMethod())
 
-    content <- getBaseUrlContent(request$getUrl()$toString())
+    content <- getBaseUrlContent(sUrl)
 
     if (! is.null(content) && ( ! is.character(content) || content == ''))
         content <- NULL

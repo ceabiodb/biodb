@@ -62,9 +62,17 @@ test_biodburl_encoding <- function() {
     testthat::expect_equal(BiodbUrl$new('my site')$toString(FALSE), 'my site')
 }
 
+test_getRCurlContent <- function() {
+    content <- biodb:::getRCurlContent('https://www.ebi.ac.uk/webservices/chebi/2.0/test/getCompleteEntity?chebiId=17001')
+    testthat::expect_is(content, 'character')
+    testthat::expect_true(length(content) == 1)
+    testthat::expect_true(nchar(content) > 0)
+}
+
 # Set context
 biodb::testContext("Testing BiodbUrl.")
 
 # Run tests
 biodb::testThat("BiodbUrl works fine.", test_BiodbUrl)
 biodb::testThat("BiodbUrl encoding works correctly.", test_biodburl_encoding)
+biodb::testThat("getRCurlContent() works fine.", test_getRCurlContent)
