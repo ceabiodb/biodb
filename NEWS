@@ -1,3 +1,6 @@
+Changes in version 1.1.15 (2021-10-18)
++ Correct getUrlContent() to handle binary files.
+
 Changes in version 1.1.14 (2021-10-17)
 + Factorize RCurl calls into global functions.
 + Disable warnings in calls to readLines() when using base::url().
