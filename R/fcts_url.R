@@ -9,9 +9,9 @@ getUrlContent <- function(u, binary=FALSE) {
 
     opts <- makeRCurlOptions()
     if (RCurl::url.exists(u, .opts=opts))
-        content <- getRCurlContent(u, opts=opts)
+        content <- getRCurlContent(u, opts=opts, binary=binary)
     else
-        content <- getBaseUrlContent(u)
+        content <- getBaseUrlContent(u, binary=binary)
 
     return(content)
 }
@@ -220,8 +220,9 @@ getRCurlRequestResult <- function(request, useragent=NULL,
 #' Get URL content using base::url().
 #'
 #' @param u The URL as a character value.
+#' @param useragent The user agent identification.
 #' @return The URL content as a character single value.
-getBaseUrlContent <- function(u) {
+getBaseUrlContent <- function(u, binary=FALSE) {
     chk::chk_string(u)
 
     # Open URL and get URL descriptor
@@ -234,6 +235,10 @@ getBaseUrlContent <- function(u) {
 
     # Close URL descriptor
     close(ud)
+
+    # Convert to raw
+    if (binary)
+        content <- charToRaw(content)
 
     return(content)
 }
