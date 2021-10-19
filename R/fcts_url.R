@@ -113,7 +113,12 @@ doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
 #' Get URL content using RCurl::getURL().
 #'
 #' @param u The URL as a character value.
-#' @param useragent The user agent identification.
+#' @param opts A valid RCurl options object.
+#' @param enc The encoding.
+#' @param header.fct An RCurl header gatherer function.
+#' @param ssl.verifypeer Set to TRUE to enable SSL verify peer.
+#' @param method The HTTP method to use, either 'get' or 'post'.
+#' @param binary Set to TRUE if the content to be retrieved is binary.
 #' @return The URL content as a character single value.
 getRCurlContent <- function(u, opts=NULL, enc=integer(), header.fct=NULL,
     ssl.verifypeer=TRUE, method=c('get', 'post'), binary=FALSE) {
@@ -148,7 +153,7 @@ getRCurlContent <- function(u, opts=NULL, enc=integer(), header.fct=NULL,
 #' Get URL request result using RCurcl::getURL().
 #'
 #' @param request A BiodbRequest object.
-#' @param opts A valid RCurl options object.
+#' @param useragent The user agent identification.
 #' @param ssl.verifypeer Set to TRUE to enable SSL verify peer.
 #' @return A RequestResult object.
 getRCurlRequestResult <- function(request, useragent=NULL,
@@ -223,7 +228,7 @@ getRCurlRequestResult <- function(request, useragent=NULL,
 #' Get URL content using base::url().
 #'
 #' @param u The URL as a character value.
-#' @param useragent The user agent identification.
+#' @param binary Set to TRUE if the content to be retrieved is binary.
 #' @return The URL content as a character single value.
 getBaseUrlContent <- function(u, binary=FALSE) {
     chk::chk_string(u)

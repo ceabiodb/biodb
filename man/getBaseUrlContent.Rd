@@ -4,10 +4,12 @@
 \alias{getBaseUrlContent}
 \title{Get URL content using base::url().}
 \usage{
-getBaseUrlContent(u)
+getBaseUrlContent(u, binary = FALSE)
 }
 \arguments{
 \item{u}{The URL as a character value.}
+
+\item{binary}{Set to TRUE if the content to be retrieved is binary.}
 }
 \value{
 The URL content as a character single value.

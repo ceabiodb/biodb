@@ -1,3 +1,7 @@
+Changes in version 1.1.16 (2021-10-19)
++ Update documentation.
++ Add ORCID for Alexis.
+
 Changes in version 1.1.15 (2021-10-18)
 + Correct getUrlContent() to handle binary files.
 

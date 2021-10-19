@@ -22,7 +22,7 @@ see the "biodb" vignette.\preformatted{vignette('biodb', package='biodb')
 
 Other contributors:
 \itemize{
-  \item Alexis Delabrière \email{delabriere@imsb.biol.ethz.ch} [contributor]
+  \item Alexis Delabrière \email{delabriere@imsb.biol.ethz.ch} (\href{https://orcid.org/0000-0003-3308-4549}{ORCID}) [contributor]
 }
 
 }

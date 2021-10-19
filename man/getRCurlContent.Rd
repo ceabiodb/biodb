@@ -4,12 +4,30 @@
 \alias{getRCurlContent}
 \title{Get URL content using RCurl::getURL().}
 \usage{
-getRCurlContent(u, useragent = NULL)
+getRCurlContent(
+  u,
+  opts = NULL,
+  enc = integer(),
+  header.fct = NULL,
+  ssl.verifypeer = TRUE,
+  method = c("get", "post"),
+  binary = FALSE
+)
 }
 \arguments{
 \item{u}{The URL as a character value.}
 
-\item{useragent}{The user agent identification.}
+\item{opts}{A valid RCurl options object.}
+
+\item{enc}{The encoding.}
+
+\item{header.fct}{An RCurl header gatherer function.}
+
+\item{ssl.verifypeer}{Set to TRUE to enable SSL verify peer.}
+
+\item{method}{The HTTP method to use, either 'get' or 'post'.}
+
+\item{binary}{Set to TRUE if the content to be retrieved is binary.}
 }
 \value{
 The URL content as a character single value.
