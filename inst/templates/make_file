@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.11
+# Makefile for biodb extensions packages, version 1.4.12
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -104,7 +104,7 @@ R:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-bin)
 
 # For R CMD SHLIB
 ifdef COMPILE
-	export PKG_CXXFLAGS:=$(shell $(R) $(RFLAGS) -e "install.packages(Filter(function(pkg) ! require(pkg, character.only=TRUE), c('Rcpp', 'devtools', 'testthat')), dependencies=TRUE, repos='https://cloud.r-project.org/') ; Rcpp:::CxxFlags()" | tail -n 1)
+	export PKG_CXXFLAGS:=$(shell $(R) $(RFLAGS) -e "install.packages(Filter(function(pkg) ! require(pkg, character.only=TRUE), c('Rcpp', 'devtools', 'testthat')), dependencies=TRUE, repos='https://cloud.r-project.org/') ; Rcpp:::CxxFlags()" 2>/dev/null | tail -n 1)
 	PKG_CXXFLAGS+=-I$(realpath $(shell $(R) $(RFLAGS) -e "cat(file.path(testthat::testthat_examples(),'../include'))"))
 endif
 
@@ -115,26 +115,27 @@ else
 TEST_FILE:='$(TEST_FILE)'
 endif
 
-# Display values of main variables
-$(info R_VERSION=$(R_VERSION))
-$(info R_FRONT=$(R_FRONT))
-$(info R=$(R))
-$(info REAL R VERSION=$(shell $(R) $(RFLAGS) -e 'cat(version$$major, ".", version$$minor, "\n", sep="")'))
-$(info R_HOME=$(R_HOME))
-$(info PKG_NAME=$(PKG_NAME))
-$(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
-$(info PKG_VERSION=$(PKG_VERSION))
-$(info PKG_CXXFLAGS=$(PKG_CXXFLAGS))
-$(info BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY))
-$(info CODECOV_$(PKG_NAME_CAPS)_TOKEN=$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN))
-$(info RFLAGS=$(RFLAGS))
-$(info TEST_FILE=$(TEST_FILE))
-$(info BIODB_TEST_FUNCTIONS=$(BIODB_TEST_FUNCTIONS))
-$(info R_CHECK_ENVIRON=$(R_CHECK_ENVIRON))
-$(info R_ENVIRON_USER=$(R_ENVIRON_USER))
 
 # Default target
 all:
+
+# Debug: display values of main variables
+debug::
+	$(info BIODB_CACHE_DIRECTORY=$(BIODB_CACHE_DIRECTORY))
+	$(info BIODB_TEST_FUNCTIONS=$(BIODB_TEST_FUNCTIONS))
+	$(info CODECOV_$(PKG_NAME_CAPS)_TOKEN=$(value CODECOV_$(PKG_NAME_CAPS)_TOKEN))
+	$(info PKG_CXXFLAGS=$(PKG_CXXFLAGS))
+	$(info PKG_NAME=$(PKG_NAME))
+	$(info PKG_NAME_CAPS=$(PKG_NAME_CAPS))
+	$(info PKG_VERSION=$(PKG_VERSION))
+	$(info R=$(R))
+	$(info RFLAGS=$(RFLAGS))
+	$(info R_CHECK_ENVIRON=$(R_CHECK_ENVIRON))
+	$(info R_ENVIRON_USER=$(R_ENVIRON_USER))
+	$(info R_FRONT=$(R_FRONT))
+	$(info R_HOME=$(R_HOME))
+	$(info R_VERSION=$(R_VERSION))
+	$(info TEST_FILE=$(TEST_FILE))
 
 # Rebuild all & install
 rebuild:
