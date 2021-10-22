@@ -1,4 +1,4 @@
-source(file.path(getwd(), 'db_creation.R'))
+source(system.file("testsrc", "db_creation.R", package="biodb"))
 
 # Set context
 biodb::testContext("MassSqlite generic tests")

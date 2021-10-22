@@ -23,3 +23,7 @@ The YAML and R files are example files for the vignettes.
 ## testref folder
 
 Entry reference files for testing connectors.
+
+## testsrc folder
+
+Code files to be sourced during tests and shared by long tests and normal tests.
