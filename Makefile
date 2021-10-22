@@ -1,10 +1,10 @@
 include inst/templates/make_file
 
-# Check all extensions
-EXTS=$(filter-out biodb,$(patsubst ../%,%,$(wildcard ../biodb*)))
+# Get all packages (biodb and pkgensions)
+PKGS=$(patsubst ../%,%,$(wildcard ../biodb*))
 
 debug::
-	$(info EXTS=$(EXTS))
+	$(info PKGS=$(PKGS))
 
 # Generic target for checking package
 # $(1): Target name.
@@ -24,10 +24,14 @@ $(1):
 	test $$$$status -eq 0
 endef
 
-$(eval $(call make_check_target,check.biodb,biodb,.,doc check.all install))
-$(foreach ext,$(EXTS),$(eval $(call make_check_target,$(ext),$(ext),../$(ext),doc check.all)))
+#$(eval $(call make_check_target,check.biodb,biodb,.,doc check.all install))
+$(foreach pkg,$(PKGS),$(eval $(call make_check_target,check.$(pkg),$(pkg),../$(pkg),doc check.all install)))
+$(foreach pkg,$(PKGS),$(eval $(call make_check_target,long.check.$(pkg),$(pkg),../$(pkg),test.all doc check.all install)))
 
-check.ext: check.biodb $(EXTS)
+check.pkgs: $(PKGS:%=check.%) git.status
+
+long.check.pkgs: $(PKGS:%=long.check.%) git.status
+
+git.status:
 	@echo
-	@echo -e "\nbiodb:" ; git status -su
-	@for ext in $(EXTS) ; do echo -e "\n$$ext:" ; cd  ../$$ext ; git status -su ; cd $(CURDIR) ; done
+	@for pkg in $(PKGS) ; do echo -e "\n$$pkg:" ; cd  ../$$pkg ; git status -su ; cd $(CURDIR) ; done
