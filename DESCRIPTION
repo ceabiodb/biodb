@@ -1,6 +1,6 @@
 Package: biodb
 Title: biodb, a library and a development framework for connecting to chemical and biological databases
-Version: 1.2.0
+Version: 1.3.0
 Authors@R: c(person("Pierrick", "Roger", email="pierrick.roger@cea.fr", role=c("aut", "cre"), comment=c(ORCID="0000-0001-8177-4873")),
              person("Alexis", "Delabrière", email="delabriere@imsb.biol.ethz.ch", role="ctb", comment=c(ORCID="0000-0003-3308-4549")))
 Description: The biodb package provides access to standard remote chemical and
