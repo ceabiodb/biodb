@@ -31,7 +31,7 @@ test.BiodbEntry.print <- function(biodb) {
     # Get entry
     entry <- conn$getEntry(id)
     testthat::expect_output(entry$print(),
-        regexp='^Biodb .* entry instance .*\\.$')
+        regexp='Biodb .* entry instance .*\\.')
 
     # Destroy connector
     biodb$getFactory()$deleteConn(conn$getId())
@@ -44,7 +44,7 @@ test.BiodbConn.print <- function(biodb) {
     conn <- biodb$getFactory()$createConn('comp.csv.file', url=chebi.tsv)
 
     # Test printing
-    expect_output(conn$print(), regexp="^Compound CSV File instance\\.\n  Class: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*\n  ID:.*$")
+    expect_output(conn$print(), regexp="Compound CSV File instance\\.\n  Class: comp\\.csv\\.file\\.\n  Package:.*\n  Description:.*\n  ID:.*")
 }
 
 test.BiodbDbsInfo.print <- function(biodb) {

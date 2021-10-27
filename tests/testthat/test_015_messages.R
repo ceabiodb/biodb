@@ -40,14 +40,12 @@ test.default.messages <- function(biodb) {
     # Enable console logging
     lgr::lgr$add_appender(lgr::AppenderConsole$new(), name="test_console")
     
-    testthat::expect_output(biodb::logInfo(msg), "^.*Hello *$", perl=TRUE)
-    testthat::expect_output(biodb::logDebug(msg), "^.*Hello *$", perl=TRUE)
+    testthat::expect_output(biodb::logInfo(msg), "Hello", perl=TRUE)
+    testthat::expect_output(biodb::logDebug(msg), "Hello", perl=TRUE)
     testthat::expect_output(testthat::expect_warning(biodb::warn(msg),
-                                                     "^.*Hello$", perl=TRUE),
-        "^.*Hello *$", perl=TRUE)
+        "Hello", perl=TRUE), "Hello", perl=TRUE)
     testthat::expect_output(testthat::expect_error(biodb::error(msg),
-                                                   "^.*Hello$", perl=TRUE),
-        "^.*Hello *$", perl=TRUE)
+        "Hello", perl=TRUE), "Hello", perl=TRUE)
     
     # Disable console logging
     lgr::lgr$remove_appender("test_console")

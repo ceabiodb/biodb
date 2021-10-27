@@ -3,4 +3,5 @@
 library(testthat)
 library({{pkgName}})
 Sys.setenv(TESTTHAT_REPORTER="summary")
+Sys.setenv(BIODB_LOG_DST="console")
 test_check("{{pkgName}}")
