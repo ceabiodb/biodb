@@ -1,7 +1,7 @@
 include inst/templates/make_file
 
 # Get all packages (biodb and pkgensions)
-PKGS=$(patsubst ../%,%,$(wildcard ../biodb*))
+PKGS=$(sort $(patsubst ../%/DESCRIPTION,%,$(wildcard ../biodb*/DESCRIPTION)))
 
 debug::
 	$(info PKGS=$(PKGS))
