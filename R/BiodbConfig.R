@@ -414,9 +414,14 @@ newKey=function(key, title, type, default=NULL, description=NA_character_,
     if ( ! is.null(env.var.value))
         default <- env.var.value
     if (is.null(default)) {
-        if (key == 'useragent' && 'EMAIL' %in% names(private$env))
-            default <- paste('Biodb user', private$env[['EMAIL']], sep=' ; ')
-        if (key == 'svn.binary.path')
+        if (key == 'useragent') {
+            if ('EMAIL' %in% names(private$env))
+                default <- paste('Biodb user', private$env[['EMAIL']],
+                    sep=' ; ')
+            else
+                default <- "R Bioconductor biodb library."
+        }
+        else if (key == 'svn.binary.path')
             default <- private$getSvnBinaryPath()
     }
 

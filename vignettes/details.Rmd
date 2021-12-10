@@ -108,7 +108,7 @@ Only one instance is created for each of theses classes, and attached to the `Bi
 Several configuration values are defined inside the `definitions.yml` file of *biodb*.
 New configuration values can also be defined in extension packages.
 
-To get a list of the existing configuration keys with their current value, run:
+o get a list of the existing configuration keys with their current value, run:
 ```{r}
 mybiodb$getConfig()
 ```
@@ -123,17 +123,18 @@ knitr::kable(x, "pipe", caption="List of keys with some of their parameters")
 
 To get the description of a key, run:
 ```{r}
-mybiodb$getConfig()$getDescription('cache.directory')
+mybiodb$getConfig()$getDescription('useragent')
 ```
 
 To get a value, run:
 ```{r}
-mybiodb$getConfig()$get('cache.directory')
+mybiodb$getConfig()$get('useragent')
 ```
 
 To set a field value, run:
 ```{r}
-mybiodb$getConfig()$set('cache.directory', '~/my.biodb.cache')
+mybiodb$getConfig()$set('useragent', 'My application ; wizard@of.oz')
+mybiodb$getConfig()$get('useragent')
 ```
 
 If the field is boolean, you can use the following methods instead:
@@ -145,14 +146,14 @@ mybiodb$getConfig()$disable('offline')
 Configuration keys have default values. 
 You can get a key's default value with this call:
 ```{r}
-mybiodb$getConfig()$getDefaultValue('cache.directory')
+mybiodb$getConfig()$getDefaultValue('useragent')
 ```
 
 Environment variables can be used to overwrite default values.
 To get the name of the environment variable associated with a particular key,
 call the following method:
 ```{r}
-mybiodb$getConfig()$getAssocEnvVar('cache.directory')
+mybiodb$getConfig()$getAssocEnvVar('useragent')
 ```
 
 # Databases information
