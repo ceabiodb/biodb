@@ -8,7 +8,8 @@ vignette: |
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 abstract: |
-  AAA
+  Provides some more advanced knowledge on *biodb*: OOP model, configuration,
+  request scheduler, persistent cache, logging...
 output:
   BiocStyle::html_document:
     toc: yes
@@ -39,14 +40,15 @@ In R, you may already know the two classical OOP models *S3* and *S4*.
 *S4* is certainly the most used model, and is based on an original system of
 generic methods that can be specialized for each class.
 
-Two more recent OOP models exist in R: *Reference Classes* (aka *RC* or *R5* from package *methods*)
-and *R6* (from package *R6*).
+Two more recent OOP models exist in R: *Reference Classes* (aka *RC* or *R5*
+from package *methods*) and *R6* (from package *R6*).
 These two models are very similar.
-The *biodb* package uses a mix of *RC* and *R6*, but will switch completely to *R6* in a
-near future.
+The *biodb* package uses a mix of *RC* and *R6*, but will switch completely to
+*R6* in a near future.
 
 They both implement an object model and based on references.
-This means that each object is unique, never copied and accessed through references.
+This means that each object is unique, never copied and accessed through
+references.
 In this system, the created objects are not copied, but their reference are
 copied.
 Any modification of an object in one part of the code, will be visible from all
@@ -55,7 +57,8 @@ This means that when you pass an instance to a function, that function is able
 to modify the instance.
 
 Also, in *RC* and *R6*, the functions are attached to the object.
-In other words, the mechanism to call a function on a object is different from *S4*.
+In other words, the mechanism to call a function on a object is different from
+*S4*.
 The calling mechanism is thus slightly different, in *RC* or *R6* we write
 `myObject$myFunction()` instead of `myFunction(myObject)` in S4.
 
@@ -105,7 +108,8 @@ Only one instance is created for each of theses classes, and attached to the `Bi
 
 # Configuration
 
-Several configuration values are defined inside the `definitions.yml` file of *biodb*.
+Several configuration values are defined inside the `definitions.yml` file of
+*biodb*.
 New configuration values can also be defined in extension packages.
 
 o get a list of the existing configuration keys with their current value, run:
@@ -113,7 +117,8 @@ o get a list of the existing configuration keys with their current value, run:
 mybiodb$getConfig()
 ```
 
-To get a data frame of all keys with their title (short description), type and default value, call (result in \@ref(tab:keysDf)):
+To get a data frame of all keys with their title (short description), type and
+default value, call (result in \@ref(tab:keysDf)):
 ```{r}
 x <- mybiodb$getConfig()$listKeys()
 ```
@@ -161,7 +166,8 @@ mybiodb$getConfig()$getAssocEnvVar('useragent')
 Before creating any connector, you can information on the available databases
 and their connector classes.
 
-Getting the databases info instance will print you a list of all available database connector classes:
+Getting the databases info instance will print you a list of all available
+database connector classes:
 ```{r}
 mybiodb$getDbsInfo()
 ```
@@ -251,12 +257,15 @@ for the connectors, it stores them into a list (called the "volatile cache").
 When asking again for the same entry, the factory will return the reference is
 has kept in the list.
 
-To delete a connector, which is a good thing to do if you are not done with *biodb* but you have finished using a particular connector, run:
+To delete a connector, which is a good thing to do if you are not done with
+*biodb* but you have finished using a particular connector, run:
 ```{r}
 mybiodb$getFactory()$deleteConn(conn)
 ```
-This will free all memory used for this connector, including the created entries.
-Be careful to do not keep those entry objects in some variable on your side, otherwise the memory will not be released by R.
+This will free all memory used for this connector, including the created
+entries.
+Be careful to do not keep those entry objects in some variable on your side,
+otherwise the memory will not be released by R.
 
 # Request scheduler
 
@@ -294,7 +303,8 @@ The persistent cache system is responsible for saving entry contents and
 results of web server requests onto disk, and reuse them later to avoid
 recontacting the web server.
 
-Run the following method to get the instance of the `BiodbPersistentCache` class:
+Run the following method to get the instance of the `BiodbPersistentCache`
+class:
 ```{r}
 mybiodb$getPersistentCache()
 ```
@@ -341,7 +351,8 @@ conn$deleteAllEntriesFromVolatileCache()
 ```
 Note that the results of web server requests are still inside the cache folder.
 In order to force a new downloading of data, we need to erase those files too.
-The following call will erase all cache files associated with a connector, including the files deleted by `deleteAllEntriesFromPersistentCache()`:
+The following call will erase all cache files associated with a connector,
+including the files deleted by `deleteAllEntriesFromPersistentCache()`:
 ```{r}
 conn$deleteWholePersistentCache()
 ```
