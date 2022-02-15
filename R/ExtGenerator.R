@@ -142,6 +142,34 @@ private=list(
     return(file.path(private$path, "biodb_ext.yml"))
 }
 
+,getSubFolder=function(subpath, create=FALSE, exist=FALSE) {
+    # subpath: vector of subfolders
+    # create: if TRUE creates subfolders.
+    # exist: if TRUE fails if subfolders do not exist.
+
+    # Computes full path
+    s = do.call(file.path, as.list(c(private$path, subpath)))
+
+    # Tests if path exists
+    if (exist && ! dir.exists(s))
+        error('Path "', s, '" does not exist.')
+    
+    # Creates path
+    if (create && ! dir.exists(s))
+        dir.create(s, recursive=TRUE)
+
+    return(s)
+}
+
+,subfolderContainsFiles=function(subpath, pattern) {
+    # subpath: vector of subfolders
+    # pattern: files to search (e.g.: '*.cpp')
+    
+    s = private$getSubFolder(subpath)
+    
+    return(dir.exists(s) && length(Sys.glob(file.path(s, pattern))) > 0)
+}
+
 ,loadConfig=function() {
 
     tags <- list()

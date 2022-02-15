@@ -40,9 +40,15 @@ initialize=function(...) {
 private=list(
 doGenerate=function(overwrite=FALSE, fail=TRUE) {
     
-    # Copy all C++ files
+    # Copy C++ files
     templates <- system.file('templates', package='biodb')
-    for (f in Sys.glob(paste0(templates, '/*.cpp')))
+    templateFiles <- Sys.glob(file.path(templates, '*.cpp'))
+    # Filter out example files in case cpp files are already present inside
+    # src destination folder.
+    if (private$subfolderContainsFiles('src', '*.cpp'))
+        templateFiles <- grep('^.*example.cpp$', templateFiles, value=TRUE,
+            invert=TRUE)
+    for (f in templateFiles)
         private$createGenerator(ExtFileGenerator, template=basename(f),
                                 folder='src', filename=basename(f)
                                 )$generate(overwrite=overwrite, fail=fail)
