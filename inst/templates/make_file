@@ -1,4 +1,4 @@
-# Makefile for biodb extensions packages, version 1.4.13
+# Makefile for biodb extensions packages, version 1.4.14
 # vi: ft=make
 
 # Mute R 3.6 "Registered S3 method overwritten" warning messages.
@@ -219,6 +219,7 @@ endif
 
 # Generate vignettes
 vignettes: clean.vignettes
+	@command -v pandoc >/dev/null || { echo "pandoc tool is needed."; false; }
 	$(R) $(RFLAGS) -e "devtools::build_vignettes('$(CURDIR)')"
 
 upgrade:
