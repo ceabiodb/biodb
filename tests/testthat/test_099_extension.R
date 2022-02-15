@@ -138,6 +138,8 @@ test_newExtPkgSkeletonGeneration <- function() {
         testthat::expect_true(file.exists(file.path(pkgDir, 'longtests',
             'testthat', 'test_long_200_example.R')))
         testthat::expect_true(dir.exists(file.path(pkgDir, 'vignettes')))
+        testthat::expect_true(file.exists(file.path(pkgDir, 'vignettes',
+            paste(pkgName, 'Rmd', sep='.'))))
     }
 }
 

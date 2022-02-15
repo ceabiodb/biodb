@@ -64,7 +64,7 @@ initialize=function(path, loadCfg=TRUE, saveCfg=TRUE, pkgName=getPkgName(path),
     lastname='Lastname of author', newPkg=FALSE, connType=getConnTypes(),
     entryType=getEntryTypes() , editable=FALSE, writable=FALSE, remote=FALSE,
     downloadable=FALSE, makefile=FALSE, travis=FALSE, rcpp=FALSE,
-    vignetteName='intro',
+    vignetteName=getPkgName(path),
     githubRepos=getReposName(path, default='myaccount/myrepos')) {
 
     allParams <- as.list(environment())
