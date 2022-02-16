@@ -10,7 +10,9 @@ This package is an extension of [biodb](https://github.com/pkrog/biodb/) that im
 
 Install the latest version of this package by running the following commands:
 ```r
-devtools::install_github('pkrog/biodb', dependencies=TRUE)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install('biodb')
 devtools::install_github('{{githubRepos}}', dependencies=TRUE)
 ```
 
