@@ -497,12 +497,12 @@ will be able accompany you in the process.
 
 Extension                                                   | Database                                  | Status         | Description
 ----------------------------------------------------------- | ----------------------------------------- | -------------- | ----------------------------------------------------------------
-[biodbChebi](https://github.com/pkrog/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | Functional     | Connector to ChEBI.
-[biodbKegg](https://github.com/pkrog/biodbKegg)             | [KEGG](https://www.kegg.jp/)              | Functional     | Connectors to KEGG Compound, Enzyme, Genes, Module, Orthology, Pathway and Reaction.
-[biodbHmdb](https://github.com/pkrog/biodbHmdb)             | [HMDB](https://hmdb.ca/)                  | Functional     | Connector to HMDB Metabolites.
-[biodbUniprot](https://github.com/pkrog/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | Functional     | Connector to UniProt KB.
+[biodbChebi](https://bioconductor.org/packages/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | On Bioconductor     | Connector to ChEBI.
+[biodbKegg](https://bioconductor.org/packages/biodbKegg)             | [KEGG](https://www.kegg.jp/)              | On Bioconductor     | Connectors to KEGG Compound, Enzyme, Genes, Module, Orthology, Pathway and Reaction.
+[biodbHmdb](https://bioconductor.org/packages/biodbHmdb)             | [HMDB](https://hmdb.ca/)                  | On Bioconductor     | Connector to HMDB Metabolites.
+[biodbLipidmaps](https://bioconductor.org/packages/biodbLipidmaps)   | [LIPID MAPS](https://www.lipidmaps.org/)  | On Bioconductor | Connector to Lipid Maps Structure.
+[biodbUniprot](https://bioconductor.org/packages/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | On Bioconductor     | Connector to UniProt KB.
 [biodbExpasy](https://github.com/pkrog/biodbExpasy)         | [ExPASy](https://www.expasy.org/)         | In maintenance | Connector to ExPASy Enzyme.
-[biodbLipidmaps](https://github.com/pkrog/biodbLipidmaps)   | [LIPID MAPS](https://www.lipidmaps.org/)  | In maintenance | Connector to Lipid Maps Structure.
 [biodbNcbi](https://github.com/pkrog/biodbNcbi)             | [NCBI](https://www.ncbi.nlm.nih.gov/)     | In maintenance | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
 [biodbMassbank](https://github.com/pkrog/biodbMassbank)     | [MassBank](https://massbank.eu/MassBank/) | In maintenance | Connector to MassBank.
 [biodbNci](https://github.com/pkrog/biodbNci)               | [NCI](https://www.cancer.gov/)            | In maintenance | Connector to NCI CACTUS.
