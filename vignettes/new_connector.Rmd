@@ -72,8 +72,8 @@ Parameter | Description
 path      | The path to the package folder to create.
 dbName    | The name of the connector to create. 
 dbTitle   | A short description of the database.
-connType  | The class name of the connector.
-entryType | The class name of the entry.
+connType  | The type of connector.
+entryType | The type of the entry.
 remote    | Must be set to \code{TRUE} if a connection to a web server is needed.
 : (\#tab:generatorParameters) A brief description of some parameters of `biodb::genNewExtPkg()`.
 
