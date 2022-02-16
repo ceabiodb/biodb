@@ -73,8 +73,9 @@ doGenerate=function(overwrite=FALSE, fail=TRUE) {
         fail=fail)
     private$createGenerator(ExtGitignore)$generate(overwrite=overwrite,
         fail=fail)
-    private$createGenerator(ExtTravisFile)$generate(overwrite=overwrite,
-        fail=fail)
+    if (private$tags$travis)
+        private$createGenerator(ExtTravisFile)$generate(overwrite=overwrite,
+            fail=fail)
     private$createGenerator(ExtTests)$generate(overwrite=overwrite, fail=fail)
     private$createGenerator(ExtVignette)$generate(overwrite=overwrite,
         fail=fail)

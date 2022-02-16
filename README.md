@@ -239,7 +239,6 @@ biodb::genNewExtPkg(
                               # the download of a zip file).
   makefile     = TRUE,        # Generate a Makefile file, useful for maintenance
                               # UNIX/Linux systems.
-  travis       = FALSE,
   rcpp         = FALSE,       # If set to TRUE, the package will be configured
                               # to use Rcpp and skeleton files will be generated
                               # with examples and test examples.
