@@ -39,9 +39,9 @@ initialize=function(...) {
 
     # Build request
     params <- list(name=name)
-    url <- BiodbUrl(url=c(.self$getPropValSlot('urls', 'ws.url'), 'find'),
+    url <- BiodbUrl$new(url=c(self$getPropValSlot('urls', 'ws.url'), 'find'),
                     params=params)
-    request <- .self$makeRequest(method='get', url=url)
+    request <- self$makeRequest(method='get', url=url)
 
     # Return request
     if (retfmt == 'request')
@@ -50,7 +50,7 @@ initialize=function(...) {
     # Send request
     # This the line that should be run for sending the request and getting the
     # results:
-    #results <- .self$getBiodb()$getRequestScheduler()$sendRequest(request)
+    #results <- self$getBiodb()$getRequestScheduler()$sendRequest(request)
     # Instead, for this example, we just generate the results of this fictive
     # web service:
     results <- paste('{"0001": {"name": "name1"},',
@@ -92,7 +92,7 @@ doGetNbEntries=function(count=FALSE) {
 
     # Some debug message
     if (length(content) > 0)
-        .self$message('debug', paste("Content of first entry:", content[[1]]))
+        biodb::logDebug0("Content of first entry: ", content[[1]])
 
     return(content)
 }
@@ -145,9 +145,9 @@ doGetNbEntries=function(count=FALSE) {
     # Depending on the database, you may have to build one URL for each
     # individual entry or may be able to write just one or a few URL for all
     # entries to retrieve.
-    u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries',
+    u <- c(self$getPropValSlot('urls', 'base.url'), 'entries',
            paste(id, 'xml', sep='.'))
-    url <- BiodbUrl(url=u)$toString()
+    url <- BiodbUrl$new(url=u)$toString()
 
     return(url)
 }
@@ -156,8 +156,8 @@ doGetNbEntries=function(count=FALSE) {
 
     # TODO Modify this code to build the individual URLs to the entry web pages
     fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'base.url'), 'entries', x)
-        BiodbUrl(url=u)$toString()
+        u <- c(self$getPropValSlot('urls', 'base.url'), 'entries', x)
+        BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
@@ -167,9 +167,9 @@ doGetNbEntries=function(count=FALSE) {
 
     # TODO Modify this code to build the individual URLs to the entry images 
     fct <- function(x) {
-        u <- c(.self$getPropValSlot('urls', 'base.url'), 'images', x,
+        u <- c(self$getPropValSlot('urls', 'base.url'), 'images', x,
                'image.png')
-        BiodbUrl(url=u)$toString()
+        BiodbUrl$new(url=u)$toString()
     }
 
     return(vapply(id, fct, FUN.VALUE=''))
@@ -182,32 +182,32 @@ doGetNbEntries=function(count=FALSE) {
     biodb::logInfo("Downloading {{dbTitle}}...")
 
     # TODO Build the URL to the file to download
-    fileUrl <- c(.self$getPropValSlot('urls', 'base.url'), 'some', 'path',
+    fileUrl <- c(self$getPropValSlot('urls', 'base.url'), 'some', 'path',
            'to', 'the', 'file.zip')
     
     # Transform it intoa biodb URL object
-    fileUrl <- BiodbUrl(url=fileUrl)
+    fileUrl <- BiodbUrl$new(url=fileUrl)
 
     # Download the file using the biodb scheduler
-    .self$info("Downloading \"", fileUrl$toString(), "\"...")
-    sched <- .self$getBiodb()$getRequestScheduler()
-    sched$downloadFile(url=fileUrl, dest.file=.self$getDownloadPath())
+    biodb::logInfo0("Downloading \"", fileUrl$toString(), "\"...")
+    sched <- self$getBiodb()$getRequestScheduler()
+    sched$downloadFile(url=fileUrl, dest.file=self$getDownloadPath())
 }
 # $$$ END_SECTION DOWNLOADABLE $$$
 # $$$ SECTION DOWNLOADABLE $$$
 
 ,doExtractDownload=function() {
 
-   .self$info("Extracting content of downloaded {{dbTitle}}...")
-   cch <- .self$getBiodb()$getPersistentCache()
+   biodb::logInfo0("Extracting content of downloaded {{dbTitle}}...")
+   cch <- self$getBiodb()$getPersistentCache()
 
    # TODO Expand the downloaded files into a temporary folder
    extract.dir <- cch$getTmpFolderPath()
-   filePath <- .self$getDownloadPath()
+   filePath <- self$getDownloadPath()
    # Here we unzip the file. TODO Replace with the appropriate processing
-   .self$debug(paste("Unzipping ", filePath, "...", sep=''))
+   biodb::logDebug0("Unzipping ", filePath, "...")
    utils::unzip(filePath, exdir=extract.dir)
-   .self$debug(paste("Unzipped ", filePath, ".", sep=''))
+   biodb::logDebug0("Unzipped ", filePath, ".")
 
     # Extract entries
     # TODO Do here the eventual needed processing to extract and/or transform
@@ -216,13 +216,13 @@ doGetNbEntries=function(count=FALSE) {
     entryFiles <- list()
 
     # Delete existing cache files
-    .self$debug('Delete existing entry files in cache system.')
-    cch$deleteFiles(.self$getCacheId(),
-                    ext=.self$getPropertyValue('entry.content.type'))
+    biodb::logDebug('Delete existing entry files in cache system.')
+    cch$deleteFiles(self$getCacheId(),
+                    ext=self$getPropertyValue('entry.content.type'))
 
     # Move the extracted entry files into the biodb cache folder
-    ctype <- .self$getPropertyValue('entry.content.type')
-    cch$moveFilesIntoCache(unname(entryFiles), cache.id=.self$getCacheId(),
+    ctype <- self$getPropertyValue('entry.content.type')
+    cch$moveFilesIntoCache(unname(entryFiles), cache.id=self$getCacheId(),
                            name=names(entryFiles), ext=ctype)
 
     # Clean
@@ -244,19 +244,19 @@ doGetNbEntries=function(count=FALSE) {
     # If you just need to write new entries, then loop on all entries in memory
     # and use the `isNew()` method on each entry to now its status. 
     newEntries <- Filter(function(e) e$isNew,
-                         .self$getAllVolatileCacheEntries())
+                         self$getAllVolatileCacheEntries())
     # TODO Write the new entry to cache
 
     # TODO Choose between the scheme above or the scheme below
 
     # --- SECOND CHOICE --- REWRITING DOWN ALL ENTRIES (CSV file case)
     # Make sure all entries are loaded into cache.
-    entry.ids <- .self$getEntryIds()
-    entries <- .self$getBiodb()$getFactory()$getEntry(.self$getId(), entry.ids)
+    entry.ids <- self$getEntryIds()
+    entries <- self$getBiodb()$getFactory()$getEntry(self$getId(), entry.ids)
 
     # Get all entries: the ones loaded from the database file and the ones
     # created in memory (and not saved).
-    allEntries <- .self$getAllCacheEntries()
+    allEntries <- self$getAllCacheEntries()
 
     # Write all entries
     # TODO
