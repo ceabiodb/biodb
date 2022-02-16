@@ -203,6 +203,53 @@ For a good starting example of defining a new remote connector, see *biodbChebi*
  * [The entry class](https://github.com/pkrog/biodbChebi/blob/master/R/ChebiEntry.R).
  * [The definitions file](https://github.com/pkrog/biodbChebi/blob/master/inst/definitions.yml).
 
+## Using the extension generator
+
+A set of classes and methods are provided by *biodb* to generate a skeleton of
+a new repository for a new connector. The easiest way to use this feature is
+through the method `biodb::genNewExtPkg()`.
+Here is an example which creates an new repository for a new connector to the
+Foo remote database on how to use it with some comments:
+```r
+biodb::genNewExtPkg(
+  path      = 'the/path/to/biodbFoo', # The repository folder.
+# pkgName   = 'myName',       # By default the laste folder of `path` is used
+                              # so you do not need to modify it.
+  email     = 'your@e.mail',  # The author's email.
+  dbName    = 'foo.db',       # The connector name that will be used by biodb.
+  dbTitle   = 'Foo database', # A short description of the connector's database.
+# pkgLicense = '...',         # The generated license is always AGPL-3.
+  firstname = 'Your firstname',
+  lastname  = 'Your lastname',
+  connType  = 'compound',     # Use 'mass' for an MS database or 'plain' for any
+                              # other type. Run `biodb::getConnTypes()` to get a
+                              # full list of all available types.
+  entryType = 'txt',          # Other possible types are: 'plain', 'csv',
+                              # 'html', 'json', 'list', 'sdf' and  'xml'.
+                              # Run `biodb::getEntryTypes()` to get a full list
+                              # of all available types.
+  editable  = FALSE,          # If the database is editable in memory.
+  writable  = FALSE,          # If the database is writable on disk (like a CSV
+                              # file).
+  remote    = TRUE,           # If the database is accessed through web protocol
+                              # like HTTPS, as oppose to local database stored
+                              # inside an SQLite file or a CSV file.
+  downloadable = FALSE,       # Set it to TRUE for a remote database that allows
+                              # the download of its full content (e.g.: through
+                              # the download of a zip file).
+  makefile     = TRUE,        # Generate a Makefile file, useful for maintenance
+                              # UNIX/Linux systems.
+  travis       = FALSE,
+  rcpp         = FALSE,       # If set to TRUE, the package will be configured
+                              # to use Rcpp and skeleton files will be generated
+                              # with examples and test examples.
+# vignetteName = '...',       # By default the vignette name will be the package
+                              # name.
+  githubRepos  = 'id/repos'   # The repository URL on GitHub (e.g.:
+                              # 'pkrog/biodbChebi'). 
+)
+```
+
 ## Documentation
 
 Once in R, you can get an introduction to the package with:
