@@ -30,14 +30,17 @@ Progress <- R6::R6Class('Progress'
 #' @param biodb A BiodbMain instance that will be used to notify observers of
 #' progress.
 #' @param msg The message to display to the user.
-#' @param total The total number of elements to process.             
+#' @param total The total number of elements to process or NA if unknown.
 #' @return Nothing.
-initialize=function(biodb=NULL, msg, total){
+initialize=function(biodb=NULL, msg, total=NA_integer_){
     if ( ! is.null(biodb))
         chk::chk_is(biodb, "BiodbMain")
     chk::chk_string(msg)
-    chk::chk_whole_number(total)
-    chk::chk_gte(total, 0)
+    chk::chk_integer(total)
+    if ( ! is.na(total)) {
+        chk::chk_whole_number(total)
+        chk::chk_gte(total, 0)
+    }
 
     private$biodb <- biodb
     private$msg <- msg
