@@ -3,6 +3,8 @@ title: "An introduction to {{pkgName}}"
 author: "{{firstname}} {{lastname}}"
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('{{pkgName}}')`"
+abstract: |
+  How to use the {{pkgName}} connector and its methods.
 vignette: |
   %\VignetteIndexEntry{Introduction to the {{pkgName}} package.}
   %\VignetteEngine{knitr::rmarkdown}
