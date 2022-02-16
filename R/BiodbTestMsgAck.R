@@ -36,7 +36,7 @@ initialize=function() {
 #' @return Nothing.
 notifyProgress=function(what, index, total) {
 
-    testthat::expect_lte(index, total)
+    testthat::expect_true(index >=0 && (is.na(total) || index <= total))
 
     return(invisible(NULL))
 }

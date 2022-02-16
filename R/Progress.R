@@ -46,7 +46,9 @@ initialize=function(biodb=NULL, msg, total=NA_integer_){
     private$msg <- msg
     private$index <- 0
     private$total <- total
-    fmt <- sprintf("%s [:bar] :percent ETA: :eta", msg)
+    fmt <- if (is.na(total)) ":spin :elapsedfull" else
+        "[:bar] :percent ETA: :eta"
+    fmt <- sprintf("%s %s", msg, fmt) # Add message
     private$bar <- progress::progress_bar$new(format=fmt, total=total)
 
     return(invisible(NULL))
