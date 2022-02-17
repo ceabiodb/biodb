@@ -14,13 +14,12 @@ Description: The {{pkgName}} library is an extension of the biodb framework pack
 License: {{pkgLicense}}
 biocViews: Software, Infrastructure, DataImport
 VignetteBuilder: knitr
-LazyData: true
 Encoding: UTF-8
 Depends: 
     R (>= 4.0)
 Imports: 
     biodb (>= 0.99.8),
-    methods,
+    R6,
 # $$$ IF RCPP $$$
     Rcpp,
 # $$$ END_IF RCPP $$$
