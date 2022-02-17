@@ -7,6 +7,7 @@
 #'
 #' @seealso \link{{{connClass}}}.
 #'
+#' @import biodb
 #' $$$ SECTION RCPP $$$
 #' @import Rcpp
 #' @importFrom Rcpp evalCpp
