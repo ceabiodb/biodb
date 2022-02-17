@@ -7,6 +7,8 @@ doc
 .Rhistory
 ..Rcheck
 src/*.rds
+src/*.o
+src/*.so
 *.log
 src-i386
 src-x64
