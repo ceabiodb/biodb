@@ -556,11 +556,14 @@ test.searchCompound <- function(db, opt) {
     testthat::expect_true( ! is.null(entry))
 
     # Search by name
-    name <- entry$getFieldValue('name')
-    testthat::expect_is(name, 'character')
-    testthat::expect_gt(length(name), 0)
-    name <- name[[1]]
-    testthat::expect_true( ! is.na(name))
+    name <- ''
+    if (db$isSearchableByField('name')) {
+        name <- entry$getFieldValue('name')
+        testthat::expect_is(name, 'character')
+        testthat::expect_gt(length(name), 0)
+        name <- name[[1]]
+        testthat::expect_true( ! is.na(name))
+    }
     lifecycle::expect_deprecated(db$searchCompound(name=name,
         max.results=max.results))
     withr::local_options(lifecycle_verbosity="quiet")
