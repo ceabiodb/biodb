@@ -567,14 +567,16 @@ test.searchCompound <- function(db, opt) {
     lifecycle::expect_deprecated(db$searchCompound(name=name,
         max.results=max.results))
     withr::local_options(lifecycle_verbosity="quiet")
-    ids <- db$searchCompound(name=name, max.results=max.results)
     if (db$isSearchableByField('name')) {
+        ids <- db$searchCompound(name=name, max.results=max.results)
         msg <- paste0('While searching for entry ', id, ' by name "', name,
             '".')
         testthat::expect_true( ! is.null(ids), msg)
         testthat::expect_true(length(ids) > 0, msg)
         testthat::expect_true(id %in% ids, msg)
     } else {
+        testthat::expect_warning(ids <- db$searchCompound(name=name,
+            max.results=max.results))
         testthat::expect_is(ids, 'character')
         testthat::expect_length(ids, 0)
     }
