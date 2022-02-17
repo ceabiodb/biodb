@@ -37,7 +37,10 @@ doParseFieldsStep1=function(parsed.content) {
     parsing.expr <- self$getParent()$getPropertyValue('parsing.expr')
 
     chk::chk_character(parsed.content)
-    chk::chk_character(parsing.expr)
+    if ( ! chk::vld_character(parsing.expr) && ! chk::vld_list(parsing.expr))
+        error("parsing.expr must be either a character vector or a list.")
+    if (is.list(parsing.expr))
+        chk::chk_all(parsing.expr, chk::chk_character)
     chk::chk_named(parsing.expr)
 
     # Tags to field
