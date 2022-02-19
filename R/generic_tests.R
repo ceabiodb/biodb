@@ -1379,7 +1379,7 @@ runGenericShortTests <- function(conn, opt) {
         }
     }
 
-    if (conn$isCompounddb()) {
+    if (conn$isCompounddb() && conn$isSearchableByField(field.type='mass')) {
         biodb::testThat('annotateMzValues() works correctly.',
             test.annotateMzValues, conn=conn)
     }
@@ -1452,7 +1452,7 @@ runGenericAdjustableTests <- function(conn, opt) {
     }
     
     # Compound db
-    if (conn$isCompounddb()) {
+    if (conn$isCompounddb() && conn$isSearchableByField(field.type='mass')) {
         biodb::testThat('We can search for a compound', test.searchCompound,
             conn=conn, opt=opt)
         biodb::testThat('annotateMzValues() accepts a single vector.',
@@ -1480,7 +1480,7 @@ runGenericLongTests <- function(conn, opt) {
     runGenericAdjustableTests(conn=conn, opt=opt)
 
     # Compound
-    if (conn$isCompounddb()) {
+    if (conn$isCompounddb() && conn$isSearchableByField(field.type='mass')) {
         biodb::testThat('annotateMzValues() works correctly with real values.',
             test.annotateMzValues_real_values, conn=conn, opt=opt)
         biodb::testThat('Additional fields are accepted in annotateMzValues()',

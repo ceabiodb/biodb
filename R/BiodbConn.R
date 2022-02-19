@@ -562,19 +562,38 @@ write=function() {
 #' Tests if a field can be used to search entries when using method
 #' searchForEntries().
 #' @param field The name of the field.
+#' @param field.type The field type.
 #' @return Returns TRUE if the database is searchable using the specified
-#' field, FALSE otherwise.
-isSearchableByField=function(field) {
+#' field or searchable by any field of the specified type, FALSE otherwise.
+isSearchableByField=function(field=NULL, field.type=NULL) {
+
+    if (is.null(field) && is.null(field.type))
+        error("Either field or field.type must be set. Both are NULL.")
+    chk::chk_null_or(field, chk::chk_string)
+    chk::chk_null_or(field.type, chk::chk_string)
+    field.type <- tolower(field.type)
 
     v <- FALSE
-
     ef <- private$bdb$getEntryFields()
-    field <- ef$getRealName(field)
-    for (sf in self$getPropertyValue('searchable.fields'))
-        if (ef$getRealName(sf) == field) {
-            v <- TRUE
-            break;
-        }
+
+    # Check if a field is searchable
+    if ( ! is.null(field)) {
+        field <- ef$getRealName(field)
+        for (sf in self$getPropertyValue('searchable.fields'))
+            if (ef$getRealName(sf) == field) {
+                v <- private$doHasField(sf)
+                break
+            }
+    }
+    
+    # Check if one of the searchable field is of the required type
+    else {
+        for (sf in self$getPropertyValue('searchable.fields'))
+            if (ef$get(sf)$getType() == field.type) {
+                v <- private$doHasField(sf)
+                break
+            }
+    }
 
     return(v)
 },
@@ -1808,6 +1827,13 @@ private=list(
     editing.allowed=NULL,
     writing.allowed=NULL,
     bdb=NULL
+
+,doHasField=function(field) {
+    # TODO Should check which entry fields are parsed in general.
+    # TODO For that, even fields dynamically computed should be declared in
+    # definitions.yml file.
+    return(TRUE)
+}
 
 ,doesRequireDownload=function() {
     return(FALSE)

@@ -128,28 +128,7 @@ hasField=function(field) {
     if (is.null(field) || is.na(field))
         error0("No field specified.")
 
-    ef <- self$getBiodb()$getEntryFields()
-    field <- ef$getRealName(field, fail=FALSE)
-
-    # Load database file
-    private$initDb()
-
-    return(field %in% self$getFieldNames())
-},
-
-#' @description
-#' Tests if a field can be used to search entries when using method
-#' searchForEntries().
-#' @param field The name of the field.
-#' @return Returns TRUE if the database is searchable using the specified
-#' field, FALSE otherwise.
-isSearchableByField=function(field) {
-    # Overrides super class' method.
-
-    v <- super$isSearchableByField(field)
-    v <- v && self$hasField(field)
-    
-    return(v)
+    return(private$doHasField(field))
 },
 
 #' @description
@@ -372,6 +351,17 @@ private=list(
     ignoreUnassignedColumns=NULL,
     parsingExprDefined=FALSE
 
+,doHasField=function(field) {
+
+    ef <- self$getBiodb()$getEntryFields()
+    field <- ef$getRealName(field, fail=FALSE)
+
+    # Load database file
+    private$initDb()
+
+    return(field %in% self$getFieldNames())
+}
+    
 ,doDefineParsingExpressions=function() {
 
     if ( ! private$parsingExprDefined) {

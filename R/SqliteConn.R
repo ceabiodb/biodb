@@ -43,40 +43,11 @@ initialize=function(...) {
 },
 
 #' @description
-#' Tests if a field can be used to search entries when using method
-#'     searchForEntries().
-#' @param field The name of the field.
-#' @return Returns TRUE if the database is searchable using the
-#'     specified field, FALSE otherwise.
-isSearchableByField=function(field) {
-    # Overrides super class' method.
-
-    v <- super$isSearchableByField(field)
-    v <- v && self$hasField(field)
-    
-    return(v)
-},
-
-#' @description
 #' Tests if a field is defined for this database instance.
 #' @param field A valid Biodb entry field name.
 #' @return TRUE of the field is defined, FALSE otherwise.
 hasField=function(field) {
-    
-    b <- FALSE
-    private$initDb()
-    
-    ef <- self$getBiodb()$getEntryFields()
-    
-    # Check that a column is defined inside main table
-    if (ef$get(field)$hasCardOne())
-        b <- field %in% DBI::dbListFields(private$db, 'entries')
-
-    # Check that a table is defined for this field
-    else
-        b <- DBI::dbExistsTable(private$db, private$fieldToSqlId(field))
-    
-    return(b)
+    return(private$doHasField(field))
 },
 
 #' @description
@@ -93,6 +64,24 @@ getQuery=function(query) {
 private=list(
     db=NULL
     ,parsingExprDefined=FALSE
+
+,doHasField=function(field) {
+    
+    b <- FALSE
+    private$initDb()
+    
+    ef <- self$getBiodb()$getEntryFields()
+    
+    # Check that a column is defined inside main table
+    if (ef$get(field)$hasCardOne())
+        b <- field %in% DBI::dbListFields(private$db, 'entries')
+
+    # Check that a table is defined for this field
+    else
+        b <- DBI::dbExistsTable(private$db, private$fieldToSqlId(field))
+    
+    return(b)
+}
 
 ,doDefineParsingExpressions=function() {
 
