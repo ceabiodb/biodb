@@ -44,7 +44,6 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \item \href{#method-setCsvSep}{\code{CsvFileConn$setCsvSep()}}
 \item \href{#method-getFieldNames}{\code{CsvFileConn$getFieldNames()}}
 \item \href{#method-hasField}{\code{CsvFileConn$hasField()}}
-\item \href{#method-isSearchableByField}{\code{CsvFileConn$isSearchableByField()}}
 \item \href{#method-addField}{\code{CsvFileConn$addField()}}
 \item \href{#method-getFieldColName}{\code{CsvFileConn$getFieldColName()}}
 \item \href{#method-setField}{\code{CsvFileConn$setField()}}
@@ -135,6 +134,7 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted">}\href{../../biodb/html/BiodbConn.html#method-isExtracted}{\code{biodb::BiodbConn$isExtracted()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb">}\href{../../biodb/html/BiodbConn.html#method-isMassdb}{\code{biodb::BiodbConn$isMassdb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb">}\href{../../biodb/html/BiodbConn.html#method-isRemotedb}{\code{biodb::BiodbConn$isRemotedb()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField">}\href{../../biodb/html/BiodbConn.html#method-isSearchableByField}{\code{biodb::BiodbConn$isSearchableByField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable">}\href{../../biodb/html/BiodbConn.html#method-isWritable}{\code{biodb::BiodbConn$isWritable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest">}\href{../../biodb/html/BiodbConn.html#method-makeRequest}{\code{biodb::BiodbConn$makeRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbConn.html#method-makesRefToEntry}{\code{biodb::BiodbConn$makesRefToEntry()}}\out{</span>}
@@ -280,28 +280,6 @@ Tests if a field is defined for this database instance.
 }
 \subsection{Returns}{
 TRUE of the field is defined, FALSE otherwise.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSearchableByField"></a>}}
-\if{latex}{\out{\hypertarget{method-isSearchableByField}{}}}
-\subsection{Method \code{isSearchableByField()}}{
-Tests if a field can be used to search entries when using method
-searchForEntries().
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CsvFileConn$isSearchableByField(field)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{field}}{The name of the field.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Returns TRUE if the database is searchable using the specified
-field, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}

@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' # Create an instance
-#' prg <- biodb::Progress$new(msg='Processing data.', total=10)
+#' prg <- biodb::Progress$new(msg='Processing data.', total=10L)
 #'
 #' # Processing
 #' for (i in seq_len(10)) {

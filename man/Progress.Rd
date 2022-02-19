@@ -12,7 +12,7 @@ notifications of this progress to observers too.
 }
 \examples{
 # Create an instance
-prg <- biodb::Progress$new(msg='Processing data.', total=10)
+prg <- biodb::Progress$new(msg='Processing data.', total=10L)
 
 # Processing
 for (i in seq_len(10)) {
@@ -35,7 +35,7 @@ for (i in seq_len(10)) {
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Progress$new(biodb = NULL, msg, total)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Progress$new(biodb = NULL, msg, total = NA_integer_)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -46,7 +46,7 @@ progress.}
 
 \item{\code{msg}}{The message to display to the user.}
 
-\item{\code{total}}{The total number of elements to process.}
+\item{\code{total}}{The total number of elements to process or NA if unknown.}
 }
 \if{html}{\out{</div>}}
 }

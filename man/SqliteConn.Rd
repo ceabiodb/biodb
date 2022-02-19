@@ -37,7 +37,6 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{SqliteConn$new()}}
-\item \href{#method-isSearchableByField}{\code{SqliteConn$isSearchableByField()}}
 \item \href{#method-hasField}{\code{SqliteConn$hasField()}}
 \item \href{#method-getQuery}{\code{SqliteConn$getQuery()}}
 \item \href{#method-clone}{\code{SqliteConn$clone()}}
@@ -122,6 +121,7 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted">}\href{../../biodb/html/BiodbConn.html#method-isExtracted}{\code{biodb::BiodbConn$isExtracted()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb">}\href{../../biodb/html/BiodbConn.html#method-isMassdb}{\code{biodb::BiodbConn$isMassdb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb">}\href{../../biodb/html/BiodbConn.html#method-isRemotedb}{\code{biodb::BiodbConn$isRemotedb()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField">}\href{../../biodb/html/BiodbConn.html#method-isSearchableByField}{\code{biodb::BiodbConn$isSearchableByField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable">}\href{../../biodb/html/BiodbConn.html#method-isWritable}{\code{biodb::BiodbConn$isWritable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest">}\href{../../biodb/html/BiodbConn.html#method-makeRequest}{\code{biodb::BiodbConn$makeRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbConn.html#method-makesRefToEntry}{\code{biodb::BiodbConn$makesRefToEntry()}}\out{</span>}
@@ -164,28 +164,6 @@ directly. Instead, you must use the createConn() method of the factory class.
 }
 \subsection{Returns}{
 Nothing.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSearchableByField"></a>}}
-\if{latex}{\out{\hypertarget{method-isSearchableByField}{}}}
-\subsection{Method \code{isSearchableByField()}}{
-Tests if a field can be used to search entries when using method
-searchForEntries().
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SqliteConn$isSearchableByField(field)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{field}}{The name of the field.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Returns TRUE if the database is searchable using the
-specified field, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}

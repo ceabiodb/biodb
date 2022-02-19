@@ -62,7 +62,7 @@ Initializer.
   makefile = FALSE,
   travis = FALSE,
   rcpp = FALSE,
-  vignetteName = "intro",
+  vignetteName = getPkgName(path),
   githubRepos = getReposName(path, default = "myaccount/myrepos")
 )}\if{html}{\out{</div>}}
 }

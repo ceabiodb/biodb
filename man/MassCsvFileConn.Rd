@@ -125,6 +125,7 @@ Super class \code{\link{CsvFileConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted">}\href{../../biodb/html/BiodbConn.html#method-isExtracted}{\code{biodb::BiodbConn$isExtracted()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb">}\href{../../biodb/html/BiodbConn.html#method-isMassdb}{\code{biodb::BiodbConn$isMassdb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb">}\href{../../biodb/html/BiodbConn.html#method-isRemotedb}{\code{biodb::BiodbConn$isRemotedb()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField">}\href{../../biodb/html/BiodbConn.html#method-isSearchableByField}{\code{biodb::BiodbConn$isSearchableByField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable">}\href{../../biodb/html/BiodbConn.html#method-isWritable}{\code{biodb::BiodbConn$isWritable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest">}\href{../../biodb/html/BiodbConn.html#method-makeRequest}{\code{biodb::BiodbConn$makeRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbConn.html#method-makesRefToEntry}{\code{biodb::BiodbConn$makesRefToEntry()}}\out{</span>}
@@ -152,7 +153,6 @@ Super class \code{\link{CsvFileConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getFieldsAndColumnsAssociation">}\href{../../biodb/html/CsvFileConn.html#method-getFieldsAndColumnsAssociation}{\code{biodb::CsvFileConn$getFieldsAndColumnsAssociation()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="getUnassociatedColumns">}\href{../../biodb/html/CsvFileConn.html#method-getUnassociatedColumns}{\code{biodb::CsvFileConn$getUnassociatedColumns()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="hasField">}\href{../../biodb/html/CsvFileConn.html#method-hasField}{\code{biodb::CsvFileConn$hasField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="isSearchableByField">}\href{../../biodb/html/CsvFileConn.html#method-isSearchableByField}{\code{biodb::CsvFileConn$isSearchableByField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="print">}\href{../../biodb/html/CsvFileConn.html#method-print}{\code{biodb::CsvFileConn$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="setCsvQuote">}\href{../../biodb/html/CsvFileConn.html#method-setCsvQuote}{\code{biodb::CsvFileConn$setCsvQuote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="CsvFileConn" data-id="setCsvSep">}\href{../../biodb/html/CsvFileConn.html#method-setCsvSep}{\code{biodb::CsvFileConn$setCsvSep()}}\out{</span>}

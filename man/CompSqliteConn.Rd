@@ -112,6 +112,7 @@ Super class \code{\link{SqliteConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted">}\href{../../biodb/html/BiodbConn.html#method-isExtracted}{\code{biodb::BiodbConn$isExtracted()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb">}\href{../../biodb/html/BiodbConn.html#method-isMassdb}{\code{biodb::BiodbConn$isMassdb()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb">}\href{../../biodb/html/BiodbConn.html#method-isRemotedb}{\code{biodb::BiodbConn$isRemotedb()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField">}\href{../../biodb/html/BiodbConn.html#method-isSearchableByField}{\code{biodb::BiodbConn$isSearchableByField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable">}\href{../../biodb/html/BiodbConn.html#method-isWritable}{\code{biodb::BiodbConn$isWritable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest">}\href{../../biodb/html/BiodbConn.html#method-makeRequest}{\code{biodb::BiodbConn$makeRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbConn.html#method-makesRefToEntry}{\code{biodb::BiodbConn$makesRefToEntry()}}\out{</span>}
@@ -135,7 +136,6 @@ Super class \code{\link{SqliteConn}}.
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="getQuery">}\href{../../biodb/html/SqliteConn.html#method-getQuery}{\code{biodb::SqliteConn$getQuery()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="hasField">}\href{../../biodb/html/SqliteConn.html#method-hasField}{\code{biodb::SqliteConn$hasField()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="initialize">}\href{../../biodb/html/SqliteConn.html#method-initialize}{\code{biodb::SqliteConn$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="SqliteConn" data-id="isSearchableByField">}\href{../../biodb/html/SqliteConn.html#method-isSearchableByField}{\code{biodb::SqliteConn$isSearchableByField()}}\out{</span>}
 }
 \out{</details>}
 }

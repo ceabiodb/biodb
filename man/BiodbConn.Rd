@@ -619,19 +619,21 @@ Nothing.
 Tests if a field can be used to search entries when using method
 searchForEntries().
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BiodbConn$isSearchableByField(field)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BiodbConn$isSearchableByField(field = NULL, field.type = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{field}}{The name of the field.}
+
+\item{\code{field.type}}{The field type.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
 Returns TRUE if the database is searchable using the specified
-field, FALSE otherwise.
+field or searchable by any field of the specified type, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
