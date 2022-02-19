@@ -18,7 +18,7 @@ Encoding: UTF-8
 Depends: 
     R (>= 4.0)
 Imports: 
-    biodb (>= 0.99.8),
+    biodb (>= 1.3.1),
     R6,
 # $$$ IF RCPP $$$
     Rcpp,
