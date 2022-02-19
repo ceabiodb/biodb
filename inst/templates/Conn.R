@@ -6,7 +6,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get a connector:
 #' conn <- mybiodb$getFactory()$createConn('{{dbName}}')
@@ -83,6 +83,8 @@ doGetNbEntries=function(count=FALSE) {
     return(callSuper(count=count))
 }
 
+# $$$ IF REMOTE $$$
+# $$$ ELSE REMOTE $$$
 ,doGetEntryContentFromDb=function(id) {
 
     # Initialize return values
@@ -96,6 +98,7 @@ doGetNbEntries=function(count=FALSE) {
 
     return(content)
 }
+# $$$ END_IF REMOTE $$$
 
 ,doGetEntryIds=function(max.results=NA_integer_) {
     # Overrides super class' method.

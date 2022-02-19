@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' # Create an instance with default settings:
-#' mybiodb <- biodb::Biodb()
+#' mybiodb <- biodb::newInst()
 #'
 #' # Get a connector that inherits from {{connClass}}:
 #' conn <- mybiodb$getFactory()$createConn('{{dbName}}')
