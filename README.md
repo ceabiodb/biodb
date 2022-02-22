@@ -111,7 +111,7 @@ Here is an example on how to retrieve entries from ChEBI database and get a
 data frames of them (you must first install both *biodb* and *biodbChebi*
 packages):
 ```r
-bdb <- biodb::Biodb()
+bdb <- boidb::newInst()
 chebi <- bdb$getFactory()$createConn('chebi')
 entries <- chebi$getEntry(c('2528', '7799', '15440'))
 bdb$entriesToDataframe(entries)
