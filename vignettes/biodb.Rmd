@@ -505,7 +505,7 @@ Extension                                                            | Database 
 [biodbMirbase](https://github.com/pkrog/biodbMirbase)                | [miRBase](http://mirbase.org)             | On GitHub       | Connector miRBase Mature.
 [biodbNci](https://github.com/pkrog/biodbNci)                        | [NCI](https://www.cancer.gov/)            | On GitHub       | Connector to NCI CACTUS.
 [biodbUniprot](https://bioconductor.org/packages/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | On Bioconductor | Connector to UniProt KB.
-[biodbNcbi](https://github.com/pkrog/biodbNcbi)                      | [NCBI](https://www.ncbi.nlm.nih.gov/)     | In maintenance  | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
+[biodbNcbi](https://github.com/pkrog/biodbNcbi)                      | [NCBI](https://www.ncbi.nlm.nih.gov/)     | On GitHub       | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
 [biodbMassbank](https://github.com/pkrog/biodbMassbank)              | [MassBank](https://massbank.eu/MassBank/) | In maintenance  | Connector to MassBank.
 [biodbChemspider](https://github.com/pkrog/biodbChemspider)          | [ChemSpider](http://www.chemspider.com)   | In maintenance  | Connector to ChemSpider.
 [biodbPeakforest](https://github.com/pkrog/biodbPeakforest)          | [PeakForest](https://peakforest.org/)     | In maintenance  | Connectors to PeakForest Compound and PeakForest Mass.
