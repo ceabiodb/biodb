@@ -282,7 +282,7 @@ getEntryContentFromDb=function(entry.id) {
 #' possible, sending requests with several identifiers at once.
 #' @param max.length The maximum length of the URLs to return, in
 #' number of characters.
-#' @return A list of BiodbUrl objects.
+#' @return A vector of URL strings.
 getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
 
     private$checkIsRemote()
