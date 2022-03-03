@@ -395,8 +395,8 @@ createEntryFromContent=function(conn.id, content, drop=TRUE) {
         logDebug('Accession numbers: %s.', strIds)
         if (any(entries.without.accession)) {
             n <- sum(entries.without.accession)
-            logDebug0('Found %d entry/ies without an accession',
-                ' number. Set it/them to NULL.', n)
+            logDebug0('Found ', n, ' entry/ies without an accession',
+                ' number. Set it/them to NULL.')
             entries[entries.without.accession] <- list(NULL)
         }
 
