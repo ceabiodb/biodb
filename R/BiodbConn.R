@@ -294,12 +294,14 @@ getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
         full.url <- private$doGetEntryContentRequest(entry.id,
             concatenate=concatenate)
 
-        # No single URL for multiple IDs
-        if ((length(entry.id) > 1 && length(full.url) > 1) || max.length == 0
-            || nchar(full.url) <= max.length)
+        # Are URLs acceptable?
+        if (max.length == 0 # OK, no restrictions.
+            || all(nchar(full.url) <= max.length) # OK, no URL is too long
+            || length(entry.id) <= length(full.url)) # OK, fewer IDs than URLs
             urls <- full.url
 
-        # full.url is too big, we must split it
+        # Some URLs are too long and we have more IDs than URLs,
+        # so we try to create more URLs with less IDs in each.
         else {
             logDebug("Split full URL.")
 
