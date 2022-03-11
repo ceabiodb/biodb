@@ -335,7 +335,7 @@ getEntryContentRequest=function(entry.id, concatenate=TRUE, max.length=0) {
 #' depending on implementation in specific databases. For mass databases the
 #' ms.level argument can also be set.
 #' @param max.results The maximum of elements to return from the method.
-#' @param ... First arguments to be passed to private .doGetEntryIds() method.
+#' @param ... Arguments specific to connectors.
 #' @return A character vector containing entry IDs from the database. An empty
 #' vector for a remote database may mean that the database does not support
 #' requesting for entry accessions.
@@ -591,7 +591,7 @@ isSearchableByField=function(field=NULL, field.type=NULL) {
     # Check if one of the searchable field is of the required type
     else {
         for (sf in self$getPropertyValue('searchable.fields'))
-            if (ef$get(sf)$getType() == field.type) {
+            if (ef$get(sf)$isOfType(field.type)) {
                 v <- private$doHasField(sf)
                 break
             }

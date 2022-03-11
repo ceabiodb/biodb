@@ -190,12 +190,25 @@ getName=function() {
 getType=function() {
 
     return(private$type)
-},
+}
+
+#' @description
+#' Tests if this field is of the specified type.
+#' @param type The type.
+#' @return TRUE if this field is of the specified type, FALSE otherwise.
+,isOfType=function(type) {
+
+    chk::chk_string(type)
+    
+    return( ! is.null(private$type) && ! is.na(private$type)
+        && private$type == type)
+}
+
 
 #' @description
 #' Get field's description.
 #' @return The description of this field.
-getDescription=function() {
+,getDescription=function() {
 
     return(private$description)
 },
