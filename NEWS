@@ -1,6 +1,9 @@
-Changes in version 1.?.? (20..-..-..)
+Changes in version 1.3.2 (2021-03-11)
 + Correct ext pkg upgrade: do not generate C++ example files again.
 + Change default vignette name to package name.
++ When upgrading a extension package, do not generate C++ files again.
++ Accept an unknown total in Progress class.
++ isSearchableByField() accepts field.type param now.
 
 Changes in version 1.3.1 (2021-12-10)
 + Remove custom cache folder setting in vignette.
