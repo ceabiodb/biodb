@@ -73,6 +73,7 @@ Parent class \code{\link{BiodbEntryFields}}.
 \item \href{#method-new}{\code{BiodbEntryField$new()}}
 \item \href{#method-getName}{\code{BiodbEntryField$getName()}}
 \item \href{#method-getType}{\code{BiodbEntryField$getType()}}
+\item \href{#method-isOfType}{\code{BiodbEntryField$isOfType()}}
 \item \href{#method-getDescription}{\code{BiodbEntryField$getDescription()}}
 \item \href{#method-hasAliases}{\code{BiodbEntryField$hasAliases()}}
 \item \href{#method-getAliases}{\code{BiodbEntryField$getAliases()}}
@@ -203,6 +204,26 @@ Gets field's type.
 
 \subsection{Returns}{
 The type of this field.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-isOfType"></a>}}
+\if{latex}{\out{\hypertarget{method-isOfType}{}}}
+\subsection{Method \code{isOfType()}}{
+Tests if this field is of the specified type.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BiodbEntryField$isOfType(type)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{The type.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TRUE if this field is of the specified type, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}

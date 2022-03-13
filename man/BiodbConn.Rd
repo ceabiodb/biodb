@@ -377,7 +377,7 @@ number of characters.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A list of BiodbUrl objects.
+A vector of URL strings.
 }
 }
 \if{html}{\out{<hr>}}
@@ -396,7 +396,7 @@ ms.level argument can also be set.
 \describe{
 \item{\code{max.results}}{The maximum of elements to return from the method.}
 
-\item{\code{...}}{First arguments to be passed to private .doGetEntryIds() method.}
+\item{\code{...}}{Arguments specific to connectors.}
 }
 \if{html}{\out{</div>}}
 }
