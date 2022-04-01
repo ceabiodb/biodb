@@ -118,7 +118,7 @@ mybiodb$getConfig()
 ```
 
 To get a data frame of all keys with their title (short description), type and
-default value, call (result in \@ref(tab:keysDf)):
+default value, call (result in table \@ref(tab:keysDf)):
 ```{r}
 x <- mybiodb$getConfig()$listKeys()
 ```
@@ -267,6 +267,68 @@ entries.
 Be careful to do not keep those entry objects in some variable on your side,
 otherwise the memory will not be released by R.
 
+# Accessing a custom CSV file with a biodb connector
+
+When creating a connector with `CompCsvFileConn` or `MassCsvFileConn`, if your
+CSV file uses standard biodb field names as column names in its header line,
+then everything will be fine and all values will read, recognized and set into
+entry objects.
+
+However if your CSV file uses custom column names, those values will be ignore
+by biodb.
+To tell biodb to use those columns, you must define a mapping between each
+custom column with a valid biodb entry field, by using the `setField()` method.
+
+Here we create a connector to a CSV file database (see table
+\@ref(tab:compTable) for content) of chemical compounds that uses the semi-colon
+as a separator:
+```{r}
+compUrl <- system.file("extdata", "chebi_extract_custom.csv", package='biodb')
+compdb <- mybiodb$getFactory()$createConn('comp.csv.file', url=compUrl)
+compdb$setCsvSep(';')
+```
+We use the `getUnassociatedColumns()` method to get a list of custom column
+names:
+```{r}
+compdb$getUnassociatedColumns()
+```
+The method returns 3 column names that have not been automatically mapped.
+However there is a little trick here, since `mass` field has been automatically
+mapped but with the wrong biodb field `molecular.mass`, as you can see when
+calling the method `getFieldsAndColumnsAssociation()`:
+```{r}
+compdb$getFieldsAndColumnsAssociation()
+```
+The `mass` column of the CSV file stores in fact the monoisotopic masses.
+So we need to remap this column, and before that to reset the connector:
+```{r}
+mybiodb$getFactory()$deleteConn(compdb)
+compdb <- mybiodb$getFactory()$createConn('comp.csv.file', url=compUrl)
+compdb$setCsvSep(';')
+compdb$setField('accession', 'ID')
+compdb$setField('kegg.compound.id', 'kegg')
+compdb$setField('monoisotopic.mass', 'mass')
+compdb$setField('molecular.mass', 'molmass')
+```
+
+Now the connector works fine, and we can for instance get a list of all
+accession numbers:
+```{r}
+compdb$getEntryIds()
+```
+
+And get whichever entry we want:
+```{r}
+compdb$getEntry('1018')$getFieldsAsDataframe()
+```
+
+```{r compTable, echo=FALSE, results='asis'}
+compDf <- read.table(compUrl, sep=";", header=TRUE, quote="")
+# Prevent RMarkdown from interpreting @ character as a reference:
+compDf$smiles <- vapply(compDf$smiles, function(s) paste0('`', s, '`'), FUN.VALUE='')
+knitr::kable(head(compDf), "pipe", caption="Excerpt from compound database CSV file.")
+```
+
 # Request scheduler
 
 The `BiodbRequestScheduler` instance is responsible for sending requests to web
@@ -287,6 +349,11 @@ declared inside definitions YAML files.
 Get the entry fields instance:
 ```{r}
 mybiodb$getEntryFields()
+```
+
+Get a list of all defined fields:
+```{r}
+mybiodb$getEntryFields()$getFieldNames()
 ```
 
 Get information about a field:
