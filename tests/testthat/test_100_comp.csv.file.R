@@ -63,6 +63,37 @@ test_unmapped_col <- function(biodb) {
     biodb$getFactory()$deleteConn(conn)
 }
 
+test_comp.csv.file_wrong_field <- function(biodb) {
+    compUrl <- system.file("extdata", "chebi_extract_custom.csv",
+        package='biodb')
+    compdb <- biodb$getFactory()$createConn('comp.csv.file', url=compUrl)
+    testthat::expect_is(compdb, 'CompCsvFileConn')
+    compdb$setCsvSep(';')
+    testthat::expect_warning(cols <- compdb$getUnassociatedColumns())
+        # Load CSV file inside data frame
+    testthat::expect_is(cols, 'character')
+    testthat::expect_length(cols, 3) # ID, molmass, kegg
+    compdb$setField('accession', 'ID')
+    compdb$setField('kegg.compound.id', 'kegg')
+    testthat::expect_error(compdb$setField('molecular.mass', 'molmass'))
+    # molecular.mass has already been mapped with 'mass', which is in fact
+    # the monoisotopic mass.
+    
+    biodb$getFactory()$deleteConn(compdb)
+    compdb <- biodb$getFactory()$createConn('comp.csv.file', url=compUrl)
+    compdb$setCsvSep(';')
+    compdb$setField('accession', 'ID')
+    compdb$setField('kegg.compound.id', 'kegg')
+    compdb$setField('monoisotopic.mass', 'mass')
+    compdb$setField('molecular.mass', 'molmass')
+    cols <- compdb$getUnassociatedColumns() # Load CSV file inside data frame
+    testthat::expect_is(cols, 'character')
+    testthat::expect_length(cols, 0)
+    ids <- compdb$getEntryIds()
+    testthat::expect_is(ids, 'character')
+    testthat::expect_true(length(ids) > 5)
+}
+
 # Set context
 biodb::testContext("CompCsvFile generic tests")
 
@@ -86,6 +117,8 @@ biodb::testThat('We receive a warning for unmapped columns.',
                 test_unmapped_col, biodb=biodb)
 biodb::testThat('We can define a new field even after loading an entry.',
                 test.comp.csv.file.dynamic.field.set, biodb=biodb)
+biodb::testThat('We can redefine wrongly mapped field.',
+                test_comp.csv.file_wrong_field, biodb=biodb)
 
 # Terminate Biodb
 biodb$terminate()
