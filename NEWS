@@ -1,4 +1,7 @@
-Changes in version 1.3.2 (2021-03-11)
+Changes in version 1.3.3 (2022-04-02)
++ Explain how to use custom CSV file in vignette.
+
+Changes in version 1.3.2 (2022-03-11)
 + Correct ext pkg upgrade: do not generate C++ example files again.
 + Change default vignette name to package name.
 + When upgrading a extension package, do not generate C++ files again.

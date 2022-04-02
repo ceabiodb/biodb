@@ -87,7 +87,7 @@ allowing you to be quickly productive.
 Pointers toward other documents are included along the way, for going into
 details or learning advanced features.
 
-For a complete list of featuresSee vignette
+For a complete list of features, see vignette
 ```{r, echo=FALSE, results='asis'}
 make_vignette_ref('details')
 ```
@@ -136,7 +136,7 @@ To load a CSV file with a different separator and custom column names, you have
 to define them inside the connector instance.
 Please see vignette
 ```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_compound_db')
+make_vignette_ref('details')
 ```
 for learning how to define the character separator and the column names of your
 file inside the CSV database connector.
@@ -248,7 +248,7 @@ You can export the values of one single entry:
 ```{r}
 entryDf <- entries[[1]]$getFieldsAsDataframe()
 ```
-See \@ref(tab:entryTable) for the exported data frame.
+See table \@ref(tab:entryTable) for the exported data frame.
 
 ```{r entryTable, echo=FALSE, results='asis'}
 # Prevent RMarkdown from interpreting @ character as a reference:
@@ -260,7 +260,7 @@ Or export the values of a set of entries:
 ```{r}
 entriesDf <- mybiodb$entriesToDataframe(entries)
 ```
-See \@ref(tab:entriesTable) for the exported data frame. 
+See table \@ref(tab:entriesTable) for the exported data frame. 
 
 ```{r entriesTable, echo=FALSE, results='asis'}
 # Prevent RMarkdown from interpreting @ character as a reference:
@@ -325,7 +325,7 @@ Here is an input data frame containing M/Z values in negative mode:
 ms.tsv <- system.file("extdata", "ms.tsv", package='biodb')
 mzdf <- read.table(ms.tsv, header=TRUE, sep="\t")
 ```
-See \@ref(tab:mzdfTable) for the content of the input.
+See table \@ref(tab:mzdfTable) for the content of the input.
 
 ```{r mzdfTable, echo=FALSE, results='asis'}
 knitr::kable(mzdf, "pipe", caption="Input M/Z values.")
@@ -339,7 +339,7 @@ The `mz.tol` option sets the M/Z tolerance (by default in plain value, thus
 `±0.1` in our case).
 The `ms.mode` option defines the MS mode of your input spectrum, either
 positive (`'pos'`) or negative (`'neg'`).
-See \@ref(tab:annotMzTable) for the content of the input.
+See table \@ref(tab:annotMzTable) for the content of the input.
 Note that in the output, columns coming from the database have their name
 prefixed with the database name.
 
@@ -347,19 +347,12 @@ prefixed with the database name.
 knitr::kable(annotMz, "pipe", caption="Annotation output.")
 ```
 
-See vignette
-```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_compound_db')
-```
-for more information on how to annotate a spectrum using a compound database,
-and in particular how to set the column names of the input file.
-
 ## Mass spectra annotation with a mass spectra database
 
 Using a mass spectra database it is as well possible to annotate a simple mass
 spectrum, but also LCMS data (i.e. including retention times).
 
-First we have to open a connection to the LCMS database (see
+First we have to open a connection to the LCMS database (see table
 \@ref(tab:lcms3Table) for content):
 ```{r}
 massUrl <- system.file("extdata", "massbank_extract_lcms_3.tsv", package='biodb')
@@ -387,17 +380,11 @@ The `match.rt` option enables matching on retention time values, `rt.unit` sets
 the unit (`"s"` for second and `"min"` for minute) and `rt.tol` the tolerance.
 The `prefix` option specifies a custom prefix to use for naming the database
 columns inside the output.
-See \@ref(tab:annotMzRtTable) for the results.
+See table \@ref(tab:annotMzRtTable) for the results.
 
 ```{r annotMzRtTable, echo=FALSE, results='asis'}
 knitr::kable(head(annotMzRt), "pipe", caption="Results of annotation of an M/Z and RT input file with an LCMS database.")
 ```
-
-See vignette
-```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_mass_db')
-```
-for more details on how to annotate an LCMS spectrum with an LCMS database.
 
 ## MS/MS matching
 
@@ -409,7 +396,7 @@ First we open a connection to a MS/MS TSV file database:
 msmsUrl <- system.file("extdata", "massbank_extract_msms.tsv", package='biodb')
 msmsdb <- mybiodb$getFactory()$createConn('mass.csv.file', url=msmsUrl)
 ```
-See \@ref(tab:msmsTable) for content.
+See table \@ref(tab:msmsTable) for content.
 
 ```{r msmsTable, echo=FALSE, results='asis'}
 msmsDf <- read.table(msmsUrl, sep="\t", header=TRUE, quote="")
@@ -435,7 +422,7 @@ The `mz.tol.unit` option defines the mode use for the tolerance: either
 The `ms.mode` option defines the MS mode of your input spectrum, either
 positive (`'pos'`) or negative (`'neg'`).
 
-The results are displayed in \@ref(tab:msmsMatchingTable).
+The results are displayed in table \@ref(tab:msmsMatchingTable).
 Each matching spectrum found in database is listed in the output data frame,
 along with a score and the number of the matched peak inside the database
 spectrum (the column names are the peak numbers of the input spectrum).
@@ -443,13 +430,6 @@ spectrum (the column names are the peak numbers of the input spectrum).
 ```{r msmsMatchingTable, echo=FALSE, results='asis'}
 knitr::kable(head(matchDf), "pipe", caption="Results of running spectrum matching service on an MS/MS database.")
 ```
-
-See vignette
-```{r, echo=FALSE, results='asis'}
-make_vignette_ref('in_house_mass_db')
-```
-For more details on how to search for matching spectra inside an MS/MS database
-and explanations about the algorithm and the results.
 
 # Creating and improving connectors
 
@@ -471,7 +451,7 @@ for details about connector creation and defining new entry fields.
 
 # Existing biodb extension packages
 
-Several extension packages for *biodb* exist today on GitHub. See
+Several extension packages for *biodb* exist today on GitHub. See table
 \@ref(tab:extensions) for a list of those extension and a short description.
 
 For installing them, please first make sure that you have the package
@@ -498,14 +478,14 @@ will be able accompany you in the process.
 Extension                                                            | Database                                  | Status          | Description
 -------------------------------------------------------------------- | ----------------------------------------- | --------------- | ----------------------------------------------------------------
 [biodbChebi](https://bioconductor.org/packages/biodbChebi)           | [ChEBI](https://www.ebi.ac.uk/chebi/)     | On Bioconductor | Connector to ChEBI.
-[biodbExpasy](https://github.com/pkrog/biodbExpasy)                  | [ExPASy](https://www.expasy.org/)         | On GitHub       | Connector to ExPASy Enzyme.
+[biodbExpasy](https://bioconductor.org/packages/biodbExpasy)         | [ExPASy](https://www.expasy.org/)         | On Bioconductor | Connector to ExPASy Enzyme.
 [biodbKegg](https://bioconductor.org/packages/biodbKegg)             | [KEGG](https://www.kegg.jp/)              | On Bioconductor | Connectors to KEGG Compound, Enzyme, Genes, Module, Orthology, Pathway and Reaction.
 [biodbHmdb](https://bioconductor.org/packages/biodbHmdb)             | [HMDB](https://hmdb.ca/)                  | On Bioconductor | Connector to HMDB Metabolites.
 [biodbLipidmaps](https://bioconductor.org/packages/biodbLipidmaps)   | [LIPID MAPS](https://www.lipidmaps.org/)  | On Bioconductor | Connector to Lipid Maps Structure.
-[biodbMirbase](https://github.com/pkrog/biodbMirbase)                | [miRBase](http://mirbase.org)             | On GitHub       | Connector miRBase Mature.
-[biodbNci](https://github.com/pkrog/biodbNci)                        | [NCI](https://www.cancer.gov/)            | On GitHub       | Connector to NCI CACTUS.
+[biodbMirbase](https://bioconductor.org/packages/biodbMirbase)       | [miRBase](http://mirbase.org)             | On Bioconductor | Connector miRBase Mature.
+[biodbNci](https://bioconductor.org/packages/biodbNci)               | [NCI](https://www.cancer.gov/)            | On Bioconductor | Connector to NCI CACTUS.
 [biodbUniprot](https://bioconductor.org/packages/biodbUniprot)       | [UniProt](https://www.uniprot.org/)       | On Bioconductor | Connector to UniProt KB.
-[biodbNcbi](https://github.com/pkrog/biodbNcbi)                      | [NCBI](https://www.ncbi.nlm.nih.gov/)     | On GitHub       | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
+[biodbNcbi](https://bioconductor.org/packages/biodbNcbi)             | [NCBI](https://www.ncbi.nlm.nih.gov/)     | On Bioconductor | Connectors to NCBI CCDS, Gene, PubChem Compound and PubChem Substance.
 [biodbMassbank](https://github.com/pkrog/biodbMassbank)              | [MassBank](https://massbank.eu/MassBank/) | In maintenance  | Connector to MassBank.
 [biodbChemspider](https://github.com/pkrog/biodbChemspider)          | [ChemSpider](http://www.chemspider.com)   | In maintenance  | Connector to ChemSpider.
 [biodbPeakforest](https://github.com/pkrog/biodbPeakforest)          | [PeakForest](https://peakforest.org/)     | In maintenance  | Connectors to PeakForest Compound and PeakForest Mass.
@@ -518,7 +498,7 @@ Several vignettes are available. Among them you will find help for creating
 a new connector, adding an entry field to an existing connector, searching
 for compounds by mass or name, merging entries from different databases into
 a local database, annotation of a mass spectrum, etc.
-See \@ref(tab:vignettes) for a full list of available vignettes.
+See table \@ref(tab:vignettes) for a full list of available vignettes.
 
 ```{r vignettes, echo=FALSE, results='asis'}
 x <- biodbVignettes[, c('link', 'desc')]
