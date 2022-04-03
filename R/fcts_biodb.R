@@ -440,3 +440,51 @@ checkDeprecatedCacheFolders  <- function() {
 
     return(invisible(NULL))
 }
+
+#' Get default instance of BiodbMain
+#'
+#' @return The default BiodbMain instance or NULL.
+#'
+#' @examples
+#' getDefInst()
+#'
+#' @export
+getDefInst <- function() {
+    if (exists('.defInst'))
+        return(.defInst)
+    else
+        return(NULL)
+}
+
+
+#' Initialize the BiodbMain default instance
+#'
+#' @examples
+#' initDefInst()
+#'
+#' @export
+initDefInst <- function(silent=FALSE) {
+    if ( ! exists('.defInst')) {
+        print(search())
+        print(environment())
+        print(parent.env(environment()))
+        print(parent.env(parent.env(environment())))
+        assign('.defInst', newInst())
+    }
+}
+
+#' Terminate the BiodbMain default instance
+#'
+#' @examples
+#' termDefInst()
+#'
+#' @export
+termDefInst <- function() {
+    if (exists('.defInst')) {
+        .defInst$terminate()
+        rm('.defInst')
+    }
+    else {
+        warn('No default instance exists.')
+    }
+}
