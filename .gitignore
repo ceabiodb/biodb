@@ -34,3 +34,4 @@ codecov.yml
 cache.long
 Renviron.bioc
 testthat-problems.rds
+biodb.BiocCheck

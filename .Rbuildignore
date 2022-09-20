@@ -21,3 +21,4 @@
 ^check.Renviron$
 ^.BBSoptions$
 ^.*rds$
+biodb.BiocCheck
