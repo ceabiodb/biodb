@@ -14,20 +14,14 @@ This class represents an SQL binary operator.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbSqlBinaryOp$new()}}
-\item \href{#method-toString}{\code{BiodbSqlBinaryOp$toString()}}
-\item \href{#method-clone}{\code{BiodbSqlBinaryOp$clone()}}
+\item \href{#method-BiodbSqlBinaryOp-new}{\code{BiodbSqlBinaryOp$new()}}
+\item \href{#method-BiodbSqlBinaryOp-toString}{\code{BiodbSqlBinaryOp$toString()}}
+\item \href{#method-BiodbSqlBinaryOp-clone}{\code{BiodbSqlBinaryOp$clone()}}
 }
-}
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-}
-\out{</details>}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbSqlBinaryOp-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlBinaryOp-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -50,8 +44,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbSqlBinaryOp-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlBinaryOp-toString}{}}}
 \subsection{Method \code{toString()}}{
 Converts into a string.
 \subsection{Usage}{
@@ -63,8 +57,8 @@ A string containing the SQL expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbSqlBinaryOp-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlBinaryOp-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -43,25 +43,25 @@ mybiodb <- NULL
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbRequestScheduler$new()}}
-\item \href{#method-sendSoapRequest}{\code{BiodbRequestScheduler$sendSoapRequest()}}
-\item \href{#method-sendRequest}{\code{BiodbRequestScheduler$sendRequest()}}
-\item \href{#method-downloadFile}{\code{BiodbRequestScheduler$downloadFile()}}
-\item \href{#method-notifyConnUrlsUpdated}{\code{BiodbRequestScheduler$notifyConnUrlsUpdated()}}
-\item \href{#method-notifyConnSchedulerFrequencyUpdated}{\code{BiodbRequestScheduler$notifyConnSchedulerFrequencyUpdated()}}
-\item \href{#method-getUrlString}{\code{BiodbRequestScheduler$getUrlString()}}
-\item \href{#method-getUrl}{\code{BiodbRequestScheduler$getUrl()}}
-\item \href{#method-findRule}{\code{BiodbRequestScheduler$findRule()}}
-\item \href{#method-getConnectorRules}{\code{BiodbRequestScheduler$getConnectorRules()}}
-\item \href{#method-registerConnector}{\code{BiodbRequestScheduler$registerConnector()}}
-\item \href{#method-unregisterConnector}{\code{BiodbRequestScheduler$unregisterConnector()}}
-\item \href{#method-getAllRules}{\code{BiodbRequestScheduler$getAllRules()}}
-\item \href{#method-clone}{\code{BiodbRequestScheduler$clone()}}
+\item \href{#method-BiodbRequestScheduler-new}{\code{BiodbRequestScheduler$new()}}
+\item \href{#method-BiodbRequestScheduler-sendSoapRequest}{\code{BiodbRequestScheduler$sendSoapRequest()}}
+\item \href{#method-BiodbRequestScheduler-sendRequest}{\code{BiodbRequestScheduler$sendRequest()}}
+\item \href{#method-BiodbRequestScheduler-downloadFile}{\code{BiodbRequestScheduler$downloadFile()}}
+\item \href{#method-BiodbRequestScheduler-notifyConnUrlsUpdated}{\code{BiodbRequestScheduler$notifyConnUrlsUpdated()}}
+\item \href{#method-BiodbRequestScheduler-notifyConnSchedulerFrequencyUpdated}{\code{BiodbRequestScheduler$notifyConnSchedulerFrequencyUpdated()}}
+\item \href{#method-BiodbRequestScheduler-getUrlString}{\code{BiodbRequestScheduler$getUrlString()}}
+\item \href{#method-BiodbRequestScheduler-getUrl}{\code{BiodbRequestScheduler$getUrl()}}
+\item \href{#method-BiodbRequestScheduler-findRule}{\code{BiodbRequestScheduler$findRule()}}
+\item \href{#method-BiodbRequestScheduler-getConnectorRules}{\code{BiodbRequestScheduler$getConnectorRules()}}
+\item \href{#method-BiodbRequestScheduler-registerConnector}{\code{BiodbRequestScheduler$registerConnector()}}
+\item \href{#method-BiodbRequestScheduler-unregisterConnector}{\code{BiodbRequestScheduler$unregisterConnector()}}
+\item \href{#method-BiodbRequestScheduler-getAllRules}{\code{BiodbRequestScheduler$getAllRules()}}
+\item \href{#method-BiodbRequestScheduler-clone}{\code{BiodbRequestScheduler$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. BiodbRequestScheduler class must not be
 instantiated direrctly. Instead, use the getRequestScheduler() method from
@@ -82,8 +82,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-sendSoapRequest"></a>}}
-\if{latex}{\out{\hypertarget{method-sendSoapRequest}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-sendSoapRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-sendSoapRequest}{}}}
 \subsection{Method \code{sendSoapRequest()}}{
 Sends a SOAP request to a URL. Returns the string result.
 \subsection{Usage}{
@@ -114,8 +114,8 @@ string value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-sendRequest"></a>}}
-\if{latex}{\out{\hypertarget{method-sendRequest}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-sendRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-sendRequest}{}}}
 \subsection{Method \code{sendRequest()}}{
 Sends a request, and returns content result.
 \subsection{Usage}{
@@ -140,8 +140,8 @@ value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-downloadFile"></a>}}
-\if{latex}{\out{\hypertarget{method-downloadFile}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-downloadFile"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-downloadFile}{}}}
 \subsection{Method \code{downloadFile()}}{
 Downloads the content of a URL and save it into the specified
 destination file.
@@ -163,8 +163,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-notifyConnUrlsUpdated"></a>}}
-\if{latex}{\out{\hypertarget{method-notifyConnUrlsUpdated}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-notifyConnUrlsUpdated"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-notifyConnUrlsUpdated}{}}}
 \subsection{Method \code{notifyConnUrlsUpdated()}}{
 Call back function called when connector URLs are changed.
 \subsection{Usage}{
@@ -183,8 +183,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-notifyConnSchedulerFrequencyUpdated"></a>}}
-\if{latex}{\out{\hypertarget{method-notifyConnSchedulerFrequencyUpdated}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-notifyConnSchedulerFrequencyUpdated"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-notifyConnSchedulerFrequencyUpdated}{}}}
 \subsection{Method \code{notifyConnSchedulerFrequencyUpdated()}}{
 Call back function called when connector T and N parameters (frequency) are
 changed.
@@ -204,8 +204,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUrlString"></a>}}
-\if{latex}{\out{\hypertarget{method-getUrlString}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-getUrlString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-getUrlString}{}}}
 \subsection{Method \code{getUrlString()}}{
 Builds a URL object, using a base URL and parameters to be passed.
 \subsection{Usage}{
@@ -226,8 +226,8 @@ A BiodUrl object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getUrl}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-getUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-getUrl}{}}}
 \subsection{Method \code{getUrl()}}{
 Sends a request and get the result.
 \subsection{Usage}{
@@ -263,8 +263,8 @@ The results of the request.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-findRule"></a>}}
-\if{latex}{\out{\hypertarget{method-findRule}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-findRule"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-findRule}{}}}
 \subsection{Method \code{findRule()}}{
 Searches for a rule by host name.
 \subsection{Usage}{
@@ -285,8 +285,8 @@ A BiodbRequestSchedulerRule object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConnectorRules"></a>}}
-\if{latex}{\out{\hypertarget{method-getConnectorRules}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-getConnectorRules"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-getConnectorRules}{}}}
 \subsection{Method \code{getConnectorRules()}}{
 Gets the rules associates with a connector.
 \subsection{Usage}{
@@ -305,8 +305,8 @@ A list of rules.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-registerConnector"></a>}}
-\if{latex}{\out{\hypertarget{method-registerConnector}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-registerConnector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-registerConnector}{}}}
 \subsection{Method \code{registerConnector()}}{
 Registers a new connector with the scheduler.
 \subsection{Usage}{
@@ -325,8 +325,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-unregisterConnector"></a>}}
-\if{latex}{\out{\hypertarget{method-unregisterConnector}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-unregisterConnector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-unregisterConnector}{}}}
 \subsection{Method \code{unregisterConnector()}}{
 Unregisters a connector from this scheduler.
 \subsection{Usage}{
@@ -345,8 +345,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllRules"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllRules}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-getAllRules"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-getAllRules}{}}}
 \subsection{Method \code{getAllRules()}}{
 Gets all defined rules.
 \subsection{Usage}{
@@ -358,8 +358,8 @@ The list of all rules.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbRequestScheduler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestScheduler-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

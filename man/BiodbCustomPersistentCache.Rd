@@ -18,47 +18,47 @@ URL). In each of theses folders are stored the cache files for this database.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-clone}{\code{BiodbCustomPersistentCache$clone()}}
+\item \href{#method-BiodbCustomPersistentCache-clone}{\code{BiodbCustomPersistentCache$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="addFilesToCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-addFilesToCache}{\code{biodb::BiodbPersistentCache$addFilesToCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="copyFilesIntoCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-copyFilesIntoCache}{\code{biodb::BiodbPersistentCache$copyFilesIntoCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteAllFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteAllFiles}{\code{biodb::BiodbPersistentCache$deleteAllFiles()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFile">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteFile}{\code{biodb::BiodbPersistentCache$deleteFile()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-deleteFiles}{\code{biodb::BiodbPersistentCache$deleteFiles()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="disable">}\href{../../biodb/html/BiodbPersistentCache.html#method-disable}{\code{biodb::BiodbPersistentCache$disable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="enable">}\href{../../biodb/html/BiodbPersistentCache.html#method-enable}{\code{biodb::BiodbPersistentCache$enable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="enabled">}\href{../../biodb/html/BiodbPersistentCache.html#method-enabled}{\code{biodb::BiodbPersistentCache$enabled()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="erase">}\href{../../biodb/html/BiodbPersistentCache.html#method-erase}{\code{biodb::BiodbPersistentCache$erase()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="fileExist">}\href{../../biodb/html/BiodbPersistentCache.html#method-fileExist}{\code{biodb::BiodbPersistentCache$fileExist()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="fileExists">}\href{../../biodb/html/BiodbPersistentCache.html#method-fileExists}{\code{biodb::BiodbPersistentCache$fileExists()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="filesExist">}\href{../../biodb/html/BiodbPersistentCache.html#method-filesExist}{\code{biodb::BiodbPersistentCache$filesExist()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="folderExists">}\href{../../biodb/html/BiodbPersistentCache.html#method-folderExists}{\code{biodb::BiodbPersistentCache$folderExists()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getDir">}\href{../../biodb/html/BiodbPersistentCache.html#method-getDir}{\code{biodb::BiodbPersistentCache$getDir()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getFilePath">}\href{../../biodb/html/BiodbPersistentCache.html#method-getFilePath}{\code{biodb::BiodbPersistentCache$getFilePath()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getFolderPath">}\href{../../biodb/html/BiodbPersistentCache.html#method-getFolderPath}{\code{biodb::BiodbPersistentCache$getFolderPath()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getTmpFolderPath">}\href{../../biodb/html/BiodbPersistentCache.html#method-getTmpFolderPath}{\code{biodb::BiodbPersistentCache$getTmpFolderPath()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getUsedCacheIds">}\href{../../biodb/html/BiodbPersistentCache.html#method-getUsedCacheIds}{\code{biodb::BiodbPersistentCache$getUsedCacheIds()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="initialize">}\href{../../biodb/html/BiodbPersistentCache.html#method-initialize}{\code{biodb::BiodbPersistentCache$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="isReadable">}\href{../../biodb/html/BiodbPersistentCache.html#method-isReadable}{\code{biodb::BiodbPersistentCache$isReadable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="isWritable">}\href{../../biodb/html/BiodbPersistentCache.html#method-isWritable}{\code{biodb::BiodbPersistentCache$isWritable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="listFiles">}\href{../../biodb/html/BiodbPersistentCache.html#method-listFiles}{\code{biodb::BiodbPersistentCache$listFiles()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="loadFileContent">}\href{../../biodb/html/BiodbPersistentCache.html#method-loadFileContent}{\code{biodb::BiodbPersistentCache$loadFileContent()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExist">}\href{../../biodb/html/BiodbPersistentCache.html#method-markerExist}{\code{biodb::BiodbPersistentCache$markerExist()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExists">}\href{../../biodb/html/BiodbPersistentCache.html#method-markerExists}{\code{biodb::BiodbPersistentCache$markerExists()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="moveFilesIntoCache">}\href{../../biodb/html/BiodbPersistentCache.html#method-moveFilesIntoCache}{\code{biodb::BiodbPersistentCache$moveFilesIntoCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="print">}\href{../../biodb/html/BiodbPersistentCache.html#method-print}{\code{biodb::BiodbPersistentCache$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="saveContentToFile">}\href{../../biodb/html/BiodbPersistentCache.html#method-saveContentToFile}{\code{biodb::BiodbPersistentCache$saveContentToFile()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="setMarker">}\href{../../biodb/html/BiodbPersistentCache.html#method-setMarker}{\code{biodb::BiodbPersistentCache$setMarker()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="addFilesToCache"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-addFilesToCache'><code>biodb::BiodbPersistentCache$addFilesToCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="copyFilesIntoCache"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-copyFilesIntoCache'><code>biodb::BiodbPersistentCache$copyFilesIntoCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteAllFiles"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-deleteAllFiles'><code>biodb::BiodbPersistentCache$deleteAllFiles()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFile"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-deleteFile'><code>biodb::BiodbPersistentCache$deleteFile()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="deleteFiles"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-deleteFiles'><code>biodb::BiodbPersistentCache$deleteFiles()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="disable"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-disable'><code>biodb::BiodbPersistentCache$disable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="enable"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-enable'><code>biodb::BiodbPersistentCache$enable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="enabled"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-enabled'><code>biodb::BiodbPersistentCache$enabled()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="erase"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-erase'><code>biodb::BiodbPersistentCache$erase()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="fileExist"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-fileExist'><code>biodb::BiodbPersistentCache$fileExist()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="fileExists"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-fileExists'><code>biodb::BiodbPersistentCache$fileExists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="filesExist"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-filesExist'><code>biodb::BiodbPersistentCache$filesExist()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="folderExists"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-folderExists'><code>biodb::BiodbPersistentCache$folderExists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getDir"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-getDir'><code>biodb::BiodbPersistentCache$getDir()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getFilePath"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-getFilePath'><code>biodb::BiodbPersistentCache$getFilePath()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getFolderPath"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-getFolderPath'><code>biodb::BiodbPersistentCache$getFolderPath()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getTmpFolderPath"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-getTmpFolderPath'><code>biodb::BiodbPersistentCache$getTmpFolderPath()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="getUsedCacheIds"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-getUsedCacheIds'><code>biodb::BiodbPersistentCache$getUsedCacheIds()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="initialize"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-initialize'><code>biodb::BiodbPersistentCache$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="isReadable"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-isReadable'><code>biodb::BiodbPersistentCache$isReadable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="isWritable"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-isWritable'><code>biodb::BiodbPersistentCache$isWritable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="listFiles"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-listFiles'><code>biodb::BiodbPersistentCache$listFiles()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="loadFileContent"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-loadFileContent'><code>biodb::BiodbPersistentCache$loadFileContent()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExist"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-markerExist'><code>biodb::BiodbPersistentCache$markerExist()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="markerExists"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-markerExists'><code>biodb::BiodbPersistentCache$markerExists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="moveFilesIntoCache"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-moveFilesIntoCache'><code>biodb::BiodbPersistentCache$moveFilesIntoCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="print"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-print'><code>biodb::BiodbPersistentCache$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="saveContentToFile"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-saveContentToFile'><code>biodb::BiodbPersistentCache$saveContentToFile()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbPersistentCache" data-id="setMarker"><a href='../../biodb/html/BiodbPersistentCache.html#method-BiodbPersistentCache-setMarker'><code>biodb::BiodbPersistentCache$setMarker()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbCustomPersistentCache-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbCustomPersistentCache-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -24,14 +24,14 @@ for (i in seq_len(10)) {
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Progress$new()}}
-\item \href{#method-increment}{\code{Progress$increment()}}
-\item \href{#method-clone}{\code{Progress$clone()}}
+\item \href{#method-Progress-new}{\code{Progress$new()}}
+\item \href{#method-Progress-increment}{\code{Progress$increment()}}
+\item \href{#method-Progress-clone}{\code{Progress$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Progress-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Progress-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -55,8 +55,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-increment"></a>}}
-\if{latex}{\out{\hypertarget{method-increment}{}}}
+\if{html}{\out{<a id="method-Progress-increment"></a>}}
+\if{latex}{\out{\hypertarget{method-Progress-increment}{}}}
 \subsection{Method \code{increment()}}{
 Increment progress.
 \subsection{Usage}{
@@ -68,8 +68,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Progress-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Progress-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

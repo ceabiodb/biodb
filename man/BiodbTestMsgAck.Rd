@@ -25,14 +25,14 @@ biodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbTestMsgAck$new()}}
-\item \href{#method-notifyProgress}{\code{BiodbTestMsgAck$notifyProgress()}}
-\item \href{#method-clone}{\code{BiodbTestMsgAck$clone()}}
+\item \href{#method-BiodbTestMsgAck-new}{\code{BiodbTestMsgAck$new()}}
+\item \href{#method-BiodbTestMsgAck-notifyProgress}{\code{BiodbTestMsgAck$notifyProgress()}}
+\item \href{#method-BiodbTestMsgAck-clone}{\code{BiodbTestMsgAck$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbTestMsgAck-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbTestMsgAck-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
@@ -44,8 +44,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-notifyProgress"></a>}}
-\if{latex}{\out{\hypertarget{method-notifyProgress}{}}}
+\if{html}{\out{<a id="method-BiodbTestMsgAck-notifyProgress"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbTestMsgAck-notifyProgress}{}}}
 \subsection{Method \code{notifyProgress()}}{
 Call back method used to get progress advancement of a long process.
 \subsection{Usage}{
@@ -68,8 +68,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbTestMsgAck-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbTestMsgAck-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

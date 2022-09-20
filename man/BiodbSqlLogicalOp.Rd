@@ -14,21 +14,15 @@ This class represents an SQL logical operator.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbSqlLogicalOp$new()}}
-\item \href{#method-addExpr}{\code{BiodbSqlLogicalOp$addExpr()}}
-\item \href{#method-toString}{\code{BiodbSqlLogicalOp$toString()}}
-\item \href{#method-clone}{\code{BiodbSqlLogicalOp$clone()}}
+\item \href{#method-BiodbSqlLogicalOp-new}{\code{BiodbSqlLogicalOp$new()}}
+\item \href{#method-BiodbSqlLogicalOp-addExpr}{\code{BiodbSqlLogicalOp$addExpr()}}
+\item \href{#method-BiodbSqlLogicalOp-toString}{\code{BiodbSqlLogicalOp$toString()}}
+\item \href{#method-BiodbSqlLogicalOp-clone}{\code{BiodbSqlLogicalOp$clone()}}
 }
-}
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-}
-\out{</details>}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbSqlLogicalOp-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlLogicalOp-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -47,8 +41,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addExpr"></a>}}
-\if{latex}{\out{\hypertarget{method-addExpr}{}}}
+\if{html}{\out{<a id="method-BiodbSqlLogicalOp-addExpr"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlLogicalOp-addExpr}{}}}
 \subsection{Method \code{addExpr()}}{
 Add an SQL expression to the logical operator.
 \subsection{Usage}{
@@ -67,8 +61,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbSqlLogicalOp-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlLogicalOp-toString}{}}}
 \subsection{Method \code{toString()}}{
 Converts into a string.
 \subsection{Usage}{
@@ -80,8 +74,8 @@ A string containing the SQL expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbSqlLogicalOp-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlLogicalOp-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

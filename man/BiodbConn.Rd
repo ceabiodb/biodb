@@ -56,116 +56,116 @@ Super class \code{\link{BiodbConnBase}}, and
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbConn$new()}}
-\item \href{#method-getBiodb}{\code{BiodbConn$getBiodb()}}
-\item \href{#method-getId}{\code{BiodbConn$getId()}}
-\item \href{#method-print}{\code{BiodbConn$print()}}
-\item \href{#method-correctIds}{\code{BiodbConn$correctIds()}}
-\item \href{#method-getEntry}{\code{BiodbConn$getEntry()}}
-\item \href{#method-getCacheFile}{\code{BiodbConn$getCacheFile()}}
-\item \href{#method-getEntryContent}{\code{BiodbConn$getEntryContent()}}
-\item \href{#method-getEntryContentFromDb}{\code{BiodbConn$getEntryContentFromDb()}}
-\item \href{#method-getEntryContentRequest}{\code{BiodbConn$getEntryContentRequest()}}
-\item \href{#method-getEntryIds}{\code{BiodbConn$getEntryIds()}}
-\item \href{#method-getNbEntries}{\code{BiodbConn$getNbEntries()}}
-\item \href{#method-isEditable}{\code{BiodbConn$isEditable()}}
-\item \href{#method-editingIsAllowed}{\code{BiodbConn$editingIsAllowed()}}
-\item \href{#method-allowEditing}{\code{BiodbConn$allowEditing()}}
-\item \href{#method-disallowEditing}{\code{BiodbConn$disallowEditing()}}
-\item \href{#method-setEditingAllowed}{\code{BiodbConn$setEditingAllowed()}}
-\item \href{#method-addNewEntry}{\code{BiodbConn$addNewEntry()}}
-\item \href{#method-isWritable}{\code{BiodbConn$isWritable()}}
-\item \href{#method-allowWriting}{\code{BiodbConn$allowWriting()}}
-\item \href{#method-disallowWriting}{\code{BiodbConn$disallowWriting()}}
-\item \href{#method-setWritingAllowed}{\code{BiodbConn$setWritingAllowed()}}
-\item \href{#method-writingIsAllowed}{\code{BiodbConn$writingIsAllowed()}}
-\item \href{#method-write}{\code{BiodbConn$write()}}
-\item \href{#method-isSearchableByField}{\code{BiodbConn$isSearchableByField()}}
-\item \href{#method-getSearchableFields}{\code{BiodbConn$getSearchableFields()}}
-\item \href{#method-searchForEntries}{\code{BiodbConn$searchForEntries()}}
-\item \href{#method-searchByName}{\code{BiodbConn$searchByName()}}
-\item \href{#method-isDownloadable}{\code{BiodbConn$isDownloadable()}}
-\item \href{#method-isDownloaded}{\code{BiodbConn$isDownloaded()}}
-\item \href{#method-requiresDownload}{\code{BiodbConn$requiresDownload()}}
-\item \href{#method-getDownloadPath}{\code{BiodbConn$getDownloadPath()}}
-\item \href{#method-setDownloadedFile}{\code{BiodbConn$setDownloadedFile()}}
-\item \href{#method-isExtracted}{\code{BiodbConn$isExtracted()}}
-\item \href{#method-download}{\code{BiodbConn$download()}}
-\item \href{#method-isRemotedb}{\code{BiodbConn$isRemotedb()}}
-\item \href{#method-isCompounddb}{\code{BiodbConn$isCompounddb()}}
-\item \href{#method-searchCompound}{\code{BiodbConn$searchCompound()}}
-\item \href{#method-annotateMzValues}{\code{BiodbConn$annotateMzValues()}}
-\item \href{#method-isMassdb}{\code{BiodbConn$isMassdb()}}
-\item \href{#method-checkDb}{\code{BiodbConn$checkDb()}}
-\item \href{#method-getAllVolatileCacheEntries}{\code{BiodbConn$getAllVolatileCacheEntries()}}
-\item \href{#method-getAllCacheEntries}{\code{BiodbConn$getAllCacheEntries()}}
-\item \href{#method-deleteAllEntriesFromVolatileCache}{\code{BiodbConn$deleteAllEntriesFromVolatileCache()}}
-\item \href{#method-deleteAllEntriesFromPersistentCache}{\code{BiodbConn$deleteAllEntriesFromPersistentCache()}}
-\item \href{#method-deleteWholePersistentCache}{\code{BiodbConn$deleteWholePersistentCache()}}
-\item \href{#method-deleteAllCacheEntries}{\code{BiodbConn$deleteAllCacheEntries()}}
-\item \href{#method-getCacheId}{\code{BiodbConn$getCacheId()}}
-\item \href{#method-makesRefToEntry}{\code{BiodbConn$makesRefToEntry()}}
-\item \href{#method-makeRequest}{\code{BiodbConn$makeRequest()}}
-\item \href{#method-getEntryImageUrl}{\code{BiodbConn$getEntryImageUrl()}}
-\item \href{#method-getEntryPageUrl}{\code{BiodbConn$getEntryPageUrl()}}
-\item \href{#method-getChromCol}{\code{BiodbConn$getChromCol()}}
-\item \href{#method-getMatchingMzField}{\code{BiodbConn$getMatchingMzField()}}
-\item \href{#method-setMatchingMzField}{\code{BiodbConn$setMatchingMzField()}}
-\item \href{#method-getMzValues}{\code{BiodbConn$getMzValues()}}
-\item \href{#method-getNbPeaks}{\code{BiodbConn$getNbPeaks()}}
-\item \href{#method-filterEntriesOnRt}{\code{BiodbConn$filterEntriesOnRt()}}
-\item \href{#method-searchForMassSpectra}{\code{BiodbConn$searchForMassSpectra()}}
-\item \href{#method-searchMsEntries}{\code{BiodbConn$searchMsEntries()}}
-\item \href{#method-searchMsPeaks}{\code{BiodbConn$searchMsPeaks()}}
-\item \href{#method-msmsSearch}{\code{BiodbConn$msmsSearch()}}
-\item \href{#method-collapseResultsDataFrame}{\code{BiodbConn$collapseResultsDataFrame()}}
-\item \href{#method-searchMzRange}{\code{BiodbConn$searchMzRange()}}
-\item \href{#method-searchMzTol}{\code{BiodbConn$searchMzTol()}}
-\item \href{#method-clone}{\code{BiodbConn$clone()}}
+\item \href{#method-BiodbConn-new}{\code{BiodbConn$new()}}
+\item \href{#method-BiodbConn-getBiodb}{\code{BiodbConn$getBiodb()}}
+\item \href{#method-BiodbConn-getId}{\code{BiodbConn$getId()}}
+\item \href{#method-BiodbConn-print}{\code{BiodbConn$print()}}
+\item \href{#method-BiodbConn-correctIds}{\code{BiodbConn$correctIds()}}
+\item \href{#method-BiodbConn-getEntry}{\code{BiodbConn$getEntry()}}
+\item \href{#method-BiodbConn-getCacheFile}{\code{BiodbConn$getCacheFile()}}
+\item \href{#method-BiodbConn-getEntryContent}{\code{BiodbConn$getEntryContent()}}
+\item \href{#method-BiodbConn-getEntryContentFromDb}{\code{BiodbConn$getEntryContentFromDb()}}
+\item \href{#method-BiodbConn-getEntryContentRequest}{\code{BiodbConn$getEntryContentRequest()}}
+\item \href{#method-BiodbConn-getEntryIds}{\code{BiodbConn$getEntryIds()}}
+\item \href{#method-BiodbConn-getNbEntries}{\code{BiodbConn$getNbEntries()}}
+\item \href{#method-BiodbConn-isEditable}{\code{BiodbConn$isEditable()}}
+\item \href{#method-BiodbConn-editingIsAllowed}{\code{BiodbConn$editingIsAllowed()}}
+\item \href{#method-BiodbConn-allowEditing}{\code{BiodbConn$allowEditing()}}
+\item \href{#method-BiodbConn-disallowEditing}{\code{BiodbConn$disallowEditing()}}
+\item \href{#method-BiodbConn-setEditingAllowed}{\code{BiodbConn$setEditingAllowed()}}
+\item \href{#method-BiodbConn-addNewEntry}{\code{BiodbConn$addNewEntry()}}
+\item \href{#method-BiodbConn-isWritable}{\code{BiodbConn$isWritable()}}
+\item \href{#method-BiodbConn-allowWriting}{\code{BiodbConn$allowWriting()}}
+\item \href{#method-BiodbConn-disallowWriting}{\code{BiodbConn$disallowWriting()}}
+\item \href{#method-BiodbConn-setWritingAllowed}{\code{BiodbConn$setWritingAllowed()}}
+\item \href{#method-BiodbConn-writingIsAllowed}{\code{BiodbConn$writingIsAllowed()}}
+\item \href{#method-BiodbConn-write}{\code{BiodbConn$write()}}
+\item \href{#method-BiodbConn-isSearchableByField}{\code{BiodbConn$isSearchableByField()}}
+\item \href{#method-BiodbConn-getSearchableFields}{\code{BiodbConn$getSearchableFields()}}
+\item \href{#method-BiodbConn-searchForEntries}{\code{BiodbConn$searchForEntries()}}
+\item \href{#method-BiodbConn-searchByName}{\code{BiodbConn$searchByName()}}
+\item \href{#method-BiodbConn-isDownloadable}{\code{BiodbConn$isDownloadable()}}
+\item \href{#method-BiodbConn-isDownloaded}{\code{BiodbConn$isDownloaded()}}
+\item \href{#method-BiodbConn-requiresDownload}{\code{BiodbConn$requiresDownload()}}
+\item \href{#method-BiodbConn-getDownloadPath}{\code{BiodbConn$getDownloadPath()}}
+\item \href{#method-BiodbConn-setDownloadedFile}{\code{BiodbConn$setDownloadedFile()}}
+\item \href{#method-BiodbConn-isExtracted}{\code{BiodbConn$isExtracted()}}
+\item \href{#method-BiodbConn-download}{\code{BiodbConn$download()}}
+\item \href{#method-BiodbConn-isRemotedb}{\code{BiodbConn$isRemotedb()}}
+\item \href{#method-BiodbConn-isCompounddb}{\code{BiodbConn$isCompounddb()}}
+\item \href{#method-BiodbConn-searchCompound}{\code{BiodbConn$searchCompound()}}
+\item \href{#method-BiodbConn-annotateMzValues}{\code{BiodbConn$annotateMzValues()}}
+\item \href{#method-BiodbConn-isMassdb}{\code{BiodbConn$isMassdb()}}
+\item \href{#method-BiodbConn-checkDb}{\code{BiodbConn$checkDb()}}
+\item \href{#method-BiodbConn-getAllVolatileCacheEntries}{\code{BiodbConn$getAllVolatileCacheEntries()}}
+\item \href{#method-BiodbConn-getAllCacheEntries}{\code{BiodbConn$getAllCacheEntries()}}
+\item \href{#method-BiodbConn-deleteAllEntriesFromVolatileCache}{\code{BiodbConn$deleteAllEntriesFromVolatileCache()}}
+\item \href{#method-BiodbConn-deleteAllEntriesFromPersistentCache}{\code{BiodbConn$deleteAllEntriesFromPersistentCache()}}
+\item \href{#method-BiodbConn-deleteWholePersistentCache}{\code{BiodbConn$deleteWholePersistentCache()}}
+\item \href{#method-BiodbConn-deleteAllCacheEntries}{\code{BiodbConn$deleteAllCacheEntries()}}
+\item \href{#method-BiodbConn-getCacheId}{\code{BiodbConn$getCacheId()}}
+\item \href{#method-BiodbConn-makesRefToEntry}{\code{BiodbConn$makesRefToEntry()}}
+\item \href{#method-BiodbConn-makeRequest}{\code{BiodbConn$makeRequest()}}
+\item \href{#method-BiodbConn-getEntryImageUrl}{\code{BiodbConn$getEntryImageUrl()}}
+\item \href{#method-BiodbConn-getEntryPageUrl}{\code{BiodbConn$getEntryPageUrl()}}
+\item \href{#method-BiodbConn-getChromCol}{\code{BiodbConn$getChromCol()}}
+\item \href{#method-BiodbConn-getMatchingMzField}{\code{BiodbConn$getMatchingMzField()}}
+\item \href{#method-BiodbConn-setMatchingMzField}{\code{BiodbConn$setMatchingMzField()}}
+\item \href{#method-BiodbConn-getMzValues}{\code{BiodbConn$getMzValues()}}
+\item \href{#method-BiodbConn-getNbPeaks}{\code{BiodbConn$getNbPeaks()}}
+\item \href{#method-BiodbConn-filterEntriesOnRt}{\code{BiodbConn$filterEntriesOnRt()}}
+\item \href{#method-BiodbConn-searchForMassSpectra}{\code{BiodbConn$searchForMassSpectra()}}
+\item \href{#method-BiodbConn-searchMsEntries}{\code{BiodbConn$searchMsEntries()}}
+\item \href{#method-BiodbConn-searchMsPeaks}{\code{BiodbConn$searchMsPeaks()}}
+\item \href{#method-BiodbConn-msmsSearch}{\code{BiodbConn$msmsSearch()}}
+\item \href{#method-BiodbConn-collapseResultsDataFrame}{\code{BiodbConn$collapseResultsDataFrame()}}
+\item \href{#method-BiodbConn-searchMzRange}{\code{BiodbConn$searchMzRange()}}
+\item \href{#method-BiodbConn-searchMzTol}{\code{BiodbConn$searchMzTol()}}
+\item \href{#method-BiodbConn-clone}{\code{BiodbConn$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getDbClass">}\href{../../biodb/html/BiodbConnBase.html#method-getDbClass}{\code{biodb::BiodbConnBase$getDbClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClass">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryClass}{\code{biodb::BiodbConnBase$getEntryClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryClassName}{\code{biodb::BiodbConnBase$getEntryClassName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryContentType">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryContentType}{\code{biodb::BiodbConnBase$getEntryContentType()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryFileExt">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryFileExt}{\code{biodb::BiodbConnBase$getEntryFileExt()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryIdField">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryIdField}{\code{biodb::BiodbConnBase$getEntryIdField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getName">}\href{../../biodb/html/BiodbConnBase.html#method-getName}{\code{biodb::BiodbConnBase$getName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropSlots">}\href{../../biodb/html/BiodbConnBase.html#method-getPropSlots}{\code{biodb::BiodbConnBase$getPropSlots()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropValSlot">}\href{../../biodb/html/BiodbConnBase.html#method-getPropValSlot}{\code{biodb::BiodbConnBase$getPropValSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropertyValue">}\href{../../biodb/html/BiodbConnBase.html#method-getPropertyValue}{\code{biodb::BiodbConnBase$getPropertyValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerNParam">}\href{../../biodb/html/BiodbConnBase.html#method-getSchedulerNParam}{\code{biodb::BiodbConnBase$getSchedulerNParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerTParam">}\href{../../biodb/html/BiodbConnBase.html#method-getSchedulerTParam}{\code{biodb::BiodbConnBase$getSchedulerTParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getToken">}\href{../../biodb/html/BiodbConnBase.html#method-getToken}{\code{biodb::BiodbConnBase$getToken()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getUrl}{\code{biodb::BiodbConnBase$getUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrls">}\href{../../biodb/html/BiodbConnBase.html#method-getUrls}{\code{biodb::BiodbConnBase$getUrls()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getWsUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getWsUrl}{\code{biodb::BiodbConnBase$getWsUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getXmlNs">}\href{../../biodb/html/BiodbConnBase.html#method-getXmlNs}{\code{biodb::BiodbConnBase$getXmlNs()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasProp">}\href{../../biodb/html/BiodbConnBase.html#method-hasProp}{\code{biodb::BiodbConnBase$hasProp()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasPropSlot">}\href{../../biodb/html/BiodbConnBase.html#method-hasPropSlot}{\code{biodb::BiodbConnBase$hasPropSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="isSlotProp">}\href{../../biodb/html/BiodbConnBase.html#method-isSlotProp}{\code{biodb::BiodbConnBase$isSlotProp()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="propExists">}\href{../../biodb/html/BiodbConnBase.html#method-propExists}{\code{biodb::BiodbConnBase$propExists()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setBaseUrl}{\code{biodb::BiodbConnBase$setBaseUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropValSlot">}\href{../../biodb/html/BiodbConnBase.html#method-setPropValSlot}{\code{biodb::BiodbConnBase$setPropValSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropertyValue">}\href{../../biodb/html/BiodbConnBase.html#method-setPropertyValue}{\code{biodb::BiodbConnBase$setPropertyValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerNParam">}\href{../../biodb/html/BiodbConnBase.html#method-setSchedulerNParam}{\code{biodb::BiodbConnBase$setSchedulerNParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerTParam">}\href{../../biodb/html/BiodbConnBase.html#method-setSchedulerTParam}{\code{biodb::BiodbConnBase$setSchedulerTParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setToken">}\href{../../biodb/html/BiodbConnBase.html#method-setToken}{\code{biodb::BiodbConnBase$setToken()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setUrl}{\code{biodb::BiodbConnBase$setUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setWsUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setWsUrl}{\code{biodb::BiodbConnBase$setWsUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="updatePropertiesDefinition">}\href{../../biodb/html/BiodbConnBase.html#method-updatePropertiesDefinition}{\code{biodb::BiodbConnBase$updatePropertiesDefinition()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getBaseUrl'><code>biodb::BiodbConnBase$getBaseUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getConnClass'><code>biodb::BiodbConnBase$getConnClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getConnClassName'><code>biodb::BiodbConnBase$getConnClassName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getDbClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getDbClass'><code>biodb::BiodbConnBase$getDbClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryClass'><code>biodb::BiodbConnBase$getEntryClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClassName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryClassName'><code>biodb::BiodbConnBase$getEntryClassName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryContentType"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryContentType'><code>biodb::BiodbConnBase$getEntryContentType()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryFileExt"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryFileExt'><code>biodb::BiodbConnBase$getEntryFileExt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryIdField"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryIdField'><code>biodb::BiodbConnBase$getEntryIdField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getName'><code>biodb::BiodbConnBase$getName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropSlots"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropSlots'><code>biodb::BiodbConnBase$getPropSlots()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropValSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropValSlot'><code>biodb::BiodbConnBase$getPropValSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropertyValue"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropertyValue'><code>biodb::BiodbConnBase$getPropertyValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerNParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getSchedulerNParam'><code>biodb::BiodbConnBase$getSchedulerNParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerTParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getSchedulerTParam'><code>biodb::BiodbConnBase$getSchedulerTParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getToken"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getToken'><code>biodb::BiodbConnBase$getToken()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getUrl'><code>biodb::BiodbConnBase$getUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrls"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getUrls'><code>biodb::BiodbConnBase$getUrls()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getWsUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getWsUrl'><code>biodb::BiodbConnBase$getWsUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getXmlNs"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getXmlNs'><code>biodb::BiodbConnBase$getXmlNs()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasProp"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-hasProp'><code>biodb::BiodbConnBase$hasProp()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasPropSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-hasPropSlot'><code>biodb::BiodbConnBase$hasPropSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="isSlotProp"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-isSlotProp'><code>biodb::BiodbConnBase$isSlotProp()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="propExists"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-propExists'><code>biodb::BiodbConnBase$propExists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setBaseUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setBaseUrl'><code>biodb::BiodbConnBase$setBaseUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropValSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setPropValSlot'><code>biodb::BiodbConnBase$setPropValSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropertyValue"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setPropertyValue'><code>biodb::BiodbConnBase$setPropertyValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerNParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setSchedulerNParam'><code>biodb::BiodbConnBase$setSchedulerNParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerTParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setSchedulerTParam'><code>biodb::BiodbConnBase$setSchedulerTParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setToken"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setToken'><code>biodb::BiodbConnBase$setToken()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setUrl'><code>biodb::BiodbConnBase$setUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setWsUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setWsUrl'><code>biodb::BiodbConnBase$setWsUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="updatePropertiesDefinition"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-updatePropertiesDefinition'><code>biodb::BiodbConnBase$updatePropertiesDefinition()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbConn-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Connector objects must not be created directly.
 Instead, you create new connector instances through the BiodbFactory
@@ -193,8 +193,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBiodb"></a>}}
-\if{latex}{\out{\hypertarget{method-getBiodb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getBiodb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getBiodb}{}}}
 \subsection{Method \code{getBiodb()}}{
 Returns the biodb main class instance to which this object is
 attached.
@@ -207,8 +207,8 @@ The main biodb instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getId"></a>}}
-\if{latex}{\out{\hypertarget{method-getId}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getId"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getId}{}}}
 \subsection{Method \code{getId()}}{
 Get the identifier of this connector.
 \subsection{Usage}{
@@ -220,8 +220,8 @@ The identifier of this connector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbConn-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-print}{}}}
 \subsection{Method \code{print()}}{
 Prints a description of this connector.
 \subsection{Usage}{
@@ -233,8 +233,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-correctIds"></a>}}
-\if{latex}{\out{\hypertarget{method-correctIds}{}}}
+\if{html}{\out{<a id="method-BiodbConn-correctIds"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-correctIds}{}}}
 \subsection{Method \code{correctIds()}}{
 Correct a vector of IDs by formatting them to the database official
 format, if required and possible.
@@ -254,8 +254,8 @@ The vector of IDs corrected.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntry}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntry}{}}}
 \subsection{Method \code{getEntry()}}{
 Return the entry corresponding to this ID. You can pass a vector of
 IDs, and you will get a list of entries.
@@ -286,8 +286,8 @@ returned instead of a list.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCacheFile"></a>}}
-\if{latex}{\out{\hypertarget{method-getCacheFile}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getCacheFile"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getCacheFile}{}}}
 \subsection{Method \code{getCacheFile()}}{
 Get the path to the persistent cache file.
 \subsection{Usage}{
@@ -309,8 +309,8 @@ entry IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContent"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContent}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryContent"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryContent}{}}}
 \subsection{Method \code{getEntryContent()}}{
 Get the contents of database entries from IDs (accession numbers).
 \subsection{Usage}{
@@ -330,8 +330,8 @@ IDs. If no content is available for an entry ID, then NA will be used.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContentFromDb"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContentFromDb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryContentFromDb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryContentFromDb}{}}}
 \subsection{Method \code{getEntryContentFromDb()}}{
 Get the contents of entries directly from the database. A direct
 request or an access to the database will be made in order to retrieve the
@@ -354,8 +354,8 @@ of each entry for which the retrieval failed.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContentRequest"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContentRequest}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryContentRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryContentRequest}{}}}
 \subsection{Method \code{getEntryContentRequest()}}{
 Gets the URL to use in order to get the contents of the specified
 entries.
@@ -381,8 +381,8 @@ A vector of URL strings.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryIds"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryIds}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryIds"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryIds}{}}}
 \subsection{Method \code{getEntryIds()}}{
 Get entry identifiers from the database. More arguments can be given,
 depending on implementation in specific databases. For mass databases the
@@ -407,8 +407,8 @@ requesting for entry accessions.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNbEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getNbEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getNbEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getNbEntries}{}}}
 \subsection{Method \code{getNbEntries()}}{
 Get the number of entries contained in this database.
 \subsection{Usage}{
@@ -428,8 +428,8 @@ The number of entries in the database, as an integer.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isEditable"></a>}}
-\if{latex}{\out{\hypertarget{method-isEditable}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isEditable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isEditable}{}}}
 \subsection{Method \code{isEditable()}}{
 Tests if this connector is able to edit the database (i.e.: the connector
 class implements the interface BiodbEditable). If this connector is
@@ -443,8 +443,8 @@ Returns TRUE if the database is editable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-editingIsAllowed"></a>}}
-\if{latex}{\out{\hypertarget{method-editingIsAllowed}{}}}
+\if{html}{\out{<a id="method-BiodbConn-editingIsAllowed"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-editingIsAllowed}{}}}
 \subsection{Method \code{editingIsAllowed()}}{
 Tests if editing is allowed.
 \subsection{Usage}{
@@ -457,8 +457,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-allowEditing"></a>}}
-\if{latex}{\out{\hypertarget{method-allowEditing}{}}}
+\if{html}{\out{<a id="method-BiodbConn-allowEditing"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-allowEditing}{}}}
 \subsection{Method \code{allowEditing()}}{
 Allows editing for this database.
 \subsection{Usage}{
@@ -470,8 +470,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-disallowEditing"></a>}}
-\if{latex}{\out{\hypertarget{method-disallowEditing}{}}}
+\if{html}{\out{<a id="method-BiodbConn-disallowEditing"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-disallowEditing}{}}}
 \subsection{Method \code{disallowEditing()}}{
 Disallows editing for this database.
 \subsection{Usage}{
@@ -483,8 +483,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setEditingAllowed"></a>}}
-\if{latex}{\out{\hypertarget{method-setEditingAllowed}{}}}
+\if{html}{\out{<a id="method-BiodbConn-setEditingAllowed"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-setEditingAllowed}{}}}
 \subsection{Method \code{setEditingAllowed()}}{
 Allow or disallow editing for this database.
 \subsection{Usage}{
@@ -503,8 +503,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addNewEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-addNewEntry}{}}}
+\if{html}{\out{<a id="method-BiodbConn-addNewEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-addNewEntry}{}}}
 \subsection{Method \code{addNewEntry()}}{
 Adds a new entry to the database. The passed entry must have been previously
 created from scratch using BiodbFactory :createNewEntry() or cloned from an
@@ -525,8 +525,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isWritable"></a>}}
-\if{latex}{\out{\hypertarget{method-isWritable}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isWritable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isWritable}{}}}
 \subsection{Method \code{isWritable()}}{
 Tests if this connector is able to write into the database.  If this
 connector is writable, then you can call allowWriting() to enable writing.
@@ -539,8 +539,8 @@ Returns TRUE if the database is writable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-allowWriting"></a>}}
-\if{latex}{\out{\hypertarget{method-allowWriting}{}}}
+\if{html}{\out{<a id="method-BiodbConn-allowWriting"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-allowWriting}{}}}
 \subsection{Method \code{allowWriting()}}{
 Allows the connector to write into this database.
 \subsection{Usage}{
@@ -552,8 +552,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-disallowWriting"></a>}}
-\if{latex}{\out{\hypertarget{method-disallowWriting}{}}}
+\if{html}{\out{<a id="method-BiodbConn-disallowWriting"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-disallowWriting}{}}}
 \subsection{Method \code{disallowWriting()}}{
 Disallows the connector to write into this database.
 \subsection{Usage}{
@@ -565,8 +565,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setWritingAllowed"></a>}}
-\if{latex}{\out{\hypertarget{method-setWritingAllowed}{}}}
+\if{html}{\out{<a id="method-BiodbConn-setWritingAllowed"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-setWritingAllowed}{}}}
 \subsection{Method \code{setWritingAllowed()}}{
 Allows or disallows writing for this database.
 \subsection{Usage}{
@@ -585,8 +585,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-writingIsAllowed"></a>}}
-\if{latex}{\out{\hypertarget{method-writingIsAllowed}{}}}
+\if{html}{\out{<a id="method-BiodbConn-writingIsAllowed"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-writingIsAllowed}{}}}
 \subsection{Method \code{writingIsAllowed()}}{
 Tests if the connector has access right to the database.
 \subsection{Usage}{
@@ -599,8 +599,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-write"></a>}}
-\if{latex}{\out{\hypertarget{method-write}{}}}
+\if{html}{\out{<a id="method-BiodbConn-write"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-write}{}}}
 \subsection{Method \code{write()}}{
 Writes into the database. All modifications made to the database since
 the last time write() was called will be saved.
@@ -613,8 +613,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSearchableByField"></a>}}
-\if{latex}{\out{\hypertarget{method-isSearchableByField}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isSearchableByField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isSearchableByField}{}}}
 \subsection{Method \code{isSearchableByField()}}{
 Tests if a field can be used to search entries when using method
 searchForEntries().
@@ -637,8 +637,8 @@ field or searchable by any field of the specified type, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSearchableFields"></a>}}
-\if{latex}{\out{\hypertarget{method-getSearchableFields}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getSearchableFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getSearchableFields}{}}}
 \subsection{Method \code{getSearchableFields()}}{
 Get the list of all searchable fields.
 \subsection{Usage}{
@@ -651,8 +651,8 @@ connector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchForEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-searchForEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchForEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchForEntries}{}}}
 \subsection{Method \code{searchForEntries()}}{
 Searches the database for entries whose name matches the specified name.
 Returns a character vector of entry IDs.
@@ -683,8 +683,8 @@ name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchByName"></a>}}
-\if{latex}{\out{\hypertarget{method-searchByName}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchByName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchByName}{}}}
 \subsection{Method \code{searchByName()}}{
 DEPRECATED. Use searchForEntries() instead.
 \subsection{Usage}{
@@ -707,8 +707,8 @@ requested name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDownloadable"></a>}}
-\if{latex}{\out{\hypertarget{method-isDownloadable}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isDownloadable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isDownloadable}{}}}
 \subsection{Method \code{isDownloadable()}}{
 Tests if the connector can download the database.
 \subsection{Usage}{
@@ -720,8 +720,8 @@ Returns TRUE if the database is downloadable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDownloaded"></a>}}
-\if{latex}{\out{\hypertarget{method-isDownloaded}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isDownloaded"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isDownloaded}{}}}
 \subsection{Method \code{isDownloaded()}}{
 Tests if the database has been downloaded.
 \subsection{Usage}{
@@ -733,8 +733,8 @@ TRUE if the database content has already been downloaded.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-requiresDownload"></a>}}
-\if{latex}{\out{\hypertarget{method-requiresDownload}{}}}
+\if{html}{\out{<a id="method-BiodbConn-requiresDownload"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-requiresDownload}{}}}
 \subsection{Method \code{requiresDownload()}}{
 Tests if the connector requires the download of the database.
 \subsection{Usage}{
@@ -746,8 +746,8 @@ TRUE if the connector requires download of the database.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDownloadPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getDownloadPath}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getDownloadPath"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getDownloadPath}{}}}
 \subsection{Method \code{getDownloadPath()}}{
 Gets the path where the downloaded content is written.
 \subsection{Usage}{
@@ -759,8 +759,8 @@ The path where the downloaded database is written.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDownloadedFile"></a>}}
-\if{latex}{\out{\hypertarget{method-setDownloadedFile}{}}}
+\if{html}{\out{<a id="method-BiodbConn-setDownloadedFile"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-setDownloadedFile}{}}}
 \subsection{Method \code{setDownloadedFile()}}{
 Set the downloaded file into the cache.
 \subsection{Usage}{
@@ -781,8 +781,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isExtracted"></a>}}
-\if{latex}{\out{\hypertarget{method-isExtracted}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isExtracted"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isExtracted}{}}}
 \subsection{Method \code{isExtracted()}}{
 Tests if the downloaded database has been extracted (in case the
 database needs extraction).
@@ -796,8 +796,8 @@ extracted, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-download"></a>}}
-\if{latex}{\out{\hypertarget{method-download}{}}}
+\if{html}{\out{<a id="method-BiodbConn-download"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-download}{}}}
 \subsection{Method \code{download()}}{
 Downloads the database content locally.
 \subsection{Usage}{
@@ -809,8 +809,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isRemotedb"></a>}}
-\if{latex}{\out{\hypertarget{method-isRemotedb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isRemotedb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isRemotedb}{}}}
 \subsection{Method \code{isRemotedb()}}{
 Tests if the connector is connected to a remote database.
 \subsection{Usage}{
@@ -822,8 +822,8 @@ Returns TRUE if the database is a remote database."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isCompounddb"></a>}}
-\if{latex}{\out{\hypertarget{method-isCompounddb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isCompounddb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isCompounddb}{}}}
 \subsection{Method \code{isCompounddb()}}{
 Tests if the connector's database is a compound database.
 \subsection{Usage}{
@@ -835,8 +835,8 @@ Returns TRUE if the database is a compound database.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchCompound"></a>}}
-\if{latex}{\out{\hypertarget{method-searchCompound}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchCompound"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchCompound}{}}}
 \subsection{Method \code{searchCompound()}}{
 This method is deprecated. Use searchForEntries() instead.
 Searches for compounds by name and/or by mass. At least one of name or
@@ -880,8 +880,8 @@ A character vector of entry IDs."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-annotateMzValues"></a>}}
-\if{latex}{\out{\hypertarget{method-annotateMzValues}{}}}
+\if{html}{\out{<a id="method-BiodbConn-annotateMzValues"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-annotateMzValues}{}}}
 \subsection{Method \code{annotateMzValues()}}{
 Annotates a mass spectrum with the database. For each matching entry the
 entry field values will be set inside columns appended to the data frame.
@@ -949,8 +949,8 @@ through the \code{fields} parameter.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isMassdb"></a>}}
-\if{latex}{\out{\hypertarget{method-isMassdb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-isMassdb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-isMassdb}{}}}
 \subsection{Method \code{isMassdb()}}{
 Tests if the connector's database is a mass spectra database.
 \subsection{Usage}{
@@ -962,8 +962,8 @@ Returns TRUE if the database is a mass database.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkDb"></a>}}
-\if{latex}{\out{\hypertarget{method-checkDb}{}}}
+\if{html}{\out{<a id="method-BiodbConn-checkDb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-checkDb}{}}}
 \subsection{Method \code{checkDb()}}{
 Checks that the database is correct by trying to retrieve all its
 entries.
@@ -976,8 +976,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllVolatileCacheEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllVolatileCacheEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getAllVolatileCacheEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getAllVolatileCacheEntries}{}}}
 \subsection{Method \code{getAllVolatileCacheEntries()}}{
 Get all entries stored in the memory cache (volatile cache).
 \subsection{Usage}{
@@ -989,8 +989,8 @@ A list of BiodbEntry instances.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllCacheEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllCacheEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getAllCacheEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getAllCacheEntries}{}}}
 \subsection{Method \code{getAllCacheEntries()}}{
 This method is deprecated.
 Use getAllVolatileCacheEntries() instead.
@@ -1003,8 +1003,8 @@ All entries cached in memory.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllEntriesFromVolatileCache"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllEntriesFromVolatileCache}{}}}
+\if{html}{\out{<a id="method-BiodbConn-deleteAllEntriesFromVolatileCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-deleteAllEntriesFromVolatileCache}{}}}
 \subsection{Method \code{deleteAllEntriesFromVolatileCache()}}{
 Delete all entries from the volatile cache (memory cache).
 \subsection{Usage}{
@@ -1016,8 +1016,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllEntriesFromPersistentCache"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllEntriesFromPersistentCache}{}}}
+\if{html}{\out{<a id="method-BiodbConn-deleteAllEntriesFromPersistentCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-deleteAllEntriesFromPersistentCache}{}}}
 \subsection{Method \code{deleteAllEntriesFromPersistentCache()}}{
 Delete all entries from the persistent cache (disk cache).
 \subsection{Usage}{
@@ -1037,8 +1037,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteWholePersistentCache"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteWholePersistentCache}{}}}
+\if{html}{\out{<a id="method-BiodbConn-deleteWholePersistentCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-deleteWholePersistentCache}{}}}
 \subsection{Method \code{deleteWholePersistentCache()}}{
 Delete all files associated with this connector from the persistent
 cache (disk cache).
@@ -1059,8 +1059,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllCacheEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllCacheEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-deleteAllCacheEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-deleteAllCacheEntries}{}}}
 \subsection{Method \code{deleteAllCacheEntries()}}{
 Delete all entries from the memory cache. This method is deprecated,
 please use deleteAllEntriesFromVolatileCache() instead.
@@ -1073,8 +1073,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCacheId"></a>}}
-\if{latex}{\out{\hypertarget{method-getCacheId}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getCacheId"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getCacheId}{}}}
 \subsection{Method \code{getCacheId()}}{
 Gets the ID used by this connector in the disk cache.
 \subsection{Usage}{
@@ -1086,8 +1086,8 @@ The cache ID of this connector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-makesRefToEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-makesRefToEntry}{}}}
+\if{html}{\out{<a id="method-BiodbConn-makesRefToEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-makesRefToEntry}{}}}
 \subsection{Method \code{makesRefToEntry()}}{
 Tests if some entry of this database makes reference to another entry of
 another database.
@@ -1119,8 +1119,8 @@ making reference to \code{oid}, and FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-makeRequest"></a>}}
-\if{latex}{\out{\hypertarget{method-makeRequest}{}}}
+\if{html}{\out{<a id="method-BiodbConn-makeRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-makeRequest}{}}}
 \subsection{Method \code{makeRequest()}}{
 Makes a BiodbRequest instance using the passed parameters, and set
 ifself as the associated connector.
@@ -1140,8 +1140,8 @@ The BiodbRequest instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryImageUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryImageUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryImageUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryImageUrl}{}}}
 \subsection{Method \code{getEntryImageUrl()}}{
 Gets the URL to a picture of the entry (e.g.: a picture of the
 molecule in case of a compound entry).
@@ -1162,8 +1162,8 @@ containing for each entry ID either a URL or NA if no URL exists.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryPageUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryPageUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getEntryPageUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getEntryPageUrl}{}}}
 \subsection{Method \code{getEntryPageUrl()}}{
 Gets the URL to the page of the entry on the database web site.
 \subsection{Usage}{
@@ -1182,8 +1182,8 @@ A list of BiodbUrl objects, the same length as \code{entry.id}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getChromCol"></a>}}
-\if{latex}{\out{\hypertarget{method-getChromCol}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getChromCol"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getChromCol}{}}}
 \subsection{Method \code{getChromCol()}}{
 Gets a list of chromatographic columns contained in this database.
 \subsection{Usage}{
@@ -1205,8 +1205,8 @@ for the title 'title'.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMatchingMzField"></a>}}
-\if{latex}{\out{\hypertarget{method-getMatchingMzField}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getMatchingMzField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getMatchingMzField}{}}}
 \subsection{Method \code{getMatchingMzField()}}{
 Gets the field to use for M/Z matching.
 \subsection{Usage}{
@@ -1218,8 +1218,8 @@ The name of the field (one of peak.mztheo or peak.mzexp).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setMatchingMzField"></a>}}
-\if{latex}{\out{\hypertarget{method-setMatchingMzField}{}}}
+\if{html}{\out{<a id="method-BiodbConn-setMatchingMzField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-setMatchingMzField}{}}}
 \subsection{Method \code{setMatchingMzField()}}{
 Sets the field to use for M/Z matching.
 \subsection{Usage}{
@@ -1238,8 +1238,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMzValues"></a>}}
-\if{latex}{\out{\hypertarget{method-getMzValues}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getMzValues"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getMzValues}{}}}
 \subsection{Method \code{getMzValues()}}{
 Gets a list of M/Z values contained inside the database.
 \subsection{Usage}{
@@ -1271,8 +1271,8 @@ A numeric vector containing M/Z values.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNbPeaks"></a>}}
-\if{latex}{\out{\hypertarget{method-getNbPeaks}{}}}
+\if{html}{\out{<a id="method-BiodbConn-getNbPeaks"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-getNbPeaks}{}}}
 \subsection{Method \code{getNbPeaks()}}{
 Gets the number of peaks contained in the database.
 \subsection{Usage}{
@@ -1296,8 +1296,8 @@ The number of peaks, as an integer.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-filterEntriesOnRt"></a>}}
-\if{latex}{\out{\hypertarget{method-filterEntriesOnRt}{}}}
+\if{html}{\out{<a id="method-BiodbConn-filterEntriesOnRt"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-filterEntriesOnRt}{}}}
 \subsection{Method \code{filterEntriesOnRt()}}{
 Filters a list of entries on retention time values.
 \subsection{Usage}{
@@ -1349,8 +1349,8 @@ A character vector containing entry IDs after filtering.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchForMassSpectra"></a>}}
-\if{latex}{\out{\hypertarget{method-searchForMassSpectra}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchForMassSpectra"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchForMassSpectra}{}}}
 \subsection{Method \code{searchForMassSpectra()}}{
 Searches for entries (i.e.: spectra) that contain a peak around the given
 M/Z value. Entries can also be filtered on RT values. You can input either a
@@ -1438,8 +1438,8 @@ A character vector of spectra IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchMsEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-searchMsEntries}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchMsEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchMsEntries}{}}}
 \subsection{Method \code{searchMsEntries()}}{
 DEPRECATED. Use searchForMassSpectra() instead.
 \subsection{Usage}{
@@ -1519,8 +1519,8 @@ A character vector of spectra IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchMsPeaks"></a>}}
-\if{latex}{\out{\hypertarget{method-searchMsPeaks}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchMsPeaks"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchMsPeaks}{}}}
 \subsection{Method \code{searchMsPeaks()}}{
 For each M/Z value, searches for matching MS spectra and returns the
 matching peaks.
@@ -1630,8 +1630,8 @@ each M/Z value is limited to \code{max.results}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-msmsSearch"></a>}}
-\if{latex}{\out{\hypertarget{method-msmsSearch}{}}}
+\if{html}{\out{<a id="method-BiodbConn-msmsSearch"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-msmsSearch}{}}}
 \subsection{Method \code{msmsSearch()}}{
 Searches MSMS spectra matching a template spectrum. The mz.tol
 parameter is applied on the precursor search.
@@ -1689,8 +1689,8 @@ inside the matched spectrum whose ID is inside the \code{id} column.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-collapseResultsDataFrame"></a>}}
-\if{latex}{\out{\hypertarget{method-collapseResultsDataFrame}{}}}
+\if{html}{\out{<a id="method-BiodbConn-collapseResultsDataFrame"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-collapseResultsDataFrame}{}}}
 \subsection{Method \code{collapseResultsDataFrame()}}{
 Collapse rows of a results data frame, by outputing a data frame with
 only one row for each MZ/RT value.
@@ -1722,8 +1722,8 @@ A data frame with rows collapsed."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchMzRange"></a>}}
-\if{latex}{\out{\hypertarget{method-searchMzRange}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchMzRange"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchMzRange}{}}}
 \subsection{Method \code{searchMzRange()}}{
 Find spectra in the given M/Z range. Returns a list of spectra IDs.
 \subsection{Usage}{
@@ -1767,8 +1767,8 @@ A character vector of spectra IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-searchMzTol"></a>}}
-\if{latex}{\out{\hypertarget{method-searchMzTol}{}}}
+\if{html}{\out{<a id="method-BiodbConn-searchMzTol"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-searchMzTol}{}}}
 \subsection{Method \code{searchMzTol()}}{
 Find spectra containg a peak around the given M/Z value. Returns a
 character vector of spectra IDs.
@@ -1816,8 +1816,8 @@ A character vector of spectra IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbConn-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConn-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

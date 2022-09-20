@@ -28,20 +28,20 @@ Range$new(min=1.2, max=1.5)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Range$new()}}
-\item \href{#method-getValue}{\code{Range$getValue()}}
-\item \href{#method-getMin}{\code{Range$getMin()}}
-\item \href{#method-getMax}{\code{Range$getMax()}}
-\item \href{#method-getMinMax}{\code{Range$getMinMax()}}
-\item \href{#method-getDelta}{\code{Range$getDelta()}}
-\item \href{#method-getPpm}{\code{Range$getPpm()}}
-\item \href{#method-getTolExpr}{\code{Range$getTolExpr()}}
-\item \href{#method-clone}{\code{Range$clone()}}
+\item \href{#method-Range-new}{\code{Range$new()}}
+\item \href{#method-Range-getValue}{\code{Range$getValue()}}
+\item \href{#method-Range-getMin}{\code{Range$getMin()}}
+\item \href{#method-Range-getMax}{\code{Range$getMax()}}
+\item \href{#method-Range-getMinMax}{\code{Range$getMinMax()}}
+\item \href{#method-Range-getDelta}{\code{Range$getDelta()}}
+\item \href{#method-Range-getPpm}{\code{Range$getPpm()}}
+\item \href{#method-Range-getTolExpr}{\code{Range$getTolExpr()}}
+\item \href{#method-Range-clone}{\code{Range$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Range-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -91,8 +91,8 @@ Range$new(min=1.2, max=1.5)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getValue"></a>}}
-\if{latex}{\out{\hypertarget{method-getValue}{}}}
+\if{html}{\out{<a id="method-Range-getValue"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getValue}{}}}
 \subsection{Method \code{getValue()}}{
 Gets the middle value of the range.
 \subsection{Usage}{
@@ -104,8 +104,8 @@ The middle value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMin"></a>}}
-\if{latex}{\out{\hypertarget{method-getMin}{}}}
+\if{html}{\out{<a id="method-Range-getMin"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getMin}{}}}
 \subsection{Method \code{getMin()}}{
 Gets the minimum value of the range.
 \subsection{Usage}{
@@ -117,8 +117,8 @@ The minimum value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMax"></a>}}
-\if{latex}{\out{\hypertarget{method-getMax}{}}}
+\if{html}{\out{<a id="method-Range-getMax"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getMax}{}}}
 \subsection{Method \code{getMax()}}{
 Gets the maximum value of the range.
 \subsection{Usage}{
@@ -130,8 +130,8 @@ The maximum value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMinMax"></a>}}
-\if{latex}{\out{\hypertarget{method-getMinMax}{}}}
+\if{html}{\out{<a id="method-Range-getMinMax"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getMinMax}{}}}
 \subsection{Method \code{getMinMax()}}{
 Get the min/max range.
 \subsection{Usage}{
@@ -143,8 +143,8 @@ A list containing two fields: "min" and "max.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDelta"></a>}}
-\if{latex}{\out{\hypertarget{method-getDelta}{}}}
+\if{html}{\out{<a id="method-Range-getDelta"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getDelta}{}}}
 \subsection{Method \code{getDelta()}}{
 Gets the delta tolerance of the range.
 \subsection{Usage}{
@@ -156,8 +156,8 @@ The delta tolerance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPpm"></a>}}
-\if{latex}{\out{\hypertarget{method-getPpm}{}}}
+\if{html}{\out{<a id="method-Range-getPpm"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getPpm}{}}}
 \subsection{Method \code{getPpm()}}{
 Gets the PPM tolerance of the range.
 \subsection{Usage}{
@@ -169,8 +169,8 @@ The tolerance in PPM.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTolExpr"></a>}}
-\if{latex}{\out{\hypertarget{method-getTolExpr}{}}}
+\if{html}{\out{<a id="method-Range-getTolExpr"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-getTolExpr}{}}}
 \subsection{Method \code{getTolExpr()}}{
 Gets the tolerance expression as a list.
 \subsection{Usage}{
@@ -182,8 +182,8 @@ A list containing the tolerance range expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Range-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Range-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

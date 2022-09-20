@@ -18,23 +18,23 @@ query string.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbSqlQuery$new()}}
-\item \href{#method-setTable}{\code{BiodbSqlQuery$setTable()}}
-\item \href{#method-addField}{\code{BiodbSqlQuery$addField()}}
-\item \href{#method-setDistinct}{\code{BiodbSqlQuery$setDistinct()}}
-\item \href{#method-setLimit}{\code{BiodbSqlQuery$setLimit()}}
-\item \href{#method-addJoin}{\code{BiodbSqlQuery$addJoin()}}
-\item \href{#method-setWhere}{\code{BiodbSqlQuery$setWhere()}}
-\item \href{#method-getJoin}{\code{BiodbSqlQuery$getJoin()}}
-\item \href{#method-getWhere}{\code{BiodbSqlQuery$getWhere()}}
-\item \href{#method-getFields}{\code{BiodbSqlQuery$getFields()}}
-\item \href{#method-toString}{\code{BiodbSqlQuery$toString()}}
-\item \href{#method-clone}{\code{BiodbSqlQuery$clone()}}
+\item \href{#method-BiodbSqlQuery-new}{\code{BiodbSqlQuery$new()}}
+\item \href{#method-BiodbSqlQuery-setTable}{\code{BiodbSqlQuery$setTable()}}
+\item \href{#method-BiodbSqlQuery-addField}{\code{BiodbSqlQuery$addField()}}
+\item \href{#method-BiodbSqlQuery-setDistinct}{\code{BiodbSqlQuery$setDistinct()}}
+\item \href{#method-BiodbSqlQuery-setLimit}{\code{BiodbSqlQuery$setLimit()}}
+\item \href{#method-BiodbSqlQuery-addJoin}{\code{BiodbSqlQuery$addJoin()}}
+\item \href{#method-BiodbSqlQuery-setWhere}{\code{BiodbSqlQuery$setWhere()}}
+\item \href{#method-BiodbSqlQuery-getJoin}{\code{BiodbSqlQuery$getJoin()}}
+\item \href{#method-BiodbSqlQuery-getWhere}{\code{BiodbSqlQuery$getWhere()}}
+\item \href{#method-BiodbSqlQuery-getFields}{\code{BiodbSqlQuery$getFields()}}
+\item \href{#method-BiodbSqlQuery-toString}{\code{BiodbSqlQuery$toString()}}
+\item \href{#method-BiodbSqlQuery-clone}{\code{BiodbSqlQuery$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -46,8 +46,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setTable"></a>}}
-\if{latex}{\out{\hypertarget{method-setTable}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-setTable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-setTable}{}}}
 \subsection{Method \code{setTable()}}{
 Set the table.
 \subsection{Usage}{
@@ -66,8 +66,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addField"></a>}}
-\if{latex}{\out{\hypertarget{method-addField}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-addField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-addField}{}}}
 \subsection{Method \code{addField()}}{
 Set the fields.
 \subsection{Usage}{
@@ -88,8 +88,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDistinct"></a>}}
-\if{latex}{\out{\hypertarget{method-setDistinct}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-setDistinct"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-setDistinct}{}}}
 \subsection{Method \code{setDistinct()}}{
 Set or unset distinct modifier.
 \subsection{Usage}{
@@ -109,8 +109,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setLimit"></a>}}
-\if{latex}{\out{\hypertarget{method-setLimit}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-setLimit"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-setLimit}{}}}
 \subsection{Method \code{setLimit()}}{
 Set results limit.
 \subsection{Usage}{
@@ -129,8 +129,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addJoin"></a>}}
-\if{latex}{\out{\hypertarget{method-addJoin}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-addJoin"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-addJoin}{}}}
 \subsection{Method \code{addJoin()}}{
 Add a join.
 \subsection{Usage}{
@@ -155,8 +155,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setWhere"></a>}}
-\if{latex}{\out{\hypertarget{method-setWhere}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-setWhere"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-setWhere}{}}}
 \subsection{Method \code{setWhere()}}{
 Set the where clause.
 \subsection{Usage}{
@@ -175,8 +175,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getJoin"></a>}}
-\if{latex}{\out{\hypertarget{method-getJoin}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-getJoin"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-getJoin}{}}}
 \subsection{Method \code{getJoin()}}{
 Builds and returns the join expression.
 \subsection{Usage}{
@@ -188,8 +188,8 @@ A character vector representing the join expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getWhere"></a>}}
-\if{latex}{\out{\hypertarget{method-getWhere}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-getWhere"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-getWhere}{}}}
 \subsection{Method \code{getWhere()}}{
 Gets the where expression.
 \subsection{Usage}{
@@ -201,8 +201,8 @@ The BiodbSqlExpr instance representing the "where" clause.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFields"></a>}}
-\if{latex}{\out{\hypertarget{method-getFields}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-getFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-getFields}{}}}
 \subsection{Method \code{getFields()}}{
 Gets the fields to retrieve.
 \subsection{Usage}{
@@ -214,8 +214,8 @@ A string containing the list of fields to retrieve.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-toString}{}}}
 \subsection{Method \code{toString()}}{
 Generates the string representation of this query.
 \subsection{Usage}{
@@ -227,8 +227,8 @@ A string containing the full SQL query.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbSqlQuery-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlQuery-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

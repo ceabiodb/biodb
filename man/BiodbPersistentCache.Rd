@@ -48,41 +48,41 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbPersistentCache$new()}}
-\item \href{#method-isReadable}{\code{BiodbPersistentCache$isReadable()}}
-\item \href{#method-isWritable}{\code{BiodbPersistentCache$isWritable()}}
-\item \href{#method-getDir}{\code{BiodbPersistentCache$getDir()}}
-\item \href{#method-getFolderPath}{\code{BiodbPersistentCache$getFolderPath()}}
-\item \href{#method-folderExists}{\code{BiodbPersistentCache$folderExists()}}
-\item \href{#method-getFilePath}{\code{BiodbPersistentCache$getFilePath()}}
-\item \href{#method-filesExist}{\code{BiodbPersistentCache$filesExist()}}
-\item \href{#method-fileExist}{\code{BiodbPersistentCache$fileExist()}}
-\item \href{#method-fileExists}{\code{BiodbPersistentCache$fileExists()}}
-\item \href{#method-markerExist}{\code{BiodbPersistentCache$markerExist()}}
-\item \href{#method-markerExists}{\code{BiodbPersistentCache$markerExists()}}
-\item \href{#method-setMarker}{\code{BiodbPersistentCache$setMarker()}}
-\item \href{#method-getTmpFolderPath}{\code{BiodbPersistentCache$getTmpFolderPath()}}
-\item \href{#method-getUsedCacheIds}{\code{BiodbPersistentCache$getUsedCacheIds()}}
-\item \href{#method-loadFileContent}{\code{BiodbPersistentCache$loadFileContent()}}
-\item \href{#method-saveContentToFile}{\code{BiodbPersistentCache$saveContentToFile()}}
-\item \href{#method-addFilesToCache}{\code{BiodbPersistentCache$addFilesToCache()}}
-\item \href{#method-copyFilesIntoCache}{\code{BiodbPersistentCache$copyFilesIntoCache()}}
-\item \href{#method-moveFilesIntoCache}{\code{BiodbPersistentCache$moveFilesIntoCache()}}
-\item \href{#method-erase}{\code{BiodbPersistentCache$erase()}}
-\item \href{#method-deleteFile}{\code{BiodbPersistentCache$deleteFile()}}
-\item \href{#method-deleteAllFiles}{\code{BiodbPersistentCache$deleteAllFiles()}}
-\item \href{#method-deleteFiles}{\code{BiodbPersistentCache$deleteFiles()}}
-\item \href{#method-listFiles}{\code{BiodbPersistentCache$listFiles()}}
-\item \href{#method-print}{\code{BiodbPersistentCache$print()}}
-\item \href{#method-enabled}{\code{BiodbPersistentCache$enabled()}}
-\item \href{#method-enable}{\code{BiodbPersistentCache$enable()}}
-\item \href{#method-disable}{\code{BiodbPersistentCache$disable()}}
-\item \href{#method-clone}{\code{BiodbPersistentCache$clone()}}
+\item \href{#method-BiodbPersistentCache-new}{\code{BiodbPersistentCache$new()}}
+\item \href{#method-BiodbPersistentCache-isReadable}{\code{BiodbPersistentCache$isReadable()}}
+\item \href{#method-BiodbPersistentCache-isWritable}{\code{BiodbPersistentCache$isWritable()}}
+\item \href{#method-BiodbPersistentCache-getDir}{\code{BiodbPersistentCache$getDir()}}
+\item \href{#method-BiodbPersistentCache-getFolderPath}{\code{BiodbPersistentCache$getFolderPath()}}
+\item \href{#method-BiodbPersistentCache-folderExists}{\code{BiodbPersistentCache$folderExists()}}
+\item \href{#method-BiodbPersistentCache-getFilePath}{\code{BiodbPersistentCache$getFilePath()}}
+\item \href{#method-BiodbPersistentCache-filesExist}{\code{BiodbPersistentCache$filesExist()}}
+\item \href{#method-BiodbPersistentCache-fileExist}{\code{BiodbPersistentCache$fileExist()}}
+\item \href{#method-BiodbPersistentCache-fileExists}{\code{BiodbPersistentCache$fileExists()}}
+\item \href{#method-BiodbPersistentCache-markerExist}{\code{BiodbPersistentCache$markerExist()}}
+\item \href{#method-BiodbPersistentCache-markerExists}{\code{BiodbPersistentCache$markerExists()}}
+\item \href{#method-BiodbPersistentCache-setMarker}{\code{BiodbPersistentCache$setMarker()}}
+\item \href{#method-BiodbPersistentCache-getTmpFolderPath}{\code{BiodbPersistentCache$getTmpFolderPath()}}
+\item \href{#method-BiodbPersistentCache-getUsedCacheIds}{\code{BiodbPersistentCache$getUsedCacheIds()}}
+\item \href{#method-BiodbPersistentCache-loadFileContent}{\code{BiodbPersistentCache$loadFileContent()}}
+\item \href{#method-BiodbPersistentCache-saveContentToFile}{\code{BiodbPersistentCache$saveContentToFile()}}
+\item \href{#method-BiodbPersistentCache-addFilesToCache}{\code{BiodbPersistentCache$addFilesToCache()}}
+\item \href{#method-BiodbPersistentCache-copyFilesIntoCache}{\code{BiodbPersistentCache$copyFilesIntoCache()}}
+\item \href{#method-BiodbPersistentCache-moveFilesIntoCache}{\code{BiodbPersistentCache$moveFilesIntoCache()}}
+\item \href{#method-BiodbPersistentCache-erase}{\code{BiodbPersistentCache$erase()}}
+\item \href{#method-BiodbPersistentCache-deleteFile}{\code{BiodbPersistentCache$deleteFile()}}
+\item \href{#method-BiodbPersistentCache-deleteAllFiles}{\code{BiodbPersistentCache$deleteAllFiles()}}
+\item \href{#method-BiodbPersistentCache-deleteFiles}{\code{BiodbPersistentCache$deleteFiles()}}
+\item \href{#method-BiodbPersistentCache-listFiles}{\code{BiodbPersistentCache$listFiles()}}
+\item \href{#method-BiodbPersistentCache-print}{\code{BiodbPersistentCache$print()}}
+\item \href{#method-BiodbPersistentCache-enabled}{\code{BiodbPersistentCache$enabled()}}
+\item \href{#method-BiodbPersistentCache-enable}{\code{BiodbPersistentCache$enable()}}
+\item \href{#method-BiodbPersistentCache-disable}{\code{BiodbPersistentCache$disable()}}
+\item \href{#method-BiodbPersistentCache-clone}{\code{BiodbPersistentCache$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Persistent cache objects must not be created
 directly.
@@ -106,8 +106,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isReadable"></a>}}
-\if{latex}{\out{\hypertarget{method-isReadable}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-isReadable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-isReadable}{}}}
 \subsection{Method \code{isReadable()}}{
 Checks if the cache system is readable.
 \subsection{Usage}{
@@ -128,8 +128,8 @@ this particular connector.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isWritable"></a>}}
-\if{latex}{\out{\hypertarget{method-isWritable}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-isWritable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-isWritable}{}}}
 \subsection{Method \code{isWritable()}}{
 Checks if the cache system is writable.
 \subsection{Usage}{
@@ -150,8 +150,8 @@ this particular connector.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDir"></a>}}
-\if{latex}{\out{\hypertarget{method-getDir}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-getDir"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-getDir}{}}}
 \subsection{Method \code{getDir()}}{
 Gets the path to the persistent cache folder.
 \subsection{Usage}{
@@ -163,8 +163,8 @@ The path to the cache folder as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFolderPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getFolderPath}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-getFolderPath"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-getFolderPath}{}}}
 \subsection{Method \code{getFolderPath()}}{
 Gets path to the cache system sub-folder dedicated to this cache ID.
 \subsection{Usage}{
@@ -187,8 +187,8 @@ A string containing the path to the folder.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-folderExists"></a>}}
-\if{latex}{\out{\hypertarget{method-folderExists}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-folderExists"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-folderExists}{}}}
 \subsection{Method \code{folderExists()}}{
 Tests if a cache folder exists for this cache ID.
 \subsection{Usage}{
@@ -207,8 +207,8 @@ TRUE if a cache folder exists.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFilePath"></a>}}
-\if{latex}{\out{\hypertarget{method-getFilePath}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-getFilePath"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-getFilePath}{}}}
 \subsection{Method \code{getFilePath()}}{
 Gets path of file in cache system.
 \subsection{Usage}{
@@ -232,8 +232,8 @@ containing the paths to the files.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-filesExist"></a>}}
-\if{latex}{\out{\hypertarget{method-filesExist}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-filesExist"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-filesExist}{}}}
 \subsection{Method \code{filesExist()}}{
 Tests if at least one cache file exist for the specified cache ID.
 \subsection{Usage}{
@@ -252,8 +252,8 @@ A single boolean value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fileExist"></a>}}
-\if{latex}{\out{\hypertarget{method-fileExist}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-fileExist"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-fileExist}{}}}
 \subsection{Method \code{fileExist()}}{
 DEPRECATED. Use fileExists().
 \subsection{Usage}{
@@ -278,8 +278,8 @@ value if the file exists in the cache, or \\code{FALSE} otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fileExists"></a>}}
-\if{latex}{\out{\hypertarget{method-fileExists}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-fileExists"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-fileExists}{}}}
 \subsection{Method \code{fileExists()}}{
 Tests if a particular file exist in the cache.
 \subsection{Usage}{
@@ -304,8 +304,8 @@ value if the file exists in the cache, or \\code{FALSE} otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-markerExist"></a>}}
-\if{latex}{\out{\hypertarget{method-markerExist}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-markerExist"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-markerExist}{}}}
 \subsection{Method \code{markerExist()}}{
 DEPRECATED. Use markerExists().
 \subsection{Usage}{
@@ -328,8 +328,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-markerExists"></a>}}
-\if{latex}{\out{\hypertarget{method-markerExists}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-markerExists"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-markerExists}{}}}
 \subsection{Method \code{markerExists()}}{
 Tests if markers exist in the cache. Markers are used, for instance,
 by biodb to remember that a downloaded zip file from a database has been
@@ -354,8 +354,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setMarker"></a>}}
-\if{latex}{\out{\hypertarget{method-setMarker}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-setMarker"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-setMarker}{}}}
 \subsection{Method \code{setMarker()}}{
 Sets a marker.
 \subsection{Usage}{
@@ -376,8 +376,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTmpFolderPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getTmpFolderPath}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-getTmpFolderPath"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-getTmpFolderPath}{}}}
 \subsection{Method \code{getTmpFolderPath()}}{
 Gets path to the cache system temporary folder.
 \subsection{Usage}{
@@ -389,8 +389,8 @@ A string containing the path to the folder.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUsedCacheIds"></a>}}
-\if{latex}{\out{\hypertarget{method-getUsedCacheIds}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-getUsedCacheIds"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-getUsedCacheIds}{}}}
 \subsection{Method \code{getUsedCacheIds()}}{
 Returns a list of cache IDs actually used to store cache files.
 \subsection{Usage}{
@@ -403,8 +403,8 @@ used inside the cache system.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-loadFileContent"></a>}}
-\if{latex}{\out{\hypertarget{method-loadFileContent}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-loadFileContent"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-loadFileContent}{}}}
 \subsection{Method \code{loadFileContent()}}{
 Loads content of files from the cache.
 \subsection{Usage}{
@@ -439,8 +439,8 @@ the list.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-saveContentToFile"></a>}}
-\if{latex}{\out{\hypertarget{method-saveContentToFile}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-saveContentToFile"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-saveContentToFile}{}}}
 \subsection{Method \code{saveContentToFile()}}{
 Saves content to files into the cache.
 \subsection{Usage}{
@@ -466,8 +466,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addFilesToCache"></a>}}
-\if{latex}{\out{\hypertarget{method-addFilesToCache}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-addFilesToCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-addFilesToCache}{}}}
 \subsection{Method \code{addFilesToCache()}}{
 Adds exisiting files into the cache.
 \subsection{Usage}{
@@ -501,8 +501,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-copyFilesIntoCache"></a>}}
-\if{latex}{\out{\hypertarget{method-copyFilesIntoCache}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-copyFilesIntoCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-copyFilesIntoCache}{}}}
 \subsection{Method \code{copyFilesIntoCache()}}{
 Copies exisiting files into the cache.
 \subsection{Usage}{
@@ -528,8 +528,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-moveFilesIntoCache"></a>}}
-\if{latex}{\out{\hypertarget{method-moveFilesIntoCache}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-moveFilesIntoCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-moveFilesIntoCache}{}}}
 \subsection{Method \code{moveFilesIntoCache()}}{
 Moves exisiting files into the cache.
 \subsection{Usage}{
@@ -555,8 +555,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-erase"></a>}}
-\if{latex}{\out{\hypertarget{method-erase}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-erase"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-erase}{}}}
 \subsection{Method \code{erase()}}{
 Erases the whole cache.
 \subsection{Usage}{
@@ -568,8 +568,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteFile"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteFile}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-deleteFile"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-deleteFile}{}}}
 \subsection{Method \code{deleteFile()}}{
 Deletes a list of files inside the cache system.
 \subsection{Usage}{
@@ -593,8 +593,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllFiles"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllFiles}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-deleteAllFiles"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-deleteAllFiles}{}}}
 \subsection{Method \code{deleteAllFiles()}}{
 Deletes, in the cache system, all files associated with this cache ID.
 \subsection{Usage}{
@@ -619,8 +619,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteFiles"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteFiles}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-deleteFiles"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-deleteFiles}{}}}
 \subsection{Method \code{deleteFiles()}}{
 Deletes all files with the specific extension of the cache ID in the
 cache system.
@@ -643,8 +643,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-listFiles"></a>}}
-\if{latex}{\out{\hypertarget{method-listFiles}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-listFiles"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-listFiles}{}}}
 \subsection{Method \code{listFiles()}}{
 Lists files present in the cache system.
 \subsection{Usage}{
@@ -678,8 +678,8 @@ The files of found files, or the names of the files if
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-print}{}}}
 \subsection{Method \code{print()}}{
 Displays information about this object.
 \subsection{Usage}{
@@ -688,8 +688,8 @@ Displays information about this object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-enabled"></a>}}
-\if{latex}{\out{\hypertarget{method-enabled}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-enabled"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-enabled}{}}}
 \subsection{Method \code{enabled()}}{
 DEPRECATED method. Use now
 \\code{BiodbConfig :isEnabled('cache.system')}.
@@ -699,8 +699,8 @@ DEPRECATED method. Use now
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-enable"></a>}}
-\if{latex}{\out{\hypertarget{method-enable}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-enable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-enable}{}}}
 \subsection{Method \code{enable()}}{
 DEPRECATED method. Use now
 \\code{BiodbConfig :enable('cache.system')}.
@@ -710,8 +710,8 @@ DEPRECATED method. Use now
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-disable"></a>}}
-\if{latex}{\out{\hypertarget{method-disable}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-disable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-disable}{}}}
 \subsection{Method \code{disable()}}{
 DEPRECATED method. Use now
 \\code{BiodbConfig :disable('cache.system')}.
@@ -721,8 +721,8 @@ DEPRECATED method. Use now
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbPersistentCache-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbPersistentCache-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

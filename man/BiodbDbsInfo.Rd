@@ -30,20 +30,20 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbDbsInfo$new()}}
-\item \href{#method-define}{\code{BiodbDbsInfo$define()}}
-\item \href{#method-getIds}{\code{BiodbDbsInfo$getIds()}}
-\item \href{#method-isDefined}{\code{BiodbDbsInfo$isDefined()}}
-\item \href{#method-checkIsDefined}{\code{BiodbDbsInfo$checkIsDefined()}}
-\item \href{#method-get}{\code{BiodbDbsInfo$get()}}
-\item \href{#method-getAll}{\code{BiodbDbsInfo$getAll()}}
-\item \href{#method-print}{\code{BiodbDbsInfo$print()}}
-\item \href{#method-clone}{\code{BiodbDbsInfo$clone()}}
+\item \href{#method-BiodbDbsInfo-new}{\code{BiodbDbsInfo$new()}}
+\item \href{#method-BiodbDbsInfo-define}{\code{BiodbDbsInfo$define()}}
+\item \href{#method-BiodbDbsInfo-getIds}{\code{BiodbDbsInfo$getIds()}}
+\item \href{#method-BiodbDbsInfo-isDefined}{\code{BiodbDbsInfo$isDefined()}}
+\item \href{#method-BiodbDbsInfo-checkIsDefined}{\code{BiodbDbsInfo$checkIsDefined()}}
+\item \href{#method-BiodbDbsInfo-get}{\code{BiodbDbsInfo$get()}}
+\item \href{#method-BiodbDbsInfo-getAll}{\code{BiodbDbsInfo$getAll()}}
+\item \href{#method-BiodbDbsInfo-print}{\code{BiodbDbsInfo$print()}}
+\item \href{#method-BiodbDbsInfo-clone}{\code{BiodbDbsInfo$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. The class must not be instantiated directly.
 Instead, access the BiodbDbsInfo instance through the BiodbMain instance
@@ -64,8 +64,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-define"></a>}}
-\if{latex}{\out{\hypertarget{method-define}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-define"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-define}{}}}
 \subsection{Method \code{define()}}{
 Define databases from a structured object, normally loaded from a YAML
 file.
@@ -88,8 +88,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getIds"></a>}}
-\if{latex}{\out{\hypertarget{method-getIds}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-getIds"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-getIds}{}}}
 \subsection{Method \code{getIds()}}{
 Gets the database IDs.
 \subsection{Usage}{
@@ -102,8 +102,8 @@ databases.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDefined"></a>}}
-\if{latex}{\out{\hypertarget{method-isDefined}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-isDefined"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-isDefined}{}}}
 \subsection{Method \code{isDefined()}}{
 Tests if a database is defined.
 \subsection{Usage}{
@@ -123,8 +123,8 @@ database, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkIsDefined"></a>}}
-\if{latex}{\out{\hypertarget{method-checkIsDefined}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-checkIsDefined"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-checkIsDefined}{}}}
 \subsection{Method \code{checkIsDefined()}}{
 Checks if a database is defined. Throws an error if the specified id
 does not correspond to a defined database.
@@ -144,8 +144,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-get"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-get}{}}}
 \subsection{Method \code{get()}}{
 Gets information on a database.
 \subsection{Usage}{
@@ -169,8 +169,8 @@ database IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAll"></a>}}
-\if{latex}{\out{\hypertarget{method-getAll}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-getAll"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-getAll}{}}}
 \subsection{Method \code{getAll()}}{
 Gets informations on all databases.
 \subsection{Usage}{
@@ -182,8 +182,8 @@ A list of all BiodbDbInfo instances."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-print}{}}}
 \subsection{Method \code{print()}}{
 Prints informations about this instance, listing also all databases
 defined.
@@ -196,8 +196,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbDbsInfo-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbDbsInfo-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

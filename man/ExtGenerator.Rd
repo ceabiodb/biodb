@@ -29,15 +29,15 @@ biodb::ExtPackage$new(pkgFolder)$generate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ExtGenerator$new()}}
-\item \href{#method-generate}{\code{ExtGenerator$generate()}}
-\item \href{#method-upgrade}{\code{ExtGenerator$upgrade()}}
-\item \href{#method-clone}{\code{ExtGenerator$clone()}}
+\item \href{#method-ExtGenerator-new}{\code{ExtGenerator$new()}}
+\item \href{#method-ExtGenerator-generate}{\code{ExtGenerator$generate()}}
+\item \href{#method-ExtGenerator-upgrade}{\code{ExtGenerator$upgrade()}}
+\item \href{#method-ExtGenerator-clone}{\code{ExtGenerator$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ExtGenerator-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtGenerator-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -132,8 +132,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-generate"></a>}}
-\if{latex}{\out{\hypertarget{method-generate}{}}}
+\if{html}{\out{<a id="method-ExtGenerator-generate"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtGenerator-generate}{}}}
 \subsection{Method \code{generate()}}{
 Generates the destination file(s).
 \subsection{Usage}{
@@ -163,8 +163,8 @@ biodb::ExtPackage$new(pkgFolder)$generate()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-upgrade"></a>}}
-\if{latex}{\out{\hypertarget{method-upgrade}{}}}
+\if{html}{\out{<a id="method-ExtGenerator-upgrade"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtGenerator-upgrade}{}}}
 \subsection{Method \code{upgrade()}}{
 Upgrade the destination file(s).
 \subsection{Usage}{
@@ -181,8 +181,8 @@ do not generate them.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ExtGenerator-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtGenerator-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

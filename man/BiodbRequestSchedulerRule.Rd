@@ -17,25 +17,25 @@ This class represents a rule for the request scheduler.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbRequestSchedulerRule$new()}}
-\item \href{#method-getHost}{\code{BiodbRequestSchedulerRule$getHost()}}
-\item \href{#method-getN}{\code{BiodbRequestSchedulerRule$getN()}}
-\item \href{#method-getT}{\code{BiodbRequestSchedulerRule$getT()}}
-\item \href{#method-setFrequency}{\code{BiodbRequestSchedulerRule$setFrequency()}}
-\item \href{#method-getConnectors}{\code{BiodbRequestSchedulerRule$getConnectors()}}
-\item \href{#method-addConnector}{\code{BiodbRequestSchedulerRule$addConnector()}}
-\item \href{#method-removeConnector}{\code{BiodbRequestSchedulerRule$removeConnector()}}
-\item \href{#method-print}{\code{BiodbRequestSchedulerRule$print()}}
-\item \href{#method-waitAsNeeded}{\code{BiodbRequestSchedulerRule$waitAsNeeded()}}
-\item \href{#method-recomputeFrequency}{\code{BiodbRequestSchedulerRule$recomputeFrequency()}}
-\item \href{#method-computeSleepTime}{\code{BiodbRequestSchedulerRule$computeSleepTime()}}
-\item \href{#method-storeCurrentTime}{\code{BiodbRequestSchedulerRule$storeCurrentTime()}}
-\item \href{#method-clone}{\code{BiodbRequestSchedulerRule$clone()}}
+\item \href{#method-BiodbRequestSchedulerRule-new}{\code{BiodbRequestSchedulerRule$new()}}
+\item \href{#method-BiodbRequestSchedulerRule-getHost}{\code{BiodbRequestSchedulerRule$getHost()}}
+\item \href{#method-BiodbRequestSchedulerRule-getN}{\code{BiodbRequestSchedulerRule$getN()}}
+\item \href{#method-BiodbRequestSchedulerRule-getT}{\code{BiodbRequestSchedulerRule$getT()}}
+\item \href{#method-BiodbRequestSchedulerRule-setFrequency}{\code{BiodbRequestSchedulerRule$setFrequency()}}
+\item \href{#method-BiodbRequestSchedulerRule-getConnectors}{\code{BiodbRequestSchedulerRule$getConnectors()}}
+\item \href{#method-BiodbRequestSchedulerRule-addConnector}{\code{BiodbRequestSchedulerRule$addConnector()}}
+\item \href{#method-BiodbRequestSchedulerRule-removeConnector}{\code{BiodbRequestSchedulerRule$removeConnector()}}
+\item \href{#method-BiodbRequestSchedulerRule-print}{\code{BiodbRequestSchedulerRule$print()}}
+\item \href{#method-BiodbRequestSchedulerRule-waitAsNeeded}{\code{BiodbRequestSchedulerRule$waitAsNeeded()}}
+\item \href{#method-BiodbRequestSchedulerRule-recomputeFrequency}{\code{BiodbRequestSchedulerRule$recomputeFrequency()}}
+\item \href{#method-BiodbRequestSchedulerRule-computeSleepTime}{\code{BiodbRequestSchedulerRule$computeSleepTime()}}
+\item \href{#method-BiodbRequestSchedulerRule-storeCurrentTime}{\code{BiodbRequestSchedulerRule$storeCurrentTime()}}
+\item \href{#method-BiodbRequestSchedulerRule-clone}{\code{BiodbRequestSchedulerRule$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -56,8 +56,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getHost"></a>}}
-\if{latex}{\out{\hypertarget{method-getHost}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-getHost"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-getHost}{}}}
 \subsection{Method \code{getHost()}}{
 Gets host.
 \subsection{Usage}{
@@ -69,8 +69,8 @@ Returns the host.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getN"></a>}}
-\if{latex}{\out{\hypertarget{method-getN}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-getN"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-getN}{}}}
 \subsection{Method \code{getN()}}{
 Gets N value. The number of connections allowed during a period of
 T seconds.
@@ -83,8 +83,8 @@ Returns N as an integer.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getT"></a>}}
-\if{latex}{\out{\hypertarget{method-getT}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-getT"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-getT}{}}}
 \subsection{Method \code{getT()}}{
 Gets T value. The number of seconds during which N connections
 are allowed.
@@ -97,8 +97,8 @@ Returns T as a numeric.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setFrequency"></a>}}
-\if{latex}{\out{\hypertarget{method-setFrequency}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-setFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-setFrequency}{}}}
 \subsection{Method \code{setFrequency()}}{
 Sets both N and T.
 \subsection{Usage}{
@@ -121,8 +121,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConnectors"></a>}}
-\if{latex}{\out{\hypertarget{method-getConnectors}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-getConnectors"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-getConnectors}{}}}
 \subsection{Method \code{getConnectors()}}{
 Gets connectors associaated with this rule.
 \subsection{Usage}{
@@ -134,8 +134,8 @@ A list of BiodbConn objects.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addConnector"></a>}}
-\if{latex}{\out{\hypertarget{method-addConnector}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-addConnector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-addConnector}{}}}
 \subsection{Method \code{addConnector()}}{
 Associate a connector with this rule.
 \subsection{Usage}{
@@ -154,8 +154,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeConnector"></a>}}
-\if{latex}{\out{\hypertarget{method-removeConnector}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-removeConnector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-removeConnector}{}}}
 \subsection{Method \code{removeConnector()}}{
 Disassociate a connector from this rule.
 \subsection{Usage}{
@@ -174,8 +174,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-print}{}}}
 \subsection{Method \code{print()}}{
 Displays information about this instance.
 \subsection{Usage}{
@@ -187,8 +187,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-waitAsNeeded"></a>}}
-\if{latex}{\out{\hypertarget{method-waitAsNeeded}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-waitAsNeeded"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-waitAsNeeded}{}}}
 \subsection{Method \code{waitAsNeeded()}}{
 Wait (sleep) until a new request is allowed.
 \subsection{Usage}{
@@ -200,8 +200,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-recomputeFrequency"></a>}}
-\if{latex}{\out{\hypertarget{method-recomputeFrequency}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-recomputeFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-recomputeFrequency}{}}}
 \subsection{Method \code{recomputeFrequency()}}{
 Recompute frequency from submitted N and T values.
 \subsection{Usage}{
@@ -213,8 +213,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-computeSleepTime"></a>}}
-\if{latex}{\out{\hypertarget{method-computeSleepTime}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-computeSleepTime"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-computeSleepTime}{}}}
 \subsection{Method \code{computeSleepTime()}}{
 Compute the needed sleep time to wait until a new request is allowed,
 starting from the submitted time.
@@ -234,8 +234,8 @@ The needed sleep time in seconds.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-storeCurrentTime"></a>}}
-\if{latex}{\out{\hypertarget{method-storeCurrentTime}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-storeCurrentTime"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-storeCurrentTime}{}}}
 \subsection{Method \code{storeCurrentTime()}}{
 Stores the current time.
 \subsection{Usage}{
@@ -254,8 +254,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbRequestSchedulerRule-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequestSchedulerRule-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

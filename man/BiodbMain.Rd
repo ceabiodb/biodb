@@ -42,38 +42,38 @@ mybiodb <- NULL
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbMain$new()}}
-\item \href{#method-terminate}{\code{BiodbMain$terminate()}}
-\item \href{#method-loadDefinitions}{\code{BiodbMain$loadDefinitions()}}
-\item \href{#method-getConfig}{\code{BiodbMain$getConfig()}}
-\item \href{#method-getPersistentCache}{\code{BiodbMain$getPersistentCache()}}
-\item \href{#method-getDbsInfo}{\code{BiodbMain$getDbsInfo()}}
-\item \href{#method-getEntryFields}{\code{BiodbMain$getEntryFields()}}
-\item \href{#method-getFactory}{\code{BiodbMain$getFactory()}}
-\item \href{#method-getRequestScheduler}{\code{BiodbMain$getRequestScheduler()}}
-\item \href{#method-addObservers}{\code{BiodbMain$addObservers()}}
-\item \href{#method-getObservers}{\code{BiodbMain$getObservers()}}
-\item \href{#method-convertEntryIdFieldToDbClass}{\code{BiodbMain$convertEntryIdFieldToDbClass()}}
-\item \href{#method-entriesFieldToVctOrLst}{\code{BiodbMain$entriesFieldToVctOrLst()}}
-\item \href{#method-entriesToDataframe}{\code{BiodbMain$entriesToDataframe()}}
-\item \href{#method-entryIdsToDataframe}{\code{BiodbMain$entryIdsToDataframe()}}
-\item \href{#method-addColsToDataframe}{\code{BiodbMain$addColsToDataframe()}}
-\item \href{#method-entriesToJson}{\code{BiodbMain$entriesToJson()}}
-\item \href{#method-collapseRows}{\code{BiodbMain$collapseRows()}}
-\item \href{#method-entriesToSingleFieldValues}{\code{BiodbMain$entriesToSingleFieldValues()}}
-\item \href{#method-entryIdsToSingleFieldValues}{\code{BiodbMain$entryIdsToSingleFieldValues()}}
-\item \href{#method-computeFields}{\code{BiodbMain$computeFields()}}
-\item \href{#method-saveEntriesAsJson}{\code{BiodbMain$saveEntriesAsJson()}}
-\item \href{#method-copyDb}{\code{BiodbMain$copyDb()}}
-\item \href{#method-print}{\code{BiodbMain$print()}}
-\item \href{#method-fieldIsAtomic}{\code{BiodbMain$fieldIsAtomic()}}
-\item \href{#method-getFieldClass}{\code{BiodbMain$getFieldClass()}}
-\item \href{#method-clone}{\code{BiodbMain$clone()}}
+\item \href{#method-BiodbMain-new}{\code{BiodbMain$new()}}
+\item \href{#method-BiodbMain-terminate}{\code{BiodbMain$terminate()}}
+\item \href{#method-BiodbMain-loadDefinitions}{\code{BiodbMain$loadDefinitions()}}
+\item \href{#method-BiodbMain-getConfig}{\code{BiodbMain$getConfig()}}
+\item \href{#method-BiodbMain-getPersistentCache}{\code{BiodbMain$getPersistentCache()}}
+\item \href{#method-BiodbMain-getDbsInfo}{\code{BiodbMain$getDbsInfo()}}
+\item \href{#method-BiodbMain-getEntryFields}{\code{BiodbMain$getEntryFields()}}
+\item \href{#method-BiodbMain-getFactory}{\code{BiodbMain$getFactory()}}
+\item \href{#method-BiodbMain-getRequestScheduler}{\code{BiodbMain$getRequestScheduler()}}
+\item \href{#method-BiodbMain-addObservers}{\code{BiodbMain$addObservers()}}
+\item \href{#method-BiodbMain-getObservers}{\code{BiodbMain$getObservers()}}
+\item \href{#method-BiodbMain-convertEntryIdFieldToDbClass}{\code{BiodbMain$convertEntryIdFieldToDbClass()}}
+\item \href{#method-BiodbMain-entriesFieldToVctOrLst}{\code{BiodbMain$entriesFieldToVctOrLst()}}
+\item \href{#method-BiodbMain-entriesToDataframe}{\code{BiodbMain$entriesToDataframe()}}
+\item \href{#method-BiodbMain-entryIdsToDataframe}{\code{BiodbMain$entryIdsToDataframe()}}
+\item \href{#method-BiodbMain-addColsToDataframe}{\code{BiodbMain$addColsToDataframe()}}
+\item \href{#method-BiodbMain-entriesToJson}{\code{BiodbMain$entriesToJson()}}
+\item \href{#method-BiodbMain-collapseRows}{\code{BiodbMain$collapseRows()}}
+\item \href{#method-BiodbMain-entriesToSingleFieldValues}{\code{BiodbMain$entriesToSingleFieldValues()}}
+\item \href{#method-BiodbMain-entryIdsToSingleFieldValues}{\code{BiodbMain$entryIdsToSingleFieldValues()}}
+\item \href{#method-BiodbMain-computeFields}{\code{BiodbMain$computeFields()}}
+\item \href{#method-BiodbMain-saveEntriesAsJson}{\code{BiodbMain$saveEntriesAsJson()}}
+\item \href{#method-BiodbMain-copyDb}{\code{BiodbMain$copyDb()}}
+\item \href{#method-BiodbMain-print}{\code{BiodbMain$print()}}
+\item \href{#method-BiodbMain-fieldIsAtomic}{\code{BiodbMain$fieldIsAtomic()}}
+\item \href{#method-BiodbMain-getFieldClass}{\code{BiodbMain$getFieldClass()}}
+\item \href{#method-BiodbMain-clone}{\code{BiodbMain$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbMain-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. The BiodbMain must not be instantiated directly.
 Instead use the newInst() global method.
@@ -95,8 +95,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-terminate"></a>}}
-\if{latex}{\out{\hypertarget{method-terminate}{}}}
+\if{html}{\out{<a id="method-BiodbMain-terminate"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-terminate}{}}}
 \subsection{Method \code{terminate()}}{
 Closes \\code{BiodbMain} instance. Call this method when you are done with
 your \\code{BiodbMain} instance.
@@ -109,8 +109,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-loadDefinitions"></a>}}
-\if{latex}{\out{\hypertarget{method-loadDefinitions}{}}}
+\if{html}{\out{<a id="method-BiodbMain-loadDefinitions"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-loadDefinitions}{}}}
 \subsection{Method \code{loadDefinitions()}}{
 Loads databases and entry fields definitions from YAML file.
 \subsection{Usage}{
@@ -132,8 +132,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConfig"></a>}}
-\if{latex}{\out{\hypertarget{method-getConfig}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getConfig"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getConfig}{}}}
 \subsection{Method \code{getConfig()}}{
 Returns the single instance of the \\code{BiodbConfig} class.
 \subsection{Usage}{
@@ -146,8 +146,8 @@ this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPersistentCache"></a>}}
-\if{latex}{\out{\hypertarget{method-getPersistentCache}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getPersistentCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getPersistentCache}{}}}
 \subsection{Method \code{getPersistentCache()}}{
 Returns the single instance of the BiodbPersistentCache class.
 \subsection{Usage}{
@@ -160,8 +160,8 @@ this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDbsInfo"></a>}}
-\if{latex}{\out{\hypertarget{method-getDbsInfo}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getDbsInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getDbsInfo}{}}}
 \subsection{Method \code{getDbsInfo()}}{
 Returns the single instance of the \\code{BiodbDbsInfo} class.
 \subsection{Usage}{
@@ -174,8 +174,8 @@ this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryFields"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryFields}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getEntryFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getEntryFields}{}}}
 \subsection{Method \code{getEntryFields()}}{
 Returns the single instance of the \\code{BiodbEntryFields} class.
 \subsection{Usage}{
@@ -188,8 +188,8 @@ attached to this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFactory"></a>}}
-\if{latex}{\out{\hypertarget{method-getFactory}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getFactory"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getFactory}{}}}
 \subsection{Method \code{getFactory()}}{
 Returns the single instance of the \\code{BiodbFactory} class.
 \subsection{Usage}{
@@ -202,8 +202,8 @@ this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRequestScheduler"></a>}}
-\if{latex}{\out{\hypertarget{method-getRequestScheduler}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getRequestScheduler"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getRequestScheduler}{}}}
 \subsection{Method \code{getRequestScheduler()}}{
 Returns the single instance of the \\code{BiodbRequestScheduler}
 class.
@@ -217,8 +217,8 @@ attached to this BiodbMain instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addObservers"></a>}}
-\if{latex}{\out{\hypertarget{method-addObservers}{}}}
+\if{html}{\out{<a id="method-BiodbMain-addObservers"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-addObservers}{}}}
 \subsection{Method \code{addObservers()}}{
 Adds new observers. Observers will be called each time an event
 occurs. This is the way used in biodb to get feedback about what is going
@@ -239,8 +239,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getObservers"></a>}}
-\if{latex}{\out{\hypertarget{method-getObservers}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getObservers"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getObservers}{}}}
 \subsection{Method \code{getObservers()}}{
 Gets the list of registered observers.
 \subsection{Usage}{
@@ -252,8 +252,8 @@ The list or registered observers.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-convertEntryIdFieldToDbClass"></a>}}
-\if{latex}{\out{\hypertarget{method-convertEntryIdFieldToDbClass}{}}}
+\if{html}{\out{<a id="method-BiodbMain-convertEntryIdFieldToDbClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-convertEntryIdFieldToDbClass}{}}}
 \subsection{Method \code{convertEntryIdFieldToDbClass()}}{
 Gets the database class name corresponding to an entry ID field.
 \subsection{Usage}{
@@ -269,8 +269,8 @@ Gets the database class name corresponding to an entry ID field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entriesFieldToVctOrLst"></a>}}
-\if{latex}{\out{\hypertarget{method-entriesFieldToVctOrLst}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entriesFieldToVctOrLst"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entriesFieldToVctOrLst}{}}}
 \subsection{Method \code{entriesFieldToVctOrLst()}}{
 Extracts the value of a field from a list of entries. Returns either a
 vector or a list depending on the type of the field.
@@ -313,8 +313,8 @@ A vector if the field is atomic or flatten is set to
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entriesToDataframe"></a>}}
-\if{latex}{\out{\hypertarget{method-entriesToDataframe}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entriesToDataframe"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entriesToDataframe}{}}}
 \subsection{Method \code{entriesToDataframe()}}{
 Converts a list of entries or a list of list of entries
 (\\code{BiodbEntry} objects) into a data frame.
@@ -381,8 +381,8 @@ according to field names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entryIdsToDataframe"></a>}}
-\if{latex}{\out{\hypertarget{method-entryIdsToDataframe}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entryIdsToDataframe"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entryIdsToDataframe}{}}}
 \subsection{Method \code{entryIdsToDataframe()}}{
 Construct a data frame using entry IDs and field values of the
 corresponding entries.
@@ -424,8 +424,8 @@ values, with one entry per line, in the same order than in \code{ids} vector.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addColsToDataframe"></a>}}
-\if{latex}{\out{\hypertarget{method-addColsToDataframe}{}}}
+\if{html}{\out{<a id="method-BiodbMain-addColsToDataframe"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-addColsToDataframe}{}}}
 \subsection{Method \code{addColsToDataframe()}}{
 Add values from a database to an existing data frame using a column
 containing entry identifiers.
@@ -461,8 +461,8 @@ requested.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entriesToJson"></a>}}
-\if{latex}{\out{\hypertarget{method-entriesToJson}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entriesToJson"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entriesToJson}{}}}
 \subsection{Method \code{entriesToJson()}}{
 Converts a list of \\code{BiodbEntry} objects into JSON. Returns a vector of
 characters.
@@ -486,8 +486,8 @@ A list of JSON strings, the same length as entries list.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-collapseRows"></a>}}
-\if{latex}{\out{\hypertarget{method-collapseRows}{}}}
+\if{html}{\out{<a id="method-BiodbMain-collapseRows"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-collapseRows}{}}}
 \subsection{Method \code{collapseRows()}}{
 Collapses rows of a data frame, by looking for duplicated values in the
 reference columns (parameter \code{cols}). The values contained in the reference
@@ -515,8 +515,8 @@ A data frame, with rows collapsed."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entriesToSingleFieldValues"></a>}}
-\if{latex}{\out{\hypertarget{method-entriesToSingleFieldValues}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entriesToSingleFieldValues"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entriesToSingleFieldValues}{}}}
 \subsection{Method \code{entriesToSingleFieldValues()}}{
 Extract all values of a field from a list of entries.
 \subsection{Usage}{
@@ -546,8 +546,8 @@ The values of the field as a vector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-entryIdsToSingleFieldValues"></a>}}
-\if{latex}{\out{\hypertarget{method-entryIdsToSingleFieldValues}{}}}
+\if{html}{\out{<a id="method-BiodbMain-entryIdsToSingleFieldValues"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-entryIdsToSingleFieldValues}{}}}
 \subsection{Method \code{entryIdsToSingleFieldValues()}}{
 Extract all values of a field from a list of entries.
 \subsection{Usage}{
@@ -580,8 +580,8 @@ The values of the field as a vector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-computeFields"></a>}}
-\if{latex}{\out{\hypertarget{method-computeFields}{}}}
+\if{html}{\out{<a id="method-BiodbMain-computeFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-computeFields}{}}}
 \subsection{Method \code{computeFields()}}{
 Computes missing fields in entries, for those fields that are
 comptable.
@@ -602,8 +602,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-saveEntriesAsJson"></a>}}
-\if{latex}{\out{\hypertarget{method-saveEntriesAsJson}{}}}
+\if{html}{\out{<a id="method-BiodbMain-saveEntriesAsJson"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-saveEntriesAsJson}{}}}
 \subsection{Method \code{saveEntriesAsJson()}}{
 Saves a list of entries in JSON format. Each entry will be saved in a
 separate file.
@@ -629,8 +629,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-copyDb"></a>}}
-\if{latex}{\out{\hypertarget{method-copyDb}{}}}
+\if{html}{\out{<a id="method-BiodbMain-copyDb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-copyDb}{}}}
 \subsection{Method \code{copyDb()}}{
 Copies all entries of a database into another database. The connector of the
 destination database must be editable.
@@ -655,8 +655,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbMain-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-print}{}}}
 \subsection{Method \code{print()}}{
 Prints object information.
 \subsection{Usage}{
@@ -668,8 +668,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fieldIsAtomic"></a>}}
-\if{latex}{\out{\hypertarget{method-fieldIsAtomic}{}}}
+\if{html}{\out{<a id="method-BiodbMain-fieldIsAtomic"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-fieldIsAtomic}{}}}
 \subsection{Method \code{fieldIsAtomic()}}{
 DEPRECATED method to test if a field is an atomic field. The new
 method is \\code{BiodbEntryField :isVector()}."
@@ -689,8 +689,8 @@ TRUE if the field's value is atomic.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldClass}{}}}
+\if{html}{\out{<a id="method-BiodbMain-getFieldClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-getFieldClass}{}}}
 \subsection{Method \code{getFieldClass()}}{
 DEPRECATED method to get the class of a field. The new method is
 \code{BiodbMain :getEntryFields()$get(field)$getClass()}.
@@ -710,8 +710,8 @@ The class of the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbMain-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbMain-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
