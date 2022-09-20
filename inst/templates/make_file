@@ -247,6 +247,7 @@ ifdef COMPILE
 endif
 	$(RM) -r *tests/*/output
 	$(RM) -r $(PKG_NAME).Rcheck
+	$(RM) -r $(PKG_NAME).BiocCheck
 	$(RM) -r Meta
 	$(RM) *.log
 	$(RM) .Rhistory
