@@ -202,8 +202,8 @@ test_directRequestToUniprot <- function(biodb) {
     testthat::expect_is(sched, "BiodbRequestScheduler")
 
     # Create URL object
-    u <- 'https://www.uniprot.org/uniprot/'
-    p <- list(query='', columns='id', format='tab', limit=2)
+    u <- 'https://rest.uniprot.org/uniprotkb/search'
+    p <- list(query='e', fields='id', format='tsv', size=2)
     url <- BiodbUrl$new(url=u, params=p, chompExtraSlashes=FALSE)
 
     # Check rule does not exist
