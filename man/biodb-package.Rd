@@ -10,8 +10,10 @@ The biodb package provides access to standard remote chemical and biological dat
 }
 \details{
 To get a presentation of the \emph{biodb} package and get started with it, please
-see the "biodb" vignette.\preformatted{vignette('biodb', package='biodb')
-}
+see the "biodb" vignette.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{vignette('biodb', package='biodb')
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \link{BiodbMain}, \link{BiodbConfig}, \link{BiodbFactory},

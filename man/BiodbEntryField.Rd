@@ -70,49 +70,49 @@ Parent class \code{\link{BiodbEntryFields}}.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbEntryField$new()}}
-\item \href{#method-getName}{\code{BiodbEntryField$getName()}}
-\item \href{#method-getType}{\code{BiodbEntryField$getType()}}
-\item \href{#method-isOfType}{\code{BiodbEntryField$isOfType()}}
-\item \href{#method-getDescription}{\code{BiodbEntryField$getDescription()}}
-\item \href{#method-hasAliases}{\code{BiodbEntryField$hasAliases()}}
-\item \href{#method-getAliases}{\code{BiodbEntryField$getAliases()}}
-\item \href{#method-addAlias}{\code{BiodbEntryField$addAlias()}}
-\item \href{#method-removeAlias}{\code{BiodbEntryField$removeAlias()}}
-\item \href{#method-getAllNames}{\code{BiodbEntryField$getAllNames()}}
-\item \href{#method-isComputable}{\code{BiodbEntryField$isComputable()}}
-\item \href{#method-getComputableFrom}{\code{BiodbEntryField$getComputableFrom()}}
-\item \href{#method-getDataFrameGroup}{\code{BiodbEntryField$getDataFrameGroup()}}
-\item \href{#method-isComputableFrom}{\code{BiodbEntryField$isComputableFrom()}}
-\item \href{#method-addComputableFrom}{\code{BiodbEntryField$addComputableFrom()}}
-\item \href{#method-removeComputableFrom}{\code{BiodbEntryField$removeComputableFrom()}}
-\item \href{#method-correctValue}{\code{BiodbEntryField$correctValue()}}
-\item \href{#method-isEnumerate}{\code{BiodbEntryField$isEnumerate()}}
-\item \href{#method-isVirtual}{\code{BiodbEntryField$isVirtual()}}
-\item \href{#method-getVirtualGroupByType}{\code{BiodbEntryField$getVirtualGroupByType()}}
-\item \href{#method-getAllowedValues}{\code{BiodbEntryField$getAllowedValues()}}
-\item \href{#method-addAllowedValue}{\code{BiodbEntryField$addAllowedValue()}}
-\item \href{#method-checkValue}{\code{BiodbEntryField$checkValue()}}
-\item \href{#method-hasCardOne}{\code{BiodbEntryField$hasCardOne()}}
-\item \href{#method-hasCardMany}{\code{BiodbEntryField$hasCardMany()}}
-\item \href{#method-forbidsDuplicates}{\code{BiodbEntryField$forbidsDuplicates()}}
-\item \href{#method-isCaseInsensitive}{\code{BiodbEntryField$isCaseInsensitive()}}
-\item \href{#method-getClass}{\code{BiodbEntryField$getClass()}}
-\item \href{#method-isObject}{\code{BiodbEntryField$isObject()}}
-\item \href{#method-isDataFrame}{\code{BiodbEntryField$isDataFrame()}}
-\item \href{#method-isAtomic}{\code{BiodbEntryField$isAtomic()}}
-\item \href{#method-isVector}{\code{BiodbEntryField$isVector()}}
-\item \href{#method-equals}{\code{BiodbEntryField$equals()}}
-\item \href{#method-updateWithValuesFrom}{\code{BiodbEntryField$updateWithValuesFrom()}}
-\item \href{#method-print}{\code{BiodbEntryField$print()}}
-\item \href{#method-getCardinality}{\code{BiodbEntryField$getCardinality()}}
-\item \href{#method-check}{\code{BiodbEntryField$check()}}
-\item \href{#method-clone}{\code{BiodbEntryField$clone()}}
+\item \href{#method-BiodbEntryField-new}{\code{BiodbEntryField$new()}}
+\item \href{#method-BiodbEntryField-getName}{\code{BiodbEntryField$getName()}}
+\item \href{#method-BiodbEntryField-getType}{\code{BiodbEntryField$getType()}}
+\item \href{#method-BiodbEntryField-isOfType}{\code{BiodbEntryField$isOfType()}}
+\item \href{#method-BiodbEntryField-getDescription}{\code{BiodbEntryField$getDescription()}}
+\item \href{#method-BiodbEntryField-hasAliases}{\code{BiodbEntryField$hasAliases()}}
+\item \href{#method-BiodbEntryField-getAliases}{\code{BiodbEntryField$getAliases()}}
+\item \href{#method-BiodbEntryField-addAlias}{\code{BiodbEntryField$addAlias()}}
+\item \href{#method-BiodbEntryField-removeAlias}{\code{BiodbEntryField$removeAlias()}}
+\item \href{#method-BiodbEntryField-getAllNames}{\code{BiodbEntryField$getAllNames()}}
+\item \href{#method-BiodbEntryField-isComputable}{\code{BiodbEntryField$isComputable()}}
+\item \href{#method-BiodbEntryField-getComputableFrom}{\code{BiodbEntryField$getComputableFrom()}}
+\item \href{#method-BiodbEntryField-getDataFrameGroup}{\code{BiodbEntryField$getDataFrameGroup()}}
+\item \href{#method-BiodbEntryField-isComputableFrom}{\code{BiodbEntryField$isComputableFrom()}}
+\item \href{#method-BiodbEntryField-addComputableFrom}{\code{BiodbEntryField$addComputableFrom()}}
+\item \href{#method-BiodbEntryField-removeComputableFrom}{\code{BiodbEntryField$removeComputableFrom()}}
+\item \href{#method-BiodbEntryField-correctValue}{\code{BiodbEntryField$correctValue()}}
+\item \href{#method-BiodbEntryField-isEnumerate}{\code{BiodbEntryField$isEnumerate()}}
+\item \href{#method-BiodbEntryField-isVirtual}{\code{BiodbEntryField$isVirtual()}}
+\item \href{#method-BiodbEntryField-getVirtualGroupByType}{\code{BiodbEntryField$getVirtualGroupByType()}}
+\item \href{#method-BiodbEntryField-getAllowedValues}{\code{BiodbEntryField$getAllowedValues()}}
+\item \href{#method-BiodbEntryField-addAllowedValue}{\code{BiodbEntryField$addAllowedValue()}}
+\item \href{#method-BiodbEntryField-checkValue}{\code{BiodbEntryField$checkValue()}}
+\item \href{#method-BiodbEntryField-hasCardOne}{\code{BiodbEntryField$hasCardOne()}}
+\item \href{#method-BiodbEntryField-hasCardMany}{\code{BiodbEntryField$hasCardMany()}}
+\item \href{#method-BiodbEntryField-forbidsDuplicates}{\code{BiodbEntryField$forbidsDuplicates()}}
+\item \href{#method-BiodbEntryField-isCaseInsensitive}{\code{BiodbEntryField$isCaseInsensitive()}}
+\item \href{#method-BiodbEntryField-getClass}{\code{BiodbEntryField$getClass()}}
+\item \href{#method-BiodbEntryField-isObject}{\code{BiodbEntryField$isObject()}}
+\item \href{#method-BiodbEntryField-isDataFrame}{\code{BiodbEntryField$isDataFrame()}}
+\item \href{#method-BiodbEntryField-isAtomic}{\code{BiodbEntryField$isAtomic()}}
+\item \href{#method-BiodbEntryField-isVector}{\code{BiodbEntryField$isVector()}}
+\item \href{#method-BiodbEntryField-equals}{\code{BiodbEntryField$equals()}}
+\item \href{#method-BiodbEntryField-updateWithValuesFrom}{\code{BiodbEntryField$updateWithValuesFrom()}}
+\item \href{#method-BiodbEntryField-print}{\code{BiodbEntryField$print()}}
+\item \href{#method-BiodbEntryField-getCardinality}{\code{BiodbEntryField$getCardinality()}}
+\item \href{#method-BiodbEntryField-check}{\code{BiodbEntryField$check()}}
+\item \href{#method-BiodbEntryField-clone}{\code{BiodbEntryField$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. This class must not be instantiated directly.
 Instead, you access the instances of this class through the
@@ -181,8 +181,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getName"></a>}}
-\if{latex}{\out{\hypertarget{method-getName}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getName}{}}}
 \subsection{Method \code{getName()}}{
 Gets the name.
 \subsection{Usage}{
@@ -194,8 +194,8 @@ The name of this field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getType"></a>}}
-\if{latex}{\out{\hypertarget{method-getType}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getType"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getType}{}}}
 \subsection{Method \code{getType()}}{
 Gets field's type.
 \subsection{Usage}{
@@ -207,8 +207,8 @@ The type of this field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isOfType"></a>}}
-\if{latex}{\out{\hypertarget{method-isOfType}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isOfType"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isOfType}{}}}
 \subsection{Method \code{isOfType()}}{
 Tests if this field is of the specified type.
 \subsection{Usage}{
@@ -227,8 +227,8 @@ TRUE if this field is of the specified type, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDescription"></a>}}
-\if{latex}{\out{\hypertarget{method-getDescription}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getDescription"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getDescription}{}}}
 \subsection{Method \code{getDescription()}}{
 Get field's description.
 \subsection{Usage}{
@@ -240,8 +240,8 @@ The description of this field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasAliases"></a>}}
-\if{latex}{\out{\hypertarget{method-hasAliases}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-hasAliases"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-hasAliases}{}}}
 \subsection{Method \code{hasAliases()}}{
 Tests if this field has aliases.
 \subsection{Usage}{
@@ -253,8 +253,8 @@ TRUE if this entry field defines aliases, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAliases"></a>}}
-\if{latex}{\out{\hypertarget{method-getAliases}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getAliases"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getAliases}{}}}
 \subsection{Method \code{getAliases()}}{
 Get aliases.
 \subsection{Usage}{
@@ -267,8 +267,8 @@ NULL."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addAlias"></a>}}
-\if{latex}{\out{\hypertarget{method-addAlias}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-addAlias"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-addAlias}{}}}
 \subsection{Method \code{addAlias()}}{
 Adds an alias to the list of aliases.
 \subsection{Usage}{
@@ -287,8 +287,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeAlias"></a>}}
-\if{latex}{\out{\hypertarget{method-removeAlias}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-removeAlias"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-removeAlias}{}}}
 \subsection{Method \code{removeAlias()}}{
 Removes an alias from the list of aliases.
 \subsection{Usage}{
@@ -307,8 +307,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllNames"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllNames}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getAllNames"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getAllNames}{}}}
 \subsection{Method \code{getAllNames()}}{
 Gets all names.
 \subsection{Usage}{
@@ -320,8 +320,8 @@ The list of all names (main name and aliases).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isComputable"></a>}}
-\if{latex}{\out{\hypertarget{method-isComputable}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isComputable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isComputable}{}}}
 \subsection{Method \code{isComputable()}}{
 Tests if this field is computable from another field or another
 database.
@@ -334,8 +334,8 @@ TRUE if the field is computable, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getComputableFrom"></a>}}
-\if{latex}{\out{\hypertarget{method-getComputableFrom}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getComputableFrom"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getComputableFrom}{}}}
 \subsection{Method \code{getComputableFrom()}}{
 Get the list of connectors that can be used to compute this field.
 \subsection{Usage}{
@@ -348,8 +348,8 @@ database from which the field is computable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDataFrameGroup"></a>}}
-\if{latex}{\out{\hypertarget{method-getDataFrameGroup}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getDataFrameGroup"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getDataFrameGroup}{}}}
 \subsection{Method \code{getDataFrameGroup()}}{
 Gets the defined data frame group, if any.
 \subsection{Usage}{
@@ -361,8 +361,8 @@ The data frame group, as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isComputableFrom"></a>}}
-\if{latex}{\out{\hypertarget{method-isComputableFrom}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isComputableFrom"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isComputableFrom}{}}}
 \subsection{Method \code{isComputableFrom()}}{
 Gets the ID of the database from which this field can be computed.
 \subsection{Usage}{
@@ -374,8 +374,8 @@ The list of databases where to find this field's value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addComputableFrom"></a>}}
-\if{latex}{\out{\hypertarget{method-addComputableFrom}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-addComputableFrom"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-addComputableFrom}{}}}
 \subsection{Method \code{addComputableFrom()}}{
 Adds a directive from the list of computableFrom.
 \subsection{Usage}{
@@ -394,8 +394,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeComputableFrom"></a>}}
-\if{latex}{\out{\hypertarget{method-removeComputableFrom}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-removeComputableFrom"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-removeComputableFrom}{}}}
 \subsection{Method \code{removeComputableFrom()}}{
 Removes a directive from the list of computableFrom.
 \subsection{Usage}{
@@ -414,8 +414,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-correctValue"></a>}}
-\if{latex}{\out{\hypertarget{method-correctValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-correctValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-correctValue}{}}}
 \subsection{Method \code{correctValue()}}{
 Corrects a value so it is compatible with this field.
 \subsection{Usage}{
@@ -434,8 +434,8 @@ The corrected value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isEnumerate"></a>}}
-\if{latex}{\out{\hypertarget{method-isEnumerate}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isEnumerate"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isEnumerate}{}}}
 \subsection{Method \code{isEnumerate()}}{
 Tests if this field is an enumerate type (i.e.: it defines allowed
 values).
@@ -449,8 +449,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isVirtual"></a>}}
-\if{latex}{\out{\hypertarget{method-isVirtual}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isVirtual"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isVirtual}{}}}
 \subsection{Method \code{isVirtual()}}{
 Tests if this field is a virtual field.
 \subsection{Usage}{
@@ -463,8 +463,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getVirtualGroupByType"></a>}}
-\if{latex}{\out{\hypertarget{method-getVirtualGroupByType}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getVirtualGroupByType"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getVirtualGroupByType}{}}}
 \subsection{Method \code{getVirtualGroupByType()}}{
 Gets type for grouping field values when building a virtual data
 frame.
@@ -477,8 +477,8 @@ The type, as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllowedValues"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllowedValues}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getAllowedValues"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getAllowedValues}{}}}
 \subsection{Method \code{getAllowedValues()}}{
 Gets allowed values.
 \subsection{Usage}{
@@ -498,8 +498,8 @@ A character vector containing all allowed values.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addAllowedValue"></a>}}
-\if{latex}{\out{\hypertarget{method-addAllowedValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-addAllowedValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-addAllowedValue}{}}}
 \subsection{Method \code{addAllowedValue()}}{
 Adds an allowed value, as a synonym to already an existing value. Note
 that not all enumerate fields accept synonyms.
@@ -522,8 +522,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkValue"></a>}}
-\if{latex}{\out{\hypertarget{method-checkValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-checkValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-checkValue}{}}}
 \subsection{Method \code{checkValue()}}{
 Checks if a value is correct. Fails if \code{value} is incorrect.
 \subsection{Usage}{
@@ -542,8 +542,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasCardOne"></a>}}
-\if{latex}{\out{\hypertarget{method-hasCardOne}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-hasCardOne"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-hasCardOne}{}}}
 \subsection{Method \code{hasCardOne()}}{
 Tests if this field has a cardinality of one.
 \subsection{Usage}{
@@ -556,8 +556,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasCardMany"></a>}}
-\if{latex}{\out{\hypertarget{method-hasCardMany}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-hasCardMany"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-hasCardMany}{}}}
 \subsection{Method \code{hasCardMany()}}{
 Tests if this field has a cardinality greater than one.
 \subsection{Usage}{
@@ -570,8 +570,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-forbidsDuplicates"></a>}}
-\if{latex}{\out{\hypertarget{method-forbidsDuplicates}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-forbidsDuplicates"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-forbidsDuplicates}{}}}
 \subsection{Method \code{forbidsDuplicates()}}{
 Tests if this field forbids duplicates.
 \subsection{Usage}{
@@ -584,8 +584,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isCaseInsensitive"></a>}}
-\if{latex}{\out{\hypertarget{method-isCaseInsensitive}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isCaseInsensitive"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isCaseInsensitive}{}}}
 \subsection{Method \code{isCaseInsensitive()}}{
 Tests if this field is case sensitive.
 \subsection{Usage}{
@@ -597,8 +597,8 @@ TRUE if this field is case insensitive, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getClass}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getClass}{}}}
 \subsection{Method \code{getClass()}}{
 Gets the class of this field's value.
 \subsection{Usage}{
@@ -610,8 +610,8 @@ class) of this field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isObject"></a>}}
-\if{latex}{\out{\hypertarget{method-isObject}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isObject"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isObject}{}}}
 \subsection{Method \code{isObject()}}{
 Tests if this field's type is a class.
 \subsection{Usage}{
@@ -623,8 +623,8 @@ TRUE if field's type is a class, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDataFrame"></a>}}
-\if{latex}{\out{\hypertarget{method-isDataFrame}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isDataFrame"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isDataFrame}{}}}
 \subsection{Method \code{isDataFrame()}}{
 Tests if this field's type is \code{data.frame}.
 \subsection{Usage}{
@@ -636,8 +636,8 @@ TRUE if field's type is data frame, FALSE otherwise."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isAtomic"></a>}}
-\if{latex}{\out{\hypertarget{method-isAtomic}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isAtomic"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isAtomic}{}}}
 \subsection{Method \code{isAtomic()}}{
 Tests if this field's type is an atomic  type.
 \subsection{Usage}{
@@ -650,8 +650,8 @@ integer, double or logical), FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isVector"></a>}}
-\if{latex}{\out{\hypertarget{method-isVector}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-isVector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-isVector}{}}}
 \subsection{Method \code{isVector()}}{
 Tests if this field's type is a basic vector type.
 \subsection{Usage}{
@@ -664,8 +664,8 @@ integer, double or logical), FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-equals"></a>}}
-\if{latex}{\out{\hypertarget{method-equals}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-equals"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-equals}{}}}
 \subsection{Method \code{equals()}}{
 Compares this instance with another, and tests if they are equal.
 \subsection{Usage}{
@@ -686,8 +686,8 @@ TRUE if they are equal, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateWithValuesFrom"></a>}}
-\if{latex}{\out{\hypertarget{method-updateWithValuesFrom}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-updateWithValuesFrom"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-updateWithValuesFrom}{}}}
 \subsection{Method \code{updateWithValuesFrom()}}{
 Updates fields using values from \code{other} instance. The updated fields
 \subsection{Usage}{
@@ -710,8 +710,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-print}{}}}
 \subsection{Method \code{print()}}{
 Print informations about this entry.
 \subsection{Usage}{
@@ -723,8 +723,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCardinality"></a>}}
-\if{latex}{\out{\hypertarget{method-getCardinality}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-getCardinality"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-getCardinality}{}}}
 \subsection{Method \code{getCardinality()}}{
 Gets the field's cardinality.
 \subsection{Usage}{
@@ -736,8 +736,8 @@ The cardinality: "one" or "many".
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check"></a>}}
-\if{latex}{\out{\hypertarget{method-check}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-check"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-check}{}}}
 \subsection{Method \code{check()}}{
 Checks if essential values are defined.
 \subsection{Usage}{
@@ -749,8 +749,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbEntryField-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryField-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

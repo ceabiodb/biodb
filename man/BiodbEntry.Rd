@@ -61,40 +61,40 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbEntry$new()}}
-\item \href{#method-parentIsAConnector}{\code{BiodbEntry$parentIsAConnector()}}
-\item \href{#method-getParent}{\code{BiodbEntry$getParent()}}
-\item \href{#method-getBiodb}{\code{BiodbEntry$getBiodb()}}
-\item \href{#method-cloneInstance}{\code{BiodbEntry$cloneInstance()}}
-\item \href{#method-getId}{\code{BiodbEntry$getId()}}
-\item \href{#method-isNew}{\code{BiodbEntry$isNew()}}
-\item \href{#method-getDbClass}{\code{BiodbEntry$getDbClass()}}
-\item \href{#method-setFieldValue}{\code{BiodbEntry$setFieldValue()}}
-\item \href{#method-appendFieldValue}{\code{BiodbEntry$appendFieldValue()}}
-\item \href{#method-getFieldNames}{\code{BiodbEntry$getFieldNames()}}
-\item \href{#method-hasField}{\code{BiodbEntry$hasField()}}
-\item \href{#method-removeField}{\code{BiodbEntry$removeField()}}
-\item \href{#method-getFieldValue}{\code{BiodbEntry$getFieldValue()}}
-\item \href{#method-getFieldsByType}{\code{BiodbEntry$getFieldsByType()}}
-\item \href{#method-getFieldsAsDataframe}{\code{BiodbEntry$getFieldsAsDataframe()}}
-\item \href{#method-getFieldsAsJson}{\code{BiodbEntry$getFieldsAsJson()}}
-\item \href{#method-parseContent}{\code{BiodbEntry$parseContent()}}
-\item \href{#method-computeFields}{\code{BiodbEntry$computeFields()}}
-\item \href{#method-print}{\code{BiodbEntry$print()}}
-\item \href{#method-getName}{\code{BiodbEntry$getName()}}
-\item \href{#method-makesRefToEntry}{\code{BiodbEntry$makesRefToEntry()}}
-\item \href{#method-getField}{\code{BiodbEntry$getField()}}
-\item \href{#method-setField}{\code{BiodbEntry$setField()}}
-\item \href{#method-getFieldClass}{\code{BiodbEntry$getFieldClass()}}
-\item \href{#method-getFieldDef}{\code{BiodbEntry$getFieldDef()}}
-\item \href{#method-getFieldCardinality}{\code{BiodbEntry$getFieldCardinality()}}
-\item \href{#method-fieldHasBasicClass}{\code{BiodbEntry$fieldHasBasicClass()}}
-\item \href{#method-clone}{\code{BiodbEntry$clone()}}
+\item \href{#method-BiodbEntry-new}{\code{BiodbEntry$new()}}
+\item \href{#method-BiodbEntry-parentIsAConnector}{\code{BiodbEntry$parentIsAConnector()}}
+\item \href{#method-BiodbEntry-getParent}{\code{BiodbEntry$getParent()}}
+\item \href{#method-BiodbEntry-getBiodb}{\code{BiodbEntry$getBiodb()}}
+\item \href{#method-BiodbEntry-cloneInstance}{\code{BiodbEntry$cloneInstance()}}
+\item \href{#method-BiodbEntry-getId}{\code{BiodbEntry$getId()}}
+\item \href{#method-BiodbEntry-isNew}{\code{BiodbEntry$isNew()}}
+\item \href{#method-BiodbEntry-getDbClass}{\code{BiodbEntry$getDbClass()}}
+\item \href{#method-BiodbEntry-setFieldValue}{\code{BiodbEntry$setFieldValue()}}
+\item \href{#method-BiodbEntry-appendFieldValue}{\code{BiodbEntry$appendFieldValue()}}
+\item \href{#method-BiodbEntry-getFieldNames}{\code{BiodbEntry$getFieldNames()}}
+\item \href{#method-BiodbEntry-hasField}{\code{BiodbEntry$hasField()}}
+\item \href{#method-BiodbEntry-removeField}{\code{BiodbEntry$removeField()}}
+\item \href{#method-BiodbEntry-getFieldValue}{\code{BiodbEntry$getFieldValue()}}
+\item \href{#method-BiodbEntry-getFieldsByType}{\code{BiodbEntry$getFieldsByType()}}
+\item \href{#method-BiodbEntry-getFieldsAsDataframe}{\code{BiodbEntry$getFieldsAsDataframe()}}
+\item \href{#method-BiodbEntry-getFieldsAsJson}{\code{BiodbEntry$getFieldsAsJson()}}
+\item \href{#method-BiodbEntry-parseContent}{\code{BiodbEntry$parseContent()}}
+\item \href{#method-BiodbEntry-computeFields}{\code{BiodbEntry$computeFields()}}
+\item \href{#method-BiodbEntry-print}{\code{BiodbEntry$print()}}
+\item \href{#method-BiodbEntry-getName}{\code{BiodbEntry$getName()}}
+\item \href{#method-BiodbEntry-makesRefToEntry}{\code{BiodbEntry$makesRefToEntry()}}
+\item \href{#method-BiodbEntry-getField}{\code{BiodbEntry$getField()}}
+\item \href{#method-BiodbEntry-setField}{\code{BiodbEntry$setField()}}
+\item \href{#method-BiodbEntry-getFieldClass}{\code{BiodbEntry$getFieldClass()}}
+\item \href{#method-BiodbEntry-getFieldDef}{\code{BiodbEntry$getFieldDef()}}
+\item \href{#method-BiodbEntry-getFieldCardinality}{\code{BiodbEntry$getFieldCardinality()}}
+\item \href{#method-BiodbEntry-fieldHasBasicClass}{\code{BiodbEntry$fieldHasBasicClass()}}
+\item \href{#method-BiodbEntry-clone}{\code{BiodbEntry$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Entry objects must not be created directly.
 Instead, they are retrieved through the connector instances.
@@ -114,8 +114,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parentIsAConnector"></a>}}
-\if{latex}{\out{\hypertarget{method-parentIsAConnector}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-parentIsAConnector"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-parentIsAConnector}{}}}
 \subsection{Method \code{parentIsAConnector()}}{
 Tests if the parent of this entry is a connector instance.
 \subsection{Usage}{
@@ -127,8 +127,8 @@ TRUE if this entry belongs to a connector, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getParent"></a>}}
-\if{latex}{\out{\hypertarget{method-getParent}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getParent"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getParent}{}}}
 \subsection{Method \code{getParent()}}{
 Returns the parent instance (A BiodbConn or BiodbFactory object) to which
 this object is attached.
@@ -141,8 +141,8 @@ A BiodbConn instance or a BiodbFactory object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBiodb"></a>}}
-\if{latex}{\out{\hypertarget{method-getBiodb}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getBiodb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getBiodb}{}}}
 \subsection{Method \code{getBiodb()}}{
 Returns the biodb main class instance to which this object is
 attached.
@@ -155,8 +155,8 @@ The main biodb instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-cloneInstance"></a>}}
-\if{latex}{\out{\hypertarget{method-cloneInstance}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-cloneInstance"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-cloneInstance}{}}}
 \subsection{Method \code{cloneInstance()}}{
 Clones this entry.
 \subsection{Usage}{
@@ -179,8 +179,8 @@ The clone, as a new BiodbEntry instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getId"></a>}}
-\if{latex}{\out{\hypertarget{method-getId}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getId"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getId}{}}}
 \subsection{Method \code{getId()}}{
 Gets the entry ID.
 \subsection{Usage}{
@@ -192,8 +192,8 @@ the entry ID, which is the value if the \code{accession} field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isNew"></a>}}
-\if{latex}{\out{\hypertarget{method-isNew}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-isNew"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-isNew}{}}}
 \subsection{Method \code{isNew()}}{
 Tests if this entry is new.
 \subsection{Usage}{
@@ -205,8 +205,8 @@ TRUE if this entry was newly created, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDbClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getDbClass}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getDbClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getDbClass}{}}}
 \subsection{Method \code{getDbClass()}}{
 Gets the ID of the database associated with this entry.
 \subsection{Usage}{
@@ -218,8 +218,8 @@ The name of the database class associated with this entry.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setFieldValue"></a>}}
-\if{latex}{\out{\hypertarget{method-setFieldValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-setFieldValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-setFieldValue}{}}}
 \subsection{Method \code{setFieldValue()}}{
 Sets the value of a field. If the field is not already set for this
 entry, then the field will be created. See BiodbEntryFields for a list of
@@ -242,8 +242,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-appendFieldValue"></a>}}
-\if{latex}{\out{\hypertarget{method-appendFieldValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-appendFieldValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-appendFieldValue}{}}}
 \subsection{Method \code{appendFieldValue()}}{
 Appends a value to an existing field. If the field is not defined for
 this entry, then the field will be created and set to this value. Only
@@ -266,8 +266,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldNames"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldNames}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldNames"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldNames}{}}}
 \subsection{Method \code{getFieldNames()}}{
 Gets a list of all fields defined for this entry.
 \subsection{Usage}{
@@ -280,8 +280,8 @@ this entry.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasField"></a>}}
-\if{latex}{\out{\hypertarget{method-hasField}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-hasField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-hasField}{}}}
 \subsection{Method \code{hasField()}}{
 Tests if a field is defined in this entry.
 \subsection{Usage}{
@@ -301,8 +301,8 @@ FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeField"></a>}}
-\if{latex}{\out{\hypertarget{method-removeField}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-removeField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-removeField}{}}}
 \subsection{Method \code{removeField()}}{
 Removes the specified field from this entry.
 \subsection{Usage}{
@@ -321,8 +321,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldValue"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldValue}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldValue}{}}}
 \subsection{Method \code{getFieldValue()}}{
 Gets the value of the specified field.
 \subsection{Usage}{
@@ -370,8 +370,8 @@ The value of the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldsByType"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldsByType}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldsByType"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldsByType}{}}}
 \subsection{Method \code{getFieldsByType()}}{
 Gets the fields of this entry that have the specified type.
 \subsection{Usage}{
@@ -390,8 +390,8 @@ A character vector containing the field names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldsAsDataframe"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldsAsDataframe}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldsAsDataframe"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldsAsDataframe}{}}}
 \subsection{Method \code{getFieldsAsDataframe()}}{
 Converts this entry into a data frame.
 \subsection{Usage}{
@@ -457,8 +457,8 @@ A data frame containg the values of the fields.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldsAsJson"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldsAsJson}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldsAsJson"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldsAsJson}{}}}
 \subsection{Method \code{getFieldsAsJson()}}{
 Converts this entry into a JSON string.
 \subsection{Usage}{
@@ -479,8 +479,8 @@ A JSON object from jsonlite package.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parseContent"></a>}}
-\if{latex}{\out{\hypertarget{method-parseContent}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-parseContent"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-parseContent}{}}}
 \subsection{Method \code{parseContent()}}{
 Parses content string and set values accordingly for this entry's
 fields.  This method is called automatically and should be run directly
@@ -504,8 +504,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-computeFields"></a>}}
-\if{latex}{\out{\hypertarget{method-computeFields}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-computeFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-computeFields}{}}}
 \subsection{Method \code{computeFields()}}{
 Computes fields. Look at all missing fields, and try to compute them
 using references to other databases, if a rule exists.
@@ -527,8 +527,8 @@ FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-print}{}}}
 \subsection{Method \code{print()}}{
 Displays short information about this instance.
 \subsection{Usage}{
@@ -540,8 +540,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getName"></a>}}
-\if{latex}{\out{\hypertarget{method-getName}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getName}{}}}
 \subsection{Method \code{getName()}}{
 Gets a short text describing this entry instance.
 \subsection{Usage}{
@@ -554,8 +554,8 @@ the entry accession.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-makesRefToEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-makesRefToEntry}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-makesRefToEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-makesRefToEntry}{}}}
 \subsection{Method \code{makesRefToEntry()}}{
 Tests if this entry makes reference to another entry.
 \subsection{Usage}{
@@ -581,8 +581,8 @@ db, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getField"></a>}}
-\if{latex}{\out{\hypertarget{method-getField}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getField}{}}}
 \subsection{Method \code{getField()}}{
 DEPRECATED. Gets the value of a field.
 \subsection{Usage}{
@@ -601,8 +601,8 @@ The value of the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setField"></a>}}
-\if{latex}{\out{\hypertarget{method-setField}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-setField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-setField}{}}}
 \subsection{Method \code{setField()}}{
 DEPRECATED. Sets the value of a field.
 \subsection{Usage}{
@@ -623,8 +623,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldClass}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldClass}{}}}
 \subsection{Method \code{getFieldClass()}}{
 Gets the class of a field.
 \subsection{Usage}{
@@ -643,8 +643,8 @@ The class of the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldDef"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldDef}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldDef"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldDef}{}}}
 \subsection{Method \code{getFieldDef()}}{
 Gets the definition of an entry field.
 \subsection{Usage}{
@@ -663,8 +663,8 @@ An object BiodbEntryField which defines the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldCardinality"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldCardinality}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-getFieldCardinality"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-getFieldCardinality}{}}}
 \subsection{Method \code{getFieldCardinality()}}{
 Gets the cardinality of the field.
 \subsection{Usage}{
@@ -683,8 +683,8 @@ The cardinality of the field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fieldHasBasicClass"></a>}}
-\if{latex}{\out{\hypertarget{method-fieldHasBasicClass}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-fieldHasBasicClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-fieldHasBasicClass}{}}}
 \subsection{Method \code{fieldHasBasicClass()}}{
 DEPRECATED. Use BiodbEntryField::isVector() instead.
 \subsection{Usage}{
@@ -703,8 +703,8 @@ TRUE if the field as a basic type (logical, numeric, character, ...).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbEntry-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntry-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

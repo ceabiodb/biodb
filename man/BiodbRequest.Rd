@@ -35,24 +35,24 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbRequest$new()}}
-\item \href{#method-setConn}{\code{BiodbRequest$setConn()}}
-\item \href{#method-getConn}{\code{BiodbRequest$getConn()}}
-\item \href{#method-getUrl}{\code{BiodbRequest$getUrl()}}
-\item \href{#method-getMethod}{\code{BiodbRequest$getMethod()}}
-\item \href{#method-getEncoding}{\code{BiodbRequest$getEncoding()}}
-\item \href{#method-getCurlOptions}{\code{BiodbRequest$getCurlOptions()}}
-\item \href{#method-getUniqueKey}{\code{BiodbRequest$getUniqueKey()}}
-\item \href{#method-getHeaderAsSingleString}{\code{BiodbRequest$getHeaderAsSingleString()}}
-\item \href{#method-getBody}{\code{BiodbRequest$getBody()}}
-\item \href{#method-print}{\code{BiodbRequest$print()}}
-\item \href{#method-toString}{\code{BiodbRequest$toString()}}
-\item \href{#method-clone}{\code{BiodbRequest$clone()}}
+\item \href{#method-BiodbRequest-new}{\code{BiodbRequest$new()}}
+\item \href{#method-BiodbRequest-setConn}{\code{BiodbRequest$setConn()}}
+\item \href{#method-BiodbRequest-getConn}{\code{BiodbRequest$getConn()}}
+\item \href{#method-BiodbRequest-getUrl}{\code{BiodbRequest$getUrl()}}
+\item \href{#method-BiodbRequest-getMethod}{\code{BiodbRequest$getMethod()}}
+\item \href{#method-BiodbRequest-getEncoding}{\code{BiodbRequest$getEncoding()}}
+\item \href{#method-BiodbRequest-getCurlOptions}{\code{BiodbRequest$getCurlOptions()}}
+\item \href{#method-BiodbRequest-getUniqueKey}{\code{BiodbRequest$getUniqueKey()}}
+\item \href{#method-BiodbRequest-getHeaderAsSingleString}{\code{BiodbRequest$getHeaderAsSingleString()}}
+\item \href{#method-BiodbRequest-getBody}{\code{BiodbRequest$getBody()}}
+\item \href{#method-BiodbRequest-print}{\code{BiodbRequest$print()}}
+\item \href{#method-BiodbRequest-toString}{\code{BiodbRequest$toString()}}
+\item \href{#method-BiodbRequest-clone}{\code{BiodbRequest$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -88,8 +88,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setConn"></a>}}
-\if{latex}{\out{\hypertarget{method-setConn}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-setConn"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-setConn}{}}}
 \subsection{Method \code{setConn()}}{
 Sets the associated connector (usually the connector that created this
 request).
@@ -109,8 +109,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConn"></a>}}
-\if{latex}{\out{\hypertarget{method-getConn}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getConn"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getConn}{}}}
 \subsection{Method \code{getConn()}}{
 gets the associated connector (usually the connector that created this
 request).
@@ -123,8 +123,8 @@ The associated connector as a BiodbConn object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getUrl}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getUrl}{}}}
 \subsection{Method \code{getUrl()}}{
 Gets the URL.
 \subsection{Usage}{
@@ -136,8 +136,8 @@ The URL as a BiodbUrl object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMethod"></a>}}
-\if{latex}{\out{\hypertarget{method-getMethod}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getMethod"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getMethod}{}}}
 \subsection{Method \code{getMethod()}}{
 Gets the method.
 \subsection{Usage}{
@@ -149,8 +149,8 @@ The method as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEncoding"></a>}}
-\if{latex}{\out{\hypertarget{method-getEncoding}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getEncoding"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getEncoding}{}}}
 \subsection{Method \code{getEncoding()}}{
 Gets the encoding.
 \subsection{Usage}{
@@ -162,8 +162,8 @@ The encoding.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCurlOptions"></a>}}
-\if{latex}{\out{\hypertarget{method-getCurlOptions}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getCurlOptions"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getCurlOptions}{}}}
 \subsection{Method \code{getCurlOptions()}}{
 Gets the options object to pass to cURL library.
 \subsection{Usage}{
@@ -182,8 +182,8 @@ An RCurl options object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUniqueKey"></a>}}
-\if{latex}{\out{\hypertarget{method-getUniqueKey}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getUniqueKey"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getUniqueKey}{}}}
 \subsection{Method \code{getUniqueKey()}}{
 Gets a unique key to identify this request. The key is an MD5 sum
 computed from the string representation of this request.
@@ -196,8 +196,8 @@ A unique key as an MD5 sum.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getHeaderAsSingleString"></a>}}
-\if{latex}{\out{\hypertarget{method-getHeaderAsSingleString}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getHeaderAsSingleString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getHeaderAsSingleString}{}}}
 \subsection{Method \code{getHeaderAsSingleString()}}{
 Gets the HTTP header as a string, concatenating all its information
 into a single string.
@@ -210,8 +210,8 @@ The header as a single character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBody"></a>}}
-\if{latex}{\out{\hypertarget{method-getBody}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-getBody"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-getBody}{}}}
 \subsection{Method \code{getBody()}}{
 Gets the body.
 \subsection{Usage}{
@@ -223,8 +223,8 @@ The body as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-print}{}}}
 \subsection{Method \code{print()}}{
 Displays information about this instance.
 \subsection{Usage}{
@@ -236,8 +236,8 @@ self as invisible.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-toString}{}}}
 \subsection{Method \code{toString()}}{
 Gets a string representation of this instance.
 \subsection{Usage}{
@@ -249,8 +249,8 @@ A single string giving a representation of this instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbRequest-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbRequest-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

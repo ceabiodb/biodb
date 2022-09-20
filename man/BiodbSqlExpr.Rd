@@ -14,13 +14,13 @@ This abstract class represents an SQL expression.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-toString}{\code{BiodbSqlExpr$toString()}}
-\item \href{#method-clone}{\code{BiodbSqlExpr$clone()}}
+\item \href{#method-BiodbSqlExpr-toString}{\code{BiodbSqlExpr$toString()}}
+\item \href{#method-BiodbSqlExpr-clone}{\code{BiodbSqlExpr$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbSqlExpr-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlExpr-toString}{}}}
 \subsection{Method \code{toString()}}{
 Converts into a string.
 \subsection{Usage}{
@@ -32,8 +32,8 @@ A string containing the SQL expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbSqlExpr-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlExpr-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

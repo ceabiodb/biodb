@@ -37,129 +37,129 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{CsvFileConn$new()}}
-\item \href{#method-getCsvQuote}{\code{CsvFileConn$getCsvQuote()}}
-\item \href{#method-setCsvQuote}{\code{CsvFileConn$setCsvQuote()}}
-\item \href{#method-getCsvSep}{\code{CsvFileConn$getCsvSep()}}
-\item \href{#method-setCsvSep}{\code{CsvFileConn$setCsvSep()}}
-\item \href{#method-getFieldNames}{\code{CsvFileConn$getFieldNames()}}
-\item \href{#method-hasField}{\code{CsvFileConn$hasField()}}
-\item \href{#method-addField}{\code{CsvFileConn$addField()}}
-\item \href{#method-getFieldColName}{\code{CsvFileConn$getFieldColName()}}
-\item \href{#method-setField}{\code{CsvFileConn$setField()}}
-\item \href{#method-getFieldsAndColumnsAssociation}{\code{CsvFileConn$getFieldsAndColumnsAssociation()}}
-\item \href{#method-getUnassociatedColumns}{\code{CsvFileConn$getUnassociatedColumns()}}
-\item \href{#method-print}{\code{CsvFileConn$print()}}
-\item \href{#method-setDb}{\code{CsvFileConn$setDb()}}
-\item \href{#method-setIgnoreUnassignedColumns}{\code{CsvFileConn$setIgnoreUnassignedColumns()}}
-\item \href{#method-clone}{\code{CsvFileConn$clone()}}
+\item \href{#method-CsvFileConn-new}{\code{CsvFileConn$new()}}
+\item \href{#method-CsvFileConn-getCsvQuote}{\code{CsvFileConn$getCsvQuote()}}
+\item \href{#method-CsvFileConn-setCsvQuote}{\code{CsvFileConn$setCsvQuote()}}
+\item \href{#method-CsvFileConn-getCsvSep}{\code{CsvFileConn$getCsvSep()}}
+\item \href{#method-CsvFileConn-setCsvSep}{\code{CsvFileConn$setCsvSep()}}
+\item \href{#method-CsvFileConn-getFieldNames}{\code{CsvFileConn$getFieldNames()}}
+\item \href{#method-CsvFileConn-hasField}{\code{CsvFileConn$hasField()}}
+\item \href{#method-CsvFileConn-addField}{\code{CsvFileConn$addField()}}
+\item \href{#method-CsvFileConn-getFieldColName}{\code{CsvFileConn$getFieldColName()}}
+\item \href{#method-CsvFileConn-setField}{\code{CsvFileConn$setField()}}
+\item \href{#method-CsvFileConn-getFieldsAndColumnsAssociation}{\code{CsvFileConn$getFieldsAndColumnsAssociation()}}
+\item \href{#method-CsvFileConn-getUnassociatedColumns}{\code{CsvFileConn$getUnassociatedColumns()}}
+\item \href{#method-CsvFileConn-print}{\code{CsvFileConn$print()}}
+\item \href{#method-CsvFileConn-setDb}{\code{CsvFileConn$setDb()}}
+\item \href{#method-CsvFileConn-setIgnoreUnassignedColumns}{\code{CsvFileConn$setIgnoreUnassignedColumns()}}
+\item \href{#method-CsvFileConn-clone}{\code{CsvFileConn$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getBaseUrl}{\code{biodb::BiodbConnBase$getBaseUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClass}{\code{biodb::BiodbConnBase$getConnClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getConnClassName}{\code{biodb::BiodbConnBase$getConnClassName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getDbClass">}\href{../../biodb/html/BiodbConnBase.html#method-getDbClass}{\code{biodb::BiodbConnBase$getDbClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClass">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryClass}{\code{biodb::BiodbConnBase$getEntryClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClassName">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryClassName}{\code{biodb::BiodbConnBase$getEntryClassName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryContentType">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryContentType}{\code{biodb::BiodbConnBase$getEntryContentType()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryFileExt">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryFileExt}{\code{biodb::BiodbConnBase$getEntryFileExt()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryIdField">}\href{../../biodb/html/BiodbConnBase.html#method-getEntryIdField}{\code{biodb::BiodbConnBase$getEntryIdField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getName">}\href{../../biodb/html/BiodbConnBase.html#method-getName}{\code{biodb::BiodbConnBase$getName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropSlots">}\href{../../biodb/html/BiodbConnBase.html#method-getPropSlots}{\code{biodb::BiodbConnBase$getPropSlots()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropValSlot">}\href{../../biodb/html/BiodbConnBase.html#method-getPropValSlot}{\code{biodb::BiodbConnBase$getPropValSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropertyValue">}\href{../../biodb/html/BiodbConnBase.html#method-getPropertyValue}{\code{biodb::BiodbConnBase$getPropertyValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerNParam">}\href{../../biodb/html/BiodbConnBase.html#method-getSchedulerNParam}{\code{biodb::BiodbConnBase$getSchedulerNParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerTParam">}\href{../../biodb/html/BiodbConnBase.html#method-getSchedulerTParam}{\code{biodb::BiodbConnBase$getSchedulerTParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getToken">}\href{../../biodb/html/BiodbConnBase.html#method-getToken}{\code{biodb::BiodbConnBase$getToken()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getUrl}{\code{biodb::BiodbConnBase$getUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrls">}\href{../../biodb/html/BiodbConnBase.html#method-getUrls}{\code{biodb::BiodbConnBase$getUrls()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getWsUrl">}\href{../../biodb/html/BiodbConnBase.html#method-getWsUrl}{\code{biodb::BiodbConnBase$getWsUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getXmlNs">}\href{../../biodb/html/BiodbConnBase.html#method-getXmlNs}{\code{biodb::BiodbConnBase$getXmlNs()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasProp">}\href{../../biodb/html/BiodbConnBase.html#method-hasProp}{\code{biodb::BiodbConnBase$hasProp()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasPropSlot">}\href{../../biodb/html/BiodbConnBase.html#method-hasPropSlot}{\code{biodb::BiodbConnBase$hasPropSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="isSlotProp">}\href{../../biodb/html/BiodbConnBase.html#method-isSlotProp}{\code{biodb::BiodbConnBase$isSlotProp()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="propExists">}\href{../../biodb/html/BiodbConnBase.html#method-propExists}{\code{biodb::BiodbConnBase$propExists()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setBaseUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setBaseUrl}{\code{biodb::BiodbConnBase$setBaseUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropValSlot">}\href{../../biodb/html/BiodbConnBase.html#method-setPropValSlot}{\code{biodb::BiodbConnBase$setPropValSlot()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropertyValue">}\href{../../biodb/html/BiodbConnBase.html#method-setPropertyValue}{\code{biodb::BiodbConnBase$setPropertyValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerNParam">}\href{../../biodb/html/BiodbConnBase.html#method-setSchedulerNParam}{\code{biodb::BiodbConnBase$setSchedulerNParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerTParam">}\href{../../biodb/html/BiodbConnBase.html#method-setSchedulerTParam}{\code{biodb::BiodbConnBase$setSchedulerTParam()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setToken">}\href{../../biodb/html/BiodbConnBase.html#method-setToken}{\code{biodb::BiodbConnBase$setToken()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setUrl}{\code{biodb::BiodbConnBase$setUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setWsUrl">}\href{../../biodb/html/BiodbConnBase.html#method-setWsUrl}{\code{biodb::BiodbConnBase$setWsUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="updatePropertiesDefinition">}\href{../../biodb/html/BiodbConnBase.html#method-updatePropertiesDefinition}{\code{biodb::BiodbConnBase$updatePropertiesDefinition()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="addNewEntry">}\href{../../biodb/html/BiodbConn.html#method-addNewEntry}{\code{biodb::BiodbConn$addNewEntry()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="allowEditing">}\href{../../biodb/html/BiodbConn.html#method-allowEditing}{\code{biodb::BiodbConn$allowEditing()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="allowWriting">}\href{../../biodb/html/BiodbConn.html#method-allowWriting}{\code{biodb::BiodbConn$allowWriting()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="annotateMzValues">}\href{../../biodb/html/BiodbConn.html#method-annotateMzValues}{\code{biodb::BiodbConn$annotateMzValues()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="checkDb">}\href{../../biodb/html/BiodbConn.html#method-checkDb}{\code{biodb::BiodbConn$checkDb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="collapseResultsDataFrame">}\href{../../biodb/html/BiodbConn.html#method-collapseResultsDataFrame}{\code{biodb::BiodbConn$collapseResultsDataFrame()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="correctIds">}\href{../../biodb/html/BiodbConn.html#method-correctIds}{\code{biodb::BiodbConn$correctIds()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllCacheEntries">}\href{../../biodb/html/BiodbConn.html#method-deleteAllCacheEntries}{\code{biodb::BiodbConn$deleteAllCacheEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllEntriesFromPersistentCache">}\href{../../biodb/html/BiodbConn.html#method-deleteAllEntriesFromPersistentCache}{\code{biodb::BiodbConn$deleteAllEntriesFromPersistentCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllEntriesFromVolatileCache">}\href{../../biodb/html/BiodbConn.html#method-deleteAllEntriesFromVolatileCache}{\code{biodb::BiodbConn$deleteAllEntriesFromVolatileCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteWholePersistentCache">}\href{../../biodb/html/BiodbConn.html#method-deleteWholePersistentCache}{\code{biodb::BiodbConn$deleteWholePersistentCache()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="disallowEditing">}\href{../../biodb/html/BiodbConn.html#method-disallowEditing}{\code{biodb::BiodbConn$disallowEditing()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="disallowWriting">}\href{../../biodb/html/BiodbConn.html#method-disallowWriting}{\code{biodb::BiodbConn$disallowWriting()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="download">}\href{../../biodb/html/BiodbConn.html#method-download}{\code{biodb::BiodbConn$download()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="editingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-editingIsAllowed}{\code{biodb::BiodbConn$editingIsAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="filterEntriesOnRt">}\href{../../biodb/html/BiodbConn.html#method-filterEntriesOnRt}{\code{biodb::BiodbConn$filterEntriesOnRt()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getAllCacheEntries">}\href{../../biodb/html/BiodbConn.html#method-getAllCacheEntries}{\code{biodb::BiodbConn$getAllCacheEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getAllVolatileCacheEntries">}\href{../../biodb/html/BiodbConn.html#method-getAllVolatileCacheEntries}{\code{biodb::BiodbConn$getAllVolatileCacheEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getBiodb">}\href{../../biodb/html/BiodbConn.html#method-getBiodb}{\code{biodb::BiodbConn$getBiodb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheFile">}\href{../../biodb/html/BiodbConn.html#method-getCacheFile}{\code{biodb::BiodbConn$getCacheFile()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheId">}\href{../../biodb/html/BiodbConn.html#method-getCacheId}{\code{biodb::BiodbConn$getCacheId()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getChromCol">}\href{../../biodb/html/BiodbConn.html#method-getChromCol}{\code{biodb::BiodbConn$getChromCol()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath">}\href{../../biodb/html/BiodbConn.html#method-getDownloadPath}{\code{biodb::BiodbConn$getDownloadPath()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry">}\href{../../biodb/html/BiodbConn.html#method-getEntry}{\code{biodb::BiodbConn$getEntry()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent">}\href{../../biodb/html/BiodbConn.html#method-getEntryContent}{\code{biodb::BiodbConn$getEntryContent()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentFromDb}{\code{biodb::BiodbConn$getEntryContentFromDb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest">}\href{../../biodb/html/BiodbConn.html#method-getEntryContentRequest}{\code{biodb::BiodbConn$getEntryContentRequest()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds">}\href{../../biodb/html/BiodbConn.html#method-getEntryIds}{\code{biodb::BiodbConn$getEntryIds()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryImageUrl}{\code{biodb::BiodbConn$getEntryImageUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl">}\href{../../biodb/html/BiodbConn.html#method-getEntryPageUrl}{\code{biodb::BiodbConn$getEntryPageUrl()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId">}\href{../../biodb/html/BiodbConn.html#method-getId}{\code{biodb::BiodbConn$getId()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-getMatchingMzField}{\code{biodb::BiodbConn$getMatchingMzField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues">}\href{../../biodb/html/BiodbConn.html#method-getMzValues}{\code{biodb::BiodbConn$getMzValues()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbEntries">}\href{../../biodb/html/BiodbConn.html#method-getNbEntries}{\code{biodb::BiodbConn$getNbEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbPeaks">}\href{../../biodb/html/BiodbConn.html#method-getNbPeaks}{\code{biodb::BiodbConn$getNbPeaks()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getSearchableFields">}\href{../../biodb/html/BiodbConn.html#method-getSearchableFields}{\code{biodb::BiodbConn$getSearchableFields()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isCompounddb">}\href{../../biodb/html/BiodbConn.html#method-isCompounddb}{\code{biodb::BiodbConn$isCompounddb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isDownloadable">}\href{../../biodb/html/BiodbConn.html#method-isDownloadable}{\code{biodb::BiodbConn$isDownloadable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isDownloaded">}\href{../../biodb/html/BiodbConn.html#method-isDownloaded}{\code{biodb::BiodbConn$isDownloaded()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isEditable">}\href{../../biodb/html/BiodbConn.html#method-isEditable}{\code{biodb::BiodbConn$isEditable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted">}\href{../../biodb/html/BiodbConn.html#method-isExtracted}{\code{biodb::BiodbConn$isExtracted()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb">}\href{../../biodb/html/BiodbConn.html#method-isMassdb}{\code{biodb::BiodbConn$isMassdb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb">}\href{../../biodb/html/BiodbConn.html#method-isRemotedb}{\code{biodb::BiodbConn$isRemotedb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField">}\href{../../biodb/html/BiodbConn.html#method-isSearchableByField}{\code{biodb::BiodbConn$isSearchableByField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable">}\href{../../biodb/html/BiodbConn.html#method-isWritable}{\code{biodb::BiodbConn$isWritable()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest">}\href{../../biodb/html/BiodbConn.html#method-makeRequest}{\code{biodb::BiodbConn$makeRequest()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbConn.html#method-makesRefToEntry}{\code{biodb::BiodbConn$makesRefToEntry()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="msmsSearch">}\href{../../biodb/html/BiodbConn.html#method-msmsSearch}{\code{biodb::BiodbConn$msmsSearch()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="requiresDownload">}\href{../../biodb/html/BiodbConn.html#method-requiresDownload}{\code{biodb::BiodbConn$requiresDownload()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchByName">}\href{../../biodb/html/BiodbConn.html#method-searchByName}{\code{biodb::BiodbConn$searchByName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchCompound">}\href{../../biodb/html/BiodbConn.html#method-searchCompound}{\code{biodb::BiodbConn$searchCompound()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchForEntries">}\href{../../biodb/html/BiodbConn.html#method-searchForEntries}{\code{biodb::BiodbConn$searchForEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchForMassSpectra">}\href{../../biodb/html/BiodbConn.html#method-searchForMassSpectra}{\code{biodb::BiodbConn$searchForMassSpectra()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMsEntries">}\href{../../biodb/html/BiodbConn.html#method-searchMsEntries}{\code{biodb::BiodbConn$searchMsEntries()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMsPeaks">}\href{../../biodb/html/BiodbConn.html#method-searchMsPeaks}{\code{biodb::BiodbConn$searchMsPeaks()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMzRange">}\href{../../biodb/html/BiodbConn.html#method-searchMzRange}{\code{biodb::BiodbConn$searchMzRange()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMzTol">}\href{../../biodb/html/BiodbConn.html#method-searchMzTol}{\code{biodb::BiodbConn$searchMzTol()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setDownloadedFile">}\href{../../biodb/html/BiodbConn.html#method-setDownloadedFile}{\code{biodb::BiodbConn$setDownloadedFile()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setEditingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setEditingAllowed}{\code{biodb::BiodbConn$setEditingAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setMatchingMzField">}\href{../../biodb/html/BiodbConn.html#method-setMatchingMzField}{\code{biodb::BiodbConn$setMatchingMzField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed">}\href{../../biodb/html/BiodbConn.html#method-setWritingAllowed}{\code{biodb::BiodbConn$setWritingAllowed()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write">}\href{../../biodb/html/BiodbConn.html#method-write}{\code{biodb::BiodbConn$write()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed">}\href{../../biodb/html/BiodbConn.html#method-writingIsAllowed}{\code{biodb::BiodbConn$writingIsAllowed()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getBaseUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getBaseUrl'><code>biodb::BiodbConnBase$getBaseUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getConnClass'><code>biodb::BiodbConnBase$getConnClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getConnClassName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getConnClassName'><code>biodb::BiodbConnBase$getConnClassName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getDbClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getDbClass'><code>biodb::BiodbConnBase$getDbClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClass"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryClass'><code>biodb::BiodbConnBase$getEntryClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryClassName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryClassName'><code>biodb::BiodbConnBase$getEntryClassName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryContentType"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryContentType'><code>biodb::BiodbConnBase$getEntryContentType()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryFileExt"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryFileExt'><code>biodb::BiodbConnBase$getEntryFileExt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getEntryIdField"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getEntryIdField'><code>biodb::BiodbConnBase$getEntryIdField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getName"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getName'><code>biodb::BiodbConnBase$getName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropSlots"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropSlots'><code>biodb::BiodbConnBase$getPropSlots()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropValSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropValSlot'><code>biodb::BiodbConnBase$getPropValSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getPropertyValue"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getPropertyValue'><code>biodb::BiodbConnBase$getPropertyValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerNParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getSchedulerNParam'><code>biodb::BiodbConnBase$getSchedulerNParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getSchedulerTParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getSchedulerTParam'><code>biodb::BiodbConnBase$getSchedulerTParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getToken"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getToken'><code>biodb::BiodbConnBase$getToken()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getUrl'><code>biodb::BiodbConnBase$getUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getUrls"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getUrls'><code>biodb::BiodbConnBase$getUrls()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getWsUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getWsUrl'><code>biodb::BiodbConnBase$getWsUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="getXmlNs"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-getXmlNs'><code>biodb::BiodbConnBase$getXmlNs()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasProp"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-hasProp'><code>biodb::BiodbConnBase$hasProp()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="hasPropSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-hasPropSlot'><code>biodb::BiodbConnBase$hasPropSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="isSlotProp"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-isSlotProp'><code>biodb::BiodbConnBase$isSlotProp()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="propExists"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-propExists'><code>biodb::BiodbConnBase$propExists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setBaseUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setBaseUrl'><code>biodb::BiodbConnBase$setBaseUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropValSlot"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setPropValSlot'><code>biodb::BiodbConnBase$setPropValSlot()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setPropertyValue"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setPropertyValue'><code>biodb::BiodbConnBase$setPropertyValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerNParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setSchedulerNParam'><code>biodb::BiodbConnBase$setSchedulerNParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setSchedulerTParam"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setSchedulerTParam'><code>biodb::BiodbConnBase$setSchedulerTParam()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setToken"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setToken'><code>biodb::BiodbConnBase$setToken()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setUrl'><code>biodb::BiodbConnBase$setUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="setWsUrl"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-setWsUrl'><code>biodb::BiodbConnBase$setWsUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConnBase" data-id="updatePropertiesDefinition"><a href='../../biodb/html/BiodbConnBase.html#method-BiodbConnBase-updatePropertiesDefinition'><code>biodb::BiodbConnBase$updatePropertiesDefinition()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="addNewEntry"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-addNewEntry'><code>biodb::BiodbConn$addNewEntry()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="allowEditing"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-allowEditing'><code>biodb::BiodbConn$allowEditing()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="allowWriting"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-allowWriting'><code>biodb::BiodbConn$allowWriting()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="annotateMzValues"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-annotateMzValues'><code>biodb::BiodbConn$annotateMzValues()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="checkDb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-checkDb'><code>biodb::BiodbConn$checkDb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="collapseResultsDataFrame"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-collapseResultsDataFrame'><code>biodb::BiodbConn$collapseResultsDataFrame()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="correctIds"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-correctIds'><code>biodb::BiodbConn$correctIds()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllCacheEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-deleteAllCacheEntries'><code>biodb::BiodbConn$deleteAllCacheEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllEntriesFromPersistentCache"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-deleteAllEntriesFromPersistentCache'><code>biodb::BiodbConn$deleteAllEntriesFromPersistentCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteAllEntriesFromVolatileCache"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-deleteAllEntriesFromVolatileCache'><code>biodb::BiodbConn$deleteAllEntriesFromVolatileCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="deleteWholePersistentCache"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-deleteWholePersistentCache'><code>biodb::BiodbConn$deleteWholePersistentCache()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="disallowEditing"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-disallowEditing'><code>biodb::BiodbConn$disallowEditing()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="disallowWriting"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-disallowWriting'><code>biodb::BiodbConn$disallowWriting()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="download"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-download'><code>biodb::BiodbConn$download()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="editingIsAllowed"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-editingIsAllowed'><code>biodb::BiodbConn$editingIsAllowed()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="filterEntriesOnRt"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-filterEntriesOnRt'><code>biodb::BiodbConn$filterEntriesOnRt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getAllCacheEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getAllCacheEntries'><code>biodb::BiodbConn$getAllCacheEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getAllVolatileCacheEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getAllVolatileCacheEntries'><code>biodb::BiodbConn$getAllVolatileCacheEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getBiodb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getBiodb'><code>biodb::BiodbConn$getBiodb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheFile"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getCacheFile'><code>biodb::BiodbConn$getCacheFile()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getCacheId"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getCacheId'><code>biodb::BiodbConn$getCacheId()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getChromCol"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getChromCol'><code>biodb::BiodbConn$getChromCol()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getDownloadPath"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getDownloadPath'><code>biodb::BiodbConn$getDownloadPath()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntry"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntry'><code>biodb::BiodbConn$getEntry()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContent"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryContent'><code>biodb::BiodbConn$getEntryContent()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentFromDb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryContentFromDb'><code>biodb::BiodbConn$getEntryContentFromDb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryContentRequest"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryContentRequest'><code>biodb::BiodbConn$getEntryContentRequest()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryIds"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryIds'><code>biodb::BiodbConn$getEntryIds()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryImageUrl"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryImageUrl'><code>biodb::BiodbConn$getEntryImageUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getEntryPageUrl"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getEntryPageUrl'><code>biodb::BiodbConn$getEntryPageUrl()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getId"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getId'><code>biodb::BiodbConn$getId()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMatchingMzField"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getMatchingMzField'><code>biodb::BiodbConn$getMatchingMzField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getMzValues"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getMzValues'><code>biodb::BiodbConn$getMzValues()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getNbEntries'><code>biodb::BiodbConn$getNbEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getNbPeaks"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getNbPeaks'><code>biodb::BiodbConn$getNbPeaks()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="getSearchableFields"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-getSearchableFields'><code>biodb::BiodbConn$getSearchableFields()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isCompounddb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isCompounddb'><code>biodb::BiodbConn$isCompounddb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isDownloadable"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isDownloadable'><code>biodb::BiodbConn$isDownloadable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isDownloaded"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isDownloaded'><code>biodb::BiodbConn$isDownloaded()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isEditable"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isEditable'><code>biodb::BiodbConn$isEditable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isExtracted"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isExtracted'><code>biodb::BiodbConn$isExtracted()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isMassdb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isMassdb'><code>biodb::BiodbConn$isMassdb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isRemotedb"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isRemotedb'><code>biodb::BiodbConn$isRemotedb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isSearchableByField"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isSearchableByField'><code>biodb::BiodbConn$isSearchableByField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="isWritable"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-isWritable'><code>biodb::BiodbConn$isWritable()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makeRequest"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-makeRequest'><code>biodb::BiodbConn$makeRequest()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="makesRefToEntry"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-makesRefToEntry'><code>biodb::BiodbConn$makesRefToEntry()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="msmsSearch"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-msmsSearch'><code>biodb::BiodbConn$msmsSearch()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="requiresDownload"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-requiresDownload'><code>biodb::BiodbConn$requiresDownload()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchByName"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchByName'><code>biodb::BiodbConn$searchByName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchCompound"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchCompound'><code>biodb::BiodbConn$searchCompound()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchForEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchForEntries'><code>biodb::BiodbConn$searchForEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchForMassSpectra"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchForMassSpectra'><code>biodb::BiodbConn$searchForMassSpectra()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMsEntries"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchMsEntries'><code>biodb::BiodbConn$searchMsEntries()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMsPeaks"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchMsPeaks'><code>biodb::BiodbConn$searchMsPeaks()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMzRange"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchMzRange'><code>biodb::BiodbConn$searchMzRange()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="searchMzTol"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-searchMzTol'><code>biodb::BiodbConn$searchMzTol()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setDownloadedFile"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-setDownloadedFile'><code>biodb::BiodbConn$setDownloadedFile()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setEditingAllowed"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-setEditingAllowed'><code>biodb::BiodbConn$setEditingAllowed()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setMatchingMzField"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-setMatchingMzField'><code>biodb::BiodbConn$setMatchingMzField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="setWritingAllowed"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-setWritingAllowed'><code>biodb::BiodbConn$setWritingAllowed()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="write"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-write'><code>biodb::BiodbConn$write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbConn" data-id="writingIsAllowed"><a href='../../biodb/html/BiodbConn.html#method-BiodbConn-writingIsAllowed'><code>biodb::BiodbConn$writingIsAllowed()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Connector classes must not be instantiated
 directly. Instead, you must use the createConn() method of the factory class.
@@ -179,8 +179,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCsvQuote"></a>}}
-\if{latex}{\out{\hypertarget{method-getCsvQuote}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getCsvQuote"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getCsvQuote}{}}}
 \subsection{Method \code{getCsvQuote()}}{
 Gets the characters used to delimit quotes in the CSV database file.
 \subsection{Usage}{
@@ -193,8 +193,8 @@ character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setCsvQuote"></a>}}
-\if{latex}{\out{\hypertarget{method-setCsvQuote}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-setCsvQuote"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-setCsvQuote}{}}}
 \subsection{Method \code{setCsvQuote()}}{
 Sets the characters used to delimit quotes in the CSV database file.
 \subsection{Usage}{
@@ -216,8 +216,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getCsvSep"></a>}}
-\if{latex}{\out{\hypertarget{method-getCsvSep}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getCsvSep"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getCsvSep}{}}}
 \subsection{Method \code{getCsvSep()}}{
 Gets the current CSV separator used for the database file.
 \subsection{Usage}{
@@ -229,8 +229,8 @@ The CSV separator as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setCsvSep"></a>}}
-\if{latex}{\out{\hypertarget{method-setCsvSep}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-setCsvSep"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-setCsvSep}{}}}
 \subsection{Method \code{setCsvSep()}}{
 Sets the CSV separator to be used for the database file. If this method is
 called after the loading of the database, it will throw an error.
@@ -250,8 +250,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldNames"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldNames}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getFieldNames"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getFieldNames}{}}}
 \subsection{Method \code{getFieldNames()}}{
 Get the list of all biodb fields handled by this database.
 \subsection{Usage}{
@@ -263,8 +263,8 @@ A character vector of the biodb field names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasField"></a>}}
-\if{latex}{\out{\hypertarget{method-hasField}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-hasField"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-hasField}{}}}
 \subsection{Method \code{hasField()}}{
 Tests if a field is defined for this database instance.
 \subsection{Usage}{
@@ -283,8 +283,8 @@ TRUE of the field is defined, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addField"></a>}}
-\if{latex}{\out{\hypertarget{method-addField}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-addField"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-addField}{}}}
 \subsection{Method \code{addField()}}{
 Adds a new field to the database. The field must not already exist.  The
 same single value will be set to all entries for this field.  A new column
@@ -307,8 +307,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldColName"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldColName}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getFieldColName"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getFieldColName}{}}}
 \subsection{Method \code{getFieldColName()}}{
 Get the column name corresponding to a Biodb field.
 \subsection{Usage}{
@@ -328,8 +328,8 @@ The column name from the CSV file.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setField"></a>}}
-\if{latex}{\out{\hypertarget{method-setField}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-setField"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-setField}{}}}
 \subsection{Method \code{setField()}}{
 Sets a field by making a correspondence between a Biodb field and one or
 more columns of the loaded data frame.
@@ -355,8 +355,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldsAndColumnsAssociation"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldsAndColumnsAssociation}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getFieldsAndColumnsAssociation"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getFieldsAndColumnsAssociation}{}}}
 \subsection{Method \code{getFieldsAndColumnsAssociation()}}{
 Gets the association between biodb field names and CSV file column names.
 \subsection{Usage}{
@@ -369,8 +369,8 @@ character vector of column names from the CSV file.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUnassociatedColumns"></a>}}
-\if{latex}{\out{\hypertarget{method-getUnassociatedColumns}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-getUnassociatedColumns"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-getUnassociatedColumns}{}}}
 \subsection{Method \code{getUnassociatedColumns()}}{
 Gets the list of unassociated column names from the CSV file.
 \subsection{Usage}{
@@ -382,8 +382,8 @@ A character vector containing column names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-print}{}}}
 \subsection{Method \code{print()}}{
 Prints a description of this connector.
 \subsection{Usage}{
@@ -395,8 +395,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDb"></a>}}
-\if{latex}{\out{\hypertarget{method-setDb}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-setDb"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-setDb}{}}}
 \subsection{Method \code{setDb()}}{
 Sets the database directly from a data frame. You must not have set
 the database previously with the URL parameter.
@@ -416,8 +416,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setIgnoreUnassignedColumns"></a>}}
-\if{latex}{\out{\hypertarget{method-setIgnoreUnassignedColumns}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-setIgnoreUnassignedColumns"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-setIgnoreUnassignedColumns}{}}}
 \subsection{Method \code{setIgnoreUnassignedColumns()}}{
 Tells the connector to ignore or not the columns found in the CSV file for
 which no assignment were found.
@@ -438,8 +438,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-CsvFileConn-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvFileConn-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

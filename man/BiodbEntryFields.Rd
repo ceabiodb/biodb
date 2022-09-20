@@ -34,25 +34,25 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbEntryFields$new()}}
-\item \href{#method-notifyCfgUpdate}{\code{BiodbEntryFields$notifyCfgUpdate()}}
-\item \href{#method-isAlias}{\code{BiodbEntryFields$isAlias()}}
-\item \href{#method-formatName}{\code{BiodbEntryFields$formatName()}}
-\item \href{#method-isDefined}{\code{BiodbEntryFields$isDefined()}}
-\item \href{#method-checkIsDefined}{\code{BiodbEntryFields$checkIsDefined()}}
-\item \href{#method-getRealName}{\code{BiodbEntryFields$getRealName()}}
-\item \href{#method-get}{\code{BiodbEntryFields$get()}}
-\item \href{#method-getFieldNames}{\code{BiodbEntryFields$getFieldNames()}}
-\item \href{#method-getDatabaseIdField}{\code{BiodbEntryFields$getDatabaseIdField()}}
-\item \href{#method-print}{\code{BiodbEntryFields$print()}}
-\item \href{#method-define}{\code{BiodbEntryFields$define()}}
-\item \href{#method-terminate}{\code{BiodbEntryFields$terminate()}}
-\item \href{#method-clone}{\code{BiodbEntryFields$clone()}}
+\item \href{#method-BiodbEntryFields-new}{\code{BiodbEntryFields$new()}}
+\item \href{#method-BiodbEntryFields-notifyCfgUpdate}{\code{BiodbEntryFields$notifyCfgUpdate()}}
+\item \href{#method-BiodbEntryFields-isAlias}{\code{BiodbEntryFields$isAlias()}}
+\item \href{#method-BiodbEntryFields-formatName}{\code{BiodbEntryFields$formatName()}}
+\item \href{#method-BiodbEntryFields-isDefined}{\code{BiodbEntryFields$isDefined()}}
+\item \href{#method-BiodbEntryFields-checkIsDefined}{\code{BiodbEntryFields$checkIsDefined()}}
+\item \href{#method-BiodbEntryFields-getRealName}{\code{BiodbEntryFields$getRealName()}}
+\item \href{#method-BiodbEntryFields-get}{\code{BiodbEntryFields$get()}}
+\item \href{#method-BiodbEntryFields-getFieldNames}{\code{BiodbEntryFields$getFieldNames()}}
+\item \href{#method-BiodbEntryFields-getDatabaseIdField}{\code{BiodbEntryFields$getDatabaseIdField()}}
+\item \href{#method-BiodbEntryFields-print}{\code{BiodbEntryFields$print()}}
+\item \href{#method-BiodbEntryFields-define}{\code{BiodbEntryFields$define()}}
+\item \href{#method-BiodbEntryFields-terminate}{\code{BiodbEntryFields$terminate()}}
+\item \href{#method-BiodbEntryFields-clone}{\code{BiodbEntryFields$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. No BiodbEntryFields instance must be created
 directly. Instead, call the getEntryFields() method of BiodbMain.
@@ -72,8 +72,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-notifyCfgUpdate"></a>}}
-\if{latex}{\out{\hypertarget{method-notifyCfgUpdate}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-notifyCfgUpdate"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-notifyCfgUpdate}{}}}
 \subsection{Method \code{notifyCfgUpdate()}}{
 Call back method called when a value is modified inside the configuration.
 \subsection{Usage}{
@@ -94,8 +94,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isAlias"></a>}}
-\if{latex}{\out{\hypertarget{method-isAlias}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-isAlias"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-isAlias}{}}}
 \subsection{Method \code{isAlias()}}{
 Tests if names are aliases.
 \subsection{Usage}{
@@ -115,8 +115,8 @@ for name values that are an alias of a field, and FALSE otherwise."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-formatName"></a>}}
-\if{latex}{\out{\hypertarget{method-formatName}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-formatName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-formatName}{}}}
 \subsection{Method \code{formatName()}}{
 Format field name(s) for biodb format: set to lower case and remove
 dot or underscore characters depending on configuration.
@@ -136,8 +136,8 @@ A character vector of formatted names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDefined"></a>}}
-\if{latex}{\out{\hypertarget{method-isDefined}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-isDefined"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-isDefined}{}}}
 \subsection{Method \code{isDefined()}}{
 Tests if names are defined fields.
 \subsection{Usage}{
@@ -157,8 +157,8 @@ for name values that corresponds to a defined field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkIsDefined"></a>}}
-\if{latex}{\out{\hypertarget{method-checkIsDefined}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-checkIsDefined"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-checkIsDefined}{}}}
 \subsection{Method \code{checkIsDefined()}}{
 Tests if names are valid defined fields. Throws an error if any name
 does not correspond to a defined field.
@@ -178,8 +178,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRealName"></a>}}
-\if{latex}{\out{\hypertarget{method-getRealName}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-getRealName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-getRealName}{}}}
 \subsection{Method \code{getRealName()}}{
 Gets the real names (main names) of fields. If some name is not found
 neither in aliases nor in real names, an error is thrown.
@@ -203,8 +203,8 @@ real name).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-get"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-get}{}}}
 \subsection{Method \code{get()}}{
 Gets a BiodbEntryField instance.
 \subsection{Usage}{
@@ -228,8 +228,8 @@ different from the one provided inside the name argument.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFieldNames"></a>}}
-\if{latex}{\out{\hypertarget{method-getFieldNames}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-getFieldNames"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-getFieldNames}{}}}
 \subsection{Method \code{getFieldNames()}}{
 Gets the main names of all fields.
 \subsection{Usage}{
@@ -254,8 +254,8 @@ A character vector containing all selected field names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDatabaseIdField"></a>}}
-\if{latex}{\out{\hypertarget{method-getDatabaseIdField}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-getDatabaseIdField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-getDatabaseIdField}{}}}
 \subsection{Method \code{getDatabaseIdField()}}{
 Gets a database ID field.
 \subsection{Usage}{
@@ -270,13 +270,13 @@ Gets a database ID field.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\preformatted{accession numbers) for this database.
-}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{accession numbers) for this database.
+}\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-print}{}}}
 \subsection{Method \code{print()}}{
 Prints information about the instance.
 \subsection{Usage}{
@@ -288,8 +288,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-define"></a>}}
-\if{latex}{\out{\hypertarget{method-define}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-define"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-define}{}}}
 \subsection{Method \code{define()}}{
 Defines fields.
 \subsection{Usage}{
@@ -309,8 +309,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-terminate"></a>}}
-\if{latex}{\out{\hypertarget{method-terminate}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-terminate"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-terminate}{}}}
 \subsection{Method \code{terminate()}}{
 Terminates the instance. This method will be called
 automatically by the BiodbMain instance when you call
@@ -330,8 +330,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbEntryFields-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbEntryFields-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

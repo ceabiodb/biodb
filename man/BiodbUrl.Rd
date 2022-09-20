@@ -27,18 +27,18 @@ url$toString()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbUrl$new()}}
-\item \href{#method-getDomain}{\code{BiodbUrl$getDomain()}}
-\item \href{#method-setUrl}{\code{BiodbUrl$setUrl()}}
-\item \href{#method-setParam}{\code{BiodbUrl$setParam()}}
-\item \href{#method-print}{\code{BiodbUrl$print()}}
-\item \href{#method-toString}{\code{BiodbUrl$toString()}}
-\item \href{#method-clone}{\code{BiodbUrl$clone()}}
+\item \href{#method-BiodbUrl-new}{\code{BiodbUrl$new()}}
+\item \href{#method-BiodbUrl-getDomain}{\code{BiodbUrl$getDomain()}}
+\item \href{#method-BiodbUrl-setUrl}{\code{BiodbUrl$setUrl()}}
+\item \href{#method-BiodbUrl-setParam}{\code{BiodbUrl$setParam()}}
+\item \href{#method-BiodbUrl-print}{\code{BiodbUrl$print()}}
+\item \href{#method-BiodbUrl-toString}{\code{BiodbUrl$toString()}}
+\item \href{#method-BiodbUrl-clone}{\code{BiodbUrl$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -63,8 +63,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDomain"></a>}}
-\if{latex}{\out{\hypertarget{method-getDomain}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-getDomain"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-getDomain}{}}}
 \subsection{Method \code{getDomain()}}{
 Gets the domain.
 \subsection{Usage}{
@@ -76,8 +76,8 @@ The domain.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-setUrl}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-setUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-setUrl}{}}}
 \subsection{Method \code{setUrl()}}{
 Sets the base URL string.
 \subsection{Usage}{
@@ -96,8 +96,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setParam"></a>}}
-\if{latex}{\out{\hypertarget{method-setParam}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-setParam"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-setParam}{}}}
 \subsection{Method \code{setParam()}}{
 Sets a parameter.
 \subsection{Usage}{
@@ -118,8 +118,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-print}{}}}
 \subsection{Method \code{print()}}{
 Displays information about this instance.
 \subsection{Usage}{
@@ -131,8 +131,8 @@ self as invisible.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-toString}{}}}
 \subsection{Method \code{toString()}}{
 Gets the URL as a string representation.
 \subsection{Usage}{
@@ -151,8 +151,8 @@ The URL as a string, with all parameters and values set.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbUrl-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbUrl-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

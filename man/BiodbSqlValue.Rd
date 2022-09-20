@@ -14,20 +14,14 @@ This class represents an SQL value.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbSqlValue$new()}}
-\item \href{#method-toString}{\code{BiodbSqlValue$toString()}}
-\item \href{#method-clone}{\code{BiodbSqlValue$clone()}}
+\item \href{#method-BiodbSqlValue-new}{\code{BiodbSqlValue$new()}}
+\item \href{#method-BiodbSqlValue-toString}{\code{BiodbSqlValue$toString()}}
+\item \href{#method-BiodbSqlValue-clone}{\code{BiodbSqlValue$clone()}}
 }
-}
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-}
-\out{</details>}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbSqlValue-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlValue-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -46,8 +40,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-BiodbSqlValue-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlValue-toString}{}}}
 \subsection{Method \code{toString()}}{
 Converts into a string.
 \subsection{Usage}{
@@ -59,8 +53,8 @@ A string containing the SQL expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbSqlValue-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbSqlValue-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -46,31 +46,31 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbConfig$new()}}
-\item \href{#method-getKeys}{\code{BiodbConfig$getKeys()}}
-\item \href{#method-getTitle}{\code{BiodbConfig$getTitle()}}
-\item \href{#method-getDescription}{\code{BiodbConfig$getDescription()}}
-\item \href{#method-getDefaultValue}{\code{BiodbConfig$getDefaultValue()}}
-\item \href{#method-hasKey}{\code{BiodbConfig$hasKey()}}
-\item \href{#method-isDefined}{\code{BiodbConfig$isDefined()}}
-\item \href{#method-isEnabled}{\code{BiodbConfig$isEnabled()}}
-\item \href{#method-get}{\code{BiodbConfig$get()}}
-\item \href{#method-set}{\code{BiodbConfig$set()}}
-\item \href{#method-reset}{\code{BiodbConfig$reset()}}
-\item \href{#method-enable}{\code{BiodbConfig$enable()}}
-\item \href{#method-disable}{\code{BiodbConfig$disable()}}
-\item \href{#method-print}{\code{BiodbConfig$print()}}
-\item \href{#method-listKeys}{\code{BiodbConfig$listKeys()}}
-\item \href{#method-getAssocEnvVar}{\code{BiodbConfig$getAssocEnvVar()}}
-\item \href{#method-define}{\code{BiodbConfig$define()}}
-\item \href{#method-notifyNewObservers}{\code{BiodbConfig$notifyNewObservers()}}
-\item \href{#method-terminate}{\code{BiodbConfig$terminate()}}
-\item \href{#method-clone}{\code{BiodbConfig$clone()}}
+\item \href{#method-BiodbConfig-new}{\code{BiodbConfig$new()}}
+\item \href{#method-BiodbConfig-getKeys}{\code{BiodbConfig$getKeys()}}
+\item \href{#method-BiodbConfig-getTitle}{\code{BiodbConfig$getTitle()}}
+\item \href{#method-BiodbConfig-getDescription}{\code{BiodbConfig$getDescription()}}
+\item \href{#method-BiodbConfig-getDefaultValue}{\code{BiodbConfig$getDefaultValue()}}
+\item \href{#method-BiodbConfig-hasKey}{\code{BiodbConfig$hasKey()}}
+\item \href{#method-BiodbConfig-isDefined}{\code{BiodbConfig$isDefined()}}
+\item \href{#method-BiodbConfig-isEnabled}{\code{BiodbConfig$isEnabled()}}
+\item \href{#method-BiodbConfig-get}{\code{BiodbConfig$get()}}
+\item \href{#method-BiodbConfig-set}{\code{BiodbConfig$set()}}
+\item \href{#method-BiodbConfig-reset}{\code{BiodbConfig$reset()}}
+\item \href{#method-BiodbConfig-enable}{\code{BiodbConfig$enable()}}
+\item \href{#method-BiodbConfig-disable}{\code{BiodbConfig$disable()}}
+\item \href{#method-BiodbConfig-print}{\code{BiodbConfig$print()}}
+\item \href{#method-BiodbConfig-listKeys}{\code{BiodbConfig$listKeys()}}
+\item \href{#method-BiodbConfig-getAssocEnvVar}{\code{BiodbConfig$getAssocEnvVar()}}
+\item \href{#method-BiodbConfig-define}{\code{BiodbConfig$define()}}
+\item \href{#method-BiodbConfig-notifyNewObservers}{\code{BiodbConfig$notifyNewObservers()}}
+\item \href{#method-BiodbConfig-terminate}{\code{BiodbConfig$terminate()}}
+\item \href{#method-BiodbConfig-clone}{\code{BiodbConfig$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. No BiodbConfig object must not be created directly.
 Instead, access the config instance through the BiodbMain instance using the
@@ -91,8 +91,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getKeys"></a>}}
-\if{latex}{\out{\hypertarget{method-getKeys}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-getKeys"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-getKeys}{}}}
 \subsection{Method \code{getKeys()}}{
 Get the list of available keys.
 \subsection{Usage}{
@@ -111,8 +111,8 @@ A character vector containing the config key names.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTitle"></a>}}
-\if{latex}{\out{\hypertarget{method-getTitle}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-getTitle"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-getTitle}{}}}
 \subsection{Method \code{getTitle()}}{
 Get the title of a key.
 \subsection{Usage}{
@@ -131,8 +131,8 @@ The title of the key as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDescription"></a>}}
-\if{latex}{\out{\hypertarget{method-getDescription}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-getDescription"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-getDescription}{}}}
 \subsection{Method \code{getDescription()}}{
 Get the description of a key.
 \subsection{Usage}{
@@ -151,8 +151,8 @@ The description of the key as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDefaultValue"></a>}}
-\if{latex}{\out{\hypertarget{method-getDefaultValue}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-getDefaultValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-getDefaultValue}{}}}
 \subsection{Method \code{getDefaultValue()}}{
 Get the default value of a key.
 \subsection{Usage}{
@@ -173,8 +173,8 @@ The default value for that key.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasKey"></a>}}
-\if{latex}{\out{\hypertarget{method-hasKey}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-hasKey"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-hasKey}{}}}
 \subsection{Method \code{hasKey()}}{
 Test if a key exists.
 \subsection{Usage}{
@@ -193,8 +193,8 @@ TRUE if a key with this name exists, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isDefined"></a>}}
-\if{latex}{\out{\hypertarget{method-isDefined}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-isDefined"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-isDefined}{}}}
 \subsection{Method \code{isDefined()}}{
 Test if a key is defined (i.e.: if a value exists for this key).
 \subsection{Usage}{
@@ -216,8 +216,8 @@ TRUE if the key has a value, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isEnabled"></a>}}
-\if{latex}{\out{\hypertarget{method-isEnabled}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-isEnabled"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-isEnabled}{}}}
 \subsection{Method \code{isEnabled()}}{
 Test if a boolean key is set to TRUE. This method will raise an error
 if the key is not a boolean key.
@@ -238,8 +238,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-get"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-get}{}}}
 \subsection{Method \code{get()}}{
 Get the value of a key.
 \subsection{Usage}{
@@ -258,8 +258,8 @@ The value associated with the key.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set"></a>}}
-\if{latex}{\out{\hypertarget{method-set}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-set"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-set}{}}}
 \subsection{Method \code{set()}}{
 Set the value of a key.
 \subsection{Usage}{
@@ -280,8 +280,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-reset}{}}}
 \subsection{Method \code{reset()}}{
 Reset the value of a key.
 \subsection{Usage}{
@@ -300,8 +300,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-enable"></a>}}
-\if{latex}{\out{\hypertarget{method-enable}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-enable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-enable}{}}}
 \subsection{Method \code{enable()}}{
 Set a boolean key to TRUE.
 \subsection{Usage}{
@@ -320,8 +320,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-disable"></a>}}
-\if{latex}{\out{\hypertarget{method-disable}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-disable"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-disable}{}}}
 \subsection{Method \code{disable()}}{
 Set a boolean key to FALSE.
 \subsection{Usage}{
@@ -340,8 +340,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-print}{}}}
 \subsection{Method \code{print()}}{
 Print list of configuration keys and their values.
 \subsection{Usage}{
@@ -353,8 +353,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-listKeys"></a>}}
-\if{latex}{\out{\hypertarget{method-listKeys}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-listKeys"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-listKeys}{}}}
 \subsection{Method \code{listKeys()}}{
 Get the full list of keys as a data frame.
 \subsection{Usage}{
@@ -367,8 +367,8 @@ values.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAssocEnvVar"></a>}}
-\if{latex}{\out{\hypertarget{method-getAssocEnvVar}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-getAssocEnvVar"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-getAssocEnvVar}{}}}
 \subsection{Method \code{getAssocEnvVar()}}{
 Returns the environment variable associated with this configuration
 key.
@@ -388,8 +388,8 @@ The environment variable's value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-define"></a>}}
-\if{latex}{\out{\hypertarget{method-define}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-define"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-define}{}}}
 \subsection{Method \code{define()}}{
 Defines config properties from a structured object, normally loaded
 from a YAML file.
@@ -409,8 +409,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-notifyNewObservers"></a>}}
-\if{latex}{\out{\hypertarget{method-notifyNewObservers}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-notifyNewObservers"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-notifyNewObservers}{}}}
 \subsection{Method \code{notifyNewObservers()}}{
 Called by BiodbMain when a new observer is registered.
 \subsection{Usage}{
@@ -429,8 +429,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-terminate"></a>}}
-\if{latex}{\out{\hypertarget{method-terminate}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-terminate"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-terminate}{}}}
 \subsection{Method \code{terminate()}}{
 Terminates the instance. This method will be called
 automatically by the BiodbMain instance when you call
@@ -450,8 +450,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbConfig-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConfig-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

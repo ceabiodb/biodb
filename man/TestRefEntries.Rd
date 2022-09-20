@@ -26,20 +26,20 @@ refEntries$getAllRefEntriesDf()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{TestRefEntries$new()}}
-\item \href{#method-getAllIds}{\code{TestRefEntries$getAllIds()}}
-\item \href{#method-getContents}{\code{TestRefEntries$getContents()}}
-\item \href{#method-getRealEntries}{\code{TestRefEntries$getRealEntries()}}
-\item \href{#method-saveEntriesAsJson}{\code{TestRefEntries$saveEntriesAsJson()}}
-\item \href{#method-getRealEntry}{\code{TestRefEntries$getRealEntry()}}
-\item \href{#method-getRefEntry}{\code{TestRefEntries$getRefEntry()}}
-\item \href{#method-getAllRefEntriesDf}{\code{TestRefEntries$getAllRefEntriesDf()}}
-\item \href{#method-clone}{\code{TestRefEntries$clone()}}
+\item \href{#method-TestRefEntries-new}{\code{TestRefEntries$new()}}
+\item \href{#method-TestRefEntries-getAllIds}{\code{TestRefEntries$getAllIds()}}
+\item \href{#method-TestRefEntries-getContents}{\code{TestRefEntries$getContents()}}
+\item \href{#method-TestRefEntries-getRealEntries}{\code{TestRefEntries$getRealEntries()}}
+\item \href{#method-TestRefEntries-saveEntriesAsJson}{\code{TestRefEntries$saveEntriesAsJson()}}
+\item \href{#method-TestRefEntries-getRealEntry}{\code{TestRefEntries$getRealEntry()}}
+\item \href{#method-TestRefEntries-getRefEntry}{\code{TestRefEntries$getRefEntry()}}
+\item \href{#method-TestRefEntries-getAllRefEntriesDf}{\code{TestRefEntries$getAllRefEntriesDf()}}
+\item \href{#method-TestRefEntries-clone}{\code{TestRefEntries$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
@@ -66,8 +66,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllIds"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllIds}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getAllIds"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getAllIds}{}}}
 \subsection{Method \code{getAllIds()}}{
 Retrieve all identifiers.
 \subsection{Usage}{
@@ -86,8 +86,8 @@ A character vector containing the IDs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getContents"></a>}}
-\if{latex}{\out{\hypertarget{method-getContents}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getContents"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getContents}{}}}
 \subsection{Method \code{getContents()}}{
 Get the reference contents for the specfied IDs.
 \subsection{Usage}{
@@ -106,8 +106,8 @@ A character vector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRealEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getRealEntries}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getRealEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getRealEntries}{}}}
 \subsection{Method \code{getRealEntries()}}{
 Retrieve all real entries from database corresponding to the reference
 entris.
@@ -127,8 +127,8 @@ A list containing BiodbEntry instances.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-saveEntriesAsJson"></a>}}
-\if{latex}{\out{\hypertarget{method-saveEntriesAsJson}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-saveEntriesAsJson"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-saveEntriesAsJson}{}}}
 \subsection{Method \code{saveEntriesAsJson()}}{
 Saves a list of entries into separate JSON files, inside the test output
 folder.
@@ -150,8 +150,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRealEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-getRealEntry}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getRealEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getRealEntry}{}}}
 \subsection{Method \code{getRealEntry()}}{
 Retrieves one real entry from database corresponding to one reference
 entry.
@@ -171,8 +171,8 @@ A BiodbEntry instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRefEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-getRefEntry}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getRefEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getRefEntry}{}}}
 \subsection{Method \code{getRefEntry()}}{
 Retrieves the content of a single reference entry.
 \subsection{Usage}{
@@ -191,8 +191,8 @@ The content of the reference entry as a list.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllRefEntriesDf"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllRefEntriesDf}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-getAllRefEntriesDf"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-getAllRefEntriesDf}{}}}
 \subsection{Method \code{getAllRefEntriesDf()}}{
 Load all reference entries.
 \subsection{Usage}{
@@ -204,8 +204,8 @@ A data frame containing all the reference entries with their values.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-TestRefEntries-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TestRefEntries-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

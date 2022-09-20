@@ -26,46 +26,46 @@ Super class \code{\link{BiodbEntry}}.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbTxtEntry$new()}}
-\item \href{#method-clone}{\code{BiodbTxtEntry$clone()}}
+\item \href{#method-BiodbTxtEntry-new}{\code{BiodbTxtEntry$new()}}
+\item \href{#method-BiodbTxtEntry-clone}{\code{BiodbTxtEntry$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="appendFieldValue">}\href{../../biodb/html/BiodbEntry.html#method-appendFieldValue}{\code{biodb::BiodbEntry$appendFieldValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="cloneInstance">}\href{../../biodb/html/BiodbEntry.html#method-cloneInstance}{\code{biodb::BiodbEntry$cloneInstance()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="computeFields">}\href{../../biodb/html/BiodbEntry.html#method-computeFields}{\code{biodb::BiodbEntry$computeFields()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="fieldHasBasicClass">}\href{../../biodb/html/BiodbEntry.html#method-fieldHasBasicClass}{\code{biodb::BiodbEntry$fieldHasBasicClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getBiodb">}\href{../../biodb/html/BiodbEntry.html#method-getBiodb}{\code{biodb::BiodbEntry$getBiodb()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getDbClass">}\href{../../biodb/html/BiodbEntry.html#method-getDbClass}{\code{biodb::BiodbEntry$getDbClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getField">}\href{../../biodb/html/BiodbEntry.html#method-getField}{\code{biodb::BiodbEntry$getField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldCardinality">}\href{../../biodb/html/BiodbEntry.html#method-getFieldCardinality}{\code{biodb::BiodbEntry$getFieldCardinality()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldClass">}\href{../../biodb/html/BiodbEntry.html#method-getFieldClass}{\code{biodb::BiodbEntry$getFieldClass()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldDef">}\href{../../biodb/html/BiodbEntry.html#method-getFieldDef}{\code{biodb::BiodbEntry$getFieldDef()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldNames">}\href{../../biodb/html/BiodbEntry.html#method-getFieldNames}{\code{biodb::BiodbEntry$getFieldNames()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldValue">}\href{../../biodb/html/BiodbEntry.html#method-getFieldValue}{\code{biodb::BiodbEntry$getFieldValue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsAsDataframe">}\href{../../biodb/html/BiodbEntry.html#method-getFieldsAsDataframe}{\code{biodb::BiodbEntry$getFieldsAsDataframe()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsAsJson">}\href{../../biodb/html/BiodbEntry.html#method-getFieldsAsJson}{\code{biodb::BiodbEntry$getFieldsAsJson()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsByType">}\href{../../biodb/html/BiodbEntry.html#method-getFieldsByType}{\code{biodb::BiodbEntry$getFieldsByType()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getId">}\href{../../biodb/html/BiodbEntry.html#method-getId}{\code{biodb::BiodbEntry$getId()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getName">}\href{../../biodb/html/BiodbEntry.html#method-getName}{\code{biodb::BiodbEntry$getName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getParent">}\href{../../biodb/html/BiodbEntry.html#method-getParent}{\code{biodb::BiodbEntry$getParent()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="hasField">}\href{../../biodb/html/BiodbEntry.html#method-hasField}{\code{biodb::BiodbEntry$hasField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="isNew">}\href{../../biodb/html/BiodbEntry.html#method-isNew}{\code{biodb::BiodbEntry$isNew()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="makesRefToEntry">}\href{../../biodb/html/BiodbEntry.html#method-makesRefToEntry}{\code{biodb::BiodbEntry$makesRefToEntry()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="parentIsAConnector">}\href{../../biodb/html/BiodbEntry.html#method-parentIsAConnector}{\code{biodb::BiodbEntry$parentIsAConnector()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="parseContent">}\href{../../biodb/html/BiodbEntry.html#method-parseContent}{\code{biodb::BiodbEntry$parseContent()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="print">}\href{../../biodb/html/BiodbEntry.html#method-print}{\code{biodb::BiodbEntry$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="removeField">}\href{../../biodb/html/BiodbEntry.html#method-removeField}{\code{biodb::BiodbEntry$removeField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setField">}\href{../../biodb/html/BiodbEntry.html#method-setField}{\code{biodb::BiodbEntry$setField()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setFieldValue">}\href{../../biodb/html/BiodbEntry.html#method-setFieldValue}{\code{biodb::BiodbEntry$setFieldValue()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="appendFieldValue"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-appendFieldValue'><code>biodb::BiodbEntry$appendFieldValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="cloneInstance"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-cloneInstance'><code>biodb::BiodbEntry$cloneInstance()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="computeFields"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-computeFields'><code>biodb::BiodbEntry$computeFields()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="fieldHasBasicClass"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-fieldHasBasicClass'><code>biodb::BiodbEntry$fieldHasBasicClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getBiodb"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getBiodb'><code>biodb::BiodbEntry$getBiodb()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getDbClass"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getDbClass'><code>biodb::BiodbEntry$getDbClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getField"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getField'><code>biodb::BiodbEntry$getField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldCardinality"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldCardinality'><code>biodb::BiodbEntry$getFieldCardinality()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldClass"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldClass'><code>biodb::BiodbEntry$getFieldClass()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldDef"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldDef'><code>biodb::BiodbEntry$getFieldDef()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldNames"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldNames'><code>biodb::BiodbEntry$getFieldNames()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldValue"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldValue'><code>biodb::BiodbEntry$getFieldValue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsAsDataframe"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldsAsDataframe'><code>biodb::BiodbEntry$getFieldsAsDataframe()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsAsJson"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldsAsJson'><code>biodb::BiodbEntry$getFieldsAsJson()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getFieldsByType"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getFieldsByType'><code>biodb::BiodbEntry$getFieldsByType()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getId"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getId'><code>biodb::BiodbEntry$getId()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getName"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getName'><code>biodb::BiodbEntry$getName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="getParent"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-getParent'><code>biodb::BiodbEntry$getParent()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="hasField"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-hasField'><code>biodb::BiodbEntry$hasField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="isNew"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-isNew'><code>biodb::BiodbEntry$isNew()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="makesRefToEntry"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-makesRefToEntry'><code>biodb::BiodbEntry$makesRefToEntry()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="parentIsAConnector"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-parentIsAConnector'><code>biodb::BiodbEntry$parentIsAConnector()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="parseContent"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-parseContent'><code>biodb::BiodbEntry$parseContent()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="print"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-print'><code>biodb::BiodbEntry$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="removeField"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-removeField'><code>biodb::BiodbEntry$removeField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setField"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-setField'><code>biodb::BiodbEntry$setField()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="BiodbEntry" data-id="setFieldValue"><a href='../../biodb/html/BiodbEntry.html#method-BiodbEntry-setFieldValue'><code>biodb::BiodbEntry$setFieldValue()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbTxtEntry-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbTxtEntry-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Entry objects must not be created directly.
 Instead, they are retrieved through the connector instances.
@@ -85,8 +85,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbTxtEntry-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbTxtEntry-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -10,18 +10,18 @@ results in an output file.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{FileTemplate$new()}}
-\item \href{#method-replace}{\code{FileTemplate$replace()}}
-\item \href{#method-choose}{\code{FileTemplate$choose()}}
-\item \href{#method-select}{\code{FileTemplate$select()}}
-\item \href{#method-write}{\code{FileTemplate$write()}}
-\item \href{#method-getLines}{\code{FileTemplate$getLines()}}
-\item \href{#method-clone}{\code{FileTemplate$clone()}}
+\item \href{#method-FileTemplate-new}{\code{FileTemplate$new()}}
+\item \href{#method-FileTemplate-replace}{\code{FileTemplate$replace()}}
+\item \href{#method-FileTemplate-choose}{\code{FileTemplate$choose()}}
+\item \href{#method-FileTemplate-select}{\code{FileTemplate$select()}}
+\item \href{#method-FileTemplate-write}{\code{FileTemplate$write()}}
+\item \href{#method-FileTemplate-getLines}{\code{FileTemplate$getLines()}}
+\item \href{#method-FileTemplate-clone}{\code{FileTemplate$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-FileTemplate-new"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -40,8 +40,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-replace"></a>}}
-\if{latex}{\out{\hypertarget{method-replace}{}}}
+\if{html}{\out{<a id="method-FileTemplate-replace"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-replace}{}}}
 \subsection{Method \code{replace()}}{
 Replace a tag by its value inside the template file.
 \subsection{Usage}{
@@ -62,8 +62,8 @@ invisible(self) for chaining method calls.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-choose"></a>}}
-\if{latex}{\out{\hypertarget{method-choose}{}}}
+\if{html}{\out{<a id="method-FileTemplate-choose"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-choose}{}}}
 \subsection{Method \code{choose()}}{
 Choose one case among a set of cases.
 \subsection{Usage}{
@@ -84,8 +84,8 @@ invisible(self) for chaining method calls.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-select"></a>}}
-\if{latex}{\out{\hypertarget{method-select}{}}}
+\if{html}{\out{<a id="method-FileTemplate-select"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-select}{}}}
 \subsection{Method \code{select()}}{
 Select or remove sections that match a name.
 \subsection{Usage}{
@@ -107,8 +107,8 @@ invisible(self) for chaining method calls.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-write"></a>}}
-\if{latex}{\out{\hypertarget{method-write}{}}}
+\if{html}{\out{<a id="method-FileTemplate-write"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-write}{}}}
 \subsection{Method \code{write()}}{
 Write template with replaced values to disk.
 \subsection{Usage}{
@@ -134,8 +134,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getLines"></a>}}
-\if{latex}{\out{\hypertarget{method-getLines}{}}}
+\if{html}{\out{<a id="method-FileTemplate-getLines"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-getLines}{}}}
 \subsection{Method \code{getLines()}}{
 Get the lines of the templates.
 \subsection{Usage}{
@@ -147,8 +147,8 @@ A vector containing the lines of the templates.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-FileTemplate-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-FileTemplate-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

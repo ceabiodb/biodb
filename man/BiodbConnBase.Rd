@@ -58,47 +58,47 @@ Sub-classes \code{\link{BiodbDbInfo}} and \code{\link{BiodbConn}}.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbConnBase$new()}}
-\item \href{#method-print}{\code{BiodbConnBase$print()}}
-\item \href{#method-hasProp}{\code{BiodbConnBase$hasProp()}}
-\item \href{#method-getPropSlots}{\code{BiodbConnBase$getPropSlots()}}
-\item \href{#method-hasPropSlot}{\code{BiodbConnBase$hasPropSlot()}}
-\item \href{#method-propExists}{\code{BiodbConnBase$propExists()}}
-\item \href{#method-isSlotProp}{\code{BiodbConnBase$isSlotProp()}}
-\item \href{#method-getPropValSlot}{\code{BiodbConnBase$getPropValSlot()}}
-\item \href{#method-updatePropertiesDefinition}{\code{BiodbConnBase$updatePropertiesDefinition()}}
-\item \href{#method-getEntryFileExt}{\code{BiodbConnBase$getEntryFileExt()}}
-\item \href{#method-getDbClass}{\code{BiodbConnBase$getDbClass()}}
-\item \href{#method-getConnClassName}{\code{BiodbConnBase$getConnClassName()}}
-\item \href{#method-getConnClass}{\code{BiodbConnBase$getConnClass()}}
-\item \href{#method-getEntryClassName}{\code{BiodbConnBase$getEntryClassName()}}
-\item \href{#method-getEntryClass}{\code{BiodbConnBase$getEntryClass()}}
-\item \href{#method-getEntryIdField}{\code{BiodbConnBase$getEntryIdField()}}
-\item \href{#method-getPropertyValue}{\code{BiodbConnBase$getPropertyValue()}}
-\item \href{#method-setPropertyValue}{\code{BiodbConnBase$setPropertyValue()}}
-\item \href{#method-setPropValSlot}{\code{BiodbConnBase$setPropValSlot()}}
-\item \href{#method-getBaseUrl}{\code{BiodbConnBase$getBaseUrl()}}
-\item \href{#method-setBaseUrl}{\code{BiodbConnBase$setBaseUrl()}}
-\item \href{#method-getWsUrl}{\code{BiodbConnBase$getWsUrl()}}
-\item \href{#method-setWsUrl}{\code{BiodbConnBase$setWsUrl()}}
-\item \href{#method-getToken}{\code{BiodbConnBase$getToken()}}
-\item \href{#method-setToken}{\code{BiodbConnBase$setToken()}}
-\item \href{#method-getName}{\code{BiodbConnBase$getName()}}
-\item \href{#method-getEntryContentType}{\code{BiodbConnBase$getEntryContentType()}}
-\item \href{#method-getSchedulerNParam}{\code{BiodbConnBase$getSchedulerNParam()}}
-\item \href{#method-setSchedulerNParam}{\code{BiodbConnBase$setSchedulerNParam()}}
-\item \href{#method-getSchedulerTParam}{\code{BiodbConnBase$getSchedulerTParam()}}
-\item \href{#method-setSchedulerTParam}{\code{BiodbConnBase$setSchedulerTParam()}}
-\item \href{#method-getUrls}{\code{BiodbConnBase$getUrls()}}
-\item \href{#method-getUrl}{\code{BiodbConnBase$getUrl()}}
-\item \href{#method-setUrl}{\code{BiodbConnBase$setUrl()}}
-\item \href{#method-getXmlNs}{\code{BiodbConnBase$getXmlNs()}}
-\item \href{#method-clone}{\code{BiodbConnBase$clone()}}
+\item \href{#method-BiodbConnBase-new}{\code{BiodbConnBase$new()}}
+\item \href{#method-BiodbConnBase-print}{\code{BiodbConnBase$print()}}
+\item \href{#method-BiodbConnBase-hasProp}{\code{BiodbConnBase$hasProp()}}
+\item \href{#method-BiodbConnBase-getPropSlots}{\code{BiodbConnBase$getPropSlots()}}
+\item \href{#method-BiodbConnBase-hasPropSlot}{\code{BiodbConnBase$hasPropSlot()}}
+\item \href{#method-BiodbConnBase-propExists}{\code{BiodbConnBase$propExists()}}
+\item \href{#method-BiodbConnBase-isSlotProp}{\code{BiodbConnBase$isSlotProp()}}
+\item \href{#method-BiodbConnBase-getPropValSlot}{\code{BiodbConnBase$getPropValSlot()}}
+\item \href{#method-BiodbConnBase-updatePropertiesDefinition}{\code{BiodbConnBase$updatePropertiesDefinition()}}
+\item \href{#method-BiodbConnBase-getEntryFileExt}{\code{BiodbConnBase$getEntryFileExt()}}
+\item \href{#method-BiodbConnBase-getDbClass}{\code{BiodbConnBase$getDbClass()}}
+\item \href{#method-BiodbConnBase-getConnClassName}{\code{BiodbConnBase$getConnClassName()}}
+\item \href{#method-BiodbConnBase-getConnClass}{\code{BiodbConnBase$getConnClass()}}
+\item \href{#method-BiodbConnBase-getEntryClassName}{\code{BiodbConnBase$getEntryClassName()}}
+\item \href{#method-BiodbConnBase-getEntryClass}{\code{BiodbConnBase$getEntryClass()}}
+\item \href{#method-BiodbConnBase-getEntryIdField}{\code{BiodbConnBase$getEntryIdField()}}
+\item \href{#method-BiodbConnBase-getPropertyValue}{\code{BiodbConnBase$getPropertyValue()}}
+\item \href{#method-BiodbConnBase-setPropertyValue}{\code{BiodbConnBase$setPropertyValue()}}
+\item \href{#method-BiodbConnBase-setPropValSlot}{\code{BiodbConnBase$setPropValSlot()}}
+\item \href{#method-BiodbConnBase-getBaseUrl}{\code{BiodbConnBase$getBaseUrl()}}
+\item \href{#method-BiodbConnBase-setBaseUrl}{\code{BiodbConnBase$setBaseUrl()}}
+\item \href{#method-BiodbConnBase-getWsUrl}{\code{BiodbConnBase$getWsUrl()}}
+\item \href{#method-BiodbConnBase-setWsUrl}{\code{BiodbConnBase$setWsUrl()}}
+\item \href{#method-BiodbConnBase-getToken}{\code{BiodbConnBase$getToken()}}
+\item \href{#method-BiodbConnBase-setToken}{\code{BiodbConnBase$setToken()}}
+\item \href{#method-BiodbConnBase-getName}{\code{BiodbConnBase$getName()}}
+\item \href{#method-BiodbConnBase-getEntryContentType}{\code{BiodbConnBase$getEntryContentType()}}
+\item \href{#method-BiodbConnBase-getSchedulerNParam}{\code{BiodbConnBase$getSchedulerNParam()}}
+\item \href{#method-BiodbConnBase-setSchedulerNParam}{\code{BiodbConnBase$setSchedulerNParam()}}
+\item \href{#method-BiodbConnBase-getSchedulerTParam}{\code{BiodbConnBase$getSchedulerTParam()}}
+\item \href{#method-BiodbConnBase-setSchedulerTParam}{\code{BiodbConnBase$setSchedulerTParam()}}
+\item \href{#method-BiodbConnBase-getUrls}{\code{BiodbConnBase$getUrls()}}
+\item \href{#method-BiodbConnBase-getUrl}{\code{BiodbConnBase$getUrl()}}
+\item \href{#method-BiodbConnBase-setUrl}{\code{BiodbConnBase$setUrl()}}
+\item \href{#method-BiodbConnBase-getXmlNs}{\code{BiodbConnBase$getXmlNs()}}
+\item \href{#method-BiodbConnBase-clone}{\code{BiodbConnBase$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. Connector objects must not be created directly.
 Instead, you create new connector instances through the BiodbFactory
@@ -127,8 +127,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-print}{}}}
 \subsection{Method \code{print()}}{
 Prints a description of this connector.
 \subsection{Usage}{
@@ -140,8 +140,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasProp"></a>}}
-\if{latex}{\out{\hypertarget{method-hasProp}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-hasProp"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-hasProp}{}}}
 \subsection{Method \code{hasProp()}}{
 Tests if this connector has a property.
 \subsection{Usage}{
@@ -160,8 +160,8 @@ Returns true if the property \code{name} exists.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropSlots"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropSlots}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getPropSlots"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getPropSlots}{}}}
 \subsection{Method \code{getPropSlots()}}{
 Gets the slot fields of a property.
 \subsection{Usage}{
@@ -181,8 +181,8 @@ defined.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasPropSlot"></a>}}
-\if{latex}{\out{\hypertarget{method-hasPropSlot}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-hasPropSlot"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-hasPropSlot}{}}}
 \subsection{Method \code{hasPropSlot()}}{
 Tests if a slot property has a specific slot.
 \subsection{Usage}{
@@ -204,8 +204,8 @@ slot \code{slot} defined, and FALSE otherwise."
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-propExists"></a>}}
-\if{latex}{\out{\hypertarget{method-propExists}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-propExists"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-propExists}{}}}
 \subsection{Method \code{propExists()}}{
 Checks if property exists.
 \subsection{Usage}{
@@ -225,8 +225,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSlotProp"></a>}}
-\if{latex}{\out{\hypertarget{method-isSlotProp}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-isSlotProp"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-isSlotProp}{}}}
 \subsection{Method \code{isSlotProp()}}{
 Tests if a property is a slot property.
 \subsection{Usage}{
@@ -246,8 +246,8 @@ otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropValSlot"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropValSlot}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getPropValSlot"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getPropValSlot}{}}}
 \subsection{Method \code{getPropValSlot()}}{
 Retrieve the value of a slot of a property.
 \subsection{Usage}{
@@ -272,8 +272,8 @@ The value of the slot \code{slot} of the property \code{name}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updatePropertiesDefinition"></a>}}
-\if{latex}{\out{\hypertarget{method-updatePropertiesDefinition}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-updatePropertiesDefinition"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-updatePropertiesDefinition}{}}}
 \subsection{Method \code{updatePropertiesDefinition()}}{
 Update the definition of properties.
 \subsection{Usage}{
@@ -293,8 +293,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryFileExt"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryFileExt}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getEntryFileExt"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getEntryFileExt}{}}}
 \subsection{Method \code{getEntryFileExt()}}{
 Returns the entry file extension used by this connector.
 \subsection{Usage}{
@@ -306,8 +306,8 @@ A character value containing the file extension.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDbClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getDbClass}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getDbClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getDbClass}{}}}
 \subsection{Method \code{getDbClass()}}{
 Gets the Biodb name of the database associated with this connector.
 \subsection{Usage}{
@@ -319,8 +319,8 @@ A character value containing the Biodb database name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConnClassName"></a>}}
-\if{latex}{\out{\hypertarget{method-getConnClassName}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getConnClassName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getConnClassName}{}}}
 \subsection{Method \code{getConnClassName()}}{
 Gets the name of the associated connector OOP class.
 \subsection{Usage}{
@@ -332,8 +332,8 @@ Returns the connector OOP class name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConnClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getConnClass}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getConnClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getConnClass}{}}}
 \subsection{Method \code{getConnClass()}}{
 Gets the associated connector OOP class.
 \subsection{Usage}{
@@ -345,8 +345,8 @@ Returns the connector OOP class.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryClassName"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryClassName}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getEntryClassName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getEntryClassName}{}}}
 \subsection{Method \code{getEntryClassName()}}{
 Gets the name of the associated entry class.
 \subsection{Usage}{
@@ -358,8 +358,8 @@ Returns the name of the associated entry class.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryClass"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryClass}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getEntryClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getEntryClass}{}}}
 \subsection{Method \code{getEntryClass()}}{
 Gets the associated entry class.
 \subsection{Usage}{
@@ -371,8 +371,8 @@ Returns the associated entry class.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryIdField"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryIdField}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getEntryIdField"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getEntryIdField}{}}}
 \subsection{Method \code{getEntryIdField()}}{
 Gets the name of the corresponding database ID field in entries.
 \subsection{Usage}{
@@ -384,8 +384,8 @@ Returns the name of the database ID field.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropertyValue"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropertyValue}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getPropertyValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getPropertyValue}{}}}
 \subsection{Method \code{getPropertyValue()}}{
 Gets a property value.
 \subsection{Usage}{
@@ -408,8 +408,8 @@ The value of the property.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setPropertyValue"></a>}}
-\if{latex}{\out{\hypertarget{method-setPropertyValue}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setPropertyValue"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setPropertyValue}{}}}
 \subsection{Method \code{setPropertyValue()}}{
 Sets the value of a property.
 \subsection{Usage}{
@@ -430,8 +430,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setPropValSlot"></a>}}
-\if{latex}{\out{\hypertarget{method-setPropValSlot}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setPropValSlot"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setPropValSlot}{}}}
 \subsection{Method \code{setPropValSlot()}}{
 Set the value of the slot of a property.
 \subsection{Usage}{
@@ -458,8 +458,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBaseUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getBaseUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getBaseUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getBaseUrl}{}}}
 \subsection{Method \code{getBaseUrl()}}{
 Returns the base URL.
 \subsection{Usage}{
@@ -471,8 +471,8 @@ THe baae URL.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setBaseUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-setBaseUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setBaseUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setBaseUrl}{}}}
 \subsection{Method \code{setBaseUrl()}}{
 Sets the base URL.
 \subsection{Usage}{
@@ -491,8 +491,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getWsUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getWsUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getWsUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getWsUrl}{}}}
 \subsection{Method \code{getWsUrl()}}{
 Returns the web sevices URL.
 \subsection{Usage}{
@@ -501,8 +501,8 @@ Returns the web sevices URL.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setWsUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-setWsUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setWsUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setWsUrl}{}}}
 \subsection{Method \code{setWsUrl()}}{
 Sets the web sevices URL.
 \subsection{Usage}{
@@ -521,8 +521,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getToken"></a>}}
-\if{latex}{\out{\hypertarget{method-getToken}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getToken"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getToken}{}}}
 \subsection{Method \code{getToken()}}{
 Returns the access token.
 \subsection{Usage}{
@@ -531,8 +531,8 @@ Returns the access token.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setToken"></a>}}
-\if{latex}{\out{\hypertarget{method-setToken}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setToken"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setToken}{}}}
 \subsection{Method \code{setToken()}}{
 Sets the access token.
 \subsection{Usage}{
@@ -551,8 +551,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getName"></a>}}
-\if{latex}{\out{\hypertarget{method-getName}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getName"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getName}{}}}
 \subsection{Method \code{getName()}}{
 Returns the full database name.
 \subsection{Usage}{
@@ -561,8 +561,8 @@ Returns the full database name.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntryContentType"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntryContentType}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getEntryContentType"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getEntryContentType}{}}}
 \subsection{Method \code{getEntryContentType()}}{
 Returns the entry content type.
 \subsection{Usage}{
@@ -571,8 +571,8 @@ Returns the entry content type.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSchedulerNParam"></a>}}
-\if{latex}{\out{\hypertarget{method-getSchedulerNParam}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getSchedulerNParam"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getSchedulerNParam}{}}}
 \subsection{Method \code{getSchedulerNParam()}}{
 Returns the N parameter for the scheduler.
 \subsection{Usage}{
@@ -581,8 +581,8 @@ Returns the N parameter for the scheduler.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setSchedulerNParam"></a>}}
-\if{latex}{\out{\hypertarget{method-setSchedulerNParam}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setSchedulerNParam"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setSchedulerNParam}{}}}
 \subsection{Method \code{setSchedulerNParam()}}{
 Sets the N parameter for the scheduler.
 \subsection{Usage}{
@@ -601,8 +601,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSchedulerTParam"></a>}}
-\if{latex}{\out{\hypertarget{method-getSchedulerTParam}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getSchedulerTParam"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getSchedulerTParam}{}}}
 \subsection{Method \code{getSchedulerTParam()}}{
 Returns the T parameter for the scheduler.
 \subsection{Usage}{
@@ -611,8 +611,8 @@ Returns the T parameter for the scheduler.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setSchedulerTParam"></a>}}
-\if{latex}{\out{\hypertarget{method-setSchedulerTParam}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setSchedulerTParam"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setSchedulerTParam}{}}}
 \subsection{Method \code{setSchedulerTParam()}}{
 Sets the T parameter for the scheduler.
 \subsection{Usage}{
@@ -631,8 +631,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUrls"></a>}}
-\if{latex}{\out{\hypertarget{method-getUrls}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getUrls"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getUrls}{}}}
 \subsection{Method \code{getUrls()}}{
 Returns the URLs.
 \subsection{Usage}{
@@ -641,8 +641,8 @@ Returns the URLs.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-getUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getUrl}{}}}
 \subsection{Method \code{getUrl()}}{
 Returns a URL.
 \subsection{Usage}{
@@ -661,8 +661,8 @@ The URL as a character value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-setUrl}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-setUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-setUrl}{}}}
 \subsection{Method \code{setUrl()}}{
 Sets a URL.
 \subsection{Usage}{
@@ -683,8 +683,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getXmlNs"></a>}}
-\if{latex}{\out{\hypertarget{method-getXmlNs}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-getXmlNs"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-getXmlNs}{}}}
 \subsection{Method \code{getXmlNs()}}{
 Returns the XML namespace.
 \subsection{Usage}{
@@ -693,8 +693,8 @@ Returns the XML namespace.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbConnBase-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbConnBase-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

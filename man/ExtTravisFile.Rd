@@ -22,21 +22,21 @@ biodb::ExtTravisFile$new(path=pkgFolder, email='myname@e.mail')$generate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ExtTravisFile$new()}}
-\item \href{#method-clone}{\code{ExtTravisFile$clone()}}
+\item \href{#method-ExtTravisFile-new}{\code{ExtTravisFile$new()}}
+\item \href{#method-ExtTravisFile-clone}{\code{ExtTravisFile$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="ExtGenerator" data-id="generate">}\href{../../biodb/html/ExtGenerator.html#method-generate}{\code{biodb::ExtGenerator$generate()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="biodb" data-topic="ExtGenerator" data-id="upgrade">}\href{../../biodb/html/ExtGenerator.html#method-upgrade}{\code{biodb::ExtGenerator$upgrade()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="ExtGenerator" data-id="generate"><a href='../../biodb/html/ExtGenerator.html#method-ExtGenerator-generate'><code>biodb::ExtGenerator$generate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="biodb" data-topic="ExtGenerator" data-id="upgrade"><a href='../../biodb/html/ExtGenerator.html#method-ExtGenerator-upgrade'><code>biodb::ExtGenerator$upgrade()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ExtTravisFile-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtTravisFile-new}{}}}
 \subsection{Method \code{new()}}{
 Initializer.
 \subsection{Usage}{
@@ -55,8 +55,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ExtTravisFile-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtTravisFile-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

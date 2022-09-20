@@ -14,20 +14,20 @@ Represents the result of a request.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{RequestResult$new()}}
-\item \href{#method-getContent}{\code{RequestResult$getContent()}}
-\item \href{#method-getRetry}{\code{RequestResult$getRetry()}}
-\item \href{#method-getErrMsg}{\code{RequestResult$getErrMsg()}}
-\item \href{#method-getStatus}{\code{RequestResult$getStatus()}}
-\item \href{#method-getRetryAfter}{\code{RequestResult$getRetryAfter()}}
-\item \href{#method-getLocation}{\code{RequestResult$getLocation()}}
-\item \href{#method-processRequestErrors}{\code{RequestResult$processRequestErrors()}}
-\item \href{#method-clone}{\code{RequestResult$clone()}}
+\item \href{#method-RequestResult-new}{\code{RequestResult$new()}}
+\item \href{#method-RequestResult-getContent}{\code{RequestResult$getContent()}}
+\item \href{#method-RequestResult-getRetry}{\code{RequestResult$getRetry()}}
+\item \href{#method-RequestResult-getErrMsg}{\code{RequestResult$getErrMsg()}}
+\item \href{#method-RequestResult-getStatus}{\code{RequestResult$getStatus()}}
+\item \href{#method-RequestResult-getRetryAfter}{\code{RequestResult$getRetryAfter()}}
+\item \href{#method-RequestResult-getLocation}{\code{RequestResult$getLocation()}}
+\item \href{#method-RequestResult-processRequestErrors}{\code{RequestResult$processRequestErrors()}}
+\item \href{#method-RequestResult-clone}{\code{RequestResult$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-RequestResult-new"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer.
 \subsection{Usage}{
@@ -66,8 +66,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getContent"></a>}}
-\if{latex}{\out{\hypertarget{method-getContent}{}}}
+\if{html}{\out{<a id="method-RequestResult-getContent"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getContent}{}}}
 \subsection{Method \code{getContent()}}{
 Get content.
 \subsection{Usage}{
@@ -79,8 +79,8 @@ The content as a character value or NULL.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRetry"></a>}}
-\if{latex}{\out{\hypertarget{method-getRetry}{}}}
+\if{html}{\out{<a id="method-RequestResult-getRetry"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getRetry}{}}}
 \subsection{Method \code{getRetry()}}{
 Get the retry flag.
 \subsection{Usage}{
@@ -92,8 +92,8 @@ TRUE if the URL request should be sent again, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getErrMsg"></a>}}
-\if{latex}{\out{\hypertarget{method-getErrMsg}{}}}
+\if{html}{\out{<a id="method-RequestResult-getErrMsg"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getErrMsg}{}}}
 \subsection{Method \code{getErrMsg()}}{
 Get the error message.
 \subsection{Usage}{
@@ -105,8 +105,8 @@ The error message as a character value or NULL.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getStatus"></a>}}
-\if{latex}{\out{\hypertarget{method-getStatus}{}}}
+\if{html}{\out{<a id="method-RequestResult-getStatus"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getStatus}{}}}
 \subsection{Method \code{getStatus()}}{
 Get the HTTP status of the response.
 \subsection{Usage}{
@@ -118,8 +118,8 @@ The status as an integer.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRetryAfter"></a>}}
-\if{latex}{\out{\hypertarget{method-getRetryAfter}{}}}
+\if{html}{\out{<a id="method-RequestResult-getRetryAfter"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getRetryAfter}{}}}
 \subsection{Method \code{getRetryAfter()}}{
 Get the time to wait before retrying.
 \subsection{Usage}{
@@ -131,8 +131,8 @@ The time.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getLocation"></a>}}
-\if{latex}{\out{\hypertarget{method-getLocation}{}}}
+\if{html}{\out{<a id="method-RequestResult-getLocation"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-getLocation}{}}}
 \subsection{Method \code{getLocation()}}{
 Get the redirect location.
 \subsection{Usage}{
@@ -144,8 +144,8 @@ The redirect location as a character value or NULL.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-processRequestErrors"></a>}}
-\if{latex}{\out{\hypertarget{method-processRequestErrors}{}}}
+\if{html}{\out{<a id="method-RequestResult-processRequestErrors"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-processRequestErrors}{}}}
 \subsection{Method \code{processRequestErrors()}}{
 Process possible HTTP error.
 \subsection{Usage}{
@@ -157,8 +157,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-RequestResult-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-RequestResult-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

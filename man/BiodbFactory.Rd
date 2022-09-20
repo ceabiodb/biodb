@@ -42,28 +42,28 @@ mybiodb$terminate()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{BiodbFactory$new()}}
-\item \href{#method-getBiodb}{\code{BiodbFactory$getBiodb()}}
-\item \href{#method-createConn}{\code{BiodbFactory$createConn()}}
-\item \href{#method-connExists}{\code{BiodbFactory$connExists()}}
-\item \href{#method-deleteConn}{\code{BiodbFactory$deleteConn()}}
-\item \href{#method-deleteConnByClass}{\code{BiodbFactory$deleteConnByClass()}}
-\item \href{#method-getAllConnectors}{\code{BiodbFactory$getAllConnectors()}}
-\item \href{#method-deleteAllConnectors}{\code{BiodbFactory$deleteAllConnectors()}}
-\item \href{#method-getConn}{\code{BiodbFactory$getConn()}}
-\item \href{#method-getEntry}{\code{BiodbFactory$getEntry()}}
-\item \href{#method-createNewEntry}{\code{BiodbFactory$createNewEntry()}}
-\item \href{#method-createEntryFromContent}{\code{BiodbFactory$createEntryFromContent()}}
-\item \href{#method-getAllCacheEntries}{\code{BiodbFactory$getAllCacheEntries()}}
-\item \href{#method-deleteAllEntriesFromVolatileCache}{\code{BiodbFactory$deleteAllEntriesFromVolatileCache()}}
-\item \href{#method-deleteAllCacheEntries}{\code{BiodbFactory$deleteAllCacheEntries()}}
-\item \href{#method-print}{\code{BiodbFactory$print()}}
-\item \href{#method-clone}{\code{BiodbFactory$clone()}}
+\item \href{#method-BiodbFactory-new}{\code{BiodbFactory$new()}}
+\item \href{#method-BiodbFactory-getBiodb}{\code{BiodbFactory$getBiodb()}}
+\item \href{#method-BiodbFactory-createConn}{\code{BiodbFactory$createConn()}}
+\item \href{#method-BiodbFactory-connExists}{\code{BiodbFactory$connExists()}}
+\item \href{#method-BiodbFactory-deleteConn}{\code{BiodbFactory$deleteConn()}}
+\item \href{#method-BiodbFactory-deleteConnByClass}{\code{BiodbFactory$deleteConnByClass()}}
+\item \href{#method-BiodbFactory-getAllConnectors}{\code{BiodbFactory$getAllConnectors()}}
+\item \href{#method-BiodbFactory-deleteAllConnectors}{\code{BiodbFactory$deleteAllConnectors()}}
+\item \href{#method-BiodbFactory-getConn}{\code{BiodbFactory$getConn()}}
+\item \href{#method-BiodbFactory-getEntry}{\code{BiodbFactory$getEntry()}}
+\item \href{#method-BiodbFactory-createNewEntry}{\code{BiodbFactory$createNewEntry()}}
+\item \href{#method-BiodbFactory-createEntryFromContent}{\code{BiodbFactory$createEntryFromContent()}}
+\item \href{#method-BiodbFactory-getAllCacheEntries}{\code{BiodbFactory$getAllCacheEntries()}}
+\item \href{#method-BiodbFactory-deleteAllEntriesFromVolatileCache}{\code{BiodbFactory$deleteAllEntriesFromVolatileCache()}}
+\item \href{#method-BiodbFactory-deleteAllCacheEntries}{\code{BiodbFactory$deleteAllCacheEntries()}}
+\item \href{#method-BiodbFactory-print}{\code{BiodbFactory$print()}}
+\item \href{#method-BiodbFactory-clone}{\code{BiodbFactory$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-new}{}}}
 \subsection{Method \code{new()}}{
 New instance initializer. The BiodbFactory class must not be instantiated
 directly.
@@ -84,8 +84,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBiodb"></a>}}
-\if{latex}{\out{\hypertarget{method-getBiodb}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-getBiodb"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-getBiodb}{}}}
 \subsection{Method \code{getBiodb()}}{
 Returns the biodb main class instance to which this object is
 attached.
@@ -98,8 +98,8 @@ The main biodb instance.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-createConn"></a>}}
-\if{latex}{\out{\hypertarget{method-createConn}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-createConn"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-createConn}{}}}
 \subsection{Method \code{createConn()}}{
 Creates a connector to a database.
 \subsection{Usage}{
@@ -151,8 +151,8 @@ An instance of the requested connector class.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connExists"></a>}}
-\if{latex}{\out{\hypertarget{method-connExists}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-connExists"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-connExists}{}}}
 \subsection{Method \code{connExists()}}{
 Tests if a connector exists.
 \subsection{Usage}{
@@ -171,8 +171,8 @@ TRUE if a connector with this ID exists, FALSE otherwise.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteConn"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteConn}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-deleteConn"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-deleteConn}{}}}
 \subsection{Method \code{deleteConn()}}{
 Deletes an existing connector.
 \subsection{Usage}{
@@ -191,8 +191,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteConnByClass"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteConnByClass}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-deleteConnByClass"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-deleteConnByClass}{}}}
 \subsection{Method \code{deleteConnByClass()}}{
 Deletes all existing connectors from a same class.
 \subsection{Usage}{
@@ -212,8 +212,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllConnectors"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllConnectors}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-getAllConnectors"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-getAllConnectors}{}}}
 \subsection{Method \code{getAllConnectors()}}{
 Gets all connectors.
 \subsection{Usage}{
@@ -225,8 +225,8 @@ A list of all created connectors.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllConnectors"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllConnectors}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-deleteAllConnectors"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-deleteAllConnectors}{}}}
 \subsection{Method \code{deleteAllConnectors()}}{
 Deletes all connectors.
 \subsection{Usage}{
@@ -238,8 +238,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getConn"></a>}}
-\if{latex}{\out{\hypertarget{method-getConn}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-getConn"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-getConn}{}}}
 \subsection{Method \code{getConn()}}{
 Gets an instantiated connector instance, or create a new one.
 \subsection{Usage}{
@@ -267,8 +267,8 @@ the database ID submitted (if class \"parameter\" is set to TRUE).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-getEntry}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-getEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-getEntry}{}}}
 \subsection{Method \code{getEntry()}}{
 Retrieves database entry objects from IDs (accession numbers), for the
 specified connector.
@@ -301,8 +301,8 @@ NULL value is put into the list for each invalid ID of \code{id}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-createNewEntry"></a>}}
-\if{latex}{\out{\hypertarget{method-createNewEntry}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-createNewEntry"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-createNewEntry}{}}}
 \subsection{Method \code{createNewEntry()}}{
 Creates a new empty entry object from scratch. This entry is not stored in
 cache, and is directly attached to the factory instance instead of a
@@ -323,8 +323,8 @@ A new BiodbEntry object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-createEntryFromContent"></a>}}
-\if{latex}{\out{\hypertarget{method-createEntryFromContent}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-createEntryFromContent"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-createEntryFromContent}{}}}
 \subsection{Method \code{createEntryFromContent()}}{
 Creates an entry instance from a content.
 \subsection{Usage}{
@@ -348,8 +348,8 @@ A list of new BiodbEntry objects.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllCacheEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllCacheEntries}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-getAllCacheEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-getAllCacheEntries}{}}}
 \subsection{Method \code{getAllCacheEntries()}}{
 For a connector, gets all entries stored in the cache.
 \subsection{Usage}{
@@ -368,8 +368,8 @@ A list of BiodbEntry objects.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllEntriesFromVolatileCache"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllEntriesFromVolatileCache}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-deleteAllEntriesFromVolatileCache"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-deleteAllEntriesFromVolatileCache}{}}}
 \subsection{Method \code{deleteAllEntriesFromVolatileCache()}}{
 Deletes all entries stored in the cache of the given connector. This
 method is deprecated, please use deleteAllEntriesFromVolatileCache()
@@ -390,8 +390,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deleteAllCacheEntries"></a>}}
-\if{latex}{\out{\hypertarget{method-deleteAllCacheEntries}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-deleteAllCacheEntries"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-deleteAllCacheEntries}{}}}
 \subsection{Method \code{deleteAllCacheEntries()}}{
 Deletes all entries stored in the cache of the given connector.
 \subsection{Usage}{
@@ -410,8 +410,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-print}{}}}
 \subsection{Method \code{print()}}{
 Prints information about this instance.
 \subsection{Usage}{
@@ -423,8 +423,8 @@ Nothing.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-BiodbFactory-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BiodbFactory-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
