@@ -9,7 +9,7 @@ This class represents an SQL logical operator.
 This class represents an SQL logical operator.
 }
 \section{Super class}{
-\code{\link[biodb:BiodbSqlExpr]{biodb::BiodbSqlExpr}} -> \code{BiodbSqlLogicalOp}
+\code{biodb::BiodbSqlExpr} -> \code{BiodbSqlLogicalOp}
 }
 \section{Methods}{
 \subsection{Public methods}{

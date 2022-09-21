@@ -13,7 +13,7 @@ A persistent cache implementation that uses BiocCache package.
 \code{\link{BiodbBiocPersistentCache}}.
 }
 \section{Super class}{
-\code{\link[biodb:BiodbPersistentCache]{biodb::BiodbPersistentCache}} -> \code{BiodbBiocPersistentCache}
+\code{biodb::BiodbPersistentCache} -> \code{BiodbBiocPersistentCache}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -31,7 +31,7 @@ Super class \code{\link{BiodbConn}} and sub-classes
 \code{\link{CompSqliteConn}}, and \code{\link{MassSqliteConn}}.
 }
 \section{Super classes}{
-\code{\link[biodb:BiodbConnBase]{biodb::BiodbConnBase}} -> \code{\link[biodb:BiodbConn]{biodb::BiodbConn}} -> \code{SqliteConn}
+\code{biodb::BiodbConnBase} -> \code{biodb::BiodbConn} -> \code{SqliteConn}
 }
 \section{Methods}{
 \subsection{Public methods}{

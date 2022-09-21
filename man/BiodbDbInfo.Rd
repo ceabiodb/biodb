@@ -24,7 +24,7 @@ Parent class \code{\link{BiodbDbsInfo}} and super class
 \code{\link{BiodbConnBase}}.
 }
 \section{Super class}{
-\code{\link[biodb:BiodbConnBase]{biodb::BiodbConnBase}} -> \code{BiodbDbInfo}
+\code{biodb::BiodbConnBase} -> \code{BiodbDbInfo}
 }
 \section{Methods}{
 \subsection{Public methods}{

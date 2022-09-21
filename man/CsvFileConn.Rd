@@ -32,7 +32,7 @@ and sub-classes \code{\link{CompCsvFileConn}},
 \code{\link{MassCsvFileConn}}.
 }
 \section{Super classes}{
-\code{\link[biodb:BiodbConnBase]{biodb::BiodbConnBase}} -> \code{\link[biodb:BiodbConn]{biodb::BiodbConn}} -> \code{CsvFileConn}
+\code{biodb::BiodbConnBase} -> \code{biodb::BiodbConn} -> \code{CsvFileConn}
 }
 \section{Methods}{
 \subsection{Public methods}{

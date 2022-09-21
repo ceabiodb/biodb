@@ -18,7 +18,7 @@ biodb::ExtPackageFile$new(path=pkgFolder, dbName='foo.db')$generate()
 
 }
 \section{Super classes}{
-\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtPackageFile}
+\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtPackageFile}
 }
 \section{Methods}{
 \subsection{Public methods}{

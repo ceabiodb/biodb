@@ -60,6 +60,10 @@ test_biodburl_encoding <- function() {
                            'my.site.com?a b=my value&n')
     testthat::expect_equal(BiodbUrl$new('my site')$toString(), 'my%20site')
     testthat::expect_equal(BiodbUrl$new('my site')$toString(FALSE), 'my site')
+    
+    paramWithBracket <- BiodbUrl$new("my.site.com", c('b'='[0 TO 2]'))
+    testthat::expect_equal(paramWithBracket$toString(),
+        'my.site.com?b=%5B0%20TO%202%5D')
 }
 
 test_getRCurlContent <- function() {

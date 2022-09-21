@@ -27,7 +27,7 @@ mybiodb$terminate()
 Super class \code{\link{SqliteConn}}.
 }
 \section{Super classes}{
-\code{\link[biodb:BiodbConnBase]{biodb::BiodbConnBase}} -> \code{\link[biodb:BiodbConn]{biodb::BiodbConn}} -> \code{\link[biodb:SqliteConn]{biodb::SqliteConn}} -> \code{MassSqliteConn}
+\code{biodb::BiodbConnBase} -> \code{biodb::BiodbConn} -> \code{biodb::SqliteConn} -> \code{MassSqliteConn}
 }
 \section{Methods}{
 \subsection{Public methods}{

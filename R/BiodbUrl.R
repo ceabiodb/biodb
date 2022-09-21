@@ -108,6 +108,10 @@ toString=function(encode=TRUE) {
 
     # Concatenate URL elements together
     u <- paste(u, collapse='/')
+    
+    # Encode URL part
+    if (encode)
+        u <- utils::URLencode(u)
 
     # Add parameters to URL
     if (length(private$params) > 0) {
@@ -118,9 +122,12 @@ toString=function(encode=TRUE) {
         # Build parameters string
         fct <- function(i) {
             if (is.null(pn) || nchar(pn[[i]]) == 0)
-                pv[[i]]
+                if (encode) utils::URLencode(pv[[i]], reserved=TRUE) else
+                    pv[[i]]
             else
-                paste(pn[[i]], pv[[i]], sep='=')
+                if (encode) paste(utils::URLencode(pn[[i]], reserved=TRUE),
+                    utils::URLencode(pv[[i]], reserved=TRUE),
+                    sep='=') else paste(pn[[i]], pv[[i]], sep='=')
         }
         kv.list <- vapply(seq_along(pv), fct, FUN.VALUE='')
         params.str <- paste(kv.list, collapse='&')
@@ -128,10 +135,6 @@ toString=function(encode=TRUE) {
         # Concatenate URL with parameters
         u <- paste(u, params.str, sep='?')
     }
-
-    # Encode parameter values
-    if (encode)
-        u <- utils::URLencode(u)
 
     return(u)
 }

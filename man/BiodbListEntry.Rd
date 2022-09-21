@@ -16,7 +16,7 @@ MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbListEntry)
 Super class \code{\link{BiodbEntry}}.
 }
 \section{Super class}{
-\code{\link[biodb:BiodbEntry]{biodb::BiodbEntry}} -> \code{BiodbListEntry}
+\code{biodb::BiodbEntry} -> \code{BiodbListEntry}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -13,7 +13,7 @@ URL). In each of theses folders are stored the cache files for this database.
 \code{\link{BiodbBiocPersistentCache}}.
 }
 \section{Super class}{
-\code{\link[biodb:BiodbPersistentCache]{biodb::BiodbPersistentCache}} -> \code{BiodbCustomPersistentCache}
+\code{biodb::BiodbPersistentCache} -> \code{BiodbCustomPersistentCache}
 }
 \section{Methods}{
 \subsection{Public methods}{

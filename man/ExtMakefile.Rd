@@ -20,7 +20,7 @@ biodb::ExtMakefile$new(path=pkgFolder)$generate()
 
 }
 \section{Super class}{
-\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{ExtMakefile}
+\code{biodb::ExtGenerator} -> \code{ExtMakefile}
 }
 \section{Methods}{
 \subsection{Public methods}{
