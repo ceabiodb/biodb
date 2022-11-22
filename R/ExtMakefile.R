@@ -33,8 +33,6 @@ initialize=function(...) {
     chk::chk_dir(private$path)
     private$makefileGen <- private$createGenerator(ExtFileGenerator,
         template='make_file', filename='Makefile')
-    private$rfrontGen <- private$createGenerator(ExtFileGenerator,
-        template='R_front', filename='R_front')
 
     return(invisible(NULL))
 }
@@ -42,15 +40,12 @@ initialize=function(...) {
 
 private=list(
     makefileGen=NULL
-    ,rfrontGen=NULL
 
 ,doGenerate=function(overwrite=FALSE, fail=TRUE) {
     private$makefileGen$generate(overwrite=overwrite, fail=fail)
-    private$rfrontGen$generate(overwrite=overwrite, fail=fail)
 }
 
 ,doUpgrade=function(generate=TRUE) {
     private$makefileGen$upgrade(generate=generate)
-    private$rfrontGen$upgrade(generate=generate)
 }
 ))

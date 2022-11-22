@@ -93,14 +93,15 @@ ZIPPED_PKG=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 export _R_CHECK_LENGTH_1_CONDITION_=true
 export _R_CHECK_LENGTH_1_LOGIC2_=true
 RFLAGS:=--slave --no-restore
-R_FRONT:=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
+#R_FRONT:=$(wildcard $(CURDIR)/R_front $(CURDIR)/inst/templates/R_front)
 #ifeq (,$(R_FRONT))
 #export R_HOME=$(shell /usr/bin/env R $(RFLAGS) RHOME)
 #R=R
 #else
-export R_HOME:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-home)
-R:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-bin)
+#export R_HOME:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-home)
+#R:=$(shell bash $(R_FRONT) -n --r-version $(R_VERSION) --print-bin)
 #endif
+R=$(shell which R)
 
 # For R CMD SHLIB
 ifdef COMPILE
