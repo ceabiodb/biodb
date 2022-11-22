@@ -17,7 +17,7 @@ biodb::ExtTravisFile$new(path=pkgFolder, email='myname@e.mail')$generate()
 
 }
 \section{Super classes}{
-\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtTravisFile}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtTravisFile}
 }
 \section{Methods}{
 \subsection{Public methods}{

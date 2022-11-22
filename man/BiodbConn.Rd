@@ -51,7 +51,7 @@ Super class \code{\link{BiodbConnBase}}, and
 \code{\link{BiodbFactory}} class.
 }
 \section{Super class}{
-\code{biodb::BiodbConnBase} -> \code{BiodbConn}
+\code{\link[biodb:BiodbConnBase]{biodb::BiodbConnBase}} -> \code{BiodbConn}
 }
 \section{Methods}{
 \subsection{Public methods}{

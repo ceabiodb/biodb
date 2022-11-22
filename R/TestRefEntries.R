@@ -32,8 +32,8 @@ public=list(
 initialize=function(db.class, pkgName, folder=NULL, bdb=NULL) {
     chk::chk_string(db.class)
     chk::chk_string(pkgName)
-    chk::chk_null_or(bdb, chk::chk_is, 'BiodbMain')
-    chk::chk_null_or(folder, chk::chk_dir)
+    chk::chk_null_or(bdb, vld=chk::vld_is, class='BiodbMain')
+    chk::chk_null_or(folder, vld=chk::vld_dir)
     private$db.class <- db.class
     private$pkgName <- pkgName
     private$bdb <- bdb
@@ -108,7 +108,7 @@ initialize=function(db.class, pkgName, folder=NULL, bdb=NULL) {
 #' @param ids A character vector of entry identifiers.
 #' @return A list containing BiodbEntry instances.
 ,getRealEntries=function(ids=NULL) {
-    chk::chk_null_or(ids, chk::chk_character)
+    chk::chk_null_or(ids, vld=chk::vld_character)
     if (is.null(private$bdb))
         error(paste("A valid BiodbMain instance is needed inside the",
             "TestRefEntries instance to retrieve real entries."))

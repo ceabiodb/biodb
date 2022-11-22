@@ -21,7 +21,7 @@ biodb::ExtCpp$new(path=pkgFolder)$generate()
 
 }
 \section{Super class}{
-\code{biodb::ExtGenerator} -> \code{ExtCpp}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{ExtCpp}
 }
 \section{Methods}{
 \subsection{Public methods}{

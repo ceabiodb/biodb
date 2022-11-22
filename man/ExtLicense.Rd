@@ -18,7 +18,7 @@ biodb::ExtLicense$new(path=pkgFolder)$generate()
 
 }
 \section{Super classes}{
-\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtLicense}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtLicense}
 }
 \section{Methods}{
 \subsection{Public methods}{

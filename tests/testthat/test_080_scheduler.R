@@ -26,8 +26,8 @@ test.schedulerRightRule <- function(biodb) {
     testthat::expect_is(rules[[1]], 'BiodbRequestSchedulerRule')
     testthat::expect_length(rules[[1]]$getConnectors(), 1)
     testthat::expect_identical(rules[[1]]$getConnectors()[[1]], chebi)
-    testthat::expect_equal(rules[[1]]$getN(), chebi$getSchedulerNParam())
-    testthat::expect_equal(rules[[1]]$getT(), chebi$getSchedulerTParam())
+    testthat::expect_equal(rules[[1]]$getN(), chebi$getPropertyValue('scheduler.n'))
+    testthat::expect_equal(rules[[1]]$getT(), chebi$getPropertyValue('scheduler.t'))
 
     # Delete connector
     biodb$getFactory()$deleteConn(chebi)
@@ -58,8 +58,8 @@ test.schedulerRuleFrequency <- function(biodb) {
 
     # Get ChEBI connector
     chebi <- biodb$getFactory()$createConn('chebi.ex')
-    chebi$setSchedulerNParam(3)
-    chebi$setSchedulerTParam(1)
+    chebi$setPropertyValue('scheduler.n', 3)
+    chebi$setPropertyValue('scheduler.t', 1)
 
     # Get connector rule
     rules <- scheduler$getConnectorRules(chebi)
@@ -70,8 +70,8 @@ test.schedulerRuleFrequency <- function(biodb) {
         biodb::lst2str(names(scheduler$.connid2rules)))
     rule <- rules[[1]]
     testthat::expect_is(rule, 'BiodbRequestSchedulerRule')
-    testthat::expect_equal(rule$getN(), chebi$getSchedulerNParam())
-    testthat::expect_equal(rule$getT(), chebi$getSchedulerTParam())
+    testthat::expect_equal(rule$getN(), chebi$getPropertyValue('scheduler.n'))
+    testthat::expect_equal(rule$getT(), chebi$getPropertyValue('scheduler.t'))
 
     # Create another ChEBI connector
     chebi.2 <- biodb$getFactory()$createConn('chebi.ex',
@@ -82,8 +82,8 @@ test.schedulerRuleFrequency <- function(biodb) {
     rules <- scheduler$getConnectorRules(chebi.2)
     testthat::expect_length(rules, 2)
     for (r in rules) { 
-        testthat::expect_equal(r$getN(), chebi$getSchedulerNParam())
-        testthat::expect_equal(r$getT(), chebi$getSchedulerTParam())
+        testthat::expect_equal(r$getN(), chebi$getPropertyValue('scheduler.n'))
+        testthat::expect_equal(r$getT(), chebi$getPropertyValue('scheduler.t'))
     }
 
     # Change frequency of second connector. Since the rule is in common between
@@ -141,8 +141,8 @@ test.schedulerSleepTime <- function(biodb) {
 
     # Get ChEBI connector
     chebi <- biodb$getFactory()$getConn('chebi.ex')
-    chebi$setSchedulerNParam(n)
-    chebi$setSchedulerTParam(t)
+    chebi$setPropertyValue('scheduler.n', n)
+    chebi$setPropertyValue('scheduler.t', t)
 
     # Get connector rule
     rules <- scheduler$getConnectorRules(chebi)

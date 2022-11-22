@@ -45,7 +45,7 @@ public=list(
 #' @return Nothing.
 initialize=function(autoloadExtraPkgs=NULL) {
 
-    chk::chk_null_or(autoloadExtraPkgs, chk::chk_flag)
+    chk::chk_null_or(autoloadExtraPkgs, vld=chk::vld_flag)
 
     private$observers <- list()
     private$config <- NULL
@@ -462,7 +462,7 @@ addColsToDataframe=function(x, id.col, db, fields, limit=3, prefix='') {
 entriesToJson=function(entries, compute=TRUE) {
 
     chk::chk_list(entries)
-    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
+    chk::chk_all(entries, chk::chk_null_or, vld=chk::vld_is, class='BiodbEntry')
     chk::chk_flag(compute)
 
     fct <- function(e) { 
@@ -592,7 +592,7 @@ entryIdsToSingleFieldValues=function(ids, db, field, sortOutput=FALSE,
 #' @return Nothing.
 computeFields=function(entries) {
     chk::chk_list(entries)
-    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
+    chk::chk_all(entries, chk::chk_null_or, vld=chk::vld_is, class='BiodbEntry')
 
     # Loop on all entries
     for (e in entries)
@@ -614,7 +614,7 @@ computeFields=function(entries) {
 saveEntriesAsJson=function(entries, files, compute=TRUE) {
 
     chk::chk_list(entries)
-    chk::chk_all(entries, chk::chk_null_or, chk::chk_is, 'BiodbEntry')
+    chk::chk_all(entries, chk::chk_null_or, vld=chk::vld_is, class='BiodbEntry')
     chk::chk_character(files)
     chk::chk_flag(compute)
     chk::chk_length(entries, length(files))

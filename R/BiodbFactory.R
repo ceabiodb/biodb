@@ -350,7 +350,7 @@ createNewEntry=function(db.class) {
 createEntryFromContent=function(conn.id, content, drop=TRUE) {
 
     chk::chk_string(conn.id)
-    chk::chkor(chk::chk_character(content), chk::chk_list(content))
+    chk::chkor_vld(chk::vld_character(content), chk::vld_list(content))
     chk::chk_flag(drop)
 
     entries <- list()

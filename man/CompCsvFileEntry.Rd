@@ -30,7 +30,7 @@ mybiodb$terminate()
 Super class \code{\link{BiodbCsvEntry}}.
 }
 \section{Super classes}{
-\code{biodb::BiodbEntry} -> \code{biodb::BiodbCsvEntry} -> \code{CompCsvFileEntry}
+\code{\link[biodb:BiodbEntry]{biodb::BiodbEntry}} -> \code{\link[biodb:BiodbCsvEntry]{biodb::BiodbCsvEntry}} -> \code{CompCsvFileEntry}
 }
 \section{Methods}{
 \subsection{Public methods}{

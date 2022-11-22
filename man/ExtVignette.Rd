@@ -21,7 +21,7 @@ biodb::ExtVignette$new(path=pkgFolder, dbName='foo.db',
 
 }
 \section{Super classes}{
-\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtVignette}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtVignette}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -19,7 +19,7 @@ biodb::ExtTests$new(path=pkgFolder, dbName='foo.db', rcpp=TRUE,
 
 }
 \section{Super class}{
-\code{biodb::ExtGenerator} -> \code{ExtTests}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{ExtTests}
 }
 \section{Methods}{
 \subsection{Public methods}{

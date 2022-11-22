@@ -21,7 +21,7 @@ MyEntry <- R6::R6Class("MyEntry", inherit=biodb::BiodbSdfEntry)
 Super class \code{\link{BiodbTxtEntry}}.
 }
 \section{Super classes}{
-\code{biodb::BiodbEntry} -> \code{biodb::BiodbTxtEntry} -> \code{BiodbSdfEntry}
+\code{\link[biodb:BiodbEntry]{biodb::BiodbEntry}} -> \code{\link[biodb:BiodbTxtEntry]{biodb::BiodbTxtEntry}} -> \code{BiodbSdfEntry}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -115,10 +115,10 @@ test.connectorDefaultValues <- function(biodb) {
     chebi.info <- biodb$getDbsInfo()$get('chebi.ex')
     testthat::expect_equal(chebi.info$getPropValSlot('urls', 'base.url'),
                            chebi$getPropValSlot('urls', 'base.url'))
-    testthat::expect_equal(chebi.info$getSchedulerNParam(),
-                           chebi$getSchedulerNParam())
-    testthat::expect_equal(chebi.info$getSchedulerTParam(),
-                           chebi$getSchedulerTParam())
+    testthat::expect_equal(chebi.info$getPropertyValue('scheduler.n'),
+                           chebi$getPropertyValue('scheduler.n'))
+    testthat::expect_equal(chebi.info$getPropertyValue('scheduler.t'),
+                           chebi$getPropertyValue('scheduler.t'))
 
     biodb$getFactory()$deleteAllConnectors()
     testthat::expect_length(biodb$getFactory()$getAllConnectors(), 0)

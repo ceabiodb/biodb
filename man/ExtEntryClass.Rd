@@ -21,7 +21,7 @@ biodb::ExtEntryClass$new(path=pkgFolder, dbName='foo.db',
 
 }
 \section{Super classes}{
-\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtEntryClass}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtEntryClass}
 }
 \section{Methods}{
 \subsection{Public methods}{

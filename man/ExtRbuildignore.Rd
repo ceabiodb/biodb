@@ -18,7 +18,7 @@ biodb::ExtRbuildignore$new(path=pkgFolder)$generate()
 
 }
 \section{Super classes}{
-\code{biodb::ExtGenerator} -> \code{biodb::ExtFileGenerator} -> \code{ExtRbuildignore}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{\link[biodb:ExtFileGenerator]{biodb::ExtFileGenerator}} -> \code{ExtRbuildignore}
 }
 \section{Methods}{
 \subsection{Public methods}{

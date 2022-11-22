@@ -45,8 +45,8 @@ initialize=function(filename=NULL, overwrite=FALSE, folder=character(),
     super$initialize(...)
     chk::chk_dir(private$path)
     chk::chk_flag(overwrite)
-    chk::chk_null_or(filename, chk::chk_string) # File may not exist yet.
-    chk::chk_null_or(template, chk::chk_string)
+    chk::chk_null_or(filename, vld=chk::vld_string) # File may not exist yet.
+    chk::chk_null_or(template, vld=chk::vld_string)
     chk::chk_character(folder)
     chk::chk_not_any_na(folder)
     upgrader <- match.arg(upgrader)

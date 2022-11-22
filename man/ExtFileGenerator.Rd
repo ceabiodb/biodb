@@ -18,7 +18,7 @@ biodb::ExtConnClass$new(path=pkgFolder, dbName='foo.db',
 
 }
 \section{Super class}{
-\code{biodb::ExtGenerator} -> \code{ExtFileGenerator}
+\code{\link[biodb:ExtGenerator]{biodb::ExtGenerator}} -> \code{ExtFileGenerator}
 }
 \section{Methods}{
 \subsection{Public methods}{

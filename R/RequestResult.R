@@ -27,14 +27,14 @@ public=list(
 #' @return Nothing.
 initialize=function(content=NULL, retry=FALSE, errMsg=NULL, status=0,
     statusMessage='', retryAfter=NULL, location=NULL) {
-    chk::chk_null_or(content, chk::chk_character) # May be NA
-    chk::chk_null_or(content, chk::chk_length, 1L)
+    chk::chk_null_or(content, vld=chk::vld_character) # May be NA
+    chk::chk_null_or(content, vld=chk::vld_length, length=1L)
     chk::chk_flag(retry)
-    chk::chk_null_or(errMsg, chk::chk_string)
+    chk::chk_null_or(errMsg, vld=chk::vld_string)
     chk::chk_whole_number(status)
     chk::chk_string(statusMessage)
-    chk::chk_null_or(retryAfter, chk::chk_string)
-    chk::chk_null_or(location, chk::chk_string)
+    chk::chk_null_or(retryAfter, vld=chk::vld_string)
+    chk::chk_null_or(location, vld=chk::vld_string)
     
     private$content <- content
     private$retry <- retry

@@ -27,7 +27,7 @@ mybiodb$terminate()
 Super class \code{\link{BiodbListEntry}}.
 }
 \section{Super classes}{
-\code{biodb::BiodbEntry} -> \code{biodb::BiodbListEntry} -> \code{MassSqliteEntry}
+\code{\link[biodb:BiodbEntry]{biodb::BiodbEntry}} -> \code{\link[biodb:BiodbListEntry]{biodb::BiodbListEntry}} -> \code{MassSqliteEntry}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -560,7 +560,8 @@ print=function() {
 #'     the entry accession.
 getName=function() {
 
-    name <- paste(private$parent$getName(), self$getFieldValue('accession'))
+    name <- paste(private$parent$getPropertyValue('name'),
+            self$getFieldValue('accession'))
 
     return(name)
 },

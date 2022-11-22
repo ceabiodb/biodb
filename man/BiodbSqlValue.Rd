@@ -9,7 +9,7 @@ This class represents an SQL value.
 This class represents an SQL value.
 }
 \section{Super class}{
-\code{biodb::BiodbSqlExpr} -> \code{BiodbSqlValue}
+\code{\link[biodb:BiodbSqlExpr]{biodb::BiodbSqlExpr}} -> \code{BiodbSqlValue}
 }
 \section{Methods}{
 \subsection{Public methods}{

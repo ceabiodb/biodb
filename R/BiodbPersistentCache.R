@@ -356,7 +356,7 @@ loadFileContent=function(cache.id, name, ext, output.vector=FALSE) {
 #' @return Nothing.
 saveContentToFile=function(content, cache.id, name, ext) {
 
-    chk::chkor(chk::chk_character(content), chk::chk_list(content))
+    chk::chkor_vld(chk::vld_character(content), chk::vld_list(content))
     chk::chk_string(cache.id)
     chk::chk_match(cache.id, .CACHE_ID_PATTERN)
     chk::chk_character(name)
@@ -549,7 +549,7 @@ listFiles=function(cache.id, ext=NULL, extract.name=FALSE, full.path=FALSE) {
 
     chk::chk_string(cache.id)
     chk::chk_match(cache.id, .CACHE_ID_PATTERN)
-    chk::chk_null_or(ext, chk::chk_string)
+    chk::chk_null_or(ext, vld=chk::vld_string)
     chk::chk_flag(extract.name)
     chk::chk_flag(full.path)
     if (full.path)

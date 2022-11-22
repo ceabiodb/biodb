@@ -362,7 +362,7 @@ removeComputableFrom=function(directive) {
 #' @return The corrected value.
 correctValue=function(value) {
 
-    if (self$isVector() && ! is.null(value)
+    if (self$isAtomic() && ! is.null(value)
         && ! (length(value) == 1 && is.na(value))) {
 
         # Correct type

@@ -27,7 +27,7 @@ getUrlContent <- function(u, binary=FALSE) {
 #' @return A RequestResult object.
 getUrlRequestResult <- function(request, useragent=NULL, ssl.verifypeer=TRUE) {
     chk::chk_is(request, 'BiodbRequest')
-    chk::chk_null_or(useragent, chk::chk_string)
+    chk::chk_null_or(useragent, vld=chk::vld_string)
     chk::chk_flag(ssl.verifypeer)
 
     # Tests first if URL exists, since it may occur that RCurl does not
@@ -72,9 +72,9 @@ getUrlRequestResult <- function(request, useragent=NULL, ssl.verifypeer=TRUE) {
 #' @return An RCurl::CURLOptions object.
 makeRCurlOptions <- function(useragent=NULL, httpheader=NULL, postfields=NULL,
     timeout.ms=60000, verbose=FALSE) {
-    chk::chk_null_or(useragent, chk::chk_string)
-    chk::chk_null_or(httpheader, chk::chk_character)
-    chk::chk_null_or(postfields, chk::chk_character)
+    chk::chk_null_or(useragent, vld=chk::vld_string)
+    chk::chk_null_or(httpheader, vld=chk::vld_character)
+    chk::chk_null_or(postfields, vld=chk::vld_character)
     chk::chk_whole_number(timeout.ms)
     chk::chk_flag(verbose)
 
@@ -99,7 +99,7 @@ makeRCurlOptions <- function(useragent=NULL, httpheader=NULL, postfields=NULL,
 #' @return Returns TRUE if the URL
 doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
     chk::chk_is(request, 'BiodbRequest')
-    chk::chk_null_or(useragent, chk::chk_string)
+    chk::chk_null_or(useragent, vld=chk::vld_string)
 
     opts <- request$getCurlOptions(useragent=useragent)
     sUrl <- request$getUrl()$toString()
@@ -123,9 +123,9 @@ doesRCurlRequestUrlExist <- function(request, useragent=NULL) {
 getRCurlContent <- function(u, opts=NULL, enc=integer(), header.fct=NULL,
     ssl.verifypeer=TRUE, method=c('get', 'post'), binary=FALSE) {
     chk::chk_string(u)
-    chk::chk_null_or(opts, chk::chk_is, 'CURLOptions')
+    chk::chk_null_or(opts, vld=chk::vld_is, class='CURLOptions')
     # TODO Test "enc" param.
-    chk::chk_null_or(header.fct, chk::chk_is, 'function')
+    chk::chk_null_or(header.fct, vld=chk::vld_is, class='function')
     chk::chk_flag(ssl.verifypeer)
     chk::chk_flag(binary)
     method <- match.arg(method)
@@ -159,7 +159,7 @@ getRCurlContent <- function(u, opts=NULL, enc=integer(), header.fct=NULL,
 getRCurlRequestResult <- function(request, useragent=NULL,
     ssl.verifypeer=TRUE) {
     chk::chk_is(request, 'BiodbRequest')
-    chk::chk_null_or(useragent, chk::chk_string)
+    chk::chk_null_or(useragent, vld=chk::vld_string)
     chk::chk_flag(ssl.verifypeer)
     content <- NA_character_
     err_msg <- NULL

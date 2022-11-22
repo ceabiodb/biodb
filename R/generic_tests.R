@@ -982,7 +982,7 @@ test.msmsSearch.self.match <- function(db) {
                     precursor=TRUE)
 
                 # Find corresponding spectrum
-                spectrum.id <- db$searchMzTol(mz, mz.tol=5, mz.tol.unit='ppm',
+                spectrum.id <- db$searchForMassSpectra(mz, mz.tol=5, mz.tol.unit='ppm',
                     ms.mode=mode, max.results=1, ms.level=2, precursor=TRUE)
             }
 
@@ -1048,7 +1048,7 @@ test.getMzValues <- function(db) {
     }
 }
 
-test.searchMzTol <- function(conn) {
+test.searchForMassSpectra <- function(conn) {
 
     # Get M/Z values from database
     mode <-'pos' 
@@ -1058,16 +1058,16 @@ test.searchMzTol <- function(conn) {
 
     # Search
     for (mz in mzs) {
-        ids <- conn$searchMzTol(mz=mz, mz.tol=5, mz.tol.unit='plain',
+        ids <- conn$searchForMassSpectra(mz=mz, mz.tol=5, mz.tol.unit='plain',
             min.rel.int=0, ms.mode=mode)
         testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
     }
 }
 
-test.searchMsEntries.with.NA.value <- function(db) {
+test.searchForMassSpectra.with.NA.value <- function(db) {
 
-    ids <- db$searchMsEntries(mz=NA_real_, mz.tol=5.0, mz.tol.unit='plain',
+    ids <- db$searchForMassSpectra(mz=NA_real_, mz.tol=5.0, mz.tol.unit='plain',
         min.rel.int=0, ms.mode='pos')
     testthat::expect_is(ids, 'character')
     testthat::expect_length(ids, 0)
@@ -1099,7 +1099,7 @@ test.searchMsPeaks.with.NA.value <- function(db) {
     testthat::expect_true(all(is.na(peaks[nrow(peaks), ])))
 }
 
-test.searchMzTol.multiple.mz <- function(db) {
+test.searchForMassSpectra.multiple.mz <- function(db) {
 
     mz.tol <- 0.0001
 
@@ -1112,7 +1112,7 @@ test.searchMzTol.multiple.mz <- function(db) {
     # Search one M/Z at a time
     all.ids <- character(0)
     for (mz in mzs) {
-        ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit='plain',
+        ids <- db$searchForMassSpectra(mz=mz, mz.tol=mz.tol, mz.tol.unit='plain',
             min.rel.int=0, ms.mode=mode)
         testthat::expect_is(ids, 'character')
         testthat::expect_true(length(ids) > 0)
@@ -1121,14 +1121,14 @@ test.searchMzTol.multiple.mz <- function(db) {
     all.ids <- all.ids[ ! duplicated(all.ids)]
 
     # Search all M/Z values at once
-    all.ids.2 <- db$searchMzTol(mz=mzs, mz.tol=mz.tol, mz.tol.unit='plain',
-        min.rel.int=0, ms.mode=mode)
+    all.ids.2 <- db$searchForMassSpectra(mz=mzs, mz.tol=mz.tol,
+        mz.tol.unit='plain', min.rel.int=0, ms.mode=mode)
 
     # List of IDs must be the same
     testthat::expect_true(all(all.ids.2 %in% all.ids))
 }
 
-test.searchMzTol.with.precursor <- function(db) {
+test.searchForMassSpectra.with.precursor <- function(db) {
 
     biodb <- db$getBiodb()
     db.name <- db$getId()
@@ -1154,8 +1154,8 @@ test.searchMzTol.with.precursor <- function(db) {
         testthat::expect_false(is.na(mz))
 
         # Search for it
-        spectra.ids <- db$searchMzTol(mz=mz, mz.tol=tol.ppm, mz.tol.unit='ppm',
-            precursor=TRUE, ms.level=ms.level)
+        spectra.ids <- db$searchForMassSpectra(mz=mz, mz.tol=tol.ppm,
+            mz.tol.unit='ppm', precursor=TRUE, ms.level=ms.level)
         testthat::expect_gte(length(spectra.ids), 1)
         testthat::expect_false(any(is.na(spectra.ids)))
 
@@ -1179,7 +1179,7 @@ test.searchMzTol.with.precursor <- function(db) {
     }
 }
 
-test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
+test.searchForMassSpectra.with.precursor.and.multiple.inputs <- function(db) {
 
     # Input values
     mz <- c(82.04819461, 83.01343941)
@@ -1189,8 +1189,9 @@ test.searchMzTol.with.precursor.and.multiple.inputs <- function(db) {
     ms.mode <- 'pos'
 
     # Search
-    ids <- db$searchMzTol(mz=mz, mz.tol=mz.tol, mz.tol.unit=mz.tol.unit,
-        ms.level=ms.level, ms.mode=ms.mode, precursor=TRUE)
+    ids <- db$searchForMassSpectra(mz=mz, mz.tol=mz.tol,
+        mz.tol.unit=mz.tol.unit, ms.level=ms.level, ms.mode=ms.mode,
+        precursor=TRUE)
     testthat::expect_is(ids, 'character')
 }
 
@@ -1387,19 +1388,20 @@ runGenericShortTests <- function(conn, opt) {
     if (conn$isMassdb()) {
         biodb::testThat("We can retrieve a list of M/Z values.",
             test.getMzValues, conn=conn)
-        biodb::testThat("We can match M/Z peaks.", test.searchMzTol, conn=conn)
+        biodb::testThat("We can match M/Z peaks.", test.searchForMassSpectra,
+                        conn=conn)
         biodb::testThat("We can search for spectra with multiple M/Z values.",
-            test.searchMzTol.multiple.mz, conn=conn)
+            test.searchForMassSpectra.multiple.mz, conn=conn)
         
         # TODO XXX Commented out because of its dependency on particular
         # connectors
         #biodb::testThat("Search by precursor returns at least one match.",
-        #    test.searchMzTol.with.precursor, conn=conn)
-        
+        #    test.searchForMassSpectra.with.precursor, conn=conn)
+
         biodb::testThat("Search by precursor on multiple mzs does not fail.",
-            test.searchMzTol.with.precursor.and.multiple.inputs, conn=conn)
+            test.searchForMassSpectra.with.precursor.and.multiple.inputs, conn=conn)
         biodb::testThat("Search for N/A value returns an empty list.",
-            test.searchMsEntries.with.NA.value, conn=conn)
+            test.searchForMassSpectra.with.NA.value, conn=conn)
 
         biodb::testThat("We can collapse the results from searchMsPeaks().",
             test.collapseResultsDataFrame, conn=conn)
@@ -1544,7 +1546,7 @@ runGenericTests <- function(conn, pkgName, testRefFolder=NULL, opt=NULL,
     chk::chk_whole_number(maxShortTestRefEntries)
     testthat::expect_is(conn, 'BiodbConn')
     chk::chk_string(pkgName)
-    chk::chk_null_or(testRefFolder, chk::chk_dir)
+    chk::chk_null_or(testRefFolder, vld=chk::vld_dir)
 
     # Create ref entries instance
     opt$refEntries <- TestRefEntries$new(conn$getId(), pkgName=pkgName,

@@ -31,12 +31,12 @@ public=list(
 #' Range$new(min=1.2, max=1.5)
 initialize=function(min=NULL, max=NULL, value=NULL, delta=NULL, ppm=NULL,
 tol=NULL, tolType=c('delta', 'plain', 'ppm')) {
-    chk::chk_null_or(min, chk::chk_number)
-    chk::chk_null_or(max, chk::chk_number)
-    chk::chk_null_or(value, chk::chk_number)
-    chk::chk_null_or(delta, chk::chk_number)
-    chk::chk_null_or(ppm, chk::chk_number)
-    chk::chk_null_or(delta, chk::chk_number)
+    chk::chk_null_or(min, vld=chk::vld_number)
+    chk::chk_null_or(max, vld=chk::vld_number)
+    chk::chk_null_or(value, vld=chk::vld_number)
+    chk::chk_null_or(delta, vld=chk::vld_number)
+    chk::chk_null_or(ppm, vld=chk::vld_number)
+    chk::chk_null_or(delta, vld=chk::vld_number)
     tolType <- match.arg(tolType)
 
     private$min <- min

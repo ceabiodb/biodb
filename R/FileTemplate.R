@@ -30,7 +30,7 @@ initialize=function(path) {
 #' @return invisible(self) for chaining method calls.
 replace=function(tag, value) {
     chk::chk_string(tag)
-    chk::chk_null_or(value, chk_string)
+    chk::chk_null_or(value, vld=chk::vld_string)
     
     if ( ! is.null(value))
         private$txt <- gsub(paste0('{{', tag, '}}'),

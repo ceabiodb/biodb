@@ -9,7 +9,7 @@ This class represents an SQL list.
 This class represents an SQL list.
 }
 \section{Super class}{
-\code{biodb::BiodbSqlExpr} -> \code{BiodbSqlList}
+\code{\link[biodb:BiodbSqlExpr]{biodb::BiodbSqlExpr}} -> \code{BiodbSqlList}
 }
 \section{Methods}{
 \subsection{Public methods}{

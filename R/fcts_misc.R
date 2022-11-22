@@ -108,7 +108,7 @@ notifyObservers <- function(.obsToNotify, .notifyFct, ...) {
 #' @return File contents.
 prepareFileContents <- function(contents) {
 
-    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+    chk::chkor_vld(chk::vld_character(contents), chk::vld_list(contents))
 
     # Replace NA values with 'NA' string
     contents[is.na(contents)] <- 'NA'
@@ -131,7 +131,7 @@ prepareFileContents <- function(contents) {
 saveContentsToFiles <- function(files, contents, prepareContents=FALSE) {
 
     chk::chk_character(files)
-    chk::chkor(chk::chk_character(contents), chk::chk_list(contents))
+    chk::chkor_vld(chk::vld_character(contents), chk::vld_list(contents))
     chk::chk_flag(prepareContents)
 
     if (prepareContents)

@@ -390,7 +390,7 @@ private=list(
 
     # Get all entries: the ones loaded from the database file and the ones
     # created in memory (and not saved).
-    entries <- self$getAllCacheEntries()
+    entries <- self$getAllVolatileCacheEntries()
 
     # Get data frame of all entries
     df <- self$getBiodb()$entriesToDataframe(entries, only.atomic=FALSE)

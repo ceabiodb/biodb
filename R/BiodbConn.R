@@ -571,8 +571,8 @@ isSearchableByField=function(field=NULL, field.type=NULL) {
 
     if (is.null(field) && is.null(field.type))
         error("Either field or field.type must be set. Both are NULL.")
-    chk::chk_null_or(field, chk::chk_string)
-    chk::chk_null_or(field.type, chk::chk_string)
+    chk::chk_null_or(field, vld=chk::vld_string)
+    chk::chk_null_or(field.type, vld=chk::vld_string)
     field.type <- tolower(field.type)
 
     v <- FALSE
@@ -634,7 +634,7 @@ getSearchableFields=function() {
 #' name.
 searchForEntries=function(fields=NULL, max.results=0) {
 
-    chk::chk_null_or(fields, chk::chk_list)
+    chk::chk_null_or(fields, vld=chk::vld_list)
     chk::chk_number(max.results)
     chk::chk_gte(max.results, 0)
 
@@ -2147,10 +2147,10 @@ checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
         chk::chk_gte(rt, 0)
         chk::chk_number(rt.tol)
         chk::chk_gte(rt.tol, 0)
-        chk::chk_null_or(rt.tol.exp, chk::chk_number)
+        chk::chk_null_or(rt.tol.exp, vld=chk::vld_number)
         chk::chk_gte(rt.tol.exp, 0)
-        chk::chk_null_or(chrom.col.ids, chk::chk_character)
-        chk::chk_null_or(chrom.col.ids, chk::chk_not_any_na)
+        chk::chk_null_or(chrom.col.ids, vld=chk::vld_character)
+        chk::chk_null_or(chrom.col.ids, vld=chk::vld_not_any_na)
         rt.unit <- match.arg(rt.unit)
     }
 }
@@ -2211,7 +2211,7 @@ checkMzParam=function(mz.min, mz.max, mz, mz.tol, mz.tol.unit) {
         }
     }
 
-    chk::chk_null_or(min.rel.int, chk::chk_number)
+    chk::chk_null_or(min.rel.int, vld=chk::vld_number)
     if ( ! is.null(min.rel.int))
         chk::chk_gte(min.rel.int, 0)
     ef <- private$bdb$getEntryFields()
